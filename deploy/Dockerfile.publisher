@@ -1,0 +1,5 @@
+FROM python:3.12-slim
+RUN apt-get update && apt-get install -y --no-install-recommends ffmpeg ca-certificates && rm -rf /var/lib/apt/lists/*
+WORKDIR /app
+COPY scripts/pipeline.py scripts/publish-video.py scripts/
+CMD ["python3","scripts/publish-video.py","--help"]
