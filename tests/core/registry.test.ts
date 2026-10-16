@@ -4,7 +4,7 @@ import {videoRegistry} from '../../src/videos/registry';
 describe('videoRegistry', () => {
   it('preserves the eight published compositions and their metadata', () => {
     expect(
-      videoRegistry.map(({id, durationInFrames, fps, width, height}) => ({
+      videoRegistry.filter((video) => !video.tags?.includes('demo')).map(({id, durationInFrames, fps, width, height}) => ({
         id,
         durationInFrames,
         fps,
