@@ -62,6 +62,26 @@ npm run pipeline
 
 Then visit <http://127.0.0.1:4180/>.
 
+## Render any video / environment checks
+
+Run the environment diagnostic before production:
+
+```bash
+npm run video:doctor
+```
+
+Render a registered composition without editing `package.json`:
+
+```bash
+npm run render -- --list
+npm run render -- --id TruongThanhReel --out out/truong-thanh.mp4
+npm run render -- --id TruongThanhReel --dry-run
+```
+
+`npm run render` still renders the previous default composition (`UnderstandAnythingReel`) for backward compatibility. Existing assets referenced by some compositions are external; follow `public/.external-assets.json` if a render reports missing media.
+
+**Note:** `npm run pipeline` starts the production **monitor**, not an autonomous AI runner. Producing new AI-generated scenes requires an agent runtime and following `AGENTS.md` and the applicable skill.
+
 ## Create a video
 
 ```bash
