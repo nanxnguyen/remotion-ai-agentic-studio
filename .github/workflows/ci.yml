@@ -56,19 +56,19 @@ jobs:
         with:
           node-version: 22
           cache: npm
+      - name: Install FFmpeg for GIF previews
+        run: sudo apt-get update && sudo apt-get install --yes ffmpeg
       - run: npm ci
-      - name: Render both self-contained sample compositions
+      - name: Render MP4 and GIF previews
+        run: node scripts/render-demo-showcase.mjs
+      - name: Verify demo artifacts
         run: |
-          npm run render -- --id HelloWorldReel --out out/hello-world.mp4
-          npm run render -- --id EditorialQuoteReel --out out/editorial-quote.mp4
-      - name: Verify rendered MP4s exist and are nonempty
-        run: |
-          test -s out/hello-world.mp4
-          test -s out/editorial-quote.mp4
+          for name in hello-world editorial-quote; do
+            test -s "out/showcase/$name.mp4"
+            test -s "out/showcase/$name.gif"
+          done
       - uses: actions/upload-artifact@v4
         with:
-          name: zero-key-demo-mp4s
-          path: |
-            out/hello-world.mp4
-            out/editorial-quote.mp4
+          name: zero-key-demo-showcase
+          path: out/showcase/
           retention-days: 14
