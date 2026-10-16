@@ -23,6 +23,14 @@ To inspect or change the scene, run `npm run studio` and select `HelloWorldReel`
 
 The sample validates the rendering path, **not** autonomous 19-agent production. To use external voice generation or production agents, configure the relevant providers separately.
 
+## Starter template gallery
+
+Explore the [two reproducible, zero-key video templates](docs/template-gallery.md): **Stick Figure Story** and **Editorial Quote**. Preview both in Remotion Studio or download their rendered MP4s from the GitHub Actions `demo-smoke` artifact. These are starter compositions, not autonomous AI-generated videos.
+
+```bash
+npm run render -- --id EditorialQuoteReel --out out/editorial-quote.mp4
+```
+
 ## Demo video
 
 [![Watch the Camon Reel demo](docs/assets/camon-reel-preview.gif)](https://github.com/nanxnguyen/remotion-ai-agentic-studio/releases/download/demo-v1/camon-reel.mp4)
