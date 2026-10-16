@@ -45,3 +45,30 @@ jobs:
         with:
           name: rendered-video
           path: out/*.mp4
+
+  demo-smoke:
+    name: Zero-key demo smoke renders
+    runs-on: ubuntu-latest
+    needs: verify
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Render both self-contained sample compositions
+        run: |
+          npm run render -- --id HelloWorldReel --out out/hello-world.mp4
+          npm run render -- --id EditorialQuoteReel --out out/editorial-quote.mp4
+      - name: Verify rendered MP4s exist and are nonempty
+        run: |
+          test -s out/hello-world.mp4
+          test -s out/editorial-quote.mp4
+      - uses: actions/upload-artifact@v4
+        with:
+          name: zero-key-demo-mp4s
+          path: |
+            out/hello-world.mp4
+            out/editorial-quote.mp4
+          retention-days: 14
