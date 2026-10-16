@@ -61,6 +61,14 @@ def main():
     if not x.execute:
         print(json.dumps({"mode":"dry-run","slug":x.slug,"platforms":platforms,"sha256":sha,"visibility":{"youtube":"private","facebook":"DRAFT"}}));return
     if os.getenv("PUBLISH_ENABLED")!="1":raise RuntimeError("Blocked: PUBLISH_ENABLED must be 1")
+    # Account credentials and --execute do not constitute user consent.
+    # Require fresh interactive approval for this exact video.
+    if not sys.stdin.isatty():
+        raise RuntimeError("Blocked: interactive approval required before upload")
+    print("Request to upload", x.slug, sha[:16], "to", ", ".join(platforms), file=sys.stderr)
+    print("YouTube PRIVATE / Facebook DRAFT. Type UPLOAD to approve: ", end="", file=sys.stderr, flush=True)
+    if input().strip() != "UPLOAD":
+        raise RuntimeError("Upload cancelled: user did not approve")
     DB.parent.mkdir(parents=True,exist_ok=True)
     with sqlite3.connect(DB,timeout=30) as db:
         init(db)
