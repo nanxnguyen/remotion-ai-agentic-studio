@@ -2,6 +2,7 @@
 import {spawnSync} from 'node:child_process';
 import {existsSync, mkdirSync} from 'node:fs';
 import path from 'node:path';
+import {fileURLToPath} from 'node:url';
 
 export const DEFAULT_COMPOSITION = 'UnderstandAnythingReel';
 const ID = /^[A-Z][A-Za-z0-9]*$/;
@@ -60,6 +61,6 @@ export function main(argv = process.argv.slice(2), root = process.cwd()) {
   }
 }
 
-if (process.argv[1] && path.resolve(process.argv[1]) === path.resolve(new URL(import.meta.url).pathname)) {
+if (process.argv[1] && path.resolve(process.argv[1]) === path.resolve(fileURLToPath(import.meta.url))) {
   process.exitCode = main();
 }
