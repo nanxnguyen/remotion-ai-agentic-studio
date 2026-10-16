@@ -33,8 +33,28 @@
       "note": "phase 2 packet verified consistent on disk (14 keys, 142 syl, 46.86-51.43 s); gate A lens review in progress"
     }
   },
-  "reviews": {},
-  "review_valid": {},
+  "reviews": {
+    "A": [
+      {
+        "at": "2026-10-18T23:40:36+07:00",
+        "reviewer": "script-reviewer",
+        "score": 7.3,
+        "verdict": "revise",
+        "report": "docs/ban-khong-yeu-duoi-chi-da-manh-qua-lau/script-review.md",
+        "note": "round 1: lowest lens 7.3; 10 Cao open; fix list merged from 3 lens reports"
+      }
+    ]
+  },
+  "review_valid": {
+    "A": true,
+    "D": false,
+    "E": false,
+    "B": false,
+    "C": false,
+    "content": false,
+    "audio": false,
+    "motion": false
+  },
   "next": "gate A lens review (script-reviewer x3) then A gate >=9, then phase 3 three branches",
   "log": [
     {
@@ -144,9 +164,33 @@
       "stage": "script",
       "who": "agent",
       "msg": "script -> in_progress: phase 2 packet verified consistent on disk (14 keys, 142 syl, 46.86-51.43 s); gate A lens review in progress"
+    },
+    {
+      "t": "2026-10-18T23:40:35+07:00",
+      "stage": "agent",
+      "who": "script-reviewer-1",
+      "msg": "script-reviewer-1 done: gate A lens 1 (fidelity/claims): 7.7 revise"
+    },
+    {
+      "t": "2026-10-18T23:40:36+07:00",
+      "stage": "agent",
+      "who": "script-reviewer-2",
+      "msg": "script-reviewer-2 done: gate A lens 2 (hook/emotional impact): 7.3 revise (hook 7.0, specificity 7.5)"
+    },
+    {
+      "t": "2026-10-18T23:40:36+07:00",
+      "stage": "agent",
+      "who": "script-reviewer-3",
+      "msg": "script-reviewer-3 done: gate A lens 3 (spoken/timing/performance): 7.3 revise"
+    },
+    {
+      "t": "2026-10-18T23:40:36+07:00",
+      "stage": "A",
+      "who": "script-reviewer",
+      "msg": "review 7.3/10 revise: script-review.md (round 1: lowest lens 7.3; 10 Cao open; fix list merged from 3 lens reports)"
     }
   ],
-  "updated": "2026-10-18T23:33:49+07:00",
+  "updated": "2026-10-18T23:40:36+07:00",
   "agents": {
     "video-director": {
       "state": "running",
@@ -159,6 +203,24 @@
       "at": "2026-10-18T23:32:07+07:00",
       "note": "Phase 2a/2b complete: script.md, voice.proposed.json, voice-direction.md, voice-performance.proposed.json, hook-options.md created; route 2 Thanh Long reference accepted",
       "stage": "script"
+    },
+    "script-reviewer-1": {
+      "state": "done",
+      "at": "2026-10-18T23:40:35+07:00",
+      "note": "gate A lens 1 (fidelity/claims): 7.7 revise",
+      "stage": ""
+    },
+    "script-reviewer-2": {
+      "state": "done",
+      "at": "2026-10-18T23:40:36+07:00",
+      "note": "gate A lens 2 (hook/emotional impact): 7.3 revise (hook 7.0, specificity 7.5)",
+      "stage": ""
+    },
+    "script-reviewer-3": {
+      "state": "done",
+      "at": "2026-10-18T23:40:36+07:00",
+      "note": "gate A lens 3 (spoken/timing/performance): 7.3 revise",
+      "stage": ""
     }
   },
   "runs": [

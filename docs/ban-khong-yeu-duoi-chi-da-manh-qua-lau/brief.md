@@ -7,7 +7,7 @@
 - profile: `story`
 - platform: TikTok / Reels / Shorts (9:16, 1080×1920, 30 fps)
 - duration: 45–55 s (user explicit override; includes speech, pauses, transitions, ending hold)
-- voice route: route 2 — local VieNeu-TTS clone using reference `docs/ban-khong-yeu-duoi-chi-da-manh-qua-lau/voice-ref/refThanhLong.wav` (copied from `docs/thuong-hay-so-bat-dau-lai/voice-ref/refThanhLong.wav`, 8.2 s mono 24 kHz pcm_s16le). Voice name: Thanh Long (benchmark selection confirmed by user). Output voice slug: `thanh-long` after gate A.
+- voice route: route 2 — local VieNeu-TTS clone using reference `docs/ban-khong-yeu-duoi-chi-da-manh-qua-lau/voice-ref/refThanhLong.wav` (copied from `docs/thuong-hay-so-bat-dau-lai/voice-ref/refThanhLong.wav`; director-verified with `ffprobe`: 8.20 s, 24 kHz, mono, pcm_s16le). Voice name: **Thanh Long** — **selected by `video-director`, not confirmed by the owner** (owner notes N1/N2 of 2026-10-18 23:18 contained only "hi"). Reason: the identical reference and engine already produced two delivered videos in this repo (`thuong-hay-so-bat-dau-lai`, `ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu`, both voice slug `thanh-long-nang-cao`), and the brief's delivery profile (gentle, intimate, conversational, never theatrical) matches it. Local engine `~/.venvs/vieneu` is installed; no preview catalogue `vietnamese-voice-samples/previews/` exists on this machine, so no fresh benchmark was possible. Output voice slug `thanh-long-nang-cao`, applied with `pipeline.py voice` after gate A passes. This line is director-owned; phase-2 producers must not edit it.
 - output: `out/ban-khong-yeu-duoi-chi-da-manh-qua-lau-<voice>-reel.mp4`
 
 ## User constraints (verbatim, keep exactly)
