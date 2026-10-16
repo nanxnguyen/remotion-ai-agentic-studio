@@ -12,7 +12,7 @@ An agent-ready Remotion studio for deterministic 9:16 videos, with parallel rese
 
 ## Demo video
 
-[![Watch the Camon Reel demo](tests/golden/CamonReel/element-0760.png)](https://github.com/nanxnguyen/remotion-ai-agentic-studio/releases/download/demo-v1/camon-reel.mp4)
+[![Watch the Camon Reel demo](docs/assets/camon-reel-preview.gif)](https://github.com/nanxnguyen/remotion-ai-agentic-studio/releases/download/demo-v1/camon-reel.mp4)
 
 [▶ Watch or download Camon Reel — 52.9 seconds, MP4](https://github.com/nanxnguyen/remotion-ai-agentic-studio/releases/download/demo-v1/camon-reel.mp4)
 
