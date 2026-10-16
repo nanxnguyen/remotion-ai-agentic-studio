@@ -27,6 +27,11 @@ jobs:
       - name: Install media test dependencies
         run: sudo apt-get update && sudo apt-get install --yes ffmpeg
       - run: npm ci
+      - name: Diagnose Prettier differences (temporary)
+        run: |
+          npx prettier --write README.md tests/cli/video-tools.test.ts
+          git diff -- README.md tests/cli/video-tools.test.ts
+          exit 1
       - run: npm run verify
 
   render:
