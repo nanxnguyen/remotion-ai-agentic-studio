@@ -22,7 +22,9 @@
     "video:doctor": "node scripts/video-doctor.mjs",
     "publish:dry": "python3 scripts/publish-video.py",
     "publish:draft": "python3 scripts/publish-video.py --execute",
-    "test:publisher": "python3 -m unittest discover -s tests -p test_publisher.py"
+    "test:publisher": "python3 -m unittest discover -s tests -p test_publisher.py",
+    "video:handoff:check": "python3 scripts/validate-video-handoff.py",
+    "test:handoff": "python3 -m unittest discover -s tests -p test_video_handoff.py"
   },
   "dependencies": {
     "@remotion/cli": "4.0.534",
