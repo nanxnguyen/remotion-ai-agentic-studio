@@ -4,13 +4,15 @@ import {videoRegistry} from '../../src/videos/registry';
 describe('videoRegistry', () => {
   it('preserves the eight published compositions and their metadata', () => {
     expect(
-      videoRegistry.map(({id, durationInFrames, fps, width, height}) => ({
-        id,
-        durationInFrames,
-        fps,
-        width,
-        height,
-      })),
+      videoRegistry
+        .filter((video) => !video.tags?.includes('demo'))
+        .map(({id, durationInFrames, fps, width, height}) => ({
+          id,
+          durationInFrames,
+          fps,
+          width,
+          height,
+        })),
     ).toEqual([
       {id: 'TruongThanhReel', durationInFrames: 1613, fps: 30, width: 1080, height: 1920},
       {id: 'CamonReel', durationInFrames: 1521, fps: 30, width: 1080, height: 1920},

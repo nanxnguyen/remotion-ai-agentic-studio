@@ -45,3 +45,30 @@ jobs:
         with:
           name: rendered-video
           path: out/*.mp4
+
+  demo-smoke:
+    name: Zero-key demo smoke renders
+    runs-on: ubuntu-latest
+    needs: verify
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Install FFmpeg for GIF previews
+        run: sudo apt-get update && sudo apt-get install --yes ffmpeg
+      - run: npm ci
+      - name: Render MP4 and GIF previews
+        run: node scripts/render-demo-showcase.mjs
+      - name: Verify demo artifacts
+        run: |
+          for name in hello-world editorial-quote; do
+            test -s "out/showcase/$name.mp4"
+            test -s "out/showcase/$name.gif"
+          done
+      - uses: actions/upload-artifact@v4
+        with:
+          name: zero-key-demo-showcase
+          path: out/showcase/
+          retention-days: 14

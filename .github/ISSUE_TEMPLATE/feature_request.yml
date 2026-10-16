@@ -1,0 +1,18 @@
+name: Feature request
+description: Suggest an improvement to the video pipeline, CLI, or starter templates
+title: "feat: "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: use_case
+    attributes:
+      label: User problem
+      description: What would this enable that is difficult today?
+    validations:
+      required: true
+  - type: textarea
+    id: solution
+    attributes:
+      label: Proposed behavior and acceptance criteria
+    validations:
+      required: true
