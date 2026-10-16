@@ -50,3 +50,8 @@ Score table · fixes Cao/Trung/Thấp with concrete change · previous fixes ver
 - Round 2+ (you are a new reviewer): verify each old ticket by its acceptance check, regression-check what the fixes touched, and raise only genuinely NEW tickets, marked `NEW`. Do not re-litigate closed tickets or move the bar.
 - Pass = score >= threshold AND no open Cao/Trung ticket. The producer returns a closure table `id | fixed/not fixed/disagree | evidence`; judge `disagree` on evidence.
 - Rounds: 3 by default, 5 hard cap; if still failing, report the open tickets to the director instead of looping.
+
+
+## Optional minimal-stick-figure review lens
+
+If `docs/<vid>/design-spec.md` declares `Visual profile: minimal-stick-figure`, read `.agents/skills/minimal-stick-figure/SKILL.md`. Retain all ten rubric items, the existing score thresholds and independent clean-context inspection. Replace rubric item 9 (shotcraft card validation) with **profile fidelity, visual metaphor originality and reusable vector consistency**. Do not fail a profile-native shot for omitting gallery-card/style-key/demo references. Inspect each storyboard shot plus hook/turn/end frames and hook strip for coherent stick-figure proportions, one central visual action, legible Vietnamese quote, restricted orange emphasis, scene-specific metaphors, and restrained motion. Every rejection must identify a frame or shot, an observable issue and a measurable acceptance check. Never modify producer output; do not pass with open Cao/Trung defects. If the director overrides at the round cap, mark it as accepted risk, **not publish-ready** for unattended YouTube upload.
