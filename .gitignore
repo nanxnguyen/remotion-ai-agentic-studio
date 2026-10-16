@@ -1,0 +1,40 @@
+# Dependencies
+node_modules/
+
+# Generated renders and visual QA output
+out/
+
+# Python caches and environments
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+
+# Local environment and credentials
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+credentials*.json
+secrets*.json
+
+# Agent and editor-local state
+.superpowers/
+.worktrees/
+.codex-monitor-compare/
+.DS_Store
+.idea/
+.vscode/
+
+# Local monitor/runtime files
+*.lock
+*.pid
+*.log
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.swp
