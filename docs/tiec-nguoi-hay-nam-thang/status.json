@@ -1,0 +1,34 @@
+{
+  "workflow_version": 3,
+  "name": "tiec-nguoi-hay-nam-thang",
+  "comp": "TiecNguoiHayNamThangReel",
+  "voice": "thanh-long-nang-cao",
+  "profile": "story",
+  "paths": {
+    "audio": "tiec-nguoi-hay-nam-thang",
+    "out": "tiec-nguoi-hay-nam-thang-thanh-long-nang-cao",
+    "qa": "tiec-nguoi-hay-nam-thang"
+  },
+  "gates": [],
+  "stages": {
+    "brief": {"state": "in_progress", "at": "2026-10-16T21:01:09+00:00", "note": "Brief exists in PR; intake evidence review pending"},
+    "script": {"state": "in_progress", "at": "2026-10-16T21:01:10+00:00", "note": "Draft ready; Gate A not reviewed"},
+    "content": {"state": "in_progress", "at": "2026-10-16T21:01:11+00:00", "note": "Content pack drafted; review pending"},
+    "design": {"state": "in_progress", "at": "2026-10-16T21:01:12+00:00", "note": "Prebuilt scenes only; style frames and Gate D pending"},
+    "voice": {"state": "blocked", "at": "2026-10-16T21:01:13+00:00", "note": "Requires local VieNeu-TTS Thanh Long clips"},
+    "build": {"state": "in_progress", "at": "2026-10-16T21:01:13+00:00", "note": "Provisional timeline; Gate E/B and local re-timing pending"}
+  },
+  "reviews": {},
+  "review_valid": {},
+  "next": "",
+  "log": [
+    {"t":"2026-10-16T21:01:08+00:00","stage":"-","who":"agent","msg":"status initialised"},
+    {"t":"2026-10-16T21:01:09+00:00","stage":"brief","who":"agent","msg":"brief -> in_progress: Brief exists in PR; intake evidence review pending"},
+    {"t":"2026-10-16T21:01:10+00:00","stage":"script","who":"agent","msg":"script -> in_progress: Draft ready; Gate A not reviewed"},
+    {"t":"2026-10-16T21:01:11+00:00","stage":"content","who":"agent","msg":"content -> in_progress: Content pack drafted; review pending"},
+    {"t":"2026-10-16T21:01:12+00:00","stage":"design","who":"agent","msg":"design -> in_progress: Prebuilt scenes only; style frames and Gate D pending"},
+    {"t":"2026-10-16T21:01:13+00:00","stage":"voice","who":"agent","msg":"voice -> blocked: Requires local VieNeu-TTS Thanh Long clips"},
+    {"t":"2026-10-16T21:01:13+00:00","stage":"build","who":"agent","msg":"build -> in_progress: Provisional timeline; Gate E/B and local re-timing pending"}
+  ],
+  "updated": "2026-10-16T21:01:13+00:00"
+}
