@@ -28,9 +28,9 @@ Premium, quiet, emotionally specific editorial storytelling. White vector stick 
 5. Fix frame-specific issues before requesting Gate D. Return evidence locations.
 
 ## Gate D acceptance (independent design-reviewer)
-Apply the existing 10-item Gate D rubric and score thresholds (mean >=9, beauty and subject-fit >=9, no item <8, no open Cao/Trung). For this profile, replace the **shot-card choice and fidelity** item with **profile fidelity and original metaphor quality** rather than demanding shotcraft gallery cards.
+Apply the existing 10-item Gate D rubric and score thresholds (mean >=8.5, beauty >=8.5, subject/script-context fit >=9, no item <8, no open Cao/Trung). For this profile, replace the **shot-card choice and fidelity** item with **profile fidelity and original metaphor quality** rather than demanding shotcraft gallery cards.
 - Hard fail: inaccessible or clipped Vietnamese text; wrong spoken/on-screen wording; safe-zone violation; inconsistent character proportions/stroke tokens; non-deterministic motion; unrelated metaphor; missing required style-frame/storyboard/motion evidence.
-- Review all storyboard shots, not only the three style frames. For every failing criterion provide `ticket ID | severity | shot/frame | observed evidence | exact proposed fix | acceptance check`.
+- Review all storyboard shots, not only the three style frames. Audit **every storyboard shot** against the exact script beat: number and identity of figures, their relationships, location/time, pose/action, props, emotional intent and whether the metaphor contradicts a stated fact. Any mismatch is a blocking Cao/Trung ticket even if total score is 8.5–9. For every failing criterion provide `ticket ID | severity | shot/frame | observed evidence | exact proposed fix | acceptance check`.
 - Do not edit producer-owned files or invent missing visual evidence. Do not pass if critical tickets remain open. At fix-round cap, return `blocked` for unattended publishing; an override is never a publish-ready signal.
 
 ## Downstream contract
