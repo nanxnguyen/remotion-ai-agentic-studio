@@ -13,3 +13,7 @@ Copy `.env.publisher.example` to `.env.publisher`; keep it out of Git. For YouTu
 Each attempt is stored in SQLite with a SHA256-based key **before** remote API calls. If an upload fails after starting, state becomes `needs_reconcile` and is never retried automatically. Inspect provider dashboard and remote state; do not delete rows to force re-upload. Run one publisher worker per DB. MP4 upload uses whole-file memory, so cap size and memory. Protect and back up the persistent SQLite volume.
 ## Current limits
 No scheduler, no dashboard OAuth login, no provider-specific status polling. Live upload, OAuth, Meta DRAFT behavior, and Docker build require validation on your VPS. Do not claim end-to-end publish validation until this happens.
+
+## Mandatory owner approval before any upload
+After video render and Gate C/QA complete, the Video Director MUST ask the owner whether to upload that particular video to YouTube Shorts and Facebook Page Reels. Without an explicit yes for that video and destinations, DO NOT invoke the upload command. Connecting accounts, configuring credentials, or enabling the publisher is not consent. A no means retain the local MP4 only.
+The CLI enforces a second safety check: `--execute` + `PUBLISH_ENABLED=1` still require a TTY and manually typing `UPLOAD`. Non-interactive scheduling and CI fail closed. Uploads remain YouTube **PRIVATE** and Facebook **DRAFT**. This is a safety requirement, not optional operator etiquette.
