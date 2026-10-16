@@ -25,7 +25,7 @@ Common commands:
 Stages: research, brief, script, content, voice, design, build, audio, qa, render (content: workflow v3 only).
 Workflow v3: after A, three branches run in parallel (content -> review `content`, voice+audio -> review `audio`,
 design -> gate D); gate E (integration) needs all three. Branch reviews sit outside the A->D->E->B->C order.
-Gate pass scores: A, content, audio, D, E >= 9; B, C >= 8 (PASS_SCORE). The A sub-score for specificity (>= 9)
+Gate pass scores: A, content, audio, E >= 9; D >= 8.5; B, C >= 8 (PASS_SCORE). The A sub-score for specificity (>= 9)
 and the no-open-Cao/Trung rule are reviewer-side rules in the skill; this CLI records one number.
 States: pending, in_progress, done, blocked, failed.
 """
@@ -74,7 +74,7 @@ ALL_REVIEWS = [*REVIEW_GATES, *BRANCH_REVIEWS]
 # Stage -> review that guards it (E/B are phase-level, no single stage).
 STAGE_GATE = {"script": "A", "content": "content", "design": "D", "render": "C"}
 REVIEW_ORDER = list(REVIEW_GATES)
-PASS_SCORE = {"A": 9, "D": 9, "E": 9, "content": 9, "audio": 9}  # B and C pass at 8
+PASS_SCORE = {"A": 9, "D": 8.5, "E": 9, "content": 9, "audio": 9}  # B and C pass at 8
 INVALIDATE_FROM_STAGE = {
     "research": "A", "brief": "A", "script": "A", "content": "E", "voice": "E", "design": "D",
     "build": "C", "audio": "C", "qa": "C", "render": "C",

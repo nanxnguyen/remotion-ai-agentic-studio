@@ -30,3 +30,8 @@ File, shots done with card + demo file used, deviations from the demo and why, s
 
 ## Fix rounds (producer)
 When you get a ticket list (SendMessage keeps your context), fix the WHOLE list in one pass, never ticket by ticket. Return a closure table `id | fixed/not fixed/disagree | evidence` (`disagree` needs a reason); do not touch anything outside the tickets without saying so.
+
+
+## Optional minimal-stick-figure implementation
+
+When `design-spec.md` selects `Visual profile: minimal-stick-figure`, read `.agents/skills/minimal-stick-figure/SKILL.md` and the design prototype. Implement the assigned shot with deterministic Remotion SVG/vector components, shared proportions, tokens and per-shot visual metaphor, **not** an unrelated video-shotcraft gallery demo. In the handoff, report the reusable component source instead of card/demo fidelity; preserve the existing one-file-per-agent ownership, content-pack exact wording, still evidence and visual QA. Other profiles continue using exact shotcraft demo references.

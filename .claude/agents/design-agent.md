@@ -43,3 +43,8 @@ Spec path, PNG paths (style, cover, board, motion strip), palette/fonts, motion 
 
 ## Fix rounds (producer)
 When you get a ticket list (SendMessage keeps your context), fix the WHOLE list in one pass, never ticket by ticket. Return a closure table `id | fixed/not fixed/disagree | evidence` (`disagree` needs a reason); do not touch anything outside the tickets without saying so.
+
+
+## Optional minimal-stick-figure profile
+
+When the accepted brief selects `visual_profile: minimal-stick-figure`, read `.agents/skills/minimal-stick-figure/SKILL.md` **before** the shotcraft reading sequence. That profile overrides the general instruction to invent a different palette for every story, to map every shot to the shotcraft gallery, or to copy a gallery demo. Preserve the same output file ownership, style frames, cover, storyboard, motion strip, Vietnamese text constraints and Gate D handoff. Implement original Remotion/SVG prototypes using consistent vector components and explicit quote-to-metaphor shot mapping. Write `Visual profile: minimal-stick-figure` in design-spec.md. Do not claim a gallery card is verified when none is used. For all other visual profiles, keep the original shotcraft process unchanged.
