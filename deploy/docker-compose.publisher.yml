@@ -1,0 +1,16 @@
+services:
+  publisher:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile.publisher
+    working_dir: /app
+    env_file: ../.env.publisher
+    environment:
+      PUBLISH_DB: /state/publishing.sqlite3
+    volumes:
+      - ../out:/app/out:ro
+      - ../docs:/app/docs:ro
+      - publisher-state:/state
+    restart: "no"
+volumes:
+  publisher-state:
