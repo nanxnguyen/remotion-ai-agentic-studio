@@ -37,6 +37,14 @@
     "design": {
       "state": "in_progress",
       "at": "2026-10-17T00:03:54+07:00"
+    },
+    "build": {
+      "state": "done",
+      "at": "2026-10-17T02:04:57+07:00"
+    },
+    "qa": {
+      "state": "in_progress",
+      "at": "2026-10-17T02:04:57+07:00"
     }
   },
   "reviews": {
@@ -84,6 +92,14 @@
         "verdict": "revise",
         "report": "docs/xay-doi-minh-hay-chung-minh/audio-review.md",
         "note": ""
+      },
+      {
+        "at": "2026-10-17T01:03:42+07:00",
+        "reviewer": "audio-reviewer-r2",
+        "score": 9.0,
+        "verdict": "pass",
+        "report": "docs/xay-doi-minh-hay-chung-minh/audio-review.md",
+        "note": ""
       }
     ],
     "D": [
@@ -94,14 +110,42 @@
         "verdict": "revise",
         "report": "docs/xay-doi-minh-hay-chung-minh/design-review.md",
         "note": ""
+      },
+      {
+        "at": "2026-10-17T01:03:43+07:00",
+        "reviewer": "design-reviewer-r2",
+        "score": 9.0,
+        "verdict": "pass",
+        "report": "docs/xay-doi-minh-hay-chung-minh/design-review.md",
+        "note": ""
+      }
+    ],
+    "E": [
+      {
+        "at": "2026-10-17T01:15:46+07:00",
+        "reviewer": "integration-reviewer-r2",
+        "score": 9.0,
+        "verdict": "pass",
+        "report": "docs/xay-doi-minh-hay-chung-minh/integration-review.md",
+        "note": ""
+      }
+    ],
+    "B": [
+      {
+        "at": "2026-10-17T01:17:26+07:00",
+        "reviewer": "task-reviewer",
+        "score": 8.5,
+        "verdict": "pass",
+        "report": "docs/xay-doi-minh-hay-chung-minh/task-review.md",
+        "note": ""
       }
     ]
   },
   "review_valid": {
     "A": true,
     "D": true,
-    "E": false,
-    "B": false,
+    "E": true,
+    "B": true,
     "C": false,
     "content": true,
     "audio": true
@@ -293,9 +337,87 @@
       "stage": "audio",
       "who": "audio-agent",
       "msg": "audio-agent running: round2 AUD-T1..T5 finalize cues"
+    },
+    {
+      "t": "2026-10-17T01:00:04+07:00",
+      "stage": "agent",
+      "who": "design-agent",
+      "msg": "design-agent done"
+    },
+    {
+      "t": "2026-10-17T01:00:04+07:00",
+      "stage": "agent",
+      "who": "audio-agent",
+      "msg": "audio-agent done"
+    },
+    {
+      "t": "2026-10-17T01:00:04+07:00",
+      "stage": "audio",
+      "who": "audio-reviewer-r2",
+      "msg": "audio-reviewer-r2 running: round2 verify AUD-T1..T5"
+    },
+    {
+      "t": "2026-10-17T01:00:04+07:00",
+      "stage": "design",
+      "who": "design-reviewer-r2",
+      "msg": "design-reviewer-r2 running: round2 verify D01-D14 + ref"
+    },
+    {
+      "t": "2026-10-17T01:03:42+07:00",
+      "stage": "audio",
+      "who": "audio-reviewer-r2",
+      "msg": "review 9.0/10 pass: audio-review.md"
+    },
+    {
+      "t": "2026-10-17T01:03:43+07:00",
+      "stage": "D",
+      "who": "design-reviewer-r2",
+      "msg": "review 9.0/10 pass: design-review.md"
+    },
+    {
+      "t": "2026-10-17T01:03:43+07:00",
+      "stage": "agent",
+      "who": "audio-reviewer-r2",
+      "msg": "audio-reviewer-r2 done"
+    },
+    {
+      "t": "2026-10-17T01:03:43+07:00",
+      "stage": "agent",
+      "who": "design-reviewer-r2",
+      "msg": "design-reviewer-r2 done"
+    },
+    {
+      "t": "2026-10-17T01:15:46+07:00",
+      "stage": "E",
+      "who": "integration-reviewer-r2",
+      "msg": "review 9.0/10 pass: integration-review.md"
+    },
+    {
+      "t": "2026-10-17T01:17:26+07:00",
+      "stage": "B",
+      "who": "task-reviewer",
+      "msg": "review 8.5/10 pass: task-review.md"
+    },
+    {
+      "t": "2026-10-17T01:17:26+07:00",
+      "stage": "agent",
+      "who": "task-planner",
+      "msg": "task-planner done"
+    },
+    {
+      "t": "2026-10-17T02:04:57+07:00",
+      "stage": "build",
+      "who": "agent",
+      "msg": "build -> done (evidence: composition XayDoiMinhReel)"
+    },
+    {
+      "t": "2026-10-17T02:04:57+07:00",
+      "stage": "qa",
+      "who": "agent",
+      "msg": "qa -> in_progress"
     }
   ],
-  "updated": "2026-10-17T00:37:52+07:00",
+  "updated": "2026-10-17T02:04:57+07:00",
   "agents": {
     "content-reviewer": {
       "state": "done",
@@ -310,16 +432,16 @@
       "stage": ""
     },
     "design-agent": {
-      "state": "running",
-      "at": "2026-10-17T00:37:52+07:00",
-      "note": "round2 D01-D14 + user truongthanh ref lam dep hon",
-      "stage": "design"
+      "state": "done",
+      "at": "2026-10-17T01:00:04+07:00",
+      "note": "",
+      "stage": ""
     },
     "audio-agent": {
-      "state": "running",
-      "at": "2026-10-17T00:37:52+07:00",
-      "note": "round2 AUD-T1..T5 finalize cues",
-      "stage": "audio"
+      "state": "done",
+      "at": "2026-10-17T01:00:04+07:00",
+      "note": "",
+      "stage": ""
     },
     "audio-reviewer": {
       "state": "done",
@@ -330,6 +452,24 @@
     "design-reviewer": {
       "state": "done",
       "at": "2026-10-17T00:37:40+07:00",
+      "note": "",
+      "stage": ""
+    },
+    "audio-reviewer-r2": {
+      "state": "done",
+      "at": "2026-10-17T01:03:43+07:00",
+      "note": "",
+      "stage": ""
+    },
+    "design-reviewer-r2": {
+      "state": "done",
+      "at": "2026-10-17T01:03:43+07:00",
+      "note": "",
+      "stage": ""
+    },
+    "task-planner": {
+      "state": "done",
+      "at": "2026-10-17T01:17:26+07:00",
       "note": "",
       "stage": ""
     }

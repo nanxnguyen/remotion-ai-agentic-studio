@@ -27,7 +27,7 @@ Unverified by ear: all trims judged by waveform/levels only; audio-reviewer / op
 ## SFX cue table
 | shot | offset s | file | gain dB (linear) | durationInFrames | lands on |
 |---|---|---|---|---|---|
-| s1 | 0.0 | sfx-bulb-hum | -28 (0.040) | 105 (3.5 s = shot, was 114) | room-tone bed under hook (ANCHORED; trimmed to shot end, no bleed into s2a) |
+| s1 | 0.0 | sfx-bulb-hum | -24 (0.063) | 105 (3.5 s = shot) | room-tone bed under hook (E09: lifted -28→-24 for phone audibility, = s9b level; gain only, no file change) |
 | s2a | 4.18 | sfx-glass-clink | -22 (0.080) | 8 | voice ends 4.13, +0.05 s in 0.25 s gap (ANCHORED T3; 0.5 s sample trimmed to 0.27 s, ~0.07 s tail crosses s2b head at -22 dB — negligible) |
 | s2b | - | (laugh) | - | - | DROPPED (AUD-T8): no licensed laugh in library; hand-wave + text carry it. Only a user-supplied licensed laugh may be added, never synthesized |
 | s3 | 0.41 | sfx-engrave | -22 (0.080) | 11 | "Từ đó," ends 0.36, +0.05 (ANCHORED T4; next word 0.62) |
@@ -52,3 +52,7 @@ Voice clips (HoaiMy, read-only, NOT owned): 24 kHz mono, sum 51.75 s vs 47.3 s @
 
 ## Round 2 fixes 2026-10-16 (audio-review R1 tickets; word timestamps via faster-whisper-small on s3/s10)
 s3 nouns: "đó," ends 0.36 · "đầu," ends 1.32 · "xe," ends 2.10 · "bằng," ends 2.80 (each followed by a 0.26–0.30 s micro-gap — cues at +0.05 sit in-gap). s10: "đất" onset 2.46 (2.46–2.62), clip ends 4.59, pause 2.6–3.5 matches voice-report. No audio files changed (offsets are mix-level; BGM regen off-limits — generator script outside writable set — so T2 solved by mix offset). Licences unchanged: 8 Mixkit trims + own-work BGM. No beat_data.json (pad, no beat — not faked). T6/T7/T9 untouched (director/voice).
+
+## s6 "không" anchors (E02, integration round 1 — director applies in timeline at build)
+Word timestamps (faster-whisper-small, clip-relative; shot = clip + 0.30 s lead-in): k1 "không(cửa)" onset **1.18** → shot **1.48** · k2 "không(mái)" onset **1.96** → shot **2.26** · k3 "không(một…)" onset **2.66** → shot **2.96**. (ASR hears "máy" for "mái" — Southern final-merge, timing unaffected.)
+Proposed cuts (each within ±0.15 s / 5f of its onset — exactly on-onset): **1.48 / 2.26 / 2.96** (est 1.25/1.75/2.25 → shifts +0.23/+0.51/+0.71). Orbit 0–1.2 s and voice entry 0.30 s unchanged; thin-edge reveal (orbit end 1.20) completes 0.28 s before k1 ✓. Cut spacing 0.78/0.70 s; 1.25 s remains after cut 3 for "một chỗ để ngồi" + 0.2 tail ✓. No SFX in s6 — this section is numbers only, no cue rows.

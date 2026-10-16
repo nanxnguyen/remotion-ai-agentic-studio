@@ -127,7 +127,7 @@ export const dropY = (frame: number, land: number, fromY: number, toY: number) =
   });
   const s01 = Math.min(1, Math.max(0, (frame - land) / 6));
   const e = bezier(0.3, 0, 0.25, 1.15)(s01); // y1>1 — landing must bounce, 命门
-  const y = fromY + (toY - fromY) * fall + (e - s01) * 34;
-  const squash = s01 < 1 && s01 > 0 ? Math.sin(s01 * Math.PI) * 0.07 : 0;
+  const y = fromY + (toY - fromY) * fall + (e - s01) * 90; // proto-staging: ~30px dip so the bounce reads on pixels
+  const squash = s01 < 1 && s01 > 0 ? Math.sin(s01 * Math.PI) * 0.12 : 0;
   return {y, squash};
 };

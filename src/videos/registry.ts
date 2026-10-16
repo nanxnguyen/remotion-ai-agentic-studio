@@ -7,6 +7,7 @@ import {metKhongVideo} from './met-khong';
 import {thuongHaySoVideo} from './thuong-hay-so';
 import {truongThanhVideo} from './truong-thanh';
 import {understandAnythingVideo} from './understand-anything';
+import {xayDoiMinhVideo} from './xay-doi-minh-hay-chung-minh';
 // video:new imports -- keep this marker
 
 export const videoRegistry: readonly AnyVideoDefinition[] = [
@@ -17,6 +18,7 @@ export const videoRegistry: readonly AnyVideoDefinition[] = [
   cuocGoiNhoVideo,
   understandAnythingVideo,
   thuongHaySoVideo,
+  xayDoiMinhVideo,
   // video:new entries -- keep this marker
 ];
 

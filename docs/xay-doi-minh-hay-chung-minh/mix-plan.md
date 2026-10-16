@@ -6,7 +6,7 @@ Measured shot starts (trimmed): s1 0.00 · s2a 3.51 · s2b 7.89 · s3 11.23 · s
 
 | t (s) | event | BGM dB | linear |
 |---|---|---|---|
-| 0 -> 3.0 | no BGM (bulb-hum bed only) | -inf | 0 |
+| 0 -> 3.0 | no BGM (bulb-hum bed @ -24 only, E09 phone-audibility lift) | -inf | 0 |
 | 3.0 -> 4.2 | fade-in | -inf -> -13 | 0 -> 0.22 |
 | gaps/tails (no voice) | bed lifts | -9 (0.35) |  ramp 250 ms |
 | voice speaking (s1-silence…s8) | bed (duck 4 dB below the gap level) | -13 | 0.22 |
@@ -19,4 +19,4 @@ Measured shot starts (trimmed): s1 0.00 · s2a 3.51 · s2b 7.89 · s3 11.23 · s
 | s10-s11 voice | dawn bed | -15 | 0.18 |
 | s11 56.8 -> 57.2 | fade-out under "...cho ai?" (voice ends 57.20) | -15 -> -inf | 0.18 -> 0 |
 | 57.20 -> 59.20 | PURE SILENCE (no SFX, no BGM) | - | 0 |
-Implement as piecewise `interpolate` on frame (30 fps) in Reel.tsx; keep `bgm` boolean inputProp convention. SFX gains per cue table (all <= -16 dB; bulb hum -24..-28). No SFX in last 2.0 s.
+Implement as piecewise `interpolate` on frame (30 fps) in Reel.tsx; keep `bgm` boolean inputProp convention. SFX gains per cue table (all <= -16 dB; bulb hum s1/s9b both -24 now, E09). No SFX in last 2.0 s.

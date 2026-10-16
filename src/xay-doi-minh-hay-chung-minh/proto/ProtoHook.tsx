@@ -28,7 +28,6 @@ export const ProtoHook: React.FC = () => {
   const frame = useCurrentFrame();
   const push = interpolate(frame, [0, HOOK_DUR], [1, 1.04]);
   const {y: brickY, squash} = dropY(frame, 18, 596, 806);
-  const dust = Math.min(1, Math.max(0, (frame - 18) / 14));
   return (
     <AbsoluteFill style={{background: `linear-gradient(180deg, ${C.cobaltTop} 0%, ${C.cobaltBot} 100%)`}}>
       <style>{FONT_CSS}</style>
@@ -150,23 +149,24 @@ export const ProtoHook: React.FC = () => {
             filter: 'drop-shadow(0 8px 10px rgba(6,8,30,0.4))',
           }}
         />
-        {/* paper dust at landing */}
+        {/* paper dust at landing (bigger/longer so the 12fps strip catches it) */}
         {frame >= 18 &&
-          Array.from({length: 7}).map((_, i) => {
-            const a = (i / 7) * Math.PI * 2;
-            const r = dust * (40 + hash(i * 5 + 9) * 60);
+          Array.from({length: 9}).map((_, i) => {
+            const a = (i / 9) * Math.PI * 2;
+            const life = Math.min(1, Math.max(0, (frame - 18) / 20));
+            const r = life * (60 + hash(i * 5 + 9) * 80);
             return (
               <div
                 key={i}
                 style={{
                   position: 'absolute',
-                  left: 430 + Math.cos(a) * r,
+                  left: 388 + Math.cos(a) * r,
                   top: 830 + Math.sin(a) * r * 0.5,
-                  width: 12,
-                  height: 12,
+                  width: 16,
+                  height: 16,
                   borderRadius: '50%',
                   background: C.senLight,
-                  opacity: 0.8 * (1 - dust),
+                  opacity: 0.85 * (1 - life),
                 }}
               />
             );

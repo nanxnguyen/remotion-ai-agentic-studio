@@ -47,8 +47,8 @@ export const ProtoEnd: React.FC = () => {
       {/* jade chalk room on ground */}
       <div style={{position: 'absolute', left: 420, top: 1050, width: 560, height: 420}}>
         <div style={{position: 'absolute', inset: 0, border: `7px solid ${C.jade}`, borderRadius: 14, opacity: 0.9}} />
-        {/* door */}
-        <div style={{position: 'absolute', left: 60, bottom: -7, width: 130, height: 240, border: `7px solid ${C.jade}`, borderBottom: 'none', borderRadius: '60px 60px 0 0'}} />
+        {/* door: right side, clear of person/brick/chair */}
+        <div style={{position: 'absolute', left: 390, bottom: -7, width: 130, height: 240, border: `7px solid ${C.jade}`, borderBottom: 'none', borderRadius: '60px 60px 0 0'}} />
         {/* sunrise window: frame + cross + dawn sun (sun token) */}
         <div style={{position: 'absolute', right: 60, top: 60, width: 150, height: 150, border: `7px solid ${C.jade}`, borderRadius: 12, overflow: 'hidden'}}>
           <div style={{position: 'absolute', left: 30, top: 52, width: 76, height: 76, borderRadius: '50%', background: C.sun}} />
@@ -56,7 +56,7 @@ export const ProtoEnd: React.FC = () => {
           <div style={{position: 'absolute', left: 0, top: 68, width: 150, height: 7, background: C.jade}} />
         </div>
         {/* chair: backrest + seat + legs, one readable silhouette (D09) */}
-        <div style={{position: 'absolute', left: 280, bottom: 30, width: 110, height: 190}}>
+        <div style={{position: 'absolute', left: 220, bottom: 30, width: 110, height: 190}}>
           <div style={{position: 'absolute', left: 0, top: 0, width: 26, height: 120, background: 'transparent', border: `7px solid ${C.jade}`, borderRadius: 10}} />
           <div style={{position: 'absolute', left: 0, top: 112, width: 110, height: 30, background: 'transparent', border: `7px solid ${C.jade}`, borderRadius: 10}} />
           <div style={{position: 'absolute', left: 8, top: 136, width: 7, height: 54, background: C.jade}} />
@@ -65,9 +65,9 @@ export const ProtoEnd: React.FC = () => {
       </div>
       {/* the placed brick on the ground */}
       <Brick x={470} y={1330} w={220} h={100} />
-      {/* character beside the brick, hat held at side in right hand */}
+      {/* character beside the brick, hat HELD in right hand at side (D08) */}
       <Person x={400} y={1450} h={330} hat={false} face="hope" />
-      <div style={{position: 'absolute', left: 562, top: 1280, width: 100, height: 54, background: C.hat, border: `4px solid ${C.ink}`, borderRadius: '50px 50px 10px 10px', transform: 'rotate(12deg)'}} />
+      <div style={{position: 'absolute', left: 498, top: 1240, width: 100, height: 54, background: C.hat, border: `4px solid ${C.ink}`, borderRadius: '50px 50px 10px 10px', transform: 'rotate(12deg)'}} />
       {/* final headline */}
       <div style={{position: 'absolute', top: 150, width: 1080, textAlign: 'center'}}>
         <div style={{fontFamily: F_HEAD, fontWeight: 800, fontSize: 88, lineHeight: 1.18, color: C.ink}}>

@@ -5,9 +5,9 @@ import {AbsoluteFill} from 'remotion';
 import {Grain, Vignette} from '../lib/Polish';
 import {Caption} from './Caption';
 import {FONT_CSS} from './fonts';
-import {PaperGrain} from './Paper';
+import {Deckle, PaperGrain} from './Paper';
+import {SignBoard} from './Wall';
 import {C, F_BODY, F_HEAD, hash} from './tokens';
-import {Deckle} from './Paper';
 
 // Source chip (D07): Archivo 32px (Q11 floor), ink pill, top corner.
 export const ChipSource: React.FC = () => (
@@ -168,36 +168,44 @@ export const S5bInterior: React.FC<{chip?: boolean}> = ({chip = false}) => (
     >
       {/* night outside */}
       <div style={{position: 'absolute', inset: 0, background: 'linear-gradient(180deg, #0A0F3D 0%, #1E2A6B 100%)'}} />
-      {/* window mullions: seen THROUGH panes */}
-      <div style={{position: 'absolute', left: 530, top: 200, width: 18, height: 900, background: C.ink}} />
-      <div style={{position: 'absolute', left: 140, top: 640, width: 800, height: 18, background: C.ink}} />
-      <div style={{position: 'absolute', left: 548, top: 200, width: 4, height: 900, background: 'rgba(143,227,255,0.4)'}} />
-      {/* TV flicker glow on back wall */}
-      <div style={{position: 'absolute', left: 60, top: 120, width: 300, height: 200, background: 'rgba(143,227,255,0.28)', filter: 'blur(30px)'}} />
-      <div style={{position: 'absolute', left: 90, top: 150, width: 220, height: 130, background: C.ice, opacity: 0.85, border: `5px solid ${C.ink}`, borderRadius: 12, overflow: 'hidden'}}>
-        {[0, 1, 2].map((i) => (
-          <div key={i} style={{position: 'absolute', left: 0, top: 20 + i * 40, width: 220, height: 8, background: 'rgba(10,15,61,0.35)'}} />
+      {/* window mullions: seen THROUGH panes (kept off the figure's head) */}
+      <div style={{position: 'absolute', left: 470, top: 0, width: 18, height: 900, background: C.ink}} />
+      <div style={{position: 'absolute', left: 0, top: 340, width: 800, height: 18, background: C.ink}} />
+      <div style={{position: 'absolute', left: 488, top: 0, width: 4, height: 900, background: 'rgba(143,227,255,0.4)'}} />
+      {/* TV flicker wash on wall (bigger) + set */}
+      <div style={{position: 'absolute', left: 40, top: 60, width: 380, height: 270, background: 'rgba(143,227,255,0.30)', filter: 'blur(40px)'}} />
+      <div style={{position: 'absolute', left: 60, top: 90, width: 320, height: 200, background: C.ice, opacity: 0.85, border: `5px solid ${C.ink}`, borderRadius: 12, overflow: 'hidden'}}>
+        {[0, 1, 2, 3].map((i) => (
+          <div key={i} style={{position: 'absolute', left: 0, top: 24 + i * 46, width: 320, height: 9, background: 'rgba(10,15,61,0.35)'}} />
         ))}
       </div>
-      {/* sink + back-turned silhouette (quay lưng, no face) */}
-      <div style={{position: 'absolute', left: 420, bottom: 0, width: 380, height: 420}}>
-        <div style={{position: 'absolute', bottom: 0, left: 40, width: 300, height: 180, background: '#2A3170', border: `5px solid ${C.ink}`, borderRadius: '20px 20px 0 0'}} />
-        <div style={{position: 'absolute', bottom: 170, left: 130, width: 130, height: 170, background: '#0A0F3D', border: `5px solid ${C.ink}`, borderRadius: 40}} />
-        <div style={{position: 'absolute', bottom: 320, left: 155, width: 90, height: 90, background: '#0A0F3D', border: `5px solid ${C.ink}`, borderRadius: '50%'}} />
-        {/* arms to sink */}
-        <div style={{position: 'absolute', bottom: 150, left: 90, width: 60, height: 130, background: '#0A0F3D', border: `5px solid ${C.ink}`, borderRadius: 24, transform: 'rotate(18deg)'}} />
-        <div style={{position: 'absolute', bottom: 150, right: 90 - 40, width: 60, height: 130, background: '#0A0F3D', border: `5px solid ${C.ink}`, borderRadius: 24, transform: 'rotate(-18deg)'}} />
+      {/* counter line across (basin + figure stand on it) */}
+      <div style={{position: 'absolute', left: 0, top: 640, width: 800, height: 30, background: '#2A3170', borderTop: `5px solid ${C.ink}`, borderBottom: `5px solid ${C.ink}`}} />
+      {/* basin on counter, left-center */}
+      <div style={{position: 'absolute', left: 180, top: 520, width: 260, height: 120, background: '#232A66', border: `5px solid ${C.ink}`, borderRadius: '16px 16px 8px 8px'}} />
+      {/* faucet + stream LEFT of figure, into basin */}
+      <div style={{position: 'absolute', left: 130, top: 420, width: 26, height: 110, background: '#3A4188', border: `4px solid ${C.ink}`, borderRadius: 10}} />
+      <div style={{position: 'absolute', left: 130, top: 400, width: 110, height: 22, background: '#3A4188', border: `4px solid ${C.ink}`, borderRadius: 10}} />
+      <div style={{position: 'absolute', left: 196, top: 422, width: 10, height: 100, background: C.ice, opacity: 0.8, borderRadius: 5}} />
+      <div style={{position: 'absolute', left: 214, top: 422, width: 6, height: 90, background: C.ice, opacity: 0.5, borderRadius: 3}} />
+      {/* STANDING back-figure at counter (faceless, E03): head high, torso down to counter */}
+      <div style={{position: 'absolute', left: 500, top: 180, width: 200, height: 460}}>
+        <div style={{position: 'absolute', bottom: 0, left: 35, width: 130, height: 330, background: '#0A0F3D', border: `5px solid ${C.ink}`, borderRadius: 46}} />
+        <div style={{position: 'absolute', bottom: 310, left: 55, width: 95, height: 95, background: '#0A0F3D', border: `5px solid ${C.ink}`, borderRadius: '50%'}} />
+        {/* arms down to counter */}
+        <div style={{position: 'absolute', bottom: 20, left: -5, width: 56, height: 220, background: '#0A0F3D', border: `5px solid ${C.ink}`, borderRadius: 24, transform: 'rotate(10deg)'}} />
+        <div style={{position: 'absolute', bottom: 20, right: -5, width: 56, height: 220, background: '#0A0F3D', border: `5px solid ${C.ink}`, borderRadius: 24, transform: 'rotate(-10deg)'}} />
       </div>
-      {/* steam curls */}
+      {/* steam curls above basin */}
       {[0, 1, 2].map((i) => (
         <div
           key={i}
           style={{
             position: 'absolute',
-            left: 480 + i * 70,
-            bottom: 420 + (i % 2) * 60,
+            left: 220 + i * 70,
+            top: 300 + (i % 2) * 50,
             width: 46,
-            height: 190,
+            height: 180,
             borderRadius: 23,
             background: 'rgba(243,246,255,0.20)',
             filter: 'blur(10px)',
@@ -272,19 +280,21 @@ export const S5bFaceReturn: React.FC = () => {
 export const S9aBrick: React.FC = () => (
   <Frame bg="linear-gradient(180deg, #0B0E33 0%, #141B6B 70%, #1E2A6B 100%)">
     {/* towers + the clicked-off window (faint remnant glow) */}
-    <div style={{position: 'absolute', left: 120, top: 330, width: 380, height: 480, background: '#10155A', border: `5px solid ${C.ink}`, borderRadius: 14}}>
+    <div style={{position: 'absolute', left: 120, top: 470, width: 380, height: 480, background: '#10155A', border: `5px solid ${C.ink}`, borderRadius: 14}}>
       <div style={{position: 'absolute', left: 110, top: 130, width: 160, height: 190, background: '#1E2560', border: `5px solid ${C.ink}`, borderRadius: 10}}>
         <div style={{position: 'absolute', inset: 0, background: 'radial-gradient(circle 60px at 50% 50%, rgba(143,227,255,0.25), rgba(143,227,255,0) 70%)'}} />
       </div>
     </div>
-    <div style={{position: 'absolute', right: 80, top: 400, width: 300, height: 420, background: '#10155A', border: `5px solid ${C.ink}`, borderRadius: 14}} />
+    <div style={{position: 'absolute', right: 80, top: 530, width: 300, height: 420, background: '#10155A', border: `5px solid ${C.ink}`, borderRadius: 14}} />
     {/* headline top */}
-    <div style={{position: 'absolute', top: 130, width: 1080, textAlign: 'center', fontFamily: F_HEAD, fontWeight: 800, fontSize: 76, lineHeight: 1.22, color: C.lampWhite, textShadow: '0 3px 26px rgba(6,8,30,0.6)'}}>
+    <div style={{position: 'absolute', top: 110, width: 1080, textAlign: 'center', fontFamily: F_HEAD, fontWeight: 800, fontSize: 68, lineHeight: 1.22, color: C.lampWhite, textShadow: '0 3px 26px rgba(6,8,30,0.6)'}}>
       <div>Người từng xem thường bạn</div>
       <div>
         <span style={{color: C.ice}}>có thể đã quên.</span>
       </div>
     </div>
+    {/* blazing sign above the dark towers (E07: sign rực rọi vào bóng tối) */}
+    <SignBoard x={320} y={300} w={440} fs={56} lit={1} />
     {/* foreground hand + brick (≥560px wide brick) */}
     <div style={{position: 'absolute', left: 120, top: 1010, width: 840, height: 420}}>
       <Deckle w={600} h={260} seed={91} />
@@ -302,6 +312,9 @@ export const S9aBrick: React.FC = () => (
           filter: 'drop-shadow(0 16px 22px rgba(6,8,30,0.5))',
         }}
       >
+        {/* rim-light from the blazing sign (E07): cold top/left edge */}
+        <div style={{position: 'absolute', left: 0, top: 0, width: '100%', height: 30, background: 'linear-gradient(180deg, rgba(255,92,179,0.55), rgba(255,92,179,0))'}} />
+        <div style={{position: 'absolute', left: 0, top: 0, width: 16, height: '100%', background: 'linear-gradient(90deg, rgba(243,246,255,0.4), rgba(243,246,255,0))'}} />
         <PaperGrain opacity={0.22} />
       </div>
       {/* gripping hand from right + shirt cuff (fingers wrap the brick edge) */}

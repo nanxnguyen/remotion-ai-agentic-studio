@@ -50,3 +50,42 @@ A14 split decision: NOT needed — s5b and s10 internal pauses (0.91/0.90 s) alr
 ## Cannot verify by machine (non-blocking)
 
 Tones/emotion/naturalness on all clips; whether s7b sounds rushed; whether a human ear hears "tiết/gặt/gặp/bác" as wrong words; bulb-hum reading as buzz vs static; SFX character (chalk/glass/brick) by ear.
+
+## Round 2 (verify R1 tickets; verdict: PASS)
+
+Reviewer: audio-reviewer round 2 (new clean context, machine only). Fresh ffprobe/ebur128/silencedetect math below. No audio files changed by fixes (offsets are mix-level) — voice clips re-measured identical to R1 (sum 51.754 s vs 51.75 reported ✓).
+
+### Ticket verification (acceptance checks)
+
+- AUD-T1 | CLOSED | total: voice 51.754 (fresh sum) + holds 7.45 = **59.20 s ≤ 59.5** ✓ (mix-plan line 3: trims s5a1 gap 0.3→0.15, s5b tail 0.4→0.25, s7b tail 0.5→0.35 = −0.45; s11 55.30+1.898+2.0 final = 59.198 ✓). Protections intact per mix-plan: s9 gap 0.7, 1.0 s hold after s9b, final 2.0 s untouched ✓.
+- AUD-T2 | CLOSED | BGM offset +3.0 s: dawn file-48 s → video **51.0 s**. s10 start 50.51 (mix-plan) → Δ+0.49 ✓; 51.26 (R1 baseline) → Δ−0.26 ✓. Within ±0.5 s on both baselines. BGM 62.7 s + 3.0 offset covers to 65.7 ≥ 59.2 ✓ no length issue.
+- AUD-T3 | CLOSED | s2a glass-clink cue 4.18 vs fresh voice 4.133 → **+0.047 s ≥ voice end**, inside 0.25 s gap ✓.
+- AUD-T4 | CLOSED | s3 cues 0.41/1.37/2.15/2.85 vs manifest word-timestamped noun-ends 0.36/1.32/2.10/2.80 → each **+0.05 s, in-gap** (next-word gaps 0.26–0.30 s cited) ✓ within ±0.15. All < clip 4.850 ✓. (Word timestamps taken from producer measurement 2026-10-16; spot-plausible, no independent whisper re-run — small-model timing ±1 frame disclosed.)
+- AUD-T5 | CLOSED | s10 brick-soft 2.46 = stated "đất" onset 2.46 ✓ ±0.00; onset sits just before pause 2.557–3.461 (fresh silencedetect: silence_end 3.461, dur 0.903) = end of "…xuống đất." sentence ✓ narratively plausible. Chalk 4.64 vs fresh clip end 4.594 → **+0.046 s, fully after s10 voice** ✓ (old 3.68-under-words gone).
+- AUD-T6/T7/T9 (Thấp, director/voice accepts) | untouched per manifest, still Thấp — non-blocking, no evidence to dispute.
+- AUD-T8 | CLOSED | laugh DROPPED in cue table (manifest line 32) ✓; no laugh file in dir listing ✓.
+
+### Regression check (what fixes touched)
+
+- Trimmed holds: only unprotected s5a1/s5b/s7b trims; s9/final protections intact — no regression.
+- BGM offset side-effect: video 0–3.0 s has bulb-hum bed only, no BGM under hook; BGM fade-in 3.0→4.2 crosses s1→s2a boundary (s2a starts 3.51) at low bed level — disclosed tradeoff in mix-plan with written fallback (offset 0 + accept early dawn). Not a defect; director's choice recorded.
+- Trimmed SFX tails bleed into next-shot heads at −22…−26 dB, all disclosed: s2a glass ~0.07 s into s2b head (−22), s7b chalk ~0.07 s into s8 head (−26), s10 chalk ~0.22 s into s11 head (−26). All ≥21 dB under voice — inaudible, no voice-word masking. Accepted as negligible.
+- Loudness spot-check: s10 −18.8 LUFS integrated, TPK −4.4, within R1 band (−17.7…−19.2) — consistency intact, no clipping.
+
+### NEW tickets
+
+- AUD-N1 (NEW) | Thấp | s10 chalk 0.37 s trim ends ~0.22 s into s11 head, overlapping s11 voice onset ("Viên") at −26 dB | already only voice-free placement available (clip ends 4.594, shot ends 4.79); −26 dB is ~inaudible under voice | owner audio-agent | acceptance: keep as-is (negligible) or shorten trim to 0.2 s — director's call, non-blocking. (Raised for completeness; does not violate T5 acceptance intent, which was chalk clear of *s10* words.)
+
+### Scores (round 2)
+
+| # | item | score | evidence |
+|---|---|---|---|
+| 1 | completeness/duration | 10 | 16/16 ✓; 59.20 ≤ 59.5, protections intact |
+| 2 | ASR/text fidelity | 7 | unchanged; mergers accepted-noise, watch-words correct |
+| 3 | silence/gaps | 9 | s10 pause re-verified 2.557–3.461; no new dead air |
+| 4 | loudness/consistency | 9 | s10 −18.8 LUFS in band, TPK −4.4, no clip |
+| 5 | mix feasibility | 9 | dawn 51.0 ±0.5 ✓ both baselines; all cues anchored; tradeoffs disclosed |
+| 6 | artifacts | 9 | no changes to audio files; R1 findings stand |
+| 7 | licences | 10 | unchanged, verified R1 |
+
+**Overall 9. Verdict: PASS** (overall ≥ 9, no open Cao/Trung; one NEW Thấp non-blocking). Report: `docs/xay-doi-minh-hay-chung-minh/audio-review.md`.

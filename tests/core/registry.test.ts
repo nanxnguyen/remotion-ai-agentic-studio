@@ -2,7 +2,7 @@ import {describe, expect, it} from 'vitest';
 import {videoRegistry} from '../../src/videos/registry';
 
 describe('videoRegistry', () => {
-  it('preserves the seven published compositions and their metadata', () => {
+  it('preserves the eight published compositions and their metadata', () => {
     expect(
       videoRegistry.map(({id, durationInFrames, fps, width, height}) => ({
         id,
@@ -19,6 +19,7 @@ describe('videoRegistry', () => {
       {id: 'CuocGoiNhoReel', durationInFrames: 1419, fps: 30, width: 1080, height: 1920},
       {id: 'UnderstandAnythingReel', durationInFrames: 1290, fps: 30, width: 1080, height: 1920},
       {id: 'ThuongHaySoReel', durationInFrames: 1769, fps: 30, width: 1080, height: 1920},
+      {id: 'XayDoiMinhReel', durationInFrames: 1776, fps: 30, width: 1080, height: 1920},
     ]);
   });
 

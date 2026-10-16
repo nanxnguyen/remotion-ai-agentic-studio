@@ -17,6 +17,8 @@ Understand Anything (black/gold/node-diagram), gaplai/metkhong/camon/cuoc-goi/th
 | dawn | `#DDEBFF` → `#F2FBF6` | s10–s11 sky |
 | ink | `#0A0F3D` | outlines (4–6px), caption pill 85% |
 | shirt / pants / hat | `#E9EEFF` / `#1A2060` / `#FFA3D1` | character (hat pale pink = proof family, off wall sen) |
+| wood (tool) | `#8A6B46` | ladder / brace timber — tool, never accent |
+| dawn sun | `#FFC46B` | first morning sun + its wash, s10–s11 only |
 | label grey | `#8B93C9` | "minh hoạ" tag s4 |
 
 ## 2. Fonts (OFL, embedded in proto as data-URI; final build → public/fonts + staticFile per camon/kit.tsx)
@@ -35,7 +37,8 @@ Understand Anything (black/gold/node-diagram), gaplai/metkhong/camon/cuoc-goi/th
 - Headline (replaces caption): Bricolage 800, 84–88px, center, top band; accents ≤2 per key
   (sen = proof side, jade = self side, ice = s9a only, else bold white).
 - Caption: `bottom: 224`, ≤2 lines, Archivo SemiBold 58px on `#0A0F3D` 85% pill (radius 28).
-  Nothing inside bottom 210px. Chip s5b: Archivo 30px top corner, 0.6–4.8s of shot.
+  Nothing inside bottom 210px. Chip s5b: Archivo **32px** (Q11 floor; content-pack.md still says 30px —
+  JOIN FLAG: content-agent sync 30→32, text unchanged) top corner, 0.6–4.8s of shot.
 - Component: `proto/Caption.tsx` (`CapSeg[]`), `proto/Headline.tsx` (press-in grammar).
 
 ## 4. Energy curve (story arc, not promo arc — conscious deviation from promo-energy-arc noted)
@@ -65,11 +68,11 @@ where published — 6/14 published, rest covered by card md + mp4 sample path)
 | s5a2 | climb | crane-rise-reveal | crane-rise-reveal | demos/opening/crane-rise-reveal/CraneRiseReveal.tsx | motion-blur (fast rise only) | tilt-up along wall as character climbs ladder | motion-blur fast segment only (slow top would smear text); opening-reveal ×1 (with overhead-B noted, different duties) | ladder creaks, spotlight buzz |
 | s5b | answer | graze-face-tour | graze-face-tour | demos/camera/graze-face-tour/GrazeFaceTour.tsx | — | glide across alley into ice window; steam/TV flicker | floating element needs shadow + ~1.3× lift light or float is unreadable | running water, distant TV laugh, no look-back |
 | s6 | TURN | tension-camera-moves | bullet-time-freeze-orbit (A) | demos/camera/tension-camera-moves/BulletTimeFreezeOrbit.tsx | — | freeze wall beat at cut, orbit 90° THROUGH paper layers (easeInOutCubic 1.2s per script) to thin edge | dual clock: content frozen visibly, camera on real f; smooth stop/start (8f ramps). CONSCIOUS deviation: card says >70° = paper-thin failure; here edge-on thinness IS the reveal (wall = one board thick) | wind through gap on reveal, 3× soft cuts on "không" |
-| s7a/s7b | H1 contrast | before-after-slider-scrub | before-after-slider-scrub | demos/data/before-after-slider-scrub/BeforeAfterSliderScrub.tsx | — | split AT board edge; scrub locked center (no slide): left 100% lit / right 10% | both halves same layout + same camera (else reads as two pages); chalk room blinks 0.5s then off | tape flutter in wind, half-mute world right |
-| s8 | recognition | speed-ramp-freeze | freeze-annotate | demos/rhythm/speed-ramp-freeze/FreezeAnnotateReal.tsx | — | freeze-frames: alarm 05:00, tied shoes, dark road, desk lamp (≤2 freezes) | SFX pinned to OUTPUT frames; marker-scribble SFX for annotation | alarm ring, soft hand-on-brick rub |
-| s9a/s9b | H2 climax | aurora-bloom-bg-flip | aurora-bloom-bg-flip | demos/effects/aurora-bloom-bg-flip/AuroraBloomBgFlip.tsx | — | NO aurora colors: cobalt base, ice window is the "blob"; flip = window clicks off, world sinks (0.36s, inOutQuad) | flip 0.57→0.64 (~0.36s) or it becomes a dissolve, not a beat; white-melt layer must zero in dark; bg via JS mix (no CSS transition, seek-safe) | switch "tách", bulb hum only, 0.7 gap + 1.0 silence |
+| s7a/s7b | H1 contrast | before-after-slider-scrub | before-after-slider-scrub | demos/data/before-after-slider-scrub/BeforeAfterSliderScrub.tsx | — | split AT board edge; scrub locked center (no slide): left 100% lit / right 10%; s7b chalk blink holds FULL ≥0.5s + tail ≥0.35s uncut (E04), jade "cho mình ở" lingers through tail | both halves same layout + same camera (else reads as two pages); chalk room blinks 0.5s then off | tape flutter in wind, half-mute world right |
+| s8 | recognition | speed-ramp-freeze | freeze-annotate | demos/rhythm/speed-ramp-freeze/FreezeAnnotateReal.tsx | — | E01 STAGING (4.58s, script wording untouched): TWO inserts only — 05:00 alarm + desk lamp, staged 0–2.5s; 2.5–4.58s = rub (≥0.5s ON "Nó cũng có công") + pick 3.70–4.10 + stand; loose brick visible frame 0 at ladder foot (A18); caption chunk 2 timed to insert boundary | SFX pinned to OUTPUT frames; marker-scribble SFX for annotation; pick readable in last 0.4s | alarm ring, soft hand-on-brick rub |
+| s9a/s9b | H2 climax | aurora-bloom-bg-flip | aurora-bloom-bg-flip | demos/effects/aurora-bloom-bg-flip/AuroraBloomBgFlip.tsx | — | NO aurora colors: cobalt base, ice window is the "blob"; flip = window clicks off, world sinks (0.36s, inOutQuad); E07: foreground hand/brick ≥~40px in wide WITH rim-light (cold top/left edge from sign); sign stays blazing into the dark | flip 0.57→0.64 (~0.36s) or it becomes a dissolve, not a beat; white-melt layer must zero in dark; bg via JS mix (no CSS transition, seek-safe) | switch "tách", bulb hum only, 0.7 gap + 1.0 silence |
 | s10 | H3 release | draw-svg-trace | draw-svg-trace | demos/ui-entrance/draw-svg-trace/DrawSvgTrace.tsx | — | jade chalk draws room on ground (pathLength=1, dashoffset 1→0, 40f inOut cubic); pen nib visible | nib must lead the line (else it reads as growing border); rx matches subject; content never appears before line closes | soft "cộp" ON "đất" (±0.15f), first distant bird |
-| s11 | hold + ? | paper-title-card | paper-title-card | demos/typography/paper-title-card/PaperTitleCard.tsx | — | press-in (delay 4+i·4, 9f, bezier(0.2,0.75,0.3,1), scale 1.28→1, blur 7→0) then TRUE hold to end + 2.0s silence (no fade-out, unlike demo) | one accent per line ("cho ai?"); underline =收束 signal (keep, jade) | wind on paper edges only |
+| s11 | hold + ? | paper-title-card | paper-title-card | demos/typography/paper-title-card/PaperTitleCard.tsx | — | press-in (delay 4+i·4, 9f, bezier(0.2,0.75,0.3,1), scale 1.28→1, blur 7→0) then TRUE hold to end + 2.0s silence (no fade-out, unlike demo); E12: headline JADE decided; chalk completes 0–1.5s, hat off 0–0.8s, final 2.0s pure silence (no SFX/BGM) | one accent per line ("cho ai?" jade); underline =收束 signal (keep, jade) | wind on paper edges only (staging; silent in mix) |
 
 Whole-frame impacts (R4): crash-zoom s2b + aurora flip s9 = 2/3. Glint/sweep: once in s1 only (Q4).
 Hero technique used once: brick-deal ensemble (s3); flip/orbit reveal (s6) is camera, not object — no P4 clash.
@@ -81,19 +84,31 @@ Hero technique used once: brick-deal ensemble (s3); flip/orbit reveal (s6) is ca
 - s8: **loose brick pre-placed lying by the ladder foot from the FIRST frame of s8** (A18); hand leaves foundation brick → picks loose brick in last 0.4s → stands. Brick continuity: same brick in s9a/s9b/s10.
 - s3: wall top edge STRAIGHT, running bond, no step-terrace (A13); character moves by ladder.
 - s5b chip: 0.6–4.8s of shot only, fades before cut, never in s6. s4 "minh hoạ" tag on phone, outside caption zone.
+- s5b interior (E03): STANDING back-figure at counter (head high, torso to counter, faceless),
+  faucet + ice stream LEFT into basin on the counter line, TV flicker wash upper-left, steam above
+  basin, seen through pane mullions (kept off the head); return face-cut (helmet on) unchanged.
 - s10 thud anchored to measured timestamp of "đất" (±0.15f), softer than every earlier "cộp".
 
-## 7. Proto (this phase)
+## 7. Proto (this phase; round 2 updates included)
 
-- `src/xay-doi-minh-hay-chung-minh/proto/`: tokens.ts, fonts.ts (generated data-URI OFL subsets),
+- `src/xay-doi-minh-hay-chung-minh/proto/`: tokens.ts (+wood/sun), fonts.ts (generated data-URI OFL subsets),
   Headline.tsx (= PaperTitleCard grammar re-skinned), Sweep.tsx (= SlideSpotlightPan grammar re-skinned),
-  Caption.tsx, People.tsx + Wall.tsx (original paper-cut art), ProtoHook.tsx (s1, 114f),
-  ProtoTurn.tsx (s7a), ProtoEnd.tsx (s11), BoardFrame.tsx (11 low-fi), entryComp.tsx + index.ts
-  (proto-only entry; Root untouched).
-- Renders: style-hook f40, cover f0, style-turn f55, style-end f60, board 11× tiled 4×3,
-  motion strip = XDM-Hook f0–59 rendered → fps=12 tile 6×4.
-- Checks run: `npx tsc --noEmit` clean; all PNGs Read; fixed: frown→smile mouths, floating brick→in-hand,
-  sign clipped→in-frame, ground slab→gradient fade, board s11 white-on-dawn→ink, s8 person/clock overlap.
+  Caption.tsx, People.tsx + Wall.tsx (original paper-cut art), Paper.tsx (feTurbulence fiber + deckle,
+  riso-print-hits grammar), Details.tsx (S2bFace / S5bInterior±chip / S5bFaceReturn / S9aBrick),
+  ProtoHook.tsx (s1, 114f), ProtoTurn.tsx (s7a, zero jade), ProtoEnd.tsx (s11),
+  BoardFrame.tsx (**16 keys**, one tile each), entryComp.tsx + index.ts (proto-only entry; Root untouched).
+- Renders: style-hook f24 (drop beat), cover f0, style-turn f55, style-end f60,
+  board 16× tiled 4×4, motion strip = XDM-Hook f0–59 → fps=12 tile 6×4,
+  drop-detail = f10–40 (30f) tile 6×5 (overshoot+squash+dust visible),
+  details: s2b-face, s5b-interior, s5b-chip (32px), s5b-face, s9a-brick.
+- Checks run: `npx tsc --noEmit` clean; all PNGs Read + aesthetic checklist.
+- Round-2 craft (user direction: truongthanh minimalism WITHOUT its black/white/orange —
+  one subject/frame, big negative space, bigger expressive faces, 1 accent/shot, readable-with-sound-off,
+  silence holds; palette/depth stay ours): jointed limbs (elbow/knee discs), short hair when bareheaded
+  (never bald; helmet stays on from s3 incl. s5b return-cut), redrawn chair (backrest+seat+legs),
+  window mullions + ice rims, faucet + water stream s5b, sweep narrowed to upper-wall band (sign untouched),
+  dropY staging amplified for pixel-read (~30px dip, 0.12 squash, 9×16px dust/20f) — final scene-agents
+  scale to wall size, grammar (y1>1 overshoot + press) unchanged.
 
 ## 8. Motion recipe (for scene-agents)
 
@@ -124,15 +139,34 @@ import {XDM_TOTAL} from './xay-doi-minh-hay-chung-minh/timeline';
 <Composition id="XayDoiMinhReel" component={XayDoiMinhReel} durationInFrames={XDM_TOTAL} fps={30} width={1080} height={1920} />
 ```
 
-## 12. Known weaknesses
+## 12. Known weaknesses (updated round 2)
 
-1. Character is flat vector paper-cut, not textured paper (no fiber/torn edge) — proto has
-   drop-shadows + grain only. Scene build should add feTurbulence paper texture + 1–2px deckle
-   misregistration (riso-print-hits grammar available) or D may call it "flat SVG".
-2. letterspace-materialize was rejected for s11 (Vietnamese skeleton paths don't exist in demo
-   Latin set); paper-title-card press-in is safer but less ceremonial.
-3. s2b crash-zoom endpoint needs hi-res face art (Q2) — flagged, not built in proto.
-4. 8/14 card posters unpublished in gallery — motion judged from card md + mp4 samples only.
-5. fonts.ts is 386KB base64 (6 subsets) — proto-only; final MUST move to public/fonts.
-6. Sweep whitens the sign mid-pass (motion strip rows 2–3) — transient and intentional, but if D
-   dislikes, narrow to wall-only band (exclude sign y-range).
+1. ~~Flat vector paper~~ → FIXED (D06): feTurbulence fiber overlay (scene + per-brick) + 2px deckle
+   misregistration plates + joint discs; visible at 200% and in drop-detail strip.
+2. letterspace-materialize rejected for s11 (Vietnamese skeleton paths don't exist); paper-title-card
+   press-in + true hold stands.
+3. s2b crash-zoom endpoint hi-res face: BUILT (detail-s2b-face, ~520px face, awkward/eyes-down) — D01.
+4. ~~8/14 posters unpublished~~ — unchanged (judged via card md + mp4); proto now proves s1 + s7a + s11
+   staging AND s2b/s5b/s9a details; s3 deal / s6 orbit / s9 flip / s10 chalk-draw motion still unproven
+   until scene build (carried risk, was already in review §Cannot-verify).
+5. fonts.ts 386KB base64 proto-only; final MUST move to public/fonts.
+6. ~~Sweep whitens sign~~ → FIXED (D11): sweep narrowed to upper-wall band y≈930–1070 (sign at 1130+
+   untouched all 24 strip tiles). No deviation to log.
+7. Character acting at distance stays simple by design (minimalism direction); expressive close-ups
+   live in s2b/s5b detail stills + crash-zoom/face-tour cards at build.
+
+## 13. Join flags (for video-director @ Phase 4)
+
+- J1 (D07): chip rendered + spec'd at Archivo **32px**; content-pack.md says 30px. Ask content-agent
+  to sync 30→32 (text unchanged, still ≤28 chars/line). Q11 floor is 32px — 30px would fail QA.
+- J2 (D14 → E12 DECIDED): s11 "cho ai?" is **jade** (director decision, self-side system + dawn
+  pairing). Content-agent: confirm only, no wording change. Proto + board already render jade.
+- J3: dropY staging magnitudes are proto-exaggerated for pixel-read (~30px dip on a 210px fall,
+  0.12 squash, 9×16px dust); scene-agents: keep grammar (bezier(0.3,0,0.25,1.15) + 2f press +
+  lagged dust), scale dip/squash/dust to final brick size (~8–10% of brick height).
+- J4 (E13 build-time checks): multi-chunk caption flips fire on MEASURED word onsets (not estimates);
+  verify 210px clear / captions bottom:224 on final pixels; fastest rotation s8 (3 chunks / 4.58s)
+  lands chunk 2 on the insert boundary per §5.
+- J5 (E14 s4 density): viewer-list UI must read at 480px; "minh hoạ" tag top-right of phone,
+  ≥26px `#8B93C9`, clear of caption zone; caption never covers the list.
+- Root snippet: NO CHANGE from round 1 (§11 stands).

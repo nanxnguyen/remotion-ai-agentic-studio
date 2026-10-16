@@ -25,9 +25,7 @@ secrets*.json
 .worktrees/
 .codex-monitor-compare/
 /skills/
-/vietnamese-voice-samples/
 /design-monitor/uploads/
-/.claude/skills/
 .DS_Store
 .idea/
 .vscode/

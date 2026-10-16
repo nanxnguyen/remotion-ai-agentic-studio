@@ -1,0 +1,222 @@
+{
+  "workflow_version": 3,
+  "name": "chung-minh-de-lam-gi",
+  "comp": "ChungMinhDeLamGiReel",
+  "voice": "thanh-long-nang-cao",
+  "profile": "story",
+  "paths": {
+    "audio": "chung-minh-de-lam-gi",
+    "out": "chung-minh-de-lam-gi-thanh-long-nang-cao",
+    "qa": "chung-minh-de-lam-gi"
+  },
+  "gates": [],
+  "stages": {
+    "research": {
+      "state": "done",
+      "at": "2026-10-17T01:57:42+07:00"
+    },
+    "brief": {
+      "state": "in_progress",
+      "at": "2026-10-17T01:57:42+07:00"
+    },
+    "script": {
+      "state": "in_progress",
+      "at": "2026-10-17T01:57:42+07:00"
+    }
+  },
+  "reviews": {
+    "A": [
+      {
+        "at": "2026-10-17T02:04:45+07:00",
+        "reviewer": "script-reviewer-merge",
+        "score": 8.8,
+        "verdict": "revise",
+        "report": "docs/chung-minh-de-lam-gi/script-review.md",
+        "note": ""
+      }
+    ]
+  },
+  "review_valid": {
+    "A": true,
+    "D": false,
+    "E": false,
+    "B": false,
+    "C": false,
+    "content": false,
+    "audio": false
+  },
+  "next": "",
+  "log": [
+    {
+      "t": "2026-10-17T01:56:18+07:00",
+      "stage": "-",
+      "who": "agent",
+      "msg": "status initialised"
+    },
+    {
+      "t": "2026-10-17T01:56:18+07:00",
+      "stage": "research",
+      "who": "intake-agent",
+      "msg": "intake-agent running: intake + dup check + brief header"
+    },
+    {
+      "t": "2026-10-17T01:56:42+07:00",
+      "stage": "agent",
+      "who": "intake-agent",
+      "msg": "intake-agent done"
+    },
+    {
+      "t": "2026-10-17T01:56:42+07:00",
+      "stage": "research",
+      "who": "agent",
+      "msg": "research -> in_progress"
+    },
+    {
+      "t": "2026-10-17T01:56:42+07:00",
+      "stage": "research",
+      "who": "research-agent",
+      "msg": "research-agent running: audience language + introspection sources + 5 hooks"
+    },
+    {
+      "t": "2026-10-17T01:57:42+07:00",
+      "stage": "agent",
+      "who": "research-agent",
+      "msg": "research-agent done"
+    },
+    {
+      "t": "2026-10-17T01:57:42+07:00",
+      "stage": "research",
+      "who": "agent",
+      "msg": "research -> done (evidence: 1 file(s): docs/chung-minh-de-lam-gi/research.md)"
+    },
+    {
+      "t": "2026-10-17T01:57:42+07:00",
+      "stage": "brief",
+      "who": "agent",
+      "msg": "brief -> in_progress"
+    },
+    {
+      "t": "2026-10-17T01:57:42+07:00",
+      "stage": "script",
+      "who": "agent",
+      "msg": "script -> in_progress"
+    },
+    {
+      "t": "2026-10-17T01:57:42+07:00",
+      "stage": "script",
+      "who": "script-agent",
+      "msg": "script-agent running: brief+script+voice.proposed 16 keys hook #1/#5"
+    },
+    {
+      "t": "2026-10-17T02:01:10+07:00",
+      "stage": "agent",
+      "who": "script-agent",
+      "msg": "script-agent done"
+    },
+    {
+      "t": "2026-10-17T02:01:10+07:00",
+      "stage": "script",
+      "who": "script-reviewer-a",
+      "msg": "script-reviewer-a running: gate A lens fidelity sources"
+    },
+    {
+      "t": "2026-10-17T02:01:10+07:00",
+      "stage": "script",
+      "who": "script-reviewer-b",
+      "msg": "script-reviewer-b running: gate A lens hook emotion"
+    },
+    {
+      "t": "2026-10-17T02:01:10+07:00",
+      "stage": "script",
+      "who": "script-reviewer-c",
+      "msg": "script-reviewer-c running: gate A lens spoken timing visual"
+    },
+    {
+      "t": "2026-10-17T02:04:45+07:00",
+      "stage": "A",
+      "who": "script-reviewer-merge",
+      "msg": "review 8.8/10 revise: script-review.md"
+    },
+    {
+      "t": "2026-10-17T02:04:45+07:00",
+      "stage": "agent",
+      "who": "script-reviewer-a",
+      "msg": "script-reviewer-a done"
+    },
+    {
+      "t": "2026-10-17T02:04:45+07:00",
+      "stage": "agent",
+      "who": "script-reviewer-b",
+      "msg": "script-reviewer-b done"
+    },
+    {
+      "t": "2026-10-17T02:04:45+07:00",
+      "stage": "agent",
+      "who": "script-reviewer-c",
+      "msg": "script-reviewer-c done"
+    },
+    {
+      "t": "2026-10-17T02:04:45+07:00",
+      "stage": "script",
+      "who": "script-agent",
+      "msg": "script-agent running: fix round1 A1-T6 + Thap"
+    },
+    {
+      "t": "2026-10-17T02:07:53+07:00",
+      "stage": "agent",
+      "who": "script-agent",
+      "msg": "script-agent done"
+    },
+    {
+      "t": "2026-10-17T02:07:53+07:00",
+      "stage": "script",
+      "who": "script-reviewer-r2",
+      "msg": "script-reviewer-r2 running: gate A round2 verify closures"
+    }
+  ],
+  "updated": "2026-10-17T02:07:53+07:00",
+  "agents": {
+    "intake-agent": {
+      "state": "done",
+      "at": "2026-10-17T01:56:42+07:00",
+      "note": "",
+      "stage": ""
+    },
+    "research-agent": {
+      "state": "done",
+      "at": "2026-10-17T01:57:42+07:00",
+      "note": "",
+      "stage": ""
+    },
+    "script-agent": {
+      "state": "done",
+      "at": "2026-10-17T02:07:53+07:00",
+      "note": "",
+      "stage": ""
+    },
+    "script-reviewer-a": {
+      "state": "done",
+      "at": "2026-10-17T02:04:45+07:00",
+      "note": "",
+      "stage": ""
+    },
+    "script-reviewer-b": {
+      "state": "done",
+      "at": "2026-10-17T02:04:45+07:00",
+      "note": "",
+      "stage": ""
+    },
+    "script-reviewer-c": {
+      "state": "done",
+      "at": "2026-10-17T02:04:45+07:00",
+      "note": "",
+      "stage": ""
+    },
+    "script-reviewer-r2": {
+      "state": "running",
+      "at": "2026-10-17T02:07:53+07:00",
+      "note": "gate A round2 verify closures",
+      "stage": "script"
+    }
+  }
+}

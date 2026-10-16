@@ -55,6 +55,7 @@ const HeadLine: React.FC<{text: string; color?: string}> = ({text, color = C.lam
 
 const FaceBig: React.FC<{x: number; y: number; d?: number}> = ({x, y, d = 300}) => (
   <div style={{position: 'absolute', left: x, top: y}}>
+    <div style={{width: d, height: d * 0.16, background: C.ink, borderTopLeftRadius: d / 2, borderTopRightRadius: d / 2, marginBottom: -d * 0.1}} />
     <div style={{width: d, height: d, background: '#F6CFA8', border: `7px solid ${C.ink}`, borderRadius: '50%', position: 'relative'}}>
       <div style={{position: 'absolute', left: d * 0.24, top: d * 0.42, display: 'flex', gap: d * 0.18}}>
         {[0, 1].map((i) => (
@@ -147,19 +148,27 @@ export const BoardFrame: React.FC<{k: string}> = ({k}) => {
             ))}
           </div>
           <Person x={270} y={900} h={280} hat face="calm" />
-          <div style={{position: 'absolute', left: 0, top: 300, width: 1080, height: 300, background: 'linear-gradient(180deg, rgba(243,246,255,0.22), rgba(243,246,255,0))'}} />
+          <div style={{position: 'absolute', left: 0, top: 300, width: 1080, height: 300, background: 'linear-gradient(180deg, rgba(243,246,255,0.14), rgba(243,246,255,0))'}} />
           <CapLine text="…leo lên viên gạch cao nhất để xem." />
         </>
       )}
       {k === 's5b' && (
         <>
           <Label id="s5b interior" card="graze-face-tour" />
-          <div style={{position: 'absolute', left: 240, top: 480, width: 600, height: 640, background: '#1A2060', border: `5px solid ${C.ink}`, borderRadius: 24}}>
-            <div style={{position: 'absolute', left: 180, top: 120, width: 240, height: 200, background: C.ice, opacity: 0.85, borderRadius: 12}} />
-            <div style={{position: 'absolute', left: 230, bottom: 60, width: 140, height: 220, background: '#0A0F3D', borderRadius: 40}} />
-            <div style={{position: 'absolute', left: 260, bottom: 260, width: 80, height: 80, background: '#0A0F3D', borderRadius: '50%'}} />
+          <div style={{position: 'absolute', left: 240, top: 480, width: 600, height: 640, background: '#1A2060', border: `5px solid ${C.ink}`, borderRadius: 24, overflow: 'hidden'}}>
+            <div style={{position: 'absolute', left: 40, top: 60, width: 220, height: 150, background: C.ice, opacity: 0.85, borderRadius: 12}} />
+            {/* counter + basin + faucet left */}
+            <div style={{position: 'absolute', left: 0, top: 430, width: 600, height: 24, background: '#2A3170', borderTop: `4px solid ${C.ink}`, borderBottom: `4px solid ${C.ink}`}} />
+            <div style={{position: 'absolute', left: 90, top: 340, width: 170, height: 90, background: '#232A66', border: `4px solid ${C.ink}`, borderRadius: 12}} />
+            <div style={{position: 'absolute', left: 60, top: 250, width: 18, height: 100, background: '#3A4188', border: `4px solid ${C.ink}`, borderRadius: 8}} />
+            <div style={{position: 'absolute', left: 110, top: 300, width: 8, height: 70, background: C.ice, borderRadius: 4}} />
+            {/* STANDING back-figure at counter */}
+            <div style={{position: 'absolute', left: 330, top: 130, width: 130, height: 310}}>
+              <div style={{position: 'absolute', bottom: 0, left: 22, width: 86, height: 220, background: '#0A0F3D', border: `4px solid ${C.ink}`, borderRadius: 30}} />
+              <div style={{position: 'absolute', bottom: 205, left: 35, width: 62, height: 62, background: '#0A0F3D', border: `4px solid ${C.ink}`, borderRadius: '50%'}} />
+            </div>
             {[0, 1].map((i) => (
-              <div key={i} style={{position: 'absolute', left: 250 + i * 70, bottom: 330, width: 40, height: 150, borderRadius: 20, background: 'rgba(243,246,255,0.25)', filter: 'blur(8px)'}} />
+              <div key={i} style={{position: 'absolute', left: 130 + i * 60, top: 180, width: 34, height: 120, borderRadius: 17, background: 'rgba(243,246,255,0.25)', filter: 'blur(7px)'}} />
             ))}
           </div>
           <div style={{position: 'absolute', top: 120, right: 48, maxWidth: 600, background: 'rgba(10,15,61,0.88)', borderRadius: 18, padding: '18px 26px', fontFamily: F_BODY, fontSize: 32, lineHeight: 1.4, color: C.lampWhite}}>Hiệu ứng spotlight (Gilovich…)</div>
@@ -206,6 +215,13 @@ export const BoardFrame: React.FC<{k: string}> = ({k}) => {
           </div>
           <Brick x={90} y={1330} w={190} h={90} />
           <div style={{position: 'absolute', left: 560, top: 1080, width: 300, height: 200, background: '#0B0E33', border: `5px solid ${C.ink}`, borderRadius: 24, textAlign: 'center', fontFamily: F_HEAD, fontWeight: 800, fontSize: 72, color: C.lampWhite, lineHeight: '200px'}}>05:00</div>
+          {/* desk-lamp insert (E01: 2nd insert, staged with 05:00 in 0–2.5s) */}
+          <div style={{position: 'absolute', left: 880, top: 1120, width: 140, height: 180}}>
+            <div style={{position: 'absolute', left: 60, bottom: 0, width: 20, height: 110, background: C.wood, border: `4px solid ${C.ink}`}} />
+            <div style={{position: 'absolute', left: 20, bottom: 0, width: 100, height: 16, background: C.wood, border: `4px solid ${C.ink}`, borderRadius: 8}} />
+            <div style={{position: 'absolute', left: 30, top: 0, width: 0, height: 0, borderLeft: '40px solid transparent', borderRight: '40px solid transparent', borderBottom: `70px solid ${C.ink}`}} />
+            <div style={{position: 'absolute', left: 55, top: 44, width: 30, height: 30, borderRadius: '50%', background: '#FFF6D8', boxShadow: '0 0 24px 10px rgba(255,240,200,0.7)'}} />
+          </div>
           <Person x={330} y={1420} h={260} hat face="calm" />
           <CapLine text="Nó cũng có công." />
         </>
@@ -215,6 +231,10 @@ export const BoardFrame: React.FC<{k: string}> = ({k}) => {
           <Label id="s9a blackout" card="aurora-bloom-bg-flip" />
           <div style={{position: 'absolute', left: 240, top: 420, width: 600, height: 500, background: '#10155A', border: `5px solid ${C.ink}`, borderRadius: 14}}>
             <div style={{position: 'absolute', left: 200, top: 120, width: 200, height: 220, background: '#232A7A', borderRadius: 10, border: `4px solid ${C.ink}`}} />
+          </div>
+          {/* blazing sign mini (E07) */}
+          <div style={{position: 'absolute', left: 340, top: 930, width: 400, padding: '8px 4px', background: '#2A0A2E', border: `4px solid ${C.ink}`, borderRadius: 12, textAlign: 'center', boxShadow: '0 0 30px rgba(255,46,154,0.6)'}}>
+            <div style={{fontFamily: F_HEAD, fontWeight: 800, fontSize: 40, color: C.senLight, textShadow: '0 0 12px rgba(255,46,154,0.9)'}}>THẤY CHƯA?</div>
           </div>
           {/* foreground hand + brick (A15): the loose brick from s8, in hand */}
           <div style={{position: 'absolute', left: 300, top: 1050, width: 480, height: 220, background: `linear-gradient(180deg, ${C.senLight}, ${C.senDark})`, border: `6px solid ${C.ink}`, borderRadius: 14}} />
