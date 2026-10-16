@@ -54,4 +54,8 @@ public/audio/voice*.mp3
 # Voice references and audition output are personal/local media
 docs/**/*.mp3
 
+<<<<<<< HEAD
 /vietnamese-voice-samples/
+=======
+/vietnamese-voice-samples/
+>>>>>>> 9aa416b (chore: untrack Vietnamese voice preview catalog and ignore local files)

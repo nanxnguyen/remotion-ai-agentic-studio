@@ -1,0 +1,504 @@
+{
+  "version": 2,
+  "canonicalText": "docs/ban-khong-yeu-duoi-chi-da-manh-qua-lau/voice.proposed.json",
+  "engine": {
+    "name": "tbd — voice route unresolved; no preview catalogue on this machine",
+    "candidates": ["vietnamese-voice-samples/previews/ (absent on this machine)", "vi-VN-NamMinhNeural (temporary route 3)"],
+    "runtime": "not yet selected",
+    "externalUpload": false,
+    "supportedControls": ["referenceAudio", "seed", "denoise", "silencePadding"],
+    "fixedControls": {
+      "denoise": false
+    },
+    "unsupportedControls": ["rate", "pitch", "volume", "style", "directEmotion", "atempo"],
+    "postProcessingRestrictions": ["no atempo", "no pitch shifting for expression"],
+    "note": "Engine and supported controls are confirmed only after the voice-route benchmark. Any control not in supportedControls is an explicit limitation, never silently ignored."
+  },
+  "benchmark": {
+    "status": "pending",
+    "selectionMethod": "benchmark the candidate previews on the same 15-20 s passage of this script (hook, turn, re-hook, soft close), then select one consistent voice for all fourteen shots s1-s10 and a1-a4",
+    "planningSyllables": 142,
+    "planningRateSyllablesPerSecond": 3.9,
+    "planningSpeechSeconds": 36.41,
+    "planningSilenceSeconds": 13.05,
+    "planningTotalSeconds": 49.46,
+    "totalSecondsAt4_2SyllablesPerSecond": 46.86,
+    "totalSecondsAt3_7SyllablesPerSecond": 51.43,
+    "selectedReference": null,
+    "resolvedReferencePath": null,
+    "whyPending": "vietnamese-voice-samples/previews/ does not exist on this machine (the parent folder holds only .DS_Store). `ls vietnamese-voice-samples/previews/` and `python3 -m unittest scripts.test_voice_catalog` could not be executed: this runtime has no shell or process-execution tool. No slug is invented here.",
+    "machineChecks": ["canonical text", "CER/ASR", "duration", "silence", "loudness", "clipping", "cross-phrase consistency"],
+    "naturalnessEvidence": "not verified by listening"
+  },
+  "keyPlan": {
+    "order": ["s1", "s2", "a1", "s3", "a2", "s4", "s5", "a3", "s6", "s7", "s8", "s9", "a4", "s10"],
+    "ownerKeys": ["s1", "s2", "s3", "s4", "s5", "s6", "s7", "s8", "s9", "s10"],
+    "addedKeys": ["a1", "a2", "a3", "a4"],
+    "note": "s1-s10 are the owner's ten mandatory lines, verbatim and in the owner's original order. a1-a4 are the four [ADD] sensory connectors justified in script.md section 5; they are counted in the 142-syllable total. The trailing END title card is silence and has no key. scripts/gen-voice-clone.py walks voice.proposed.json in insertion order, so this order is the playback order."
+  },
+  "candidatePolicy": {
+    "initialCandidatesPerPhrase": 1,
+    "maximumCandidatesPerPhrase": 3,
+    "regenerateOnlyFailedPhraseOrKeyword": true,
+    "pinnedSeedMustPassCanonicalTextCheck": true
+  },
+  "pauseImplementation": "explicit post-synthesis silence during phrase assembly; never inferred from punctuation or ellipsis. The post-clip hold of each shot (minimumPostClipHoldSeconds) is a real gap between two clips in the timeline, not padding inside the clip, so every measured clip duration contains speech only.",
+  "experimentalCues": {
+    "enabled": false,
+    "values": [],
+    "note": "[cười], [thở dài], [hắng giọng] and similar non-spoken cues remain disabled unless a local benchmark proves the installed engine renders them as intended without leaking into narration or captions."
+  },
+  "shots": {
+    "s1": {
+      "reference": { "source": "pending voice-route benchmark" },
+      "referenceSelectionStatus": "pending",
+      "intent": "HOOK + frame-0 cover: name the viewer's role; the on-screen text must carry it with the sound off",
+      "emotion": "curious, warm, direct, slightly rueful recognition",
+      "accentWords": ["tìm đến bạn", "chuyện buồn"],
+      "tempoIntent": "hook: brisk on the opening phrase, settle through the middle, hard stop at the end",
+      "ending": "flat, level — a statement, not a question",
+      "minimumPostClipHoldSeconds": 0.35,
+      "postClipHoldPolicy": "timeline silence after clip, not punctuation",
+      "phrases": [
+        {
+          "text": "Mọi người thường tìm đến bạn",
+          "tempoIntent": "brisk",
+          "emphasis": ["tìm đến bạn"],
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.22,
+          "seed": null,
+          "controls": { "denoise": false }
+        },
+        {
+          "text": "mỗi khi có chuyện buồn.",
+          "tempoIntent": "settle, land",
+          "emphasis": ["chuyện buồn"],
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.0,
+          "seed": null,
+          "controls": { "denoise": false }
+        }
+      ]
+    },
+    "s2": {
+      "reference": { "source": "pending voice-route benchmark" },
+      "referenceSelectionStatus": "pending",
+      "intent": "First concrete proof of the hook: state the known fact about them, in three separate statements",
+      "emotion": "reassuring, matter-of-fact",
+      "accentWords": ["an ủi", "thấy ổn hơn"],
+      "tempoIntent": "conversational triad; each sentence lands separately; weight on the last phrase",
+      "ending": "full stop",
+      "minimumPostClipHoldSeconds": 0.25,
+      "postClipHoldPolicy": "timeline silence after clip",
+      "phrases": [
+        {
+          "text": "Bạn biết cách an ủi.",
+          "tempoIntent": "even",
+          "emphasis": ["an ủi"],
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.28,
+          "seed": null,
+          "controls": { "denoise": false }
+        },
+        {
+          "text": "Biết phải nói gì.",
+          "tempoIntent": "even, list still running",
+          "emphasis": [],
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.32,
+          "seed": null,
+          "controls": { "denoise": false }
+        },
+        {
+          "text": "Biết làm sao để người khác thấy ổn hơn.",
+          "tempoIntent": "slow, weighted landing",
+          "emphasis": ["thấy ổn hơn"],
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.0,
+          "seed": null,
+          "controls": { "denoise": false }
+        }
+      ]
+    },
+    "a1": {
+      "reference": { "source": "pending voice-route benchmark" },
+      "referenceSelectionStatus": "pending",
+      "intent": "[ADD] Show the effect the previous line only asserted, and plant the contrast the turn lands on",
+      "emotion": "observational, quiet",
+      "accentWords": ["nhẹ hẳn xuống", "đứng ngoài"],
+      "tempoIntent": "even; the second sentence slightly lower, no pathos",
+      "ending": "falling, leaves the floor open for the turn",
+      "minimumPostClipHoldSeconds": 0.7,
+      "postClipHoldPolicy": "the largest early beat — timeline silence after clip so the turn has air",
+      "phrases": [
+        {
+          "text": "Vai người khác nhẹ hẳn xuống.",
+          "tempoIntent": "observational",
+          "emphasis": ["nhẹ hẳn xuống"],
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.24,
+          "seed": null,
+          "controls": { "denoise": false }
+        },
+        {
+          "text": "Còn bạn đứng ngoài.",
+          "tempoIntent": "slightly lower, plain",
+          "emphasis": ["đứng ngoài"],
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.0,
+          "seed": null,
+          "controls": { "denoise": false }
+        }
+      ]
+    },
+    "s3": {
+      "reference": { "source": "pending voice-route benchmark" },
+      "referenceSelectionStatus": "pending",
+      "intent": "HIGHLIGHT 1 — the turn: alone with the phone",
+      "emotion": "quiet tension, held under control",
+      "accentWords": ["một tối", "rất lâu", "trước màn hình điện thoại"],
+      "tempoIntent": "the hinge: plain opening, slow through the middle so the duration is audible, flat ending",
+      "ending": "flat, no lift",
+      "minimumPostClipHoldSeconds": 0.45,
+      "postClipHoldPolicy": "timeline silence after clip",
+      "phrases": [
+        {
+          "text": "Nhưng có một tối,",
+          "tempoIntent": "plain, unhurried",
+          "emphasis": ["một tối"],
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.26,
+          "seed": null,
+          "controls": { "denoise": false }
+        },
+        {
+          "text": "chính bạn lại ngồi rất lâu trước màn hình điện thoại.",
+          "tempoIntent": "slow, deliberate, flat landing",
+          "emphasis": ["rất lâu", "trước màn hình điện thoại"],
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.0,
+          "seed": null,
+          "controls": { "denoise": false }
+        }
+      ]
+    },
+    "a2": {
+      "reference": { "source": "pending voice-route benchmark" },
+      "referenceSelectionStatus": "pending",
+      "intent": "[ADD] Put the room's sound into a story that otherwise has no audible environment",
+      "emotion": "quietest read so far, almost said to the room",
+      "accentWords": ["đều đều"],
+      "tempoIntent": "slowest, even, no rubato; the repetition is gentle, not theatrical",
+      "ending": "level, trailing slightly",
+      "minimumPostClipHoldSeconds": 1.2,
+      "postClipHoldPolicy": "withheld-message beat — timeline silence before the re-hook",
+      "phrases": [
+        {
+          "text": "Mưa ngoài cửa sổ,",
+          "tempoIntent": "slow, even",
+          "emphasis": [],
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.14,
+          "seed": null,
+          "controls": { "denoise": false }
+        },
+        {
+          "text": "đều đều.",
+          "tempoIntent": "gentle repetition, trailing",
+          "emphasis": ["đều đều"],
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.0,
+          "seed": null,
+          "controls": { "denoise": false }
+        }
+      ]
+    },
+    "s4": {
+      "reference": { "source": "pending voice-route benchmark" },
+      "referenceSelectionStatus": "pending",
+      "intent": "RE-HOOK — say the message she cannot send, in her own imagined voice",
+      "emotion": "hesitant, intimate, tender",
+      "accentWords": ["mệt quá", "nhắn"],
+      "tempoIntent": "slower than the previous shot; the quoted message softer than the narration",
+      "ending": "falling on the quoted words, no fade",
+      "minimumPostClipHoldSeconds": 0.35,
+      "postClipHoldPolicy": "timeline silence after clip — the draft is left hanging",
+      "phrases": [
+        {
+          "text": "Bạn muốn nhắn:",
+          "tempoIntent": "unhurried",
+          "emphasis": ["nhắn"],
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.24,
+          "seed": null,
+          "controls": { "denoise": false }
+        },
+        {
+          "text": "'Hôm nay mình mệt quá.'",
+          "tempoIntent": "soft, said once, trailing",
+          "emphasis": ["mệt quá"],
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.0,
+          "seed": null,
+          "controls": { "denoise": false }
+        }
+      ]
+    },
+    "s5": {
+      "reference": { "source": "pending voice-route benchmark" },
+      "referenceSelectionStatus": "pending",
+      "intent": "Give the verdict on her own small decision",
+      "emotion": "rueful, close to a shrug, never self-pity",
+      "accentWords": ["nghĩ một lúc", "lại thôi"],
+      "tempoIntent": "light first half, settling downward on the second",
+      "ending": "settles down, does not rise",
+      "minimumPostClipHoldSeconds": 0.45,
+      "postClipHoldPolicy": "timeline silence after clip",
+      "phrases": [
+        {
+          "text": "Rồi nghĩ một lúc,",
+          "tempoIntent": "light",
+          "emphasis": ["nghĩ một lúc"],
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.18,
+          "seed": null,
+          "controls": { "denoise": false }
+        },
+        {
+          "text": "bạn lại thôi.",
+          "tempoIntent": "settling down, gentle release",
+          "emphasis": ["lại thôi"],
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.0,
+          "seed": null,
+          "controls": { "denoise": false }
+        }
+      ]
+    },
+    "a3": {
+      "reference": { "source": "pending voice-route benchmark" },
+      "referenceSelectionStatus": "pending",
+      "intent": "[ADD] The re-hook's answer: report the deletion — the give-up has to be seen",
+      "emotion": "plain; the image carries the emotion, the voice does not",
+      "accentWords": ["bấm xoá", "từng chữ"],
+      "tempoIntent": "deliberate and slow, no rubato",
+      "ending": "hard stop",
+      "minimumPostClipHoldSeconds": 0.9,
+      "postClipHoldPolicy": "timeline silence after clip — the deletion is seen before anyone corrects the assumption",
+      "phrases": [
+        {
+          "text": "Ngón tay bấm xoá",
+          "tempoIntent": "deliberate",
+          "emphasis": ["bấm xoá"],
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.16,
+          "seed": null,
+          "controls": { "denoise": false }
+        },
+        {
+          "text": "từng chữ.",
+          "tempoIntent": "slow, weighted",
+          "emphasis": ["từng chữ"],
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.0,
+          "seed": null,
+          "controls": { "denoise": false }
+        }
+      ]
+    },
+    "s6": {
+      "reference": { "source": "pending voice-route benchmark" },
+      "referenceSelectionStatus": "pending",
+      "intent": "Correct an assumption the viewer is already making",
+      "emotion": "gentle, direct, looking at the viewer",
+      "accentWords": ["không có ai", "nhắn"],
+      "tempoIntent": "level, then a small lowering on the last phrase",
+      "ending": "falling, leaves the answer to s7",
+      "minimumPostClipHoldSeconds": 0.45,
+      "postClipHoldPolicy": "timeline silence after clip",
+      "phrases": [
+        {
+          "text": "Không phải vì không có ai",
+          "tempoIntent": "level, matter-of-fact",
+          "emphasis": [],
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.18,
+          "seed": null,
+          "controls": { "denoise": false }
+        },
+        {
+          "text": "để nhắn.",
+          "tempoIntent": "slight lowering",
+          "emphasis": ["không có ai"],
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.0,
+          "seed": null,
+          "controls": { "denoise": false }
+        }
+      ]
+    },
+    "s7": {
+      "reference": { "source": "pending voice-route benchmark" },
+      "referenceSelectionStatus": "pending",
+      "intent": "Say the true reason she did not send it — the truest line in the video",
+      "emotion": "the truest, quietest, least performed line here",
+      "accentWords": ["đã quen", "phải là người ổn"],
+      "tempoIntent": "slowest real line; the first phrase almost offhand, the second slow with the last two words dropping in volume",
+      "ending": "stops; the last two words drop in level but never fade to a whisper",
+      "minimumPostClipHoldSeconds": 0.55,
+      "postClipHoldPolicy": "timeline silence after clip — the recognition lands in it",
+      "phrases": [
+        {
+          "text": "Mà vì bạn đã quen",
+          "tempoIntent": "almost offhand, unstressed",
+          "emphasis": ["đã quen"],
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.24,
+          "seed": null,
+          "controls": { "denoise": false }
+        },
+        {
+          "text": "với việc mình phải là người ổn.",
+          "tempoIntent": "slow, quiet, weighted landing",
+          "emphasis": ["phải là người ổn"],
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.0,
+          "seed": null,
+          "controls": { "denoise": false }
+        }
+      ]
+    },
+    "s8": {
+      "reference": { "source": "pending voice-route benchmark" },
+      "referenceSelectionStatus": "pending",
+      "intent": "Ask whether anyone is still there — a breath-word, not a stage aside",
+      "emotion": "natural, conversational",
+      "accentWords": ["biết", "không…"],
+      "tempoIntent": "short, unhurried; the ellipsis is not performed",
+      "ending": "unresolved, falls and waits",
+      "minimumPostClipHoldSeconds": 1.6,
+      "postClipHoldPolicy": "the longest beat in the video — timeline silence after clip, never the punctuation",
+      "phrases": [
+        {
+          "text": "Bạn biết không…",
+          "tempoIntent": "conversational, unresolved",
+          "emphasis": ["không…"],
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.0,
+          "seed": null,
+          "controls": { "denoise": false }
+        }
+      ]
+    },
+    "s9": {
+      "reference": { "source": "pending voice-route benchmark" },
+      "referenceSelectionStatus": "pending",
+      "intent": "HIGHLIGHT 2 — deliver the umbrella metaphor honestly",
+      "emotion": "warm, not poeticising",
+      "accentWords": ["che ô", "cũng", "bị ướt"],
+      "tempoIntent": "conversational through the first phrase, then slow on the reversal so it is audible rather than announced",
+      "ending": "plain landing",
+      "minimumPostClipHoldSeconds": 0.9,
+      "postClipHoldPolicy": "umbrella landing hold — timeline silence after clip",
+      "phrases": [
+        {
+          "text": "Người thường xuyên che ô cho người khác",
+          "tempoIntent": "conversational",
+          "emphasis": ["che ô"],
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.26,
+          "seed": null,
+          "controls": { "denoise": false }
+        },
+        {
+          "text": "cũng có những ngày bị ướt.",
+          "tempoIntent": "slow, plain, no sadness",
+          "emphasis": ["cũng", "bị ướt"],
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.0,
+          "seed": null,
+          "controls": { "denoise": false }
+        }
+      ]
+    },
+    "a4": {
+      "reference": { "source": "pending voice-route benchmark" },
+      "referenceSelectionStatus": "pending",
+      "intent": "[ADD] Make the metaphor visible: the umbrella tilts and the rain lands on her",
+      "emotion": "quiet, almost clinical — stating a physical fact is the whole point",
+      "accentWords": ["nghiêng đi", "rơi lên vai bạn"],
+      "tempoIntent": "level on both sentences; the second quieter than the first",
+      "ending": "falling, hands the frame to the closing question",
+      "minimumPostClipHoldSeconds": 0.7,
+      "postClipHoldPolicy": "timeline silence after clip",
+      "phrases": [
+        {
+          "text": "Chiếc ô nghiêng đi.",
+          "tempoIntent": "level, plain",
+          "emphasis": ["nghiêng đi"],
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.22,
+          "seed": null,
+          "controls": { "denoise": false }
+        },
+        {
+          "text": "Mưa rơi lên vai bạn.",
+          "tempoIntent": "quieter, physical",
+          "emphasis": ["rơi lên vai bạn"],
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.0,
+          "seed": null,
+          "controls": { "denoise": false }
+        }
+      ]
+    },
+    "s10": {
+      "reference": { "source": "pending voice-route benchmark" },
+      "referenceSelectionStatus": "pending",
+      "intent": "HIGHLIGHT 3 and the climax — ask the viewer the question nobody asks them; last spoken shot of the video",
+      "emotion": "warmest and most open, still not loud",
+      "accentWords": ["một người hỏi", "Hôm nay có chuyện gì"],
+      "tempoIntent": "unhurried setup, then the quoted question at normal volume with a real question contour",
+      "ending": "rising then held open; the final word falls; no call to action",
+      "minimumPostClipHoldSeconds": 1.8,
+      "postClipHoldPolicy": "after this clip the voice stops; the END card is 2.40 s of total silence",
+      "phrases": [
+        {
+          "text": "Và họ cũng cần một người hỏi:",
+          "tempoIntent": "unhurried",
+          "emphasis": ["một người hỏi"],
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.3,
+          "seed": null,
+          "controls": { "denoise": false }
+        },
+        {
+          "text": "'Hôm nay có chuyện gì",
+          "tempoIntent": "normal volume, question contour",
+          "emphasis": ["Hôm nay có chuyện gì"],
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.15,
+          "seed": null,
+          "controls": { "denoise": false }
+        },
+        {
+          "text": "với bạn thế?'",
+          "tempoIntent": "held, falling at the end",
+          "emphasis": ["với bạn thế"],
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.0,
+          "seed": null,
+          "controls": { "denoise": false }
+        }
+      ]
+    }
+  },
+  "limitations": [
+    "The voice reference is unresolved: vietnamese-voice-samples/previews/ does not exist on this machine and no slug is proposed. All fourteen reference fields stay pending until the catalogue test and the benchmark are run.",
+    "The VieNeu clone supports only seed, denoise, local reference and silence padding. rate, pitch, volume, speed, atempo and style are unavailable and are requested nowhere in this file; all pacing and intensity direction is read by the voice-agent from phrase intent, not from the engine.",
+    "All non-spoken cues stay disabled: no [cười], no [thở dài], no [hắng giọng] and no actingCue field anywhere.",
+    "Silence is real: pauseBeforeSeconds/pauseAfterSeconds pad inside one clip, and minimumPostClipHoldSeconds is a gap between two clips in the timeline. No beat is ever created with punctuation.",
+    "Naturalness, intimacy and emotional delivery are not verifiable from this file or from ASR; only the voice-agent's measured clip data and the user's optional listen can confirm them.",
+    "The 3.9 syl/s planning rate is an assumption. Measured clips decide the final timeline; the plan stays inside 45-55 s from 4.2 down to 3.7 syl/s (script.md section 4 gives the elasticity order in both directions)."
+  ]
+}

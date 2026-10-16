@@ -26,11 +26,16 @@
       "state": "done",
       "at": "2026-10-18T23:06:44+07:00",
       "note": "research.md written: user-supplied account as primary source, 5 hook candidates"
+    },
+    "script": {
+      "state": "in_progress",
+      "at": "2026-10-18T23:33:49+07:00",
+      "note": "phase 2 packet verified consistent on disk (14 keys, 142 syl, 46.86-51.43 s); gate A lens review in progress"
     }
   },
   "reviews": {},
   "review_valid": {},
-  "next": "script-agent drafts script.md + voice proposals (phase 2a/2b)",
+  "next": "gate A lens review (script-reviewer x3) then A gate >=9, then phase 3 three branches",
   "log": [
     {
       "t": "2026-10-18T23:03:19+07:00",
@@ -67,21 +72,133 @@
       "stage": "script",
       "who": "script-agent",
       "msg": "script-agent running: Phase 2a/2b: draft script.md, voice.proposed.json, voice-direction.md, voice-performance.proposed.json"
+    },
+    {
+      "t": "2026-10-18T23:16:34+07:00",
+      "stage": "agent",
+      "who": "monitor",
+      "msg": "monitor run 20261018-231634-960 started via OpenCode · opencode/space-bunny-free (command)"
+    },
+    {
+      "t": "2026-10-18T23:17:13+07:00",
+      "stage": "agent",
+      "who": "script-agent",
+      "msg": "script-agent failed: interrupted run 23:07 produced no artifacts on disk; re-dispatching fresh"
+    },
+    {
+      "t": "2026-10-18T23:17:14+07:00",
+      "stage": "script",
+      "who": "agent",
+      "msg": "script -> in_progress: phase 2a/2b: script + voice direction for gate A"
+    },
+    {
+      "t": "2026-10-18T23:18:12+07:00",
+      "stage": "agent",
+      "who": "you",
+      "msg": "owner note N1 added for the running agent (owner-notes.md)"
+    },
+    {
+      "t": "2026-10-18T23:18:12+07:00",
+      "stage": "agent",
+      "who": "monitor",
+      "msg": "monitor run 20261018-231812-396 scheduled for 2026-10-18T23:18+07:00 via OpenCode · opencode/space-bunny-free (command)"
+    },
+    {
+      "t": "2026-10-18T23:18:37+07:00",
+      "stage": "agent",
+      "who": "you",
+      "msg": "owner note N2 added for the running agent (owner-notes.md)"
+    },
+    {
+      "t": "2026-10-18T23:29:08+07:00",
+      "stage": "agent",
+      "who": "monitor",
+      "msg": "monitor run 20261018-231634-960 stopped (exit 130)"
+    },
+    {
+      "t": "2026-10-18T23:29:08+07:00",
+      "stage": "agent",
+      "who": "monitor",
+      "msg": "follow-up run 20261018-231812-396 dropped: the agent handled every owner note"
+    },
+    {
+      "t": "2026-10-18T23:32:07+07:00",
+      "stage": "script",
+      "who": "agent",
+      "msg": "script -> in_progress: script.md + voice proposals drafted; awaiting gate A review"
+    },
+    {
+      "t": "2026-10-18T23:32:07+07:00",
+      "stage": "script",
+      "who": "script-agent",
+      "msg": "script-agent done: Phase 2a/2b complete: script.md, voice.proposed.json, voice-direction.md, voice-performance.proposed.json, hook-options.md created; route 2 Thanh Long reference accepted"
+    },
+    {
+      "t": "2026-10-18T23:33:49+07:00",
+      "stage": "agent",
+      "who": "video-director",
+      "msg": "video-director running: resumed run; phase 2 verified on disk; dispatching gate A lens reviewers x3"
+    },
+    {
+      "t": "2026-10-18T23:33:49+07:00",
+      "stage": "script",
+      "who": "agent",
+      "msg": "script -> in_progress: phase 2 packet verified consistent on disk (14 keys, 142 syl, 46.86-51.43 s); gate A lens review in progress"
     }
   ],
-  "updated": "2026-10-18T23:07:00+07:00",
+  "updated": "2026-10-18T23:33:49+07:00",
   "agents": {
     "video-director": {
       "state": "running",
-      "at": "2026-10-18T23:06:05+07:00",
-      "note": "Phase 0: duplicate-topic check cleared, brief.md written, pipeline init",
-      "stage": "intake"
+      "at": "2026-10-18T23:33:49+07:00",
+      "note": "resumed run; phase 2 verified on disk; dispatching gate A lens reviewers x3",
+      "stage": ""
     },
     "script-agent": {
-      "state": "running",
-      "at": "2026-10-18T23:07:00+07:00",
-      "note": "Phase 2a/2b: draft script.md, voice.proposed.json, voice-direction.md, voice-performance.proposed.json",
+      "state": "done",
+      "at": "2026-10-18T23:32:07+07:00",
+      "note": "Phase 2a/2b complete: script.md, voice.proposed.json, voice-direction.md, voice-performance.proposed.json, hook-options.md created; route 2 Thanh Long reference accepted",
       "stage": "script"
     }
-  }
+  },
+  "runs": [
+    {
+      "id": "20261018-231634-960",
+      "folder": "ban-khong-yeu-duoi-chi-da-manh-qua-lau",
+      "kind": "command",
+      "runner": "opencode",
+      "label": "OpenCode",
+      "state": "stopped",
+      "started": "2026-10-18T23:16:34+07:00",
+      "pid": 72801,
+      "log": "out/agent-runs/ban-khong-yeu-duoi-chi-da-manh-qua-lau/20261018-231634-960.log",
+      "prompt_file": "out/agent-runs/ban-khong-yeu-duoi-chi-da-manh-qua-lau/20261018-231634-960.prompt.md",
+      "summary": "hi",
+      "model": "opencode/space-bunny-free",
+      "effort": "",
+      "fallback": true,
+      "stop_requested": true,
+      "exit_code": 130,
+      "ended": "2026-10-18T23:29:08+07:00"
+    },
+    {
+      "id": "20261018-231812-396",
+      "folder": "ban-khong-yeu-duoi-chi-da-manh-qua-lau",
+      "kind": "command",
+      "runner": "opencode",
+      "label": "OpenCode",
+      "state": "cancelled",
+      "run_at": "2026-10-18T23:18+07:00",
+      "created": "2026-10-18T23:18:12+07:00",
+      "prompt_file": "out/agent-runs/ban-khong-yeu-duoi-chi-da-manh-qua-lau/20261018-231812-396.prompt.md",
+      "summary": "Read `docs/ban-khong-yeu-duoi-chi-da-manh-qua-lau/owner-notes.md` and apply every note still marked `pending` (the previous agent run ended before handling them",
+      "model": "opencode/space-bunny-free",
+      "effort": "",
+      "fallback": true,
+      "after_current": true,
+      "notes_followup": true,
+      "ended": "2026-10-18T23:29:08+07:00",
+      "error": "no pending owner notes left"
+    }
+  ]
 }

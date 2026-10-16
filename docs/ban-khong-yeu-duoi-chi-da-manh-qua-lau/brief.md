@@ -7,7 +7,7 @@
 - profile: `story`
 - platform: TikTok / Reels / Shorts (9:16, 1080×1920, 30 fps)
 - duration: 45–55 s (user explicit override; includes speech, pauses, transitions, ending hold)
-- voice route: `tbd` (placeholder — to be resolved after gate A; candidate from `vietnamese-voice-samples/previews/` or `vi-VN-NamMinhNeural` temporary via route 3)
+- voice route: route 2 — local VieNeu-TTS clone using reference `docs/ban-khong-yeu-duoi-chi-da-manh-qua-lau/voice-ref/refThanhLong.wav` (copied from `docs/thuong-hay-so-bat-dau-lai/voice-ref/refThanhLong.wav`, 8.2 s mono 24 kHz pcm_s16le). Voice name: Thanh Long (benchmark selection confirmed by user). Output voice slug: `thanh-long` after gate A.
 - output: `out/ban-khong-yeu-duoi-chi-da-manh-qua-lau-<voice>-reel.mp4`
 
 ## User constraints (verbatim, keep exactly)
@@ -50,10 +50,13 @@ Mandatory spoken text (Vietnamese, keep wording verbatim in `voice.json` and cap
 - No factual claims requiring external sources (personal/emotional story; user-supplied account is the primary source). Claims table will be empty/short.
 - Any recreated UI/diagram marked `minh hoạ` — none expected for this story profile.
 
-## Hook (to be locked at gate A)
-- Frame 0 cover must show the hook subject + text without sound.
-- Hook clear within 3 s; re-hook at ~15–20 s.
-- Payoff by ~8 s: the "che ô cho người khác cũng có ngày bị ướt" line.
+## Hook (locked at gate A · candidate `H1`)
+- Chosen candidate: **`H1`** — direct address, `research.md` five-hooks #1 (`hook-options.md`, which compares `H1`/`H2`/`H3`/`H4`). Rejected: `H2` (in-media-res, spends the climax in second one and is not understandable sound-off → kept as the re-hook `s4`), `H3` (title line — a conclusion, and a title card in second one → kept as the silent END title card), `H4` (contrast one-liner — the right contrast, too late as an opener → kept as `s2`→`a1`→`s3`).
+- **0–1 s frame:** frame 0 *is* the cover, fully composed, no fade from black and no logo — she holds a black umbrella over someone else in the rain, water beading on the rim, and **her own shoulders are still dry**. Safe-zone headline (upper third, 6 words): `Mọi người tìm bạn khi buồn.`
+- **1–3 s promise (truthful):** `s1` = `Mọi người thường tìm đến bạn mỗi khi có chuyện buồn.` — 11 syllables, clip 0.00–2.82 s, hook complete at **2.82 s** (2.62 s at 4.2 syl/s, 2.97 s at 3.7 syl/s).
+- **3–8 s payoff:** `s2` — the recognition `Bạn biết cách an ủi.` lands at **4.45 s**; the full triad completes at **7.79 s**; `a1` at 8.04 s makes it visible (contrast pair 1).
+- **Re-hook:** `s4`, clip **18.33–20.74 s** (17.24–19.17 s across the rate band) — owner line #4, the words she almost sent: `Bạn muốn nhắn: 'Hôm nay mình mệt quá.'` Its answer, `a3` (the deletion, 22.98–25.42 s), opens the second half.
+- **Payoff resolution:** `s10` asks the viewer the question nobody asks them (41.41–47.06 s); the **END title card** carries the owner's title line, silent, for **47.06–49.46 s**. Total **49.46 s** at the 3.9 syl/s planning rate; **46.86 s** at 4.2 and **51.43 s** at 3.7 — inside 45–55 s at every rate. Full per-shot budget, silence elasticity and the four `[ADD]` sensory connectors in `script.md`.
 
 ## Phase references
 - Research: user-supplied script is the primary source; research only audience language.
