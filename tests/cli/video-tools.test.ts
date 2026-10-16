@@ -9,8 +9,16 @@ describe('video render CLI', () => {
   it('supports explicit composition and output', () => {
     const options = parseRenderArgs(['--id', 'TruongThanhReel', '--out', 'out/custom.mp4']);
     expect(commandForRender(options, '/repo').args).toEqual([
-      'render', 'src/index.ts', 'TruongThanhReel', 'out/custom.mp4',
-      '--codec', 'h264', '--crf', '18', '--pixel-format', 'yuv420p',
+      'render',
+      'src/index.ts',
+      'TruongThanhReel',
+      'out/custom.mp4',
+      '--codec',
+      'h264',
+      '--crf',
+      '18',
+      '--pixel-format',
+      'yuv420p',
     ]);
   });
 

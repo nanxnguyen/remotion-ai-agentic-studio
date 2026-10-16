@@ -2,6 +2,7 @@
 import {spawnSync} from 'node:child_process';
 import {existsSync} from 'node:fs';
 import path from 'node:path';
+import {fileURLToPath} from 'node:url';
 
 export function checkEnvironment({root = process.cwd(), run = spawnSync, nodeVersion = process.versions.node} = {}) {
   const results = [];
@@ -24,6 +25,6 @@ export function main() {
   return failures.length ? 1 : 0;
 }
 
-if (process.argv[1] && path.resolve(process.argv[1]) === path.resolve(new URL(import.meta.url).pathname)) {
+if (process.argv[1] && path.resolve(process.argv[1]) === path.resolve(fileURLToPath(import.meta.url))) {
   process.exitCode = main();
 }
