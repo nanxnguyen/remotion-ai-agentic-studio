@@ -2,6 +2,7 @@ import type {AnyVideoDefinition} from '../core';
 import {validateVideoRegistry} from '../core';
 import {camOnVideo} from './cam-on';
 import {cuocGoiNhoVideo} from './cuoc-goi-nho';
+import {editorialQuoteVideo} from './editorial-quote';
 import {gapLaiVideo} from './gap-lai';
 import {helloWorldVideo} from './hello-world';
 import {metKhongVideo} from './met-khong';
@@ -13,6 +14,7 @@ import {xayDoiMinhVideo} from './xay-doi-minh-hay-chung-minh';
 
 export const videoRegistry: readonly AnyVideoDefinition[] = [
   helloWorldVideo,
+  editorialQuoteVideo,
   truongThanhVideo,
   camOnVideo,
   gapLaiVideo,
