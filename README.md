@@ -18,22 +18,9 @@ An agent-ready Remotion studio for deterministic 9:16 videos, with parallel rese
 
 Rendered videos are published as GitHub Release assets so the repository history stays lightweight.
 
-## Vietnamese voice preview library 🎙️
+## Local Vietnamese voice previews 🎙️
 
-Explore the [Vietnamese Voice Samples](vietnamese-voice-samples/) — a curated listening gallery to help you choose a voice that fits your story, explainer, product demo, or short-form reel **before** generating the final narration.
-
-The collection currently includes **38 playable MP3 previews**: 35 voice options sourced from Vbee's public catalog, two ElevenLabs previews (Huyen and Ngan), and one additional Cam sample. Several voices have distinct basic/advanced/Pro variants, so you can compare delivery styles rather than choosing by name alone.
-
-**[🎧 Browse and listen to the voice previews](vietnamese-voice-samples/previews/)** · [Voice catalog guide (Tiếng Việt)](vietnamese-voice-samples/README.md)
-
-To use the library:
-
-1. Open `vietnamese-voice-samples/previews/` and listen to a few MP3 examples.
-2. Pick a voice that matches the script's tone; record the **provider and voice ID** in the video's `brief.md`.
-3. Generate **new narration** through the relevant provider, then integrate the output into the Remotion audio tracks and align the timeline/captions.
-4. Optionally validate the catalog locally with `python3 -m unittest scripts.test_voice_catalog`.
-
-> **Preview-only:** This is a voice *selection* library, not an offline TTS engine or a license to clone or redistribute a voice. The provided samples use different scripts and are not a controlled quality ranking. Check provider terms and commercial-use rights before publishing any narration or reusing sample audio.
+Voice previews are **local-only** and are not distributed in this repository. If you maintain a personal voice catalog, keep its MP3 samples under `vietnamese-voice-samples/previews/`; Git ignores that directory. Select a provider and voice ID in each video's `brief.md`, then generate narration using a service for which you have the appropriate rights. Run `python3 -m unittest scripts.test_voice_catalog` to validate any locally installed previews.
 
 ## Why this repository
 
