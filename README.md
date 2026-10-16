@@ -6,6 +6,18 @@ An agent-ready Remotion studio for deterministic 9:16 videos, with parallel rese
 
 <p align="center"><em>Live production monitor for a 19-agent workflow with parallel branches and independent review gates.</em></p>
 
+![Production pipeline, review gates, and activity history](docs/assets/agent-workflow-pipeline-history.png)
+
+<p align="center"><em>The lower monitor view tracks the production pipeline, review scores, and timestamped agent activity.</em></p>
+
+## Demo video
+
+[![Watch the Camon Reel demo](tests/golden/CamonReel/element-0760.png)](https://github.com/nanxnguyen/remotion-ai-agentic-studio/releases/download/demo-v1/camon-reel.mp4)
+
+[▶ Watch or download Camon Reel — 52.9 seconds, MP4](https://github.com/nanxnguyen/remotion-ai-agentic-studio/releases/download/demo-v1/camon-reel.mp4)
+
+Rendered videos are published as GitHub Release assets so the repository history stays lightweight.
+
 ## Why this repository
 
 - Build vertical videos with React, TypeScript, and Remotion 4.
