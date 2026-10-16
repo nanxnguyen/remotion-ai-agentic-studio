@@ -2,7 +2,7 @@
 
 ## Nội dung
 
-Gói gồm **37 mẫu MP3 trong danh mục**: 35 lựa chọn giọng tiếng Việt trong danh sách công khai của Vbee và 2 giọng ElevenLabs (Huyen, Ngan). Thư mục `previews/` còn có `Cam.mp3` do dự án thêm riêng, tổng cộng 38 file. 3 giọng FPT chưa tải được mẫu (xem mục cuối).
+Gói gồm **37 mẫu MP3 trong danh mục**: 35 lựa chọn giọng tiếng Việt trong danh sách công khai của Vbee và 2 giọng ElevenLabs (Huyen, Ngan). Thư mục `previews/` còn có `Cam.mp3` do dự án thêm riêng, tổng cộng 38 file.
 
 - `previews/`: 37 file trong danh mục và `Cam.mp3`. Tên file là tên giọng rút gọn. Thư mục này là danh mục giọng (bản CSV/JSON cũ đã bỏ); khi chọn giọng, ghi nhà cung cấp và mã giọng lấy từ trang của nhà cung cấp vào `brief.md`.
 - `README.md`: hướng dẫn sử dụng và giới hạn.
@@ -29,11 +29,6 @@ Khi thử, so sánh dấu tiếng Việt, nhịp nghỉ, từ tiếng Anh xen k�
 - Trang Vbee: https://vbee.vn/
 - Giọng Huyen được ElevenLabs liệt kê tại https://elevenlabs.io/text-to-speech/vietnamese
 - Link MP3 Huyen và Ngan lấy từ trang gallery JSON2Video và trỏ đến kho mẫu ElevenLabs; `sourcePage` lưu riêng cho mỗi giọng. Đây là nguồn gallery bên thứ ba, không phải tài khoản ElevenLabs của người dùng.
-- Thông tin FPT: https://docs.fpt.ai/docs/vi/speech/api/text-to-speech/
-
-## Phần chưa tải được
-
-Lan Nhi (`lannhi`), Linh San (`linhsan`), Ban Mai (`banmai`) của FPT.AI: trang mẫu trả HTTP 403 trong môi trường này và chưa tìm được link MP3 công khai xác minh được. Gói không có file âm thanh của 3 giọng này. Nghe tại https://voicemaker.fpt.ai/
 
 ## Giới hạn
 
