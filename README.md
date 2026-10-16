@@ -10,6 +10,19 @@ An agent-ready Remotion studio for deterministic 9:16 videos, with parallel rese
 
 <p align="center"><em>The lower monitor view tracks the production pipeline, review scores, and timestamped agent activity.</em></p>
 
+## Try it without an AI API key
+
+A self-contained 5-second, 9:16 animated stick-figure composition ships in the repository. It needs **no TTS provider, model subscription, private media, or API key**.
+
+```bash
+npm ci
+npm run render -- --id HelloWorldReel --out out/hello-world.mp4
+```
+
+To inspect or change the scene, run `npm run studio` and select `HelloWorldReel`. Source: [hello-world template](src/videos/hello-world/). It uses only Remotion, React, SVG and frame-derived animation.
+
+The sample validates the rendering path, **not** autonomous 19-agent production. To use external voice generation or production agents, configure the relevant providers separately.
+
 ## Demo video
 
 [![Watch the Camon Reel demo](docs/assets/camon-reel-preview.gif)](https://github.com/nanxnguyen/remotion-ai-agentic-studio/releases/download/demo-v1/camon-reel.mp4)
