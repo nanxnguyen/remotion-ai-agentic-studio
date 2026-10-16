@@ -6,6 +6,11 @@ const root = process.cwd();
 const sourceRoot = path.join(root, 'src');
 const missing = [];
 let checked = 0;
+let externalCount = 0;
+const externalManifest = JSON.parse(
+  await readFile(path.join(root, 'public', '.external-assets.json'), 'utf8'),
+);
+const externalAssets = new Set(externalManifest.assets.map((asset) => asset.path));
 
 async function visit(directory) {
   for (const entry of await readdir(directory, {withFileTypes: true})) {
@@ -21,7 +26,11 @@ async function visit(directory) {
       try {
         await access(path.join(root, 'public', match[1]));
       } catch {
-        missing.push(`${path.relative(root, target)}: ${match[1]}`);
+        if (externalAssets.has(match[1])) {
+          externalCount += 1;
+        } else {
+          missing.push(`${path.relative(root, target)}: ${match[1]}`);
+        }
       }
     }
   }
@@ -33,5 +42,7 @@ if (missing.length) {
   console.error(`Missing static assets:\n${missing.join('\n')}`);
   process.exitCode = 1;
 } else {
-  console.log(`Validated ${checked} literal staticFile references.`);
+  console.log(
+    `Validated ${checked} literal staticFile references (${externalCount} documented external).`,
+  );
 }

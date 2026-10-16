@@ -1,0 +1,8 @@
+{
+  "assets": [
+    {
+      "path": "audio/voice.mp3",
+      "reason": "Generated narration is intentionally excluded; recreate it from the video voice manifest."
+    }
+  ]
+}
