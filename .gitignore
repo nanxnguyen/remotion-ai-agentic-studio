@@ -52,4 +52,3 @@ public/audio/voice*.mp3
 
 # Voice references and audition output are personal/local media
 docs/**/*.mp3
-docs/**/*.wav

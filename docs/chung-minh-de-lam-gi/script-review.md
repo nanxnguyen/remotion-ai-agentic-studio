@@ -41,3 +41,23 @@ Merged rule: ONE score = lowest lens = **8.8**, verdict **revise** (open Trung b
 ## Pass condition round 2
 
 Mọi Trung đóng + recount 192 (± thay đổi) + totals khớp + caption ≤28 + chip vừa shot. Mới: reviewer round 2 verify + regression, chỉ NEW mới.
+
+## Round 2 (verify closures — clean context, 2026-10-17)
+
+Recount Grep trên `voice.proposed.json`: 8+13+11+15+14+14+10+15+13+13+16+12+12+12+14 = **192** (không đổi; T10/T11 declined đúng). Order 15 key intact (s1→s11), text khớp byte cột spoken line. Voice thuần 46.8/44.7/50.5s; hold 6.05s; video ~52.9/**50.7**/56.6s ≤59.5s (50.7 là đúng toán 44.65+6.05, chính xác hơn 50.8 trong ticket T1).
+
+| ticket | acceptance | kết quả |
+|---|---|---|
+| A1 (s10 label+chip) | text khớp label; chip đúng shot | PASS — label đổi "Diễn đạt theo S8 (F5, bài bình luận)", hết chữ "nguyên văn" sai; chip Tuổi Trẻ 14/02/2026 (bình luận) hiện trong shot |
+| T2 (chip s6) | window vừa shot, fade trước cut | PASS — 0.3–3.6s trong shot 3.86s, hết cam kết "≥4s", fade trước cut |
+| T3emo | delivery notes; design tuân thủ | PASS — s6/s8 "Bình thản, đều, không lên giọng"; s8 đường phẳng không chữ/số ngoài chip; hold không kéo |
+| T3sync | không claim sync chính xác | PASS — s3 "3 nhịp đều trong key, không hứa rơi trùng từng danh từ"; Why-moves §1 đồng bộ |
+| T4 | rechunk 16/20/16, compound intact | PASS — "Bạn đã tưởng tấm / bằng khen này sẽ lấp / được câu nói cũ." (16/20/16); "bằng khen" nguyên; mọi caption ≤28 |
+| T6 | flat-shape notes | PASS — s1/s4a/s4b/s7a/s7b/s9b đều "đặc + opacity, không gradient/blur"; lock T6 ở ghi chú voice/design |
+| T1 | số khớp | PASS — 192 breakdown khớp recount; 52.9/50.7/56.6 đúng toán |
+| A2 | khớp brief | PASS — brief §spine đã cập nhật "điều gì nhất?", khớp script s9b + voice s9b |
+| A3 | chip s8 window + fade | PASS — 0.3–3.8s + fade 0.3s trong shot 4.10s (3.8+0.3=4.1 vừa khít) |
+
+Regression: hook s1 (frame 0 + voice ~1.95s) intact; re-hook s5 19.83s + fallback T1b intact; H1/H2/H3 + delivery intact; lặng cuối 2.0s + gap s7 0.40/s9 0.30 intact; heartbeat DROP ghi rõ; T2b/T4b/T5b/T6b(a)/T5c/T7c/T8c/T9/T13/T16 + A4 director-locked intact; specificity anchors intact ("tháng đầu đi làm", "tăng ca/bằng khen/chức danh", "phòng trọ im phăng phắc", "soi gương không sửa tóc", "thẻ giá đung đưa"). Không mở ticket NEW (chip s10 lồng ngoặc kép là cosmetic, design typeset khi dựng).
+
+**Score: 9.2/10 — PASS (gate A). Specificity: 9.4/10.** Lens sau fix: a ~9.6 · b 9.2 · c ~9.3; min item 8.5 (nói tự nhiên, không mở ticket); không còn Cao/Trung mở. Đủ điều kiện qua gate A.

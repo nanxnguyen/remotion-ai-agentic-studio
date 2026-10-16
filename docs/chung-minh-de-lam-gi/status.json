@@ -16,12 +16,28 @@
       "at": "2026-10-17T01:57:42+07:00"
     },
     "brief": {
-      "state": "in_progress",
-      "at": "2026-10-17T01:57:42+07:00"
+      "state": "done",
+      "at": "2026-10-17T02:21:59+07:00"
     },
     "script": {
+      "state": "done",
+      "at": "2026-10-17T02:21:59+07:00"
+    },
+    "content": {
       "state": "in_progress",
-      "at": "2026-10-17T01:57:42+07:00"
+      "at": "2026-10-17T02:09:45+07:00"
+    },
+    "voice": {
+      "state": "in_progress",
+      "at": "2026-10-17T02:09:45+07:00"
+    },
+    "audio": {
+      "state": "in_progress",
+      "at": "2026-10-17T02:09:45+07:00"
+    },
+    "design": {
+      "state": "in_progress",
+      "at": "2026-10-17T02:09:45+07:00"
     }
   },
   "reviews": {
@@ -33,17 +49,55 @@
         "verdict": "revise",
         "report": "docs/chung-minh-de-lam-gi/script-review.md",
         "note": ""
+      },
+      {
+        "at": "2026-10-17T02:09:32+07:00",
+        "reviewer": "script-reviewer-r2",
+        "score": 9.2,
+        "verdict": "pass",
+        "report": "docs/chung-minh-de-lam-gi/script-review.md",
+        "note": ""
+      }
+    ],
+    "content": [
+      {
+        "at": "2026-10-17T02:25:40+07:00",
+        "reviewer": "content-reviewer",
+        "score": 9.4,
+        "verdict": "pass",
+        "report": "docs/chung-minh-de-lam-gi/content-pack-review.md",
+        "note": ""
+      }
+    ],
+    "audio": [
+      {
+        "at": "2026-10-17T02:25:40+07:00",
+        "reviewer": "audio-reviewer",
+        "score": 8.3,
+        "verdict": "revise",
+        "report": "docs/chung-minh-de-lam-gi/audio-review.md",
+        "note": ""
+      }
+    ],
+    "D": [
+      {
+        "at": "2026-10-17T02:25:40+07:00",
+        "reviewer": "design-reviewer",
+        "score": 7.0,
+        "verdict": "revise",
+        "report": "docs/chung-minh-de-lam-gi/design-review.md",
+        "note": ""
       }
     ]
   },
   "review_valid": {
     "A": true,
-    "D": false,
+    "D": true,
     "E": false,
     "B": false,
     "C": false,
-    "content": false,
-    "audio": false
+    "content": true,
+    "audio": true
   },
   "next": "",
   "log": [
@@ -172,9 +226,213 @@
       "stage": "script",
       "who": "script-reviewer-r2",
       "msg": "script-reviewer-r2 running: gate A round2 verify closures"
+    },
+    {
+      "t": "2026-10-17T02:09:32+07:00",
+      "stage": "A",
+      "who": "script-reviewer-r2",
+      "msg": "review 9.2/10 pass: script-review.md"
+    },
+    {
+      "t": "2026-10-17T02:09:32+07:00",
+      "stage": "agent",
+      "who": "script-reviewer-r2",
+      "msg": "script-reviewer-r2 done"
+    },
+    {
+      "t": "2026-10-17T02:09:45+07:00",
+      "stage": "content",
+      "who": "agent",
+      "msg": "content -> in_progress"
+    },
+    {
+      "t": "2026-10-17T02:09:45+07:00",
+      "stage": "voice",
+      "who": "agent",
+      "msg": "voice -> in_progress"
+    },
+    {
+      "t": "2026-10-17T02:09:45+07:00",
+      "stage": "audio",
+      "who": "agent",
+      "msg": "audio -> in_progress"
+    },
+    {
+      "t": "2026-10-17T02:09:45+07:00",
+      "stage": "design",
+      "who": "agent",
+      "msg": "design -> in_progress"
+    },
+    {
+      "t": "2026-10-17T02:09:45+07:00",
+      "stage": "content",
+      "who": "content-agent",
+      "msg": "content-agent running: content-pack 15 keys"
+    },
+    {
+      "t": "2026-10-17T02:09:45+07:00",
+      "stage": "voice",
+      "who": "voice-agent",
+      "msg": "voice-agent running: Thanh Long clone ref+15 clips+report"
+    },
+    {
+      "t": "2026-10-17T02:09:45+07:00",
+      "stage": "audio",
+      "who": "audio-agent",
+      "msg": "audio-agent running: minimal BGM/SFX + mix plan"
+    },
+    {
+      "t": "2026-10-17T02:09:45+07:00",
+      "stage": "design",
+      "who": "design-agent",
+      "msg": "design-agent running: stick-figure system + proto + frames"
+    },
+    {
+      "t": "2026-10-17T02:21:46+07:00",
+      "stage": "agent",
+      "who": "content-agent",
+      "msg": "content-agent done"
+    },
+    {
+      "t": "2026-10-17T02:21:46+07:00",
+      "stage": "agent",
+      "who": "voice-agent",
+      "msg": "voice-agent done"
+    },
+    {
+      "t": "2026-10-17T02:21:46+07:00",
+      "stage": "agent",
+      "who": "audio-agent",
+      "msg": "audio-agent done"
+    },
+    {
+      "t": "2026-10-17T02:21:46+07:00",
+      "stage": "agent",
+      "who": "design-agent",
+      "msg": "design-agent done"
+    },
+    {
+      "t": "2026-10-17T02:21:46+07:00",
+      "stage": "content",
+      "who": "content-reviewer",
+      "msg": "content-reviewer running: review content-pack v1"
+    },
+    {
+      "t": "2026-10-17T02:21:46+07:00",
+      "stage": "audio",
+      "who": "audio-reviewer",
+      "msg": "audio-reviewer running: machine review voice+bed+SFX"
+    },
+    {
+      "t": "2026-10-17T02:21:46+07:00",
+      "stage": "design",
+      "who": "design-reviewer",
+      "msg": "design-reviewer running: gate D stick system + user checklist"
+    },
+    {
+      "t": "2026-10-17T02:21:59+07:00",
+      "stage": "brief",
+      "who": "agent",
+      "msg": "brief -> done (evidence: 1 file(s): docs/chung-minh-de-lam-gi/brief.md)"
+    },
+    {
+      "t": "2026-10-17T02:21:59+07:00",
+      "stage": "script",
+      "who": "agent",
+      "msg": "script -> done (evidence: 5 file(s): docs/chung-minh-de-lam-gi/script.md; gate A: pass 9.2/10)"
+    },
+    {
+      "t": "2026-10-17T02:25:40+07:00",
+      "stage": "content",
+      "who": "content-reviewer",
+      "msg": "review 9.4/10 pass: content-pack-review.md"
+    },
+    {
+      "t": "2026-10-17T02:25:40+07:00",
+      "stage": "audio",
+      "who": "audio-reviewer",
+      "msg": "review 8.3/10 revise: audio-review.md"
+    },
+    {
+      "t": "2026-10-17T02:25:40+07:00",
+      "stage": "D",
+      "who": "design-reviewer",
+      "msg": "review 7.0/10 revise: design-review.md"
+    },
+    {
+      "t": "2026-10-17T02:25:40+07:00",
+      "stage": "agent",
+      "who": "content-reviewer",
+      "msg": "content-reviewer done"
+    },
+    {
+      "t": "2026-10-17T02:25:40+07:00",
+      "stage": "agent",
+      "who": "audio-reviewer",
+      "msg": "audio-reviewer done"
+    },
+    {
+      "t": "2026-10-17T02:25:40+07:00",
+      "stage": "agent",
+      "who": "design-reviewer",
+      "msg": "design-reviewer done"
+    },
+    {
+      "t": "2026-10-17T02:25:46+07:00",
+      "stage": "content",
+      "who": "content-agent",
+      "msg": "content-agent running: fix T1 headline s10"
+    },
+    {
+      "t": "2026-10-17T02:25:46+07:00",
+      "stage": "audio",
+      "who": "audio-agent",
+      "msg": "audio-agent running: fix AR-01..03 + Thap"
+    },
+    {
+      "t": "2026-10-17T02:25:46+07:00",
+      "stage": "design",
+      "who": "design-agent",
+      "msg": "design-agent running: fix D T1-T3 + minors"
+    },
+    {
+      "t": "2026-10-17T02:31:43+07:00",
+      "stage": "agent",
+      "who": "content-agent",
+      "msg": "content-agent done"
+    },
+    {
+      "t": "2026-10-17T02:31:43+07:00",
+      "stage": "agent",
+      "who": "audio-agent",
+      "msg": "audio-agent done"
+    },
+    {
+      "t": "2026-10-17T02:31:43+07:00",
+      "stage": "agent",
+      "who": "design-agent",
+      "msg": "design-agent done"
+    },
+    {
+      "t": "2026-10-17T02:31:43+07:00",
+      "stage": "content",
+      "who": "content-reviewer-r2",
+      "msg": "content-reviewer-r2 running: round2 verify T1"
+    },
+    {
+      "t": "2026-10-17T02:31:43+07:00",
+      "stage": "audio",
+      "who": "audio-reviewer-r2",
+      "msg": "audio-reviewer-r2 running: round2 verify AR-01..03"
+    },
+    {
+      "t": "2026-10-17T02:31:43+07:00",
+      "stage": "design",
+      "who": "design-reviewer-r2",
+      "msg": "design-reviewer-r2 running: round2 verify T1-T3"
     }
   ],
-  "updated": "2026-10-17T02:07:53+07:00",
+  "updated": "2026-10-17T02:31:43+07:00",
   "agents": {
     "intake-agent": {
       "state": "done",
@@ -213,10 +471,70 @@
       "stage": ""
     },
     "script-reviewer-r2": {
+      "state": "done",
+      "at": "2026-10-17T02:09:32+07:00",
+      "note": "",
+      "stage": ""
+    },
+    "content-agent": {
+      "state": "done",
+      "at": "2026-10-17T02:31:43+07:00",
+      "note": "",
+      "stage": ""
+    },
+    "voice-agent": {
+      "state": "done",
+      "at": "2026-10-17T02:21:46+07:00",
+      "note": "",
+      "stage": ""
+    },
+    "audio-agent": {
+      "state": "done",
+      "at": "2026-10-17T02:31:43+07:00",
+      "note": "",
+      "stage": ""
+    },
+    "design-agent": {
+      "state": "done",
+      "at": "2026-10-17T02:31:43+07:00",
+      "note": "",
+      "stage": ""
+    },
+    "content-reviewer": {
+      "state": "done",
+      "at": "2026-10-17T02:25:40+07:00",
+      "note": "",
+      "stage": ""
+    },
+    "audio-reviewer": {
+      "state": "done",
+      "at": "2026-10-17T02:25:40+07:00",
+      "note": "",
+      "stage": ""
+    },
+    "design-reviewer": {
+      "state": "done",
+      "at": "2026-10-17T02:25:40+07:00",
+      "note": "",
+      "stage": ""
+    },
+    "content-reviewer-r2": {
       "state": "running",
-      "at": "2026-10-17T02:07:53+07:00",
-      "note": "gate A round2 verify closures",
-      "stage": "script"
+      "at": "2026-10-17T02:31:43+07:00",
+      "note": "round2 verify T1",
+      "stage": "content"
+    },
+    "audio-reviewer-r2": {
+      "state": "running",
+      "at": "2026-10-17T02:31:43+07:00",
+      "note": "round2 verify AR-01..03",
+      "stage": "audio"
+    },
+    "design-reviewer-r2": {
+      "state": "running",
+      "at": "2026-10-17T02:31:43+07:00",
+      "note": "round2 verify T1-T3",
+      "stage": "design"
     }
   }
 }
