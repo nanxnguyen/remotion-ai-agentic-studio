@@ -19,7 +19,7 @@ Or run `npm run studio` and select either composition to preview the frames and 
 
 ## CI preview
 
-GitHub Actions' `demo-smoke` job renders both compositions and publishes MP4 files as **workflow artifacts** (not committed to Git). On a pull request, open the Actions run, then download the `zero-key-demo-mp4s` artifact to watch the samples. A static image or GIF showcase will be added only after its source render has been visually checked and confirmed suitable to distribute.
+Run `node scripts/render-demo-showcase.mjs` locally to render the MP4s and 360px-wide looping GIF previews with FFmpeg. GitHub Actions' `demo-smoke` job uses this same script and uploads MP4 and GIF files in the **`zero-key-demo-showcase`** workflow artifact (not committed to Git). On a pull request, open the successful Actions run and download that artifact to inspect both examples. Only add a permanent preview to README after inspecting the actual rendered animation.
 
 ## Boundaries
 
