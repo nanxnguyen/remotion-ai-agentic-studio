@@ -25,10 +25,12 @@ The sample validates the rendering path, **not** autonomous 19-agent production.
 
 ## Starter template gallery
 
-Explore the [two reproducible, zero-key video templates](docs/template-gallery.md): **Stick Figure Story** and **Editorial Quote**. Preview both in Remotion Studio or download their rendered MP4s from the GitHub Actions `demo-smoke` artifact. These are starter compositions, not autonomous AI-generated videos.
+Explore the [two reproducible, zero-key video templates](docs/template-gallery.md): **Stick Figure Story** and **Editorial Quote**. Preview both in Remotion Studio or download their rendered MP4s and GIFs from the GitHub Actions `zero-key-demo-showcase` artifact once the `demo-smoke` job succeeds. These are starter compositions, not autonomous AI-generated videos.
 
 ```bash
 npm run render -- --id EditorialQuoteReel --out out/editorial-quote.mp4
+# Generate both MP4 and GIF showcase files (requires FFmpeg):
+node scripts/render-demo-showcase.mjs
 ```
 
 ## Demo video
