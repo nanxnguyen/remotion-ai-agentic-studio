@@ -1,0 +1,339 @@
+{
+  "workflow_version": 2,
+  "name": "cuoc-goi-nho-cua-me",
+  "comp": "CuocGoiNhoReel",
+  "voice": "thanh-long-nang-cao",
+  "profile": "story",
+  "paths": {
+    "audio": "cuoc-goi-nho-cua-me",
+    "out": "cuoc-goi-nho-cua-me-thanh-long-nang-cao",
+    "qa": "cuoc-goi-nho-cua-me"
+  },
+  "gates": [],
+  "stages": {
+    "research": {
+      "state": "done",
+      "at": "2026-10-14T00:11:06+07:00",
+      "note": "research.md 5 hooks, facts/unknowns ro"
+    },
+    "brief": {
+      "state": "done",
+      "at": "2026-10-14T00:15:48+07:00",
+      "note": "brief+script+voice.json chot, gate A 9.6"
+    },
+    "voice": {
+      "state": "done",
+      "at": "2026-10-14T01:00:15+07:00",
+      "note": "voice v2 Thanh Long (s1 giu, s2-s8 moi) tong 40.8s"
+    },
+    "build": {
+      "state": "done",
+      "at": "2026-10-14T08:01:29+07:00",
+      "note": "timeline 1419f + kit + 3 scenes v2 + font BeVietnam, tsc clean"
+    },
+    "render": {
+      "state": "done",
+      "at": "2026-10-14T08:01:10+07:00",
+      "note": "verified final MP4"
+    },
+    "qa": {
+      "state": "done",
+      "at": "2026-10-14T08:01:30+07:00",
+      "note": "code review + 16 frames + boundary 8/8 + video-review VISUAL pass"
+    },
+    "script": {
+      "state": "done",
+      "at": "2026-10-14T08:01:34+07:00",
+      "note": "script v2 160 tu, gate A2 8.6 pass"
+    },
+    "audio": {
+      "state": "done",
+      "at": "2026-10-14T08:01:34+07:00",
+      "note": "bgm + 7 sfx, manifest day du, max<0dB"
+    }
+  },
+  "reviews": {
+    "A": [
+      {
+        "at": "2026-10-14T00:13:10+07:00",
+        "reviewer": "script-reviewer",
+        "score": 9.6,
+        "verdict": "pass",
+        "report": "docs/cuoc-goi-nho-cua-me/script-review.md",
+        "note": ""
+      },
+      {
+        "at": "2026-10-14T00:55:47+07:00",
+        "reviewer": "script-reviewer",
+        "score": 8.6,
+        "verdict": "pass",
+        "report": "docs/cuoc-goi-nho-cua-me/script-review.md",
+        "note": ""
+      }
+    ],
+    "D": [
+      {
+        "at": "2026-10-14T00:16:53+07:00",
+        "reviewer": "designer-reviewer",
+        "score": 8.7,
+        "verdict": "pass",
+        "report": "docs/cuoc-goi-nho-cua-me/design-review.md",
+        "note": ""
+      },
+      {
+        "at": "2026-10-14T01:00:24+07:00",
+        "reviewer": "designer-reviewer",
+        "score": 9.0,
+        "verdict": "pass",
+        "report": "docs/cuoc-goi-nho-cua-me/design-review.md",
+        "note": ""
+      }
+    ],
+    "E": [
+      {
+        "at": "2026-10-14T00:18:16+07:00",
+        "reviewer": "content-editor",
+        "score": 6.5,
+        "verdict": "revise",
+        "report": "docs/cuoc-goi-nho-cua-me/content-review.md",
+        "note": ""
+      },
+      {
+        "at": "2026-10-14T00:26:35+07:00",
+        "reviewer": "content-editor",
+        "score": 8.5,
+        "verdict": "pass",
+        "report": "docs/cuoc-goi-nho-cua-me/content-review.md",
+        "note": ""
+      },
+      {
+        "at": "2026-10-14T07:44:26+07:00",
+        "reviewer": "content-editor",
+        "score": 9.6,
+        "verdict": "pass",
+        "report": "docs/cuoc-goi-nho-cua-me/content-review.md",
+        "note": ""
+      }
+    ],
+    "B": [
+      {
+        "at": "2026-10-14T00:27:35+07:00",
+        "reviewer": "tool-task-planner",
+        "score": 9.5,
+        "verdict": "pass",
+        "report": "docs/cuoc-goi-nho-cua-me/task-review.md",
+        "note": ""
+      },
+      {
+        "at": "2026-10-14T07:45:16+07:00",
+        "reviewer": "tool-task-planner",
+        "score": 9.5,
+        "verdict": "pass",
+        "report": "docs/cuoc-goi-nho-cua-me/task-review.md",
+        "note": ""
+      }
+    ]
+  },
+  "review_valid": {
+    "A": true,
+    "D": true,
+    "E": true,
+    "B": true,
+    "C": false
+  },
+  "next": "gate C",
+  "log": [
+    {
+      "t": "2026-10-14T00:10:40+07:00",
+      "stage": "-",
+      "who": "agent",
+      "msg": "status initialised"
+    },
+    {
+      "t": "2026-10-14T00:10:40+07:00",
+      "stage": "research",
+      "who": "agent",
+      "msg": "research -> in_progress: intake story cuoc goi nho cua me, voice thanh-long-nang-cao"
+    },
+    {
+      "t": "2026-10-14T00:11:06+07:00",
+      "stage": "research",
+      "who": "agent",
+      "msg": "research -> done: research.md 5 hooks, facts/unknowns ro"
+    },
+    {
+      "t": "2026-10-14T00:11:06+07:00",
+      "stage": "brief",
+      "who": "agent",
+      "msg": "brief -> in_progress: scriptwriter dang viet"
+    },
+    {
+      "t": "2026-10-14T00:13:10+07:00",
+      "stage": "A",
+      "who": "script-reviewer",
+      "msg": "review 9.6/10 pass: script-review.md"
+    },
+    {
+      "t": "2026-10-14T00:15:37+07:00",
+      "stage": "voice",
+      "who": "agent",
+      "msg": "voice -> done: voice TAM NamMinh tong 36.3s/41.3s timeline, QA pending"
+    },
+    {
+      "t": "2026-10-14T00:15:48+07:00",
+      "stage": "brief",
+      "who": "agent",
+      "msg": "brief -> done: brief+script+voice.json chot, gate A 9.6"
+    },
+    {
+      "t": "2026-10-14T00:16:53+07:00",
+      "stage": "D",
+      "who": "designer-reviewer",
+      "msg": "review 8.7/10 pass: design-review.md"
+    },
+    {
+      "t": "2026-10-14T00:18:16+07:00",
+      "stage": "E",
+      "who": "content-editor",
+      "msg": "review 6.5/10 revise: content-review.md"
+    },
+    {
+      "t": "2026-10-14T00:25:03+07:00",
+      "stage": "voice",
+      "who": "agent",
+      "msg": "voice -> done: voice CHOT clone Thanh Long tong 33.73s/1162f, CER<=0.04, QA pending"
+    },
+    {
+      "t": "2026-10-14T00:26:35+07:00",
+      "stage": "E",
+      "who": "content-editor",
+      "msg": "review 8.5/10 pass: content-review.md"
+    },
+    {
+      "t": "2026-10-14T00:27:35+07:00",
+      "stage": "B",
+      "who": "tool-task-planner",
+      "msg": "review 9.5/10 pass: task-review.md"
+    },
+    {
+      "t": "2026-10-14T00:28:51+07:00",
+      "stage": "build",
+      "who": "agent",
+      "msg": "build -> in_progress: shared kit+timeline+Reel+Root xong, dispatch 3 scene agents"
+    },
+    {
+      "t": "2026-10-14T00:51:23+07:00",
+      "stage": "render",
+      "who": "agent",
+      "msg": "render -> in_progress: rendering"
+    },
+    {
+      "t": "2026-10-14T00:51:46+07:00",
+      "stage": "render",
+      "who": "verify",
+      "msg": "verified 40.30s H.264/AAC 1080x1920 30fps"
+    },
+    {
+      "t": "2026-10-14T00:51:46+07:00",
+      "stage": "render",
+      "who": "agent",
+      "msg": "render -> done: verified final MP4"
+    },
+    {
+      "t": "2026-10-14T00:55:47+07:00",
+      "stage": "A",
+      "who": "script-reviewer",
+      "msg": "review 8.6/10 pass: script-review.md"
+    },
+    {
+      "t": "2026-10-14T01:00:15+07:00",
+      "stage": "voice",
+      "who": "agent",
+      "msg": "voice -> done: voice v2 Thanh Long (s1 giu, s2-s8 moi) tong 40.8s"
+    },
+    {
+      "t": "2026-10-14T01:00:24+07:00",
+      "stage": "D",
+      "who": "designer-reviewer",
+      "msg": "review 9.0/10 pass: design-review.md"
+    },
+    {
+      "t": "2026-10-14T07:44:26+07:00",
+      "stage": "E",
+      "who": "content-editor",
+      "msg": "review 9.6/10 pass: content-review.md"
+    },
+    {
+      "t": "2026-10-14T07:45:16+07:00",
+      "stage": "B",
+      "who": "tool-task-planner",
+      "msg": "review 9.5/10 pass: task-review.md"
+    },
+    {
+      "t": "2026-10-14T07:53:00+07:00",
+      "stage": "render",
+      "who": "agent",
+      "msg": "render -> in_progress: rendering"
+    },
+    {
+      "t": "2026-10-14T07:53:26+07:00",
+      "stage": "render",
+      "who": "verify",
+      "msg": "verified 47.40s H.264/AAC 1080x1920 30fps"
+    },
+    {
+      "t": "2026-10-14T07:53:26+07:00",
+      "stage": "render",
+      "who": "agent",
+      "msg": "render -> done: verified final MP4"
+    },
+    {
+      "t": "2026-10-14T08:00:45+07:00",
+      "stage": "render",
+      "who": "agent",
+      "msg": "render -> in_progress: rendering"
+    },
+    {
+      "t": "2026-10-14T08:01:10+07:00",
+      "stage": "render",
+      "who": "verify",
+      "msg": "verified 47.40s H.264/AAC 1080x1920 30fps"
+    },
+    {
+      "t": "2026-10-14T08:01:10+07:00",
+      "stage": "render",
+      "who": "agent",
+      "msg": "render -> done: verified final MP4"
+    },
+    {
+      "t": "2026-10-14T08:01:29+07:00",
+      "stage": "build",
+      "who": "agent",
+      "msg": "build -> done: timeline 1419f + kit + 3 scenes v2 + font BeVietnam, tsc clean"
+    },
+    {
+      "t": "2026-10-14T08:01:30+07:00",
+      "stage": "qa",
+      "who": "agent",
+      "msg": "qa -> done: code review + 16 frames + boundary 8/8 + video-review VISUAL pass"
+    },
+    {
+      "t": "2026-10-14T08:01:34+07:00",
+      "stage": "script",
+      "who": "agent",
+      "msg": "script -> done: script v2 160 tu, gate A2 8.6 pass"
+    },
+    {
+      "t": "2026-10-14T08:01:34+07:00",
+      "stage": "audio",
+      "who": "agent",
+      "msg": "audio -> done: bgm + 7 sfx, manifest day du, max<0dB"
+    }
+  ],
+  "updated": "2026-10-14T08:01:34+07:00",
+  "render_check": {
+    "fingerprint": "5818085:1791939670040251984",
+    "duration": 47.4,
+    "at": "2026-10-14T08:01:10+07:00"
+  }
+}

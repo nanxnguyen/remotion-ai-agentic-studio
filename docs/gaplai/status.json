@@ -1,0 +1,102 @@
+{
+  "name": "gaplai",
+  "comp": "GaplaiReel",
+  "paths": {
+    "audio": "gaplai",
+    "out": "gaplai",
+    "qa": "gaplai"
+  },
+  "gates": [],
+  "stages": {
+    "voice": {
+      "state": "done",
+      "at": "2026-10-13T23:18:38+07:00",
+      "note": "voice Cam v2 9 shots, tổng 43.17s voice / 1461f=48.7s timeline"
+    },
+    "build": {
+      "state": "in_progress",
+      "at": "2026-10-13T23:19:48+07:00",
+      "note": "timeline v2 9 shots ~50s"
+    },
+    "audio": {
+      "state": "done",
+      "at": "2026-10-13T23:21:04+07:00",
+      "note": "audio v2 9 shots xong"
+    },
+    "render": {
+      "state": "done",
+      "at": "2026-10-13T23:41:52+07:00",
+      "note": "re-render final 50.6s, heartbeat s7"
+    }
+  },
+  "next": "final review pass",
+  "log": [
+    {
+      "t": "2026-10-13T22:57:16+07:00",
+      "stage": "-",
+      "who": "agent",
+      "msg": "status initialised"
+    },
+    {
+      "t": "2026-10-13T22:59:26+07:00",
+      "stage": "voice",
+      "who": "agent",
+      "msg": "voice -> done: voice tạm xong, tổng 46.5s"
+    },
+    {
+      "t": "2026-10-13T23:04:30+07:00",
+      "stage": "voice",
+      "who": "agent",
+      "msg": "voice -> done: voice Cam clone xong, CER 0-0.034, tong voice 29.13s / timeline 1009f=33.6s"
+    },
+    {
+      "t": "2026-10-13T23:05:47+07:00",
+      "stage": "build",
+      "who": "agent",
+      "msg": "build -> in_progress: timeline+shell xong, chờ scenes"
+    },
+    {
+      "t": "2026-10-13T23:07:17+07:00",
+      "stage": "audio",
+      "who": "agent",
+      "msg": "audio -> in_progress: bgm+sfx xong"
+    },
+    {
+      "t": "2026-10-13T23:18:38+07:00",
+      "stage": "voice",
+      "who": "agent",
+      "msg": "voice -> done: voice Cam v2 9 shots, tổng 43.17s voice / 1461f=48.7s timeline"
+    },
+    {
+      "t": "2026-10-13T23:19:48+07:00",
+      "stage": "build",
+      "who": "agent",
+      "msg": "build -> in_progress: timeline v2 9 shots ~50s"
+    },
+    {
+      "t": "2026-10-13T23:21:04+07:00",
+      "stage": "audio",
+      "who": "agent",
+      "msg": "audio -> done: audio v2 9 shots xong"
+    },
+    {
+      "t": "2026-10-13T23:35:05+07:00",
+      "stage": "render",
+      "who": "agent",
+      "msg": "render -> done: mp4 50.6s 1080x1920 h264 crf18 aac max-4dB"
+    },
+    {
+      "t": "2026-10-13T23:35:12+07:00",
+      "stage": "render",
+      "who": "agent",
+      "msg": "render -> done: mp4 50.6s 1080x1920, max_vol -4.0dB"
+    },
+    {
+      "t": "2026-10-13T23:41:52+07:00",
+      "stage": "render",
+      "who": "agent",
+      "msg": "render -> done: re-render final 50.6s, heartbeat s7"
+    }
+  ],
+  "updated": "2026-10-13T23:41:52+07:00"
+}

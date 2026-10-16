@@ -1,0 +1,16 @@
+name: Feature request
+description: Propose a focused improvement
+title: 'feat: '
+labels: [enhancement]
+body:
+  - type: textarea
+    attributes:
+      label: Problem
+      description: Describe the creator or contributor problem, not only the solution.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Proposed outcome
+    validations:
+      required: true

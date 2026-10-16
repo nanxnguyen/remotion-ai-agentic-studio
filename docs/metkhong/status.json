@@ -1,0 +1,144 @@
+{
+  "name": "Met khong (Lon roi)",
+  "comp": "MetkhongReel",
+  "paths": {
+    "audio": "metkhong",
+    "out": "metkhong",
+    "qa": "metkhong"
+  },
+  "gates": [
+    "script"
+  ],
+  "stages": {
+    "research": {
+      "state": "done",
+      "at": "2026-10-13T23:21:49+07:00",
+      "note": "Firecrawl: 3 image sets + burnout web"
+    },
+    "brief": {
+      "state": "done",
+      "at": "2026-10-13T23:21:49+07:00",
+      "note": "chung cu khuya xam lanh + den am, voice Thanh Long"
+    },
+    "script": {
+      "state": "done",
+      "at": "2026-10-13T23:21:49+07:00",
+      "note": "reviewer 9.1/10 PASS",
+      "gate": "approved",
+      "gate_comment": ""
+    },
+    "voice": {
+      "state": "done",
+      "at": "2026-10-13T23:22:40+07:00",
+      "note": "Thanh Long clone CER<=0.079, 972f"
+    },
+    "build": {
+      "state": "done",
+      "at": "2026-10-13T23:53:19+07:00",
+      "note": "v2 scenesA/B rich visuals + kit, tsc clean"
+    },
+    "audio": {
+      "state": "done",
+      "at": "2026-10-13T23:53:19+07:00",
+      "note": "BGM 0.3 + loudnorm -14LUFS master"
+    },
+    "qa": {
+      "state": "done",
+      "at": "2026-10-13T23:53:19+07:00",
+      "note": "21 stills + 1fps tile read"
+    },
+    "render": {
+      "state": "done",
+      "at": "2026-10-13T23:53:19+07:00",
+      "note": "51.1s 1080x1920 30fps, mean -17.5 max -2.4"
+    }
+  },
+  "next": "GATE C review",
+  "log": [
+    {
+      "t": "2026-10-13T23:08:25+07:00",
+      "stage": "-",
+      "who": "agent",
+      "msg": "status initialised"
+    },
+    {
+      "t": "2026-10-13T23:21:49+07:00",
+      "stage": "research",
+      "who": "agent",
+      "msg": "research -> done: Firecrawl: 3 image sets + burnout web"
+    },
+    {
+      "t": "2026-10-13T23:21:49+07:00",
+      "stage": "brief",
+      "who": "agent",
+      "msg": "brief -> done: chung cu khuya xam lanh + den am, voice Thanh Long"
+    },
+    {
+      "t": "2026-10-13T23:21:49+07:00",
+      "stage": "script",
+      "who": "agent",
+      "msg": "script -> done: reviewer 9.1/10 PASS (waiting for approval)"
+    },
+    {
+      "t": "2026-10-13T23:22:40+07:00",
+      "stage": "voice",
+      "who": "agent",
+      "msg": "voice -> done: Thanh Long clone CER<=0.079, 972f"
+    },
+    {
+      "t": "2026-10-13T23:24:24+07:00",
+      "stage": "build",
+      "who": "agent",
+      "msg": "build -> done: timeline 972f + scenesA/B + Reel + Root"
+    },
+    {
+      "t": "2026-10-13T23:24:24+07:00",
+      "stage": "audio",
+      "who": "agent",
+      "msg": "audio -> done: metkhong-bgm 40s synth + gaplai soft kit"
+    },
+    {
+      "t": "2026-10-13T23:24:24+07:00",
+      "stage": "qa",
+      "who": "agent",
+      "msg": "qa -> done: 14 stills, caption ok, s4 visual toi chap nhan duoc"
+    },
+    {
+      "t": "2026-10-13T23:24:54+07:00",
+      "stage": "render",
+      "who": "agent",
+      "msg": "render -> done: 1080x1920 30fps 32.4s, max -4.8dB no clip"
+    },
+    {
+      "t": "2026-10-13T23:53:19+07:00",
+      "stage": "build",
+      "who": "agent",
+      "msg": "build -> done: v2 scenesA/B rich visuals + kit, tsc clean"
+    },
+    {
+      "t": "2026-10-13T23:53:19+07:00",
+      "stage": "audio",
+      "who": "agent",
+      "msg": "audio -> done: BGM 0.3 + loudnorm -14LUFS master"
+    },
+    {
+      "t": "2026-10-13T23:53:19+07:00",
+      "stage": "qa",
+      "who": "agent",
+      "msg": "qa -> done: 21 stills + 1fps tile read"
+    },
+    {
+      "t": "2026-10-13T23:53:19+07:00",
+      "stage": "render",
+      "who": "agent",
+      "msg": "render -> done: 51.1s 1080x1920 30fps, mean -17.5 max -2.4"
+    },
+    {
+      "t": "2026-10-14T00:13:53+07:00",
+      "stage": "script",
+      "who": "you",
+      "msg": "gate approved"
+    }
+  ],
+  "updated": "2026-10-14T00:13:53+07:00"
+}

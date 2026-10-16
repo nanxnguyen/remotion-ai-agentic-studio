@@ -1,0 +1,137 @@
+{
+ "s1": [
+  {
+   "t": "Lan hai mươi sáu tuổi.",
+   "rate": "-6%",
+   "pitch": "-2Hz",
+   "vol": "+0%",
+   "pause_after": 0.4
+  },
+  {
+   "t": "Ba tiếng rồi, cô chưa bấm gửi.",
+   "rate": "-8%",
+   "pitch": "-3Hz",
+   "vol": "+0%",
+   "pause_after": 0.5
+  }
+ ],
+ "s2": [
+  {
+   "t": "Email chỉ một dòng: em xin nghỉ việc.",
+   "rate": "-8%",
+   "pitch": "-3Hz",
+   "vol": "+0%",
+   "pause_after": 0.3
+  },
+  {
+   "t": "Trong đầu, lỡ sai thì sao?",
+   "rate": "-8%",
+   "pitch": "-2Hz",
+   "vol": "+0%",
+   "pause_after": 0.5
+  }
+ ],
+ "s3": [
+  {
+   "t": "Việc cũ đâu tệ.",
+   "rate": "-8%",
+   "pitch": "-3Hz",
+   "vol": "+0%",
+   "pause_after": 0.3
+  },
+  {
+   "t": "Chỉ là chiều Chủ nhật nào cô cũng nghẹn.",
+   "rate": "-10%",
+   "pitch": "-4Hz",
+   "vol": "-2%",
+   "pause_after": 0.6
+  }
+ ],
+ "s4": [
+  {
+   "t": "Cô nghĩ đến mẹ.",
+   "rate": "-10%",
+   "pitch": "-4Hz",
+   "vol": "-2%",
+   "pause_after": 0.4
+  },
+  {
+   "t": "Đến lúc quay về, không ai chờ.",
+   "rate": "-12%",
+   "pitch": "-5Hz",
+   "vol": "-4%",
+   "pause_after": 0.7
+  }
+ ],
+ "s5": [
+  {
+   "t": "Tay cô run.",
+   "rate": "-8%",
+   "pitch": "-3Hz",
+   "vol": "+0%",
+   "pause_after": 0.4
+  },
+  {
+   "t": "Nhưng cô vẫn bấm gửi.",
+   "rate": "-6%",
+   "pitch": "-1Hz",
+   "vol": "+4%",
+   "pause_after": 0.7
+  }
+ ],
+ "s6": [
+  {
+   "t": "Rồi cô khóc.",
+   "rate": "-12%",
+   "pitch": "-5Hz",
+   "vol": "-6%",
+   "pause_after": 0.7
+  },
+  {
+   "t": "Giá đầu tiên, nặng hơn cô tưởng.",
+   "rate": "-14%",
+   "pitch": "-6Hz",
+   "vol": "-6%",
+   "pause_after": 0.9
+  }
+ ],
+ "s7": [
+  {
+   "t": "Trưởng thành không phải hết sợ.",
+   "rate": "-8%",
+   "pitch": "-3Hz",
+   "vol": "+0%",
+   "pause_after": 0.5
+  },
+  {
+   "t": "Là vẫn sợ, mà vẫn bấm gửi.",
+   "rate": "-8%",
+   "pitch": "-2Hz",
+   "vol": "+6%",
+   "pause_after": 0.8
+  }
+ ],
+ "s8": [
+  {
+   "t": "Còn bạn, chần chừ nút nào?",
+   "rate": "-8%",
+   "pitch": "-3Hz",
+   "vol": "-2%",
+   "pause_after": 0.6
+  },
+  {
+   "t": "Thức dậy đi.",
+   "rate": "-10%",
+   "pitch": "-3Hz",
+   "vol": "+2%",
+   "pause_after": 0.4
+  },
+  {
+   "t": "Hôm nay, trả một khoản nhỏ.",
+   "rate": "-10%",
+   "pitch": "-4Hz",
+   "vol": "-2%",
+   "pause_after": 0.0
+  }
+ ]
+}

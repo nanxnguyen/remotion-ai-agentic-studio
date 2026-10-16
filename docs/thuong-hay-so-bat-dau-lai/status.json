@@ -1,0 +1,315 @@
+{
+  "workflow_version": 2,
+  "name": "thuong-hay-so-bat-dau-lai",
+  "comp": "ThuongHaySoReel",
+  "voice": "thanh-long-nang-cao",
+  "profile": "story",
+  "paths": {
+    "audio": "thuong-hay-so-bat-dau-lai",
+    "out": "thuong-hay-so-bat-dau-lai-thanh-long-nang-cao",
+    "qa": "thuong-hay-so-bat-dau-lai"
+  },
+  "gates": [],
+  "stages": {
+    "voice": {
+      "state": "done",
+      "at": "2026-10-16T00:02:24+07:00"
+    },
+    "render": {
+      "state": "done",
+      "at": "2026-10-16T01:20:26+07:00",
+      "note": "verified final MP4"
+    },
+    "research": {
+      "state": "done",
+      "at": "2026-10-15T22:56:15+07:00"
+    },
+    "brief": {
+      "state": "done",
+      "at": "2026-10-15T23:29:38+07:00"
+    },
+    "script": {
+      "state": "done",
+      "at": "2026-10-15T23:29:38+07:00"
+    },
+    "design": {
+      "state": "done",
+      "at": "2026-10-16T00:43:34+07:00"
+    },
+    "audio": {
+      "state": "done",
+      "at": "2026-10-16T00:02:24+07:00"
+    }
+  },
+  "reviews": {
+    "A": [
+      {
+        "at": "2026-10-15T23:17:57+07:00",
+        "reviewer": "script-reviewer-r1",
+        "score": 8.9,
+        "verdict": "revise",
+        "report": "docs/thuong-hay-so-bat-dau-lai/script-review.md",
+        "note": ""
+      },
+      {
+        "at": "2026-10-15T23:29:27+07:00",
+        "reviewer": "script-reviewer-r2",
+        "score": 9.1,
+        "verdict": "pass",
+        "report": "docs/thuong-hay-so-bat-dau-lai/script-review.md",
+        "note": ""
+      }
+    ],
+    "D": [
+      {
+        "at": "2026-10-16T00:41:38+07:00",
+        "reviewer": "design-reviewer-r4",
+        "score": 8.8,
+        "verdict": "revise",
+        "report": "docs/thuong-hay-so-bat-dau-lai/design-review.md",
+        "note": "user override 2026-10-16: cho pass phase design, di tiep (khong Cao/Trung mo, chi polish Thap t7/t8/t9)"
+      },
+      {
+        "at": "2026-10-16T01:27:14+07:00",
+        "reviewer": "design-reviewer-r1",
+        "score": 7.6,
+        "verdict": "revise",
+        "report": "docs/thuong-hay-so-bat-dau-lai/design-review.md",
+        "note": ""
+      },
+      {
+        "at": "2026-10-16T01:27:14+07:00",
+        "reviewer": "design-reviewer-r2",
+        "score": 8.1,
+        "verdict": "revise",
+        "report": "docs/thuong-hay-so-bat-dau-lai/design-review.md",
+        "note": ""
+      },
+      {
+        "at": "2026-10-16T01:27:14+07:00",
+        "reviewer": "design-reviewer-r3",
+        "score": 8.6,
+        "verdict": "revise",
+        "report": "docs/thuong-hay-so-bat-dau-lai/design-review.md",
+        "note": ""
+      },
+      {
+        "at": "2026-10-16T01:27:14+07:00",
+        "reviewer": "design-reviewer-r5",
+        "score": 8.8,
+        "verdict": "revise",
+        "report": "docs/thuong-hay-so-bat-dau-lai/design-review.md",
+        "note": ""
+      },
+      {
+        "at": "2026-10-16T01:30:51+07:00",
+        "reviewer": "override:user",
+        "score": 8.8,
+        "verdict": "override",
+        "report": "docs/thuong-hay-so-bat-dau-lai/design-review.md",
+        "note": "user cho pass phase design 2026-10-16 (D 8.8, het 5 vong, chi con polish Thap); di tiep chiu rui ro",
+        "by": "user"
+      }
+    ],
+    "E": [
+      {
+        "at": "2026-10-16T01:30:51+07:00",
+        "reviewer": "content-reviewer-r1",
+        "score": 9.4,
+        "verdict": "pass",
+        "report": "docs/thuong-hay-so-bat-dau-lai/content-review.md",
+        "note": ""
+      }
+    ]
+  },
+  "review_valid": {
+    "A": true,
+    "D": true,
+    "E": true,
+    "B": false,
+    "C": false
+  },
+  "next": "",
+  "log": [
+    {
+      "t": "2026-10-15T22:53:30+07:00",
+      "stage": "-",
+      "who": "agent",
+      "msg": "status initialised"
+    },
+    {
+      "t": "2026-10-15T22:54:42+07:00",
+      "stage": "voice",
+      "who": "agent",
+      "msg": "voice changed to edge-nam-minh; output thuong-hay-so-bat-dau-lai-edge-nam-minh-reel.mp4"
+    },
+    {
+      "t": "2026-10-15T22:54:42+07:00",
+      "stage": "research",
+      "who": "agent",
+      "msg": "research -> in_progress"
+    },
+    {
+      "t": "2026-10-15T22:56:15+07:00",
+      "stage": "research",
+      "who": "agent",
+      "msg": "research -> done"
+    },
+    {
+      "t": "2026-10-15T22:56:15+07:00",
+      "stage": "brief",
+      "who": "agent",
+      "msg": "brief -> in_progress"
+    },
+    {
+      "t": "2026-10-15T22:56:15+07:00",
+      "stage": "script",
+      "who": "agent",
+      "msg": "script -> in_progress"
+    },
+    {
+      "t": "2026-10-15T23:01:31+07:00",
+      "stage": "voice",
+      "who": "agent",
+      "msg": "voice changed to thanh-long-nang-cao; output thuong-hay-so-bat-dau-lai-thanh-long-nang-cao-reel.mp4"
+    },
+    {
+      "t": "2026-10-15T23:17:57+07:00",
+      "stage": "A",
+      "who": "script-reviewer-r1",
+      "msg": "review 8.9/10 revise: script-review.md"
+    },
+    {
+      "t": "2026-10-15T23:29:27+07:00",
+      "stage": "A",
+      "who": "script-reviewer-r2",
+      "msg": "review 9.1/10 pass: script-review.md"
+    },
+    {
+      "t": "2026-10-15T23:29:38+07:00",
+      "stage": "brief",
+      "who": "agent",
+      "msg": "brief -> done"
+    },
+    {
+      "t": "2026-10-15T23:29:38+07:00",
+      "stage": "script",
+      "who": "agent",
+      "msg": "script -> done"
+    },
+    {
+      "t": "2026-10-15T23:32:17+07:00",
+      "stage": "voice",
+      "who": "agent",
+      "msg": "voice -> in_progress"
+    },
+    {
+      "t": "2026-10-15T23:32:17+07:00",
+      "stage": "design",
+      "who": "agent",
+      "msg": "design -> in_progress"
+    },
+    {
+      "t": "2026-10-15T23:32:17+07:00",
+      "stage": "audio",
+      "who": "agent",
+      "msg": "audio -> in_progress"
+    },
+    {
+      "t": "2026-10-16T00:02:24+07:00",
+      "stage": "audio-listen",
+      "who": "user",
+      "msg": "voice + BGM audition confirmed: user waived audition 2026-10-16 (cu lam toi MP4), director tu chiu rui ro giong/nhac, chua co tai nguoi kiem chung"
+    },
+    {
+      "t": "2026-10-16T00:02:24+07:00",
+      "stage": "voice",
+      "who": "agent",
+      "msg": "voice -> done"
+    },
+    {
+      "t": "2026-10-16T00:02:24+07:00",
+      "stage": "audio",
+      "who": "agent",
+      "msg": "audio -> done"
+    },
+    {
+      "t": "2026-10-16T00:41:38+07:00",
+      "stage": "D",
+      "who": "design-reviewer-r4",
+      "msg": "review 8.8/10 revise: design-review.md"
+    },
+    {
+      "t": "2026-10-16T00:43:34+07:00",
+      "stage": "design",
+      "who": "agent",
+      "msg": "design -> done"
+    },
+    {
+      "t": "2026-10-16T01:19:03+07:00",
+      "stage": "render",
+      "who": "agent",
+      "msg": "render -> in_progress: rendering"
+    },
+    {
+      "t": "2026-10-16T01:20:26+07:00",
+      "stage": "render",
+      "who": "verify",
+      "msg": "verified 59.00s H.264/AAC 1080x1920 30fps"
+    },
+    {
+      "t": "2026-10-16T01:20:26+07:00",
+      "stage": "render",
+      "who": "agent",
+      "msg": "render -> done: verified final MP4 (evidence: verified 59.0s; gate C: no review yet)"
+    },
+    {
+      "t": "2026-10-16T01:27:14+07:00",
+      "stage": "D",
+      "who": "design-reviewer-r1",
+      "msg": "review 7.6/10 revise: design-review.md"
+    },
+    {
+      "t": "2026-10-16T01:27:14+07:00",
+      "stage": "D",
+      "who": "design-reviewer-r2",
+      "msg": "review 8.1/10 revise: design-review.md"
+    },
+    {
+      "t": "2026-10-16T01:27:14+07:00",
+      "stage": "D",
+      "who": "design-reviewer-r3",
+      "msg": "review 8.6/10 revise: design-review.md"
+    },
+    {
+      "t": "2026-10-16T01:27:14+07:00",
+      "stage": "D",
+      "who": "design-reviewer-r5",
+      "msg": "review 8.8/10 revise: design-review.md"
+    },
+    {
+      "t": "2026-10-16T01:30:51+07:00",
+      "stage": "D",
+      "who": "user",
+      "msg": "user override by user: user cho pass phase design 2026-10-16 (D 8.8, het 5 vong, chi con polish Thap); di tiep chiu rui ro"
+    },
+    {
+      "t": "2026-10-16T01:30:51+07:00",
+      "stage": "E",
+      "who": "content-reviewer-r1",
+      "msg": "review 9.4/10 pass: content-review.md"
+    }
+  ],
+  "updated": "2026-10-16T01:30:51+07:00",
+  "audio_listen": {
+    "at": "2026-10-16T00:02:24+07:00",
+    "by": "user",
+    "note": "user waived audition 2026-10-16 (cu lam toi MP4), director tu chiu rui ro giong/nhac, chua co tai nguoi kiem chung",
+    "fingerprint": "f94ab995b85950a9f83041908671ccd2849906b6"
+  },
+  "render_check": {
+    "fingerprint": "95112626:1792088426398747816",
+    "duration": 59.0,
+    "at": "2026-10-16T01:20:26+07:00"
+  }
+}

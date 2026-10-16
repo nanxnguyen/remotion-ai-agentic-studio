@@ -1,0 +1,144 @@
+{
+ "s1": [
+  {
+   "t": "Có một phiên bản của mình...",
+   "pause_after": 0.22
+  },
+  {
+   "t": "đã cố gắng rất nhiều,",
+   "pause_after": 0.15,
+   "pitch": "+2Hz"
+  },
+  {
+   "t": "nhưng chẳng mấy ai biết.",
+   "pause_after": 0,
+   "rate": "-3%"
+  }
+ ],
+ "s2": [
+  {
+   "t": "Đó là những ngày đi làm về mệt rã rời,",
+   "pause_after": 0.3
+  },
+  {
+   "t": "vẫn tự nhủ:",
+   "pause_after": 0.2
+  },
+  {
+   "t": "thôi, mai cố thêm chút nữa.",
+   "pause_after": 0,
+   "rate": "-6%",
+   "vol": "-8%"
+  }
+ ],
+ "s3": [
+  {
+   "t": "Là những lúc thấy người khác tiến nhanh quá,",
+   "pause_after": 0.15
+  },
+  {
+   "t": "mình cũng chạnh lòng chứ.",
+   "pause_after": 0.4,
+   "pitch": "-2Hz",
+   "seed": 40
+  },
+  {
+   "t": "Mình tự hỏi liệu bản thân có đang làm đủ tốt không.",
+   "pause_after": 0,
+   "rate": "-3%",
+   "pitch": "-3Hz"
+  }
+ ],
+ "s4": [
+  {
+   "t": "Hồi đó,",
+   "pause_after": 0.25
+  },
+  {
+   "t": "mình chỉ nhìn thấy những thứ mình chưa làm được.",
+   "pause_after": 0,
+   "rate": "-6%",
+   "pitch": "-3Hz"
+  }
+ ],
+ "s5": [
+  {
+   "t": "Còn bây giờ nhìn lại...",
+   "pause_after": 0.4,
+   "pitch": "+2Hz"
+  },
+  {
+   "t": "mình thấy một người đã vượt qua rất nhiều ngày khó khăn.",
+   "pause_after": 0,
+   "pitch": "+1Hz"
+  }
+ ],
+ "s6": [
+  {
+   "t": "Có hôm buồn,",
+   "pause_after": 0.15
+  },
+  {
+   "t": "vẫn dậy đi làm.",
+   "pause_after": 0.35,
+   "pitch": "+2Hz"
+  },
+  {
+   "t": "Có hôm, muốn bỏ cuộc,",
+   "pause_after": 0.15
+  },
+  {
+   "t": "vẫn chọn làm tiếp.",
+   "pause_after": 0,
+   "pitch": "+3Hz"
+  }
+ ],
+ "s7": [
+  {
+   "t": "Chậm thôi,",
+   "pause_after": 0.3,
+   "rate": "-5%"
+  },
+  {
+   "t": "nhưng chưa từng đứng yên.",
+   "pause_after": 0,
+   "pitch": "+2Hz"
+  }
+ ],
+ "s8": [
+  {
+   "t": "Nên mình muốn nói với phiên bản ấy một câu,",
+   "pause_after": 0.25
+  },
+  {
+   "t": "mà ngày đó mình quên nói.",
+   "pause_after": 0,
+   "rate": "-8%",
+   "pitch": "-2Hz"
+  }
+ ],
+ "s9": [
+  {
+   "t": "Cảm ơn,",
+   "pause_after": 0.28,
+   "rate": "-15%"
+  },
+  {
+   "t": "vì đã cố gắng.",
+   "pause_after": 0,
+   "rate": "-15%"
+  }
+ ],
+ "s10": [
+  {
+   "t": "Cảm ơn,",
+   "pause_after": 0.32,
+   "rate": "-18%"
+  },
+  {
+   "t": "vì đã đưa mình đến hôm nay.",
+   "pause_after": 0,
+   "rate": "-18%"
+  }
+ ]
+}

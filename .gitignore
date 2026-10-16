@@ -24,6 +24,10 @@ secrets*.json
 .superpowers/
 .worktrees/
 .codex-monitor-compare/
+/skills/
+/vietnamese-voice-samples/
+/design-monitor/uploads/
+/.claude/skills/
 .DS_Store
 .idea/
 .vscode/
@@ -38,3 +42,16 @@ tmp/
 temp/
 *.tmp
 *.swp
+
+# Local visual comparison output
+tests/visual/actual/
+tests/visual/diff/
+
+# Generated or personal narration (recreate from each video's voice manifest)
+public/audio/**/s[0-9]*.mp3
+public/audio/cm/
+public/audio/voice*.mp3
+
+# Voice references and audition output are personal/local media
+docs/**/*.mp3
+docs/**/*.wav

@@ -1,0 +1,34 @@
+{
+ "s1": [
+  {"t": "Ai cũng muốn trưởng thành.", "rate": "-4%", "pitch": "-2Hz", "pause_after": 0.4},
+  {"t": "Nhưng ít ai muốn nhận hóa đơn đi kèm.", "rate": "-12%", "pitch": "-5Hz", "vol": "+6%"}
+ ],
+ "s2": [
+  {"t": "Hóa đơn ấy ghi gì?", "rate": "+0%", "pitch": "+2Hz", "pause_after": 0.55},
+  {"t": "Vài đêm ngồi một mình, tự hỏi mình đang làm gì.", "rate": "-8%", "pitch": "-4Hz", "pause_after": 0.4},
+  {"t": "Vài mối quan hệ không còn đi cùng nhịp.", "rate": "-8%", "pitch": "-4Hz", "pause_after": 0.4},
+  {"t": "Và cái tôi cũ, thứ từng khiến bạn thấy an toàn.", "rate": "-13%", "pitch": "-6Hz", "vol": "-3%"}
+ ],
+ "s3": [
+  {"t": "Nên ta trì hoãn.", "rate": "-4%", "pitch": "-2Hz", "pause_after": 0.4},
+  {"t": "Ở lại vùng quen thuộc.", "rate": "-4%", "pitch": "-2Hz", "pause_after": 0.45},
+  {"t": "Thoải mái thật, nhưng nó cũng là một khoản trả góp,", "rate": "-6%", "pitch": "-3Hz", "pause_after": 0.3},
+  {"t": "lãi cao dần theo năm tháng.", "rate": "-15%", "pitch": "-6Hz", "vol": "+4%"}
+ ],
+ "s4": [
+  {"t": "Nhưng nhìn lại mà xem.", "rate": "-8%", "pitch": "-2Hz", "pause_after": 0.65},
+  {"t": "Những lần bạn đau nhất,", "rate": "-12%", "pitch": "-4Hz", "pause_after": 0.35},
+  {"t": "cũng là những lần bạn học được nhiều nhất.", "rate": "-15%", "pitch": "-6Hz", "vol": "+8%"}
+ ],
+ "s5": [
+  {"t": "Trưởng thành không phải là hết sợ.", "rate": "-8%", "pitch": "-3Hz", "pause_after": 0.65},
+  {"t": "Mà là vẫn sợ,", "rate": "-10%", "pitch": "-4Hz", "pause_after": 0.35},
+  {"t": "nhưng vẫn chịu trả giá.", "rate": "-18%", "pitch": "-7Hz", "vol": "+8%"}
+ ],
+ "s6": [
+  {"t": "Nên hôm nay, đừng hỏi: liệu có đắt không.", "rate": "-6%", "pitch": "-2Hz", "pause_after": 0.45},
+  {"t": "Hãy hỏi: mình muốn trở thành ai?", "rate": "-10%", "pitch": "+1Hz", "vol": "+4%", "pause_after": 0.75},
+  {"t": "Thức dậy đi,", "rate": "-4%", "pitch": "+2Hz", "pause_after": 0.3},
+  {"t": "và bắt đầu thanh toán nhé.", "rate": "-8%", "pitch": "-2Hz"}
+ ]
+}

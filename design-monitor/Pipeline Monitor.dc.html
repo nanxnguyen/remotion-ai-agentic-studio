@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="./image-slot.js"></script>
+  <style>
+    body{margin:0;background:#04060b;}
+    ::selection{background:#2dd4bf;color:#04141b;}
+    @keyframes gridDrift{from{background-position:0 0,0 0;}to{background-position:0 60px,60px 0;}}
+    @keyframes floatBlobA{0%,100%{transform:translate(0,0);}50%{transform:translate(30px,-40px);}}
+    @keyframes floatBlobB{0%,100%{transform:translate(0,0);}50%{transform:translate(-40px,30px);}}
+    @keyframes ringOrbit{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
+    @keyframes flowDot{0%{left:0%;opacity:0;}8%{opacity:1;}92%{opacity:1;}100%{left:100%;opacity:0;}}
+    @keyframes pulseLive{0%,100%{box-shadow:0 0 0 0 rgba(45,212,191,.55);}50%{box-shadow:0 0 0 7px rgba(45,212,191,0);}}
+    @keyframes pulseAmber{0%,100%{box-shadow:0 0 0 0 rgba(251,191,36,.55);}50%{box-shadow:0 0 0 6px rgba(251,191,36,0);}}
+    @keyframes logFade{from{opacity:0;transform:translateY(-6px);}to{opacity:1;transform:translateY(0);}}
+    @keyframes blinkCursor{0%,49%{opacity:1;}50%,100%{opacity:0;}}
+    @keyframes cardIn{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
+    @keyframes hubPulse{0%,100%{box-shadow:0 0 30px 6px rgba(45,212,191,.35),inset 0 0 20px rgba(45,212,191,.25);}50%{box-shadow:0 0 50px 14px rgba(45,212,191,.5),inset 0 0 26px rgba(45,212,191,.4);}}
+    @keyframes satelliteBob{0%,100%{transform:translateY(0);}50%{transform:translateY(-6px);}}
+    @keyframes beamFlow{0%{stroke-dashoffset:40;}100%{stroke-dashoffset:0;}}
+    @keyframes twinkle{0%,100%{opacity:.15;}50%{opacity:.8;}}
+    @keyframes botFloat{0%,100%{transform:translate(0,0) rotate(0deg);}50%{transform:translate(10px,-16px) rotate(4deg);}}
+    @keyframes cubeTravel{0%{left:2%;transform:translateY(-50%) rotate(0deg);opacity:0;}10%{opacity:1;}90%{opacity:1;}100%{left:94%;transform:translateY(-50%) rotate(180deg);opacity:0;}}
+    #pipelineScroll::-webkit-scrollbar{display:none;}
+    a{color:#5eead4;}
+    a:hover{color:#99f6e4;}
+  </style>
+</helmet>
+<div onMouseMove="{{ handleParallax }}" onMouseLeave="{{ resetParallax }}" style="position:relative;min-height:100vh;background:#04060b;font-family:'Sora',sans-serif;color:#dce3ee;overflow:hidden;">
+  <div style="position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;">
+    <div style="{{ bgLayer1 }}position:absolute;top:-10%;left:5%;width:460px;height:460px;border-radius:50%;background:radial-gradient(circle,rgba(45,212,191,.16),transparent 70%);filter:blur(10px);animation:floatBlobA 14s ease-in-out infinite;"></div>
+    <div style="{{ bgLayer2 }}position:absolute;bottom:-15%;right:8%;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,rgba(56,189,248,.15),transparent 70%);filter:blur(10px);animation:floatBlobB 16s ease-in-out infinite;"></div>
+    <div style="position:absolute;left:50%;bottom:-25%;width:220%;height:60%;transform:translateX(-50%) perspective(600px) rotateX(58deg);background-image:linear-gradient(rgba(94,234,212,.09) 1px,transparent 1px),linear-gradient(90deg,rgba(94,234,212,.09) 1px,transparent 1px);background-size:56px 56px;animation:gridDrift 9s linear infinite;opacity:.5;"></div>
+    <sc-for list="{{ stars }}" as="s" hint-placeholder-count="14">
+      <span style="{{ s.style }}"></span>
+    </sc-for>
+    <div style="position:absolute;top:14%;right:16%;opacity:.25;animation:botFloat 9s ease-in-out infinite;">
+      <svg width="46" height="46" viewBox="0 0 24 24" fill="none"><rect x="4" y="7" width="16" height="12" rx="4" stroke="#5eead4" stroke-width="1.3"/><circle cx="9" cy="13" r="1.6" fill="#5eead4"/><circle cx="15" cy="13" r="1.6" fill="#5eead4"/><path d="M12 7V3" stroke="#5eead4" stroke-width="1.3"/><circle cx="12" cy="2.4" r="1" fill="#5eead4"/></svg>
+    </div>
+    <div style="position:absolute;bottom:18%;left:12%;opacity:.2;animation:botFloat 11s ease-in-out infinite reverse;">
+      <svg width="34" height="34" viewBox="0 0 24 24" fill="none"><rect x="4" y="7" width="16" height="12" rx="4" stroke="#38bdf8" stroke-width="1.3"/><circle cx="9" cy="13" r="1.6" fill="#38bdf8"/><circle cx="15" cy="13" r="1.6" fill="#38bdf8"/><path d="M12 7V3" stroke="#38bdf8" stroke-width="1.3"/><circle cx="12" cy="2.4" r="1" fill="#38bdf8"/></svg>
+    </div>
+  </div>
+
+  <div style="position:relative;z-index:1;max-width:1400px;margin:0 auto;padding:30px 28px 46px;display:flex;gap:22px;align-items:flex-start;">
+    <aside style="width:258px;flex:none;position:sticky;top:24px;background:rgba(10,14,24,.72);backdrop-filter:blur(14px);border:1px solid rgba(148,163,184,.12);border-radius:18px;padding:18px 14px;display:flex;flex-direction:column;gap:14px;animation:cardIn .4s ease both;">
+      <div style="font-size:10px;letter-spacing:.14em;color:#64748b;text-transform:uppercase;padding:0 4px;">Workspace</div>
+      <div style="font-size:13px;font-weight:600;color:#cbd5e1;padding:0 4px;">Video đang sản xuất <span style="color:#475569;font-weight:500;">{{ projectCount }}</span></div>
+      <div style="display:flex;flex-direction:column;gap:9px;">
+        <sc-for list="{{ projects }}" as="p" hint-placeholder-count="6">
+          <div onClick="{{ p.select }}" style="{{ p.cardStyle }}">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+              <span style="{{ p.dotStyle }}"></span>
+              <span style="font-size:13px;font-weight:600;color:#e2e8f0;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">{{ p.name }}</span>
+              <sc-if value="{{ p.badge }}"><span style="font-size:10px;font-weight:600;color:#fca5a5;background:rgba(239,68,68,.12);border:1px solid rgba(239,68,68,.3);border-radius:6px;padding:2px 7px;">{{ p.badge }}</span></sc-if>
+            </div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;color:#64748b;margin-bottom:8px;">{{ p.subtitle }}</div>
+            <div style="height:4px;border-radius:3px;background:rgba(148,163,184,.14);overflow:hidden;">
+              <div style="{{ p.barStyle }}"></div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </aside>
+    <main style="flex:1;min-width:0;display:flex;flex-direction:column;gap:20px;">
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div style="width:40px;height:40px;border-radius:11px;background:linear-gradient(145deg,#0ea5a0,#0369a1);display:flex;align-items:center;justify-content:center;box-shadow:0 0 20px rgba(45,212,191,.4);flex:none;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="6" cy="6" r="2.4" fill="#e6fffb"/><circle cx="18" cy="6" r="2.4" fill="#e6fffb"/><circle cx="12" cy="18" r="2.4" fill="#e6fffb"/><path d="M6 6L12 18M18 6L12 18M6 6L18 6" stroke="#e6fffb" stroke-width="1.3"/></svg>
+        </div>
+        <div>
+          <div style="font-weight:700;font-size:17px;color:#f1f5f9;line-height:1.2;">Agent Workflow Monitor</div>
+          <div style="font-size:10.5px;letter-spacing:.12em;color:#64748b;text-transform:uppercase;">AI Video Production Control</div>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;background:rgba(45,212,191,.08);border:1px solid rgba(45,212,191,.25);border-radius:999px;padding:7px 14px;">
+        <span style="width:7px;height:7px;border-radius:50%;background:#2dd4bf;animation:pulseLive 2s ease-in-out infinite;"></span>
+        <span style="font-size:12px;font-weight:600;color:#5eead4;">Đang kết nối trực tiếp</span>
+      </div>
+    </div>
+
+    <div style="background:linear-gradient(155deg,rgba(17,24,39,.7),rgba(10,15,25,.8));backdrop-filter:blur(10px);border:1px solid rgba(148,163,184,.14);border-radius:20px;padding:30px 20px 12px;animation:cardIn .45s ease both;">
+      <div style="text-align:center;margin-bottom:6px;">
+        <div style="font-size:11px;letter-spacing:.16em;color:#5eead4;text-transform:uppercase;font-weight:700;">Agent Orchestration</div>
+        <div style="font-size:12px;color:#64748b;">4 agent chuyên trách báo cáo về bộ điều phối trung tâm</div>
+      </div>
+
+      <div style="position:relative;width:340px;height:300px;margin:26px auto 0;">
+        <svg width="340" height="300" style="position:absolute;inset:0;overflow:visible;">
+          <line x1="170" y1="150" x2="50" y2="48" stroke="#2dd4bf" stroke-width="1.6" stroke-dasharray="5 5" opacity=".55" style="animation:beamFlow 1.6s linear infinite;"/>
+          <line x1="170" y1="150" x2="290" y2="48" stroke="#38bdf8" stroke-width="1.6" stroke-dasharray="5 5" opacity=".55" style="animation:beamFlow 1.6s linear infinite;"/>
+          <line x1="170" y1="150" x2="50" y2="252" stroke="#a78bfa" stroke-width="1.6" stroke-dasharray="5 5" opacity=".55" style="animation:beamFlow 1.6s linear infinite;"/>
+          <line x1="170" y1="150" x2="290" y2="252" stroke="#fbbf24" stroke-width="1.6" stroke-dasharray="5 5" opacity=".55" style="animation:beamFlow 1.6s linear infinite;"/>
+        </svg>
+
+        <sc-for list="{{ modules }}" as="m" hint-placeholder-count="4">
+          <div style="{{ m.wrapStyle }}">
+            <div style="animation:satelliteBob 4s ease-in-out infinite;animation-delay:{{ m.delay }};display:flex;flex-direction:column;align-items:center;gap:6px;">
+              <div style="width:46px;height:46px;border-radius:13px;background:rgba(13,18,28,.9);border:1px solid {{ m.color }};display:flex;align-items:center;justify-content:center;box-shadow:0 0 16px {{ m.glow }};">{{ m.icon }}</div>
+              <div style="font-size:10.5px;font-weight:600;color:#cbd5e1;white-space:nowrap;">{{ m.label }}</div>
+            </div>
+          </div>
+        </sc-for>
+
+        <div style="position:absolute;top:150px;left:170px;transform:translate(-50%,-50%);width:74px;height:74px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#1a2b36,#07131a);border:1px solid rgba(45,212,191,.5);display:flex;align-items:center;justify-content:center;animation:hubPulse 3s ease-in-out infinite;z-index:2;">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="3" fill="#5eead4"/><circle cx="12" cy="4" r="1.6" fill="#5eead4"/><circle cx="12" cy="20" r="1.6" fill="#5eead4"/><circle cx="4" cy="12" r="1.6" fill="#5eead4"/><circle cx="20" cy="12" r="1.6" fill="#5eead4"/><path d="M12 7v2M12 15v2M9 12H7M17 12h-2" stroke="#5eead4" stroke-width="1.1"/></svg>
+        </div>
+      </div>
+      <div style="text-align:center;font-size:10.5px;color:#475569;margin:18px 0 20px;">Bộ điều phối trung tâm — phân việc, gộp kết quả, đẩy qua pipeline bên dưới</div>
+    </div>
+
+    <div style="perspective:1200px;animation:cardIn .55s ease both;">
+      <div ref="{{ overviewRef }}" onMouseMove="{{ handleTiltMove }}" onMouseLeave="{{ handleTiltLeave }}" style="{{ overviewTransformStyle }}">
+        <div style="background:linear-gradient(155deg,rgba(17,24,39,.85),rgba(10,15,25,.9));border:1px solid rgba(148,163,184,.14);border-radius:18px;padding:28px 30px;display:flex;align-items:center;justify-content:space-between;gap:28px;box-shadow:0 20px 60px -20px rgba(0,0,0,.6);flex-wrap:wrap;">
+          <div style="flex:1;min-width:260px;">
+            <div style="font-size:11px;letter-spacing:.14em;color:#5eead4;text-transform:uppercase;font-weight:600;margin-bottom:10px;">Production Overview</div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:26px;font-weight:600;color:#f8fafc;margin-bottom:12px;">{{ project.name }}</div>
+            <div style="display:flex;align-items:center;gap:10px;font-size:12.5px;color:#94a3b8;margin-bottom:18px;flex-wrap:wrap;">
+              <span style="color:#5eead4;font-weight:600;">{{ project.subtitle }}</span>
+              <span style="color:#334155;">·</span>
+              <span style="font-family:'JetBrains Mono',monospace;">{{ project.statusFilePath }}</span>
+              <span style="color:#334155;">·</span>
+              <span>Cập nhật {{ project.updated }}</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;">
+              <div style="width:30px;height:30px;border-radius:9px;background:rgba(94,234,212,.1);border:1px solid rgba(94,234,212,.3);display:flex;align-items:center;justify-content:center;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#5eead4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              <div>
+                <div style="font-size:10px;letter-spacing:.1em;color:#64748b;text-transform:uppercase;">Bước tiếp theo</div>
+                <div style="font-size:14px;font-weight:600;color:#e2e8f0;">{{ project.nextStep }}</div>
+              </div>
+            </div>
+          </div>
+
+          <div style="position:relative;width:130px;height:130px;flex:none;display:flex;align-items:center;justify-content:center;">
+            <div style="position:absolute;inset:0;border-radius:50%;background:{{ project.ringGradient }};box-shadow:0 0 28px {{ project.ringGlow }};"></div>
+            <div style="position:absolute;inset:7px;border-radius:50%;background:#0a0e17;"></div>
+            <div style="position:absolute;inset:0;animation:ringOrbit 7s linear infinite;">
+              <span style="position:absolute;top:2px;left:50%;width:7px;height:7px;margin-left:-3.5px;border-radius:50%;background:#fff;box-shadow:0 0 10px 2px #2dd4bf;"></span>
+            </div>
+            <div style="position:relative;text-align:center;">
+              <div style="font-family:'JetBrains Mono',monospace;font-size:24px;font-weight:700;color:#f8fafc;">{{ project.progress }}%</div>
+              <div style="font-size:9px;letter-spacing:.1em;color:#64748b;text-transform:uppercase;">hoàn tất</div>
+            </div>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:10px;flex:none;">
+            <div style="text-align:right;"><div style="font-size:10px;letter-spacing:.1em;color:#64748b;text-transform:uppercase;">Stages</div><div style="font-family:'JetBrains Mono',monospace;font-size:16px;font-weight:600;color:#e2e8f0;">{{ project.stagesDone }}/8</div></div>
+            <div style="text-align:right;"><div style="font-size:10px;letter-spacing:.1em;color:#64748b;text-transform:uppercase;">Reviews</div><div style="font-family:'JetBrains Mono',monospace;font-size:16px;font-weight:600;color:#e2e8f0;">{{ project.reviewsPass }}/{{ project.reviewsTotal }}</div></div>
+            <div style="text-align:right;"><div style="font-size:10px;letter-spacing:.1em;color:#64748b;text-transform:uppercase;">Hiện tại</div><div style="font-size:14px;font-weight:600;color:#2dd4bf;">{{ project.status }}</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <sc-if value="{{ project.isComplete }}" hint-placeholder-val="{{ false }}">
+      <div style="background:linear-gradient(155deg,rgba(17,24,39,.85),rgba(10,15,25,.9));border:1px solid rgba(45,212,191,.25);border-radius:18px;padding:22px 24px;display:flex;gap:22px;flex-wrap:wrap;animation:cardIn .6s ease both;box-shadow:0 0 30px rgba(45,212,191,.08);">
+        <div style="width:160px;flex:none;aspect-ratio:9/16;position:relative;border-radius:14px;overflow:hidden;border:1px solid rgba(45,212,191,.3);">
+          <image-slot id="video-output-thumb" shape="rect" placeholder="Thả khung hình video hoàn chỉnh"></image-slot>
+          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;">
+            <div style="width:48px;height:48px;border-radius:50%;background:rgba(4,6,11,.6);backdrop-filter:blur(4px);border:1px solid rgba(255,255,255,.3);display:flex;align-items:center;justify-content:center;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg>
+            </div>
+          </div>
+          <div style="position:absolute;bottom:6px;right:8px;font-family:'JetBrains Mono',monospace;font-size:10px;color:#fff;background:rgba(0,0,0,.5);border-radius:4px;padding:1px 6px;pointer-events:none;">{{ project.duration }}</div>
+        </div>
+        <div style="flex:1;min-width:220px;display:flex;flex-direction:column;justify-content:center;gap:10px;">
+          <div>
+            <div style="font-size:11px;letter-spacing:.14em;color:#5eead4;text-transform:uppercase;font-weight:700;margin-bottom:6px;">Video đầu ra</div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:18px;font-weight:600;color:#f8fafc;">{{ project.name }}.mp4</div>
+          </div>
+          <div style="display:flex;gap:14px;font-size:12px;color:#94a3b8;flex-wrap:wrap;">
+            <span>Thời lượng {{ project.duration }}</span><span style="color:#334155;">·</span><span>{{ project.resolution }}</span><span style="color:#334155;">·</span><span style="color:#4ade80;">Đã qua {{ project.reviewsPass }}/{{ project.reviewsTotal }} gate</span>
+          </div>
+          <div style="display:flex;gap:10px;margin-top:6px;flex-wrap:wrap;">
+            <div style="display:flex;align-items:center;gap:7px;background:#2dd4bf;color:#04141b;font-weight:700;font-size:12.5px;border-radius:9px;padding:9px 16px;cursor:pointer;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M8 5v14l11-7z" fill="#04141b"/></svg>Xem video
+            </div>
+            <div style="display:flex;align-items:center;gap:7px;background:rgba(148,163,184,.1);border:1px solid rgba(148,163,184,.25);color:#cbd5e1;font-weight:600;font-size:12.5px;border-radius:9px;padding:9px 16px;cursor:pointer;">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M12 3v12m0 0 4-4m-4 4-4-4M5 21h14" stroke="#cbd5e1" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Tải xuống
+            </div>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+    <sc-if value="{{ project.notComplete }}" hint-placeholder-val="{{ false }}">
+      <div style="background:rgba(13,18,28,.6);border:1px dashed rgba(148,163,184,.22);border-radius:18px;padding:20px 24px;display:flex;align-items:center;gap:14px;color:#64748b;font-size:13px;animation:cardIn .6s ease both;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="5" y="11" width="14" height="9" rx="2" stroke="#64748b" stroke-width="1.4"/><path d="M8 11V8a4 4 0 0 1 8 0v3" stroke="#64748b" stroke-width="1.4"/></svg>
+        Video đầu ra sẽ xuất hiện ở đây sau khi hoàn tất pipeline và qua hết review gate.
+      </div>
+    </sc-if>
+
+    <div style="background:rgba(13,18,28,.78);border:1px solid rgba(148,163,184,.12);border-radius:18px;padding:22px 24px 20px;animation:cardIn .65s ease both;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;flex-wrap:wrap;gap:8px;">
+        <div>
+          <div style="font-size:15px;font-weight:700;color:#f1f5f9;">Production pipeline</div>
+          <div style="font-size:12px;color:#64748b;">Chọn một agent-stage để xem bằng chứng</div>
+        </div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:11.5px;color:#5eead4;background:rgba(94,234,212,.08);border:1px solid rgba(94,234,212,.2);border-radius:999px;padding:4px 12px;">{{ project.stagesDone }}/8 hoàn tất</div>
+      </div>
+
+      <div id="pipelineScroll" style="display:flex;align-items:flex-start;perspective:900px;overflow-x:auto;overflow-y:hidden;padding:6px 4px 28px;scrollbar-width:none;">
+        <sc-for list="{{ project.stages }}" as="stage" hint-placeholder-count="8">
+          <sc-if value="{{ stage.needsConnector }}"><div style="position:relative;flex:1;height:2px;background:linear-gradient(90deg, rgba(148,163,184,.25), rgba(148,163,184,.08));margin-top:46px;min-width:26px;">
+            <span style="{{ stage.connectorDotStyle }}"></span>
+          </div></sc-if>
+          <div onClick="{{ stage.select }}" style="{{ stage.nodeWrapStyle }}">
+            <div style="{{ stage.orbStyle }}">
+              <span style="position:absolute;top:-6px;left:-6px;width:20px;height:20px;border-radius:50%;background:#0b1119;border:1px solid rgba(148,163,184,.35);display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;color:#94a3b8;z-index:2;">{{ stage.num }}</span>
+              {{ stage.robotIcon }}
+            </div>
+            <div style="font-size:12.5px;font-weight:700;color:#e2e8f0;text-align:center;min-height:32px;line-height:1.3;">{{ stage.name }}</div>
+            <div style="display:flex;align-items:center;gap:5px;">
+              <span style="{{ stage.dotStyle }}"></span>
+              <span style="font-size:10.5px;font-weight:600;color:{{ stage.statusColor }};">{{ stage.statusLabel }}</span>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+
+      <div style="display:flex;gap:16px;margin-top:16px;flex-wrap:wrap;">
+        <sc-for list="{{ legend }}" as="item" hint-placeholder-count="3">
+          <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:#64748b;">
+            <span style="width:7px;height:7px;border-radius:50%;background:{{ item.color }};"></span>{{ item.label }}
+          </div>
+        </sc-for>
+      </div>
+
+      <sc-if value="{{ selectedStageNote }}" hint-placeholder-val="{{ false }}">
+        <div style="margin-top:16px;padding:14px 16px;border-radius:12px;background:rgba(94,234,212,.06);border:1px solid rgba(94,234,212,.2);font-family:'JetBrains Mono',monospace;font-size:12.5px;color:#cbd5e1;animation:logFade .25s ease both;">{{ selectedStageNote }}</div>
+      </sc-if>
+    </div>
+
+    <div style="display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:18px;align-items:start;">
+      <div style="background:rgba(13,18,28,.78);border:1px solid rgba(148,163,184,.12);border-radius:18px;padding:20px 22px;animation:cardIn .75s ease both;">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:6px;">
+          <div>
+            <div style="font-size:15px;font-weight:700;color:#f1f5f9;">Review gates</div>
+            <div style="font-size:12px;color:#64748b;">Đánh giá độc lập trước khi chuyển bước</div>
+          </div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:11.5px;color:#a5b4fc;background:rgba(129,140,248,.1);border:1px solid rgba(129,140,248,.25);border-radius:999px;padding:4px 12px;">{{ project.reviewsPass }}/{{ project.reviewsTotal }} đạt</div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr auto auto auto;gap:4px 14px;font-size:9.5px;letter-spacing:.08em;color:#475569;text-transform:uppercase;padding:0 4px 8px;border-bottom:1px solid rgba(148,163,184,.1);">
+          <div>Gate</div><div>Trạng thái</div><div>Điểm</div><div>Vòng</div>
+        </div>
+        <sc-for list="{{ project.gates }}" as="g" hint-placeholder-count="5">
+          <div style="display:grid;grid-template-columns:1fr auto auto auto;gap:4px 14px;align-items:center;padding:10px 4px;border-bottom:1px solid rgba(148,163,184,.06);">
+            <div style="font-size:13px;font-weight:600;color:#e2e8f0;">{{ g.code }}</div>
+            <div style="display:flex;align-items:center;gap:6px;"><span style="width:6px;height:6px;border-radius:50%;background:{{ g.statusColor }};"></span><span style="font-size:12.5px;font-weight:600;color:{{ g.statusColor }};">{{ g.status }}</span></div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:12.5px;color:#94a3b8;">{{ g.score }}</div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:12.5px;color:#94a3b8;">{{ g.rounds }}</div>
+          </div>
+        </sc-for>
+      </div>
+
+      <div style="background:#070a10;border:1px solid rgba(148,163,184,.12);border-radius:18px;padding:18px 20px 14px;font-family:'JetBrains Mono',monospace;animation:cardIn .85s ease both;position:relative;overflow:hidden;">
+        <div style="position:absolute;top:0;left:2%;width:10px;height:10px;border-radius:2px;background:linear-gradient(135deg,#2dd4bf,#38bdf8);box-shadow:0 0 8px rgba(45,212,191,.7);animation:cubeTravel 3.4s linear infinite;"></div>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+          <div style="font-size:13px;font-weight:700;color:#f1f5f9;font-family:'Sora',sans-serif;">Nhật ký hoạt động</div>
+          <span style="font-size:10.5px;color:#475569;">live</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:9px;max-height:280px;overflow:hidden;">
+          <sc-for list="{{ logLines }}" as="line" hint-placeholder-count="5">
+            <div style="animation:logFade .3s ease both;font-size:11.5px;line-height:1.5;border-left:2px solid {{ line.color }};padding-left:10px;">
+              <span style="color:#475569;">{{ line.time }}</span>
+              <span style="color:#5eead4;"> {{ line.agent }}</span>
+              <span style="color:#64748b;"> · {{ line.tag }}</span>
+              <div style="color:#cbd5e1;">{{ line.text }}</div>
+            </div>
+          </sc-for>
+        </div>
+        <div style="margin-top:10px;font-size:11.5px;color:#475569;">&gt; <span style="animation:blinkCursor 1s step-end infinite;">▌</span></div>
+      </div>
+    </div>
+    </main>
+  </div>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  overviewRef = React.createRef();
+
+  stageNames = ['Research','Brief','Script','Voice','Timeline + scenes','SFX / BGM','Stills QA','Render'];
+
+  data = [
+    { id:'claude-mem', name:'claude-mem', subtitle:'ClaudeMemReel', dotColor:'#64748b', badge:null, progress:15, status:'Đang chờ',
+      updated:'07:40 14/10/2026', nextStep:'hoàn thiện brief v1',
+      stageStatus:['done','running','waiting','waiting','waiting','waiting','waiting','waiting'],
+      stageNotes:['Hoàn tất · 9 nguồn tổng hợp','Đang soạn outline v1','Chưa bắt đầu','Chưa bắt đầu','Chưa bắt đầu','Chưa bắt đầu','Chưa bắt đầu','Chưa bắt đầu'],
+      reviewsPass:0, reviewsTotal:3,
+      gates:[{code:'Gate A',status:'Đang chờ',score:'—',rounds:'—',statusColor:'#fbbf24'}],
+      initialLogs:[{time:'07:40',agent:'brief',tag:'draft',text:'brief -> draft: outline v1 đang soạn'},{time:'07:12',agent:'research',tag:'done',text:'research -> done: 9 nguồn, tổng hợp bối cảnh'}],
+      logPool:[{agent:'brief',tag:'run',text:'brief -> run: chỉnh giọng kể cho tự nhiên hơn'},{agent:'research',tag:'note',text:'research -> note: bổ sung 2 nguồn tư liệu cũ'}] },
+
+    { id:'cuoc-goi-nho-cua-me', name:'cuoc-goi-nho-cua-me', subtitle:'CuocGoiNhoCuaMe', dotColor:'#2dd4bf', badge:null, progress:100, status:'Hoàn tất',
+      updated:'08:01:34 14/10/2026', nextStep:'gate C', duration:'00:58', resolution:'1080×1920',
+      stageStatus:['done','done','done','done','done','done','done','done'],
+      stageNotes:['Hoàn tất · thu thập bối cảnh, giọng kể, tư liệu gốc','Hoàn tất · outline duyệt, tone ấm – hoài niệm','Hoàn tất · script v2 160 từ, gate A2 8.6 pass','Hoàn tất · lồng tiếng mẹ, 12 đoạn, -16 LUFS','Hoàn tất · timeline 1419f, 3 scenes v2, font BeVietnam','Hoàn tất · bgm + 7 sfx, manifest đầy đủ, max < 0dB','Hoàn tất · QA 16 khung hình, boundary 8/8 pass','Hoàn tất · chờ gate C trước khi xuất bản'],
+      reviewsPass:4, reviewsTotal:5,
+      gates:[
+        {code:'Gate A',status:'Đạt',score:'8.6/10',rounds:'2 vòng',statusColor:'#4ade80'},
+        {code:'Gate D',status:'Đạt',score:'9/10',rounds:'2 vòng',statusColor:'#4ade80'},
+        {code:'Gate E',status:'Đạt',score:'9.6/10',rounds:'3 vòng',statusColor:'#4ade80'},
+        {code:'Gate B',status:'Đạt',score:'9.5/10',rounds:'2 vòng',statusColor:'#4ade80'},
+        {code:'Gate C',status:'Đang chờ',score:'—',rounds:'0 vòng',statusColor:'#fbbf24'},
+      ],
+      initialLogs:[
+        {time:'08:01:34',agent:'audio',tag:'done',text:'audio -> done: bgm + 7 sfx, manifest đầy đủ, max<0dB'},
+        {time:'08:01:34',agent:'script',tag:'done',text:'script -> done: script v2 160 từ, gate A2 8.6 pass'},
+        {time:'08:01:30',agent:'qa',tag:'done',text:'qa -> done: code review + 16 frames + boundary 8/8 + video-review VISUAL pass'},
+        {time:'08:01:29',agent:'build',tag:'done',text:'build -> done: timeline 1419f + kit + 3 scenes v2 + font BeVietnam, tsc'},
+      ],
+      logPool:[{agent:'render',tag:'queue',text:'render -> queued: chờ gate C trước khi xuất bản'},{agent:'voice',tag:'done',text:'voice -> done: lồng tiếng mẹ, 12 đoạn, -16 LUFS'},{agent:'stills',tag:'done',text:'stills -> done: QA 42 khung hình, 0 lỗi màu'}] },
+
+    { id:'gaplai', name:'gaplai', subtitle:'GaplaiReel', dotColor:'#fbbf24', badge:'Lệch file', progress:58, status:'Đang chạy',
+      updated:'06:12 14/10/2026', nextStep:'voice QA',
+      stageStatus:['done','done','done','running','waiting','waiting','waiting','waiting'],
+      stageNotes:['Hoàn tất · research 7 nguồn','Hoàn tất · outline v2 duyệt','Hoàn tất · script v3 142 từ','Đang đọc lại 4 đoạn lỗi file nguồn','Chưa bắt đầu','Chưa bắt đầu','Chưa bắt đầu','Chưa bắt đầu'],
+      reviewsPass:1, reviewsTotal:2,
+      gates:[{code:'Gate A',status:'Đạt',score:'7.8/10',rounds:'1 vòng',statusColor:'#4ade80'},{code:'Gate D',status:'Đang chờ',score:'—',rounds:'—',statusColor:'#fbbf24'}],
+      initialLogs:[{time:'06:12',agent:'voice',tag:'run',text:'voice -> run: đang đọc lại 4 đoạn lỗi file nguồn'},{time:'05:48',agent:'build',tag:'warn',text:'build -> warn: lệch file asset v1 vs v2'}],
+      logPool:[{agent:'script',tag:'done',text:'script -> done: v3 142 từ, chờ duyệt gate D'},{agent:'voice',tag:'warn',text:'voice -> warn: 1 đoạn audio nhiễu nền'}] },
+
+    { id:'met-khong', name:'Met khong (Lon roi)', subtitle:'MetkhongReel', dotColor:'#4ade80', badge:'Lệch file', progress:68, status:'Đang chạy',
+      updated:'05:50 14/10/2026', nextStep:'sfx mix',
+      stageStatus:['done','done','done','done','running','waiting','waiting','waiting'],
+      stageNotes:['Hoàn tất','Hoàn tất','Hoàn tất','Hoàn tất · lồng tiếng xong 8 đoạn','Đang ghép 9 cảnh, canh nhịp thoại','Chưa bắt đầu','Chưa bắt đầu','Chưa bắt đầu'],
+      reviewsPass:2, reviewsTotal:3,
+      gates:[{code:'Gate A',status:'Đạt',score:'8.9/10',rounds:'1 vòng',statusColor:'#4ade80'},{code:'Gate D',status:'Đạt',score:'8.5/10',rounds:'2 vòng',statusColor:'#4ade80'},{code:'Gate E',status:'Đang chờ',score:'—',rounds:'—',statusColor:'#fbbf24'}],
+      initialLogs:[{time:'05:50',agent:'timeline',tag:'run',text:'timeline -> run: ghép 9 cảnh, đang canh nhịp thoại'},{time:'05:20',agent:'voice',tag:'done',text:'voice -> done: lồng tiếng xong 8 đoạn'}],
+      logPool:[{agent:'qa',tag:'warn',text:'qa -> warn: lệch file kịch bản v2 vs v3'},{agent:'timeline',tag:'run',text:'timeline -> run: chỉnh nhịp cảnh 5-7'}] },
+
+    { id:'truong-thanh', name:'Trưởng Thành', subtitle:'TruongThanhReel', dotColor:'#4ade80', badge:null, progress:20, status:'Đang chạy',
+      updated:'04:30 14/10/2026', nextStep:'brief review',
+      stageStatus:['done','running','waiting','waiting','waiting','waiting','waiting','waiting'],
+      stageNotes:['Hoàn tất · 9 nguồn tổng hợp','Đang soạn outline nhân vật chính','Chưa bắt đầu','Chưa bắt đầu','Chưa bắt đầu','Chưa bắt đầu','Chưa bắt đầu','Chưa bắt đầu'],
+      reviewsPass:0, reviewsTotal:1,
+      gates:[{code:'Gate A',status:'Đang chờ',score:'—',rounds:'—',statusColor:'#fbbf24'}],
+      initialLogs:[{time:'04:30',agent:'brief',tag:'run',text:'brief -> run: soạn outline nhân vật chính'},{time:'04:05',agent:'research',tag:'done',text:'research -> done: 9 nguồn tổng hợp'}],
+      logPool:[{agent:'brief',tag:'run',text:'brief -> run: điều chỉnh tông giọng kể'}] },
+
+    { id:'lan', name:'Lan (nghỉ việc)', subtitle:'LanReel', dotColor:'#64748b', badge:null, progress:8, status:'Tạm dừng', paused:true,
+      updated:'02:15 14/10/2026', nextStep:'chờ phân công lại',
+      stageStatus:['running','waiting','waiting','waiting','waiting','waiting','waiting','waiting'],
+      stageNotes:['Tạm dừng giữa chừng','Chưa bắt đầu','Chưa bắt đầu','Chưa bắt đầu','Chưa bắt đầu','Chưa bắt đầu','Chưa bắt đầu','Chưa bắt đầu'],
+      reviewsPass:0, reviewsTotal:1, gates:[],
+      initialLogs:[{time:'02:15',agent:'system',tag:'pause',text:'system -> pause: tạm dừng do đổi người phụ trách'}],
+      logPool:[] },
+  ];
+
+  moduleDefs = [
+    { label: 'Research Agent', color: '#2dd4bf', glow: 'rgba(45,212,191,.35)', x: 50, y: 48, delay: '0s',
+      path: 'M9 3a4 4 0 0 0-4 4v1a4 4 0 0 0 0 8v1a4 4 0 0 0 8 0V7a4 4 0 0 0-4-4z' },
+    { label: 'Script Agent', color: '#38bdf8', glow: 'rgba(56,189,248,.35)', x: 290, y: 48, delay: '.6s',
+      path: 'M8 5 3 12l5 7M16 5l5 7-5 7' },
+    { label: 'QA Agent', color: '#a78bfa', glow: 'rgba(167,139,250,.35)', x: 50, y: 252, delay: '1.2s',
+      path: 'M5 12l4 4 10-10' },
+    { label: 'Render Agent', color: '#fbbf24', glow: 'rgba(251,191,36,.35)', x: 290, y: 252, delay: '1.8s',
+      path: 'M4 19V9l8-5 8 5v10M4 19l8-5 8 5M4 19h16' },
+  ];
+
+  state = {
+    selectedId: 'cuoc-goi-nho-cua-me',
+    selectedStageIdx: null,
+    tilt: { x: 0, y: 0 },
+    parallax: { x: 0, y: 0 },
+    logs: [],
+    poolIdx: 0,
+    stars: Array.from({ length: 16 }).map(() => ({
+      top: Math.random() * 100, left: Math.random() * 100,
+      size: 1 + Math.random() * 2, delay: Math.random() * 3,
+    })),
+  };
+
+  componentDidMount() {
+    this.resetLogs(this.state.selectedId);
+    this.timer = setInterval(() => this.tick(), 4200);
+  }
+  componentWillUnmount() { clearInterval(this.timer); }
+
+  resetLogs(id) {
+    const proj = this.data.find(p => p.id === id);
+    this.setState({ logs: proj.initialLogs.map(l => ({ ...l })), poolIdx: 0 });
+  }
+
+  tick() {
+    const proj = this.data.find(p => p.id === this.state.selectedId);
+    if (!proj.logPool.length) return;
+    const next = proj.logPool[this.state.poolIdx % proj.logPool.length];
+    this.setState(s => ({
+      logs: [{ time: 'vừa xong', ...next }, ...s.logs].slice(0, 7),
+      poolIdx: s.poolIdx + 1,
+    }));
+  }
+
+  selectProject(id) {
+    this.setState({ selectedId: id, selectedStageIdx: null });
+    this.resetLogs(id);
+  }
+
+  selectStage(idx) { this.setState(s => ({ selectedStageIdx: s.selectedStageIdx === idx ? null : idx })); }
+
+  handleTiltMove(e) {
+    const el = this.overviewRef.current;
+    if (!el) return;
+    const r = el.getBoundingClientRect();
+    const px = (e.clientX - r.left) / r.width;
+    const py = (e.clientY - r.top) / r.height;
+    this.setState({ tilt: { x: (0.5 - py) * 8, y: (px - 0.5) * 10 } });
+  }
+  handleTiltLeave() { this.setState({ tilt: { x: 0, y: 0 } }); }
+
+  handleParallax(e) {
+    const x = (e.clientX / window.innerWidth) - 0.5;
+    const y = (e.clientY / window.innerHeight) - 0.5;
+    this.setState({ parallax: { x, y } });
+  }
+  resetParallax() { this.setState({ parallax: { x: 0, y: 0 } }); }
+
+  statusColor(s) { return s === 'done' ? '#4ade80' : s === 'running' ? '#fbbf24' : '#64748b'; }
+  statusLabel(s) { return s === 'done' ? 'Hoàn tất' : s === 'running' ? 'Đang chạy' : 'Đang chờ'; }
+
+  renderVals() {
+    const proj = this.data.find(p => p.id === this.state.selectedId);
+    const { x, y } = this.state.tilt;
+    const px = this.state.parallax;
+
+    const projects = this.data.map(p => {
+      const selected = p.id === this.state.selectedId;
+      return {
+        id: p.id, name: p.name, subtitle: p.subtitle, badge: p.badge,
+        dotStyle: `width:8px;height:8px;border-radius:50%;background:${p.dotColor};flex:none;${p.status === 'Đang chạy' ? 'animation:pulseAmber 1.6s ease-in-out infinite;' : ''}`,
+        barStyle: `height:100%;border-radius:3px;width:${p.progress}%;background:linear-gradient(90deg, ${p.dotColor}, #2dd4bf);`,
+        cardStyle: `cursor:pointer;padding:12px 13px;border-radius:12px;background:${selected ? 'rgba(45,212,191,.08)' : 'rgba(255,255,255,.015)'};border:1px solid ${selected ? '#2dd4bf' : 'rgba(148,163,184,.1)'};box-shadow:${selected ? '0 0 18px rgba(45,212,191,.18)' : 'none'};transition:border-color .2s ease;`,
+        select: () => this.selectProject(p.id),
+      };
+    });
+
+    const stages = this.stageNames.map((name, i) => {
+      const st = proj.stageStatus[i];
+      const color = this.statusColor(st);
+      const selected = this.state.selectedStageIdx === i;
+      return {
+        num: i + 1, name,
+        statusLabel: this.statusLabel(st), statusColor: color,
+        needsConnector: i > 0,
+        connectorDotStyle: proj.stageStatus[i - 1] === 'done'
+          ? `position:absolute;top:-3px;width:8px;height:8px;border-radius:50%;background:#2dd4bf;box-shadow:0 0 8px 2px rgba(45,212,191,.6);animation:flowDot 2.6s linear infinite;`
+          : `display:none;`,
+        dotStyle: `width:6px;height:6px;border-radius:50%;background:${color};${st === 'running' ? 'animation:pulseAmber 1.4s ease-in-out infinite;' : ''}`,
+        nodeWrapStyle: `flex:none;width:112px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:10px;transition:transform .2s ease;`,
+        orbStyle: `position:relative;width:92px;height:92px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 34% 28%, ${color}2e, #0b1119 72%);border:${selected ? '2px' : '1px'} solid ${selected ? '#2dd4bf' : color + '55'};box-shadow:${selected ? '0 0 30px rgba(45,212,191,.5)' : `0 0 16px ${color}22`}, inset 0 2px 10px rgba(255,255,255,.06);${st === 'running' ? 'animation:pulseAmber 1.8s ease-in-out infinite;' : ''}`,
+        robotIcon: React.createElement('svg', { width: 52, height: 52, viewBox: '0 0 36 36', fill: 'none', style: { opacity: st === 'waiting' ? 0.5 : 1 } },
+          React.createElement('line', { x1: 18, y1: 10, x2: 18, y2: 5, stroke: color, strokeWidth: 1.4 }),
+          React.createElement('circle', { cx: 18, cy: 4, r: 1.7, fill: color, style: st === 'running' ? { animation: 'pulseAmber 1s ease-in-out infinite' } : undefined }),
+          React.createElement('rect', { x: 6, y: 10, width: 24, height: 19, rx: 9, fill: '#0e1520', stroke: color, strokeWidth: 1.5 }),
+          React.createElement('rect', { x: 9.5, y: 14, width: 17, height: 9.5, rx: 4.75, fill: '#070a10', stroke: color, strokeWidth: 0.8, opacity: 0.7 }),
+          React.createElement('circle', { cx: 14.2, cy: 18.6, r: 2.3, fill: color }),
+          React.createElement('circle', { cx: 21.8, cy: 18.6, r: 2.3, fill: color }),
+          React.createElement('circle', { cx: 13.4, cy: 17.8, r: 0.7, fill: '#ffffff', opacity: 0.8 }),
+          React.createElement('circle', { cx: 21, cy: 17.8, r: 0.7, fill: '#ffffff', opacity: 0.8 }),
+          st === 'done'
+            ? React.createElement('path', { d: 'M13 26.5c1.6 1.3 3.2 1.9 5 1.9s3.4-.6 5-1.9', stroke: color, strokeWidth: 1.4, strokeLinecap: 'round', fill: 'none' })
+            : st === 'waiting'
+              ? React.createElement('line', { x1: 14, y1: 27, x2: 22, y2: 27, stroke: color, strokeWidth: 1.4, strokeLinecap: 'round' })
+              : React.createElement('circle', { cx: 18, cy: 27, r: 1.5, fill: color })),
+        select: () => this.selectStage(i),
+      };
+    });
+
+    const selectedStageNote = this.state.selectedStageIdx !== null ? proj.stageNotes[this.state.selectedStageIdx] : null;
+
+    const modules = this.moduleDefs.map(m => ({
+      icon: React.createElement('svg', { width: 20, height: 20, viewBox: '0 0 24 24', fill: 'none' },
+        React.createElement('path', { d: m.path, stroke: m.color, strokeWidth: 1.3, strokeLinecap: 'round', strokeLinejoin: 'round' })),
+      label: m.label, color: m.color, glow: m.glow, delay: m.delay,
+      wrapStyle: `position:absolute;left:${m.x}px;top:${m.y}px;transform:translate(-50%,-50%);z-index:1;`,
+    }));
+
+    return {
+      projectCount: this.data.length,
+      projects,
+      project: {
+        name: proj.name, subtitle: proj.subtitle, progress: proj.progress,
+        statusFilePath: `docs/${proj.name}/status.json`, updated: proj.updated, nextStep: proj.nextStep,
+        stagesDone: proj.stageStatus.filter(s => s === 'done').length,
+        reviewsPass: proj.reviewsPass, reviewsTotal: proj.reviewsTotal, status: proj.status,
+        ringGradient: `conic-gradient(#2dd4bf ${proj.progress}%, rgba(255,255,255,.07) 0)`,
+        ringGlow: 'rgba(45,212,191,.35)',
+        gates: proj.gates, stages,
+        isComplete: proj.progress === 100, notComplete: proj.progress !== 100,
+        duration: proj.duration || '—', resolution: proj.resolution || '—',
+      },
+      modules,
+      selectedStageNote,
+      legend: [
+        { color: '#4ade80', label: 'Hoàn tất' },
+        { color: '#fbbf24', label: 'Đang chạy' },
+        { color: '#64748b', label: 'Đang chờ' },
+      ],
+      logLines: this.state.logs.map(l => ({ ...l, color: l.tag === 'warn' ? '#fbbf24' : '#2dd4bf' })),
+      stars: this.state.stars.map(s => ({
+        style: `position:absolute;top:${s.top}%;left:${s.left}%;width:${s.size}px;height:${s.size}px;border-radius:50%;background:#5eead4;animation:twinkle ${3 + s.delay}s ease-in-out infinite;animation-delay:${s.delay}s;`,
+      })),
+      overviewRef: this.overviewRef,
+      overviewTransformStyle: {
+        transform: `perspective(1000px) rotateX(${x}deg) rotateY(${y}deg)`,
+        transition: (x === 0 && y === 0) ? 'transform .4s ease' : 'transform .05s ease-out',
+      },
+      bgLayer1: `transform:translate(${px.x * -24}px, ${px.y * -24}px);`,
+      bgLayer2: `transform:translate(${px.x * 30}px, ${px.y * 30}px);`,
+      handleTiltMove: (e) => this.handleTiltMove(e),
+      handleTiltLeave: () => this.handleTiltLeave(),
+      handleParallax: (e) => this.handleParallax(e),
+      resetParallax: () => this.resetParallax(),
+    };
+  }
+}
+</script>
+</body>
+</html>

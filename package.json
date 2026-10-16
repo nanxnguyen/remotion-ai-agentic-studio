@@ -1,0 +1,43 @@
+{
+  "name": "remotion-ai-agentic-studio",
+  "version": "1.0.0",
+  "private": true,
+  "engines": {
+    "node": "22.x"
+  },
+  "scripts": {
+    "studio": "remotion studio src/index.ts",
+    "render": "remotion render src/index.ts UnderstandAnythingReel out/understand-anything-reel.mp4 --codec h264 --crf 18 --pixel-format yuv420p",
+    "pipeline": "python3 -I scripts/pipeline.py serve --port 4180",
+    "video:new": "node scripts/video-new.mjs",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:python": "python3 -m unittest scripts.test_pipeline scripts.test_monitor_ui scripts.test_voice_catalog",
+    "test:visual": "node tests/visual/compare-golden.mjs",
+    "assets:validate": "node scripts/validate-assets.mjs",
+    "lint": "eslint src/core src/videos scripts/video-new.mjs scripts/validate-assets.mjs tests/core tests/cli",
+    "format": "prettier --write README.md AGENTS.md src/core src/videos tests/core tests/cli scripts/video-new.mjs scripts/validate-assets.mjs",
+    "format:check": "prettier --check README.md AGENTS.md src/core src/videos tests/core tests/cli scripts/video-new.mjs scripts/validate-assets.mjs",
+    "verify": "npm run lint && npm run format:check && npm run typecheck && npm run assets:validate && npm test && npm run test:python"
+  },
+  "dependencies": {
+    "@remotion/cli": "4.0.534",
+    "howler": "^2.2.4",
+    "react": "19.2.0",
+    "react-dom": "19.2.0",
+    "remotion": "4.0.534"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.37.0",
+    "@types/howler": "^2.2.13",
+    "@types/pngjs": "^6.0.5",
+    "@types/react": "19.2.2",
+    "eslint": "^9.37.0",
+    "pixelmatch": "^7.1.0",
+    "pngjs": "^7.0.0",
+    "prettier": "^3.6.2",
+    "typescript": "5.9.3",
+    "typescript-eslint": "^8.46.1",
+    "vitest": "^4.0.4"
+  }
+}

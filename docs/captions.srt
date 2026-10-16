@@ -1,0 +1,29 @@
+1
+00:00:00,000 --> 00:00:10,100
+Ngày đầu vào team. Repo hai trăm nghìn dòng code.
+Sếp bảo: “Em xem nhanh kiến trúc nhé.” Nhanh… kiểu ba ngày hả anh?
+
+2
+00:00:10,100 --> 00:00:15,130
+Mở file đầu tiên. File gọi file. File lại gọi thêm bảy file.
+Mười phút sau, bạn chính thức chuyển nghề… khảo cổ codebase.
+
+3
+00:00:15,130 --> 00:00:22,430
+Understand Anything quét project, gom file, function, class và dependency
+thành knowledge graph có thể bấm, tìm và hỏi.
+
+4
+00:00:22,430 --> 00:00:29,000
+Muốn biết phần nào xử lý đăng nhập? Gõ câu hỏi.
+Nó dẫn tới node liên quan, rồi guided tour chỉ luôn thứ tự nên học.
+
+5
+00:00:29,000 --> 00:00:35,340
+Trước khi commit, xem thay đổi này ảnh hưởng chỗ nào.
+Đỡ cảnh sửa nút đăng nhập mà giỏ hàng cũng… giận dỗi.
+
+6
+00:00:35,340 --> 00:00:42,860
+Cài plugin, chạy understand, rồi nhìn codebase từ búi mì thành bản đồ.
+Link ở phần mô tả — đỡ đào code bằng thìa nha!

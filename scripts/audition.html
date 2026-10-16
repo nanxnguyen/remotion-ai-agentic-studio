@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Audio Audition</title>
+<style>
+:root { --bg: #f6f5f2; --surface: #fff; --text: #1d1d1b; --muted: #6b6a66; --line: #dedbd4; --accent: #2f6fed; --ok: #1f8a4c; --warn: #b4541a; }
+@media (prefers-color-scheme: dark) { :root { --bg: #141414; --surface: #1e1e1e; --text: #ecebe8; --muted: #a3a19c; --line: #333; --accent: #6d9bff; --ok: #4cc27f; --warn: #f0965a; } }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text); font: 15px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; }
+main { max-width: 760px; margin: 0 auto; padding: 24px 16px 64px; }
+h1 { font-size: 22px; margin: 0 0 4px; }
+.muted { color: var(--muted); }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 16px; margin-top: 16px; }
+.row { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+button { font: inherit; padding: 8px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--surface); color: var(--text); cursor: pointer; }
+button.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+button:disabled { opacity: .5; cursor: default; }
+label { display: inline-flex; align-items: center; gap: 8px; }
+input[type=text] { font: inherit; padding: 8px 10px; border-radius: 8px; border: 1px solid var(--line); background: var(--bg); color: var(--text); min-width: 0; flex: 1; }
+input[type=range] { width: 140px; }
+ol { padding-left: 0; list-style: none; margin: 0; }
+li { display: grid; grid-template-columns: 48px 1fr auto; gap: 12px; align-items: center; padding: 10px 8px; border-radius: 8px; }
+li.playing { background: color-mix(in srgb, var(--accent) 14%, transparent); }
+li.missing { color: var(--warn); }
+.id { font-weight: 700; font-variant-numeric: tabular-nums; }
+.status { font-weight: 650; }
+.status.ok { color: var(--ok); }
+.status.no { color: var(--warn); }
+</style>
+</head>
+<body>
+<main>
+  <h1 id="title">Audio audition</h1>
+  <p class="muted">Nghe toàn bộ voice clip (và BGM nếu có) trước gate D. Bản nghe thử này chỉ mô phỏng mix: thời điểm thật nằm trong timeline của video.</p>
+  <p id="status" class="status" role="status"></p>
+
+  <section class="card" aria-label="Điều khiển">
+    <div class="row">
+      <button id="playAll" class="primary">▶ Phát tất cả</button>
+      <button id="stop">■ Dừng</button>
+      <label><input id="bgmOn" type="checkbox" checked> BGM</label>
+      <select id="bgmPick" aria-label="Chọn BGM"></select>
+    </div>
+    <div class="row" style="margin-top:12px">
+      <label>BGM <input id="bgmDb" type="range" min="-30" max="0" step="1" value="-15"> <span id="bgmDbV"></span> dB</label>
+      <label>Duck <input id="duckDb" type="range" min="-12" max="0" step="1" value="-5"> <span id="duckDbV"></span> dB</label>
+      <label>Nghỉ <input id="gap" type="range" min="0" max="1.5" step="0.1" value="0.4"> <span id="gapV"></span> s</label>
+    </div>
+  </section>
+
+  <section class="card" aria-label="Voice clips">
+    <ol id="clips"></ol>
+  </section>
+
+  <section class="card" aria-label="SFX" id="sfxCard" hidden>
+    <div class="row" id="sfx"></div>
+  </section>
+
+  <section class="card" aria-label="Xác nhận">
+    <div class="row">
+      <input id="by" type="text" placeholder="Tên của bạn" aria-label="Tên người nghe">
+      <input id="note" type="text" placeholder="Ghi chú (tuỳ chọn)" aria-label="Ghi chú">
+      <button id="approve" class="primary">✓ Đã nghe hết, OK</button>
+    </div>
+    <p class="muted">Nút này chạy tương đương <code>pipeline.py audio-listen</code>. Đổi bất kỳ clip hoặc BGM nào sau đó sẽ cần nghe lại.</p>
+  </section>
+</main>
+<script src="/vendor/howler.min.js"></script>
+<script>
+const vid = location.pathname.split("/").pop();
+const $ = (id) => document.getElementById(id);
+const lin = (db) => Math.pow(10, db / 20);
+let data, voices = {}, bgm = null, queue = [], current = null, timer = null;
+
+function bgmVolume(ducked) { return lin(+$("bgmDb").value + (ducked ? +$("duckDb").value : 0)); }
+function duck(on) { if (bgm && bgm.playing()) bgm.fade(bgm.volume(), bgmVolume(on), on ? 200 : 300); }
+function labels() { for (const k of ["bgmDb", "duckDb", "gap"]) $(k + "V").textContent = $(k).value; }
+
+function setBgm(name) {
+  if (bgm) { bgm.stop(); bgm.unload(); }
+  bgm = name ? new Howl({ src: [`/audio/${vid}/${name}`], loop: true, volume: bgmVolume(false) }) : null;
+}
+
+function mark(id) {
+  document.querySelectorAll("#clips li").forEach((li) => li.classList.toggle("playing", li.dataset.id === id));
+}
+
+function playClip(id, then) {
+  const h = voices[id];
+  if (!h) return then && then();
+  current = id; mark(id); duck(true);
+  h.once("end", () => {
+    duck(false); mark(null); current = null;
+    if (then) timer = setTimeout(then, +$("gap").value * 1000);
+  });
+  h.play();
+}
+
+function next() {
+  const id = queue.shift();
+  if (!id) { stop(); return; }
+  playClip(id, next);
+}
+
+function stop() {
+  clearTimeout(timer); queue = [];
+  Object.values(voices).forEach((h) => h.stop());
+  if (bgm) bgm.stop();
+  mark(null); current = null;
+}
+
+function render() {
+  $("title").textContent = `Audio audition — ${data.name}`;
+  const s = $("status");
+  s.className = "status " + (data.listened ? "ok" : "no");
+  s.textContent = data.listened
+    ? `Đã nghe bản hiện tại: ${data.last.by} lúc ${data.last.at}`
+    : data.ready ? "Chưa nghe bản hiện tại." : "Thiếu clip: chưa thể xác nhận.";
+  $("approve").disabled = !data.ready || data.listened;
+
+  $("clips").innerHTML = "";
+  for (const c of data.clips) {
+    const li = document.createElement("li");
+    li.dataset.id = c.id;
+    if (!c.exists) li.className = "missing";
+    li.innerHTML = `<span class="id"></span><span class="text"></span>`;
+    li.querySelector(".id").textContent = c.id;
+    li.querySelector(".text").textContent = c.exists ? c.text : `${c.text} (thiếu ${c.file})`;
+    const b = document.createElement("button");
+    b.textContent = "▶"; b.setAttribute("aria-label", `Phát ${c.id}`); b.disabled = !c.exists;
+    b.onclick = () => { stop(); if ($("bgmOn").checked && bgm) { bgm.volume(bgmVolume(false)); bgm.play(); } playClip(c.id, () => bgm && bgm.stop()); };
+    li.appendChild(b);
+    $("clips").appendChild(li);
+    if (c.exists && !voices[c.id]) voices[c.id] = new Howl({ src: [`/audio/${vid}/${c.file}`] });
+  }
+
+  $("bgmPick").innerHTML = data.bgm.length ? "" : "<option value=''>(không có BGM)</option>";
+  for (const name of data.bgm) $("bgmPick").add(new Option(name, name));
+  setBgm(data.bgm[0]);
+
+  $("sfxCard").hidden = !data.sfx.length;
+  $("sfx").innerHTML = "";
+  for (const name of data.sfx) {
+    const b = document.createElement("button");
+    b.textContent = name;
+    b.onclick = () => new Howl({ src: [`/audio/${vid}/${name}`] }).play();
+    $("sfx").appendChild(b);
+  }
+}
+
+async function load() {
+  const r = await fetch(`/api/audition/${vid}`);
+  if (!r.ok) { $("status").textContent = "Không tìm thấy video."; return; }
+  data = await r.json();
+  render();
+}
+
+$("playAll").onclick = () => {
+  stop();
+  if ($("bgmOn").checked && bgm) { bgm.volume(bgmVolume(false)); bgm.play(); }
+  queue = data.clips.filter((c) => c.exists).map((c) => c.id);
+  next();
+};
+$("stop").onclick = stop;
+$("bgmPick").onchange = (e) => { stop(); setBgm(e.target.value); };
+$("bgmOn").onchange = (e) => { if (!e.target.checked && bgm) bgm.stop(); };
+for (const k of ["bgmDb", "duckDb", "gap"]) $(k).oninput = () => { labels(); if (bgm) bgm.volume(bgmVolume(!!current)); };
+$("approve").onclick = async () => {
+  const by = $("by").value.trim();
+  if (!by) { $("by").focus(); return; }
+  const r = await fetch("/api/audio-listen", { method: "POST", headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ video: vid, by, note: $("note").value }) });
+  const body = await r.json();
+  if (!r.ok) { $("status").textContent = body.error; return; }
+  stop(); data = body; render();
+};
+labels();
+load();
+</script>
+</body>
+</html>

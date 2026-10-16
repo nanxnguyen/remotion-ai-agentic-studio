@@ -1,0 +1,6 @@
+---
+description: Canonical repository guidance
+alwaysApply: true
+---
+
+Follow `AGENTS.md`. Treat `.agents/skills/video-production/SKILL.md` as the portable video-production workflow. Do not duplicate these instructions in Cursor rules.

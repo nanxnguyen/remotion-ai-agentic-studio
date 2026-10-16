@@ -1,0 +1,16 @@
+name: Bug report
+description: Report a reproducible defect
+title: 'bug: '
+labels: [bug]
+body:
+  - type: textarea
+    attributes:
+      label: Reproduction
+      description: Include composition ID, frame, command, and minimal steps.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Expected and actual behavior
+    validations:
+      required: true
