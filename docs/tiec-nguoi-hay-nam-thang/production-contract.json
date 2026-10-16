@@ -1,0 +1,116 @@
+{
+  "schemaVersion": 1,
+  "videoId": "tiec-nguoi-hay-nam-thang",
+  "compositionId": "TiecNguoiHayNamThangReel",
+  "sourceStage": "chatgpt-prebuild",
+  "targetStage": "local-audio-and-final",
+  "profile": "story",
+  "visualProfile": "minimal-stick-figure",
+  "fps": 30,
+  "width": 1080,
+  "height": 1920,
+  "voice": {
+    "provider": "VieNeu-TTS-v3-Turbo",
+    "name": "Thanh Long Nâng Cao",
+    "slug": "thanh-long-nang-cao",
+    "reference": "local-only:refThanhLong.wav",
+    "required": true,
+    "generated": false
+  },
+  "timeline": {
+    "mode": "voice-driven",
+    "finalized": false,
+    "targetDurationSeconds": [
+      45,
+      60
+    ]
+  },
+  "shots": [
+    {
+      "id": "s1",
+      "voiceKey": "s1",
+      "scene": "Scene1",
+      "headline": "LẦN CUỐI BẠN HẠNH PHÚC?",
+      "visualIntent": "calendar",
+      "status": "prebuilt",
+      "durationSource": "measured-voice"
+    },
+    {
+      "id": "s2",
+      "voiceKey": "s2",
+      "scene": "Scene2",
+      "headline": "NĂM NĂM RỒI...",
+      "visualIntent": "two",
+      "status": "prebuilt",
+      "durationSource": "measured-voice"
+    },
+    {
+      "id": "s3",
+      "voiceKey": "s3",
+      "scene": "Scene3",
+      "headline": "CÒN BÂY GIỜ?",
+      "visualIntent": "two",
+      "status": "prebuilt",
+      "durationSource": "measured-voice"
+    },
+    {
+      "id": "s4",
+      "voiceKey": "s4",
+      "scene": "Scene4",
+      "headline": "CHUYỆN CỦA NGÀY XƯA",
+      "visualIntent": "memory",
+      "status": "prebuilt",
+      "durationSource": "measured-voice"
+    },
+    {
+      "id": "s5",
+      "voiceKey": "s5",
+      "scene": "Scene5",
+      "headline": "NHỮNG NGÀY GẦN ĐÂY?",
+      "visualIntent": "blank",
+      "status": "prebuilt",
+      "durationSource": "measured-voice"
+    },
+    {
+      "id": "s6",
+      "voiceKey": "s6",
+      "scene": "Scene6",
+      "headline": "SỢ MỌI THỨ VÔ NGHĨA",
+      "visualIntent": "calendar",
+      "status": "prebuilt",
+      "durationSource": "measured-voice"
+    },
+    {
+      "id": "s7",
+      "voiceKey": "s7",
+      "scene": "Scene7",
+      "headline": "ĐÃ TỪNG CÓ Ý NGHĨA",
+      "visualIntent": "release",
+      "status": "prebuilt",
+      "durationSource": "measured-voice"
+    },
+    {
+      "id": "s8",
+      "voiceKey": "s8",
+      "scene": "Scene8",
+      "headline": "TIẾC NGƯỜI, HAY TIẾC NĂM THÁNG?",
+      "visualIntent": "fork",
+      "status": "prebuilt",
+      "durationSource": "measured-voice"
+    }
+  ],
+  "gates": {
+    "A": "pending-independent-review",
+    "content": "pending-independent-review",
+    "audio": "pending-local",
+    "D": "pending-independent-review",
+    "E": "pending-local",
+    "B": "pending-local",
+    "C": "pending-final-mp4"
+  },
+  "publish": {
+    "enabled": false,
+    "requiresOwnerApproval": true,
+    "mode": "private-draft-only"
+  }
+}
