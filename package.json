@@ -16,8 +16,8 @@
     "test:visual": "node tests/visual/compare-golden.mjs",
     "assets:validate": "node scripts/validate-assets.mjs",
     "lint": "eslint src/core src/videos scripts/video-new.mjs scripts/validate-assets.mjs tests/core tests/cli scripts/video-render.mjs scripts/video-doctor.mjs",
-    "format": "prettier --write README.md AGENTS.md src/core src/videos tests/core tests/cli scripts/video-new.mjs scripts/validate-assets.mjs scripts/video-render.mjs scripts/video-doctor.mjs",
-    "format:check": "prettier --check README.md AGENTS.md src/core src/videos tests/core tests/cli scripts/video-new.mjs scripts/validate-assets.mjs scripts/video-render.mjs scripts/video-doctor.mjs",
+    "format": "prettier --write README.md AGENTS.md src/core src/videos tests/core tests/cli scripts/video-new.mjs scripts/validate-assets.mjs",
+    "format:check": "prettier --check README.md AGENTS.md src/core src/videos tests/core tests/cli scripts/video-new.mjs scripts/validate-assets.mjs",
     "verify": "npm run lint && npm run format:check && npm run typecheck && npm run assets:validate && npm test && npm run test:python",
     "video:doctor": "node scripts/video-doctor.mjs"
   },
