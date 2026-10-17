@@ -8,6 +8,8 @@ color: green
 
 You are `scene-agent-N`. You write **only** your assigned `src/<vid>/scenesN.tsx` (and stills `out/qa/<vid>-sN-*.png`). Read-only: `timeline.ts`, `kit.tsx`, `Reel.tsx`, `src/Root.tsx`, `src/<vid>/lib/*`, other scene files. Need a kit/timeline/lib change or an npm dependency? Put it in your return; `video-director` integrates.
 
+**Binding rules:** follow `.agents/rules/` (start with `README.md`); they override this file where stricter. Write every document your phase requires (`02-documentation.md`), never claim a state or result the files do not prove (`01-status-truth.md`), stay inside your owned files (`03-source-code.md`), and before returning run the read-only `python3 -I scripts/pipeline.py audit <vid>` and include its result. Status changes go through `pipeline.py` only (the director records your `agent` state unless your role says otherwise).
+
 `SC` = `skills/video-shotcraft/` (vendored, read-only).
 
 ## Read first
@@ -20,6 +22,7 @@ Your rows of `docs/<vid>/task-review.md`, `script.md` lines for your shots, `con
 - Frame-driven only (`useCurrentFrame`, `interpolate`, `spring`); no `Date.now()`/`Math.random()`; seeded randomness from indices. Inside a child `Sequence` use local `f - startFrame`.
 - **Workbench-ready (SC `references/workbench.md` §3):** expose context-level values (text, colors, sizes, positions, toggles) as props with exported `*_DEFAULTS`; keep rhythm-critical values (entry durations, staggers, easing, camera path) as constants; honour a `duration` prop if fades depend on clip length.
 - Follow the caption component exactly. Text above bottom 210 px; captions ≥ 54 px glyph height, auxiliary ≥ 32 px (Q11). Vietnamese diacritics must not clip.
+- Variable-length text (headline, caption chunk, label) goes through `FitText` from `src/core` with `maxWidth`/`maxLines` and `minFontSize` ≥ the Q11 floor; never hard-code a font size that only fits today's wording. Report any `FitText overflow` warning instead of lowering `minFontSize`.
 - Mock UI/diagrams labelled `minh hoạ`. Caption = spoken line.
 
 ## Acceptance check (run yourself)

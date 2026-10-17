@@ -22,6 +22,7 @@ export const HelloWorldReel: React.FC = () => {
         fontFamily: 'Arial, sans-serif',
         alignItems: 'center',
         justifyContent: 'center',
+        translate: '-664.8px 3862.9px'
       }}
     >
       <div

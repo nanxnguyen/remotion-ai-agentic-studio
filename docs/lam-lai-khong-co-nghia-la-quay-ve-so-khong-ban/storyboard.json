@@ -1,0 +1,10 @@
+{
+  "scenes": [
+    {"id": "s1", "frames": 180, "desc": "Establishing, subdued"},
+    {"id": "s2", "frames": 270, "desc": "Subtle light shift"},
+    {"id": "s3", "frames": 270, "desc": "Clarity/resolve"},
+    {"id": "s4", "frames": 270, "desc": "Core message"},
+    {"id": "s5", "frames": 180, "desc": "Closure"}
+  ],
+  "totalFrames": 1170
+}

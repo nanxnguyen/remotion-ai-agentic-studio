@@ -148,11 +148,11 @@ export const CgnS4: React.FC = () => {
 
 // ---------- S5 BẢN LỀ (HIGHLIGHT a): đèn đường gọi đi → CLOSE-UP mẹ ----------
 // SFX (timeline, giữ nguyên): ring s5+5, pickup s5+45 → chuông dừng ở f45-57,
-// beat 2 mẹ vào f52-86, nín nhịp sau "hai tiếng" rồi mới tới câu mẹ.
+// beat 2 mẹ vào f52-86, nín nhịp sau "bắt máy ngay" rồi mới tới câu mẹ.
 const S5_PARTS = [
   'Mình bấm gọi lại, ',
   'cũng chính ngón tay ban chiều bấm tắt. ',
-  'Mẹ bắt máy ngay, chưa kịp reo hai tiếng. ',
+  'Mẹ bắt máy ngay. ',
   '"Con ăn cơm chưa?"',
 ];
 const S5_ACC = ['', 'chính ngón tay ban chiều bấm tắt', '', 'Con ăn cơm chưa?'];

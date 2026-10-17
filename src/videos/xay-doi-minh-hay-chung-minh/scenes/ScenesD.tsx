@@ -461,13 +461,30 @@ export const S8Scene: React.FC = () => {
     hx = footX;
     hy = footY;
   }
-  // lift 117-123, carry to body 123-126, rise with stand 126-138
-  const lift = f < 117 ? 0 : interpolate(f, [117, PICK_END], [0, 1]);
-  const carryT = f < PICK_END ? 0 : interpolate(f, [PICK_END, STAND_A], [0, 1]);
+  // B-D2: clamp every post-pick interpolation so the carried brick stays on
+  // screen for f>126 (extrapolation pushed it off-canvas at rel 127-137).
+  const lift =
+    f < 117
+      ? 0
+      : interpolate(f, [117, PICK_END], [0, 1], {
+          extrapolateLeft: 'clamp',
+          extrapolateRight: 'clamp',
+        });
+  const carryT =
+    f < PICK_END
+      ? 0
+      : interpolate(f, [PICK_END, STAND_A], [0, 1], {
+          extrapolateLeft: 'clamp',
+          extrapolateRight: 'clamp',
+        });
   const standT =
     f < STAND_A
       ? 0
-      : interpolate(f, [STAND_A, 138], [0, 1], {easing: Easing.bezier(0.65, 0, 0.35, 1)});
+      : interpolate(f, [STAND_A, 138], [0, 1], {
+          easing: Easing.bezier(0.65, 0, 0.35, 1),
+          extrapolateLeft: 'clamp',
+          extrapolateRight: 'clamp',
+        });
   // B-D2: the carry ends with the brick held in front of the body, top edge
   // at y>=1310 — below the foundation-brick bottom (1300), over dark ground,
   // ink outline distinct (A15 handoff to s9a needs brick-in-hand).

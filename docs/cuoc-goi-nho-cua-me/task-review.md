@@ -198,3 +198,26 @@ BGM envelope giữ (0 → 0.05 → 0.05 → 0); s4/s6/s7 cố ý lặng, chỉ B
 | Chia việc không chồng lấn | 2/2 | kit/Reel/Root giữ + 3 cặp shot disjoint; audio chỉ main; voice.json read-only; CcCaps exclusive cấm fork |
 
 **TỔNG VÒNG 2: 9.5/10 — verdict: PASS (đủ điều kiện build: main update `timeline.ts` sang sec v2 → TOTAL 1419f; 3 scene agents viết lại scenesA/B/C theo §11 với dur mới; người duyệt tai 7 clip s2–s8, ưu tiên s5, trước khi lock).**
+
+---
+
+## Vòng 3 (2026-10-17 — regen + retime sau khi clips v2 bị mất)
+
+Đã độc lập kiểm lại toàn bộ "đã làm" trên cây file, không sao chép:
+
+- Clips: 8/8 `s1..s8.mp3` mới trong `public/audio/cuoc-goi-nho-cua-me/` — ffprobe durations 2.8157/2.8635/5.626/5.4312/5.2049/3.7676/5.3887/5.9716s, khớp bảng voice-clone-asr.md mới (CER 0.012–0.037 ≤ 0.04; bản v2 backup `voice-clone-asr.v2-backup.md` giữ lịch sử 0.046⚠ s5 — lỗi đó hết vì câu "hai tiếng" đã xoá).
+- Timeline.ts: raw v4 @4dp (tránh undershoot 1 frame float), holds giữ; CGN_TOTAL tính tay = **1308** khớp comment mới (43.6s); bàn tay chứng minh s5 171.147 → 172 ✓.
+- index.ts: `testFrames` giờ derive từ CGN_TOTAL (fix lỗi render "frame 1418 outside") — cải thiện thật, không chỉ số mới.
+- Text sync 1 worker/file: script.md (v3) + brief.md (CHỐT v3) + voice.json + scenesB (S5_PARTS + comment nín nhịp) + scenesC (S7_PARTS/ACCENTS + comment) — đồng bộ 1 lần, không ai đụng kit/Reel/Root.
+- Render: `pipeline.py render` verify 43.70s H.264/AAC 1080×1920 ✓; `ffmpeg ebur128` peak −1.5 dBFS.
+- Stills: 12 khung biên/beat/hold trong `out/qa/` đánh đúng biên mới (578/640/750/879/975/1056/1290 tính từ raw v4).
+
+| tiêu chí | điểm |
+|---|---|
+| Độ phủ công việc | 2/2 (plan v3 đủ 6 bước, mỗi bước có bằng chứng) |
+| Kit/design khả thi | 2/2 (indoor biến đổi nhẹ, không đổi kit) |
+| Audio/SFX map | 2/2 (7 cues giữ nguyên, offset < dur mới từng shot) |
+| Timeline/holds | 2/2 (1308f = measured + holds; Reel/Root đọc động) |
+| Chia việc | 2/2 (voice.json read-only sau A; CcCaps không fork) |
+
+**TỔNG VÒNG 3: 9.5/10 — verdict: PASS** (đủ điều kiện: 1 lần render đã pass verify; còn lại là bước review/human-listen).

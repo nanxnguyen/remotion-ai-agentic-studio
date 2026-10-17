@@ -16,12 +16,17 @@ Build deterministic 9:16 Remotion videos while preserving each video's visual id
 6. For visual changes, run `npm run test:visual` and inspect the diff output.
 7. Keep secrets, personal voice previews, render output, and unlicensed media out of Git.
 
+## Video production rules (mandatory)
+
+Every agent and tool that works on a video must follow [.agents/rules/](.agents/rules/README.md): truthful status for the monitor, complete documents for every phase, `src/` ownership and timeline rules, and handoff discipline. Run `python3 -I scripts/pipeline.py audit <vid>` before ending any turn on a video; it must exit 0 or every remaining error goes into `docs/<vid>/HANDOFF.md`.
+
 ## Commands
 
 ```bash
 npm install
 npm run studio
 npm run video:new -- --slug my-video --id MyVideoReel --scenes 8
+npm run voice:measure -- my-video --out src/videos/my-video/voice-durations.ts
 npm run verify
 npm run test:visual
 npm run pipeline

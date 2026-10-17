@@ -81,3 +81,34 @@ Cần tai người xác nhận: (a) voice s5 "reo hai tiếng" / "Con ăn cơm c
 không (ASR từng nhầm "rèo"/"còn"); (b) nín ~0.5s sau "hai tiếng" có thật;
 (c) chuông dừng ở beat 2 + 7 SFX khớp beat; (d) BGM không lấn giọng (đo cho thấy −25 dB).
 Số đo tín hiệu tốt (max −1.5 dB, không clip, −13.9 LUFS) nhưng không thay thế nghe.
+
+---
+
+# Vòng 3 — video review độc lập của render mới (2026-10-17)
+
+File render: `out/cuoc-goi-nho-cua-me-thanh-long-nang-cao-reel.mp4` — H.264/AAC 1080×1920 30fps, **43.70s / 1308f**, fingerprint-bound render_check (verify 16:5x). Nguồn đánh giá: 12 khung trích từ MP4 thật (`out/qa/cuoc-goi-nho-cua-me-c-frame-{0,60,115,216,400,578,640,750,879,975,1056,1290}.png`) — boundaries tính từ timeline v4 (s1@0 s2@115 s3@216 s4@400 s5@578 s6@750 s7@879 s8@1056), + `ffmpeg ebur128` (final MP4), + `voice-clone-asr.md` (ASR từng clip lately), + khớp caption/voice từng part.
+
+## Kết quả từng shot (khung trích → phát hiện)
+
+| shot | khung | nội dung | nhận |
+|---|---|---|---|
+| s1 | 0, 60 | phone mock "Cuộc gọi nhỡ — Mẹ / Chiều nay", vibrate, nút Nhắn tin/Gọi lại, nhãn "minh hoạ" | ĐẠT — hook 3s rõ, dấu chuẩn |
+| s2 | 115 | POV ngón tay tới bấm tắt, banner "Mẹ đang gọi...", laptop chat blur, bàn phím đỏ | ĐẠT — close-up đúng highlight |
+| s3 | 216 | bong bóng chat + montage 3 việc | ĐẠT |
+| s4 | 400 | phòng tắt đèn, màn hình sáng giữa tối, dòng "gọi nhỡ" | ĐẠT |
+| s5 | 578, 640 | beat 1 "Đang gọi — Mẹ 00:03" + beat 2 mẹ áp phone (warm glow), caption "cũng chính ngón tay ban chiều bấm tắt." | ĐẠT — câu rút gọn đúng (không "hai tiếng") |
+| s6 | 750 | mẹ + đèn treo vàng ấm NHẤT, push chậm | ĐẠT — đỉnh ấm đúng |
+| s7 | 879, 975 | TwoRoomsCall 2 panel + dải waveform, caption "chỗ con có mưa không." và KHÔNG câu mưa | ĐẠT — v3 sync xong |
+| s8 | 1056, 1290 | phone "Đã gọi lại ✓" + tick hổ phách; hold lặng cuối KHÔNG caption (CcCaps early-off) | ĐẠT — callback đúng, lặng 2×1.4s |
+
+## Chỉ số tín hiệu (final MP4)
+
+- ebur128: integrated **−13.9 LUFS**, true peak **−1.5 dBFS** — không clip, tương đương v2 cũ (−13.9/−1.5).
+- ASR (voice-clone-asr.md vòng 3): CER 0.012/0.021/0.033/0.023/0.012/0.030/0.022/0.037 — **≤0.04** tất cả, tốt hơn v2 (s5 0.046⚠). Two lỗi đọc ASR v2 ("rèo"/"còn") hết do câu xoá.
+- Tổng voice 40.06s + padding holds = 43.6–43.7s — trong target 40–55 ✓ (v2 47.3s).
+
+## Còn cần TAI NGƯỜI (không thay bằng máy)
+
+Nghe bản 43.7s: (a) nhịp "Mẹ bắt máy ngay." ngắt tự nhiên trước câu hỏi "Con ăn cơm chưa?"; (b) chuông quay lại s5 + beat 2; (c) 7 SFX khớp beat (như bảng §12 task-review); (d) BGM không lấn giọng. Số đo máy cho tín hiệu tốt nhưng không thay được lắng nghe.
+
+**Điểm vòng 3: 9.0/10 — verdict: PASS** (đánh trên file quote-fingerprint 43.70s; hai ticket Thấp E-t1/E-t2 chưa block).

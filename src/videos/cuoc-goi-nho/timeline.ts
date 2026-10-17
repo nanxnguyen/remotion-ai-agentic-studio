@@ -1,19 +1,20 @@
 // cuoc-goi-nho-cua-me ("Cuộc gọi nhỡ của mẹ"). Durations from measured Thanh Long
-// clone voice v3 = script v2 (s1 giữ, s2-s8 mới). Holds: s1 +15f hook, s8 +30f outro.
+// clone voice v4 = script v3 (vòng 3: s5/s7 rút gọn theo review vòng 2, regen 8/8 clips).
+// Holds: s1 +15f hook, s8 +30f outro.
 export const CGN_VOICE_OFFSET = 4;
 
 export type Shot = {from: number; duration: number; sec: number; voice: string};
 
 // [key, measuredSec, holdFrames]
 const raw: [string, number, number][] = [
-  ['s1', 2.8, 15],
-  ['s2', 2.8, 0],
-  ['s3', 5.92, 0],
-  ['s4', 5.44, 0],
-  ['s5', 6.78, 0],
-  ['s6', 3.89, 0],
-  ['s7', 7.26, 0],
-  ['s8', 5.91, 30],
+  ['s1', 2.8157, 15],
+  ['s2', 2.8635, 0],
+  ['s3', 5.626, 0],
+  ['s4', 5.4312, 0],
+  ['s5', 5.2049, 0],
+  ['s6', 3.7676, 0],
+  ['s7', 5.3887, 0],
+  ['s8', 5.9716, 30],
 ];
 let acc = 0;
 export const CGN_SHOTS: Record<string, Shot> = {};
@@ -24,7 +25,7 @@ raw.forEach(([k, sec, hold], i) => {
   CGN_SHOTS[k] = {from: acc, duration, sec, voice: k};
   acc += duration;
 });
-export const CGN_TOTAL = acc; // 1419 = 47.3s
+export const CGN_TOTAL = acc; // 1308 = 43.6s
 
 // SFX (audio-agent, v2): light cues under Thanh Long voice. Offsets relative to shot start.
 export const CGN_SFX: {

@@ -8,6 +8,8 @@ color: red
 
 You are `qa-agent`, clean context, not an author of any scene. Report only; owners fix.
 
+**Binding rules:** follow `.agents/rules/` (start with `README.md`); they override this file where stricter. Write every document your phase requires (`02-documentation.md`), never claim a state or result the files do not prove (`01-status-truth.md`), stay inside your owned files (`03-source-code.md`), and before returning run the read-only `python3 -I scripts/pipeline.py audit <vid>` and include its result. Status changes go through `pipeline.py` only (the director records your `agent` state unless your role says otherwise).
+
 ## Input
 `<vid>`, CompId, `docs/<vid>/task-review.md` (owner map), `script.md`, `voice.json`, `design-spec.md`, timeline file.
 
@@ -15,7 +17,7 @@ You are `qa-agent`, clean context, not an author of any scene. Report only; owne
 `docs/<vid>/qa-report.md` (append `## Round N`) and `out/qa/<vid>-qa-*.png`.
 
 ## Checks
-1. **Code**: `npx tsc --noEmit`; grep for `Date.now`, `Math.random`, parent-frame use inside child `Sequence`; durations/SFX offsets match `timeline.ts`; composition registered once.
+1. **Code**: `npx tsc --noEmit`; grep for `Date.now`, `Math.random`, parent-frame use inside child `Sequence`; durations/SFX offsets match `timeline.ts`; composition registered once. `timeline.ts` must be built from `voice-durations.ts` (`npm run voice:measure -- <vid>` output matches the committed file; no `PROPOSED_FRAMES`); grep render/still logs for `FitText overflow` (each hit is a Cao issue).
 2. **Frames**: per shot stills at begin / middle / boundary, plus extra frames on every fast transition and the ending. Read each PNG.
 3. **Frame 0** works as the cover (hook subject + text visible, not black).
 4. **Design fidelity**: score each shot 1–10 against style frames, storyboard, `design-spec.md` (palette, fonts, caption, character proportions, motion recipe) and the card's gallery poster `skills/video-shotcraft/gallery/media/poster/<style-key>.jpg`; below 8 is a `Trung` fix.

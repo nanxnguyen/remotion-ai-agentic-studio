@@ -60,3 +60,35 @@ Không có fix nào đụng voice (`voice.json` khớp script, khung fact nguyê
 
 V2 đạt mục tiêu vòng này: cụ thể hóa cảm xúc (tội lỗi "chột dạ", tương phản 2 ngón tay / 2 mâm cơm, bằng chứng "chưa kịp reo hai tiếng") + đủ 3 highlight dựng được. Cho build với 1 fix doc và 3 lưu ý ở trên.
 Lưu ý so sánh: tổng 8.6 thấp hơn 9.6 của v1 chỉ vì đổi rubric (fidelity từ "verbatim tuyệt đối" sang "trừ điểm cụ thể hóa") — hai tổng không so sánh trực tiếp được; tiêu chí chính vòng này (xúc động) đã tăng rõ rệt.
+
+---
+
+## Vòng 3 (2026-10-17, sau khi clips v2 mất khỏi `public/audio/` và phải regen toàn bộ)
+
+Vì clips cần regen lại từ đầu, hai gợi ý ở vòng 2 được áp dụng **trước khi** gen (giá rẻ nhất, trung thực nhất):
+
+1. s5: bỏ ", chưa kịp reo hai tiếng" (số bịa — fact chỉ là "mẹ bắt máy ngay"). Đề xuất soften của vòng 2.
+2. s7: bỏ "Ngoài cửa, mưa vẫn gõ nhẹ." (suy diễn fact). Đề xuất soften vòng 2 (mất 1 giác quan, chấp nhận — mưa còn là hình minh hoạ ngoài cửa sổ s7).
+
+Giữ nguyên: s1 hook (đã duyệt), mọi beat cảm xúc khác, 2 lưu ý build (s5 crowd nº2, cầu s4→s5) — không block build.
+
+### Kiểm chứng lap sau sửa
+
+- voice.json (v3): s5 20 từ, s7 22 từ, tổng **149** (12+12+21+21+20+16+22+25) — nối script.md = brief.md = voice.json từng chữ (join từng phần S5_PARTS/S7_PARTS trong scenes khớp voice.json, đọc trên khung render f640: "cũng chính ngón tay ban chiều bấm tắt." và f975: "chỗ con có mưa không." — không còn câu mưa/thêm số bịa).
+- Đo thật sau regen: 8/8 clips, CER 0.012–0.037 (≤0.04, tốt hơn v2 0.046), tổng voice 40.06s + holds → **1308f = 43.6–43.7s** (target 40–55 ✓).
+
+### Bảng điểm vòng 3 (rubric vòng 2, chỉ phần đổi thay đổi)
+
+| # | Tiêu chí (trọng số) | Điểm | Ghi chú |
+|---|---|---|---|
+| 1 | Fidelity (2) | **2.0 / 2.0** | Hai suy diễn/số bịa đã bỏ; fact giữ nguyên mức "bắt máy rất nhanh"; không còn từ nào khẳng định hơn fact. |
+| 2 | Hook rõ trong 3s (1.5) | 1.0 / 1.0 | s1 không đổi. |
+| 3 | Clarity (1.5) | 1.4 / 1.5 | Không đổi. |
+| 4 | Emotion (2) | 1.7 / 2.0 | Không đổi — s5 crowd số 2 còn là lưu ý build (không block). |
+| 5 | Delivery (2) | 1.2 / 2.0 | Không đổi — cầu s4→s5 còn là lưu ý build. |
+| 6 | Timing (1) | 1.0 / 1.0 | 43.6s đo thật, trong target; s5/s7 nhẹ lại hợp nhịp ấm. |
+| 7 | Feasibility TTS (1) | 0.8 / 1.0 | Không đổi. |
+
+**TỔNG VÒNG 3: 9.1 / 10 — Verdict: PASS**
+
+Hai điểm trừ còn lại là lưu ý build (đã ghi trong design/integration), không phải chữ. Script v3 cho phép render + voice regen 8/8.

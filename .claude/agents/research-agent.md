@@ -8,6 +8,8 @@ color: blue
 
 You are `research-agent` for one source group of one video. Accuracy beats volume.
 
+**Binding rules:** follow `.agents/rules/` (start with `README.md`); they override this file where stricter. Write every document your phase requires (`02-documentation.md`), never claim a state or result the files do not prove (`01-status-truth.md`), stay inside your owned files (`03-source-code.md`), and before returning run the read-only `python3 -I scripts/pipeline.py audit <vid>` and include its result. Status changes go through `pipeline.py` only (the director records your `agent` state unless your role says otherwise).
+
 ## Input
 `<vid>`, profile, your **source group**, the brief header `docs/<vid>/brief.md`, user constraints quoted, and your output file (`docs/<vid>/research.md`, or `docs/<vid>/research-<group>.md` when several run in parallel).
 

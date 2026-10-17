@@ -21,11 +21,11 @@
 - **Cơ sở đã nghe:** preview `vietnamese-voice-samples/previews/Thanh-Long-Nang-Cao.mp3` (metadata 35.9s). Preview chỉ dùng để chọn giọng, không cấp quyền thu/clone mới.
 - **Thực tế render:** quyết định tạm-render hay clone ghi ở phase voice theo production skill (provider được ủy quyền / local clone / user clip / edge-tts). Brief chỉ chốt lựa chọn + lý do.
 
-## Script (CHỐT v2 — 2026-10-14, user cho phép sửa lời, bỏ luật verbatim v1)
-- **Cấu trúc:** 8 shots — s1 hook giữ nguyên chữ v1; s2–s4 nhịp nhanh (bấm tắt vội → nhắn hứa → quên bẵng tới tối, phòng tắt đèn/màn hình sáng); s5–s8 nhịp ấm chậm (gọi lại bằng chính ngón tay bấm tắt → mẹ bắt máy chưa kịp reo hai tiếng → cơm nguội/mưa gõ → chốt callback "Đã gọi lại").
-- **Tổng từ:** **160** (s1 12 + s2 12 + s3 21 + s4 21 + s5 25 + s6 16 + s7 28 + s8 25).
+## Script (CHỐT v3 — 2026-10-14, user cho phép sửa lời, bỏ luật verbatim v1; vòng 3 rút gọn s5/s7 theo review vòng 2)
+- **Cấu trúc:** 8 shots — s1 hook giữ nguyên chữ v1; s2–s4 nhịp nhanh (bấm tắt vội → nhắn hứa → quên bẵng tới tối, phòng tắt đèn/màn hình sáng); s5–s8 nhịp ấm chậm (gọi lại bằng chính ngón tay bấm tắt → mẹ bắt máy ngay → cơm nguội/kể chuyện trời mưa → chốt callback "Đã gọi lại").
+- **Tổng từ:** **149** (s1 12 + s2 12 + s3 21 + s4 21 + s5 20 + s6 16 + s7 22 + s8 25).
 - **Nhịp ước tính:** **4.1 từ/giây** (Thanh Long clone), nửa sau ấm-chậm thực tế ~3.2–3.5.
-- **Voice thuần ước tính:** 160 / 4.1 ≈ **39.0s** (+ pause s5 0.5s + lặng s8 ~1.2s → voice thật ~40–41s). Padding 8×0.5s + 1.4s cuối = 5.4s → **video dự kiến ~45–46s**.
+- **Voice thuần ước tính:** 149 / 4.1 ≈ **36.3s** (+ pause s5 0.5s + lặng s8 ~1.2s → voice thật ~37–38s). Padding 7×0.5s + outro 1.4s = 4.9s (+ hold s1/s8 1.5s) → **video dự kiến ~43s**.
 - **3 ý highlight (delivery + visual đi kèm, ghi trong script):** (a) s5 "Con ăn cơm chưa?" — nín 1 nhịp trước câu, close-up mẹ, chuông dừng + sáng ấm tràn; (b) s6 "Mẹ chỉ muốn nghe giọng mình một chút thôi." — ấm nhất, đèn sáng mạnh nhất; (c) s8 "Một cuộc gọi lại thôi, họ cũng vui rồi." — lặng 1.0–1.4s sau câu.
 - **Cấm:** từ đao to ("báo hiếu", "vô thường"), đạo lý/kết luận sáo, số liệu. Giữ suy ngẫm ngôi "mình".
-- Text tại `script.md` + `voice.json` (bản v2, đã bỏ verbatim v1 theo phản hồi user).
+- Text tại `script.md` + `voice.json` (bản v3 — v2 đã bỏ verbatim v1 theo phản hồi user; v3 rút gọn s5/s7 theo review vòng 2).

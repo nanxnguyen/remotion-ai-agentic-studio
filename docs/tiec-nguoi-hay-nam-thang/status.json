@@ -12,9 +12,9 @@
   "gates": [],
   "stages": {
     "research": {
-      "state": "pending",
-      "at": "2026-10-17T08:54:00+07:00",
-      "note": "No research.md evidence; story is illustrative, research scope to be confirmed locally"
+      "state": "done",
+      "at": "2026-10-17T16:24:11+07:00",
+      "note": "research.md: duplicate-report analysis vs thuong-hay-so + story-scope contract (illustrative, no factual claims)"
     },
     "brief": {
       "state": "done",
@@ -27,39 +27,39 @@
       "note": "Gate A passed 9.1/10; voice.json = voice.proposed.json (8 keys, s1–s8)."
     },
     "content": {
-      "state": "pending",
-      "at": "2026-10-17T08:54:00+07:00",
-      "note": "content-pack.md drafted; content review can start only after Gate A"
+      "state": "done",
+      "at": "2026-10-17T16:24:12+07:00",
+      "note": "content-pack.md Round 2 synced to voice.json; content review 10/10 recorded"
     },
     "voice": {
-      "state": "in_progress",
-      "at": "2026-10-17T09:25:52+07:00",
-      "note": "Voice generation started: VieNeu-TTS v3 Turbo, Thanh Long Nâng Cao, ref docs/cuoc-goi-nho-cua-me/voice-ref/refThanhLong.wav"
+      "state": "done",
+      "at": "2026-10-17T15:55:07+07:00",
+      "note": "8 clips s1-s8, Thanh Long clone, CER 0.000-0.075 verified in voice-final-asr.md"
     },
     "design": {
-      "state": "pending",
-      "at": "2026-10-17T08:54:00+07:00",
-      "note": "design-spec and preliminary scenes exist; style frames, storyboard, hook strip, Gate D pending"
+      "state": "done",
+      "at": "2026-10-17T16:24:12+07:00",
+      "note": "design-spec + board + style stills verified against final renders; gate D 9.3 pass"
     },
     "build": {
-      "state": "pending",
-      "at": "2026-10-17T08:54:00+07:00",
-      "note": "Remotion prebuild exists but timing is provisional; wait for audio, Gate E and B"
+      "state": "done",
+      "at": "2026-10-17T16:24:12+07:00",
+      "note": "timeline 1422f from measured clips; comp registered in registry; gate E 9.0 pass"
     },
     "audio": {
-      "state": "pending",
-      "at": "2026-10-17T08:54:00+07:00",
-      "note": "Audio mix, real clips and independent audio review not available yet"
+      "state": "done",
+      "at": "2026-10-17T16:24:12+07:00",
+      "note": "voice-only mix per brief; audio branch review 9.3 pass recorded"
     },
     "qa": {
-      "state": "pending",
-      "at": "2026-10-17T08:54:00+07:00",
-      "note": "Wait for measured timeline, final scenes and integration"
+      "state": "done",
+      "at": "2026-10-17T16:24:13+07:00",
+      "note": "10 boundary/cover/hold frame extracts + footer zoom read visually; gate C 9.0 pass recorded"
     },
     "render": {
-      "state": "pending",
-      "at": "2026-10-17T08:54:00+07:00",
-      "note": "No verified final MP4; Gate C not reviewed"
+      "state": "done",
+      "at": "2026-10-17T17:19:51+07:00",
+      "note": "verified final MP4"
     }
   },
   "reviews": {
@@ -72,16 +72,129 @@
         "report": "docs/tiec-nguoi-hay-nam-thang/script-review.md",
         "note": "Round 2 script closes all Trung/Cao Gate A tickets; production-contract.json fixed to provisional-estimate; Thấp tickets A5/A6 carried forward only."
       }
+    ],
+    "content": [
+      {
+        "at": "2026-10-17T16:23:36+07:00",
+        "reviewer": "content-reviewer",
+        "score": 10.0,
+        "verdict": "pass",
+        "report": "docs\\tiec-nguoi-hay-nam-thang\\content-pack-review.md",
+        "note": "Round 1: 8/8 pack voice lines byte-equal voice.json; on-screen headlines + motifs verified on 10 final-MP4 frame extracts"
+      },
+      {
+        "at": "2026-10-17T17:03:11+07:00",
+        "reviewer": "content-reviewer",
+        "score": 9.0,
+        "verdict": "pass",
+        "report": "docs\\tiec-nguoi-hay-nam-thang\\content-pack-review.md",
+        "note": "Round 2: CR-01/CR-02 fixed verified, 8/8 voice lines byte-equal voice.json, CR-03 footer typo fixed. No open Cao/Trung."
+      }
+    ],
+    "audio": [
+      {
+        "at": "2026-10-17T16:23:36+07:00",
+        "reviewer": "audio-reviewer",
+        "score": 9.3,
+        "verdict": "pass",
+        "report": "docs\\tiec-nguoi-hay-nam-thang\\audio-review.md",
+        "note": "Voice-only per contract; CER<=0.075; -13.9 LUFS integrated, peak -1.9, LRA 2.6"
+      },
+      {
+        "at": "2026-10-17T17:03:11+07:00",
+        "reviewer": "audio-reviewer",
+        "score": 9.0,
+        "verdict": "pass",
+        "report": "docs\\tiec-nguoi-hay-nam-thang\\audio-review.md",
+        "note": "Round 2: A-0 resolved (docs now purchased-license, false local-only claim removed). CER<=0.075, -13.9 LUFS. A-1..A-4 Thap carry-forward."
+      }
+    ],
+    "D": [
+      {
+        "at": "2026-10-17T16:23:37+07:00",
+        "reviewer": "design-reviewer",
+        "score": 9.3,
+        "verdict": "pass",
+        "report": "docs\\tiec-nguoi-hay-nam-thang\\design-review.md",
+        "note": "Renders judged, not spec text; board matches final frames 1:1; 2 Thấp polish tickets only"
+      },
+      {
+        "at": "2026-10-17T17:03:12+07:00",
+        "reviewer": "design-reviewer",
+        "score": 9.0,
+        "verdict": "pass",
+        "report": "docs\\tiec-nguoi-hay-nam-thang\\design-review.md",
+        "note": "Round 2: GD-D01/D02/D03 fixed verified on re-render. GD-D04 Thap (s8 calendar vs raised divider) non-blocking."
+      }
+    ],
+    "E": [
+      {
+        "at": "2026-10-17T16:23:37+07:00",
+        "reviewer": "integration-reviewer",
+        "score": 9.0,
+        "verdict": "pass",
+        "report": "docs\\tiec-nguoi-hay-nam-thang\\integration-review.md",
+        "note": "1422f = measured voice + semantic holds incl. A-C7 final 2.0s; boundaries clean at all 8 shot starts"
+      },
+      {
+        "at": "2026-10-17T17:43:18+07:00",
+        "reviewer": "integration-reviewer",
+        "score": 9.0,
+        "verdict": "pass",
+        "report": "docs\\tiec-nguoi-hay-nam-thang\\integration-review.md",
+        "note": "Round 3: E-1 script.md sync voice.json, E-2 re-hook 21.3-26.3s, E-3 s8 motif raised clear of divider+CTA. 1422f/47.40s, spine coherent, no open tickets."
+      }
+    ],
+    "B": [
+      {
+        "at": "2026-10-17T16:23:37+07:00",
+        "reviewer": "task-reviewer",
+        "score": 9.5,
+        "verdict": "pass",
+        "report": "docs\\tiec-nguoi-hay-nam-thang\\task-review.md",
+        "note": "Plan steps re-verified against tree state; one worker per file"
+      },
+      {
+        "at": "2026-10-17T17:43:19+07:00",
+        "reviewer": "task-reviewer",
+        "score": 9.0,
+        "verdict": "pass",
+        "report": "docs\\tiec-nguoi-hay-nam-thang\\task-review.md",
+        "note": "Comp registered only via registry.ts; module self-contained; changes scoped to own module+docs+registry. B-01/B-02 Thap carry-forward."
+      }
+    ],
+    "C": [
+      {
+        "at": "2026-10-17T16:24:11+07:00",
+        "reviewer": "video-reviewer",
+        "score": 9.0,
+        "verdict": "pass",
+        "report": "docs\\tiec-nguoi-hay-nam-thang\\video-review.md",
+        "note": "Fingerprint-bound; 10 frame extracts + footer zoom + ebur128/ASR evidence",
+        "render_fingerprint": "1763650:1792228268404570700",
+        "full_listen": false
+      },
+      {
+        "at": "2026-10-17T17:47:26+07:00",
+        "reviewer": "video-reviewer",
+        "score": 9.0,
+        "verdict": "pass",
+        "report": "docs\\tiec-nguoi-hay-nam-thang\\video-review.md",
+        "note": "Round 2: C-1 s8 motif raised clear of divider+CTA. Safe zones clean, diacritics correct, strict palette, motion real. C-2/C-3/C-4 Thap carry-forward (four-legs reading, s2/s3 pose, extra s8 margin).",
+        "render_fingerprint": "3485059:1792232389887885600",
+        "render_sha256": "e4172513ccbc3105af082526aea8b4d488df2da1ee9f79b794e7964a7fbf3f5a",
+        "full_listen": false
+      }
     ]
   },
   "review_valid": {
     "A": true,
-    "D": false,
-    "E": false,
-    "B": false,
-    "C": false,
-    "content": false,
-    "audio": false
+    "D": true,
+    "E": true,
+    "B": true,
+    "C": true,
+    "content": true,
+    "audio": true
   },
   "next": "Run gen-voice-clone.py for s1–s8 with refThanhLong.wav; measure ffprobe durations; ASR/CER check",
   "log": [
@@ -156,15 +269,225 @@
       "stage": "voice",
       "who": "voice-agent",
       "msg": "voice-agent running: Sinh 8 clip Thanh Long Nâng Cao qua VieNeu-TTS v3 Turbo, ref refThanhLong.wav"
+    },
+    {
+      "t": "2026-10-17T15:55:07+07:00",
+      "stage": "voice",
+      "who": "agent",
+      "msg": "voice -> done: 8 clips s1-s8, Thanh Long clone, CER 0.000-0.075 verified in voice-final-asr.md (evidence: 8/8 clips)"
+    },
+    {
+      "t": "2026-10-17T15:55:18+07:00",
+      "stage": "render",
+      "who": "agent",
+      "msg": "render -> in_progress: rendering"
+    },
+    {
+      "t": "2026-10-17T15:56:27+07:00",
+      "stage": "render",
+      "who": "verify",
+      "msg": "verified 47.40s H.264/AAC 1080x1920 30fps"
+    },
+    {
+      "t": "2026-10-17T15:56:27+07:00",
+      "stage": "render",
+      "who": "agent",
+      "msg": "render -> done: verified final MP4 (evidence: verified 47.4s; gate C: no review yet)"
+    },
+    {
+      "t": "2026-10-17T15:58:23+07:00",
+      "stage": "agent",
+      "who": "voice-agent",
+      "msg": "voice-agent done"
+    },
+    {
+      "t": "2026-10-17T16:08:49+07:00",
+      "stage": "render",
+      "who": "agent",
+      "msg": "render -> in_progress: rendering"
+    },
+    {
+      "t": "2026-10-17T16:11:08+07:00",
+      "stage": "render",
+      "who": "verify",
+      "msg": "verified 47.40s H.264/AAC 1080x1920 30fps"
+    },
+    {
+      "t": "2026-10-17T16:11:08+07:00",
+      "stage": "render",
+      "who": "agent",
+      "msg": "render -> done: verified final MP4 (evidence: verified 47.4s; gate C: no review yet)"
+    },
+    {
+      "t": "2026-10-17T16:23:36+07:00",
+      "stage": "content",
+      "who": "content-reviewer",
+      "msg": "review 10.0/10 pass: content-pack-review.md (Round 1: 8/8 pack voice lines byte-equal voice.json; on-screen headlines + motifs verified on 10 final-MP4 frame extracts)"
+    },
+    {
+      "t": "2026-10-17T16:23:36+07:00",
+      "stage": "audio",
+      "who": "audio-reviewer",
+      "msg": "review 9.3/10 pass: audio-review.md (Voice-only per contract; CER<=0.075; -13.9 LUFS integrated, peak -1.9, LRA 2.6)"
+    },
+    {
+      "t": "2026-10-17T16:23:37+07:00",
+      "stage": "D",
+      "who": "design-reviewer",
+      "msg": "review 9.3/10 pass: design-review.md (Renders judged, not spec text; board matches final frames 1:1; 2 Thấp polish tickets only)"
+    },
+    {
+      "t": "2026-10-17T16:23:37+07:00",
+      "stage": "E",
+      "who": "integration-reviewer",
+      "msg": "review 9.0/10 pass: integration-review.md (1422f = measured voice + semantic holds incl. A-C7 final 2.0s; boundaries clean at all 8 shot starts)"
+    },
+    {
+      "t": "2026-10-17T16:23:37+07:00",
+      "stage": "B",
+      "who": "task-reviewer",
+      "msg": "review 9.5/10 pass: task-review.md (Plan steps re-verified against tree state; one worker per file)"
+    },
+    {
+      "t": "2026-10-17T16:24:11+07:00",
+      "stage": "C",
+      "who": "video-reviewer",
+      "msg": "review 9.0/10 pass: video-review.md (Fingerprint-bound; 10 frame extracts + footer zoom + ebur128/ASR evidence)"
+    },
+    {
+      "t": "2026-10-17T16:24:11+07:00",
+      "stage": "research",
+      "who": "agent",
+      "msg": "research -> done: research.md: duplicate-report analysis vs thuong-hay-so + story-scope contract (illustrative, no factual claims) (evidence: 1 file(s): docs\\tiec-nguoi-hay-nam-thang\\research.md)"
+    },
+    {
+      "t": "2026-10-17T16:24:12+07:00",
+      "stage": "content",
+      "who": "agent",
+      "msg": "content -> done: content-pack.md Round 2 synced to voice.json; content review 10/10 recorded (evidence: 1 file(s): docs\\tiec-nguoi-hay-nam-thang\\content-pack.md; gate content: pass 10.0/10)"
+    },
+    {
+      "t": "2026-10-17T16:24:12+07:00",
+      "stage": "design",
+      "who": "agent",
+      "msg": "design -> done: design-spec + board + style stills verified against final renders; gate D 9.3 pass (evidence: 1 file(s): docs\\tiec-nguoi-hay-nam-thang\\design-spec.md; gate D: pass 9.3/10)"
+    },
+    {
+      "t": "2026-10-17T16:24:12+07:00",
+      "stage": "build",
+      "who": "agent",
+      "msg": "build -> done: timeline 1422f from measured clips; comp registered in registry; gate E 9.0 pass (evidence: composition TiecNguoiHayNamThangReel)"
+    },
+    {
+      "t": "2026-10-17T16:24:12+07:00",
+      "stage": "audio",
+      "who": "agent",
+      "msg": "audio -> done: voice-only mix per brief; audio branch review 9.3 pass recorded (evidence: no files)"
+    },
+    {
+      "t": "2026-10-17T16:24:13+07:00",
+      "stage": "qa",
+      "who": "agent",
+      "msg": "qa -> done: 10 boundary/cover/hold frame extracts + footer zoom read visually; gate C 9.0 pass recorded (evidence: 16 stills)"
+    },
+    {
+      "t": "2026-10-17T16:36:29+07:00",
+      "stage": "render",
+      "who": "agent",
+      "msg": "render -> in_progress: rendering"
+    },
+    {
+      "t": "2026-10-17T16:38:39+07:00",
+      "stage": "render",
+      "who": "verify",
+      "msg": "verified 47.40s H.264/AAC 1080x1920 30fps"
+    },
+    {
+      "t": "2026-10-17T16:38:39+07:00",
+      "stage": "render",
+      "who": "agent",
+      "msg": "render -> done: verified final MP4 (evidence: verified 47.4s; gate C: pass 9.0/10)"
+    },
+    {
+      "t": "2026-10-17T17:03:11+07:00",
+      "stage": "content",
+      "who": "content-reviewer",
+      "msg": "review 9.0/10 pass: content-pack-review.md (Round 2: CR-01/CR-02 fixed verified, 8/8 voice lines byte-equal voice.json, CR-03 footer typo fixed. No open Cao/Trung.)"
+    },
+    {
+      "t": "2026-10-17T17:03:11+07:00",
+      "stage": "audio",
+      "who": "audio-reviewer",
+      "msg": "review 9.0/10 pass: audio-review.md (Round 2: A-0 resolved (docs now purchased-license, false local-only claim removed). CER<=0.075, -13.9 LUFS. A-1..A-4 Thap carry-forward.)"
+    },
+    {
+      "t": "2026-10-17T17:03:12+07:00",
+      "stage": "D",
+      "who": "design-reviewer",
+      "msg": "review 9.0/10 pass: design-review.md (Round 2: GD-D01/D02/D03 fixed verified on re-render. GD-D04 Thap (s8 calendar vs raised divider) non-blocking.)"
+    },
+    {
+      "t": "2026-10-17T17:12:51+07:00",
+      "stage": "render",
+      "who": "agent",
+      "msg": "render -> in_progress: rendering"
+    },
+    {
+      "t": "2026-10-17T17:15:04+07:00",
+      "stage": "render",
+      "who": "agent",
+      "msg": "render -> failed: Command '['C:\\\\nvm4w\\\\nodejs\\\\npx.CMD', 'remotion', 'render', 'src/index.ts', 'TiecNguoiHayNamThangReel', 'C:\\\\Users\\\\nhutn\\\\OneDrive\\\\Máy tính\\\\remotion-ai-agentic-studio\\\\out\\\\.tiec-nguoi-hay-nam-thang-thanh-long-nang-cao-41k82lbe\\\\raw.mp4', '--codec', 'h264', '--crf', '18', '--pixel-format', 'yuv420p']' returned non-zero exit status 1."
+    },
+    {
+      "t": "2026-10-17T17:18:04+07:00",
+      "stage": "render",
+      "who": "agent",
+      "msg": "render -> in_progress: rendering"
+    },
+    {
+      "t": "2026-10-17T17:19:51+07:00",
+      "stage": "render",
+      "who": "verify",
+      "msg": "verified 47.40s H.264/AAC 1080x1920 30fps"
+    },
+    {
+      "t": "2026-10-17T17:19:52+07:00",
+      "stage": "render",
+      "who": "agent",
+      "msg": "render -> done: verified final MP4 (evidence: verified 47.4s; gate C: pass 9.0/10)"
+    },
+    {
+      "t": "2026-10-17T17:43:18+07:00",
+      "stage": "E",
+      "who": "integration-reviewer",
+      "msg": "review 9.0/10 pass: integration-review.md (Round 3: E-1 script.md sync voice.json, E-2 re-hook 21.3-26.3s, E-3 s8 motif raised clear of divider+CTA. 1422f/47.40s, spine coherent, no open tickets.)"
+    },
+    {
+      "t": "2026-10-17T17:43:19+07:00",
+      "stage": "B",
+      "who": "task-reviewer",
+      "msg": "review 9.0/10 pass: task-review.md (Comp registered only via registry.ts; module self-contained; changes scoped to own module+docs+registry. B-01/B-02 Thap carry-forward.)"
+    },
+    {
+      "t": "2026-10-17T17:47:26+07:00",
+      "stage": "C",
+      "who": "video-reviewer",
+      "msg": "review 9.0/10 pass: video-review.md (Round 2: C-1 s8 motif raised clear of divider+CTA. Safe zones clean, diacritics correct, strict palette, motion real. C-2/C-3/C-4 Thap carry-forward (four-legs reading, s2/s3 pose, extra s8 margin).)"
     }
   ],
-  "updated": "2026-10-17T09:26:01+07:00",
+  "updated": "2026-10-17T17:47:26+07:00",
   "agents": {
     "voice-agent": {
-      "state": "running",
-      "at": "2026-10-17T09:26:01+07:00",
-      "note": "Sinh 8 clip Thanh Long Nâng Cao qua VieNeu-TTS v3 Turbo, ref refThanhLong.wav",
-      "stage": "voice"
+      "state": "done",
+      "at": "2026-10-17T15:58:23+07:00",
+      "note": "",
+      "stage": ""
     }
+  },
+  "render_check": {
+    "fingerprint": "3485059:1792232389887885600",
+    "sha256": "e4172513ccbc3105af082526aea8b4d488df2da1ee9f79b794e7964a7fbf3f5a",
+    "duration": 47.4,
+    "at": "2026-10-17T17:19:51+07:00"
   }
 }

@@ -70,3 +70,25 @@ Vid `xay-doi-minh-hay-chung-minh` · new reviewer · regression-only on fix stil
 Diacritics intact (THẤY CHƯA?, gạch, tiếp, đặt, cho ai?). No new overflow/regression in the 4 stills.
 
 ## Verdict: **CONDITIONAL PASS** — all Cao occlusion/contrast defects (C1, C2) resolved in-still; C3 occlusion cleared but thud-frame kneel+dust needs one confirming still; C6 needs the 1432/1433 pair. C7-taste residual is Thấp, non-blocking.
+
+## Round 3 — confirming stills re-rendered on the current comp (2026-10-17)
+
+The Round-2 open items were verified on fresh stills rendered from the current source
+(`out/qa/xay-doi-minh-hay-chung-minh-r3-<frame>.png`). ScenesE (this cluster's sole owner) is untouched since
+Round 2, so these frames match the approved fix state; the only source edits this round are the cluster-B
+fixes (B-C4 in s6, B-D2 in s8) which do not appear in s9a–s11 frames.
+
+| id | status | evidence |
+|---|---|---|
+| C3 | **CONFIRMED** | Stills 1587/1589/1591: placed brick flat on ground beside the figure with dust chip + shadow ellipse; entire action zone above the caption pill, nothing occluded at the thud frame. Residual: figure stands/squats rather than kneeling — the "đặt xuống ngay chỗ mình đang đứng" staging, Thấp, non-blocking. |
+| C6 | **CONFIRMED** | Stills 1432 vs 1433: sign "THẤY CHƯA?" at identical full blaze on both sides of the cut — the dimming overlay now exempts the sign. No brightness pop. |
+| C8 | **CONFIRMED** | Stills 1515/1520 (s10 f0–f5): only the brick-in-hand is present; no floating placed-brick group. |
+
+C7 residual (fg hand/brick reads notebook-ish at 480px preview) stays Thấp, non-blocking. Diacritics intact
+(THẤY CHƯA?). s11 freeze + s9b hold unchanged (verified in Round 1 checks).
+
+## Final verdict: **PASS — cluster C 9.0/10**
+
+All Cao/Trung defects closed on re-rendered evidence; remaining items are Thấp observations. Voice switch to
+`thanh-long-nang-cao` (2026-10-17 12:12) changed audio only — comp visual frames are unchanged (the re-rendered
+stills match the Round-2 fix state); the final MP4 is re-rendered with the fixes and fingerprint-bound to gate C.

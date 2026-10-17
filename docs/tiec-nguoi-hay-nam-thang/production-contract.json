@@ -13,9 +13,9 @@
     "provider": "VieNeu-TTS-v3-Turbo",
     "name": "Thanh Long Nâng Cao",
     "slug": "thanh-long-nang-cao",
-    "reference": "local-only:refThanhLong.wav",
+    "reference": "purchased-license:refThanhLong.wav",
     "required": true,
-    "generated": false
+    "generated": true
   },
   "timeline": {
     "mode": "voice-driven",

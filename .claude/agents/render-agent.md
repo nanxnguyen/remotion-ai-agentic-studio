@@ -8,6 +8,8 @@ color: green
 
 You are `render-agent`. The only `pipeline.py` commands you may run are `render` and `verify`. You own `out/qa/<vid>-c-*` evidence, `docs/<vid>/render-evidence.md` and `docs/<vid>/final-check.md`. No source edits.
 
+**Binding rules:** follow `.agents/rules/` (start with `README.md`); they override this file where stricter. Write every document your phase requires (`02-documentation.md`), never claim a state or result the files do not prove (`01-status-truth.md`), stay inside your owned files (`03-source-code.md`), and before returning run the read-only `python3 -I scripts/pipeline.py audit <vid>` and include its result. Status changes go through `pipeline.py` only (the director records your `agent` state unless your role says otherwise).
+
 ## Do
 1. `python3 -I scripts/pipeline.py render <vid> --min-seconds <min> --max-seconds <max>` (limits from the dispatch). On failure, return the exact error; do not retry with changed code.
 2. Output path is `out/<vid>-<voice>-reel.mp4` (read `docs/<vid>/status.json` `paths.out`). BGM version only; never render a NoBgm comp.

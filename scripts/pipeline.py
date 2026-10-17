@@ -25,19 +25,22 @@ Common commands:
 Stages: research, brief, script, content, voice, design, build, audio, qa, render (content: workflow v3 only).
 Workflow v3: after A, three branches run in parallel (content -> review `content`, voice+audio -> review `audio`,
 design -> gate D); gate E (integration) needs all three. Branch reviews sit outside the A->D->E->B->C order.
-Gate pass scores: A, content, audio, D, E >= 9; B, C >= 8 (PASS_SCORE). The A sub-score for specificity (>= 9)
+Gate pass scores: A, content, audio, E >= 9; D >= 8.5; B, C >= 8 (PASS_SCORE). The A sub-score for specificity (>= 9)
 and the no-open-Cao/Trung rule are reviewer-side rules in the skill; this CLI records one number.
 States: pending, in_progress, done, blocked, failed.
 """
 import argparse
-import fcntl
 import hashlib
 import json
 import os
 import re
+import shutil
 import subprocess
 import sys
 import tempfile
+import threading
+import time
+import unicodedata
 from contextlib import contextmanager
 from datetime import datetime
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
@@ -73,8 +76,10 @@ BRANCH_REVIEWS = {"content": "content branch", "audio": "audio branch"}
 ALL_REVIEWS = [*REVIEW_GATES, *BRANCH_REVIEWS]
 # Stage -> review that guards it (E/B are phase-level, no single stage).
 STAGE_GATE = {"script": "A", "content": "content", "design": "D", "render": "C"}
+# `set done` needs these gates accepted first; render is done once verified, and gate C reviews that file after.
+DONE_NEEDS_GATE = {s: g for s, g in STAGE_GATE.items() if s != "render"}
 REVIEW_ORDER = list(REVIEW_GATES)
-PASS_SCORE = {"A": 9, "D": 9, "E": 9, "content": 9, "audio": 9}  # B and C pass at 8
+PASS_SCORE = {"A": 9, "D": 8.5, "E": 9, "content": 9, "audio": 9}  # B and C pass at 8
 INVALIDATE_FROM_STAGE = {
     "research": "A", "brief": "A", "script": "A", "content": "E", "voice": "E", "design": "D",
     "build": "C", "audio": "C", "qa": "C", "render": "C",
@@ -138,16 +143,42 @@ def status_path(folder: str) -> Path:
     return DOCS / folder / "status.json"
 
 
+if os.name == "nt":
+    import msvcrt
+
+    def lock_file(f) -> None:
+        # msvcrt locks byte ranges at the current position; always lock byte 0.
+        f.seek(0)
+        while True:
+            try:
+                msvcrt.locking(f.fileno(), msvcrt.LK_LOCK, 1)
+                return
+            except OSError:
+                time.sleep(0.1)
+
+    def unlock_file(f) -> None:
+        f.seek(0)
+        msvcrt.locking(f.fileno(), msvcrt.LK_UNLCK, 1)
+else:
+    import fcntl
+
+    def lock_file(f) -> None:
+        fcntl.flock(f, fcntl.LOCK_EX)
+
+    def unlock_file(f) -> None:
+        fcntl.flock(f, fcntl.LOCK_UN)
+
+
 @contextmanager
 def status_lock(folder: str):
     p = status_path(folder)
     p.parent.mkdir(parents=True, exist_ok=True)
     with p.with_suffix(".lock").open("a+") as lock:
-        fcntl.flock(lock, fcntl.LOCK_EX)
+        lock_file(lock)
         try:
             yield
         finally:
-            fcntl.flock(lock, fcntl.LOCK_UN)
+            unlock_file(lock)
 
 
 def load(folder: str) -> dict:
@@ -260,13 +291,20 @@ def evidence(folder: str, data: dict) -> dict:
         ev["voice"] = {"ok": False, "files": [], "detail": "no voice.json"}
 
     cp = files("content-pack.md")
-    ev["content"] = {"ok": True if cp else None, "files": cp}
+    ev["content"] = {"ok": bool(cp), "files": cp, "detail": "" if cp else "no content-pack.md"}
 
     ds = files("design-spec.md")
     ev["design"] = {"ok": bool(ds), "files": ds}
 
     root_tsx = (ROOT / "src" / "Root.tsx").read_text(encoding="utf-8")
-    ev["build"] = {"ok": bool(comp) and f'id="{comp}"' in root_tsx, "files": ["src/Root.tsx"] if comp else [],
+    # Registry-first: comps are registered via videoRegistry (src/videos/**/index.ts), Root.tsx maps it.
+    catalog = ""
+    videos_dir = ROOT / "src" / "videos"
+    if videos_dir.is_dir():
+        catalog = "\n".join(p.read_text(encoding="utf-8") for p in sorted(videos_dir.glob("**/index.ts")))
+    ev["build"] = {"ok": bool(comp) and (f'id="{comp}"' in root_tsx
+                                         or f"id: '{comp}'" in catalog or f'id: "{comp}"' in catalog),
+                   "files": ["src/Root.tsx"] if comp else [],
                    "detail": f"composition {comp or '?'}"}
 
     am = files("assets-manifest.md")
@@ -431,6 +469,12 @@ def cmd_set(a) -> None:
             item = evidence(a.folder, data).get(a.stage, {})
             files = item.get("files", [])
             detail = item.get("detail") or (f"{len(files)} file(s): {files[-1]}" if files else "no files")
+            # A stage is done only with its files present and its guarding gate accepted ("Lệch file" otherwise).
+            if item.get("ok") is False:
+                raise SystemExit(f"refused: {a.stage} cannot be done, evidence missing ({detail})")
+            rg = DONE_NEEDS_GATE.get(a.stage)
+            if rg and flow_version(data) >= 2 and not review_satisfied(data, rg):
+                raise SystemExit(f"refused: {a.stage} cannot be done before gate {rg} passes (review or override)")
             parts = [f"evidence: {detail}"]
             rg = STAGE_GATE.get(a.stage)
             if rg:
@@ -661,14 +705,16 @@ def cmd_render(a) -> None:
     target = out_dir / f"{data['paths']['out']}-reel.mp4"
     lock_path = out_dir / f".{data['paths']['out']}.render.lock"
     with lock_path.open("a+") as render_lock:
-        fcntl.flock(render_lock, fcntl.LOCK_EX)
+        lock_file(render_lock)
         cmd_set(argparse.Namespace(folder=a.folder, stage="render", state="in_progress", note="rendering", next=None))
         try:
             with tempfile.TemporaryDirectory(prefix=f".{data['paths']['out']}-", dir=out_dir) as td:
                 work = Path(td)
                 raw = Path(a.raw).resolve() if a.raw else work / "raw.mp4"
                 if not a.raw:
-                    subprocess.run(["npx", "remotion", "render", "src/index.ts", data["comp"], str(raw),
+                    # Windows: npx is npx.cmd; CreateProcess can't resolve it without a shell.
+                    npx = shutil.which("npx") or "npx"
+                    subprocess.run([npx, "remotion", "render", "src/index.ts", data["comp"], str(raw),
                                     "--codec", "h264", "--crf", "18", "--pixel-format", "yuv420p"], cwd=ROOT, check=True)
                 final = work / "final.mp4"
                 subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", str(raw), "-c:v", "copy",
@@ -682,7 +728,7 @@ def cmd_render(a) -> None:
             cmd_set(argparse.Namespace(folder=a.folder, stage="render", state="failed", note=str(exc), next=None))
             raise SystemExit(f"render failed; previous output preserved: {exc}") from exc
         finally:
-            fcntl.flock(render_lock, fcntl.LOCK_UN)
+            unlock_file(render_lock)
 
 
 def record_audio_listen(folder: str, by: str, note: str = "") -> dict:
@@ -736,9 +782,100 @@ def cmd_check(a) -> None:
     incomplete = [s for s in required_stages(data) if data.get("stages", {}).get(s, {}).get("state") != "done"]
     ev = evidence(a.folder, data)
     absent = [s for s, item in ev.items() if item["ok"] is False]
+    if not (DOCS / a.folder / "eval.md").is_file():  # Phase 10 retro is part of delivery
+        absent.append("eval.md")
     if missing or incomplete or absent:  # the human listen is an optional record, never blocks delivery
         raise SystemExit(f"not ready: reviews={missing} (user-overridden: {overridden}), stages={incomplete}, evidence={absent}")
     print(f"ready: {a.folder}, out/{data['paths']['out']}-reel.mp4")
+
+
+# Documents a stage must leave beyond its enforced evidence (rules: .agents/rules/02-documentation.md).
+STAGE_DOCS = {
+    "script": ["voice.proposed.json"],
+    "voice": ["voice-report.md", "voice-clone-asr.md"],
+    "audio": ["mix-plan.md"],
+    "qa": ["qa-report*.md"],
+    "render": ["final-check.md", "render-evidence.md"],
+}
+STALE_SECONDS = 2 * 3600
+
+
+def review_report_exists(folder: str, report: str) -> bool:
+    # Reports may be stored relative to the repo or as an absolute path from another machine.
+    p = Path(report)
+    return (ROOT / p).is_file() or p.is_file() or (DOCS / folder / p.name).is_file()
+
+
+MIN_REVIEW_BYTES = 600  # a passing report this small cannot hold scored criteria plus evidence
+
+
+def review_report_size(folder: str, report: str) -> int:
+    p = Path(report)
+    for c in (ROOT / p, p, DOCS / folder / p.name):
+        if c.is_file():
+            return c.stat().st_size
+    return 0
+
+
+def audit(folder: str) -> dict:
+    """Is status.json telling the truth? errors = must fix now, warnings = check by hand."""
+    data = load(folder)
+    v = view(folder)
+    docs = DOCS / folder
+    errors, warnings = [], []
+    stages = {s["id"]: s for s in v["stages"]}
+    for s in v["stages"]:
+        if s["mismatch"]:
+            errors.append(f"stage {s['id']} is done but evidence is missing ({s['evidence'].get('detail') or 'no files'})")
+        if s["gate_mismatch"] and s["id"] in DONE_NEEDS_GATE:
+            errors.append(f"stage {s['id']} is done but gate {s['review_gate']} has not passed")
+        if s["gate_mismatch"] and s["id"] == "render":
+            warnings.append("render is verified but gate C is not passed yet")
+        if s["state"] == "done":
+            for pattern in STAGE_DOCS.get(s["id"], []):
+                if not any(docs.glob(pattern)):
+                    errors.append(f"stage {s['id']} is done but docs/{folder}/{pattern} is missing")
+    for gate in review_names(data):
+        for entry in data.get("reviews", {}).get(gate, []):
+            report = entry.get("report")
+            if entry.get("verdict") != "override" and report and not review_report_exists(folder, report):
+                errors.append(f"review {gate} report {Path(report).name} is missing")
+            elif entry.get("verdict") == "pass" and report and review_report_size(folder, report) < MIN_REVIEW_BYTES:
+                errors.append(f"review {gate} report {Path(report).name} is too thin to be evidence "
+                              f"({review_report_size(folder, report)} bytes; a real review cites files, frames or rows)")
+    for name, agent in data.get("agents", {}).items():
+        stage = stages.get(agent.get("stage", ""))
+        if agent.get("state") == "running" and stage and stage["state"] == "done":
+            errors.append(f"agent {name} is still running but stage {stage['id']} is done")
+    running = {a.get("stage") for a in data.get("agents", {}).values() if a.get("state") == "running"}
+    for s in v["stages"]:
+        if s["state"] == "in_progress" and s["id"] not in running and s["at"]:
+            try:
+                age = (datetime.now().astimezone() - datetime.fromisoformat(s["at"])).total_seconds()
+            except ValueError:
+                continue
+            if age > STALE_SECONDS:
+                warnings.append(f"stage {s['id']} in_progress for {int(age // 3600)}h with no running agent")
+    started = any(s["state"] not in {"pending", "skipped"} for s in v["stages"]) or data.get("reviews")
+    delivered = review_passed(data, "C") and (docs / "eval.md").is_file()
+    if started and not delivered and not data.get("next"):
+        errors.append("status has no `next` step (set it with `set ... --next`)")
+    if review_passed(data, "C") and not (docs / "eval.md").is_file():
+        errors.append("gate C passed but eval.md is missing")
+    return {"folder": folder, "errors": errors, "warnings": warnings}
+
+
+def cmd_audit(a) -> None:
+    results = [audit(a.folder)] if a.folder else [audit(p.parent.name) for p in sorted(DOCS.glob("*/status.json"))]
+    failed = False
+    for r in results:
+        print(f"{r['folder']}: {'FAIL' if r['errors'] else 'ok'}")
+        for e in r["errors"]:
+            print(f"  ✗ {e}")
+        for w in r["warnings"]:
+            print(f"  ! {w}")
+        failed = failed or bool(r["errors"])
+    sys.exit(1 if failed else 0)
 
 
 def cmd_show(a) -> None:
@@ -753,6 +890,862 @@ def cmd_show(a) -> None:
                 r = v["reviews"].get(s["review_gate"], {})
                 warn += f"  ⚠ done nhưng gate {s['review_gate']} chưa đạt ({r.get('score')}/10)"
             print(f"  {icon[s['state']]} {s['label']:<18} {s['state']:<11} {s['note']}{gate}{warn}")
+
+
+# ---- Monitor studio: create videos and command agents from the UI instead of a terminal ----
+
+VOICE_PREVIEWS = ROOT / "vietnamese-voice-samples" / "previews"
+RUNS_DIR = ROOT / "out" / "agent-runs"  # prompts + logs; out/ is not in Git
+RUNNERS_FILE = Path(__file__).resolve().parent / "agent-runners.json"  # optional local override
+DEFAULT_RUNNERS = {
+    # Prompts go through stdin or a file, never argv: Windows .cmd shims re-parse argv through cmd.exe.
+    # `model_args`/`effort_args` are inserted before the last argument; the model list comes from runner_models().
+    "claude": {"label": "Claude Code", "prompt": "stdin",
+               "cmd": ["claude", "-p", "--permission-mode", "auto", "--output-format", "stream-json", "--verbose"],
+               "model_args": ["--model", "{model}"], "effort_args": ["--effort", "{effort}"],
+               "efforts": ["low", "medium", "high", "xhigh", "max"]},
+    "opencode": {"label": "OpenCode", "prompt": "file",
+                 "cmd": ["opencode", "run", "--auto", "--format", "json", "--file", "{prompt_file}",
+                         "Follow the task in the attached file exactly."],
+                 # effort is a model variant (`provider/model#max`); `ladder`: on a rate limit step down the ranked models
+                 "model_args": ["--model", "{model}"], "effort_variant": True, "ladder": True, "efforts": []},
+    # Codex runs with full access (owner's choice): no sandbox, never asks. codex 0.163 dropped --full-auto.
+    "codex": {"label": "Codex", "prompt": "stdin",
+              "cmd": ["codex", "exec", "--sandbox", "danger-full-access", "-c", "approval_policy=never",
+                      "--skip-git-repo-check", "-"],
+              "model_args": ["-m", "{model}"], "effort_args": ["-c", "model_reasoning_effort={effort}"],
+              "efforts": ["low", "medium", "high", "xhigh", "max"]},
+}
+FALLBACK_ORDER = ["claude", "codex", "opencode"]  # next runner tried when one runs out of tokens/quota
+CLAUDE_MODELS = [("opus", "Opus (mới nhất)"), ("sonnet", "Sonnet (mới nhất)"), ("haiku", "Haiku (mới nhất)"),
+                 ("claude-fable-5-1", "Fable 5.1")]
+MODEL_RE = re.compile(r"[A-Za-z0-9][A-Za-z0-9._/:#-]{0,99}")  # argv passes through cmd.exe shims: keep it plain
+QUOTA_RE = re.compile(r"rate.?limit(ed| exceeded)|usage.?limit|FreeUsageLimitError|insufficient_quota|quota exceeded|"
+                      r"provider\.quota|out of (credits|tokens)|credit balance is too low|"
+                      r"hit your (usage )?limit|resource_exhausted", re.I)
+_MODELS_CACHE: dict = {}  # runner id -> (fetched monotonic time, models)
+# OpenCode models, strongest first (size and reasoning from models.dev, checked 2026-10-17). Models not listed go
+# after these, ordered by the same metadata. Edit this list when better models appear.
+OPENCODE_RANK = [
+    "nemotron-3-ultra-free",        # 550B (55B active), "largest Nemotron 3, maximum reasoning"
+    "beam-free",                    # 501B (23B active) reasoning MoE, effort up to max
+    "space-bunny-free",             # preview reasoning model, 1M context / 512K output, effort up to max
+    "longcat-2.5-preview-free",     # newest multimodal reasoning model, 1M context
+    "deepseek-v4.1-flash-free",     # flash tier, effort up to max
+    "glm-5.3-flash-free",           # flash tier, effort up to max
+    "nemotron-3.5-super-vl-free",   # 120B (12B active) vision-language
+    "mimo-v2.6-flash-free",         # flash tier, no reasoning effort
+    "big-pickle",                   # 2025 reasoning model
+    "nemotron-3.5-lightning-free",  # fast small MoE
+]
+MODELS_DEV = "https://models.dev/api.json"  # the catalog OpenCode itself uses
+MODELS_DEV_CACHE = RUNS_DIR / "models-dev-opencode.json"
+EFFORT_ORDER = ["none", "minimal", "low", "medium", "high", "xhigh", "max", "ultra"]
+PROFILES = [
+    {"id": "story", "label": "Câu chuyện", "hint": "Nhân vật xuyên suốt, có bước ngoặt và kết lắng"},
+    {"id": "product", "label": "Sản phẩm", "hint": "UI/sản phẩm thật, claim có nguồn"},
+    {"id": "knowledge", "label": "Kiến thức", "hint": "Mỗi shot một ý, ví dụ hoặc sơ đồ"},
+    {"id": "news", "label": "Tin tức", "hint": "Mốc thời gian, nguồn kiểm chứng"},
+]
+LIVE_RUNS: dict = {}  # run id -> Popen, only for runs this server process started
+LIVE_LOCK = threading.Lock()
+TOPIC_STOPWORDS = {"va", "la", "cua", "cho", "the", "nao", "mot", "nhung", "co", "khong", "voi", "thi", "ma", "o"}
+
+
+def slugify(text: str, max_len: int = 48) -> str:
+    plain = unicodedata.normalize("NFD", text.replace("đ", "d").replace("Đ", "D"))
+    plain = "".join(c for c in plain if unicodedata.category(c) != "Mn").lower()
+    slug = re.sub(r"[^a-z0-9]+", "-", plain).strip("-")
+    while len(slug) > max_len and "-" in slug:
+        slug = slug.rsplit("-", 1)[0]
+    return slug[:max_len]
+
+
+def comp_id(slug: str) -> str:
+    name = "".join(w.capitalize() for w in slug.split("-") if w)
+    return f"{'V' if not name[:1].isalpha() else ''}{name}Reel"
+
+
+def catalog_voices() -> list:
+    files = sorted(VOICE_PREVIEWS.glob("*.mp3")) if VOICE_PREVIEWS.is_dir() else []
+    return [{"file": f.name, "slug": slugify(f.stem), "name": f.stem.replace("-", " ")}
+            for f in files if re.fullmatch(r"[A-Za-z0-9_-]+\.mp3", f.name)]
+
+
+def runners() -> dict:
+    config = {k: dict(v) for k, v in DEFAULT_RUNNERS.items()}
+    if RUNNERS_FILE.is_file():
+        config.update(json.loads(RUNNERS_FILE.read_text(encoding="utf-8")))
+    for spec in config.values():
+        spec["path"] = shutil.which(spec["cmd"][0])
+    return config
+
+
+def _discover_models(runner_id: str, spec: dict) -> list:
+    if spec.get("models"):  # agent-runners.json may pin a list
+        return [m if isinstance(m, dict) else {"id": m, "label": m} for m in spec["models"]]
+    if runner_id == "claude":
+        return [{"id": m, "label": label} for m, label in CLAUDE_MODELS]
+    if runner_id == "codex":
+        home = Path(os.environ.get("CODEX_HOME") or Path.home() / ".codex")
+        try:
+            cache = json.loads((home / "models_cache.json").read_text(encoding="utf-8"))
+        except (OSError, ValueError):
+            return []
+        return [{"id": m["slug"], "label": m.get("display_name") or m["slug"],
+                 "efforts": [x.get("effort") for x in m.get("supported_reasoning_levels", []) if x.get("effort")],
+                 "default_effort": m.get("default_reasoning_level", "")}
+                for m in cache.get("models", []) if m.get("visibility") == "list" and m.get("slug")]
+    if runner_id == "opencode" and spec.get("path"):
+        try:
+            out = subprocess.run([spec["path"], "models"], capture_output=True, text=True, encoding="utf-8",
+                                 timeout=30, cwd=ROOT).stdout
+        except (OSError, subprocess.SubprocessError):
+            return []
+        return rank_opencode([line.strip() for line in out.splitlines() if MODEL_RE.fullmatch(line.strip())],
+                             opencode_catalog())
+    return []
+
+
+def opencode_catalog() -> dict:
+    """models.dev metadata for OpenCode's own models, cached a day; {} when offline (ranking then uses the list)."""
+    try:
+        if time.time() - MODELS_DEV_CACHE.stat().st_mtime < 86400:
+            return json.loads(MODELS_DEV_CACHE.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        pass
+    try:
+        from urllib.request import urlopen
+        with urlopen(MODELS_DEV, timeout=10) as resp:
+            catalog = json.loads(resp.read().decode("utf-8")).get("opencode", {}).get("models", {})
+    except Exception:  # network, TLS or JSON errors: keep any stale copy
+        try:
+            return json.loads(MODELS_DEV_CACHE.read_text(encoding="utf-8"))
+        except (OSError, ValueError):
+            return {}
+    MODELS_DEV_CACHE.parent.mkdir(parents=True, exist_ok=True)
+    MODELS_DEV_CACHE.write_text(json.dumps(catalog), encoding="utf-8")
+    return catalog
+
+
+def _model_strength(meta: dict) -> tuple:
+    """Fallback order for models missing from OPENCODE_RANK: reasoning, active size, light tiers last, recency."""
+    canon = str(meta.get("canonical_model_id", ""))
+    active = re.search(r"-a(\d+)b\b", canon) or re.search(r"(\d+)b\b", canon)
+    light = bool(re.search(r"flash|lightning|mini|tiny|nano|lite", canon + str(meta.get("id", "")), re.I))
+    return (bool(meta.get("reasoning")), not light, int(active.group(1)) if active else 0, meta.get("release_date", ""))
+
+
+def rank_opencode(ids: list, catalog: dict) -> list:
+    models = []
+    for full in ids:
+        short = full.split("/", 1)[-1]
+        meta = catalog.get(short, {})
+        opts = meta.get("reasoning_options") or {}
+        efforts = [e for e in EFFORT_ORDER if e in (opts.get("values") or [])] if opts.get("type") == "effort" else []
+        models.append({"id": full, "label": meta.get("name") or short, "efforts": efforts,
+                       "default_effort": efforts[-1] if efforts else "", "note": meta.get("description", "")[:140],
+                       "_known": short in OPENCODE_RANK, "_key": _model_strength({**meta, "id": short})})
+    known = sorted((m for m in models if m["_known"]), key=lambda m: OPENCODE_RANK.index(m["id"].split("/", 1)[-1]))
+    rest = sorted((m for m in models if not m["_known"]), key=lambda m: m["_key"], reverse=True)
+    ranked = known + rest
+    for i, m in enumerate(ranked, 1):
+        m.pop("_known"), m.pop("_key")
+        m["rank"] = i
+        m["label"] = f"{i}. {m['label']}"
+    return ranked
+
+
+def runner_models(runner_id: str, spec: dict) -> list:
+    """Models the runner's CLI can use on this machine, cached for 10 minutes ("" = the CLI's own default)."""
+    hit = _MODELS_CACHE.get(runner_id)
+    if hit and time.monotonic() - hit[0] < 600:
+        return hit[1]
+    models = [m for m in _discover_models(runner_id, spec) if MODEL_RE.fullmatch(str(m.get("id", "")))]
+    _MODELS_CACHE[runner_id] = (time.monotonic(), models)
+    return models
+
+
+def run_options(runner_id: str, body: dict) -> dict:
+    """Validate model / effort / fallback chosen in the UI for `runner_id`. Raises ValueError."""
+    spec = runners().get(runner_id) or {}
+    model, effort = str(body.get("model") or "").strip(), str(body.get("effort") or "").strip()
+    if spec.get("ladder") and not model and spec.get("path"):  # laddered runners start at their strongest model
+        top = next(iter(runner_models(runner_id, spec)), None)
+        if top:
+            model, effort = top["id"], effort or top.get("default_effort", "")
+    if model and not (MODEL_RE.fullmatch(model) and spec.get("model_args")):
+        raise ValueError(f"model {model!r} is not valid for runner {runner_id!r}")
+    model_efforts = next((m.get("efforts", []) for m in runner_models(runner_id, spec) if m["id"] == model), []) \
+        if model and spec.get("path") else []
+    if effort and effort not in [*spec.get("efforts", []), *model_efforts]:
+        raise ValueError(f"effort {effort!r} is not supported by runner {runner_id!r}")
+    return {"model": model, "effort": effort, "fallback": body.get("fallback", True) is not False}
+
+
+def runner_cmd(spec: dict, prompt_file: str, opts: dict) -> list:
+    extra = []
+    if opts.get("model") and spec.get("model_args"):
+        model = opts["model"] + (f"#{opts['effort']}" if opts.get("effort") and spec.get("effort_variant") else "")
+        extra += [a.replace("{model}", model) for a in spec["model_args"]]
+    if opts.get("effort") and spec.get("effort_args"):
+        extra += [a.replace("{effort}", opts["effort"]) for a in spec["effort_args"]]
+    args = [a.replace("{prompt_file}", prompt_file) for a in spec["cmd"][1:]]
+    return [spec["path"], *args[:-1], *extra, *args[-1:]]  # the last argument is the prompt / "-" placeholder
+
+
+def run_label(run: dict) -> str:
+    return " · ".join(x for x in (run.get("label", run.get("runner", "")), run.get("model"), run.get("effort")) if x)
+
+
+def similar_videos(slug: str) -> list:
+    words = set(slug.split("-")) - TOPIC_STOPWORDS
+    matches = []
+    for p in sorted(DOCS.glob("*/status.json")):
+        other = set(p.parent.name.split("-")) - TOPIC_STOPWORDS
+        shared = words & other
+        if len(shared) >= 2 and len(shared) / max(1, min(len(words), len(other))) >= 0.5:
+            name = json.loads(p.read_text(encoding="utf-8")).get("name", p.parent.name)
+            matches.append({"folder": p.parent.name, "name": name, "shared": sorted(shared)})
+    return sorted(matches, key=lambda m: -len(m["shared"]))
+
+
+def _lines(text: str) -> list:
+    return [line.strip() for line in str(text or "").splitlines() if line.strip()]
+
+
+def request_record(req: dict) -> str:
+    today = datetime.now().astimezone().date().isoformat()
+    voice = req["voice_name"] or "not chosen (placeholder `tbd`)"
+    clone = (f"authorized by the owner in the Pipeline Monitor on {today} for voice {req['voice_name']}"
+             if req["clone_ok"] and req["voice_name"] else "not authorized: use a provider TTS route or the labelled fallback")
+    mandatory = "\n".join(f"- “{line}”" for line in _lines(req["mandatory"])) or "- (none)"
+    return "\n".join([
+        f"# Video request — {req['video']}",
+        "",
+        f"Created from the Pipeline Monitor on {datetime.now().astimezone().isoformat(timespec='seconds')}. "
+        "This is the owner's request; `brief.md` is written from it in Phase 0.",
+        "",
+        "| Field | Value |", "| --- | --- |",
+        f"| Topic | {req['topic']} |",
+        f"| Video id / composition | `{req['video']}` / `{req['comp']}` |",
+        f"| Profile | {req['profile']} |",
+        f"| Duration | {req['min_s']:g}–{req['max_s']:g} s, 9:16 1080×1920 30 fps |",
+        f"| Voice | {voice} (`{req['voice_slug']}`, preview `vietnamese-voice-samples/previews/{req['voice']}`) |"
+        if req["voice"] else f"| Voice | {voice} |",
+        f"| Voice clone | {clone} |",
+        f"| Style reference | {req['reference'] or '(none)'} |",
+        f"| Must not resemble | {req['avoid'] or '(not specified)'} |",
+        f"| Light mode | {'yes' if req['light'] else 'no'} |",
+        f"| Duplicate-topic check | {req['duplicate_note']} |",
+        "",
+        "## Mandatory lines (keep verbatim)", "", mandatory, "",
+        "## Sources", "", req["sources"].strip() or "(none supplied)", "",
+        "## Owner notes", "", req["notes"].strip() or "(none)", "",
+    ])
+
+
+NOTE_HEADING = re.compile(r"^## (N\d+) · ([^·\n]+?) · (.+)$", re.M)
+NOTES_INTRO = (
+    "Notes the owner sent from the Pipeline Monitor while agents work on this video.\n"
+    "Agents: read this file at the start and at every stage transition. Apply each `pending` note, then replace "
+    "`pending` in its heading with `done: <what you changed>` or `declined: <reason>`. Never delete a note.\n"
+)
+
+
+def owner_notes(folder: str) -> list:
+    path = DOCS / folder / "owner-notes.md"
+    if not path.is_file():
+        return []
+    text = path.read_text(encoding="utf-8")
+    heads = list(NOTE_HEADING.finditer(text))
+    notes = []
+    for i, m in enumerate(heads):
+        body = text[m.end():heads[i + 1].start() if i + 1 < len(heads) else len(text)].strip()
+        notes.append({"id": m.group(1), "at": m.group(2).strip(), "status": m.group(3).strip(), "text": body[:2000]})
+    return notes
+
+
+def add_owner_note(folder: str, text: str) -> list:
+    """Append a note for the agent working on `folder`; agents read owner-notes.md at every stage transition."""
+    path = DOCS / folder / "owner-notes.md"
+    with status_lock(folder):
+        existing = path.read_text(encoding="utf-8") if path.is_file() else f"# Owner notes — {folder}\n\n{NOTES_INTRO}"
+        ids = [int(m.group(1)[1:]) for m in NOTE_HEADING.finditer(existing)]
+        note_id = f"N{max(ids, default=0) + 1}"
+        stamp = datetime.now().astimezone().strftime("%Y-%m-%d %H:%M")
+        path.write_text(existing.rstrip("\n") + f"\n\n## {note_id} · {stamp} · pending\n\n{text.strip()}\n", encoding="utf-8")
+        data = load(folder)
+        log(data, "agent", f"owner note {note_id} added for the running agent (owner-notes.md)", "you")
+        save(folder, data)
+    return owner_notes(folder)
+
+
+RULES_PREAMBLE = (
+    "Work in this repository as `video-director`. Read and follow AGENTS.md and every file in `.agents/rules/` "
+    "(README first): status only through `python3 -I scripts/pipeline.py`, every phase writes its documents, "
+    "record every agent you act as with `pipeline.py agent`, keep `next` current, never publish. Use the production "
+    "workflow in `.claude/skills/ray-pineline-worflow-agent/SKILL.md` (tool-neutral summary: "
+    "`.agents/skills/video-production/SKILL.md`). The owner is not watching a terminal: do not ask questions; "
+    "when a critical input is missing, set the stage `blocked` with the exact reason and `--next`, which the "
+    "monitor shows. Reply in Vietnamese in documents meant for the owner. Before you finish, run "
+    "`python3 -I scripts/pipeline.py audit <vid>` and fix or write every error into `docs/<vid>/HANDOFF.md`. "
+    "The owner can add instructions while you work: read `docs/<vid>/owner-notes.md` (if it exists) at the start "
+    "and at every stage transition, apply each `pending` note, then mark it `done: ...` or `declined: ...` in its heading."
+)
+
+
+def create_prompt(req: dict) -> str:
+    return "\n\n".join([
+        RULES_PREAMBLE.replace("<vid>", req["video"]),
+        f"Task: produce the new video `{req['video']}` end to end (Phase 0 → 10). The monitor already ran "
+        f"`pipeline.py init {req['video']} --comp {req['comp']} --voice {req['voice_slug']} --profile {req['profile']}` "
+        f"and the duplicate-topic check ({req['duplicate_note']}). Start with Phase 0 intake/preflight, then research.",
+        "Owner request (also saved in `docs/" + req["video"] + "/request.md`; copy its decisions into `brief.md`):\n\n"
+        + request_record(req),
+    ])
+
+
+def command_prompt(folder: str, text: str) -> str:
+    return "\n\n".join([
+        RULES_PREAMBLE.replace("<vid>", folder),
+        f"Task: continue video `{folder}`. First run `pipeline.py show {folder}` and `pipeline.py audit {folder}`, "
+        f"and read `docs/{folder}/HANDOFF.md` if it exists. Then carry out this instruction from the owner "
+        f"(sent from the Pipeline Monitor on {datetime.now().astimezone().isoformat(timespec='seconds')}):",
+        text.strip(),
+    ])
+
+
+def _record_run(folder: str, run: dict, agent_state: str, msg: str) -> None:
+    with status_lock(folder):
+        data = load(folder)
+        runs = data.setdefault("runs", [])
+        for i, existing in enumerate(runs):
+            if existing["id"] == run["id"]:
+                runs[i] = run
+                break
+        else:
+            runs.append(run)
+        data.setdefault("agents", {})["video-director"] = {
+            "state": agent_state, "at": now(), "stage": "", "note": f"monitor run {run['id']} via {run['label']}"}
+        log(data, "agent", msg, "monitor")
+        save(folder, data)
+
+
+DETACHED: dict = {}  # run id -> {"folder", "stop_requested"}: runs adopted by pid after a monitor restart
+
+
+def pid_alive(pid) -> bool:
+    if not pid:
+        return False
+    if os.name == "nt":  # os.kill(pid, 0) would terminate the process on Windows
+        out = subprocess.run(["tasklist", "/FI", f"PID eq {int(pid)}", "/NH", "/FO", "CSV"],
+                             capture_output=True, text=True).stdout
+        return f'"{int(pid)}"' in out
+    try:
+        os.kill(int(pid), 0)
+        return True
+    except OSError:
+        return False
+
+
+def _kill_tree(pid: int) -> None:
+    if os.name == "nt":  # kill the whole tree: .cmd shims spawn node children
+        subprocess.run(["taskkill", "/T", "/F", "/PID", str(pid)], capture_output=True)
+    else:
+        os.killpg(pid, 15)
+
+
+def _finish_detached(folder: str, run_id: str) -> None:
+    with LIVE_LOCK:
+        info = DETACHED.pop(run_id, {})
+    try:
+        run = next((r for r in load(folder).get("runs", []) if r["id"] == run_id), None)
+    except (OSError, ValueError):
+        return  # the video folder is gone
+    if not run or run.get("state") != "running":
+        return
+    stopped = info.get("stop_requested")
+    run.update({"state": "stopped" if stopped else "exited", "exit_code": None, "ended": now()})
+    _record_run(folder, run, "idle", f"monitor run {run_id} {run['state']} (tracked by pid after a monitor restart)")
+    if not maybe_fallback(folder, run):
+        threading.Thread(target=tick_scheduler, daemon=True).start()
+
+
+def _watch_detached(folder: str, run_id: str, pid: int) -> None:
+    while pid_alive(pid):
+        time.sleep(2)
+    _finish_detached(folder, run_id)
+
+
+def adopt_run(folder: str, run: dict) -> bool:
+    """Re-attach a `running` run whose server-side handle was lost (monitor restarted). True if still alive."""
+    with LIVE_LOCK:
+        if run["id"] in DETACHED:
+            return True
+    if not pid_alive(run.get("pid")):
+        _finish_detached(folder, run["id"])
+        return False
+    with LIVE_LOCK:
+        if run["id"] in DETACHED:
+            return True
+        DETACHED[run["id"]] = {"folder": folder, "stop_requested": False}
+    threading.Thread(target=_watch_detached, args=(folder, run["id"], run["pid"]), daemon=True).start()
+    return True
+
+
+def quota_error(run: dict) -> str:
+    """The quota / rate-limit error a run ended on, or "". Only the log's last events count, and only error events
+    among JSON lines, so a tool that merely printed the words "rate limit" does not trigger a runner switch."""
+    path = ROOT / run.get("log", "") if run.get("log") else None
+    if not path or not path.is_file():
+        return ""
+    with path.open("rb") as f:
+        f.seek(max(0, path.stat().st_size - 64_000))
+        tail = [l for l in f.read().decode("utf-8", "replace").splitlines() if l.strip()][-8:]
+    for line in reversed(tail):
+        text = line.strip()
+        if text.startswith("{"):
+            try:
+                event = json.loads(text)
+            except ValueError:
+                event = None
+            if isinstance(event, dict) and not (event.get("type") in ("error", "result") or "error" in event
+                                                or event.get("is_error")):
+                continue
+        if m := QUOTA_RE.search(text):
+            return text[max(0, m.start() - 60):m.end() + 100]
+    return ""
+
+
+FALLBACK_NOTE = ("A previous agent run ({label}) on this video stopped because it ran out of tokens/quota: {error}\n"
+                 "Its files and status already hold its progress. Run `pipeline.py show <vid>` and `audit <vid>` first, "
+                 "continue from the true state, and do not redo verified work. The original task follows.")
+
+
+def fallback_runner(run: dict):
+    tried = set(run.get("tried") or []) | {run["runner"]}
+    installed = runners()
+    order = FALLBACK_ORDER + [k for k in installed if k not in FALLBACK_ORDER]
+    return next((k for k in order if k not in tried and (installed.get(k) or {}).get("path")), None)
+
+
+def lower_model(run: dict):
+    """For a laddered runner (OpenCode): the next weaker model not yet rate-limited in this chain, else None."""
+    spec = runners().get(run["runner"]) or {}
+    if not (spec.get("ladder") and run.get("model") and spec.get("path")):
+        return None
+    ranked = runner_models(run["runner"], spec)
+    ids = [m["id"] for m in ranked]
+    tried = set(run.get("tried_models") or []) | {run["model"]}
+    start = ids.index(run["model"]) + 1 if run["model"] in ids else 0
+    return next((m for m in ranked[start:] if m["id"] not in tried), None)
+
+
+def maybe_fallback(folder: str, run: dict):
+    """When a run died of an exhausted quota, continue the same task: a laddered runner (OpenCode) first steps down
+    its ranked models; then, if the owner allowed it, the next installed runner takes over."""
+    if run.get("state") == "stopped":
+        return None
+    error = quota_error(run)
+    if not error:
+        return None
+    run.update({"quota_error": error[:300], "state": "failed" if run["state"] == "done" else run["state"]})
+    original = (ROOT / run["prompt_file"]).read_text(encoding="utf-8")
+    marker = "The original task follows.\n\n"
+    if original.startswith(FALLBACK_NOTE.split("{", 1)[0]) and marker in original:
+        original = original.split(marker, 1)[1]  # one note per hand-over, not a growing stack
+    prompt = FALLBACK_NOTE.format(label=run_label(run), error=error[:200]).replace("<vid>", folder) + "\n\n" + original
+    lower = lower_model(run)
+    if lower:  # same runner, next weaker model at its highest effort
+        _record_run(folder, run, "failed", f"monitor run {run['id']} hit a rate limit on {run_label(run)}: "
+                                           f"stepping down to {lower['id']}")
+        try:
+            return launch_run(folder, run["runner"], prompt, run["kind"],
+                              opts={"model": lower["id"], "effort": lower.get("default_effort", ""),
+                                    "fallback": run.get("fallback", True)},
+                              extra={"fallback_of": run["id"], "tried": run.get("tried") or [],
+                                     "tried_models": sorted(set(run.get("tried_models") or []) | {run["model"]})})
+        except (LookupError, RuntimeError, OSError):
+            pass  # fall through to the next runner
+    if run.get("fallback") is False:
+        _record_run(folder, run, "failed", f"monitor run {run['id']} ran out of quota (runner switch is off)")
+        return None
+    next_id = fallback_runner(run)
+    if not next_id:
+        _record_run(folder, run, "failed", f"monitor run {run['id']} ran out of quota; no other runner is installed")
+        return None
+    _record_run(folder, run, "failed", f"monitor run {run['id']} ran out of quota on {run_label(run)}: switching to {next_id}")
+    tried = sorted(set(run.get("tried") or []) | {run["runner"]})
+    try:  # the new runner picks its own model (OpenCode: its strongest); the chosen one belonged to the runner that ran out
+        return launch_run(folder, next_id, prompt, run["kind"], opts=run_options(next_id, {"fallback": True}),
+                          extra={"fallback_of": run["id"], "tried": tried})
+    except (LookupError, RuntimeError, OSError, ValueError) as exc:
+        with status_lock(folder):
+            data = load(folder)
+            log(data, "agent", f"fallback to {next_id} could not start: {exc}", "monitor")
+            save(folder, data)
+        return None
+
+
+def _wait_run(folder: str, run: dict, proc) -> None:
+    code = proc.wait()
+    with LIVE_LOCK:
+        LIVE_RUNS.pop(run["id"], None)
+        detached = DETACHED.pop(run["id"], {})
+    stopped = run.get("stop_requested") or detached.get("stop_requested")
+    run.update({"state": "stopped" if stopped else ("done" if code == 0 else "failed"),
+                "exit_code": code, "ended": now()})
+    agent_state = "idle" if stopped else ("done" if code == 0 else "failed")
+    _record_run(folder, run, agent_state, f"monitor run {run['id']} {run['state']} (exit {code})")
+    if not maybe_fallback(folder, run):
+        threading.Thread(target=tick_scheduler, daemon=True).start()  # start a queued follow-up right away
+
+
+def parse_run_at(value):
+    """`run_at` from the UI (`YYYY-MM-DDTHH:MM`, local time) -> aware datetime, None for "run now"."""
+    if value in (None, ""):
+        return None
+    try:
+        when = datetime.fromisoformat(str(value))
+    except ValueError as exc:
+        raise ValueError("run_at must be a date and time like 2026-10-18T08:00") from exc
+    return when.astimezone() if when.tzinfo is None else when
+
+
+def new_run_id() -> str:
+    return datetime.now().strftime("%Y%m%d-%H%M%S-%f")[:-3]
+
+
+def schedule_run(folder: str, runner_id: str, prompt: str, kind: str, when: datetime, after_current: bool = False,
+                 opts=None) -> dict:
+    """Queue a run in status.json; the serve process's scheduler launches it when due (it survives restarts)."""
+    spec = runners().get(runner_id)
+    if not spec or not spec["path"]:
+        raise LookupError(f"runner {runner_id!r} is not configured or not installed")
+    run_id = new_run_id()
+    out_dir = RUNS_DIR / folder
+    out_dir.mkdir(parents=True, exist_ok=True)
+    prompt_file = out_dir / f"{run_id}.prompt.md"
+    prompt_file.write_text(prompt, encoding="utf-8")
+    run = {"id": run_id, "folder": folder, "kind": kind, "runner": runner_id, "label": spec.get("label", runner_id),
+           "state": "scheduled", "run_at": when.isoformat(timespec="minutes"), "created": now(),
+           "prompt_file": rel(prompt_file).replace("\\", "/"),
+           "summary": prompt.splitlines()[-1][:160] if kind == "command" else "create video",
+           "model": (opts or {}).get("model", ""), "effort": (opts or {}).get("effort", ""),
+           "fallback": (opts or {}).get("fallback", True)}
+    if after_current:
+        run["after_current"] = True
+    with status_lock(folder):
+        data = load(folder)
+        data.setdefault("runs", []).append(run)
+        data["next"] = f"Lệnh chờ chạy tiếp sau lượt hiện tại ({run_label(run)})" if after_current else f"Lịch chạy {run_label(run)} lúc {when.strftime('%H:%M %d/%m/%Y')} ({'tạo video' if kind == 'create' else 'lệnh'})"
+        log(data, "agent", f"monitor run {run_id} scheduled for {run['run_at']} via {run_label(run)} ({kind})", "monitor")
+        save(folder, data)
+    return run
+
+
+def run_or_schedule(folder: str, runner_id: str, prompt: str, kind: str, run_at, opts=None) -> dict:
+    when = parse_run_at(run_at)
+    if when and when > datetime.now().astimezone():
+        return schedule_run(folder, runner_id, prompt, kind, when, opts=opts)
+    return launch_run(folder, runner_id, prompt, kind, opts=opts)
+
+
+NOTES_FOLLOWUP = ("Read `docs/{vid}/owner-notes.md` and apply every note still marked `pending` (the previous agent run "
+                  "ended before handling them), marking each `done: ...` or `declined: ...` in its heading. "
+                  "Then continue the pipeline from its true state.")
+
+
+def send_message(folder: str, runner_id: str, text: str, run_at=None, opts=None) -> dict:
+    """One entry point for the monitor's message box, like a chat with the agent.
+
+    Idle video: start a run with the message. Busy video: the running agent cannot take new stdin, so the message
+    lands in owner-notes.md (read at every stage transition) and one follow-up run is queued that applies any note
+    still pending when the current run ends; the scheduler drops it if nothing is left pending.
+    """
+    when = parse_run_at(run_at)  # API callers may still schedule a command; the monitor UI no longer does
+    if when and when > datetime.now().astimezone():
+        return {"delivery": "scheduled",
+                "run": schedule_run(folder, runner_id, command_prompt(folder, text), "command", when, opts=opts)}
+    try:
+        return {"delivery": "started", "run": launch_run(folder, runner_id, command_prompt(folder, text), "command", opts=opts)}
+    except RuntimeError:
+        pass  # an agent is already working on this video
+    notes = add_owner_note(folder, text)
+    queued = next((r for r in load(folder).get("runs", [])
+                   if r.get("state") == "scheduled" and r.get("notes_followup")), None)
+    if queued is None:
+        try:
+            queued = schedule_run(folder, runner_id, command_prompt(folder, NOTES_FOLLOWUP.format(vid=folder)),
+                                  "command", datetime.now().astimezone(), after_current=True, opts=opts)
+        except LookupError:
+            queued = None  # the note is saved; without an installed runner nothing can pick it up later
+        else:
+            with status_lock(folder):
+                data = load(folder)
+                for r in data.get("runs", []):
+                    if r["id"] == queued["id"]:
+                        r["notes_followup"] = True
+                save(folder, data)
+            queued["notes_followup"] = True
+    return {"delivery": "note", "notes": notes, "run": queued}
+
+
+def tick_scheduler(current=None) -> list:
+    """Launch every scheduled run that is due. Busy videos keep their run queued for the next tick."""
+    current = current or datetime.now().astimezone()
+    started = []
+    for p in sorted(DOCS.glob("*/status.json")):
+        folder = p.parent.name
+        try:
+            runs = load(folder).get("runs", [])
+        except (ValueError, OSError):
+            continue
+        for run in runs:
+            if run.get("state") != "scheduled" or datetime.fromisoformat(run["run_at"]) > current:
+                continue
+            if run.get("notes_followup") and not any(n["status"] == "pending" for n in owner_notes(folder)):
+                with LIVE_LOCK:
+                    busy = any(r["folder"] == folder for r in [*LIVE_RUNS.values(), *DETACHED.values()])
+                if busy:
+                    break  # the current run may still mark the notes; decide when it ends
+                run.update({"state": "cancelled", "ended": now(), "error": "no pending owner notes left"})
+                _record_run(folder, run, "idle", f"follow-up run {run['id']} dropped: the agent handled every owner note")
+                break
+            try:
+                prompt = (ROOT / run["prompt_file"]).read_text(encoding="utf-8")
+                keep = {k: run[k] for k in ("fallback_of", "tried", "tried_models", "after_current") if k in run}
+                started.append(launch_run(folder, run["runner"], prompt, run["kind"], run_id=run["id"], extra=keep,
+                                          opts={k: run.get(k, d) for k, d in (("model", ""), ("effort", ""), ("fallback", True))}))
+            except RuntimeError:
+                break  # another run is active on this video: try again next tick
+            except (LookupError, OSError) as exc:
+                run.update({"state": "failed", "ended": now(), "error": str(exc)[:300]})
+                _record_run(folder, run, "failed", f"scheduled run {run['id']} could not start: {exc}")
+            break  # one launch per video per tick
+    return started
+
+
+def _scheduler_loop() -> None:
+    while True:
+        try:
+            tick_scheduler()
+        except Exception as exc:  # never let one bad status file kill the scheduler
+            print(f"scheduler: {exc}", file=sys.stderr)
+        time.sleep(15)
+
+
+def start_scheduler() -> None:
+    threading.Thread(target=_scheduler_loop, daemon=True, name="agent-scheduler").start()
+
+
+def launch_run(folder: str, runner_id: str, prompt: str, kind: str, run_id: str = "", opts=None, extra=None) -> dict:
+    """Start a headless agent on `folder`. Raises LookupError (unknown/not installed) or RuntimeError (busy)."""
+    opts = opts or {}
+    spec = runners().get(runner_id)
+    if not spec or not spec["path"]:
+        raise LookupError(f"runner {runner_id!r} is not configured or not installed")
+    with LIVE_LOCK:
+        if any(r["folder"] == folder for r in [*LIVE_RUNS.values(), *DETACHED.values()]):
+            raise RuntimeError("an agent run is already active for this video")
+        run_id = run_id or new_run_id()
+        out_dir = RUNS_DIR / folder
+        out_dir.mkdir(parents=True, exist_ok=True)
+        prompt_file, log_file = out_dir / f"{run_id}.prompt.md", out_dir / f"{run_id}.log"
+        prompt_file.write_text(prompt, encoding="utf-8")
+        cmd = runner_cmd(spec, rel(prompt_file).replace("\\", "/"), opts)
+        flags = {"creationflags": subprocess.CREATE_NEW_PROCESS_GROUP | subprocess.CREATE_NO_WINDOW} \
+            if os.name == "nt" else {"start_new_session": True}
+        # UTF-8 everywhere: Vietnamese prompts/logs crash a child that writes to a cp1252 pipe.
+        env = {**os.environ, "PYTHONUTF8": "1", "PYTHONIOENCODING": "utf-8"}
+        with log_file.open("wb") as out:
+            proc = subprocess.Popen(cmd, cwd=ROOT, env=env, stdout=out, stderr=subprocess.STDOUT,
+                                    stdin=subprocess.PIPE if spec["prompt"] == "stdin" else subprocess.DEVNULL, **flags)
+        if spec["prompt"] == "stdin":
+            proc.stdin.write(prompt.encode("utf-8"))
+            proc.stdin.close()
+        run = {"id": run_id, "folder": folder, "kind": kind, "runner": runner_id, "label": spec.get("label", runner_id),
+               "state": "running", "started": now(), "pid": proc.pid,
+               "log": rel(log_file).replace("\\", "/"), "prompt_file": rel(prompt_file).replace("\\", "/"),
+               "summary": prompt.splitlines()[-1][:160] if kind == "command" else "create video",
+               "model": opts.get("model", ""), "effort": opts.get("effort", ""), "fallback": opts.get("fallback", True),
+               **(extra or {})}
+        LIVE_RUNS[run_id] = {"folder": folder, "proc": proc, "run": run}
+    _record_run(folder, run, "running", f"monitor run {run_id} started via {run_label(run)} ({kind})")
+    threading.Thread(target=_wait_run, args=(folder, run, proc), daemon=True).start()
+    return run
+
+
+def stop_run(folder: str, run_id: str) -> bool:
+    with LIVE_LOCK:
+        live = LIVE_RUNS.get(run_id)
+    if live and live["folder"] == folder:
+        live["run"]["stop_requested"] = True
+        _kill_tree(live["proc"].pid)
+        return True
+    run = next((r for r in load(folder).get("runs", []) if r["id"] == run_id), None)
+    if run and run.get("state") == "scheduled":  # cancelling a queued run never starts a process
+        run.update({"state": "cancelled", "ended": now()})
+        with status_lock(folder):
+            data = load(folder)
+            data["runs"] = [run if r["id"] == run_id else r for r in data.get("runs", [])]
+            log(data, "agent", f"monitor run {run_id} cancelled before it started", "you")
+            save(folder, data)
+        return True
+    if not run or run.get("state") != "running" or not adopt_run(folder, run):
+        return False
+    with LIVE_LOCK:
+        DETACHED[run_id]["stop_requested"] = True
+    _kill_tree(int(run["pid"]))
+    return True
+
+
+def _short(detail) -> str:
+    """Paths inside the repo are shown relative, so log lines stay readable."""
+    text = str(detail)
+    for root in {str(ROOT), str(ROOT).replace("\\", "/")}:
+        text = text.replace(root + "\\", "").replace(root + "/", "")
+    return text
+
+
+def summarize_log(lines: list) -> list:
+    """Turn agent output (Claude stream-json, JSON events or plain text) into short lines for people."""
+    entries = []
+    for raw in lines:
+        raw = raw.strip()
+        if not raw:
+            continue
+        try:
+            event = json.loads(raw)
+        except ValueError:
+            entries.append({"kind": "text", "text": raw[:400]})
+            continue
+        if not isinstance(event, dict):
+            continue
+        kind = event.get("type")
+        part = event.get("part")
+        if isinstance(part, dict):  # OpenCode `run --format json`: {"type": ..., "part": {...}}
+            if part.get("type") == "tool":
+                state = part.get("state") or {}
+                args = state.get("input") if isinstance(state.get("input"), dict) else {}
+                detail = (args.get("description") or args.get("command") or args.get("filePath") or args.get("path")
+                          or args.get("pattern") or args.get("url") or "")
+                text = f"{part.get('tool')}: {_short(detail)[:200]}"
+                if state.get("status") == "error":
+                    entries.append({"kind": "error", "text": f"{text} — {str(state.get('error', ''))[:200]}"})
+                else:
+                    entries.append({"kind": "tool", "text": text})
+            elif part.get("type") == "text" and str(part.get("text", "")).strip():
+                entries.append({"kind": "say", "text": str(part["text"]).strip()[:400]})
+            continue
+        if kind == "error":
+            entries.append({"kind": "error", "text": str(event.get("error") or event.get("message") or event)[:400]})
+        elif kind == "assistant":
+            for part in event.get("message", {}).get("content", []):
+                if part.get("type") == "text" and part.get("text", "").strip():
+                    entries.append({"kind": "say", "text": part["text"].strip()[:400]})
+                elif part.get("type") == "tool_use":
+                    args = part.get("input", {})
+                    detail = args.get("description") or args.get("command") or args.get("file_path") or args.get("pattern") or ""
+                    entries.append({"kind": "tool", "text": f"{part.get('name')}: {_short(detail)[:200]}"})
+        elif kind == "result":
+            entries.append({"kind": "error" if event.get("is_error") else "result",
+                            "text": str(event.get("result", ""))[:600]})
+        elif kind not in {"system", "user"}:
+            text = event.get("text") or event.get("content") or event.get("message")
+            if isinstance(text, str) and text.strip():
+                entries.append({"kind": "say", "text": text.strip()[:400]})
+    return entries
+
+
+def runs_view(folder: str) -> dict:
+    data = load(folder)
+    with LIVE_LOCK:
+        live = set(LIVE_RUNS)
+    runs = []
+    for run in data.get("runs", [])[-10:]:
+        run = {k: v for k, v in run.items() if k != "stop_requested"}
+        if run.get("state") == "running" and run["id"] not in live:
+            # The monitor restarted: follow the process by pid instead of losing it.
+            if adopt_run(folder, run):
+                run["detached"] = True
+            else:
+                run = next((r for r in load(folder).get("runs", []) if r["id"] == run["id"]), run)
+        runs.append(run)
+    log_entries = []
+    last_log = next((r["log"] for r in reversed(runs) if r.get("log")), None)  # scheduled runs have no log yet
+    if last_log:
+        path = ROOT / last_log
+        if path.is_file():
+            with path.open("rb") as f:
+                f.seek(max(0, path.stat().st_size - 96_000))
+                tail = f.read().decode("utf-8", errors="replace").splitlines()
+            log_entries = summarize_log(tail)[-80:]
+    return {"video": folder, "runs": runs, "log": log_entries, "notes": owner_notes(folder)}
+
+
+def create_video(body: dict) -> tuple:
+    """Validate a monitor request, init the video, record the request, optionally launch an agent."""
+    topic = str(body.get("topic", "")).strip()[:2000]
+    if not topic:
+        return 400, {"error": "topic is required"}
+    folder = str(body.get("slug") or slugify(topic)).strip()
+    comp = str(body.get("comp") or comp_id(folder)).strip()
+    if not re.fullmatch(r"[a-z0-9]+(?:-[a-z0-9]+)*", folder) or not re.fullmatch(r"[A-Z][A-Za-z0-9]*", comp):
+        return 400, {"error": "video id must be kebab-case and composition id PascalCase"}
+    profile = body.get("profile", "story")
+    if profile not in {p["id"] for p in PROFILES}:
+        return 400, {"error": "unknown profile"}
+    voices = {v["file"]: v for v in catalog_voices()}
+    voice = str(body.get("voice") or "")
+    if voice and voice not in voices:
+        return 400, {"error": "voice is not in vietnamese-voice-samples/previews/"}
+    try:
+        min_s, max_s = float(body.get("min_seconds", 40)), float(body.get("max_seconds", 60))
+    except (TypeError, ValueError):
+        return 400, {"error": "duration must be numbers"}
+    if not 5 <= min_s < max_s <= 180:
+        return 400, {"error": "duration must satisfy 5 <= min < max <= 180"}
+    known = {p.parent.name for p in DOCS.glob("*/status.json")}
+    reference = str(body.get("reference") or "")
+    if reference and reference not in known:
+        return 400, {"error": "unknown style reference video"}
+    runner_id = str(body.get("runner") or "")
+    try:
+        parse_run_at(body.get("run_at"))
+        opts = run_options(runner_id, body) if runner_id else {}
+    except ValueError as e:
+        return 400, {"error": str(e)}
+    if runner_id and not (runners().get(runner_id) or {}).get("path"):
+        return 400, {"error": f"runner {runner_id!r} is not installed on this machine"}
+    if (DOCS / folder).exists() or (ROOT / "src" / "videos" / folder).exists():
+        return 409, {"error": f"video {folder} already exists; open it and send a command instead"}
+    matches = similar_videos(folder)
+    if matches and not body.get("confirm"):
+        return 409, {"needs_confirm": True, "matches": matches,
+                     "error": "a similar topic already exists; confirm to create a new video anyway"}
+    req = {"video": folder, "comp": comp, "topic": topic, "profile": profile, "voice": voice,
+           "voice_name": voices[voice]["name"] if voice else "", "voice_slug": voices[voice]["slug"] if voice else "tbd",
+           "clone_ok": bool(body.get("clone_ok")), "reference": reference, "avoid": str(body.get("avoid", ""))[:1000],
+           "min_s": min_s, "max_s": max_s, "light": bool(body.get("light")),
+           "mandatory": str(body.get("mandatory", ""))[:4000], "sources": str(body.get("sources", ""))[:6000],
+           "notes": str(body.get("notes", ""))[:6000],
+           "duplicate_note": ("owner confirmed a new video despite similar: " + ", ".join(m["folder"] for m in matches))
+           if matches else "no similar video found by the monitor (folder names); intake-agent re-checks content"}
+    prompt = create_prompt(req)
+    if body.get("dry_run"):
+        return 200, {"video": folder, "comp": comp, "voice": req["voice_slug"], "prompt": prompt}
+    cmd_init(argparse.Namespace(folder=folder, comp=comp, voice=req["voice_slug"], profile=profile, name=topic[:80],
+                                audio=None, out=None, qa=None, gates=None))
+    (DOCS / folder / "request.md").write_text(request_record(req), encoding="utf-8")
+    with status_lock(folder):
+        data = load(folder)
+        data["next"] = "video-director: Phase 0 intake + preflight from request.md"
+        log(data, "-", f"created from the monitor ({'runner ' + runner_id if runner_id else 'no agent launched'})", "you")
+        save(folder, data)
+    run = run_or_schedule(folder, runner_id, prompt, "create", body.get("run_at"), opts) if runner_id else None
+    return 201, {"video": folder, "comp": comp, "voice": req["voice_slug"], "run": run}
 
 
 class Handler(BaseHTTPRequestHandler):
@@ -871,12 +1864,88 @@ class Handler(BaseHTTPRequestHandler):
             self._audio(*match.groups())
         elif self.path == "/vendor/howler.min.js" and HOWLER.is_file():
             self._send(200, HOWLER.read_bytes(), "text/javascript; charset=utf-8")
+        elif self.path == "/api/create-options":
+            self._create_options()
+        elif match := re.fullmatch(r"/voice-preview/([A-Za-z0-9_-]+\.mp3)", self.path):
+            if match.group(1) not in {v["file"] for v in catalog_voices()}:
+                return self._json(404, {"error": "voice not found"})
+            self._stream(VOICE_PREVIEWS / match.group(1), "audio/mpeg")
+        elif match := re.fullmatch(r"/api/runs/([A-Za-z0-9_-]+)", self.path):
+            if self._load(match.group(1)) is None:
+                return self._json(404, {"error": "video not found"})
+            self._json(200, runs_view(match.group(1)))
         else:
             self._json(404, {"error": "not found"})
+
+    def _trusted_json(self):
+        """Studio endpoints start agents: accept only same-origin JSON from the monitor page (blocks CSRF)."""
+        port = self.server.server_port
+        allowed = {f"http://127.0.0.1:{port}", f"http://localhost:{port}"}
+        if self.headers.get("Origin") not in allowed or not self.headers.get("Content-Type", "").startswith("application/json"):
+            self._json(403, {"error": "studio actions are only accepted from the monitor page"})
+            return None
+        try:
+            body = json.loads(self.rfile.read(min(int(self.headers.get("Content-Length", 0)), 60_000)) or b"{}")
+        except ValueError:
+            self._json(400, {"error": "bad request"})
+            return None
+        if not isinstance(body, dict):
+            self._json(400, {"error": "bad request"})
+            return None
+        return body
+
+    def _create_options(self) -> None:
+        views = all_views()
+        self._json(200, {
+            "voices": catalog_voices(), "profiles": PROFILES,
+            "videos": [{"folder": v["folder"], "name": v["name"]} for v in views],
+            "runners": [{"id": k, "label": v.get("label", k), "installed": bool(v["path"]),
+                         "models": runner_models(k, v) if v["path"] else [], "efforts": v.get("efforts", []),
+                         "has_model": bool(v.get("model_args")), "ladder": bool(v.get("ladder"))}
+                        for k, v in runners().items()],
+            "fallback_order": FALLBACK_ORDER,
+        })
+
+    def _studio_post(self) -> None:
+        body = self._trusted_json()
+        if body is None:
+            return
+        if self.path == "/api/videos":
+            try:
+                code, payload = create_video(body)
+            except (LookupError, RuntimeError, SystemExit) as e:
+                code, payload = 409, {"error": str(e)}
+            return self._json(code, payload)
+        if match := re.fullmatch(r"/api/videos/([A-Za-z0-9_-]+)/command", self.path):
+            folder, text = match.group(1), str(body.get("text", "")).strip()[:6000]
+            if self._load(folder) is None:
+                return self._json(404, {"error": "video not found"})
+            if not text:
+                return self._json(400, {"error": "command text is required"})
+            try:
+                runner_id = str(body.get("runner", ""))
+                result = send_message(folder, runner_id, text, body.get("run_at"), run_options(runner_id, body))
+            except (LookupError, ValueError) as e:
+                return self._json(400, {"error": str(e)})
+            return self._json(201, {"video": folder, **result})
+        if match := re.fullmatch(r"/api/videos/([A-Za-z0-9_-]+)/notes", self.path):
+            folder, text = match.group(1), str(body.get("text", "")).strip()[:4000]
+            if self._load(folder) is None:
+                return self._json(404, {"error": "video not found"})
+            if not text:
+                return self._json(400, {"error": "note text is required"})
+            return self._json(201, {"video": folder, "notes": add_owner_note(folder, text)})
+        if match := re.fullmatch(r"/api/runs/([A-Za-z0-9_-]+)/([0-9-]+)/stop", self.path):
+            if not stop_run(*match.groups()):
+                return self._json(404, {"error": "no active run with that id"})
+            return self._json(200, {"stopping": match.group(2)})
+        self._json(404, {"error": "not found"})
 
     def do_POST(self):
         if self.path == "/api/audio-listen":
             return self._audio_listen()
+        if self.path == "/api/videos" or self.path.startswith(("/api/videos/", "/api/runs/")):
+            return self._studio_post()
         if self.path != "/api/gate":
             return self._json(404, {"error": "not found"})
         try:
@@ -916,13 +1985,26 @@ class Handler(BaseHTTPRequestHandler):
         pass
 
 
+class MonitorServer(ThreadingHTTPServer):
+    # On Windows SO_REUSEADDR lets a second monitor bind the same port and silently split requests.
+    allow_reuse_address = os.name != "nt"
+
+
 def cmd_serve(a) -> None:
-    srv = ThreadingHTTPServer(("127.0.0.1", a.port), Handler)
+    try:
+        srv = MonitorServer(("127.0.0.1", a.port), Handler)
+    except OSError:
+        raise SystemExit(f"port {a.port} is already in use: another monitor is running (open http://127.0.0.1:{a.port}/)")
+    start_scheduler()  # launches runs scheduled from the monitor, also after a restart
     print(f"pipeline monitor: http://127.0.0.1:{a.port}")
     srv.serve_forever()
 
 
 def main() -> None:
+    # -I ignores PYTHONIOENCODING; a cp1252 pipe on Windows cannot print ✓ or Vietnamese notes.
+    for stream in (sys.stdout, sys.stderr):
+        if hasattr(stream, "reconfigure"):
+            stream.reconfigure(encoding="utf-8")
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = ap.add_subparsers(dest="cmd", required=True)
     p = sub.add_parser("init"); p.add_argument("folder"); p.add_argument("--comp", required=True)
@@ -954,6 +2036,7 @@ def main() -> None:
     p.set_defaults(fn=cmd_audio_listen)
     p = sub.add_parser("check"); p.add_argument("folder"); p.set_defaults(fn=cmd_check)
     p = sub.add_parser("show"); p.add_argument("folder", nargs="?"); p.set_defaults(fn=cmd_show)
+    p = sub.add_parser("audit"); p.add_argument("folder", nargs="?"); p.set_defaults(fn=cmd_audit)
     p = sub.add_parser("serve"); p.add_argument("--port", type=int, default=4180); p.set_defaults(fn=cmd_serve)
     a = ap.parse_args()
     a.fn(a)

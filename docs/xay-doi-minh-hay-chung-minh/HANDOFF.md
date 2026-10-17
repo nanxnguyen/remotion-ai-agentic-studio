@@ -1,5 +1,13 @@
 # HANDOFF — xay-doi-minh-hay-chung-minh (stopped by user, 2026-10-17)
 
+> **UPDATE 2026-10-17 15:20 — PIPELINE COMPLETE.** All stages done; gates A/D/E/B/C + content/audio branch
+> reviews passed; gate C 9.0/10 fingerprint-bound to the verified MP4
+> `out/xay-doi-minh-hay-chung-minh-thanh-long-nang-cao-reel.mp4` (59.30s H.264/AAC 1080x1920 30fps).
+> `pipeline.py check` → `ready`. QA rounds 1–3 reports live in this folder (qa-report.A/B/C.md).
+> Voice used: `thanh-long-nang-cao` (user request changed from the Cam fallback noted below).
+> Remaining Thấp residuals (non-blocking): C7 fg-hand detail at small preview, C3 stand/squat vs kneel staging.
+> Everything below this note is the historical mid-flight state at the moment the user stopped the run.
+
 ## Status (`python3 -I scripts/pipeline.py show xay-doi-minh-hay-chung-minh`)
 - Done: research, brief, script. Gate A: round 1 = 8.4 revise; round 2 = 9.0 pass (recorded).
 - Pending: voice, design, build, audio, qa, render. Gates D, E, B, C not started.

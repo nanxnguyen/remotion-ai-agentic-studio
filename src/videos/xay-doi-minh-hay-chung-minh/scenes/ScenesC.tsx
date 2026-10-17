@@ -927,17 +927,21 @@ export const S6Scene: React.FC = () => {
               background: INK,
             }}
           />
-          <ellipse
-            cx={540}
-            cy={1400}
-            rx={330}
-            ry={50}
-            fill="none"
-            stroke={TAPE}
-            strokeWidth={6}
-            strokeDasharray="26 20"
-            opacity={0.8}
-          />
+          {/* B-C4: dashed "empty spot" ellipse must live inside an <svg> (a bare
+              <ellipse> child of a div never paints) and sit above the caption pill. */}
+          <svg width={1080} height={1920} style={{position: 'absolute', inset: 0}}>
+            <ellipse
+              cx={540}
+              cy={1400}
+              rx={330}
+              ry={50}
+              fill="none"
+              stroke={TAPE}
+              strokeWidth={6}
+              strokeDasharray="26 20"
+              opacity={0.8}
+            />
+          </svg>
           <svg width={1080} height={1920} style={{position: 'absolute', inset: 0}}>
             <g transform="translate(540 1470) scale(1.25)">
               <ellipse cx={0} cy={6} rx={64} ry={12} fill="#000" opacity={0.32} />

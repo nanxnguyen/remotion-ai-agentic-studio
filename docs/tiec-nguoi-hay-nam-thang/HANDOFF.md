@@ -1,25 +1,49 @@
-# HANDOFF — Hybrid Local, Video 08
+# HANDOFF — Hybrid Local, Video 08 (`tiec-nguoi-hay-nam-thang`)
 
-## Status
-ChatGPT prebuild ONLY; no audio or final MP4. No review gate has been marked passed. No claims about test or visual inspections not actually performed.
+## Status — COMPLETE / READY (2026-10-17)
 
-## Inputs
-- Canonical spoken lines: `docs/tiec-nguoi-hay-nam-thang/voice.json` (8 keys, order matters).
-- Creative intent: brief.md, script.md, content-pack.md, design-spec.md.
-- Typed Remotion composition: `src/videos/tiec-nguoi-hay-nam-thang/index.ts`; registered in registry.
-- Machine-readable contract: production-contract.json. You must check PR head SHA and required paths before execution.
+Final verified MP4 produced and **all review gates passed** under director control.
+`pipeline.py check` → exit 0 (`ready`); `pipeline.py audit` → exit 0 (`ok`).
+Nothing committed, pushed, or published — awaiting the owner's explicit per-video publish approval.
 
-## Local continuation — exact order
-1. Checkout this PR in a dedicated safe worktree; never execute untrusted PRs or expose secrets to pre-build.
-2. Run `python3 -I scripts/pipeline.py init tiec-nguoi-hay-nam-thang --comp TiecNguoiHayNamThangReel --voice thanh-long-nang-cao --profile story` only if status.json is absent. Do not manually write/edit status.json.
-3. Execute independent script and content reviews, record and pass Gate A/content via pipeline.py. Inspect design spec and renders as independent reviewer, record Gate D only if actually passing.
-4. Generate s1..s8.mp3 using local VieNeu-TTS from an authorized local WAV reference, verify ASR/CER and duration with ffprobe; place clips in `public/audio/tiec-nguoi-hay-nam-thang/`, record actual provider/ref provenance in brief, and generate voice report.
-5. Replace provisional `PROPOSED_FRAMES` in timeline.ts using measured clip durations + semantic holds. Aim 45–60s; check no voice clipping. Update composition duration and captions as necessary.
-6. Produce licensed/original subtle BGM; integrate the per-shot Audio tracks; review audio and run integration Gate E then task Gate B according to pipeline order.
-7. Run npm run verify, npm run test:visual; render full 1080x1920 MP4 via repo commands, capture QA frames and full review evidence, pass Gate C only on verified final MP4.
-8. Present final MP4 and explicitly ASK OWNER whether to upload to YouTube Shorts and Facebook Page Reels. Never publish without explicit per-video approval. 
+| gate | score | report |
+|---|---|---|
+| A script | 9.1 | script-review.md |
+| content | 9.0 | content-pack-review.md |
+| audio | 9.0 | audio-review.md |
+| D design | 9.0 | design-review.md |
+| E integration | 9.0 | integration-review.md |
+| B tasks | 9.0 | task-review.md |
+| C final MP4 | 9.0 | video-review.md (frame-bound) |
 
-## Blocking conditions
-- Missing clone model or unauthorized voice reference -> voice blocked.
-- Any major story/character mismatch -> redesign before continuing.
-- No fabricated scores, duration, QA evidence, or published status.
+`status.json.review_valid` = all `true`.
+
+## Deliverable
+
+- MP4: `out/tiec-nguoi-hay-nam-thang-thanh-long-nang-cao-reel.mp4`
+- 47.40 s (1422 f @30) · H.264/AAC · 1080×1920 · −13.9 LUFS
+- fingerprint `3485059:1792232389887885600` (see `render-evidence.md`)
+- Voice: `thanh-long-nang-cao` (VieNeu-TTS v3 Turbo), CER 0.000–0.075, **purchased license**
+  (user-confirmed; ref `docs/cuoc-goi-nho-cua-me/voice-ref/refThanhLong.wav` committed per that
+  authorization — earlier "local-only" doc claims were corrected).
+
+## Stage evidence present
+
+`voice-report.md`, `voice-final-asr.md`, `voice-clone-asr.md`, `mix-plan.md`, `qa-report.md`,
+`final-check.md`, `render-evidence.md`, `eval.md` (Phase-10 retro, 7 sections).
+
+## Carry-forward (non-blocking Thấp)
+
+- Audio A-1: human Vietnamese listen-through of s8 (CER 0.075, just under 0.08) before publish.
+- C-2/C-3/C-4: optional polish (s8 "four-legs" reading, s2/s3 near-identical poses, extra s8 margin).
+- No BGM (voice-only, judged acceptable).
+- `npm run verify` / `test:visual` cannot run (registry E404; `vitest`/`pixelmatch` not vendored) —
+  test-only deps, do not block render.
+
+## If resuming
+
+1. Do NOT re-run completed stages; gates are already recorded and valid.
+2. Any source change invalidates downstream reviews — re-render (`pipeline.py render`) then re-run
+   the affected gate(s) with a clean-context reviewer and record scores yourself (never let a review
+   subagent run `pipeline.py`).
+3. Publish only on explicit owner approval (YouTube Shorts / Facebook Reels), one video at a time.

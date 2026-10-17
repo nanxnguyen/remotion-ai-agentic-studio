@@ -240,15 +240,15 @@ const PhoneDone: React.FC = () => (
   </PhoneFrame>
 );
 
-// Thoại v2 (voice.json): s7 28 từ, accent cơm đã nguội · mưa vẫn gõ nhẹ · nhỏ xíu.
+// Thoại v3 (voice.json): s7 22 từ, accent cơm đã nguội · nhỏ xíu.
+// Vòng 3: bỏ "Ngoài cửa, mưa vẫn gõ nhẹ." (suy diễn fact theo review vòng 2).
 const S7_PARTS = [
   'Mình vừa ăn bát cơm đã nguội,',
   'vừa kể: hôm nay ăn gì,',
   'chỗ con có mưa không.',
-  'Ngoài cửa, mưa vẫn gõ nhẹ.',
   'Toàn chuyện nhỏ xíu.',
 ];
-const S7_ACCENTS = ['cơm đã nguội', '', '', 'mưa vẫn gõ nhẹ', 'nhỏ xíu'];
+const S7_ACCENTS = ['cơm đã nguội', '', '', 'nhỏ xíu'];
 
 // Thoại v2: s8 HIGHLIGHT (c). Accent "Một cuộc gọi lại thôi".
 const S8_PARTS = [

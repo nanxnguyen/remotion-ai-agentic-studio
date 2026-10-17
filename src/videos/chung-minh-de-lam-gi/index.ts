@@ -12,6 +12,6 @@ export const chungMinhDeLamGiVideo = defineVideo({
   width: 1080,
   height: 1920,
   defaultProps: {},
-  testFrames: [0, 834, 1667],
+  testFrames: [0, 864, 1727],
   tags: ['story', 'vietnamese'],
 });

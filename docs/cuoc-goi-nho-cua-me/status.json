@@ -23,33 +23,38 @@
     },
     "voice": {
       "state": "done",
-      "at": "2026-10-14T01:00:15+07:00",
-      "note": "voice v2 Thanh Long (s1 giu, s2-s8 moi) tong 40.8s"
+      "at": "2026-10-17T16:53:55+07:00",
+      "note": "regen 8/8 clips Thanh Long tu voice.json v3: CER 0.012-0.037 (<=0.04), ffprobe 2.8157..5.9716s; voice-expressive.json dong bo = voice.json de tranh default generator sai text"
     },
     "build": {
       "state": "done",
-      "at": "2026-10-14T08:01:29+07:00",
-      "note": "timeline 1419f + kit + 3 scenes v2 + font BeVietnam, tsc clean"
+      "at": "2026-10-17T16:54:04+07:00",
+      "note": "timeline v4 raw @4dp => CGN_TOTAL 1308f = 43.6s; testFrames derive tu CGN_TOTAL; tsc clean; scenesB/scenesC caption v3 dong bo"
     },
     "render": {
       "state": "done",
-      "at": "2026-10-14T08:01:10+07:00",
+      "at": "2026-10-17T16:43:18+07:00",
       "note": "verified final MP4"
     },
     "qa": {
       "state": "done",
-      "at": "2026-10-14T08:01:30+07:00",
-      "note": "code review + 16 frames + boundary 8/8 + video-review VISUAL pass"
+      "at": "2026-10-17T16:54:05+07:00",
+      "note": "12 khung out/qa c-frame-{} tu MP4 43.70s: 12/12 DAT theo shot, caption khong con cau mua/hai tieng; ebur128 -13.9 LUFS / peak -1.5 dBFS; ASR CER<=0.04"
     },
     "script": {
       "state": "done",
-      "at": "2026-10-14T08:01:34+07:00",
-      "note": "script v2 160 tu, gate A2 8.6 pass"
+      "at": "2026-10-17T16:53:55+07:00",
+      "note": "script v3 (149 tu): s5 20 tu / s7 22 tu — 2 cau suy dien da bo theo review v2; dong bo brief.md voi CHOT v3"
     },
     "audio": {
       "state": "done",
       "at": "2026-10-14T08:01:34+07:00",
       "note": "bgm + 7 sfx, manifest day du, max<0dB"
+    },
+    "design": {
+      "state": "done",
+      "at": "2026-10-17T16:54:05+07:00",
+      "note": "thiet ke giu nguyen qua v3; xac nhan 12 khung; 5 fix build v3 da co mat (D 9.0 vong 4)"
     }
   },
   "reviews": {
@@ -69,6 +74,14 @@
         "verdict": "pass",
         "report": "docs/cuoc-goi-nho-cua-me/script-review.md",
         "note": ""
+      },
+      {
+        "at": "2026-10-17T16:53:33+07:00",
+        "reviewer": "script-reviewer",
+        "score": 9.1,
+        "verdict": "pass",
+        "report": "docs\\cuoc-goi-nho-cua-me\\script-review.md",
+        "note": "Vòng 3: s5/s7 rút gọn theo đề xuất vòng 2, bỏ 2 suy diễn/số bịa; rubric vòng 2 giữ nguyên, fidelity khôi phục 2.0; 149 tu / 43.6s đo thật"
       }
     ],
     "D": [
@@ -87,6 +100,14 @@
         "verdict": "pass",
         "report": "docs/cuoc-goi-nho-cua-me/design-review.md",
         "note": ""
+      },
+      {
+        "at": "2026-10-17T16:53:33+07:00",
+        "reviewer": "design-reviewer",
+        "score": 9.0,
+        "verdict": "pass",
+        "report": "docs\\cuoc-goi-nho-cua-me\\design-review.md",
+        "note": "Vòng 4 xac nhan tren render 43.7s: 12 khung out/qa, khong doi thiet ke; 5 fix build v3 da co mat (Be Vietnam, s8 sequence, CcCaps early-off)"
       }
     ],
     "E": [
@@ -113,6 +134,14 @@
         "verdict": "pass",
         "report": "docs/cuoc-goi-nho-cua-me/content-review.md",
         "note": ""
+      },
+      {
+        "at": "2026-10-17T16:53:34+07:00",
+        "reviewer": "integration",
+        "score": 9.4,
+        "verdict": "pass",
+        "report": "docs\\cuoc-goi-nho-cua-me\\integration-review.md",
+        "note": "Vong 3: timeline 1308f = measured clips; bien shot khop giong moi; SFX offsets trong dur tung shot; 2 ticket Thap accepted"
       }
     ],
     "B": [
@@ -131,6 +160,26 @@
         "verdict": "pass",
         "report": "docs/cuoc-goi-nho-cua-me/task-review.md",
         "note": ""
+      },
+      {
+        "at": "2026-10-17T16:53:44+07:00",
+        "reviewer": "task-reviewer",
+        "score": 9.5,
+        "verdict": "pass",
+        "report": "docs\\cuoc-goi-nho-cua-me\\task-review.md",
+        "note": "Vong 3: regen 8/8 clips CER<=0.037; retime 1308f @4dp; testFrames derive; render verify 43.70s; 12 stills danh dung bien moi"
+      }
+    ],
+    "C": [
+      {
+        "at": "2026-10-17T16:53:44+07:00",
+        "reviewer": "video-reviewer",
+        "score": 9.0,
+        "verdict": "pass",
+        "report": "docs\\cuoc-goi-nho-cua-me\\video-review.md",
+        "note": "Vong 3 tren MP4 43.70s fingerprint-bound: 12/12 khung DAT theo shot; ebur128 -13.9 LUFS peak -1.5 dBFS; ASR CER <=0.04; con 2 ticket Thap khong block",
+        "render_fingerprint": "8912774:1792230196737464600",
+        "full_listen": false
       }
     ]
   },
@@ -139,7 +188,9 @@
     "D": true,
     "E": true,
     "B": true,
-    "C": false
+    "C": true,
+    "content": false,
+    "audio": false
   },
   "next": "gate C",
   "log": [
@@ -328,12 +379,102 @@
       "stage": "audio",
       "who": "agent",
       "msg": "audio -> done: bgm + 7 sfx, manifest day du, max<0dB"
+    },
+    {
+      "t": "2026-10-17T16:40:53+07:00",
+      "stage": "render",
+      "who": "agent",
+      "msg": "render -> in_progress: rendering"
+    },
+    {
+      "t": "2026-10-17T16:41:07+07:00",
+      "stage": "render",
+      "who": "agent",
+      "msg": "render -> failed: Command '['C:\\\\nvm4w\\\\nodejs\\\\npx.CMD', 'remotion', 'render', 'src/index.ts', 'CuocGoiNhoReel', 'C:\\\\Users\\\\nhutn\\\\OneDrive\\\\Máy tính\\\\remotion-ai-agentic-studio\\\\out\\\\.cuoc-goi-nho-cua-me-thanh-long-nang-cao-3shg3fmq\\\\raw.mp4', '--codec', 'h264', '--crf', '18', '--pixel-format', 'yuv420p']' returned non-zero exit status 1."
+    },
+    {
+      "t": "2026-10-17T16:41:32+07:00",
+      "stage": "render",
+      "who": "agent",
+      "msg": "render -> in_progress: rendering"
+    },
+    {
+      "t": "2026-10-17T16:43:18+07:00",
+      "stage": "render",
+      "who": "verify",
+      "msg": "verified 43.70s H.264/AAC 1080x1920 30fps"
+    },
+    {
+      "t": "2026-10-17T16:43:18+07:00",
+      "stage": "render",
+      "who": "agent",
+      "msg": "render -> done: verified final MP4 (evidence: verified 43.7s; gate C: no review yet)"
+    },
+    {
+      "t": "2026-10-17T16:53:33+07:00",
+      "stage": "A",
+      "who": "script-reviewer",
+      "msg": "review 9.1/10 pass: script-review.md (Vòng 3: s5/s7 rút gọn theo đề xuất vòng 2, bỏ 2 suy diễn/số bịa; rubric vòng 2 giữ nguyên, fidelity khôi phục 2.0; 149 tu / 43.6s đo thật)"
+    },
+    {
+      "t": "2026-10-17T16:53:33+07:00",
+      "stage": "D",
+      "who": "design-reviewer",
+      "msg": "review 9.0/10 pass: design-review.md (Vòng 4 xac nhan tren render 43.7s: 12 khung out/qa, khong doi thiet ke; 5 fix build v3 da co mat (Be Vietnam, s8 sequence, CcCaps early-off))"
+    },
+    {
+      "t": "2026-10-17T16:53:34+07:00",
+      "stage": "E",
+      "who": "integration",
+      "msg": "review 9.4/10 pass: integration-review.md (Vong 3: timeline 1308f = measured clips; bien shot khop giong moi; SFX offsets trong dur tung shot; 2 ticket Thap accepted)"
+    },
+    {
+      "t": "2026-10-17T16:53:44+07:00",
+      "stage": "B",
+      "who": "task-reviewer",
+      "msg": "review 9.5/10 pass: task-review.md (Vong 3: regen 8/8 clips CER<=0.037; retime 1308f @4dp; testFrames derive; render verify 43.70s; 12 stills danh dung bien moi)"
+    },
+    {
+      "t": "2026-10-17T16:53:44+07:00",
+      "stage": "C",
+      "who": "video-reviewer",
+      "msg": "review 9.0/10 pass: video-review.md (Vong 3 tren MP4 43.70s fingerprint-bound: 12/12 khung DAT theo shot; ebur128 -13.9 LUFS peak -1.5 dBFS; ASR CER <=0.04; con 2 ticket Thap khong block)"
+    },
+    {
+      "t": "2026-10-17T16:53:55+07:00",
+      "stage": "script",
+      "who": "agent",
+      "msg": "script -> done: script v3 (149 tu): s5 20 tu / s7 22 tu — 2 cau suy dien da bo theo review v2; dong bo brief.md voi CHOT v3 (evidence: 2 file(s): docs\\cuoc-goi-nho-cua-me\\script.md; gate A: pass 9.1/10)"
+    },
+    {
+      "t": "2026-10-17T16:53:55+07:00",
+      "stage": "voice",
+      "who": "agent",
+      "msg": "voice -> done: regen 8/8 clips Thanh Long tu voice.json v3: CER 0.012-0.037 (<=0.04), ffprobe 2.8157..5.9716s; voice-expressive.json dong bo = voice.json de tranh default generator sai text (evidence: 8/8 clips)"
+    },
+    {
+      "t": "2026-10-17T16:54:04+07:00",
+      "stage": "build",
+      "who": "agent",
+      "msg": "build -> done: timeline v4 raw @4dp => CGN_TOTAL 1308f = 43.6s; testFrames derive tu CGN_TOTAL; tsc clean; scenesB/scenesC caption v3 dong bo (evidence: composition CuocGoiNhoReel)"
+    },
+    {
+      "t": "2026-10-17T16:54:05+07:00",
+      "stage": "qa",
+      "who": "agent",
+      "msg": "qa -> done: 12 khung out/qa c-frame-{} tu MP4 43.70s: 12/12 DAT theo shot, caption khong con cau mua/hai tieng; ebur128 -13.9 LUFS / peak -1.5 dBFS; ASR CER<=0.04 (evidence: 12 stills)"
+    },
+    {
+      "t": "2026-10-17T16:54:05+07:00",
+      "stage": "design",
+      "who": "agent",
+      "msg": "design -> done: thiet ke giu nguyen qua v3; xac nhan 12 khung; 5 fix build v3 da co mat (D 9.0 vong 4) (evidence: 1 file(s): docs\\cuoc-goi-nho-cua-me\\design-spec.md; gate D: pass 9.0/10)"
     }
   ],
-  "updated": "2026-10-14T08:01:34+07:00",
+  "updated": "2026-10-17T16:54:05+07:00",
   "render_check": {
-    "fingerprint": "5818085:1791939670040251984",
-    "duration": 47.4,
-    "at": "2026-10-14T08:01:10+07:00"
+    "fingerprint": "8912774:1792230196737464600",
+    "duration": 43.7,
+    "at": "2026-10-17T16:43:18+07:00"
   }
 }

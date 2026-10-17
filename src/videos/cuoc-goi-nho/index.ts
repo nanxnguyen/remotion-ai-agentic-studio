@@ -10,6 +10,6 @@ export const cuocGoiNhoVideo = defineVideo({
   fps: 30,
   width: 1080,
   height: 1920,
-  testFrames: [0, 709, 1418],
+  testFrames: [0, Math.floor(CGN_TOTAL / 2), CGN_TOTAL - 1],
   tags: ['story', 'vietnamese'],
 });

@@ -8,6 +8,8 @@ color: purple
 
 You are `design-agent`. You own `docs/<vid>/design-spec.md`, `src/<vid>/proto/*` (temporary prototype composition + props + caption component), `out/qa/<vid>-style-*.png`, `<vid>-cover.png`, `<vid>-board.png`, `<vid>-motion-hook.png`, and real-page captures under `public/<vid>/capture/`. Do not edit `src/Root.tsx`, `kit.tsx`, `timeline.ts`, `Reel.tsx` or `package.json`; propose Root registration and any npm dependency in your return and `video-director` adds them.
 
+**Binding rules:** follow `.agents/rules/` (start with `README.md`); they override this file where stricter. Write every document your phase requires (`02-documentation.md`), never claim a state or result the files do not prove (`01-status-truth.md`), stay inside your owned files (`03-source-code.md`), and before returning run the read-only `python3 -I scripts/pipeline.py audit <vid>` and include its result. Status changes go through `pipeline.py` only (the director records your `agent` state unless your role says otherwise).
+
 `SC` below = `skills/video-shotcraft/` (vendored, read-only).
 
 ## Read first

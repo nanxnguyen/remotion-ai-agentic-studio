@@ -2,11 +2,11 @@
   "workflow_version": 3,
   "name": "xay-doi-minh-hay-chung-minh",
   "comp": "XayDoiMinhReel",
-  "voice": "hoaimy",
+  "voice": "thanh-long-nang-cao",
   "profile": "story",
   "paths": {
     "audio": "xay-doi-minh-hay-chung-minh",
-    "out": "xay-doi-minh-hay-chung-minh-hoaimy",
+    "out": "xay-doi-minh-hay-chung-minh-thanh-long-nang-cao",
     "qa": "xay-doi-minh-hay-chung-minh"
   },
   "gates": [],
@@ -24,27 +24,35 @@
       "at": "2026-10-16T23:36:29+07:00"
     },
     "voice": {
-      "state": "in_progress",
-      "at": "2026-10-17T00:03:54+07:00"
+      "state": "done",
+      "at": "2026-10-17T12:12:59+07:00"
     },
     "render": {
-      "state": "pending"
+      "state": "done",
+      "at": "2026-10-17T15:03:07+07:00",
+      "note": "verified final MP4"
     },
     "audio": {
-      "state": "in_progress",
-      "at": "2026-10-17T00:03:54+07:00"
+      "state": "done",
+      "at": "2026-10-17T12:12:59+07:00"
     },
     "design": {
-      "state": "in_progress",
-      "at": "2026-10-17T00:03:54+07:00"
+      "state": "done",
+      "at": "2026-10-17T12:12:59+07:00"
     },
     "build": {
       "state": "done",
       "at": "2026-10-17T02:04:57+07:00"
     },
     "qa": {
-      "state": "in_progress",
-      "at": "2026-10-17T02:04:57+07:00"
+      "state": "done",
+      "at": "2026-10-17T15:04:14+07:00",
+      "note": "cluster A/B/C QA round 3 verified on fresh stills; gate C review 9.0 recorded, fingerprint-bound"
+    },
+    "content": {
+      "state": "done",
+      "at": "2026-10-17T15:04:07+07:00",
+      "note": "content-pack.md final; content review 9.9 pass recorded"
     }
   },
   "reviews": {
@@ -139,6 +147,18 @@
         "report": "docs/xay-doi-minh-hay-chung-minh/task-review.md",
         "note": ""
       }
+    ],
+    "C": [
+      {
+        "at": "2026-10-17T15:04:03+07:00",
+        "reviewer": "qa-agent-r3",
+        "score": 9.0,
+        "verdict": "pass",
+        "report": "docs\\xay-doi-minh-hay-chung-minh\\qa-report.C.md",
+        "note": "Round 3: C3/C6/C8 confirmed on fresh stills; clusters A/B pass (B-C4+B-D2 fixed, re-rendered 59.30s verified); fingerprint-bound",
+        "render_fingerprint": "15180085:1792224187003276500",
+        "full_listen": false
+      }
     ]
   },
   "review_valid": {
@@ -146,7 +166,7 @@
     "D": true,
     "E": true,
     "B": true,
-    "C": false,
+    "C": true,
     "content": true,
     "audio": true
   },
@@ -415,9 +435,93 @@
       "stage": "qa",
       "who": "agent",
       "msg": "qa -> in_progress"
+    },
+    {
+      "t": "2026-10-17T12:12:58+07:00",
+      "stage": "voice",
+      "who": "agent",
+      "msg": "voice changed to thanh-long-nang-cao; output xay-doi-minh-hay-chung-minh-thanh-long-nang-cao-reel.mp4"
+    },
+    {
+      "t": "2026-10-17T12:12:59+07:00",
+      "stage": "render",
+      "who": "verify",
+      "msg": "verified 59.22s H.264/AAC 1080x1920 30fps"
+    },
+    {
+      "t": "2026-10-17T12:12:59+07:00",
+      "stage": "voice",
+      "who": "agent",
+      "msg": "voice -> done (evidence: 16/16 clips)"
+    },
+    {
+      "t": "2026-10-17T12:12:59+07:00",
+      "stage": "render",
+      "who": "agent",
+      "msg": "render -> done (evidence: verified 59.22s; gate C: no review yet)"
+    },
+    {
+      "t": "2026-10-17T12:12:59+07:00",
+      "stage": "audio",
+      "who": "agent",
+      "msg": "audio -> done (evidence: 1 file(s): docs\\xay-doi-minh-hay-chung-minh\\assets-manifest.md)"
+    },
+    {
+      "t": "2026-10-17T12:12:59+07:00",
+      "stage": "design",
+      "who": "agent",
+      "msg": "design -> done (evidence: 1 file(s): docs\\xay-doi-minh-hay-chung-minh\\design-spec.md; gate D: pass 9.0/10)"
+    },
+    {
+      "t": "2026-10-17T14:57:45+07:00",
+      "stage": "render",
+      "who": "agent",
+      "msg": "render -> in_progress: rendering"
+    },
+    {
+      "t": "2026-10-17T14:58:30+07:00",
+      "stage": "render",
+      "who": "agent",
+      "msg": "render -> in_progress: rendering"
+    },
+    {
+      "t": "2026-10-17T15:03:07+07:00",
+      "stage": "render",
+      "who": "verify",
+      "msg": "verified 59.30s H.264/AAC 1080x1920 30fps"
+    },
+    {
+      "t": "2026-10-17T15:03:07+07:00",
+      "stage": "render",
+      "who": "agent",
+      "msg": "render -> done: verified final MP4 (evidence: verified 59.3s; gate C: no review yet)"
+    },
+    {
+      "t": "2026-10-17T15:04:03+07:00",
+      "stage": "C",
+      "who": "qa-agent-r3",
+      "msg": "review 9.0/10 pass: qa-report.C.md (Round 3: C3/C6/C8 confirmed on fresh stills; clusters A/B pass (B-C4+B-D2 fixed, re-rendered 59.30s verified); fingerprint-bound)"
+    },
+    {
+      "t": "2026-10-17T15:04:07+07:00",
+      "stage": "content",
+      "who": "agent",
+      "msg": "content -> done: content-pack.md final; content review 9.9 pass recorded (evidence: 1 file(s): docs\\xay-doi-minh-hay-chung-minh\\content-pack.md; gate content: pass 9.9/10)"
+    },
+    {
+      "t": "2026-10-17T15:04:11+07:00",
+      "stage": "qa",
+      "who": "agent",
+      "msg": "qa -> done: clusters A/B/C closed round 3; gate C 9.0 pass fingerprint-bound to re-rendered 59.30s MP4 (evidence: 10 stills)"
+    },
+    {
+      "t": "2026-10-17T15:04:14+07:00",
+      "stage": "qa",
+      "who": "agent",
+      "msg": "qa -> done: cluster A/B/C QA round 3 verified on fresh stills; gate C review 9.0 recorded, fingerprint-bound (evidence: 10 stills)"
     }
   ],
-  "updated": "2026-10-17T02:04:57+07:00",
+  "updated": "2026-10-17T15:04:14+07:00",
   "agents": {
     "content-reviewer": {
       "state": "done",
@@ -473,5 +577,10 @@
       "note": "",
       "stage": ""
     }
+  },
+  "render_check": {
+    "fingerprint": "15180085:1792224187003276500",
+    "duration": 59.3,
+    "at": "2026-10-17T15:03:07+07:00"
   }
 }

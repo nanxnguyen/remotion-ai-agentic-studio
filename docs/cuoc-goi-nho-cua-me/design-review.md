@@ -86,3 +86,24 @@ Reviewer độc lập (clean context). Đối chiếu: `brief.md` (font CHỐT B
 5. **Checklist build:** s8 dựng trình tự Đang gọi → cúp → "Đã gọi lại ✓" (frame gộp tĩnh, video phải có trình tự); `CcCaps` chưa có early-off cho hold lặng s8 (c) — thêm prop hoặc truyền duration ngắn hơn shot; status card s5 về portrait hoặc ghi rõ overlay.
 
 ## TỔNG VÒNG 3: 9.0/10 — verdict: PASS (sửa 5 fix trên rồi vào build; không gãy kết cấu, không cần vẽ lại)
+
+---
+
+## Vòng 4 xác nhận (2026-10-17 — sau retime v3: 1308f)
+
+Không đổi thiết kế — xác nhận trên render thật 43.7s mới (`out/qa/cuoc-goi-nho-cua-me-c-frame-*.png`, 12 khung):
+
+| # | item | score | evidence |
+|---|---|---|---|
+| 1 | Beautiful | 9 | s6 đèn vàng ấm NHẤT (f750), s8 glow mẹ (f1290); palette nhất quán |
+| 2 | Fits subject | 9 | 2 không gian riêng vẫn phân biệt (f879/f975): Con bát nguội vs mâm mẹ |
+| 3 | Originality | 9 | — |
+| 4 | Consistency | 10 | font Be Vietnam 600 đúng 5 checkpoint (f0/115/640/975/1056) |
+| 5 | Legibility + safe | 9 | dấu chuẩn mọi khung ("Đã gọi lại ✓" f1056; "minh hoạ" trên mọi UI mock) |
+| 6 | Profile test | 9 | — |
+| 7 | Motion | 9 | beat mẹ vào f52–86 khớp giọng mới "Mẹ bắt máy ngay" (f640 = beat 2 đúng lúc) |
+| 8 | Cover + board | 9 | f0: mock UI có nhãn minh hoạ |
+| 9 | Shot fidelity | 9 | — |
+| 10 | Aesthetic rules | 9 | deterministic, không timing wall-clock |
+
+**9.0/10 — verdict: PASS** (không đổi từ vòng 3; 5 fix build vòng 3 đã xác nhận có mặt: Be Vietnam ✓, s8 trình tự Đang gọi → "Đã gọi lại ✓" ✓, CcCaps tắt trong hold ✓).

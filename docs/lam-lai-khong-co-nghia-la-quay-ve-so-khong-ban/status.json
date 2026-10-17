@@ -1,0 +1,304 @@
+{
+  "workflow_version": 3,
+  "name": "Làm lại không có nghĩa là quay về số không\t“Bạn gọi những năm vừa qua là công cố",
+  "comp": "LamLaiKhongCoNghiaLaQuayVeSoKhongBanReel",
+  "voice": "thanh-long-nang-cao",
+  "profile": "story",
+  "paths": {
+    "audio": "lam-lai-khong-co-nghia-la-quay-ve-so-khong-ban",
+    "out": "lam-lai-khong-co-nghia-la-quay-ve-so-khong-ban-thanh-long-nang-cao",
+    "qa": "lam-lai-khong-co-nghia-la-quay-ve-so-khong-ban"
+  },
+  "gates": [],
+  "stages": {
+    "research": {
+      "state": "done",
+      "at": "2026-10-17T17:42:59+07:00",
+      "note": "research.md written; brief.md exists"
+    },
+    "brief": {
+      "state": "done",
+      "at": "2026-10-17T17:43:12+07:00",
+      "note": "brief.md exists and matches request"
+    },
+    "script": {
+      "state": "done",
+      "at": "2026-10-17T17:52:41+07:00",
+      "note": "script.md approved at gate A (9/10)"
+    },
+    "content": {
+      "state": "done",
+      "at": "2026-10-17T18:30:42+07:00",
+      "note": "content-pack.md + content-pack-review.md produced; gate content pass 9/10"
+    },
+    "design": {
+      "state": "in_progress",
+      "at": "2026-10-17T17:54:12+07:00",
+      "note": "Writing design.md and storyboard"
+    }
+  },
+  "reviews": {
+    "A": [
+      {
+        "at": "2026-10-17T17:52:36+07:00",
+        "reviewer": "script-reviewer",
+        "score": 9.0,
+        "verdict": "pass",
+        "report": "docs\\lam-lai-khong-co-nghia-la-quay-ve-so-khong-ban\\gate-a-review.md",
+        "note": ""
+      }
+    ],
+    "content": [
+      {
+        "at": "2026-10-17T17:54:03+07:00",
+        "reviewer": "content-reviewer",
+        "score": 9.0,
+        "verdict": "pass",
+        "report": "docs\\lam-lai-khong-co-nghia-la-quay-ve-so-khong-ban\\gate-content-review.md",
+        "note": ""
+      },
+      {
+        "at": "2026-10-17T18:30:39+07:00",
+        "reviewer": "content-reviewer",
+        "score": 9.0,
+        "verdict": "pass",
+        "report": "docs\\lam-lai-khong-co-nghia-la-quay-ve-so-khong-ban\\content-pack-review.md",
+        "note": ""
+      }
+    ]
+  },
+  "review_valid": {
+    "A": true,
+    "D": false,
+    "E": false,
+    "B": false,
+    "C": false,
+    "content": true,
+    "audio": false
+  },
+  "next": "design-agent: design-spec.md + style frames (gate D)",
+  "log": [
+    {
+      "t": "2026-10-17T17:29:35+07:00",
+      "stage": "-",
+      "who": "agent",
+      "msg": "status initialised"
+    },
+    {
+      "t": "2026-10-17T17:29:35+07:00",
+      "stage": "-",
+      "who": "you",
+      "msg": "created from the monitor (runner opencode)"
+    },
+    {
+      "t": "2026-10-17T17:29:35+07:00",
+      "stage": "agent",
+      "who": "monitor",
+      "msg": "monitor run 20261017-172935-085 started via OpenCode (create)"
+    },
+    {
+      "t": "2026-10-17T17:30:25+07:00",
+      "stage": "agent",
+      "who": "intake-agent",
+      "msg": "intake-agent running"
+    },
+    {
+      "t": "2026-10-17T17:40:48+07:00",
+      "stage": "research",
+      "who": "agent",
+      "msg": "research -> in_progress: Starting Phase 0 intake/preflight; read request.md and verify duplicate content"
+    },
+    {
+      "t": "2026-10-17T17:41:04+07:00",
+      "stage": "research",
+      "who": "intake-agent",
+      "msg": "intake-agent done: Intake/preflight complete; request analyzed"
+    },
+    {
+      "t": "2026-10-17T17:42:59+07:00",
+      "stage": "research",
+      "who": "agent",
+      "msg": "research -> done: research.md written; brief.md exists (evidence: 1 file(s): docs\\lam-lai-khong-co-nghia-la-quay-ve-so-khong-ban\\research.md)"
+    },
+    {
+      "t": "2026-10-17T17:43:03+07:00",
+      "stage": "brief",
+      "who": "agent",
+      "msg": "brief -> in_progress: Writing brief (already exists; formalizing)"
+    },
+    {
+      "t": "2026-10-17T17:43:12+07:00",
+      "stage": "brief",
+      "who": "agent",
+      "msg": "brief -> done: brief.md exists and matches request (evidence: 1 file(s): docs\\lam-lai-khong-co-nghia-la-quay-ve-so-khong-ban\\brief.md)"
+    },
+    {
+      "t": "2026-10-17T17:43:16+07:00",
+      "stage": "script",
+      "who": "agent",
+      "msg": "script -> in_progress: Writing script with narration and timing for 30-45s"
+    },
+    {
+      "t": "2026-10-17T17:52:36+07:00",
+      "stage": "A",
+      "who": "script-reviewer",
+      "msg": "review 9.0/10 pass: gate-a-review.md"
+    },
+    {
+      "t": "2026-10-17T17:52:41+07:00",
+      "stage": "script",
+      "who": "agent",
+      "msg": "script -> done: script.md approved at gate A (9/10) (evidence: 1 file(s): docs\\lam-lai-khong-co-nghia-la-quay-ve-so-khong-ban\\script.md; gate A: pass 9.0/10)"
+    },
+    {
+      "t": "2026-10-17T17:53:22+07:00",
+      "stage": "content",
+      "who": "agent",
+      "msg": "content -> in_progress: Writing content pack with beats, visuals, assets"
+    },
+    {
+      "t": "2026-10-17T17:54:03+07:00",
+      "stage": "content",
+      "who": "content-reviewer",
+      "msg": "review 9.0/10 pass: gate-content-review.md"
+    },
+    {
+      "t": "2026-10-17T17:54:08+07:00",
+      "stage": "content",
+      "who": "agent",
+      "msg": "content -> done: content approved (9/10) (evidence: no files; gate content: pass 9.0/10)"
+    },
+    {
+      "t": "2026-10-17T17:54:12+07:00",
+      "stage": "design",
+      "who": "agent",
+      "msg": "design -> in_progress: Writing design.md and storyboard"
+    },
+    {
+      "t": "2026-10-17T18:08:48+07:00",
+      "stage": "agent",
+      "who": "monitor",
+      "msg": "monitor run 20261017-172935-085 exited (tracked by pid after a monitor restart)"
+    },
+    {
+      "t": "2026-10-17T18:23:20+07:00",
+      "stage": "agent",
+      "who": "monitor",
+      "msg": "monitor run 20261017-182320-449 started via Codex · gpt-5.6-luna · medium (command)"
+    },
+    {
+      "t": "2026-10-17T18:23:20+07:00",
+      "stage": "agent",
+      "who": "monitor",
+      "msg": "monitor run 20261017-182320-449 failed (exit 2)"
+    },
+    {
+      "t": "2026-10-17T18:28:10+07:00",
+      "stage": "agent",
+      "who": "monitor",
+      "msg": "monitor run 20261017-182810-697 started via OpenCode · opencode/beam-free (command)"
+    },
+    {
+      "t": "2026-10-17T18:30:20+07:00",
+      "stage": "content",
+      "who": "video-director",
+      "msg": "video-director running: fixing content-pack.md and review reports; continuing design"
+    },
+    {
+      "t": "2026-10-17T18:30:21+07:00",
+      "stage": "content",
+      "who": "agent",
+      "msg": "content -> in_progress: producing content-pack.md (was missing)"
+    },
+    {
+      "t": "2026-10-17T18:30:39+07:00",
+      "stage": "content",
+      "who": "content-reviewer",
+      "msg": "review 9.0/10 pass: content-pack-review.md"
+    },
+    {
+      "t": "2026-10-17T18:30:42+07:00",
+      "stage": "content",
+      "who": "agent",
+      "msg": "content -> done: content-pack.md + content-pack-review.md produced; gate content pass 9/10 (evidence: 1 file(s): docs\\lam-lai-khong-co-nghia-la-quay-ve-so-khong-ban\\content-pack.md; gate content: pass 9.0/10)"
+    },
+    {
+      "t": "2026-10-17T18:30:46+07:00",
+      "stage": "content",
+      "who": "video-director",
+      "msg": "video-director done: content-pack fixed"
+    },
+    {
+      "t": "2026-10-17T18:31:26+07:00",
+      "stage": "design",
+      "who": "video-director",
+      "msg": "video-director running: design-spec.md + scaffold + style frames"
+    }
+  ],
+  "updated": "2026-10-17T18:31:26+07:00",
+  "runs": [
+    {
+      "id": "20261017-172935-085",
+      "folder": "lam-lai-khong-co-nghia-la-quay-ve-so-khong-ban",
+      "kind": "create",
+      "runner": "opencode",
+      "label": "OpenCode",
+      "state": "exited",
+      "started": "2026-10-17T17:29:35+07:00",
+      "pid": 18964,
+      "log": "out/agent-runs/lam-lai-khong-co-nghia-la-quay-ve-so-khong-ban/20261017-172935-085.log",
+      "prompt_file": "out/agent-runs/lam-lai-khong-co-nghia-la-quay-ve-so-khong-ban/20261017-172935-085.prompt.md",
+      "summary": "create video",
+      "exit_code": null,
+      "ended": "2026-10-17T18:08:48+07:00"
+    },
+    {
+      "id": "20261017-182320-449",
+      "folder": "lam-lai-khong-co-nghia-la-quay-ve-so-khong-ban",
+      "kind": "command",
+      "runner": "codex",
+      "label": "Codex",
+      "state": "failed",
+      "started": "2026-10-17T18:23:20+07:00",
+      "pid": 26464,
+      "log": "out/agent-runs/lam-lai-khong-co-nghia-la-quay-ve-so-khong-ban/20261017-182320-449.log",
+      "prompt_file": "out/agent-runs/lam-lai-khong-co-nghia-la-quay-ve-so-khong-ban/20261017-182320-449.prompt.md",
+      "summary": "log: out/agent-runs/lam-lai-khong-co-nghia-la-quay-ve-so-khong-ban/20261017-172935-085.log",
+      "model": "gpt-5.6-luna",
+      "effort": "medium",
+      "fallback": false,
+      "exit_code": 2,
+      "ended": "2026-10-17T18:23:20+07:00"
+    },
+    {
+      "id": "20261017-182810-697",
+      "folder": "lam-lai-khong-co-nghia-la-quay-ve-so-khong-ban",
+      "kind": "command",
+      "runner": "opencode",
+      "label": "OpenCode",
+      "state": "running",
+      "started": "2026-10-17T18:28:10+07:00",
+      "pid": 8116,
+      "log": "out/agent-runs/lam-lai-khong-co-nghia-la-quay-ve-so-khong-ban/20261017-182810-697.log",
+      "prompt_file": "out/agent-runs/lam-lai-khong-co-nghia-la-quay-ve-so-khong-ban/20261017-182810-697.prompt.md",
+      "summary": "Tiep tuc",
+      "model": "opencode/beam-free",
+      "effort": "",
+      "fallback": false
+    }
+  ],
+  "agents": {
+    "video-director": {
+      "state": "running",
+      "at": "2026-10-17T18:31:26+07:00",
+      "note": "design-spec.md + scaffold + style frames",
+      "stage": "design"
+    },
+    "intake-agent": {
+      "state": "done",
+      "at": "2026-10-17T17:41:04+07:00",
+      "note": "Intake/preflight complete; request analyzed",
+      "stage": "research"
+    }
+  }
+}

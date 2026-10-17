@@ -79,3 +79,42 @@ Ground-truth re-renders (this round, `XayDoiMinhReel`): `out/qa/xdm-r2-660/747/9
 | B-D2 | FAIL (fix broken) | `ScenesD.tsx:465-466`: `lift`/`carryT` use remotion `interpolate` with default extend (no clamp). For f>126 `carryT`>1 (4.67 at rel 137) → brick ≈(−1773, 2057), hand ≈(−1422, 2096): off-screen. Brick reads at rel 126 (abs 1342, held clear at (225,1400)) but hands are EMPTY rel 127–137 incl. acceptance frame abs 1353 (0 sen px in hand zone, fresh render). Concrete change: add `{extrapolateLeft:'clamp', extrapolateRight:'clamp'}` to `lift`/`carryT`/`standT` (as `armOp` already does). |
 
 No other cluster state re-litigated. `npx tsc --noEmit` not re-run (zero source edits this round).
+
+## Round 3 — fixes applied, re-verified on current comp (2026-10-17)
+
+Both Round-2 open tickets were fixed in source and confirmed on fresh stills rendered from the current
+`XayDoiMinhReel` comp (`npx remotion still src/index.ts XayDoiMinhReel` →
+`out/qa/xay-doi-minh-hay-chung-minh-r3-<frame>.png`; zoom crop via ffmpeg):
+
+- **B-C4 FIXED** — `ScenesC.tsx`: dashed ellipse (cx 540 / cy 1400 / rx 330 / ry 50, TAPE stroke, dash 26/20)
+  now wrapped in `<svg width={1080} height={1920} style={{position:'absolute', inset:0}}>`, so it paints.
+  Still abs 1021 (`r3-1021.png`): full dashed ellipse visible around the figure's base, above the caption
+  pill, no occlusion. Acceptance "full dashed ellipse visible above caption pill" met.
+- **B-D2 FIXED** — `ScenesD.tsx`: `lift`/`carryT`/`standT` all clamp
+  (`extrapolateLeft/Right: 'clamp'`; `standT` keeps its bezier easing). The carried brick no longer
+  extrapolates off-canvas at rel 127–137. Still abs 1353 (`r3-1353.png` + zoom `r3-1353-zoom.png`): sen
+  brick with ink outline held in front of the body, both hand discs gripping it, below the foundation
+  bottom band, over dark ground — ≥100px wide, distinct from the foundation bricks. Acceptance met; the
+  A15 brick-in-hand handoff into s9a is intact.
+
+Verdict superseded: **cluster B has 0 open Cao/Trung**; OBS-1/OBS-2 remain Thấp notes.
+`npx tsc --noEmit` re-run clean; prettier clean. Cluster score after round 3: **9.0/10**.
+
+## Round 3 — B-C4 / B-D2 fixed in source, re-verified on fresh stills (2026-10-17)
+
+Both Round-2 open tickets were fixed and confirmed on stills re-rendered from the current comp
+(`out/qa/xay-doi-minh-hay-chung-minh-r3-<frame>.png`, `npx remotion still src/index.ts XayDoiMinhReel`):
+
+- **B-C4 FIXED** — `ScenesC.tsx`: dashed "empty spot" ellipse (cx 540 / cy 1400 / rx 330 / ry 50, TAPE stroke,
+  dash 26/20) is now wrapped in `<svg width={1080} height={1920} style={{position:'absolute', inset:0}}>` so it
+  paints. Still at abs 1021 (`r3-1021.png`): full dashed ellipse visible around the figure's base, entirely
+  above the caption pill, no occlusion.
+- **B-D2 FIXED** — `ScenesD.tsx`: `lift` / `carryT` / `standT` now clamp
+  (`{extrapolateLeft:'clamp', extrapolateRight:'clamp'}`), so the carried brick no longer extrapolates
+  off-canvas at rel 127–137. Still at abs 1353 (`r3-1353.png` + zoom crop `r3-1353-zoom.png`): sen brick with
+  ink outline held in front of the body, ≥100px wide, both hand discs gripping it, over dark ground below the
+  foundation face — distinct from the foundation bricks. A15 brick-in-hand handoff into s9a is intact.
+- Regression guard: `npx tsc --noEmit` clean; prettier-formatted; edits touch only S6Scene (ellipse wrapper)
+  and S8Scene (clamp options) — no duration, palette, or caption changes.
+
+## Verdict: PASS (cluster B 9.0/10) — no open Cao/Trung remain in s5–s8

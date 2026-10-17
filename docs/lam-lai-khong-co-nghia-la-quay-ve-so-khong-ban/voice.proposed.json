@@ -1,0 +1,6 @@
+{
+  "voice": "thanh-long-nang-cao",
+  "engine": "provider-tts",
+  "fallback": "labelled-fallback",
+  "notes": "Use provided voice route or fallback as per request."
+}

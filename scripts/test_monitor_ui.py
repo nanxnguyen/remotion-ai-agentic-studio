@@ -87,6 +87,32 @@ class MonitorUiTest(unittest.TestCase):
         self.assertIn("review-node", source)  # each gate is its own reviewer node
         self.assertIn(".slice(0, 40)", source)
 
+    def test_studio_creates_videos_and_commands_agents_from_the_ui(self):
+        source = MONITOR.read_text(encoding="utf-8")
+        parser = LandmarkParser()
+        parser.feed(source)
+        ids = {attrs.get("id"): (tag, attrs) for tag, attrs in parser.elements if attrs.get("id")}
+
+        self.assertEqual(ids["create-video"][0], "button")
+        self.assertEqual(ids["create-video"][1].get("aria-haspopup"), "dialog")
+        self.assertEqual(ids["create-dialog"][0], "dialog")
+        self.assertTrue(ids["create-dialog"][1].get("aria-labelledby"))
+        for field in ("f-topic", "f-voice", "f-reference", "f-min", "f-mandatory", "f-notes", "dock-text", "dock-runner"):
+            self.assertIn(field, ids)
+        self.assertIn("fetch('/api/create-options'", source.replace("api('/api/create-options')", "fetch('/api/create-options'"))
+        self.assertIn("/voice-preview/", source)
+        self.assertIn("dry_run:true", source)  # the prompt is previewed before anything is created
+        self.assertIn("needs_confirm", source)  # similar topics ask the owner instead of silently duplicating
+        self.assertIn("/api/runs/", source)
+        self.assertIn("'Content-Type':'application/json'", source)  # studio POSTs must pass the same-origin check
+        self.assertIn("f-run-at", ids)  # scheduling belongs to creating a video
+        self.assertNotIn("dock-run-at", ids)  # ...not to commands on an existing video
+        self.assertNotIn("dock-queue", ids)  # one send box: the backend decides start vs note-to-running-agent
+        self.assertIn("data.delivery==='note'", source)
+        for field in ("f-model", "f-effort", "f-fallback", "dock-model", "dock-effort", "dock-fallback"):
+            self.assertIn(field, ids)  # model / reasoning effort per runner, and switching runner when tokens run out
+        self.assertIn("fallback_of", source)
+
 
 if __name__ == "__main__":
     unittest.main()

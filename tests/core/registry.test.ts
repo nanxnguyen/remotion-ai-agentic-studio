@@ -22,8 +22,8 @@ describe('videoRegistry', () => {
       {id: 'UnderstandAnythingReel', durationInFrames: 1290, fps: 30, width: 1080, height: 1920},
       {id: 'ThuongHaySoReel', durationInFrames: 1769, fps: 30, width: 1080, height: 1920},
       {id: 'XayDoiMinhReel', durationInFrames: 1776, fps: 30, width: 1080, height: 1920},
-      {id: 'ChungMinhDeLamGiReel', durationInFrames: 1668, fps: 30, width: 1080, height: 1920},
-      {id: 'TiecNguoiHayNamThangReel', durationInFrames: 1578, fps: 30, width: 1080, height: 1920},
+      {id: 'ChungMinhDeLamGiReel', durationInFrames: 1728, fps: 30, width: 1080, height: 1920},
+      {id: 'TiecNguoiHayNamThangReel', durationInFrames: 1422, fps: 30, width: 1080, height: 1920},
     ]);
   });
 
