@@ -33,7 +33,7 @@
       "headline": "LẦN CUỐI BẠN HẠNH PHÚC?",
       "visualIntent": "calendar",
       "status": "prebuilt",
-      "durationSource": "measured-voice"
+      "durationSource": "provisional-estimate"
     },
     {
       "id": "s2",
@@ -42,7 +42,7 @@
       "headline": "NĂM NĂM RỒI...",
       "visualIntent": "two",
       "status": "prebuilt",
-      "durationSource": "measured-voice"
+      "durationSource": "provisional-estimate"
     },
     {
       "id": "s3",
@@ -51,7 +51,7 @@
       "headline": "CÒN BÂY GIỜ?",
       "visualIntent": "two",
       "status": "prebuilt",
-      "durationSource": "measured-voice"
+      "durationSource": "provisional-estimate"
     },
     {
       "id": "s4",
@@ -60,7 +60,7 @@
       "headline": "CHUYỆN CỦA NGÀY XƯA",
       "visualIntent": "memory",
       "status": "prebuilt",
-      "durationSource": "measured-voice"
+      "durationSource": "provisional-estimate"
     },
     {
       "id": "s5",
@@ -69,7 +69,7 @@
       "headline": "NHỮNG NGÀY GẦN ĐÂY?",
       "visualIntent": "blank",
       "status": "prebuilt",
-      "durationSource": "measured-voice"
+      "durationSource": "provisional-estimate"
     },
     {
       "id": "s6",
@@ -78,7 +78,7 @@
       "headline": "SỢ MỌI THỨ VÔ NGHĨA",
       "visualIntent": "calendar",
       "status": "prebuilt",
-      "durationSource": "measured-voice"
+      "durationSource": "provisional-estimate"
     },
     {
       "id": "s7",
@@ -87,16 +87,16 @@
       "headline": "ĐÃ TỪNG CÓ Ý NGHĨA",
       "visualIntent": "release",
       "status": "prebuilt",
-      "durationSource": "measured-voice"
+      "durationSource": "provisional-estimate"
     },
     {
       "id": "s8",
       "voiceKey": "s8",
       "scene": "Scene8",
-      "headline": "TIẾC NGƯỜI, HAY TIẾC NĂM THÁNG?",
-      "visualIntent": "fork",
+      "headline": "BẠN ĐANG TIẾC NGƯỜI ẤY, HAY TIẾC NHỮNG NĂM MÌNH ĐÃ BỎ RA?",
+      "visualIntent": "empty-present",
       "status": "prebuilt",
-      "durationSource": "measured-voice"
+      "durationSource": "provisional-estimate"
     }
   ],
   "gates": {

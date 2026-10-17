@@ -24,20 +24,20 @@
       "at": "2026-10-17T02:21:59+07:00"
     },
     "content": {
-      "state": "in_progress",
-      "at": "2026-10-17T02:09:45+07:00"
+      "state": "done",
+      "at": "2026-10-17T09:55:46+07:00"
     },
     "voice": {
-      "state": "in_progress",
-      "at": "2026-10-17T02:09:45+07:00"
+      "state": "done",
+      "at": "2026-10-17T09:55:46+07:00"
     },
     "audio": {
-      "state": "in_progress",
-      "at": "2026-10-17T02:09:45+07:00"
+      "state": "done",
+      "at": "2026-10-17T09:55:46+07:00"
     },
     "design": {
-      "state": "in_progress",
-      "at": "2026-10-17T02:09:45+07:00"
+      "state": "done",
+      "at": "2026-10-17T09:55:46+07:00"
     }
   },
   "reviews": {
@@ -430,9 +430,69 @@
       "stage": "design",
       "who": "design-reviewer-r2",
       "msg": "design-reviewer-r2 running: round2 verify T1-T3"
+    },
+    {
+      "t": "2026-10-17T09:28:45+07:00",
+      "stage": "integration",
+      "who": "integration-reviewer-r2",
+      "msg": "integration-reviewer-r2 running: gate E round2 verify E1-E4 closed"
+    },
+    {
+      "t": "2026-10-17T09:55:46+07:00",
+      "stage": "agent",
+      "who": "content-reviewer-r2",
+      "msg": "content-reviewer-r2 done"
+    },
+    {
+      "t": "2026-10-17T09:55:46+07:00",
+      "stage": "agent",
+      "who": "audio-reviewer-r2",
+      "msg": "audio-reviewer-r2 done"
+    },
+    {
+      "t": "2026-10-17T09:55:46+07:00",
+      "stage": "agent",
+      "who": "design-reviewer-r2",
+      "msg": "design-reviewer-r2 done"
+    },
+    {
+      "t": "2026-10-17T09:55:46+07:00",
+      "stage": "agent",
+      "who": "integration-reviewer-r2",
+      "msg": "integration-reviewer-r2 done"
+    },
+    {
+      "t": "2026-10-17T09:55:46+07:00",
+      "stage": "content",
+      "who": "agent",
+      "msg": "content -> done (evidence: 1 file(s): docs/chung-minh-de-lam-gi/content-pack.md; gate content: pass 9.4/10)"
+    },
+    {
+      "t": "2026-10-17T09:55:46+07:00",
+      "stage": "voice",
+      "who": "agent",
+      "msg": "voice -> done (evidence: 15/15 clips)"
+    },
+    {
+      "t": "2026-10-17T09:55:46+07:00",
+      "stage": "audio",
+      "who": "agent",
+      "msg": "audio -> done (evidence: 1 file(s): docs/chung-minh-de-lam-gi/assets-manifest.md)"
+    },
+    {
+      "t": "2026-10-17T09:55:46+07:00",
+      "stage": "design",
+      "who": "agent",
+      "msg": "design -> done (evidence: 1 file(s): docs/chung-minh-de-lam-gi/design-spec.md; gate D: revise 7.0/10)"
+    },
+    {
+      "t": "2026-10-17T09:55:46+07:00",
+      "stage": "agent",
+      "who": "integration-reviewer",
+      "msg": "integration-reviewer done: gate E pass 9/10 round3"
     }
   ],
-  "updated": "2026-10-17T02:31:43+07:00",
+  "updated": "2026-10-17T09:55:46+07:00",
   "agents": {
     "intake-agent": {
       "state": "done",
@@ -519,22 +579,34 @@
       "stage": ""
     },
     "content-reviewer-r2": {
-      "state": "running",
-      "at": "2026-10-17T02:31:43+07:00",
-      "note": "round2 verify T1",
-      "stage": "content"
+      "state": "done",
+      "at": "2026-10-17T09:55:46+07:00",
+      "note": "",
+      "stage": ""
     },
     "audio-reviewer-r2": {
-      "state": "running",
-      "at": "2026-10-17T02:31:43+07:00",
-      "note": "round2 verify AR-01..03",
-      "stage": "audio"
+      "state": "done",
+      "at": "2026-10-17T09:55:46+07:00",
+      "note": "",
+      "stage": ""
     },
     "design-reviewer-r2": {
-      "state": "running",
-      "at": "2026-10-17T02:31:43+07:00",
-      "note": "round2 verify T1-T3",
-      "stage": "design"
+      "state": "done",
+      "at": "2026-10-17T09:55:46+07:00",
+      "note": "",
+      "stage": ""
+    },
+    "integration-reviewer-r2": {
+      "state": "done",
+      "at": "2026-10-17T09:55:46+07:00",
+      "note": "",
+      "stage": ""
+    },
+    "integration-reviewer": {
+      "state": "done",
+      "at": "2026-10-17T09:55:46+07:00",
+      "note": "gate E pass 9/10 round3",
+      "stage": ""
     }
   }
 }
