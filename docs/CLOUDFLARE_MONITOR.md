@@ -13,6 +13,8 @@ This deployment **does not** run agents, TTS, Remotion, local Python pipeline, p
 ## Local sync
 Start the canonical local server: `npm run pipeline`.
 Export `CLOUDFLARE_MONITOR_URL=https://YOUR_WORKER.workers.dev` and `CLOUDFLARE_MONITOR_SYNC_TOKEN` in a protected environment, then run `python3 scripts/sync-cloudflare-monitor.py`.
+When Access protects the Worker, also export `CF_ACCESS_CLIENT_ID` and `CF_ACCESS_CLIENT_SECRET` from a scoped service token. The Access policy must allow that token for the sync endpoint; keep the viewer policy on the dashboard. Do not commit these credentials.
+
 The script copies the **computed** /api/status and /api/meta output, never raw status files, via HTTPS to D1. Use OS scheduler/cron every 30-60 seconds when ready. If local is offline, D1 keeps the last snapshot. `GET /api/sync-info` exposes last sync time; stale indicator UI is future work.
 This POC uses a single local sync producer. Back up `out/monitor-sync.sqlite3`, otherwise revision numbers may restart and be rejected. Multiple local sync producers need a coordinated revision service.
 
@@ -22,3 +24,11 @@ This POC uses a single local sync producer. Back up `out/monitor-sync.sqlite3`, 
 - Do not sync private transcripts, secrets, or personal content beyond approved local monitor views.
 - Verify no unrelated video files or gate scores changed; compare cloud `/api/status` against local projection.
 - No live Cloudflare deployment is claimed until authenticated smoke tests and HTTPS URL are verified.
+
+## Verified deployment (2026-10-17)
+- URL: https://remotion-pipeline-monitor.nguyenvtt18.workers.dev
+- Cloudflare Workers Build: `84f997bd-b764-450c-ab98-bf79810bfbf8` completed successfully.
+- Worker version: `9145771c-2a07-49f9-8cd2-9273c5eb706d`.
+- D1 schema applied. Access protects all production and preview traffic using Cloudflare account membership. Browser sign-in and dashboard rendering verified; unauthenticated requests redirect to Access.
+- Initial database is empty. Service credentials, SYNC_TOKEN, local scheduling, and authenticated API/sync smoke tests remain pending.
+- Deployment uses the tested commit from `fix/cloudflare-monitor-deploy`; no PR was merged by this deployment task.
