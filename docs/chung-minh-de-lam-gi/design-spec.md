@@ -119,12 +119,12 @@ by video-director in Phase 7):
 ```ts
 export const chungMinhVideo = defineVideo({
   id: 'ChungMinhDeLamGiReel', slug: 'chung-minh-de-lam-gi',
-  component: ChungMinhDeLamGiReel, durationInFrames: 1587, fps: 30,
+  component: ChungMinhDeLamGiReel, durationInFrames: 1668, fps: 30,
   width: 1080, height: 1920, defaultProps: {},
-  testFrames: [0, 800, 1586], tags: ['story', 'vietnamese'],
+  testFrames: [0, 834, 1667], tags: ['story', 'vietnamese'],
 });
 ```
-(1587f ≈ 52.9s @4.1syl/s; reconcile with measured voice at join.)
+(1668f = 55.60s measured end-to-end; reconcile with measured voice at join.)
 Assets to copy in Phase 7: `SC/assets/lib/Caption.tsx` NOT needed (own Caption in proto);
 no audio chosen here (audio-agent owns SFX files + licenses).
 

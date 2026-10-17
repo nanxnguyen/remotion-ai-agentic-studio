@@ -22,9 +22,9 @@
       "note": "brief.md and hybrid-local production contract committed; no quality gate implied"
     },
     "script": {
-      "state": "blocked",
-      "at": "2026-10-17T08:54:00+07:00",
-      "note": "8-shot draft exists; independent Gate A review required before Phase 3"
+      "state": "done",
+      "at": "2026-10-17T09:25:52+07:00",
+      "note": "Gate A passed 9.1/10; voice.json = voice.proposed.json (8 keys, s1–s8)."
     },
     "content": {
       "state": "pending",
@@ -32,9 +32,9 @@
       "note": "content-pack.md drafted; content review can start only after Gate A"
     },
     "voice": {
-      "state": "blocked",
-      "at": "2026-10-17T08:54:00+07:00",
-      "note": "VieNeu-TTS Thanh Long narration requires local model/reference and measured audio"
+      "state": "in_progress",
+      "at": "2026-10-17T09:25:52+07:00",
+      "note": "Voice generation started: VieNeu-TTS v3 Turbo, Thanh Long Nâng Cao, ref docs/cuoc-goi-nho-cua-me/voice-ref/refThanhLong.wav"
     },
     "design": {
       "state": "pending",
@@ -62,9 +62,28 @@
       "note": "No verified final MP4; Gate C not reviewed"
     }
   },
-  "reviews": {},
-  "review_valid": {},
-  "next": "Local: review script and record Gate A (>=9) with evidence, then complete content/audio/design branches and remaining gates in order. See HANDOFF.md.",
+  "reviews": {
+    "A": [
+      {
+        "at": "2026-10-17T09:25:20+07:00",
+        "reviewer": "video-director",
+        "score": 9.1,
+        "verdict": "pass",
+        "report": "docs/tiec-nguoi-hay-nam-thang/script-review.md",
+        "note": "Round 2 script closes all Trung/Cao Gate A tickets; production-contract.json fixed to provisional-estimate; Thấp tickets A5/A6 carried forward only."
+      }
+    ]
+  },
+  "review_valid": {
+    "A": true,
+    "D": false,
+    "E": false,
+    "B": false,
+    "C": false,
+    "content": false,
+    "audio": false
+  },
+  "next": "Run gen-voice-clone.py for s1–s8 with refThanhLong.wav; measure ffprobe durations; ASR/CER check",
   "log": [
     {
       "t": "2026-10-16T21:01:08+00:00",
@@ -113,8 +132,39 @@
       "stage": "handoff",
       "who": "video-director",
       "msg": "Cold handoff reconciled: creative artifacts are drafts; brief done; script blocked at Gate A; local voice blocked; other phases pending; no active agents and no gate passes."
+    },
+    {
+      "t": "2026-10-17T09:25:20+07:00",
+      "stage": "A",
+      "who": "video-director",
+      "msg": "review 9.1/10 pass: /Users/nguyenanhnhut/Desktop/Projects/AI-video-edition/docs/tiec-nguoi-hay-nam-thang/script-review.md (Round 2 script closes all Trung/Cao Gate A tickets; production-contract.json fixed to provisional-estimate; Thấp tickets A5/A6 carried forward only.)"
+    },
+    {
+      "t": "2026-10-17T09:25:52+07:00",
+      "stage": "script",
+      "who": "agent",
+      "msg": "script -> done: Gate A passed 9.1/10; voice.json = voice.proposed.json (8 keys, s1–s8). (evidence: 5 file(s): docs/tiec-nguoi-hay-nam-thang/script.md; gate A: pass 9.1/10)"
+    },
+    {
+      "t": "2026-10-17T09:25:52+07:00",
+      "stage": "voice",
+      "who": "agent",
+      "msg": "voice -> in_progress: Voice generation started: VieNeu-TTS v3 Turbo, Thanh Long Nâng Cao, ref docs/cuoc-goi-nho-cua-me/voice-ref/refThanhLong.wav"
+    },
+    {
+      "t": "2026-10-17T09:26:01+07:00",
+      "stage": "voice",
+      "who": "voice-agent",
+      "msg": "voice-agent running: Sinh 8 clip Thanh Long Nâng Cao qua VieNeu-TTS v3 Turbo, ref refThanhLong.wav"
     }
   ],
-  "updated": "2026-10-17T08:54:00+07:00",
-  "agents": {}
+  "updated": "2026-10-17T09:26:01+07:00",
+  "agents": {
+    "voice-agent": {
+      "state": "running",
+      "at": "2026-10-17T09:26:01+07:00",
+      "note": "Sinh 8 clip Thanh Long Nâng Cao qua VieNeu-TTS v3 Turbo, ref refThanhLong.wav",
+      "stage": "voice"
+    }
+  }
 }

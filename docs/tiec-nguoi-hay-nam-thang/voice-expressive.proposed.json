@@ -1,0 +1,42 @@
+{
+  "s1": "Năm năm bên nhau. Nhưng chuyện của tháng này, bạn còn gì để kể?",
+  "s2": "Có người bạn nói với mình: Bọn mình bên nhau gần năm năm rồi. Bây giờ dừng lại, tiếc lắm.",
+  "s3": "Mình hỏi: Dạo này hai người thế nào? Bạn ấy im lặng một lúc.",
+  "s4": [
+    {
+      "t": "Bạn ấy kể con dốc hai đứa từng leo.",
+      "pause_after": 0.3
+    },
+    {
+      "t": "Kể bàn tay đã nắm chặt lúc cả hai tưởng mình không qua nổi."
+    }
+  ],
+  "s5": "Nhưng đến ô tháng này, bạn ấy nhìn xuống. Rồi không kể thêm.",
+  "s6": [
+    {
+      "t": "Tấm thẻ năm năm vẫn nằm chặt trong tay.",
+      "pause_after": 0.37
+    },
+    {
+      "t": "Có khi ta giữ nó, vì sợ buông ra thì chuyện cũ thành vô nghĩa."
+    }
+  ],
+  "s7": [
+    {
+      "t": "Nhưng những trang đã qua đâu có biến mất.",
+      "pause_after": 0.3
+    },
+    {
+      "t": "Chúng từng có ý nghĩa, dù câu trả lời hôm nay là gì."
+    }
+  ],
+  "s8": [
+    {
+      "t": "Tạm cất tấm thẻ năm năm đi. Ô lịch hôm nay vẫn trống.",
+      "pause_after": 0.4
+    },
+    {
+      "t": "Bạn đang tiếc người ấy, hay tiếc những năm mình đã bỏ ra?"
+    }
+  ]
+}

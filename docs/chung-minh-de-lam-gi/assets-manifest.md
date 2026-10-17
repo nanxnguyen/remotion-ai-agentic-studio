@@ -32,7 +32,7 @@ Measured shot starts: s1 0.00 · s2a 2.42 · s2b 6.05 · s3 9.44 · s4a 13.88 ·
 | s3 (voice 4.29) | 1.51 | sfx-tap-a | -18 (0.126) | 8 (ends 1.78; 0.04 bleed into "bằng" @1.74 at faded tail — negligible) | AR-03 FIX: noun-tail anchored ("miên," ends 1.46 +0.05; upgrades T6b(a) even-beat fallback — still 3 medals / 3 beats) |
 | s3 | 2.29 | sfx-tap-b | -21 (0.089) | 7 (ends 2.52 = "chức" onset exactly) | AR-03 FIX: "khen," ends 2.24 +0.05, softer middle (S2 descending) |
 | s3 | 3.13 | sfx-tap-a | -24 (0.063) | 5 (ends 3.30; 0.02 past "bạn" @3.28 at faded tail — negligible) | AR-03 FIX: "danh," ends 3.12 +0.05, quietest; voice ends 4.16, 1.0 s clear |
-| s4a (voice 3.71) | 0.0 | sfx-applause | -26 (0.050) | 111 (= measured voice frames; last word ends 3.68) | AR-03 CONFIRMED: texture bed, no transient alignment issue; hard-truncated at voice end, zero bleed into s4b |
+| s4a (voice 3.71) | 0.0 | sfx-applause | -26 (0.050) | 110 (timeline trimFrames 110f = 3.67s ≈ last word ends 3.68) | AR-03 CONFIRMED: texture bed, no transient alignment issue; hard-truncated at voice end, zero bleed into s4b |
 | s9a (voice 3.78) | 3.70 (= last-word end 3.68 +0.02) | sfx-drip-b | -16 (0.158) | 11 (ends 4.07 within shot; ~0.27 into timeline gap, ends before s9b) | AR-03 FIX: was clip-end-anchored (3.80); re-anchored to ASR last-word end; single "tóc", attack post-voice |
 | s11 | — | sfx-drip-a | — | — | OPT-IN default OFF. If director opts in: single drip-a @ voice_end −1.2, -28 dB, must fully decay by voice end; final 2.0 s stays pure silence regardless |
 | s2b | — | (laugh) | — | — | DROPPED — no licensed laugh; hand-wave + text carry it (brief lesson 9) |

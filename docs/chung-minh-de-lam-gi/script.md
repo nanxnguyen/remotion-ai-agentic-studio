@@ -39,9 +39,9 @@ Profile `story` · 9:16 · 1080×1920 · 30fps · **15 key / 12 shot** · không
 - Âm tiết/key (Grep trên text JSON): s1 8 · s2a 13 · s2b 11 · s3 15 · s4a 14 · s4b 14 · s5 10 · s6 15 · s7a 13 · s7b 13 · s8 16 · s9a 12 · s9b 12 · s10 12 · s11 14 = **192 âm tiết**.
 - Voice thuần: 192/4.1 = **46.8s** · 192/4.3 (Thanh Long đo) = **44.7s** · 192/3.8 (xấu nhất) = **50.5s**.
 - Hold/gap (timeline, không nằm trong audio): đuôi s1 0.25 · gap s2a→s2b 0.20 · đuôi s2b 0.25 · đuôi s3 0.15 · gap s4a→s4b 0.25 · đuôi s4b 0.25 + lead-in s5 0.20 · đuôi s5 0.30 · đuôi s6 0.20 · gap s7a→s7b 0.40 · đuôi s7b 0.40 · đuôi s8 0.20 · gap s9a→s9b 0.30 · đuôi s9b 0.40 · đuôi s10 0.30 · lặng cuối 2.0 = **6.05s**.
-- **Video dự kiến: ~52.9s (4.1) · ~50.7s (4.3) · ~56.6s (3.8)** — cả ba ≤ 59.5s. Đo `ffprobe` xong thì cập nhật cột giây; nếu lố: rút đuôi s5 0.30→0.20 trước (T1b fallback), **không** đụng gap s7a→s7b 0.40s, gap s9a→s9b 0.30s, lặng cuối 2.0s, không cắt chữ.
+- **Video dự kiến:** ước tính ~52.9s (4.1) · ~50.7s (4.3) · ~56.6s (3.8); **đo thực: 55.60s** (join-notes timeline + voice-report 49.55s voice + 6.05s holds — `join-notes.md` là source of truth sau ffprobe; cả ba ≤ 59.5s). Nếu lố: rút đuôi s5 0.30→0.20 trước (T1b fallback), **không** đụng gap s7a→s7b 0.40s, gap s9a→s9b 0.30s, lặng cuối 2.0s, không cắt chữ.
 - **Hook:** headline đủ từ frame 0 (tắt tiếng hiểu ngay), voice nói xong ở ~1.95s (≤3s).
-- **Re-hook:** "Nếu không ai biết chuyện này, bạn còn làm không?" (key riêng s5) — câu hỏi mới (từ "mình gom" sang "mình có còn làm không nếu vô hình"), nói và hiện chữ ở **19.83s** (@4.1; ~19s @4.3).
+- **Re-hook:** "Nếu không ai biết chuyện này, bạn còn làm không?" (key riêng s5) — câu hỏi mới (từ "mình gom" sang "mình có còn làm không nếu vô hình"), nói và hiện chữ ở **19.83s** (@4.1 ước tính); **đo thực Thanh Long: 21.94s** (join-notes/voice-report là source of truth), vẫn trước metà video 55.60s; gap s7a→s7b 0.40s, s9a→s9b 0.30s, lặng cuối 2.0s **không đụng**.
 
 ## Highlight beats (tối đa 3)
 1. **H1 "Ghế trống dưới bảng khen"** (s4a→s4b): cắt cứng sáng–tối, huy chương cam đặc opacity 60% trên tường vs que thõng vai trong phòng lạnh; delivery tươi (s4a) rồi nhỏ dần (s4b); tiếng vỗ tay → chỉ còn tiếng máy lạnh rè.
