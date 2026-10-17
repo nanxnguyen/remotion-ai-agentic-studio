@@ -11,24 +11,110 @@
   },
   "gates": [],
   "stages": {
-    "brief": {"state": "in_progress", "at": "2026-10-16T21:01:09+00:00", "note": "Brief exists in PR; intake evidence review pending"},
-    "script": {"state": "in_progress", "at": "2026-10-16T21:01:10+00:00", "note": "Draft ready; Gate A not reviewed"},
-    "content": {"state": "in_progress", "at": "2026-10-16T21:01:11+00:00", "note": "Content pack drafted; review pending"},
-    "design": {"state": "in_progress", "at": "2026-10-16T21:01:12+00:00", "note": "Prebuilt scenes only; style frames and Gate D pending"},
-    "voice": {"state": "blocked", "at": "2026-10-16T21:01:13+00:00", "note": "Requires local VieNeu-TTS Thanh Long clips"},
-    "build": {"state": "in_progress", "at": "2026-10-16T21:01:13+00:00", "note": "Provisional timeline; Gate E/B and local re-timing pending"}
+    "research": {
+      "state": "pending",
+      "at": "2026-10-17T08:54:00+07:00",
+      "note": "No research.md evidence; story is illustrative, research scope to be confirmed locally"
+    },
+    "brief": {
+      "state": "done",
+      "at": "2026-10-17T08:54:00+07:00",
+      "note": "brief.md and hybrid-local production contract committed; no quality gate implied"
+    },
+    "script": {
+      "state": "blocked",
+      "at": "2026-10-17T08:54:00+07:00",
+      "note": "8-shot draft exists; independent Gate A review required before Phase 3"
+    },
+    "content": {
+      "state": "pending",
+      "at": "2026-10-17T08:54:00+07:00",
+      "note": "content-pack.md drafted; content review can start only after Gate A"
+    },
+    "voice": {
+      "state": "blocked",
+      "at": "2026-10-17T08:54:00+07:00",
+      "note": "VieNeu-TTS Thanh Long narration requires local model/reference and measured audio"
+    },
+    "design": {
+      "state": "pending",
+      "at": "2026-10-17T08:54:00+07:00",
+      "note": "design-spec and preliminary scenes exist; style frames, storyboard, hook strip, Gate D pending"
+    },
+    "build": {
+      "state": "pending",
+      "at": "2026-10-17T08:54:00+07:00",
+      "note": "Remotion prebuild exists but timing is provisional; wait for audio, Gate E and B"
+    },
+    "audio": {
+      "state": "pending",
+      "at": "2026-10-17T08:54:00+07:00",
+      "note": "Audio mix, real clips and independent audio review not available yet"
+    },
+    "qa": {
+      "state": "pending",
+      "at": "2026-10-17T08:54:00+07:00",
+      "note": "Wait for measured timeline, final scenes and integration"
+    },
+    "render": {
+      "state": "pending",
+      "at": "2026-10-17T08:54:00+07:00",
+      "note": "No verified final MP4; Gate C not reviewed"
+    }
   },
   "reviews": {},
   "review_valid": {},
-  "next": "",
+  "next": "Local: review script and record Gate A (>=9) with evidence, then complete content/audio/design branches and remaining gates in order. See HANDOFF.md.",
   "log": [
-    {"t":"2026-10-16T21:01:08+00:00","stage":"-","who":"agent","msg":"status initialised"},
-    {"t":"2026-10-16T21:01:09+00:00","stage":"brief","who":"agent","msg":"brief -> in_progress: Brief exists in PR; intake evidence review pending"},
-    {"t":"2026-10-16T21:01:10+00:00","stage":"script","who":"agent","msg":"script -> in_progress: Draft ready; Gate A not reviewed"},
-    {"t":"2026-10-16T21:01:11+00:00","stage":"content","who":"agent","msg":"content -> in_progress: Content pack drafted; review pending"},
-    {"t":"2026-10-16T21:01:12+00:00","stage":"design","who":"agent","msg":"design -> in_progress: Prebuilt scenes only; style frames and Gate D pending"},
-    {"t":"2026-10-16T21:01:13+00:00","stage":"voice","who":"agent","msg":"voice -> blocked: Requires local VieNeu-TTS Thanh Long clips"},
-    {"t":"2026-10-16T21:01:13+00:00","stage":"build","who":"agent","msg":"build -> in_progress: Provisional timeline; Gate E/B and local re-timing pending"}
+    {
+      "t": "2026-10-16T21:01:08+00:00",
+      "stage": "-",
+      "who": "agent",
+      "msg": "status initialised"
+    },
+    {
+      "t": "2026-10-16T21:01:09+00:00",
+      "stage": "brief",
+      "who": "agent",
+      "msg": "brief -> in_progress: Brief exists in PR; intake evidence review pending"
+    },
+    {
+      "t": "2026-10-16T21:01:10+00:00",
+      "stage": "script",
+      "who": "agent",
+      "msg": "script -> in_progress: Draft ready; Gate A not reviewed"
+    },
+    {
+      "t": "2026-10-16T21:01:11+00:00",
+      "stage": "content",
+      "who": "agent",
+      "msg": "content -> in_progress: Content pack drafted; review pending"
+    },
+    {
+      "t": "2026-10-16T21:01:12+00:00",
+      "stage": "design",
+      "who": "agent",
+      "msg": "design -> in_progress: Prebuilt scenes only; style frames and Gate D pending"
+    },
+    {
+      "t": "2026-10-16T21:01:13+00:00",
+      "stage": "voice",
+      "who": "agent",
+      "msg": "voice -> blocked: Requires local VieNeu-TTS Thanh Long clips"
+    },
+    {
+      "t": "2026-10-16T21:01:13+00:00",
+      "stage": "build",
+      "who": "agent",
+      "msg": "build -> in_progress: Provisional timeline; Gate E/B and local re-timing pending"
+    },
+    {
+      "t": "2026-10-17T08:54:00+07:00",
+      "stage": "handoff",
+      "who": "video-director",
+      "msg": "Cold handoff reconciled: creative artifacts are drafts; brief done; script blocked at Gate A; local voice blocked; other phases pending; no active agents and no gate passes."
+    }
   ],
-  "updated": "2026-10-16T21:01:13+00:00"
+  "updated": "2026-10-17T08:54:00+07:00",
+  "agents": {}
 }
