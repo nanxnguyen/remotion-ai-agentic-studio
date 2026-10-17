@@ -63,8 +63,8 @@ STAGES = [
     ("design", "Design + storyboard"),
     ("build", "Timeline + scenes"),
     ("audio", "SFX / BGM"),
-    ("qa", "Stills QA"),
     ("render", "Render"),
+    ("qa", "Final QA"),  # last barrier: verifies everything on the rendered, gate-C-approved video
 ]
 STAGE_IDS = [s for s, _ in STAGES]
 STATES = {"pending", "in_progress", "done", "blocked", "failed"}
@@ -79,10 +79,10 @@ STAGE_GATE = {"script": "A", "content": "content", "design": "D", "render": "C"}
 # `set done` needs these gates accepted first; render is done once verified, and gate C reviews that file after.
 DONE_NEEDS_GATE = {s: g for s, g in STAGE_GATE.items() if s != "render"}
 REVIEW_ORDER = list(REVIEW_GATES)
-PASS_SCORE = {"A": 9, "D": 8.5, "E": 9, "content": 9, "audio": 9}  # B and C pass at 8
+PASS_SCORE = {"A": 9, "D": 8.5, "E": 9, "B": 9, "content": 9, "audio": 9}  # C passes at 8
 INVALIDATE_FROM_STAGE = {
     "research": "A", "brief": "A", "script": "A", "content": "E", "voice": "E", "design": "D",
-    "build": "C", "audio": "C", "qa": "C", "render": "C",
+    "build": "C", "audio": "C", "qa": None, "render": "C",  # final QA runs after C: starting it must not void C
 }
 # ponytail: `audio` is also reopened for Phase 7 mix integration, so only voice/content reopen a branch review.
 INVALIDATE_BRANCH = {"content": "content", "voice": "audio"}
@@ -101,8 +101,8 @@ FLOW = [
     {"id": "join", "label": "Join + integration", "lane": "main", "stage": None, "agents": ["video-director"], "reviewer": "integration-reviewer", "gate": "E"},
     {"id": "tasks", "label": "Task plan", "lane": "main", "stage": None, "agents": ["task-planner"], "reviewer": "task-reviewer", "gate": "B"},
     {"id": "build", "label": "Timeline + scenes", "lane": "main", "stage": "build", "agents": ["scene-agent"], "reviewer": None, "gate": None},
-    {"id": "qa", "label": "Stills QA", "lane": "main", "stage": "qa", "agents": ["qa-agent"], "reviewer": None, "gate": None},
-    {"id": "render", "label": "Render + final barrier", "lane": "main", "stage": "render", "agents": ["render-agent"], "reviewer": "video-reviewer", "gate": "C"},
+    {"id": "render", "label": "Render + gate C", "lane": "main", "stage": "render", "agents": ["render-agent"], "reviewer": "video-reviewer", "gate": "C"},
+    {"id": "qa", "label": "Final QA", "lane": "main", "stage": "qa", "agents": ["qa-agent"], "reviewer": None, "gate": None},
     {"id": "delivery", "label": "Delivery", "lane": "main", "stage": None, "agents": ["video-director"], "reviewer": None, "gate": None},
 ]
 
@@ -190,7 +190,14 @@ def save(folder: str, data: dict) -> None:
     p = status_path(folder)
     tmp = p.with_suffix(".json.tmp")
     tmp.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-    os.replace(tmp, p)
+    for attempt in range(40):
+        try:
+            os.replace(tmp, p)
+            return
+        except PermissionError:  # Windows: a reader (monitor poll) holds status.json open for a moment
+            if attempt == 39:
+                raise
+            time.sleep(0.05)
 
 
 def invalidate_reviews(data: dict, first: str) -> None:
@@ -243,6 +250,57 @@ def review_overridden(data: dict, gate: str) -> bool:
     if not entries or not data.get("review_valid", {}).get(gate, False):
         return False
     return entries[-1].get("verdict") == "override"
+
+
+# Content rules: a video must show pictures or motion, not only text on a background (what the monitor showed).
+SHOTCRAFT_DEMOS = ROOT / "skills" / "video-shotcraft" / "demos"  # vendored motion library, not in Git: restore it first
+VISUAL_ASSET_RE = re.compile(r"<(Img|Video|OffthreadVideo|Lottie|svg|path|rect|circle|ellipse|polygon|line)\b"
+                             r"|staticFile\(|from\s+['\"][^'\"]*(assets|demos)/")
+MOTION_RE = re.compile(r"transform|scale\(|translate|rotate|clipPath|backgroundPosition|\bwidth:|\bheight:|\bleft:|\btop:")
+VISUAL_CONTENT_RE = re.compile(r"visual content\s*[:=]\s*(\d+(?:\.\d+)?)\s*/\s*10", re.I)
+VISUAL_MIN = 7  # gate C: a report must score "visual content" at least this, or C cannot pass
+
+
+def scene_problems(folder: str) -> list:
+    scenes = sorted((ROOT / "src" / "videos" / folder / "scenes").glob("*.tsx"))
+    if not scenes:
+        return [f"no scene files in src/videos/{folder}/scenes/"]
+    problems = []
+    for f in scenes:
+        text = f.read_text(encoding="utf-8")
+        if VISUAL_ASSET_RE.search(text) or (MOTION_RE.search(text) and "interpolate(" in text):
+            continue
+        problems.append(f"{f.name} is text on a background only (no image, shape, video or motion)")
+    return problems
+
+
+def demo_problems(folder: str) -> list:
+    spec = DOCS / folder / "design-spec.md"
+    if not spec.is_file() or not re.search(r"demo", spec.read_text(encoding="utf-8"), re.I):
+        return []
+    has_demos = SHOTCRAFT_DEMOS.is_dir() and any(SHOTCRAFT_DEMOS.rglob("*.tsx"))
+    if not has_demos:
+        return ["design-spec cites demo TSX but skills/video-shotcraft/demos has no .tsx files (restore the motion library)"]
+    return []
+
+
+def stills_problem(shots: list) -> str:
+    """Stills must be several and distinct. Size cannot tell a blank still from a real one, so content is judged by
+    scene_problems and the gate C visual score."""
+    if len(shots) < 3:
+        return f"{len(shots)} stills (need at least 3)"
+    if len({file_sha256(s) for s in shots}) < len(shots):
+        return "duplicate stills"
+    return ""
+
+
+def visual_problem(report: Path) -> str:
+    m = VISUAL_CONTENT_RE.search(report.read_text(encoding="utf-8"))
+    if not m:
+        return "report has no line 'visual content: X/10' (frames with real image or motion)"
+    if float(m.group(1)) < VISUAL_MIN:
+        return f"visual content {m.group(1)}/10 is below {VISUAL_MIN}: text on a background is not a video"
+    return ""
 
 
 def review_satisfied(data: dict, gate: str) -> bool:
@@ -311,7 +369,8 @@ def evidence(folder: str, data: dict) -> dict:
     ev["audio"] = {"ok": True if am else None, "files": am}
 
     shots = sorted((ROOT / "out" / "qa").glob(f"{qa_prefix}-*.png"))
-    ev["qa"] = {"ok": bool(shots), "files": [rel(s) for s in shots[-6:]], "detail": f"{len(shots)} stills"}
+    qa_problem = stills_problem(shots)
+    ev["qa"] = {"ok": not qa_problem, "files": [rel(s) for s in shots[-6:]], "detail": qa_problem or f"{len(shots)} stills"}
 
     mp4 = ROOT / "out" / f"{out_name}-reel.mp4"
     stamp = data.get("render_check", {})
@@ -360,7 +419,8 @@ def view(folder: str) -> dict:
     for sid, label in STAGES:
         d = declared.get(sid, {})
         e = ev[sid]
-        state = d.get("state") or ("done" if e["ok"] else "pending")
+        # v3: only an agent's `set done` makes a stage done; files alone (a scaffold, design stills) never do.
+        state = d.get("state") or ("done" if e["ok"] and flow_version(data) < 3 else "pending")
         if sid not in required and not d.get("state") and not e["ok"]:
             state = "skipped"  # legacy (v2) video: the content branch did not exist yet
         rg = STAGE_GATE.get(sid)
@@ -449,6 +509,26 @@ def cmd_voice(a) -> None:
     print(f"output: out/{a.folder}-{a.voice}-reel.mp4")
 
 
+def missing_prerequisites(folder: str, data: dict, stage: str) -> list:
+    """v3 order: build waits for the join (E) and the plan (B); final QA waits for the verified render and gate C,
+    with every other stage done, because it is the last barrier over the whole video."""
+    declared = data.get("stages", {})
+    missing = []
+    if stage == "build":
+        missing += [f"gate {g} has not passed" for g in ("E", "B") if not review_satisfied(data, g)]
+        missing += scene_problems(folder)
+    if stage == "design":
+        missing += demo_problems(folder)
+    if stage == "qa":
+        if not evidence(folder, data)["render"]["ok"]:
+            missing.append("no verified render yet (run `pipeline.py render` first)")
+        if not review_satisfied(data, "C"):
+            missing.append("gate C has not passed")
+        missing += [f"stage {s} is not done" for s in required_stages(data)
+                    if s != "qa" and declared.get(s, {}).get("state") not in {"done", "skipped"}]
+    return missing
+
+
 def cmd_set(a) -> None:
     if a.stage not in STAGE_IDS or a.state not in STATES:
         raise SystemExit(f"stage must be one of {STAGE_IDS}; state one of {sorted(STATES)}")
@@ -456,10 +536,11 @@ def cmd_set(a) -> None:
         data = load(a.folder)
         s = data.setdefault("stages", {}).setdefault(a.stage, {})
         if a.state in {"in_progress", "blocked", "failed"} and flow_version(data) >= 2:
-            invalidate_reviews(data, INVALIDATE_FROM_STAGE[a.stage])
+            if INVALIDATE_FROM_STAGE[a.stage]:
+                invalidate_reviews(data, INVALIDATE_FROM_STAGE[a.stage])
             if a.stage in INVALIDATE_BRANCH:
                 invalidate_reviews(data, INVALIDATE_BRANCH[a.stage])
-            if a.stage in {"voice", "build", "audio", "qa", "render"}:
+            if a.stage in {"voice", "build", "audio", "render"}:  # final QA reopening alone keeps the render
                 data.pop("render_check", None)
         s.update({"state": a.state, "at": now()})
         if a.note is not None:
@@ -475,6 +556,8 @@ def cmd_set(a) -> None:
             rg = DONE_NEEDS_GATE.get(a.stage)
             if rg and flow_version(data) >= 2 and not review_satisfied(data, rg):
                 raise SystemExit(f"refused: {a.stage} cannot be done before gate {rg} passes (review or override)")
+            if flow_version(data) >= 3 and (missing := missing_prerequisites(a.folder, data, a.stage)):
+                raise SystemExit(f"refused: {a.stage} cannot be done yet: {'; '.join(missing)}")
             parts = [f"evidence: {detail}"]
             rg = STAGE_GATE.get(a.stage)
             if rg:
@@ -561,6 +644,8 @@ def cmd_review(a) -> None:
         # Audio needs no user confirmation (automatic workflow); `audio-listen` stays as an optional record.
         if a.gate == "C" and not verified_render(data):
             raise SystemExit("verify the current MP4 before video review")
+        if a.gate == "C" and a.verdict == "pass" and (problem := visual_problem(report)):
+            raise SystemExit(f"gate C cannot pass: {problem}")
         entry = {"at": now(), "reviewer": a.reviewer, "score": a.score,
                  "verdict": a.verdict, "report": rel(report), "note": a.note or ""}
         if a.gate == "C":
@@ -835,11 +920,18 @@ def audit(folder: str) -> dict:
             for pattern in STAGE_DOCS.get(s["id"], []):
                 if not any(docs.glob(pattern)):
                     errors.append(f"stage {s['id']} is done but docs/{folder}/{pattern} is missing")
+            if flow_version(data) >= 3 and s["id"] == "build":
+                errors += [f"build is done but {p}" for p in scene_problems(folder)]
+            if flow_version(data) >= 3 and s["id"] == "design":
+                errors += [f"design is done but {p}" for p in demo_problems(folder)]
     for gate in review_names(data):
         for entry in data.get("reviews", {}).get(gate, []):
             report = entry.get("report")
             if entry.get("verdict") != "override" and report and not review_report_exists(folder, report):
                 errors.append(f"review {gate} report {Path(report).name} is missing")
+            elif gate == "C" and entry.get("verdict") == "pass" and report and review_report_exists(folder, report) \
+                    and (problem := visual_problem(next(c for c in (ROOT / Path(report), Path(report), DOCS / folder / Path(report).name) if c.is_file()))):
+                errors.append(f"review C passed without visual evidence: {problem}")
             elif entry.get("verdict") == "pass" and report and review_report_size(folder, report) < MIN_REVIEW_BYTES:
                 errors.append(f"review {gate} report {Path(report).name} is too thin to be evidence "
                               f"({review_report_size(folder, report)} bytes; a real review cites files, frames or rows)")
@@ -1015,8 +1107,9 @@ def opencode_catalog() -> dict:
     except (OSError, ValueError):
         pass
     try:
-        from urllib.request import urlopen
-        with urlopen(MODELS_DEV, timeout=10) as resp:
+        from urllib.request import Request, urlopen
+        # models.dev answers 403 to Python's default User-Agent
+        with urlopen(Request(MODELS_DEV, headers={"User-Agent": "remotion-pipeline-monitor/1.0"}), timeout=10) as resp:
             catalog = json.loads(resp.read().decode("utf-8")).get("opencode", {}).get("models", {})
     except Exception:  # network, TLS or JSON errors: keep any stale copy
         try:
@@ -1041,8 +1134,10 @@ def rank_opencode(ids: list, catalog: dict) -> list:
     for full in ids:
         short = full.split("/", 1)[-1]
         meta = catalog.get(short, {})
-        opts = meta.get("reasoning_options") or {}
-        efforts = [e for e in EFFORT_ORDER if e in (opts.get("values") or [])] if opts.get("type") == "effort" else []
+        opts = meta.get("reasoning_options") or []  # models.dev: a list of {"type": "effort", "values": [...]} options
+        opts = [opts] if isinstance(opts, dict) else opts
+        values = next((o.get("values") or [] for o in opts if isinstance(o, dict) and o.get("type") == "effort"), [])
+        efforts = [e for e in EFFORT_ORDER if e in values]
         models.append({"id": full, "label": meta.get("name") or short, "efforts": efforts,
                        "default_effort": efforts[-1] if efforts else "", "note": meta.get("description", "")[:140],
                        "_known": short in OPENCODE_RANK, "_key": _model_strength({**meta, "id": short})})
@@ -1744,8 +1839,17 @@ def create_video(body: dict) -> tuple:
         data["next"] = "video-director: Phase 0 intake + preflight from request.md"
         log(data, "-", f"created from the monitor ({'runner ' + runner_id if runner_id else 'no agent launched'})", "you")
         save(folder, data)
-    run = run_or_schedule(folder, runner_id, prompt, "create", body.get("run_at"), opts) if runner_id else None
-    return 201, {"video": folder, "comp": comp, "voice": req["voice_slug"], "run": run}
+    run, run_error = None, ""
+    if runner_id:
+        try:
+            run = run_or_schedule(folder, runner_id, prompt, "create", body.get("run_at"), opts)
+        except OSError as exc:  # the executable is installed but cannot start: keep the video, report why
+            run_error = f"{runner_id} could not start: {exc}"[:300]
+            with status_lock(folder):
+                data = load(folder)
+                log(data, "agent", f"create run not started: {run_error}", "monitor")
+                save(folder, data)
+    return 201, {"video": folder, "comp": comp, "voice": req["voice_slug"], "run": run, "run_error": run_error}
 
 
 class Handler(BaseHTTPRequestHandler):

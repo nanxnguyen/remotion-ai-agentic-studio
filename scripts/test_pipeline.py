@@ -2,6 +2,7 @@
 
 import json
 import importlib.util
+import os
 import shutil
 import subprocess
 import sys
@@ -26,7 +27,7 @@ class PipelineCliTest(unittest.TestCase):
         (self.root / "docs" / "sample").mkdir(parents=True)
         (self.root / "src").mkdir()
         (self.root / "src" / "Root.tsx").write_text('<Composition id="SampleReel" />')
-        (self.root / "out" / "qa").mkdir(parents=True)
+        (self.root / "out" / "qa").mkdir(parents=True, exist_ok=True)
 
     def cli(self, *args):
         return subprocess.run(
@@ -64,7 +65,8 @@ class PipelineCliTest(unittest.TestCase):
                 self.pass_gates("content", "audio")
             name = f"{gate.lower()}-review.md"
             (self.root / "docs" / "sample" / name).write_text(
-                f"Independent gate {gate} review\n" + "| criterion | score | evidence |\n" * 40)
+                f"Independent gate {gate} review\n" + ("visual content: 9/10\n" if gate == "C" else "")
+                + "| criterion | score | evidence |\n" * 40)
             result = self.cli("review", "sample", gate, "9", "--reviewer", f"reviewer-{gate}", "--report", name)
             self.assertEqual(result.returncode, 0, result.stderr)
 
@@ -110,7 +112,7 @@ class PipelineCliTest(unittest.TestCase):
             "pathlib.Path('out/publish-invocation.json').write_text(json.dumps(sys.argv[1:]))\n"
         )
         report = self.root / "docs" / "sample" / "video-review.md"
-        report.write_text("Reviewed first render\n")
+        report.write_text("Reviewed first render\nvisual content: 9/10\n")
         result = self.cli("review", "sample", "C", "9", "--reviewer", "critic", "--report", "video-review.md", "--full-listen")
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertEqual(self.cli("gate", "sample", "C").returncode, 0)
@@ -149,7 +151,7 @@ class PipelineCliTest(unittest.TestCase):
         self.make_video(old)
         self.assertEqual(self.cli("verify", "sample", "--min-seconds", "0.1").returncode, 0)
         report = self.root / "docs" / "sample" / "video-review.md"
-        report.write_text("The first voice was reviewed\n")
+        report.write_text("The first voice was reviewed\nvisual content: 9/10\n")
         self.assertEqual(self.cli("review", "sample", "C", "9", "--reviewer", "critic", "--report", "video-review.md").returncode, 0)
         changed = self.cli("voice", "sample", "cam")
         self.assertEqual(changed.returncode, 0, changed.stderr)
@@ -172,20 +174,85 @@ class PipelineCliTest(unittest.TestCase):
         ok = self.cli("review", "sample", "D", "8.5", "--reviewer", "art", "--report", "design-review.md")
         self.assertEqual(ok.returncode, 0, ok.stderr)
 
-    def test_b_and_c_pass_at_eight_but_not_below(self):
+    def test_b_passes_at_nine_and_c_at_eight(self):
         self.init()
         self.pass_gates("A", "D", "E")
         (self.root / "docs" / "sample" / "e.md").write_text("review")
-        low_b = self.cli("review", "sample", "B", "7.9", "--reviewer", "r", "--report", "e.md")
+        low_b = self.cli("review", "sample", "B", "8.9", "--reviewer", "r", "--report", "e.md")
         self.assertNotEqual(low_b.returncode, 0)
-        self.assertIn(">= 8", low_b.stderr)
-        self.assertEqual(self.cli("review", "sample", "B", "8", "--reviewer", "r", "--report", "e.md").returncode, 0)
+        self.assertIn(">= 9", low_b.stderr)
+        self.assertEqual(self.cli("review", "sample", "B", "9", "--reviewer", "r", "--report", "e.md").returncode, 0)
         self.make_video(self.root / "out" / "sample-anh-khoi-reel.mp4")
         self.assertEqual(self.cli("verify", "sample", "--min-seconds", "0.1").returncode, 0)
         low_c = self.cli("review", "sample", "C", "7.9", "--reviewer", "r", "--report", "e.md")
         self.assertNotEqual(low_c.returncode, 0)
+        (self.root / "docs" / "sample" / "e.md").write_text("review\nvisual content: 8/10\n")
         self.assertEqual(self.cli("review", "sample", "C", "8", "--reviewer", "r", "--report", "e.md").returncode, 0)
         self.assertEqual(self.cli("gate", "sample", "C").returncode, 0)
+
+    def test_files_alone_never_mark_a_v3_stage_done(self):
+        self.init()
+        (self.root / "out" / "qa").mkdir(parents=True, exist_ok=True)
+        (self.root / "out" / "qa" / "sample-s1.png").write_bytes(b"png")  # a design still, not a QA pass
+        stages = {s["id"]: s for s in self.module_view("sample")["stages"]}
+        self.assertEqual((stages["build"]["state"], stages["qa"]["state"]), ("pending", "pending"))
+        self.assertFalse(stages["qa"]["evidence"]["ok"])  # one still is not a QA pass
+
+    def module_view(self, folder):
+        import importlib.util
+        spec = importlib.util.spec_from_file_location("pipeline_view", self.root / "scripts" / "pipeline.py")
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        return module.view(folder)
+
+    def test_final_qa_waits_for_render_gate_c_and_every_stage(self):
+        self.init()
+        (self.root / "out" / "qa").mkdir(parents=True, exist_ok=True)
+        for n in range(3):
+            (self.root / "out" / "qa" / f"sample-s{n}.png").write_bytes(b"png" + bytes([n]))
+        early = self.cli("set", "sample", "qa", "done")
+        self.assertNotEqual(early.returncode, 0)
+        self.assertIn("no verified render", early.stderr)
+        self.assertIn("gate C has not passed", early.stderr)
+        self.assertIn("stage build is not done", early.stderr)
+        built = self.cli("set", "sample", "build", "done")
+        self.assertNotEqual(built.returncode, 0)  # build waits for the join (E) and the plan (B)
+        self.assertIn("gate E has not passed", built.stderr)
+
+    def test_build_refuses_scenes_that_are_text_on_a_background(self):
+        self.init()
+        self.pass_gates("A", "D", "E", "B")
+        scenes = self.root / "src" / "videos" / "sample" / "scenes"
+        scenes.mkdir(parents=True)
+        (scenes / "Scene01.tsx").write_text(
+            "export const S = () => <AbsoluteFill style={{background: 'linear-gradient(#000,#111)'}}>"
+            "<div style={{opacity: interpolate(frame, [0, 20], [0, 1])}}>Chữ</div></AbsoluteFill>;", encoding="utf-8")
+        refused = self.cli("set", "sample", "build", "done")
+        self.assertNotEqual(refused.returncode, 0)
+        self.assertIn("text on a background only", refused.stderr)
+        (scenes / "Scene01.tsx").write_text(
+            "export const S = () => <AbsoluteFill><Img src={staticFile('assets/cover.png')} /></AbsoluteFill>;")
+        self.assertEqual(self.cli("set", "sample", "build", "done").returncode, 0)
+
+    def test_design_citing_demos_needs_the_motion_library(self):
+        self.init()
+        (self.root / "docs" / "sample" / "design-spec.md").write_text("Shot cards: demo TSX editorial-quote/Reel.tsx\n")
+        module = self.load_pipeline_module()
+        self.assertIn("motion library", " ".join(module.demo_problems("sample")))
+        demo = self.root / "skills" / "video-shotcraft" / "demos" / "editorial-quote"
+        demo.mkdir(parents=True)
+        (demo / "Reel.tsx").write_text("export {}")
+        self.assertEqual(self.load_pipeline_module().demo_problems("sample"), [])
+
+    def test_gate_c_visual_score_must_be_stated_and_reach_seven(self):
+        module = self.load_pipeline_module()
+        report = self.root / "r.md"
+        report.write_text("no score line here")
+        self.assertIn("no line 'visual content", module.visual_problem(report))
+        report.write_text("visual content: 6/10")
+        self.assertIn("below 7", module.visual_problem(report))
+        report.write_text("visual content: 7.5/10")
+        self.assertEqual(module.visual_problem(report), "")
 
     def test_revise_verdict_blocks_gate_and_next_review(self):
         self.init()
@@ -284,7 +351,8 @@ class PipelineCliTest(unittest.TestCase):
         self.assertTrue(view["reviews"]["D"]["stale"])
         self.assertFalse(view["reviews"]["A"]["stale"])
         self.assertEqual(view["reviews"]["D"]["threshold"], 8.5)
-        self.assertEqual(view["reviews"]["B"]["threshold"], 8)
+        self.assertEqual(view["reviews"]["B"]["threshold"], 9)
+        self.assertEqual(view["reviews"]["C"]["threshold"], 8)
 
     def test_content_gate_cannot_pass_before_design_gate(self):
         self.init()
@@ -332,7 +400,7 @@ class PipelineCliTest(unittest.TestCase):
         self.assertEqual(self.cli("verify", "sample", "--min-seconds", "0.1").returncode, 0)
         self.assertNotEqual(self.cli("listen", "sample", "--by", "user").returncode, 0)  # C not passed yet
         report = self.root / "docs" / "sample" / "video-review.md"
-        report.write_text("Shot-by-shot picture, captions, ASR and loudness checked\n")
+        report.write_text("Shot-by-shot picture, captions, ASR and loudness checked\nvisual content: 9/10\n")
         ai = self.cli("review", "sample", "C", "9", "--reviewer", "critic", "--report", "video-review.md")
         self.assertEqual(ai.returncode, 0, ai.stderr)
         self.assertEqual(self.cli("gate", "sample", "C").returncode, 0)
@@ -677,8 +745,9 @@ class MonitorStudioTest(unittest.TestCase):
         self.assertEqual(runs["runs"][-1]["tried"], ["ladder"])
 
     def test_opencode_models_are_ranked_strongest_first(self):
-        catalog = {"beam-free": {"name": "Beam Free", "reasoning_options": {"type": "effort", "values": ["low", "max", "high"]}},
-                   "mystery-free": {"name": "Mystery", "reasoning": True, "canonical_model_id": "x/mystery-300b-a30b"},
+        catalog = {"beam-free": {"name": "Beam Free", "reasoning_options": [{"type": "effort", "values": ["low", "max", "high"]}]},
+                   "mystery-free": {"name": "Mystery", "reasoning": True, "canonical_model_id": "x/mystery-300b-a30b",
+                                    "reasoning_options": []},
                    "tiny-flash-free": {"name": "Tiny", "reasoning": True, "canonical_model_id": "x/tiny-flash"}}
         ranked = self.module.rank_opencode(
             ["opencode/tiny-flash-free", "opencode/big-pickle", "opencode/mystery-free", "opencode/beam-free",
@@ -900,6 +969,315 @@ class MonitorStudioTest(unittest.TestCase):
         self.assertEqual([e["kind"] for e in entries], ["tool", "error", "say"])
         self.assertIn("read: AGENTS.md", entries[0]["text"])
         self.assertIn("exit 2", entries[1]["text"])
+
+
+class MonitorCreateFlowTest(unittest.TestCase):
+    """The modal's "Tạo video" flow end to end: validation, what gets written, run options, lifecycle, races."""
+
+    cli = PipelineCliTest.cli
+    init = PipelineCliTest.init
+    load_pipeline_module = PipelineCliTest.load_pipeline_module
+    call = MonitorStudioTest.call
+    fake_runner = MonitorStudioTest.fake_runner
+    wait_run = MonitorStudioTest.wait_run
+    runners_config = MonitorStudioTest.runners_config
+    ladder_config = MonitorStudioTest.ladder_config
+    LADDER_MODELS = MonitorStudioTest.LADDER_MODELS
+    later = MonitorStudioTest.later
+    REQUEST = MonitorStudioTest.REQUEST
+    FOLDER = "chung-minh-de-lam-gi"
+
+    def setUp(self):
+        MonitorStudioTest.setUp(self)
+
+    def docs_names(self):
+        return sorted(p.name for p in (self.root / "docs").iterdir())
+
+    def raw_post(self, path, data: bytes, content_type="application/json", origin=True):
+        headers = {"Content-Type": content_type}
+        if origin:
+            headers["Origin"] = self.base
+        request = urllib.request.Request(self.base + path, data=data, headers=headers, method="POST")
+        try:
+            with urllib.request.urlopen(request) as response:
+                return response.status, json.loads(response.read())
+        except urllib.error.HTTPError as error:
+            return error.code, json.loads(error.read() or b"{}")
+
+    def status(self, folder=FOLDER):
+        return json.loads((self.root / "docs" / folder / "status.json").read_text(encoding="utf-8"))
+
+    def record(self, folder=FOLDER):
+        return (self.root / "docs" / folder / "request.md").read_text(encoding="utf-8")
+
+    # A. Input validation: every refusal leaves no folder behind.
+
+    def test_invalid_requests_are_refused_and_create_nothing(self):
+        self.init()
+        self.fake_runner("print('never')")
+        before = self.docs_names()
+        cases = {
+            "empty topic": {"topic": "   "},
+            "traversal slug": {"slug": "../x"},
+            "underscore slug": {"slug": "A_B"},
+            "leading dash slug": {"slug": "-a"},
+            "lowercase comp": {"comp": "lowercase"},
+            "unknown profile": {"profile": "sports"},
+            "unknown voice": {"voice": "nobody.mp3"},
+            "non-number duration": {"min_seconds": "abc"},
+            "min not below max": {"min_seconds": 60, "max_seconds": 60},
+            "min under 5": {"min_seconds": 3},
+            "max over 180": {"max_seconds": 500},
+            "unknown reference": {"reference": "missing-video"},
+            "runner not installed": {"runner": "claude-not-here"},
+            "bad run_at": {"runner": "fake", "run_at": "ngày mai"},
+            "bad model": {"runner": "fake", "model": "a b&c"},
+            "bad effort": {"runner": "fake", "effort": "ultra"},
+        }
+        for name, change in cases.items():
+            with self.subTest(name):
+                code, result = self.call("/api/videos", {**self.REQUEST, **change})
+                self.assertEqual(code, 400, result)
+                self.assertEqual(self.docs_names(), before)
+                self.assertFalse((self.root / "out" / "agent-runs").exists())
+
+    def test_a_video_folder_that_only_exists_in_src_is_a_conflict(self):
+        self.init()
+        (self.root / "src" / "videos" / self.FOLDER).mkdir(parents=True)
+        code, result = self.call("/api/videos", self.REQUEST)
+        self.assertEqual(code, 409, result)
+        self.assertNotIn(self.FOLDER, self.docs_names())
+
+    def test_request_body_must_be_json_from_the_monitor_page(self):
+        self.init()
+        payload = json.dumps(self.REQUEST).encode()
+        self.assertEqual(self.raw_post("/api/videos", payload, content_type="text/plain")[0], 403)
+        self.assertEqual(self.raw_post("/api/videos", payload, origin=False)[0], 403)
+        self.assertEqual(self.raw_post("/api/videos", b"{not json")[0], 400)
+        self.assertEqual(self.raw_post("/api/videos", b"[1, 2]")[0], 400)
+        self.assertNotIn(self.FOLDER, self.docs_names())
+
+    def test_overlong_fields_are_truncated_not_rejected(self):
+        self.init()
+        code, result = self.call("/api/videos", {**self.REQUEST, "topic": "x" * 2500, "mandatory": "m" * 5000})
+        self.assertEqual(code, 201, result)
+        folder = result["video"]
+        record = self.record(folder)
+        self.assertIn("x" * 2000, record)
+        self.assertNotIn("x" * 2001, record)
+        self.assertIn("m" * 4000, record)
+        self.assertNotIn("m" * 4001, record)
+
+    # B. What gets written: every field the modal sends must reach request.md and the agent prompt.
+
+    def test_empty_voice_is_left_to_the_agent_as_tbd(self):
+        self.init()
+        code, result = self.call("/api/videos", {**self.REQUEST, "voice": ""})
+        self.assertEqual(code, 201, result)
+        self.assertEqual(self.status()["voice"], "tbd")
+        self.assertIn("not chosen", self.record())
+
+    def test_voice_clone_is_recorded_as_authorized_only_when_the_owner_ticked_it(self):
+        self.init()
+        self.call("/api/videos", self.REQUEST)
+        self.assertIn("not authorized", self.record())
+        self.assertNotIn("authorized by the owner", self.record())
+        code, result = self.call("/api/videos", {**self.REQUEST, "topic": "Quyền lợi người lao động", "clone_ok": True})
+        self.assertEqual(code, 201, result)
+        self.assertIn("authorized by the owner", self.record(result["video"]))
+
+    def test_every_modal_field_reaches_the_request_record_and_the_prompt(self):
+        self.init()  # "sample" becomes a style reference
+        request = {**self.REQUEST, "reference": "sample", "avoid": "tông giật gân", "light": True,
+                   "min_seconds": 45, "max_seconds": 90, "sources": "Nguồn: báo cáo 2026",
+                   "notes": "Kết thúc bằng câu hỏi", "mandatory": "Dòng bắt buộc số một"}
+        preview = self.call("/api/videos", {**request, "dry_run": True})
+        self.assertEqual(preview[0], 200, preview[1])
+        prompt = preview[1]["prompt"]
+        for text in ("tông giật gân", "Nguồn: báo cáo 2026", "Kết thúc bằng câu hỏi", "Dòng bắt buộc số một",
+                     "Light mode | yes", "45–90 s", "Style reference | sample", ".agents/rules/", "owner-notes.md"):
+            self.assertIn(text, prompt, text)
+        code, result = self.call("/api/videos", request)
+        self.assertEqual(code, 201, result)
+        record = self.record()
+        for text in ("tông giật gân", "Nguồn: báo cáo 2026", "Kết thúc bằng câu hỏi", "Dòng bắt buộc số một",
+                     "Light mode | yes", "45–90 s", "Style reference | sample"):
+            self.assertIn(text, record, text)
+
+    def test_explicit_slug_and_composition_are_respected(self):
+        code, result = self.call("/api/videos", {**self.REQUEST, "slug": "video-rieng", "comp": "VideoRiengReel"})
+        self.assertEqual(code, 201, result)
+        self.assertEqual((result["video"], result["comp"]), ("video-rieng", "VideoRiengReel"))
+        self.assertEqual(self.status("video-rieng")["comp"], "VideoRiengReel")
+
+    def test_creating_without_a_runner_only_prepares_the_video(self):
+        code, result = self.call("/api/videos", {**self.REQUEST, "runner": ""})
+        self.assertEqual(code, 201, result)
+        self.assertIsNone(result["run"])
+        self.assertEqual(result["run_error"], "")
+        status = self.status()
+        self.assertNotIn("video-director", status.get("agents", {}))
+        self.assertEqual(status.get("workflow_version"), 3)
+        self.assertTrue(status["next"])
+        self.assertIn("no agent launched", " ".join(e["msg"] for e in status["log"]))
+
+    def test_created_video_is_listed_and_offered_as_a_style_reference(self):
+        code, result = self.call("/api/videos", {**self.REQUEST, "runner": ""})
+        self.assertEqual(code, 201, result)
+        _, status = self.call("/api/status")
+        self.assertIn(self.FOLDER, json.dumps(status, ensure_ascii=False))
+        _, options = self.call("/api/create-options")
+        self.assertIn(self.FOLDER, [v["folder"] for v in options["videos"]])
+
+    def test_a_just_created_topic_makes_a_near_duplicate_ask_for_confirmation(self):
+        self.call("/api/videos", {**self.REQUEST, "runner": ""})
+        code, result = self.call("/api/videos", {**self.REQUEST, "topic": "Chứng minh để làm gì mới", "runner": ""})
+        self.assertEqual(code, 409, result)
+        self.assertTrue(result["needs_confirm"])
+        self.assertEqual(result["matches"][0]["folder"], self.FOLDER)
+
+    def test_dry_run_never_writes_even_when_confirmed_and_with_a_runner(self):
+        self.fake_runner("print('never')")
+        self.call("/api/videos", {**self.REQUEST, "runner": ""})
+        before = self.docs_names()
+        code, result = self.call("/api/videos", {**self.REQUEST, "topic": "Chứng minh để làm gì mới",
+                                                 "runner": "fake", "dry_run": True})
+        self.assertEqual(code, 409, result)  # the preview also reports the near-duplicate
+        code, result = self.call("/api/videos", {**self.REQUEST, "topic": "Chứng minh để làm gì mới",
+                                                 "runner": "fake", "dry_run": True, "confirm": True})
+        self.assertEqual(code, 200, result)
+        self.assertEqual(self.docs_names(), before)
+        self.assertFalse((self.root / "out" / "agent-runs").exists())
+
+    # C. Run options chosen in the modal.
+
+    def test_model_effort_and_fallback_reach_the_runner_and_the_run_record(self):
+        self.runners_config(fake="import sys; sys.stdin.read(); print('ARGS', sys.argv[1:])")
+        code, result = self.call("/api/videos", {**self.REQUEST, "runner": "fake", "model": "m-large",
+                                                 "effort": "high", "fallback": False})
+        self.assertEqual(code, 201, result)
+        self.assertEqual((result["run"]["model"], result["run"]["effort"], result["run"]["fallback"]),
+                         ("m-large", "high", False))
+        runs = self.wait_run(self.FOLDER, "done")
+        self.assertIn("'--model', 'm-large', '--effort', 'high', '-'", "\n".join(e["text"] for e in runs["log"]))
+
+    def test_a_laddered_runner_created_without_a_model_starts_at_its_strongest(self):
+        self.ladder_config("import sys; sys.stdin.read(); print('OK')")
+        code, result = self.call("/api/videos", {**self.REQUEST, "runner": "ladder"})
+        self.assertEqual(code, 201, result)
+        self.assertEqual((result["run"]["model"], result["run"]["effort"]), ("m-top", "max"))
+        self.wait_run(self.FOLDER, "done")
+
+    def test_scheduled_create_survives_a_monitor_restart(self):
+        from datetime import datetime, timedelta
+        self.runners_config(fake="import sys; sys.stdin.read(); print('ARGS', sys.argv[1:])")
+        code, result = self.call("/api/videos", {**self.REQUEST, "runner": "fake", "model": "m-large",
+                                                 "effort": "high", "run_at": self.later(90)})
+        self.assertEqual(code, 201, result)
+        self.assertEqual(result["run"]["state"], "scheduled")
+        fresh = self.load_pipeline_module()  # a restarted monitor: new module state, same status files
+        self.assertEqual(fresh.tick_scheduler(datetime.now().astimezone() + timedelta(hours=2))[0]["model"], "m-large")
+        runs = self.wait_run(self.FOLDER, "done")
+        self.assertIn("'--model', 'm-large'", "\n".join(e["text"] for e in runs["log"]))
+
+    # D. The lifecycle an agent must follow, driven by a fake agent that uses the real pipeline CLI.
+
+    AGENT = (
+        "import subprocess, sys, pathlib\n"
+        "vid = 'chung-minh-de-lam-gi'\n"
+        "prompt = sys.stdin.read()\n"
+        "assert vid in prompt and 'owner-notes.md' in prompt\n"
+        "def run(*a):\n"
+        "    subprocess.run([sys.executable, '-I', 'scripts/pipeline.py', *a], check=True)\n"
+        "run('agent', vid, 'video-director', 'running', '--stage', 'research')\n"
+        "run('set', vid, 'research', 'in_progress')\n"
+        "pathlib.Path('docs', vid, 'research.md').write_text('# Research\\n\\nsource: test\\n', encoding='utf-8')\n"
+        "run('set', vid, 'research', 'done', '--note', 'research written')\n"
+        "run('agent', vid, 'video-director', 'idle')\n"
+        "print('AGENT FINISHED')\n"
+    )
+
+    def test_an_agent_follows_the_pipeline_from_create_to_an_audited_stage(self):
+        self.fake_runner(self.AGENT)
+        code, result = self.call("/api/videos", {**self.REQUEST, "runner": "fake"})
+        self.assertEqual(code, 201, result)
+        runs = self.wait_run(self.FOLDER, "done")
+        self.assertIn("AGENT FINISHED", "\n".join(e["text"] for e in runs["log"]))
+        status = self.status()
+        self.assertEqual(status["stages"]["research"]["state"], "done")
+        self.assertNotEqual(status.get("agents", {}).get("video-director", {}).get("state"), "running")
+        audit = self.cli("audit", self.FOLDER)
+        self.assertEqual(audit.returncode, 0, audit.stdout + audit.stderr)
+
+    def test_an_agent_that_skips_the_evidence_cannot_mark_a_stage_done(self):
+        self.fake_runner(
+            "import sys, subprocess; sys.stdin.read(); "
+            "subprocess.run([sys.executable, '-I', 'scripts/pipeline.py', 'set', 'chung-minh-de-lam-gi', 'research', 'done'])")
+        code, result = self.call("/api/videos", {**self.REQUEST, "runner": "fake"})
+        self.assertEqual(code, 201, result)
+        self.wait_run(self.FOLDER, "done")
+        self.assertNotEqual(self.status()["stages"].get("research", {}).get("state"), "done")
+
+    def test_two_identical_creates_at_once_make_one_video(self):
+        results = []
+
+        def post():
+            results.append(self.call("/api/videos", {**self.REQUEST, "runner": ""}))
+
+        threads = [threading.Thread(target=post) for _ in range(2)]
+        for t in threads:
+            t.start()
+        for t in threads:
+            t.join(20)
+        codes = sorted(code for code, _ in results)
+        self.assertEqual(codes, [201, 409], results)
+        self.assertEqual(self.docs_names().count(self.FOLDER), 1)
+
+    def test_a_runner_that_cannot_start_keeps_the_video_and_reports_why(self):
+        from unittest import mock
+        self.fake_runner("print('never')")
+        with mock.patch.object(self.module.subprocess, "Popen", side_effect=OSError("boom")):
+            code, result = self.call("/api/videos", {**self.REQUEST, "runner": "fake"})
+        self.assertEqual(code, 201, result)
+        self.assertIsNone(result["run"])
+        self.assertIn("boom", result["run_error"])
+        self.assertTrue((self.root / "docs" / self.FOLDER / "status.json").is_file())
+        self.assertIn("create run not started", " ".join(e["msg"] for e in self.status()["log"]))
+
+    def test_the_real_server_process_creates_and_runs_a_video(self):
+        import socket
+        import subprocess as sp
+        import time
+        with socket.socket() as probe:
+            probe.bind(("127.0.0.1", 0))
+            port = probe.getsockname()[1]
+        self.fake_runner("import sys; sys.stdin.read(); print('SERVER AGENT OK')")
+        log = open(self.root / "serve.log", "wb")
+        server = sp.Popen([sys.executable, "-I", "scripts/pipeline.py", "serve", "--port", str(port)],
+                          cwd=self.root, stdout=log, stderr=sp.STDOUT, env={**os.environ, "PYTHONUTF8": "1"})
+        self.addCleanup(lambda: (server.kill(), server.wait(), log.close()))
+        base = f"http://127.0.0.1:{port}"
+        deadline = time.time() + 30
+        while True:
+            try:
+                urllib.request.urlopen(base + "/api/meta", timeout=2).read()
+                break
+            except OSError:
+                if time.time() > deadline or server.poll() is not None:
+                    self.fail("server did not start: " + (self.root / "serve.log").read_text(errors="replace"))
+                time.sleep(0.2)
+        request = urllib.request.Request(base + "/api/videos", data=json.dumps({**self.REQUEST, "runner": "fake"}).encode(),
+                                         headers={"Content-Type": "application/json", "Origin": base}, method="POST")
+        with urllib.request.urlopen(request) as response:
+            self.assertEqual(response.status, 201)
+        deadline = time.time() + 30
+        while time.time() < deadline:
+            runs = json.loads(urllib.request.urlopen(base + f"/api/runs/{self.FOLDER}").read())
+            if runs["runs"] and runs["runs"][-1]["state"] == "done":
+                self.assertIn("SERVER AGENT OK", "\n".join(e["text"] for e in runs["log"]))
+                return
+            time.sleep(0.3)
+        self.fail("the run did not finish through the real server")
 
 
 if __name__ == "__main__":

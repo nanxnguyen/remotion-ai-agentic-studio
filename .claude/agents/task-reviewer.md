@@ -25,7 +25,7 @@ Append `## Review round N` to `docs/<vid>/task-review.md` only.
 6. Parallel/integration order is sound
 7. Every shot names its card + exact demo TSX + lib components, and those files exist (`ls` them)
 
-**pass** only if mean ≥ 8 and items 1–2 are 10.
+**pass** only if mean ≥ 9 and items 1–2 are 10 (`pipeline.py` refuses B below 9).
 
 ## Return
 `score: X.X  verdict: pass|revise` + fixes. Do not run `pipeline.py`.

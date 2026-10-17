@@ -2,11 +2,11 @@
   "workflow_version": 3,
   "name": "Làm lại không có nghĩa là quay về số không\t“Bạn gọi những năm vừa qua là công cố",
   "comp": "LamLaiKhongCoNghiaLaQuayVeSoKhongBanReel",
-  "voice": "thanh-long-nang-cao",
+  "voice": "vi-vn-hoaimy-neural",
   "profile": "story",
   "paths": {
     "audio": "lam-lai-khong-co-nghia-la-quay-ve-so-khong-ban",
-    "out": "lam-lai-khong-co-nghia-la-quay-ve-so-khong-ban-thanh-long-nang-cao",
+    "out": "lam-lai-khong-co-nghia-la-quay-ve-so-khong-ban-vi-vn-hoaimy-neural",
     "qa": "lam-lai-khong-co-nghia-la-quay-ve-so-khong-ban"
   },
   "gates": [],
@@ -32,9 +32,34 @@
       "note": "content-pack.md + content-pack-review.md produced; gate content pass 9/10"
     },
     "design": {
-      "state": "in_progress",
-      "at": "2026-10-17T17:54:12+07:00",
-      "note": "Writing design.md and storyboard"
+      "state": "done",
+      "at": "2026-10-17T18:38:53+07:00",
+      "note": "design-spec.md + 3 style frames + cover + board + motion-hook; gate D pass 8.5/10"
+    },
+    "voice": {
+      "state": "done",
+      "at": "2026-10-17T18:47:46+07:00",
+      "note": "5 clips generated (edge-tts HoaiMy -25%); voice-report + asr written; slug vi-vn-hoaimy-neural"
+    },
+    "render": {
+      "state": "done",
+      "at": "2026-10-17T18:52:52+07:00",
+      "note": "rendered + gate C pass 8.5/10; MP4 verified 29.2s"
+    },
+    "audio": {
+      "state": "done",
+      "at": "2026-10-17T18:48:05+07:00",
+      "note": "assets-manifest + mix-plan + audio-review; gate audio pass 9/10"
+    },
+    "build": {
+      "state": "done",
+      "at": "2026-10-17T18:50:24+07:00",
+      "note": "kit.tsx + audio mix + scenes; tsc clean; stills rendered"
+    },
+    "qa": {
+      "state": "done",
+      "at": "2026-10-17T18:50:33+07:00",
+      "note": "qa-report written; tsc clean; no Cao/Trung"
     }
   },
   "reviews": {
@@ -65,18 +90,71 @@
         "report": "docs\\lam-lai-khong-co-nghia-la-quay-ve-so-khong-ban\\content-pack-review.md",
         "note": ""
       }
+    ],
+    "D": [
+      {
+        "at": "2026-10-17T18:38:50+07:00",
+        "reviewer": "design-reviewer",
+        "score": 8.5,
+        "verdict": "pass",
+        "report": "docs\\lam-lai-khong-co-nghia-la-quay-ve-so-khong-ban\\design-review.md",
+        "note": ""
+      }
+    ],
+    "audio": [
+      {
+        "at": "2026-10-17T18:48:04+07:00",
+        "reviewer": "audio-reviewer",
+        "score": 9.0,
+        "verdict": "pass",
+        "report": "docs\\lam-lai-khong-co-nghia-la-quay-ve-so-khong-ban\\audio-review.md",
+        "note": ""
+      }
+    ],
+    "E": [
+      {
+        "at": "2026-10-17T18:48:13+07:00",
+        "reviewer": "integration-reviewer",
+        "score": 9.0,
+        "verdict": "pass",
+        "report": "docs\\lam-lai-khong-co-nghia-la-quay-ve-so-khong-ban\\integration-review.md",
+        "note": ""
+      }
+    ],
+    "B": [
+      {
+        "at": "2026-10-17T18:48:21+07:00",
+        "reviewer": "task-reviewer",
+        "score": 9.0,
+        "verdict": "pass",
+        "report": "docs\\lam-lai-khong-co-nghia-la-quay-ve-so-khong-ban\\task-review.md",
+        "note": ""
+      }
+    ],
+    "C": [
+      {
+        "at": "2026-10-17T18:52:36+07:00",
+        "reviewer": "video-reviewer",
+        "score": 8.5,
+        "verdict": "pass",
+        "report": "docs\\lam-lai-khong-co-nghia-la-quay-ve-so-khong-ban\\video-review.md",
+        "note": "",
+        "render_fingerprint": "1173045:1792237940499663500",
+        "render_sha256": "cda4c31ef65116a1c15d76c580ad1e31ff23c2783de533f0e68dd39597296830",
+        "full_listen": false
+      }
     ]
   },
   "review_valid": {
     "A": true,
-    "D": false,
-    "E": false,
-    "B": false,
-    "C": false,
+    "D": true,
+    "E": true,
+    "B": true,
+    "C": true,
     "content": true,
-    "audio": false
+    "audio": true
   },
-  "next": "design-agent: design-spec.md + style frames (gate D)",
+  "next": "delivery complete; optional human listen pending",
   "log": [
     {
       "t": "2026-10-17T17:29:35+07:00",
@@ -233,9 +311,231 @@
       "stage": "design",
       "who": "video-director",
       "msg": "video-director running: design-spec.md + scaffold + style frames"
+    },
+    {
+      "t": "2026-10-17T18:38:50+07:00",
+      "stage": "D",
+      "who": "design-reviewer",
+      "msg": "review 8.5/10 pass: design-review.md"
+    },
+    {
+      "t": "2026-10-17T18:38:53+07:00",
+      "stage": "design",
+      "who": "agent",
+      "msg": "design -> done: design-spec.md + 3 style frames + cover + board + motion-hook; gate D pass 8.5/10 (evidence: 1 file(s): docs\\lam-lai-khong-co-nghia-la-quay-ve-so-khong-ban\\design-spec.md; gate D: pass 8.5/10)"
+    },
+    {
+      "t": "2026-10-17T18:41:47+07:00",
+      "stage": "agent",
+      "who": "monitor",
+      "msg": "monitor run 20261017-182810-697 exited (tracked by pid after a monitor restart)"
+    },
+    {
+      "t": "2026-10-17T18:44:36+07:00",
+      "stage": "voice",
+      "who": "agent",
+      "msg": "voice changed to vi-vn-hoaimy-neural; output lam-lai-khong-co-nghia-la-quay-ve-so-khong-ban-vi-vn-hoaimy-neural-reel.mp4"
+    },
+    {
+      "t": "2026-10-17T18:44:37+07:00",
+      "stage": "voice",
+      "who": "voice-agent",
+      "msg": "voice-agent running: generating 5 clips via edge-tts HoaiMy (labelled fallback)"
+    },
+    {
+      "t": "2026-10-17T18:44:38+07:00",
+      "stage": "voice",
+      "who": "agent",
+      "msg": "voice -> in_progress: generating voice clips (edge-tts labelled fallback)"
+    },
+    {
+      "t": "2026-10-17T18:47:46+07:00",
+      "stage": "voice",
+      "who": "agent",
+      "msg": "voice -> done: 5 clips generated (edge-tts HoaiMy -25%); voice-report + asr written; slug vi-vn-hoaimy-neural (evidence: 5/5 clips)"
+    },
+    {
+      "t": "2026-10-17T18:48:04+07:00",
+      "stage": "audio",
+      "who": "audio-agent",
+      "msg": "audio-agent running: mix plan + assets-manifest + audio-review"
+    },
+    {
+      "t": "2026-10-17T18:48:04+07:00",
+      "stage": "audio",
+      "who": "agent",
+      "msg": "audio -> in_progress: audio branch: mix plan + assets"
+    },
+    {
+      "t": "2026-10-17T18:48:04+07:00",
+      "stage": "audio",
+      "who": "audio-reviewer",
+      "msg": "review 9.0/10 pass: audio-review.md"
+    },
+    {
+      "t": "2026-10-17T18:48:05+07:00",
+      "stage": "audio",
+      "who": "agent",
+      "msg": "audio -> done: assets-manifest + mix-plan + audio-review; gate audio pass 9/10 (evidence: 1 file(s): docs\\lam-lai-khong-co-nghia-la-quay-ve-so-khong-ban\\assets-manifest.md)"
+    },
+    {
+      "t": "2026-10-17T18:48:06+07:00",
+      "stage": "audio",
+      "who": "audio-agent",
+      "msg": "audio-agent done"
+    },
+    {
+      "t": "2026-10-17T18:48:13+07:00",
+      "stage": "design",
+      "who": "integration-reviewer",
+      "msg": "integration-reviewer running: gate E integration review"
+    },
+    {
+      "t": "2026-10-17T18:48:13+07:00",
+      "stage": "E",
+      "who": "integration-reviewer",
+      "msg": "review 9.0/10 pass: integration-review.md"
+    },
+    {
+      "t": "2026-10-17T18:48:14+07:00",
+      "stage": "design",
+      "who": "integration-reviewer",
+      "msg": "integration-reviewer done"
+    },
+    {
+      "t": "2026-10-17T18:48:21+07:00",
+      "stage": "build",
+      "who": "task-reviewer",
+      "msg": "task-reviewer running: gate B task review"
+    },
+    {
+      "t": "2026-10-17T18:48:21+07:00",
+      "stage": "B",
+      "who": "task-reviewer",
+      "msg": "review 9.0/10 pass: task-review.md"
+    },
+    {
+      "t": "2026-10-17T18:48:22+07:00",
+      "stage": "build",
+      "who": "task-reviewer",
+      "msg": "task-reviewer done"
+    },
+    {
+      "t": "2026-10-17T18:49:03+07:00",
+      "stage": "build",
+      "who": "build-agent",
+      "msg": "build-agent running: kit.tsx + audio mix + scene polish"
+    },
+    {
+      "t": "2026-10-17T18:49:03+07:00",
+      "stage": "build",
+      "who": "agent",
+      "msg": "build -> in_progress: build: kit + audio mix + scenes"
+    },
+    {
+      "t": "2026-10-17T18:50:24+07:00",
+      "stage": "build",
+      "who": "agent",
+      "msg": "build -> done: kit.tsx + audio mix + scenes; tsc clean; stills rendered (evidence: composition LamLaiKhongCoNghiaLaQuayVeSoKhongBanReel)"
+    },
+    {
+      "t": "2026-10-17T18:50:24+07:00",
+      "stage": "build",
+      "who": "build-agent",
+      "msg": "build-agent done"
+    },
+    {
+      "t": "2026-10-17T18:50:32+07:00",
+      "stage": "qa",
+      "who": "qa-agent",
+      "msg": "qa-agent running: qa-report + stills"
+    },
+    {
+      "t": "2026-10-17T18:50:32+07:00",
+      "stage": "qa",
+      "who": "agent",
+      "msg": "qa -> in_progress: qa: stills + tsc"
+    },
+    {
+      "t": "2026-10-17T18:50:33+07:00",
+      "stage": "qa",
+      "who": "agent",
+      "msg": "qa -> done: qa-report written; tsc clean; no Cao/Trung (evidence: 26 stills)"
+    },
+    {
+      "t": "2026-10-17T18:50:33+07:00",
+      "stage": "qa",
+      "who": "qa-agent",
+      "msg": "qa-agent done"
+    },
+    {
+      "t": "2026-10-17T18:50:36+07:00",
+      "stage": "render",
+      "who": "render-agent",
+      "msg": "render-agent running: render + verify"
+    },
+    {
+      "t": "2026-10-17T18:50:37+07:00",
+      "stage": "render",
+      "who": "agent",
+      "msg": "render -> in_progress: rendering"
+    },
+    {
+      "t": "2026-10-17T18:52:23+07:00",
+      "stage": "render",
+      "who": "verify",
+      "msg": "verified 29.20s H.264/AAC 1080x1920 30fps"
+    },
+    {
+      "t": "2026-10-17T18:52:23+07:00",
+      "stage": "render",
+      "who": "agent",
+      "msg": "render -> done: verified final MP4 (evidence: verified 29.2s; gate C: no review yet)"
+    },
+    {
+      "t": "2026-10-17T18:52:36+07:00",
+      "stage": "render",
+      "who": "video-reviewer",
+      "msg": "video-reviewer running: gate C review"
+    },
+    {
+      "t": "2026-10-17T18:52:36+07:00",
+      "stage": "C",
+      "who": "video-reviewer",
+      "msg": "review 8.5/10 pass: video-review.md"
+    },
+    {
+      "t": "2026-10-17T18:52:37+07:00",
+      "stage": "render",
+      "who": "video-reviewer",
+      "msg": "video-reviewer done"
+    },
+    {
+      "t": "2026-10-17T18:52:38+07:00",
+      "stage": "render",
+      "who": "render-agent",
+      "msg": "render-agent done"
+    },
+    {
+      "t": "2026-10-17T18:52:49+07:00",
+      "stage": "voice",
+      "who": "voice-agent",
+      "msg": "voice-agent done: voice complete"
+    },
+    {
+      "t": "2026-10-17T18:52:52+07:00",
+      "stage": "render",
+      "who": "agent",
+      "msg": "render -> done: rendered + gate C pass 8.5/10; MP4 verified 29.2s (evidence: verified 29.2s; gate C: pass 8.5/10)"
+    },
+    {
+      "t": "2026-10-17T18:52:58+07:00",
+      "stage": "render",
+      "who": "video-director",
+      "msg": "video-director done: delivery complete; audit ok"
     }
   ],
-  "updated": "2026-10-17T18:31:26+07:00",
+  "updated": "2026-10-17T18:52:58+07:00",
   "runs": [
     {
       "id": "20261017-172935-085",
@@ -276,7 +576,7 @@
       "kind": "command",
       "runner": "opencode",
       "label": "OpenCode",
-      "state": "running",
+      "state": "exited",
       "started": "2026-10-17T18:28:10+07:00",
       "pid": 8116,
       "log": "out/agent-runs/lam-lai-khong-co-nghia-la-quay-ve-so-khong-ban/20261017-182810-697.log",
@@ -284,21 +584,77 @@
       "summary": "Tiep tuc",
       "model": "opencode/beam-free",
       "effort": "",
-      "fallback": false
+      "fallback": false,
+      "exit_code": null,
+      "ended": "2026-10-17T18:41:47+07:00"
     }
   ],
   "agents": {
     "video-director": {
-      "state": "running",
-      "at": "2026-10-17T18:31:26+07:00",
-      "note": "design-spec.md + scaffold + style frames",
-      "stage": "design"
+      "state": "done",
+      "at": "2026-10-17T18:52:58+07:00",
+      "note": "delivery complete; audit ok",
+      "stage": "render"
     },
     "intake-agent": {
       "state": "done",
       "at": "2026-10-17T17:41:04+07:00",
       "note": "Intake/preflight complete; request analyzed",
       "stage": "research"
+    },
+    "voice-agent": {
+      "state": "done",
+      "at": "2026-10-17T18:52:49+07:00",
+      "note": "voice complete",
+      "stage": "voice"
+    },
+    "audio-agent": {
+      "state": "done",
+      "at": "2026-10-17T18:48:06+07:00",
+      "note": "",
+      "stage": "audio"
+    },
+    "integration-reviewer": {
+      "state": "done",
+      "at": "2026-10-17T18:48:14+07:00",
+      "note": "",
+      "stage": "design"
+    },
+    "task-reviewer": {
+      "state": "done",
+      "at": "2026-10-17T18:48:22+07:00",
+      "note": "",
+      "stage": "build"
+    },
+    "build-agent": {
+      "state": "done",
+      "at": "2026-10-17T18:50:24+07:00",
+      "note": "",
+      "stage": "build"
+    },
+    "qa-agent": {
+      "state": "done",
+      "at": "2026-10-17T18:50:33+07:00",
+      "note": "",
+      "stage": "qa"
+    },
+    "render-agent": {
+      "state": "done",
+      "at": "2026-10-17T18:52:38+07:00",
+      "note": "",
+      "stage": "render"
+    },
+    "video-reviewer": {
+      "state": "done",
+      "at": "2026-10-17T18:52:37+07:00",
+      "note": "",
+      "stage": "render"
     }
+  },
+  "render_check": {
+    "fingerprint": "1173045:1792237940499663500",
+    "sha256": "cda4c31ef65116a1c15d76c580ad1e31ff23c2783de533f0e68dd39597296830",
+    "duration": 29.2,
+    "at": "2026-10-17T18:52:23+07:00"
   }
 }

@@ -1,11 +1,13 @@
 """Accessibility and shell regression checks for the pipeline monitor."""
 
+import re
 import unittest
 from html.parser import HTMLParser
 from pathlib import Path
 
 
 MONITOR = Path(__file__).with_name("monitor.html")
+PIPELINE = Path(__file__).with_name("pipeline.py")
 
 
 class LandmarkParser(HTMLParser):
@@ -112,6 +114,20 @@ class MonitorUiTest(unittest.TestCase):
         for field in ("f-model", "f-effort", "f-fallback", "dock-model", "dock-effort", "dock-fallback"):
             self.assertIn(field, ids)  # model / reasoning effort per runner, and switching runner when tokens run out
         self.assertIn("fallback_of", source)
+
+    def test_every_field_the_create_form_sends_is_read_by_the_backend(self):
+        # A field renamed on one side would be dropped silently; compare what the modal sends with what the server reads.
+        source = MONITOR.read_text(encoding="utf-8")
+        start = source.index("function formBody()")
+        form_body = source[start:source.index("function updateSummary()", start)]
+        sent = set(re.findall(r"[{,]\s*([a-z_]+)\s*:", form_body))
+        backend = PIPELINE.read_text(encoding="utf-8")
+        create = backend[backend.index("def create_video("):backend.index("class Handler(")]
+        options = backend[backend.index("def run_options("):backend.index("def runner_cmd(")]
+        read = set(re.findall(r'body\.get\("([a-z_]+)"', create + options))
+        self.assertIn("topic", sent)
+        self.assertLessEqual(sent, read, f"the form sends fields the backend ignores: {sorted(sent - read)}")
+        self.assertIn("run_error", source)  # a run that cannot start is reported, not hidden
 
 
 if __name__ == "__main__":

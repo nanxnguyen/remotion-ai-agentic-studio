@@ -49,16 +49,17 @@ flowchart TD
   E -- "ticket → owning branch" --> BR
   E -- pass --> P6["6 Tasks<br/>task-planner"]
   J -.->|early scaffold| P7
-  P6 --> B{"Gate B ≥ 8<br/>task-reviewer"}
-  B -- pass --> P7["7 Build<br/>scene-agent ×N"]
-  P7 --> P8["8 QA<br/>qa-agent ×N"]
-  P8 --> P9["9 Render<br/>render-agent"]
-  P9 --> C{"Gate C ≥ 8 · FINAL BARRIER<br/>full re-test on the MP4<br/>final-check.md all ✓ + video-reviewer ×3"}
+  P6 --> B{"Gate B ≥ 9<br/>task-reviewer"}
+  B -- pass --> P7["7 Build<br/>scene-agent ×N + stills per shot"]
+  P7 --> P9["9 Render<br/>render-agent"]
+  P9 --> C{"Gate C ≥ 8<br/>full re-test on the MP4<br/>final-check.md all ✓ + video-reviewer ×3"}
   C -- "fix → owner, re-render, re-test everything" --> P7
-  C -- pass --> P10["10 Delivery<br/>video-director"]
+  C -- pass --> P8["8 Final QA · LAST BARRIER<br/>qa-agent re-verifies everything<br/>on the approved MP4"]
+  P8 -- "fix → owner, re-render, new C" --> P7
+  P8 -- pass --> P10["10 Delivery<br/>video-director"]
 ```
 
-Text fallback: `0 Intake → 1 Research → 2 Script ⇒ A → fork[ 3a content-agent ⇒ content-reviewer | 3b voice+audio ⇒ audio-reviewer | 3c design-agent ⇒ D ] → 4 Join → E → 6 Tasks ⇒ B → 7 Build → 8 QA → 9 Render ⇒ C → 10 Delivery`.
+Text fallback: `0 Intake → 1 Research → 2 Script ⇒ A → fork[ 3a content-agent ⇒ content-reviewer | 3b voice+audio ⇒ audio-reviewer | 3c design-agent ⇒ D ] → 4 Join → E → 6 Tasks ⇒ B → 7 Build → 9 Render ⇒ C → 8 Final QA → 10 Delivery`. `pipeline.py` enforces the order: `build` cannot be done before E and B pass, and `qa` cannot be done before a verified render, a passed C and every other stage done. Files alone never mark a v3 stage done; only `set <vid> <stage> done` does. Content rules: `design` cites demo TSX only when `skills/video-shotcraft/demos` exists; `build` needs every `src/videos/<vid>/scenes/*.tsx` to show an image, shape, video or motion (not text on a background); `qa` needs at least 3 distinct stills; gate C passes only with a `visual content: X/10` line of 7 or more.
 
 ## Contract and naming
 
@@ -66,7 +67,7 @@ Text fallback: `0 Intake → 1 Research → 2 Script ⇒ A → fork[ 3a content-
 - The **only final video** is `out/<vid>-<voice>-reel.mp4`, for example `out/cam-on-phien-ban-minh-anh-khoi-reel.mp4`. The voice slug describes the voice actually heard. When the voice changes, run `python3 -I scripts/pipeline.py voice <vid> <new-voice>` before rendering; the earlier file remains available.
 - Start with `python3 -m unittest scripts.test_voice_catalog` to ensure catalog previews resolve. Choose a candidate from `vietnamese-voice-samples/previews/` (the folder is the catalog; filenames are shortened voice names) by catalog description and the user's request, and record the provider and its voice ID in `brief.md`. Voice licence and authorization checks are not part of this workflow (see Voice priority route 2).
 - After the Phase 0 duplicate-topic check clears, initialize once: `python3 -I scripts/pipeline.py init <vid> --comp <CompId> --voice <voice> --profile story|product|knowledge|news`. `--voice` is required for new production: pass the best current guess, then run `pipeline.py voice <vid> <slug>` as soon as the route is decided (the slug must name the voice actually heard); `--out` is only for legacy output names. Start or reuse the Pipeline Monitor on port 4180 before dispatching production agents. Do not edit `status.json` manually.
-- Around each work stage call `pipeline.py set <vid> <stage> in_progress` and then `done`, `blocked`, or `failed`. Stages are `research, brief, script, content, voice, design, build, audio, qa, render` (`content` exists from workflow v3, which `init` creates; an in-flight v2 video that has only gate A reviewed moves to v3 with `pipeline.py upgrade <vid>`). The `render` command updates its own stage. Review gates run in order **A → [content · audio · D] → E → B → C**; the two branch reviews are recorded like gates (`review <vid> content|audio …`, `gate <vid> content|audio`, `override` at cap 3) and gate E refuses until content, audio and D are all accepted. Gates A, content, audio, D and E pass at **9/10**, B and C at 8 (`pipeline.py` enforces the score).
+- Around each work stage call `pipeline.py set <vid> <stage> in_progress` and then `done`, `blocked`, or `failed`. Stages are `research, brief, script, content, voice, design, build, audio, render, qa` (`qa` is the final QA after render and C) (`content` exists from workflow v3, which `init` creates; an in-flight v2 video that has only gate A reviewed moves to v3 with `pipeline.py upgrade <vid>`). The `render` command updates its own stage. Review gates run in order **A → [content · audio · D] → E → B → C**; the two branch reviews are recorded like gates (`review <vid> content|audio …`, `gate <vid> content|audio`, `override` at cap 3) and gate E refuses until content, audio and D are all accepted. Gates A, content, audio, E and B pass at **9/10**, D at 8.5 and C at 8 (`pipeline.py` enforces the score).
 - **Agent activity (drives the monitor).** Every time `video-director` dispatches an agent, run `pipeline.py agent <vid> <agent-name> running --stage <stage> --note "<task>"`; when its completion notification arrives, run `pipeline.py agent <vid> <agent-name> done` (or `failed`). Parallel copies use a numbered name (`scene-agent-1`, `research-agent-2`). Without these records the monitor can only guess from stage states, and reviewers never light up. A gate passes only when the score meets the threshold AND no Cao/Trung ticket is open (see Fix-loop discipline); `pipeline.py` cannot see tickets, so the reviewer sets `--verdict revise` while any is open.
 
 | Phase | Stage(s) to set | Gate / checkpoint |
@@ -147,7 +148,7 @@ Only `video-director` writes shared `kit`, `timeline`, `Reel`, `Root`, and `voic
   - Phase 0: `intake-agent` checks (duplicate topic, tool preflight, voice catalog test) in one message; Phase 1: all `research-agent` source groups.
   - Phase 3: all three branch producers in ONE message right after A passes. Each branch then loops producer → its own reviewer independently: a branch that passes waits at the join while the others keep fixing; a branch never waits for another branch's review.
   - Phase 5–6: `task-planner` drafts the plan and `scene-agent`s build the early scaffold while E reviews; B review waits for E pass (plan changes if E changes anything).
-  - Phase 7: `scene-agent` × N on disjoint files; Phase 8: `qa-agent` per shot cluster and still-frame renders; Phase 9: contact sheet, dense frames, loudness and ASR evidence computed concurrently.
+  - Phase 7: `scene-agent` × N on disjoint files; Phase 9: contact sheet, dense frames, loudness and ASR evidence computed concurrently; Phase 8 (after C): `qa-agent` per shot cluster plus one on code/determinism, all on the approved MP4.
   - Fix rounds: tickets for different owners go out in one message. Reviews may run concurrently, but the director **records** scores and runs `gate` strictly in order A → D → E → B → C (`pipeline.py` enforces it), and a later reviewer's result is void if an earlier gate reopens.
 - **Stay sequential only where a real dependency exists:** gates A → D → E → B → C (a reviewer needs its artifact finished), a fix round that depends on the previous review, and any file with a single owner (`kit`, `timeline`, `Reel`, `Root`, `voice.json`).
 - **Never duplicate running work:** before dispatching, run `python3 -I scripts/pipeline.py show <vid>` and ListAgents, and check the target files' modification times; a stage already `in_progress` with no live agent and no output is stale, so re-dispatch it once.
@@ -340,9 +341,11 @@ Write `task-review.md`: selected tools work end to end; each scene has a file ow
 - BGM ducked a further 4–6 dB while voice speaks, with 150–300 ms ramps; no pumping on short pauses;
 - SFX land on a voice accent or a BGM beat (use the beat grid; `skills/video-shotcraft/references/music-beat-sync.md`, `sound-design.md`) and never mask a spoken word.
 
-## Phase 8 — Code and frame QA · `qa-agent`
+## Phase 8 — Final QA, the last barrier (after render and gate C) · `qa-agent`
 
-**Owners and handoff:** Independent `qa-agent` (not an author of any scene) runs code, determinism and frame/transition checks after scene integration and writes `qa-report.md` with each fix tagged to its owner file. `video-director` sends fixes to the owning `scene-agent` via SendMessage, dispatches a new `qa-agent` round, and accepts QA only when no Cao/Trung issue is open.
+**When:** only after `pipeline.py render` verified the MP4 and gate C passed on that fingerprint. Before render, Phase 7 still owns per-shot stills and `tsc` on the build; those are build evidence, not QA.
+
+**Owners and handoff:** Independent `qa-agent` (not an author of any scene, not the render-agent or video-reviewer) re-verifies **everything** on the approved MP4 and its sources: re-run every `final-check.md` row itself (do not trust the render-agent's ✓), plus the code, determinism, frame, transition and caption checks below, and every carried ticket. It writes `qa-report.md` with each fix tagged to its owner file. Any fix goes to the owner, then a re-render, a new gate C and a new final QA round. `set <vid> qa done` (refused until render is verified, C passed and every other stage is done) only when no Cao/Trung issue is open.
 
 Run `npx tsc --noEmit`. Render and read at least three stills per shot: beginning, meaningful middle, and boundary; add frames at fast transitions and frame 0 (cover). Fix clipping, diacritics, safe zone, tiny elements, unsupported claims, and caption/voice mismatch. Any `FitText overflow` line in the render or still logs is a Cao ticket for the text's owner (shorten the chunk, add a line, or widen the box), never a smaller `minFontSize`. Score **design fidelity** per shot (built shot vs style frames, storyboard and `design-spec.md`); any shot below 8/10 is a fix for its scene owner. Regenerate stills after each visual change. A clean-context reviewer checks code, determinism, timing, and claims; record findings in `qa-report.md`. Set `qa` done only after fixes and rerun checks.
 

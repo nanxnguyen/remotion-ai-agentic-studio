@@ -33,6 +33,8 @@ Use `skills/video-shotcraft/references/final-review.md` as the checklist (sectio
 
 Score 1–10 with evidence. **pass** only if ≥ 8, every `final-check.md` row ✓, and no Cao/Trung ticket open.
 
+**Visual content (separate score, required line).** Judge whether the MP4 is a video, not text on a background: real images, footage, shapes or motion that carry the story. Write one line in your report exactly as `visual content: X/10` with the frames that prove it. Text on a flat gradient scores low. `pipeline.py review C pass` refuses a pass without this line or with a score below 7, and `audit` flags it.
+
 ## Return
 `score: X.X  verdict: pass|revise`, tickets with owner (scene file / voice / audio), cannot-verify list. Do not run `pipeline.py`; never claim natural delivery.
 

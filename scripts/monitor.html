@@ -341,13 +341,13 @@ function renderCreateOptions(){
 const EFFORT_LABEL={low:'Low',medium:'Medium',high:'High',xhigh:'Extra high',max:'Max',ultra:'Ultra'};
 const remembered=(k,v)=>{try{if(v===undefined)return localStorage.getItem(k)||'';localStorage.setItem(k,v)}catch{}return ''};
 function fillModels(runnerId,modelSel,effortSel){const r=options?.runners.find(x=>x.id===runnerId);const models=r?.models||[];
-  const keep=modelSel.value||remembered('studio-model:'+runnerId);
+  const keep=modelSel.value||(r?.ladder?'':remembered('studio-model:'+runnerId));  // a ladder always starts at the top
   const head=r?.ladder?'':`<option value="" title="Model mặc định của ${esc(r?.label||'CLI')}">Mặc định</option>`;
   modelSel.innerHTML=head+models.map(m=>`<option value="${esc(m.id)}" title="${esc(m.note||'')}">${esc(m.label)}</option>`).join('');
   modelSel.title=r?.ladder?'Xếp từ mạnh đến yếu. Bị rate limit thì tự hạ xuống model kế tiếp.':'';
   modelSel.disabled=!r||!r.has_model;modelSel.value=models.some(m=>m.id===keep)?keep:(r?.ladder&&models[0]?models[0].id:'');effortSel.value='';fillEfforts(runnerId,modelSel,effortSel)}
 function fillEfforts(runnerId,modelSel,effortSel){const r=options?.runners.find(x=>x.id===runnerId);const m=(r?.models||[]).find(x=>x.id===modelSel.value);
-  const list=m?.efforts?.length?m.efforts:(r?.efforts||[]);const keep=effortSel.value||remembered('studio-effort:'+runnerId);
+  const list=m?.efforts?.length?m.efforts:(r?.efforts||[]);const keep=effortSel.value||(r?.ladder?'':remembered('studio-effort:'+runnerId));
   effortSel.innerHTML='<option value="">Mặc định</option>'+list.map(e=>`<option value="${esc(e)}">${esc(EFFORT_LABEL[e]||e)}</option>`).join('');
   effortSel.disabled=!list.length;effortSel.value=list.includes(keep)?keep:(m?.default_effort&&list.includes(m.default_effort)?m.default_effort:'')}
 function rememberModel(runnerId,modelSel,effortSel){if(!runnerId)return;remembered('studio-model:'+runnerId,modelSel.value);remembered('studio-effort:'+runnerId,effortSel.value)}
@@ -407,7 +407,7 @@ async function submitCreate(ev){ev.preventDefault();const body=formBody();if(!bo
   $('create-submit').disabled=true;$('create-error').textContent='Đang khởi tạo…';
   try{const{ok,status,data}=await api('/api/videos',body);
     if(ok){rememberModel(body.runner,$('f-model'),$('f-effort'));closeCreate();window.selectVideo?.(data.video);window.refresh?.();
-      note('dock-error',!data.run?`Đã tạo hồ sơ ${data.video}. Gửi lệnh bên dưới để chạy agent.`:data.run.state==='scheduled'?`Đã tạo ${data.video}, lên lịch ${data.run.label} lúc ${fmtWhen(data.run.run_at)}.`:`Đã tạo ${data.video} và khởi chạy ${data.run.label}.`,'ok');pollRuns(true);return}
+      note('dock-error',data.run_error?`Đã tạo ${data.video}, nhưng agent không chạy được: ${data.run_error}`:!data.run?`Đã tạo hồ sơ ${data.video}. Gửi lệnh bên dưới để chạy agent.`:data.run.state==='scheduled'?`Đã tạo ${data.video}, lên lịch ${data.run.label} lúc ${fmtWhen(data.run.run_at)}.`:`Đã tạo ${data.video} và khởi chạy ${data.run.label}.`,data.run_error?'error':'ok');pollRuns(true);return}
     if(status===409&&data.needs_confirm){showMatches(data.matches);$('create-error').textContent='Chủ đề gần giống video đã có: xác nhận để tạo mới.';return}
     $('create-error').textContent=data.error||`Lỗi ${status}`}
   finally{$('create-submit').disabled=false}}

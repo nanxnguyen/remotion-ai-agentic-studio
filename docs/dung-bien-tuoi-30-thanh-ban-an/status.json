@@ -206,9 +206,21 @@
       "stage": "design",
       "who": "design-agent",
       "msg": "design-agent running: branch 3c"
+    },
+    {
+      "t": "2026-10-17T19:02:50+07:00",
+      "stage": "content",
+      "who": "content-reviewer",
+      "msg": "content-reviewer running: branch review: 2 lenses"
+    },
+    {
+      "t": "2026-10-17T19:02:51+07:00",
+      "stage": "design",
+      "who": "design-reviewer",
+      "msg": "design-reviewer running: gate D: 3 lenses"
     }
   ],
-  "updated": "2026-10-17T18:00:33+07:00",
+  "updated": "2026-10-17T19:02:51+07:00",
   "agents": {
     "research-agent": {
       "state": "done",
@@ -244,6 +256,18 @@
       "state": "running",
       "at": "2026-10-17T18:00:33+07:00",
       "note": "branch 3c",
+      "stage": "design"
+    },
+    "content-reviewer": {
+      "state": "running",
+      "at": "2026-10-17T19:02:50+07:00",
+      "note": "branch review: 2 lenses",
+      "stage": "content"
+    },
+    "design-reviewer": {
+      "state": "running",
+      "at": "2026-10-17T19:02:51+07:00",
+      "note": "gate D: 3 lenses",
       "stage": "design"
     }
   }
