@@ -199,7 +199,9 @@ def review_passed(data: dict, gate: str) -> bool:
     if last["score"] < PASS_SCORE.get(gate, 8) or last["verdict"] != "pass":
         return False
     if gate == "C":  # AI video review of frames, captions, ASR and audio metrics; the human listen is separate (cmd_listen)
-        return verified_render(data) and last.get("render_fingerprint") == data["render_check"].get("fingerprint")
+        render = data["render_check"]
+        sha_matches = not (last.get("render_sha256") or render.get("sha256")) or last.get("render_sha256") == render.get("sha256")
+        return verified_render(data) and last.get("render_fingerprint") == render.get("fingerprint") and sha_matches
     return True
 
 
@@ -284,6 +286,14 @@ def evidence(folder: str, data: dict) -> dict:
 def file_fingerprint(path: Path) -> str:
     stat = path.stat()
     return f"{stat.st_size}:{stat.st_mtime_ns}"
+
+
+def file_sha256(path: Path) -> str:
+    value = hashlib.sha256()
+    with path.open("rb") as stream:
+        for block in iter(lambda: stream.read(1024 * 1024), b""):
+            value.update(block)
+    return value.hexdigest()
 
 
 def audio_fingerprint(folder: str, data: dict) -> str:
@@ -511,6 +521,7 @@ def cmd_review(a) -> None:
                  "verdict": a.verdict, "report": rel(report), "note": a.note or ""}
         if a.gate == "C":
             entry["render_fingerprint"] = data["render_check"]["fingerprint"]
+            entry["render_sha256"] = data["render_check"].get("sha256")
             entry["full_listen"] = bool(a.full_listen)
         data.setdefault("reviews", {}).setdefault(a.gate, []).append(entry)
         data.setdefault("review_valid", {})[a.gate] = True
@@ -519,6 +530,57 @@ def cmd_review(a) -> None:
         log(data, a.gate, f"review {a.score}/10 {a.verdict}: {a.report}" + (f" ({a.note})" if a.note else ""), a.reviewer)
         save(a.folder, data)
     print(f"review {a.gate}: {a.score}/10 {a.verdict}")
+    if a.gate == "C" and a.verdict == "pass":
+        publish_after_gate_c(a.folder)
+
+
+def publish_after_gate_c(folder: str) -> None:
+    """Upload the exact Gate-C artifact as private/draft when this video opts in."""
+    config_path = DOCS / folder / "publishing.json"
+    if not config_path.is_file():
+        return
+    data = load(folder)
+    fingerprint = data.get("render_check", {}).get("fingerprint", "")
+    try:
+        config = json.loads(config_path.read_text(encoding="utf-8"))
+        if config.get("autoDraft") is not True:
+            return
+        platform = config.get("platform", "both")
+        title = config.get("title")
+        description = config.get("description", "")
+        if platform not in {"youtube", "facebook", "both"} or not isinstance(title, str) or not title.strip():
+            raise ValueError("publishing.json requires a nonempty title and platform youtube, facebook, or both")
+    except (AttributeError, json.JSONDecodeError, TypeError, ValueError) as exc:
+        record_publishing(folder, "failed", "invalid", fingerprint, [])
+        raise SystemExit(str(exc)) from exc
+    if not review_passed(data, "C"):
+        raise SystemExit("automatic draft upload requires Gate C to pass")
+    video = (ROOT / "out" / f"{data['paths']['out']}-reel.mp4").resolve()
+    command = [sys.executable, str(ROOT / "scripts" / "publish-video.py"), folder,
+               "--file", str(video), "--title", title.strip(), "--description", str(description),
+               "--platform", platform, "--execute", "--auto-draft"]
+    result = subprocess.run(command, cwd=ROOT, capture_output=True, text=True)
+    state = "submitted" if result.returncode == 0 else "failed"
+    results = []
+    for line in result.stdout.splitlines():
+        try:
+            item = json.loads(line)
+        except json.JSONDecodeError:
+            continue
+        if isinstance(item, dict) and item.get("platform") in {"youtube", "facebook"}:
+            results.append({key: item[key] for key in ("platform", "status", "remote_id", "skipped") if key in item})
+    record_publishing(folder, state, platform, fingerprint, results)
+    if result.returncode:
+        raise SystemExit("automatic draft upload failed: " + (result.stderr or result.stdout)[-500:])
+
+
+def record_publishing(folder: str, state: str, platform: str, fingerprint: str, results: list) -> None:
+    with status_lock(folder):
+        latest = load(folder)
+        latest["publishing"] = {"state": state, "at": now(), "platform": platform,
+                                "fingerprint": fingerprint, "results": results}
+        log(latest, "publishing", f"private/draft upload {state} for {platform}", "publisher")
+        save(folder, latest)
 
 
 def cmd_override(a) -> None:
@@ -559,11 +621,14 @@ def cmd_verify(a) -> None:
         raise SystemExit(f"missing final MP4: {path}")
     duration = validate_media(path, a.min_seconds, a.max_seconds)
     fingerprint = file_fingerprint(path)
+    sha256 = file_sha256(path)
     with status_lock(a.folder):
         data = load(a.folder)
-        if data.get("render_check", {}).get("fingerprint") != fingerprint:
+        previous = data.get("render_check", {})
+        if previous.get("fingerprint") != fingerprint or (previous.get("sha256") and previous.get("sha256") != sha256):
             invalidate_reviews(data, "C")
-        data["render_check"] = {"fingerprint": fingerprint, "duration": round(duration, 2), "at": now()}
+        data["render_check"] = {"fingerprint": fingerprint, "sha256": sha256,
+                                "duration": round(duration, 2), "at": now()}
         log(data, "render", f"verified {duration:.2f}s H.264/AAC 1080x1920 30fps", "verify")
         save(a.folder, data)
     print(f"verified {rel(path)}: {duration:.2f}s H.264/AAC 1080x1920 30fps")

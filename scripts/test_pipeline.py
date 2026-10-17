@@ -101,11 +101,24 @@ class PipelineCliTest(unittest.TestCase):
         verified = self.cli("verify", "sample", "--min-seconds", "0.1")
         self.assertEqual(verified.returncode, 0, verified.stderr)
         self.pass_gates("B")
+        (self.root / "docs" / "sample" / "publishing.json").write_text(json.dumps({
+            "autoDraft": True, "platform": "both", "title": "Review title", "description": "Review description",
+        }))
+        (self.root / "scripts" / "publish-video.py").write_text(
+            "import json,pathlib,sys\n"
+            "pathlib.Path('out/publish-invocation.json').write_text(json.dumps(sys.argv[1:]))\n"
+        )
         report = self.root / "docs" / "sample" / "video-review.md"
         report.write_text("Reviewed first render\n")
         result = self.cli("review", "sample", "C", "9", "--reviewer", "critic", "--report", "video-review.md", "--full-listen")
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertEqual(self.cli("gate", "sample", "C").returncode, 0)
+        invocation = json.loads((self.root / "out" / "publish-invocation.json").read_text())
+        self.assertEqual(invocation, [
+            "sample", "--file", str(video), "--title", "Review title", "--description", "Review description",
+            "--platform", "both", "--execute", "--auto-draft",
+        ])
+        self.assertEqual(self.status()["publishing"]["state"], "submitted")
         changed = self.cli("set", "sample", "render", "in_progress")
         self.assertEqual(changed.returncode, 0, changed.stderr)
         self.assertNotEqual(self.cli("gate", "sample", "C").returncode, 0)
