@@ -6,7 +6,7 @@
   "compatibility_flags": ["nodejs_compat"],
   "containers": [{"class_name":"VideoContainer","image":"../Dockerfile.cloudflare","max_instances":1,"instance_type":"standard-4"}],
   "durable_objects": {"bindings":[{"name":"VIDEO_CONTAINER","class_name":"VideoContainer"}]},
-  "exports":{"VideoContainer":{"type":"durable-object","storage":"sqlite"}},
+  "migrations":[{"tag":"v1","new_sqlite_classes":["VideoContainer"]}],
   "d1_databases":[{"binding":"DB","database_name":"remotion-video-jobs","database_id":"REPLACE_WITH_D1_ID"}],
   "r2_buckets":[{"binding":"ARTIFACTS","bucket_name":"remotion-video-artifacts"}]
 }
