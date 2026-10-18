@@ -2340,6 +2340,13 @@ class Handler(BaseHTTPRequestHandler):
             self._audio(*match.groups())
         elif self.path == "/vendor/howler.min.js" and HOWLER.is_file():
             self._send(200, HOWLER.read_bytes(), "text/javascript; charset=utf-8")
+        elif self.path == "/api/terminal/capabilities":
+            # This handshake lets the UI distinguish a stale monitor server
+            # (endpoint missing) from an empty or disconnected PTY session.
+            providers = {provider: bool(shutil.which(executable[0]))
+                         for provider, executable in INTERACTIVE_COMMANDS.items()}
+            self._json(200, {"api_version": 2, "pty_supported": os.name != "nt",
+                             "providers": providers, "interactive": True})
         elif match := re.fullmatch(r"/api/terminal/([A-Za-z0-9_-]+)/sessions", self.path):
             if self._load(match.group(1)) is None:
                 return self._json(404, {"error": "video not found"})
@@ -2407,10 +2414,14 @@ class Handler(BaseHTTPRequestHandler):
                 cmd = terminal_command(provider, model, effort)
                 with LIVE_LOCK:
                     if any(item["folder"] == video for item in [*LIVE_RUNS.values(), *DETACHED.values()]):
-                        raise ValueError("a one-shot agent is active for this video")
-                session = terminal_backend().start(video, provider, cmd, ROOT,
-                                              body.get("cols", 100), body.get("rows", 28),
-                                              model=model, effort=effort)
+                        raise ValueError("one-shot agent is running for this video; stop it or wait until it finishes before opening a PTY session")
+                    # Hold the same lock used by launch_run to avoid two writers
+                    # starting on the same video between the check and PTY spawn.
+                    session = terminal_backend().start(
+                        video, provider, cmd, ROOT,
+                        body.get("cols", 100), body.get("rows", 28),
+                        model=model, effort=effort,
+                    )
                 return self._json(201, {"id": session.id, "provider": provider,
                                         "model": model, "effort": effort, "state": session.state})
             except (ValueError, LookupError, RuntimeError, OSError) as exc:
