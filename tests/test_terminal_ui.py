@@ -67,6 +67,13 @@ class TerminalUiTests(unittest.TestCase):
             with self.subTest(source=source):
                 self.assertIn(source, self.text)
 
+    def test_sidebar_switch_does_not_leak_keyboard_or_output(self):
+        self.assertIn("document.addEventListener('click',event=>", self.text)
+        self.assertIn("event.target.closest('[data-v]')", self.text)
+        self.assertIn("const sentTo=session.id,videoForInput=video;", self.text)
+        self.assertIn("if(!session||activeId!==session.id||activeVideo!==video)return;", self.text)
+        self.assertIn("decoder.decode(bytes,{stream:true})", self.text)
+
     @unittest.skipUnless(shutil.which("node"), "Node.js needed for JS syntax checks")
     def test_inline_terminal_javascript_parses(self):
         scripts = re.findall(r"<script(?:\s[^>]*)?>([\s\S]*?)</script>", self.text)
