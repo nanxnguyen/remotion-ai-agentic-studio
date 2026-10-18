@@ -18,7 +18,7 @@ Build deterministic 9:16 Remotion videos while preserving each video's visual id
 
 ## Video production rules (mandatory)
 
-Every agent and tool that works on a video must follow [.agents/rules/](.agents/rules/README.md): truthful status for the monitor, complete documents for every phase, `src/` ownership and timeline rules, and handoff discipline. Run `python3 -I scripts/pipeline.py audit <vid>` before ending any turn on a video; it must exit 0 or every remaining error goes into `docs/<vid>/HANDOFF.md`.
+Every agent and tool that works on a video (Claude Code, Codex, OpenCode, Cursor, Gemini, …) must run the full phase/stage/gate workflow in [`.claude/skills/ray-pineline-worflow-agent/SKILL.md`](.claude/skills/ray-pineline-worflow-agent/SKILL.md) without skipping any step (see rule 6 in `.agents/rules/README.md`), and must follow [.agents/rules/](.agents/rules/README.md): truthful status for the monitor, complete documents for every phase, `src/` ownership and timeline rules, and handoff discipline. Run `python3 -I scripts/pipeline.py audit <vid>` before ending any turn on a video; it must exit 0 or every remaining error goes into `docs/<vid>/HANDOFF.md`.
 
 ## Commands
 

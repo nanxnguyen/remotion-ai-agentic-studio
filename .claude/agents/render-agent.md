@@ -1,6 +1,6 @@
 ---
 name: render-agent
-description: Phase 9 producer. Renders and verifies the final MP4 through pipeline.py render, runs the machine rows of the final regression matrix on the rendered file (final-check.md), then produces the evidence pack for gate C - contact sheet, dense transition frames, loudness, BGM-vs-voice level, full-mix ASR and per-shot caption text.
+description: Phase 8 producer. Renders and verifies the final MP4 through pipeline.py render, runs the machine rows of the final regression matrix on the rendered file (final-check.md), then produces the evidence pack for gate C - contact sheet, dense transition frames, loudness, BGM-vs-voice level, full-mix ASR and per-shot caption text.
 tools: Read, Write, Glob, Grep, Bash
 model: haiku
 color: green

@@ -1,0 +1,17 @@
+{
+  "source_url": "https://github.com/morluto/rea",
+  "platform": "facebook-reels",
+  "audience": "vietnamese-developers",
+  "duration_seconds": 42,
+  "aspect_ratio": "9:16",
+  "width": 1080,
+  "height": 1920,
+  "fps": 30,
+  "language": "vi-VN",
+  "voice": {"style": "warm-conversational-playful", "accent": "southern-or-neutral", "provider": "auto", "sample_choices": 3},
+  "story": {"arc": "pain-playful-exaggeration-reveal-proof-relief-cta", "single_use_case": true},
+  "humor": {"level": "playful", "primary_device": "relatable-exaggeration", "beats": 4, "target": "broken-process-not-viewer", "avoid_random_memes": true},
+  "music": {"style": "electronic-cinematic", "licensed_only": true},
+  "captions": {"style": "dynamic-karaoke", "export_srt": true},
+  "deliverables": ["mp4", "remotion-source", "voiceover", "srt", "script", "research", "asset-manifest"]
+}

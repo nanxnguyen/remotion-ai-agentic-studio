@@ -151,8 +151,8 @@ export const Headline: React.FC<{lines: HSeg[][]; size?: number; top?: number; e
             fontWeight: 700,
             fontSize: size,
             lineHeight: 1.32,
-            color: PAPER_TEXT,
-            textShadow: '0 3px 22px rgba(20,12,40,.85)',
+            color: INK,
+            textShadow: `0 2px 0 ${PAPER}, 2px 0 0 ${PAPER}, -2px 0 0 ${PAPER}, 0 3px 14px rgba(62,69,75,.32)`,
             textWrap: 'balance' as const,
           }}
         >
@@ -212,7 +212,15 @@ export const Ruler: React.FC<{
   ticks?: number[];
   activeTick?: number;
   enter?: number;
-}> = ({x = 0, y = 0, width = 800, angle = -12, ticks = [18, 22, 25, 30], activeTick, enter = 0}) => {
+}> = ({
+  x = 0,
+  y = 0,
+  width = 800,
+  angle = -12,
+  ticks = [18, 22, 25, 30],
+  activeTick,
+  enter = 0,
+}) => {
   const f = useCurrentFrame();
   const e = enter <= 0 ? 1 : ramp(f, enter, 20, E_SINE);
   const tickSpacing = width / (ticks.length + 1);
@@ -355,6 +363,20 @@ export const PencilChar: React.FC<{
           boxShadow: '0 8px 20px rgba(62,69,75,0.25)',
         }}
       />
+      {/* graphite construction marks: a deliberate pencil-on-paper finish */}
+      <div
+        style={{
+          position: 'absolute',
+          left: 27 * s,
+          top: 95 * s,
+          width: 66 * s,
+          height: 90 * s,
+          borderLeft: `${2 * s}px solid rgba(240,243,240,.18)`,
+          borderRight: `${1 * s}px solid rgba(240,243,240,.12)`,
+          transform: 'skewY(-2deg)',
+          opacity: 0.75,
+        }}
+      />
       {/* legs */}
       <div
         style={{
@@ -393,6 +415,34 @@ export const PencilChar: React.FC<{
             transformOrigin: 'left center',
           }}
         />
+      )}
+      {pose === 'sit' && (
+        <>
+          <div
+            style={{
+              position: 'absolute',
+              left: 18 * s,
+              top: 183 * s,
+              width: 88 * s,
+              height: 18 * s,
+              borderRadius: 9 * s,
+              background: INK,
+              transform: 'rotate(8deg)',
+            }}
+          />
+          <div
+            style={{
+              position: 'absolute',
+              left: 24 * s,
+              top: 218 * s,
+              width: 70 * s,
+              height: 18 * s,
+              borderRadius: 9 * s,
+              background: INK,
+              transform: 'rotate(-8deg)',
+            }}
+          />
+        </>
       )}
     </div>
   );
@@ -451,6 +501,215 @@ export const RedPenLines: React.FC<{lines: string[]; x?: number; y?: number; ent
     </div>
   );
 };
+
+export const Feast: React.FC<{x?: number; y?: number; scale?: number; steam?: boolean}> = ({
+  x = 180,
+  y = 760,
+  scale = 1,
+  steam = true,
+}) => {
+  const f = useCurrentFrame();
+  const drift = Math.sin(f / 18) * 5;
+  return (
+    <div style={{position: 'absolute', left: x, top: y, width: 720 * scale, height: 310 * scale}}>
+      <div
+        style={{
+          position: 'absolute',
+          left: 100 * scale,
+          top: 115 * scale,
+          width: 520 * scale,
+          height: 125 * scale,
+          borderRadius: '50%',
+          background: '#D6CDBB',
+          border: `4px solid ${INK}`,
+          boxShadow: '0 14px 20px rgba(62,69,75,.22)',
+        }}
+      />
+      <div
+        style={{
+          position: 'absolute',
+          left: 175 * scale,
+          top: 88 * scale,
+          width: 140 * scale,
+          height: 80 * scale,
+          borderRadius: '50%',
+          background: '#C5B59D',
+          border: `3px solid ${INK}`,
+        }}
+      />
+      <div
+        style={{
+          position: 'absolute',
+          left: 380 * scale,
+          top: 95 * scale,
+          width: 145 * scale,
+          height: 72 * scale,
+          borderRadius: '50%',
+          background: '#B99E82',
+          border: `3px solid ${INK}`,
+        }}
+      />
+      <div
+        style={{
+          position: 'absolute',
+          left: 285 * scale,
+          top: 145 * scale,
+          width: 120 * scale,
+          height: 60 * scale,
+          borderRadius: '50%',
+          background: '#8D927F',
+          border: `3px solid ${INK}`,
+        }}
+      />
+      <div
+        style={{
+          position: 'absolute',
+          left: 170 * scale,
+          top: 35 * scale,
+          width: 6 * scale,
+          height: 150 * scale,
+          background: INK,
+          transform: 'rotate(-25deg)',
+          transformOrigin: 'bottom',
+        }}
+      />
+      <div
+        style={{
+          position: 'absolute',
+          left: 245 * scale,
+          top: 28 * scale,
+          width: 6 * scale,
+          height: 150 * scale,
+          background: INK,
+          transform: 'rotate(20deg)',
+          transformOrigin: 'bottom',
+        }}
+      />
+      {steam &&
+        [0, 1, 2].map((i) => (
+          <div
+            key={i}
+            style={{
+              position: 'absolute',
+              left: (235 + i * 95) * scale,
+              top: (8 + (i % 2) * 12) * scale,
+              width: 48 * scale,
+              height: 112 * scale,
+              borderLeft: `7px solid rgba(124,133,140,.58)`,
+              borderRadius: '50%',
+              transform: `translateY(${(drift * (i + 1)) / 2}px) rotate(${i === 1 ? 8 : -8}deg)`,
+              opacity: 0.75,
+            }}
+          />
+        ))}
+    </div>
+  );
+};
+
+export const QuestionBurst: React.FC<{x?: number; y?: number; compact?: boolean}> = ({
+  x = 280,
+  y = 560,
+  compact = false,
+}) => {
+  const f = useCurrentFrame();
+  const qs = ['Có nhà chưa?', 'Kết hôn chưa?', 'Lương bao nhiêu?'];
+  return (
+    <div style={{position: 'absolute', left: x, top: y, width: 600, height: compact ? 120 : 230}}>
+      {qs.map((q, i) => (
+        <div
+          key={q}
+          style={{
+            position: 'absolute',
+            left: (i % 2) * 180 + (i === 2 ? 90 : 0),
+            top: i * (compact ? 36 : 68) + Math.sin((f + i * 8) / 15) * 3,
+            fontFamily: HAND,
+            fontStyle: 'italic',
+            fontSize: compact ? 24 : 42,
+            color: RED,
+            fontWeight: 700,
+            transform: `rotate(${i === 1 ? 3 : -4}deg)`,
+            textShadow: '0 1px 2px rgba(210,59,46,.18)',
+          }}
+        >
+          {q}
+        </div>
+      ))}
+    </div>
+  );
+};
+
+export const PhoneMock: React.FC<{x?: number; y?: number; on?: boolean; scale?: number}> = ({
+  x = 0,
+  y = 0,
+  on = true,
+  scale = 1,
+}) => (
+  <div
+    style={{
+      position: 'absolute',
+      left: x,
+      top: y,
+      width: 230 * scale,
+      height: 430 * scale,
+      borderRadius: 28 * scale,
+      background: on ? '#26323A' : '#4A5258',
+      border: `8px solid ${INK}`,
+      boxShadow: '0 12px 30px rgba(62,69,75,.3)',
+      overflow: 'hidden',
+    }}
+  >
+    <div style={{height: 26 * scale, background: INK}} />
+    {on ? (
+      <>
+        <div
+          style={{
+            margin: 18 * scale,
+            height: 125 * scale,
+            background: '#B8CBD4',
+            borderRadius: 10 * scale,
+            border: `2px solid ${PAPER}`,
+          }}
+        />
+        <div
+          style={{
+            margin: `12px ${18 * scale}px`,
+            height: 10 * scale,
+            background: PAPER,
+            opacity: 0.8,
+          }}
+        />
+        <div
+          style={{
+            margin: `12px ${18 * scale}px`,
+            height: 76 * scale,
+            background: '#849BA3',
+            borderRadius: 8 * scale,
+          }}
+        />
+        <div
+          style={{
+            margin: `12px ${18 * scale}px`,
+            height: 10 * scale,
+            background: PAPER,
+            opacity: 0.6,
+          }}
+        />
+      </>
+    ) : (
+      <div
+        style={{
+          position: 'absolute',
+          left: 40 * scale,
+          top: 195 * scale,
+          width: 150 * scale,
+          height: 3 * scale,
+          background: '#818B90',
+          transform: 'rotate(-12deg)',
+        }}
+      />
+    )}
+  </div>
+);
 
 // Minh hoa label
 export const MinhHoa: React.FC<{top?: number}> = ({top = 120}) => (

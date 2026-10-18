@@ -1,6 +1,6 @@
 ---
 name: qa-agent
-description: Phase 8 final QA, the last barrier. Runs only after the render is verified and gate C passed; re-verifies everything on the approved MP4 (every final-check.md row, compile, determinism, frame/transition/caption checks, carried tickets) and writes qa-report.md with fixes routed to file owners. Report-only, never edits source.
+description: Phase 9 final QA, the last barrier. Runs only after the render is verified and gate C passed; re-verifies everything on the approved MP4 (every final-check.md row, compile, determinism, frame/transition/caption checks, carried tickets) and writes qa-report.md with fixes routed to file owners. Report-only, never edits source.
 tools: Read, Write, Glob, Grep, Bash
 model: sonnet
 color: red

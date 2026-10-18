@@ -24,7 +24,7 @@ secrets*.json
 .superpowers/
 .worktrees/
 .codex-monitor-compare/
-/skills/
+
 /design-monitor/uploads/
 .DS_Store
 .idea/

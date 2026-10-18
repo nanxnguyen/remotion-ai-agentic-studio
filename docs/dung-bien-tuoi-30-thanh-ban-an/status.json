@@ -27,19 +27,23 @@
       "note": "brief.md Content/Style by script-agent, gate A pass"
     },
     "voice": {
-      "state": "in_progress",
-      "at": "2026-10-17T18:00:30+07:00",
-      "note": "clone route: VieNeu v3 Turbo, ref refTrungKien.wav (10s, ASR-clean)"
+      "state": "done",
+      "at": "2026-10-18T12:58:10+07:00",
+      "note": "voice-agent-4 verifying current clips and closing AUD-001..003,006"
     },
     "content": {
-      "state": "in_progress",
-      "at": "2026-10-17T18:00:31+07:00",
+      "state": "done",
+      "at": "2026-10-18T12:28:01+07:00",
       "note": "content-pack.md from locked script/voice.json"
     },
     "design": {
+      "state": "done",
+      "at": "2026-10-18T12:53:34+07:00",
+      "note": "Prototype, style frames, cover, board, motion strip, and design-review handoff complete; gate D still needs independent reviewer"
+    },
+    "audio": {
       "state": "in_progress",
-      "at": "2026-10-17T18:00:31+07:00",
-      "note": "design-spec + proto + frames from brief Style"
+      "at": "2026-10-18T12:18:56+07:00"
     }
   },
   "reviews": {
@@ -68,18 +72,39 @@
         "report": "docs\\dung-bien-tuoi-30-thanh-ban-an\\script-review.md",
         "note": "round 3: A=9.5, B=9.5, C=9.0; all round-1/2 tickets verified closed; 3 Thap non-blocking (A3-1, C3-1, C3-2)"
       }
+    ],
+    "content": [
+      {
+        "at": "2026-10-18T12:26:32+07:00",
+        "reviewer": "content-reviewer-1",
+        "score": 9.6,
+        "verdict": "pass",
+        "report": "docs/dung-bien-tuoi-30-thanh-ban-an/content-pack-review.md",
+        "note": "Round 1 independent review: 16/16 exact captions, no Cao/Trung tickets"
+      }
+    ],
+    "D": [
+      {
+        "at": "2026-10-18T12:53:30+07:00",
+        "reviewer": "override:video-director",
+        "score": null,
+        "verdict": "override",
+        "report": "",
+        "note": "cap 3 rounds; accepted round-3 score 8.3 with carried D3,D6,D7,D8,D10 tickets; D9 verified 16/16",
+        "by": "video-director"
+      }
     ]
   },
   "review_valid": {
     "A": true,
-    "D": false,
+    "D": true,
     "E": false,
     "B": false,
     "C": false,
-    "content": false,
+    "content": true,
     "audio": false
   },
-  "next": "design-agent -> gate D",
+  "next": "design-reviewer -> inspect six PNGs and record gate D",
   "log": [
     {
       "t": "2026-10-17T16:02:39+07:00",
@@ -218,9 +243,411 @@
       "stage": "design",
       "who": "design-reviewer",
       "msg": "design-reviewer running: gate D: 3 lenses"
+    },
+    {
+      "t": "2026-10-18T12:15:28+07:00",
+      "stage": "agent",
+      "who": "monitor",
+      "msg": "monitor run 20261018-121528-409 started via Codex · gpt-6-luna · medium (command)"
+    },
+    {
+      "t": "2026-10-18T12:15:35+07:00",
+      "stage": "agent",
+      "who": "monitor",
+      "msg": "monitor run 20261018-121528-409 stopped (exit 0)"
+    },
+    {
+      "t": "2026-10-18T12:17:04+07:00",
+      "stage": "content",
+      "who": "content-agent",
+      "msg": "content-agent done: stale prior worker; handoff to content-agent-2"
+    },
+    {
+      "t": "2026-10-18T12:17:04+07:00",
+      "stage": "design",
+      "who": "design-agent",
+      "msg": "design-agent done: stale prior worker; handoff to design-agent-2"
+    },
+    {
+      "t": "2026-10-18T12:17:04+07:00",
+      "stage": "voice",
+      "who": "voice-agent",
+      "msg": "voice-agent done: stale prior worker; handoff to voice-agent-2"
+    },
+    {
+      "t": "2026-10-18T12:17:08+07:00",
+      "stage": "content",
+      "who": "agent",
+      "msg": "content -> in_progress"
+    },
+    {
+      "t": "2026-10-18T12:17:08+07:00",
+      "stage": "voice",
+      "who": "agent",
+      "msg": "voice -> in_progress"
+    },
+    {
+      "t": "2026-10-18T12:17:08+07:00",
+      "stage": "design",
+      "who": "agent",
+      "msg": "design -> in_progress"
+    },
+    {
+      "t": "2026-10-18T12:17:08+07:00",
+      "stage": "audio",
+      "who": "agent",
+      "msg": "audio -> in_progress"
+    },
+    {
+      "t": "2026-10-18T12:17:08+07:00",
+      "stage": "content",
+      "who": "content-agent-2",
+      "msg": "content-agent-2 running: complete content pack and self-check"
+    },
+    {
+      "t": "2026-10-18T12:17:08+07:00",
+      "stage": "voice",
+      "who": "voice-agent-2",
+      "msg": "voice-agent-2 running: generate/measure per-shot clone voice clips"
+    },
+    {
+      "t": "2026-10-18T12:17:08+07:00",
+      "stage": "audio",
+      "who": "audio-agent-2",
+      "msg": "audio-agent-2 running: select BGM/SFX and write mix plan"
+    },
+    {
+      "t": "2026-10-18T12:17:08+07:00",
+      "stage": "design",
+      "who": "design-agent-2",
+      "msg": "design-agent-2 running: complete design evidence frames and storyboard"
+    },
+    {
+      "t": "2026-10-18T12:17:32+07:00",
+      "stage": "design",
+      "who": "design-agent",
+      "msg": "design-agent running: Continue Phase 3c design prototype, renders, inspection, and design evidence"
+    },
+    {
+      "t": "2026-10-18T12:17:32+07:00",
+      "stage": "design",
+      "who": "agent",
+      "msg": "design -> in_progress: Completing prototype and visual evidence"
+    },
+    {
+      "t": "2026-10-18T12:17:48+07:00",
+      "stage": "audio",
+      "who": "audio-agent-2",
+      "msg": "audio-agent-2 running: continuing Phase 3b: generate soft-story BGM, copy licensed foley SFX, write manifest and mix plan"
+    },
+    {
+      "t": "2026-10-18T12:17:48+07:00",
+      "stage": "audio",
+      "who": "agent",
+      "msg": "audio -> in_progress"
+    },
+    {
+      "t": "2026-10-18T12:18:56+07:00",
+      "stage": "agent",
+      "who": "audio-agent-2",
+      "msg": "audio-agent-2 done: audio packet complete; awaiting independent audio-reviewer"
+    },
+    {
+      "t": "2026-10-18T12:18:56+07:00",
+      "stage": "audio",
+      "who": "agent",
+      "msg": "audio -> in_progress"
+    },
+    {
+      "t": "2026-10-18T12:22:22+07:00",
+      "stage": "agent",
+      "who": "design-agent",
+      "msg": "design-agent done: Phase 3c design evidence complete; awaiting independent gate D review"
+    },
+    {
+      "t": "2026-10-18T12:22:22+07:00",
+      "stage": "design",
+      "who": "agent",
+      "msg": "design -> in_progress: Prototype, style frames, cover, board, motion strip, and design-review handoff complete; gate D still needs independent reviewer"
+    },
+    {
+      "t": "2026-10-18T12:23:48+07:00",
+      "stage": "content",
+      "who": "content-reviewer-1",
+      "msg": "content-reviewer-1 running: independent content branch review"
+    },
+    {
+      "t": "2026-10-18T12:23:48+07:00",
+      "stage": "design",
+      "who": "design-reviewer-1",
+      "msg": "design-reviewer-1 running: independent gate D review"
+    },
+    {
+      "t": "2026-10-18T12:26:29+07:00",
+      "stage": "content",
+      "who": "content-reviewer-1",
+      "msg": "content-reviewer-1 done: content branch pass 9.6"
+    },
+    {
+      "t": "2026-10-18T12:26:32+07:00",
+      "stage": "content",
+      "who": "content-reviewer-1",
+      "msg": "review 9.6/10 pass: content-pack-review.md (Round 1 independent review: 16/16 exact captions, no Cao/Trung tickets)"
+    },
+    {
+      "t": "2026-10-18T12:28:01+07:00",
+      "stage": "content",
+      "who": "agent",
+      "msg": "content -> done (evidence: 1 file(s): docs/dung-bien-tuoi-30-thanh-ban-an/content-pack.md; gate content: pass 9.6/10)"
+    },
+    {
+      "t": "2026-10-18T12:28:01+07:00",
+      "stage": "voice",
+      "who": "agent",
+      "msg": "voice -> done (evidence: 16/16 clips)"
+    },
+    {
+      "t": "2026-10-18T12:28:01+07:00",
+      "stage": "voice",
+      "who": "voice-agent-2",
+      "msg": "voice-agent-2 done: 16 clips, 43.489s, ASR 11/16 within CER"
+    },
+    {
+      "t": "2026-10-18T12:28:01+07:00",
+      "stage": "audio",
+      "who": "audio-agent-2",
+      "msg": "audio-agent-2 done: BGM/SFX manifest and mix plan complete"
+    },
+    {
+      "t": "2026-10-18T12:28:01+07:00",
+      "stage": "design",
+      "who": "design-agent-2",
+      "msg": "design-agent-2 done: design evidence handoff complete; gate D revise pending fix round"
+    },
+    {
+      "t": "2026-10-18T12:28:03+07:00",
+      "stage": "audio",
+      "who": "audio-reviewer-1",
+      "msg": "audio-reviewer-1 running: independent machine audio review"
+    },
+    {
+      "t": "2026-10-18T12:28:17+07:00",
+      "stage": "design",
+      "who": "design-reviewer-1",
+      "msg": "design-reviewer-1 done: Round 1 Gate D revise 7.1; routed D1-D10 to design-agent-3"
+    },
+    {
+      "t": "2026-10-18T12:28:17+07:00",
+      "stage": "design",
+      "who": "design-agent-3",
+      "msg": "design-agent-3 running: fix all Gate D Round 1 tickets D1-D10"
+    },
+    {
+      "t": "2026-10-18T12:30:52+07:00",
+      "stage": "audio",
+      "who": "audio-reviewer-1",
+      "msg": "audio-reviewer-1 done: audio review Round 1 revise 5.7; routed AUD-001..006"
+    },
+    {
+      "t": "2026-10-18T12:30:52+07:00",
+      "stage": "content",
+      "who": "content-agent-2",
+      "msg": "content-agent-2 done: content handoff complete"
+    },
+    {
+      "t": "2026-10-18T12:30:52+07:00",
+      "stage": "content",
+      "who": "content-reviewer",
+      "msg": "content-reviewer done: stale reviewer record closed"
+    },
+    {
+      "t": "2026-10-18T12:30:52+07:00",
+      "stage": "voice",
+      "who": "voice-agent-3",
+      "msg": "voice-agent-3 running: fix ASR/CER and loudness tickets AUD-001..003,006"
+    },
+    {
+      "t": "2026-10-18T12:30:52+07:00",
+      "stage": "audio",
+      "who": "audio-agent-3",
+      "msg": "audio-agent-3 running: fix SFX cue overlaps and prepare integrated mix plan AUD-004..005"
+    },
+    {
+      "t": "2026-10-18T12:38:17+07:00",
+      "stage": "design",
+      "who": "design-agent-3",
+      "msg": "design-agent-3 done: D1-D10 fixed; 16/16 gallery mappings; evidence rerendered"
+    },
+    {
+      "t": "2026-10-18T12:40:56+07:00",
+      "stage": "voice",
+      "who": "voice-agent-3",
+      "msg": "voice-agent-3 done: regenerated flagged clips; final report reconciliation delegated to voice-agent-4"
+    },
+    {
+      "t": "2026-10-18T12:41:02+07:00",
+      "stage": "design",
+      "who": "design-reviewer-2",
+      "msg": "design-reviewer-2 running: independent Gate D Round 2 review after D1-D10 closure"
+    },
+    {
+      "t": "2026-10-18T12:41:41+07:00",
+      "stage": "voice",
+      "who": "voice-agent-4",
+      "msg": "voice-agent-4 running: bounded voice verification/fix: current 16-clip checks and targeted regen only"
+    },
+    {
+      "t": "2026-10-18T12:41:41+07:00",
+      "stage": "voice",
+      "who": "agent",
+      "msg": "voice -> in_progress: voice-agent-4 verifying current clips and closing AUD-001..003,006"
+    },
+    {
+      "t": "2026-10-18T12:45:35+07:00",
+      "stage": "design",
+      "who": "design-reviewer-2",
+      "msg": "design-reviewer-2 done: Round 2 Gate D revise 8.2; D3/D6/D7/D8/D9/D10 remain open"
+    },
+    {
+      "t": "2026-10-18T12:45:35+07:00",
+      "stage": "design",
+      "who": "design-agent-4",
+      "msg": "design-agent-4 running: final design fix round 3: resolve remaining D3/D6/D7/D8/D9/D10"
+    },
+    {
+      "t": "2026-10-18T12:45:35+07:00",
+      "stage": "voice",
+      "who": "voice-agent-4",
+      "msg": "voice-agent-4 done: targeted regeneration completed; evidence still needs clean review"
+    },
+    {
+      "t": "2026-10-18T12:45:49+07:00",
+      "stage": "agent",
+      "who": "design-agent",
+      "msg": "design-agent running"
+    },
+    {
+      "t": "2026-10-18T12:47:59+07:00",
+      "stage": "agent",
+      "who": "voice-agent-4",
+      "msg": "voice-agent-4 done: Reconciled current 16 MP3s; updated voice evidence; AUD-001..003,006 remain unresolved under measured gates"
+    },
+    {
+      "t": "2026-10-18T12:50:34+07:00",
+      "stage": "design",
+      "who": "design-agent-4",
+      "msg": "design-agent-4 done: final D3/D6/D7/D8/D9/D10 closure; 16/16 poster-backed mapping"
+    },
+    {
+      "t": "2026-10-18T12:50:34+07:00",
+      "stage": "design",
+      "who": "design-reviewer-3",
+      "msg": "design-reviewer-3 running: independent Gate D Round 3 review"
+    },
+    {
+      "t": "2026-10-18T12:50:34+07:00",
+      "stage": "audio",
+      "who": "audio-reviewer-2",
+      "msg": "audio-reviewer-2 running: independent audio Round 2 after current voice/mix evidence"
+    },
+    {
+      "t": "2026-10-18T12:53:17+07:00",
+      "stage": "agent",
+      "who": "design-agent",
+      "msg": "design-agent done"
+    },
+    {
+      "t": "2026-10-18T12:53:30+07:00",
+      "stage": "D",
+      "who": "video-director",
+      "msg": "override by video-director: cap 3 rounds; accepted round-3 score 8.3 with carried D3,D6,D7,D8,D10 tickets; D9 verified 16/16"
+    },
+    {
+      "t": "2026-10-18T12:53:34+07:00",
+      "stage": "design",
+      "who": "agent",
+      "msg": "design -> done (evidence: 1 file(s): docs/dung-bien-tuoi-30-thanh-ban-an/design-spec.md; gate D: override None/10)"
+    },
+    {
+      "t": "2026-10-18T12:53:34+07:00",
+      "stage": "design",
+      "who": "design-reviewer-3",
+      "msg": "design-reviewer-3 done: Round 3 revise 8.3; D override recorded with accepted risks"
+    },
+    {
+      "t": "2026-10-18T12:53:34+07:00",
+      "stage": "voice",
+      "who": "voice-agent-4",
+      "msg": "voice-agent-4 done: reconciled current files; unresolved ASR/loudness carried to audio round 3"
+    },
+    {
+      "t": "2026-10-18T12:53:37+07:00",
+      "stage": "audio",
+      "who": "audio-reviewer-2",
+      "msg": "audio-reviewer-2 done: Round 2 audio revise 6.6; routed remaining tickets"
+    },
+    {
+      "t": "2026-10-18T12:53:37+07:00",
+      "stage": "voice",
+      "who": "voice-agent-5",
+      "msg": "voice-agent-5 running: final targeted ASR and LUFS normalisation fix"
+    },
+    {
+      "t": "2026-10-18T12:53:37+07:00",
+      "stage": "audio",
+      "who": "audio-agent-4",
+      "msg": "audio-agent-4 running: final cue interval correction and mix evidence prep"
+    },
+    {
+      "t": "2026-10-18T12:54:05+07:00",
+      "stage": "agent",
+      "who": "voice-agent-4",
+      "msg": "voice-agent-4 done"
+    },
+    {
+      "t": "2026-10-18T12:54:05+07:00",
+      "stage": "voice",
+      "who": "voice-agent-5",
+      "msg": "voice-agent-5 running: round 3: regenerate only s1,s3a,s4a,s4b,s6a,s6b,s8,s10 with up to 8 seeds; normalize all 16 clips; rerun PCM ASR and measurements"
+    },
+    {
+      "t": "2026-10-18T12:57:51+07:00",
+      "stage": "agent",
+      "who": "voice-agent-5",
+      "msg": "voice-agent-5 done: round 3 voice regeneration, all-clip loudness normalisation, PCM ASR/ffprobe/silence/ebur128 complete; ASR remains partially open"
+    },
+    {
+      "t": "2026-10-18T12:58:10+07:00",
+      "stage": "voice",
+      "who": "agent",
+      "msg": "voice -> done (evidence: 16/16 clips)"
+    },
+    {
+      "t": "2026-10-18T12:58:10+07:00",
+      "stage": "voice",
+      "who": "voice-agent-5",
+      "msg": "voice-agent-5 done: Round 3 normalization complete; ASR residuals recorded"
+    },
+    {
+      "t": "2026-10-18T12:58:10+07:00",
+      "stage": "audio",
+      "who": "audio-agent-4",
+      "msg": "audio-agent-4 done: cue no-overlap proof refreshed"
+    },
+    {
+      "t": "2026-10-18T12:58:10+07:00",
+      "stage": "audio",
+      "who": "audio-reviewer-3",
+      "msg": "audio-reviewer-3 running: independent audio Round 3 after final voice/cue fixes"
+    },
+    {
+      "t": "2026-10-18T12:58:10+07:00",
+      "stage": "design",
+      "who": "design-reviewer-3",
+      "msg": "design-reviewer-3 done: closed stale reviewer record"
     }
   ],
-  "updated": "2026-10-17T19:02:51+07:00",
+  "updated": "2026-10-18T12:58:10+07:00",
   "agents": {
     "research-agent": {
       "state": "done",
@@ -241,27 +668,27 @@
       "stage": "script"
     },
     "voice-agent": {
-      "state": "running",
-      "at": "2026-10-17T18:00:32+07:00",
-      "note": "long pole, dispatched first",
+      "state": "done",
+      "at": "2026-10-18T12:17:04+07:00",
+      "note": "stale prior worker; handoff to voice-agent-2",
       "stage": "voice"
     },
     "content-agent": {
-      "state": "running",
-      "at": "2026-10-17T18:00:33+07:00",
-      "note": "branch 3a",
+      "state": "done",
+      "at": "2026-10-18T12:17:04+07:00",
+      "note": "stale prior worker; handoff to content-agent-2",
       "stage": "content"
     },
     "design-agent": {
-      "state": "running",
-      "at": "2026-10-17T18:00:33+07:00",
-      "note": "branch 3c",
-      "stage": "design"
+      "state": "done",
+      "at": "2026-10-18T12:53:17+07:00",
+      "note": "",
+      "stage": ""
     },
     "content-reviewer": {
-      "state": "running",
-      "at": "2026-10-17T19:02:50+07:00",
-      "note": "branch review: 2 lenses",
+      "state": "done",
+      "at": "2026-10-18T12:30:52+07:00",
+      "note": "stale reviewer record closed",
       "stage": "content"
     },
     "design-reviewer": {
@@ -269,6 +696,141 @@
       "at": "2026-10-17T19:02:51+07:00",
       "note": "gate D: 3 lenses",
       "stage": "design"
+    },
+    "video-director": {
+      "state": "idle",
+      "at": "2026-10-18T12:15:35+07:00",
+      "stage": "",
+      "note": "monitor run 20261018-121528-409 via Codex"
+    },
+    "content-agent-2": {
+      "state": "done",
+      "at": "2026-10-18T12:30:52+07:00",
+      "note": "content handoff complete",
+      "stage": "content"
+    },
+    "voice-agent-2": {
+      "state": "done",
+      "at": "2026-10-18T12:28:01+07:00",
+      "note": "16 clips, 43.489s, ASR 11/16 within CER",
+      "stage": "voice"
+    },
+    "audio-agent-2": {
+      "state": "done",
+      "at": "2026-10-18T12:28:01+07:00",
+      "note": "BGM/SFX manifest and mix plan complete",
+      "stage": "audio"
+    },
+    "design-agent-2": {
+      "state": "done",
+      "at": "2026-10-18T12:28:01+07:00",
+      "note": "design evidence handoff complete; gate D revise pending fix round",
+      "stage": "design"
+    },
+    "content-reviewer-1": {
+      "state": "done",
+      "at": "2026-10-18T12:26:29+07:00",
+      "note": "content branch pass 9.6",
+      "stage": "content"
+    },
+    "design-reviewer-1": {
+      "state": "done",
+      "at": "2026-10-18T12:28:17+07:00",
+      "note": "Round 1 Gate D revise 7.1; routed D1-D10 to design-agent-3",
+      "stage": "design"
+    },
+    "audio-reviewer-1": {
+      "state": "done",
+      "at": "2026-10-18T12:30:52+07:00",
+      "note": "audio review Round 1 revise 5.7; routed AUD-001..006",
+      "stage": "audio"
+    },
+    "design-agent-3": {
+      "state": "done",
+      "at": "2026-10-18T12:38:17+07:00",
+      "note": "D1-D10 fixed; 16/16 gallery mappings; evidence rerendered",
+      "stage": "design"
+    },
+    "voice-agent-3": {
+      "state": "done",
+      "at": "2026-10-18T12:40:56+07:00",
+      "note": "regenerated flagged clips; final report reconciliation delegated to voice-agent-4",
+      "stage": "voice"
+    },
+    "audio-agent-3": {
+      "state": "running",
+      "at": "2026-10-18T12:30:52+07:00",
+      "note": "fix SFX cue overlaps and prepare integrated mix plan AUD-004..005",
+      "stage": "audio"
+    },
+    "design-reviewer-2": {
+      "state": "done",
+      "at": "2026-10-18T12:45:35+07:00",
+      "note": "Round 2 Gate D revise 8.2; D3/D6/D7/D8/D9/D10 remain open",
+      "stage": "design"
+    },
+    "voice-agent-4": {
+      "state": "done",
+      "at": "2026-10-18T12:54:05+07:00",
+      "note": "",
+      "stage": ""
+    },
+    "design-agent-4": {
+      "state": "done",
+      "at": "2026-10-18T12:50:34+07:00",
+      "note": "final D3/D6/D7/D8/D9/D10 closure; 16/16 poster-backed mapping",
+      "stage": "design"
+    },
+    "design-reviewer-3": {
+      "state": "done",
+      "at": "2026-10-18T12:58:10+07:00",
+      "note": "closed stale reviewer record",
+      "stage": "design"
+    },
+    "audio-reviewer-2": {
+      "state": "done",
+      "at": "2026-10-18T12:53:37+07:00",
+      "note": "Round 2 audio revise 6.6; routed remaining tickets",
+      "stage": "audio"
+    },
+    "voice-agent-5": {
+      "state": "done",
+      "at": "2026-10-18T12:58:10+07:00",
+      "note": "Round 3 normalization complete; ASR residuals recorded",
+      "stage": "voice"
+    },
+    "audio-agent-4": {
+      "state": "done",
+      "at": "2026-10-18T12:58:10+07:00",
+      "note": "cue no-overlap proof refreshed",
+      "stage": "audio"
+    },
+    "audio-reviewer-3": {
+      "state": "running",
+      "at": "2026-10-18T12:58:10+07:00",
+      "note": "independent audio Round 3 after final voice/cue fixes",
+      "stage": "audio"
     }
-  }
+  },
+  "runs": [
+    {
+      "id": "20261018-121528-409",
+      "folder": "dung-bien-tuoi-30-thanh-ban-an",
+      "kind": "command",
+      "runner": "codex",
+      "label": "Codex",
+      "state": "stopped",
+      "started": "2026-10-18T12:15:28+07:00",
+      "pid": 18294,
+      "log": "out/agent-runs/dung-bien-tuoi-30-thanh-ban-an/20261018-121528-409.log",
+      "prompt_file": "out/agent-runs/dung-bien-tuoi-30-thanh-ban-an/20261018-121528-409.prompt.md",
+      "summary": "Tiép tục",
+      "model": "gpt-6-luna",
+      "effort": "medium",
+      "fallback": true,
+      "stop_requested": true,
+      "exit_code": 0,
+      "ended": "2026-10-18T12:15:35+07:00"
+    }
+  ]
 }

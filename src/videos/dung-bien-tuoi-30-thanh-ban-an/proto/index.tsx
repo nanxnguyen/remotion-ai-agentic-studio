@@ -2,15 +2,7 @@
 // WITHOUT touching src/Root.tsx: `npx remotion still src/videos/dung-bien-tuoi-30-thanh-ban-an/proto/index.tsx <CompId> ...`
 import React from 'react';
 import {Composition, registerRoot} from 'remotion';
-import {
-  BoardTile,
-  END_DUR,
-  HOOK_DUR,
-  ProtoEnd,
-  ProtoHook,
-  ProtoTurn,
-  TURN_DUR,
-} from './scenes';
+import {BoardTile, END_DUR, HOOK_DUR, ProtoEnd, ProtoHook, ProtoTurn, TURN_DUR} from './scenes';
 
 export const ProtoRoot: React.FC = () => (
   <>

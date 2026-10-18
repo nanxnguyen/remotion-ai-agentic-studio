@@ -7,7 +7,7 @@ description: Produce or change a deterministic Remotion video through evidence-b
 
 Read `AGENTS.md` and the binding rules in `.agents/rules/` (README first), then the target manifest and `docs/<slug>/status.json`. Finish every turn on a video with `python3 -I scripts/pipeline.py audit <slug>`.
 
-Run the stages in dependency order: intake and task plan; parallel research, content, and design; script; voice and audio; parallel scene implementation; integration; render; QA. The monitor models 19 roles, but a tool may execute roles sequentially when parallel workers are unavailable.
+The binding phase, stage and gate definitions are in `.claude/skills/ray-pineline-worflow-agent/SKILL.md`: read it and run every phase 0 → 10, every stage and every gate exactly as defined there, whatever tool you are. Skipping, merging away or reordering a phase, gate or check to go faster is forbidden; a step you cannot perform is set `blocked` and reported. Run the stages in dependency order: intake and task plan; parallel research, content, and design; script; voice and audio; parallel scene implementation; integration; render; QA. The monitor models 19 roles, but a tool may execute roles sequentially when parallel workers are unavailable.
 
 Each stage must leave evidence in the target `docs/<slug>/` directory. Update pipeline state only through `python3 -I scripts/pipeline.py`; never edit status JSON manually. Respect independent review gates and their recorded thresholds.
 

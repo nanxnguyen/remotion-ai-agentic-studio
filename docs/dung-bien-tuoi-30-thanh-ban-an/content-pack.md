@@ -30,7 +30,7 @@ Canonical spoken text = `docs/dung-bien-tuoi-30-thanh-ban-an/voice.json` (locked
 | s8 | — (sao kê: chỉ thanh tiền + 4 mũi tên chì, **không con số nào**) | `Không phải bạn không` ⏎ `tiết kiệm.` → `Lương về chưa kịp giữ,` → `đã có nơi đi mất.` | `chưa kịp giữ` · `đã có nơi đi mất` | **`minh hoạ`** — sao kê lương dựng lại, góc trên tờ giấy · chip nguồn `F32/F37` (tùy chọn, góc trên, tự mờ trước cut) | F32, F37 |
 | s9a | — (mọi nét đỏ/mũi tên/feed rút đi, giấy trắng ô ly) | `Mà đã bao nhiêu năm rồi,` ⏎ `chẳng ai hỏi bạn một câu.` | `chẳng ai hỏi` (mờ dần theo nhịp nói) | — | F6 |
 | s9b | ⌂ HEADLINE viết tay chì (= lời nói), dạ quang vàng `#FFE24D` quét dưới `sống có vui không` | `Dạo này,` ⏎ `bạn sống có vui không?` | `sống có vui không` (vàng dạ quang) | — | F6 |
-| s10 | ⌂ CARD đóng: `ĐỪNG BIẾN TUỔI BA MƯƠI THÀNH BẢN ÁN` (C5 in hoa, "ba mươi" khớp cover; không chữ nào thêm, không CTA) | `ĐỪNG BIẾN TUỔI BA MƯƠI` ⏎ `THÀNH BẢN ÁN` | `BẢN ÁN` (vàng dạ quang — **không** đỏ) | — | user |
+| s10 | ⌂ CARD đóng: `ĐỪNG BIẾN TUỔI BA MƯƠI THÀNH BẢN ÁN` (C5 in hoa, "ba mươi" khớp cover; không chữ nào thêm, không CTA) | `Đừng biến tuổi ba mươi` ⏎ `thành bản án.` | `BẢN ÁN` (vàng dạ quang — **không** đỏ) | — | user |
 
 ## Cover (frame 0 = s1)
 
@@ -80,7 +80,7 @@ Không có UI/diagram tái dựng nào khác (thước kẻ, mực đỏ, mâm c
 
 ## Acceptance (tự kiểm, chương trình)
 
-- **Join-back:** mỗi key, gộp caption chunks → khớp `voice.json[key]`; 16/16 keys ✓ (s10: CARD in hoa + bỏ dấu chấm cuối theo script C5 → so khớp **case-insensitive, không dấu chấm cuối**, từng từ khớp byte; 15/16 còn lại khớp tuyệt đối) — kết quả trong §Return.
+- **Join-back:** mỗi key, gộp caption chunks → khớp **exact** `voice.json[key]`; 16/16 keys ✓. s10 dùng caption canonical với đúng hoa thường và dấu chấm; CARD IN HOA chỉ là lớp chữ on-screen riêng.
 - **Đủ key:** 16/16 rows đúng thứ tự `voice.json` ✓.
 - **Giới hạn:** mọi dòng caption ≤ 28 ký tự; mỗi chunk ≤ 2 dòng ✓. Chữ thêm vào ≤ 6 từ; các mục ⌂ / chữ trong cảnh là ngoại lệ do script quy định (ghi ở Quy ước) ✓.
 - **Claim:** 13/13 id resolve về URL có trong `research.md` §1 hoặc `user` (brief) ✓.

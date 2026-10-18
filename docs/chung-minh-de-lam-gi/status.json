@@ -42,6 +42,10 @@
     "build": {
       "state": "done",
       "at": "2026-10-17T12:05:00+07:00"
+    },
+    "qa": {
+      "state": "in_progress",
+      "at": "2026-10-18T12:00:09+07:00"
     }
   },
   "reviews": {
@@ -81,6 +85,14 @@
         "verdict": "revise",
         "report": "docs/chung-minh-de-lam-gi/audio-review.md",
         "note": ""
+      },
+      {
+        "at": "2026-10-18T11:52:50+07:00",
+        "reviewer": "audio-reviewer-r2",
+        "score": 9.3,
+        "verdict": "pass",
+        "report": "docs/chung-minh-de-lam-gi/audio-review.md",
+        "note": ""
       }
     ],
     "D": [
@@ -91,19 +103,47 @@
         "verdict": "revise",
         "report": "docs/chung-minh-de-lam-gi/design-review.md",
         "note": ""
+      },
+      {
+        "at": "2026-10-18T11:54:13+07:00",
+        "reviewer": "design-reviewer-r2",
+        "score": 9.0,
+        "verdict": "pass",
+        "report": "docs/chung-minh-de-lam-gi/design-review.md",
+        "note": ""
+      }
+    ],
+    "E": [
+      {
+        "at": "2026-10-18T11:54:51+07:00",
+        "reviewer": "integration-reviewer-r3",
+        "score": 9.0,
+        "verdict": "pass",
+        "report": "docs/chung-minh-de-lam-gi/integration-review.md",
+        "note": ""
+      }
+    ],
+    "B": [
+      {
+        "at": "2026-10-18T11:55:29+07:00",
+        "reviewer": "task-reviewer",
+        "score": 9.0,
+        "verdict": "pass",
+        "report": "docs/chung-minh-de-lam-gi/task-review.md",
+        "note": ""
       }
     ]
   },
   "review_valid": {
     "A": true,
     "D": true,
-    "E": false,
-    "B": false,
+    "E": true,
+    "B": true,
     "C": false,
     "content": true,
     "audio": true
   },
-  "next": "",
+  "next": "qa",
   "log": [
     {
       "t": "2026-10-17T01:56:18+07:00",
@@ -494,9 +534,39 @@
       "stage": "agent",
       "who": "integration-reviewer",
       "msg": "integration-reviewer done: gate E pass 9/10 round3"
+    },
+    {
+      "t": "2026-10-18T11:52:50+07:00",
+      "stage": "audio",
+      "who": "audio-reviewer-r2",
+      "msg": "review 9.3/10 pass: audio-review.md"
+    },
+    {
+      "t": "2026-10-18T11:54:13+07:00",
+      "stage": "D",
+      "who": "design-reviewer-r2",
+      "msg": "review 9.0/10 pass: design-review.md"
+    },
+    {
+      "t": "2026-10-18T11:54:51+07:00",
+      "stage": "E",
+      "who": "integration-reviewer-r3",
+      "msg": "review 9.0/10 pass: integration-review.md"
+    },
+    {
+      "t": "2026-10-18T11:55:29+07:00",
+      "stage": "B",
+      "who": "task-reviewer",
+      "msg": "review 9.0/10 pass: task-review.md"
+    },
+    {
+      "t": "2026-10-18T12:00:09+07:00",
+      "stage": "qa",
+      "who": "agent",
+      "msg": "qa -> in_progress"
     }
   ],
-  "updated": "2026-10-17T09:55:46+07:00",
+  "updated": "2026-10-18T12:00:09+07:00",
   "agents": {
     "intake-agent": {
       "state": "done",
