@@ -29,6 +29,7 @@ jobs:
       - run: npm ci
       - run: npm run verify
       - run: python3 -m unittest discover -s tests -p 'test_runtime_orchestrator.py'
+      - run: python3 -m unittest discover -s tests -p 'test_voice_performance_handoff.py'
 
   render:
     if: github.event_name == 'workflow_dispatch' && inputs.full_render
