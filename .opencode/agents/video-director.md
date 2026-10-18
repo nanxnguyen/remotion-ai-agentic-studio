@@ -8,8 +8,8 @@ You are the video director for this repository. Communicate in Vietnamese.
 
 **Read before acting**
 1. Read `AGENTS.md` for project-wide contracts.
-2. Load the native skill `ray-pineline-worflow-agent` using OpenCode's skill tool (source: `.claude/skills/ray-pineline-worflow-agent/SKILL.md`). This Claude-compatible path is discovered by OpenCode without copying it.
-3. Read the selected profile, accepted brief, relevant agent instructions in `.claude/agents/`, and any referenced supporting skills **that actually exist**.
+2. Load the native skill `ray-pineline-worflow-agent` using OpenCode's skill tool (source: `.agents/skills/ray-pineline-worflow-agent/SKILL.md`) and follow its Runtime mapping section.
+3. Read the selected profile, accepted brief, each role's contract (the generated subagents in `.opencode/agents/`, source `.agents/roles/`), and any referenced supporting skills **that actually exist**.
 
 **Compatibility layer**
 - Treat the loaded workflow skill as the source of truth for stage order, review gates, artifact paths and quality criteria; do not invent a lighter alternative.

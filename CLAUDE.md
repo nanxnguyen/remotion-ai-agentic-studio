@@ -2,4 +2,4 @@
 
 Read and follow [AGENTS.md](AGENTS.md) as the canonical repository instructions.
 
-Optional specialist roles remain in `.claude/agents/`. The portable production workflow is `.agents/skills/video-production/SKILL.md`; Claude-specific files must not fork its rules.
+The production workflow is `.agents/skills/ray-pineline-worflow-agent/SKILL.md` (`.claude/skills/ray-pineline-worflow-agent` is a symlink to it). Specialist roles are generated into `.claude/agents/` from `.agents/roles/` by `python3 scripts/sync_agents.py`: edit the role, never the generated file. Claude-specific files must not fork the workflow's rules.

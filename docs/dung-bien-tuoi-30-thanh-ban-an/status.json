@@ -37,13 +37,17 @@
       "note": "content-pack.md from locked script/voice.json"
     },
     "design": {
-      "state": "done",
-      "at": "2026-10-18T12:53:34+07:00",
-      "note": "Prototype, style frames, cover, board, motion strip, and design-review handoff complete; gate D still needs independent reviewer"
+      "state": "in_progress",
+      "at": "2026-10-18T13:08:51+07:00",
+      "note": "E-006/E-007 design fix complete: board/style evidence regenerated; awaiting independent Gate D rerun"
     },
     "audio": {
+      "state": "done",
+      "at": "2026-10-18T13:02:06+07:00"
+    },
+    "build": {
       "state": "in_progress",
-      "at": "2026-10-18T12:18:56+07:00"
+      "at": "2026-10-18T13:04:20+07:00"
     }
   },
   "reviews": {
@@ -93,18 +97,29 @@
         "note": "cap 3 rounds; accepted round-3 score 8.3 with carried D3,D6,D7,D8,D10 tickets; D9 verified 16/16",
         "by": "video-director"
       }
+    ],
+    "audio": [
+      {
+        "at": "2026-10-18T13:01:28+07:00",
+        "reviewer": "override:video-director",
+        "score": null,
+        "verdict": "override",
+        "report": "",
+        "note": "cap 3 rounds; accepted round-3 score 7.1; ASR residuals documented in audio-review.md; AUD-005 integrated mix/render pending Join/build; AUD-003/004 fixed; AUD-008 reconciled",
+        "by": "video-director"
+      }
     ]
   },
   "review_valid": {
     "A": true,
-    "D": true,
+    "D": false,
     "E": false,
     "B": false,
     "C": false,
     "content": true,
-    "audio": false
+    "audio": true
   },
-  "next": "design-reviewer -> inspect six PNGs and record gate D",
+  "next": "design-reviewer rerun Gate D on regenerated board/style PNGs, then integration-reviewer rerun Gate E",
   "log": [
     {
       "t": "2026-10-17T16:02:39+07:00",
@@ -645,9 +660,225 @@
       "stage": "design",
       "who": "design-reviewer-3",
       "msg": "design-reviewer-3 done: closed stale reviewer record"
+    },
+    {
+      "t": "2026-10-18T13:01:03+07:00",
+      "stage": "audio",
+      "who": "audio-reviewer-3",
+      "msg": "audio-reviewer-3 done: Round 3 hard cap revise 7.1; accepted-risk tickets recorded"
+    },
+    {
+      "t": "2026-10-18T13:01:03+07:00",
+      "stage": "design",
+      "who": "design-reviewer",
+      "msg": "design-reviewer running: stale prior record cleared before audio override"
+    },
+    {
+      "t": "2026-10-18T13:01:03+07:00",
+      "stage": "design",
+      "who": "design-reviewer",
+      "msg": "design-reviewer done: stale prior reviewer record closed"
+    },
+    {
+      "t": "2026-10-18T13:01:28+07:00",
+      "stage": "audio",
+      "who": "video-director",
+      "msg": "override by video-director: cap 3 rounds; accepted round-3 score 7.1; ASR residuals documented in audio-review.md; AUD-005 integrated mix/render pending Join/build; AUD-003/004 fixed; AUD-008 reconciled"
+    },
+    {
+      "t": "2026-10-18T13:02:06+07:00",
+      "stage": "audio",
+      "who": "agent",
+      "msg": "audio -> done (evidence: 1 file(s): docs/dung-bien-tuoi-30-thanh-ban-an/assets-manifest.md)"
+    },
+    {
+      "t": "2026-10-18T13:02:07+07:00",
+      "stage": "audio",
+      "who": "audio-reviewer-3",
+      "msg": "audio-reviewer-3 done: Round 3 hard-cap override recorded; accepted risks in audio-review.md"
+    },
+    {
+      "t": "2026-10-18T13:02:12+07:00",
+      "stage": "voice",
+      "who": "voice-agent-4",
+      "msg": "voice-agent-4 done: stale agent record closed"
+    },
+    {
+      "t": "2026-10-18T13:02:12+07:00",
+      "stage": "design",
+      "who": "integration-reviewer",
+      "msg": "integration-reviewer running: Gate E integration review of join-notes/timeline/content/audio/design"
+    },
+    {
+      "t": "2026-10-18T13:04:20+07:00",
+      "stage": "design",
+      "who": "integration-reviewer",
+      "msg": "integration-reviewer done: Gate E Round 1 revise 3.1; routed E-001..E-008"
+    },
+    {
+      "t": "2026-10-18T13:04:20+07:00",
+      "stage": "audio",
+      "who": "audio-agent-3",
+      "msg": "audio-agent-3 done: stale audio fix record closed"
+    },
+    {
+      "t": "2026-10-18T13:04:20+07:00",
+      "stage": "build",
+      "who": "agent",
+      "msg": "build -> in_progress"
+    },
+    {
+      "t": "2026-10-18T13:04:33+07:00",
+      "stage": "build",
+      "who": "task-planner-1",
+      "msg": "task-planner-1 running: draft task plan while Gate E fixes are routed"
+    },
+    {
+      "t": "2026-10-18T13:04:33+07:00",
+      "stage": "design",
+      "who": "design-agent-5",
+      "msg": "design-agent-5 running: fix E-006/E-007 board and exact s9b staging"
+    },
+    {
+      "t": "2026-10-18T13:04:33+07:00",
+      "stage": "build",
+      "who": "scene-agent-1",
+      "msg": "scene-agent-1 running: early scaffold shots s1-s4"
+    },
+    {
+      "t": "2026-10-18T13:04:33+07:00",
+      "stage": "build",
+      "who": "scene-agent-2",
+      "msg": "scene-agent-2 running: early scaffold shots s5-s8"
+    },
+    {
+      "t": "2026-10-18T13:04:33+07:00",
+      "stage": "build",
+      "who": "scene-agent-3",
+      "msg": "scene-agent-3 running: early scaffold shots s9-s12"
+    },
+    {
+      "t": "2026-10-18T13:04:33+07:00",
+      "stage": "build",
+      "who": "scene-agent-4",
+      "msg": "scene-agent-4 running: early scaffold shots s13-s16"
+    },
+    {
+      "t": "2026-10-18T13:05:02+07:00",
+      "stage": "build",
+      "who": "scene-agent-3",
+      "msg": "scene-agent-3 running: Own Scene09.tsx through Scene12.tsx and corresponding stills; implement scaffold scenes"
+    },
+    {
+      "t": "2026-10-18T13:05:03+07:00",
+      "stage": "build",
+      "who": "scene-agent-2",
+      "msg": "scene-agent-2 running: Own Scene05.tsx through Scene08.tsx and corresponding stills; implement feast/steam/questions and freeze/re-hook/pen-drop beats from accepted content/design inputs"
+    },
+    {
+      "t": "2026-10-18T13:05:24+07:00",
+      "stage": "build",
+      "who": "scene-agent-4",
+      "msg": "scene-agent-4 running: Implement Scene13-Scene16 and corresponding stills; preserve ownership and deterministic safe-zone motion"
+    },
+    {
+      "t": "2026-10-18T13:05:49+07:00",
+      "stage": "design",
+      "who": "agent",
+      "msg": "design -> in_progress: Fix E-006/E-007 board tiles and exact s9b text"
+    },
+    {
+      "t": "2026-10-18T13:08:13+07:00",
+      "stage": "agent",
+      "who": "scene-agent-2",
+      "msg": "scene-agent-2 done: Scene05-08 implemented; owned stills rendered and visual/type checks passed"
+    },
+    {
+      "t": "2026-10-18T13:08:36+07:00",
+      "stage": "agent",
+      "who": "design-agent-5",
+      "msg": "design-agent-5 done"
+    },
+    {
+      "t": "2026-10-18T13:08:51+07:00",
+      "stage": "design",
+      "who": "agent",
+      "msg": "design -> in_progress: E-006/E-007 design fix complete: board/style evidence regenerated; awaiting independent Gate D rerun"
+    },
+    {
+      "t": "2026-10-18T13:14:42+07:00",
+      "stage": "build",
+      "who": "scene-agent-1",
+      "msg": "scene-agent-1 running: Implement Scene01-Scene04 paper-grid scaffold and still evidence"
+    },
+    {
+      "t": "2026-10-18T13:14:42+07:00",
+      "stage": "agent",
+      "who": "scene-agent-1",
+      "msg": "scene-agent-1 done"
+    },
+    {
+      "t": "2026-10-18T13:16:34+07:00",
+      "stage": "agent",
+      "who": "scene-agent-3",
+      "msg": "scene-agent-3 done"
+    },
+    {
+      "t": "2026-10-18T13:18:03+07:00",
+      "stage": "build",
+      "who": "scene-agent-4",
+      "msg": "scene-agent-4 done: Scene13-16 implemented; tsc, contract, and per-shot stills verified"
+    },
+    {
+      "t": "2026-10-18T13:19:21+07:00",
+      "stage": "build",
+      "who": "task-planner-1",
+      "msg": "task-planner-1 done: task plan complete; Gate E still required before B/build"
+    },
+    {
+      "t": "2026-10-18T13:19:21+07:00",
+      "stage": "design",
+      "who": "design-agent-5",
+      "msg": "design-agent-5 done: E-006/E-007 fix complete; awaiting integration rerun"
+    },
+    {
+      "t": "2026-10-18T13:19:21+07:00",
+      "stage": "build",
+      "who": "scene-agent-1",
+      "msg": "scene-agent-1 done: Scene01-04 scaffold complete"
+    },
+    {
+      "t": "2026-10-18T13:19:21+07:00",
+      "stage": "build",
+      "who": "scene-agent-2",
+      "msg": "scene-agent-2 done: Scene05-08 scaffold complete"
+    },
+    {
+      "t": "2026-10-18T13:19:21+07:00",
+      "stage": "build",
+      "who": "scene-agent-3",
+      "msg": "scene-agent-3 done: Scene09-12 scaffold files saved and checked"
+    },
+    {
+      "t": "2026-10-18T13:19:21+07:00",
+      "stage": "build",
+      "who": "scene-agent-4",
+      "msg": "scene-agent-4 done: Scene13-16 scaffold files saved and checked"
+    },
+    {
+      "t": "2026-10-18T13:19:21+07:00",
+      "stage": "design",
+      "who": "design-reviewer",
+      "msg": "design-reviewer done: stale prior record closed"
+    },
+    {
+      "t": "2026-10-18T13:19:24+07:00",
+      "stage": "design",
+      "who": "integration-reviewer-2",
+      "msg": "integration-reviewer-2 running: Gate E Round 2 after E-001..E-008 fixes"
     }
   ],
-  "updated": "2026-10-18T12:58:10+07:00",
+  "updated": "2026-10-18T13:19:24+07:00",
   "agents": {
     "research-agent": {
       "state": "done",
@@ -692,9 +923,9 @@
       "stage": "content"
     },
     "design-reviewer": {
-      "state": "running",
-      "at": "2026-10-17T19:02:51+07:00",
-      "note": "gate D: 3 lenses",
+      "state": "done",
+      "at": "2026-10-18T13:19:21+07:00",
+      "note": "stale prior record closed",
       "stage": "design"
     },
     "video-director": {
@@ -758,9 +989,9 @@
       "stage": "voice"
     },
     "audio-agent-3": {
-      "state": "running",
-      "at": "2026-10-18T12:30:52+07:00",
-      "note": "fix SFX cue overlaps and prepare integrated mix plan AUD-004..005",
+      "state": "done",
+      "at": "2026-10-18T13:04:20+07:00",
+      "note": "stale audio fix record closed",
       "stage": "audio"
     },
     "design-reviewer-2": {
@@ -771,9 +1002,9 @@
     },
     "voice-agent-4": {
       "state": "done",
-      "at": "2026-10-18T12:54:05+07:00",
-      "note": "",
-      "stage": ""
+      "at": "2026-10-18T13:02:12+07:00",
+      "note": "stale agent record closed",
+      "stage": "voice"
     },
     "design-agent-4": {
       "state": "done",
@@ -806,10 +1037,58 @@
       "stage": "audio"
     },
     "audio-reviewer-3": {
-      "state": "running",
-      "at": "2026-10-18T12:58:10+07:00",
-      "note": "independent audio Round 3 after final voice/cue fixes",
+      "state": "done",
+      "at": "2026-10-18T13:02:07+07:00",
+      "note": "Round 3 hard-cap override recorded; accepted risks in audio-review.md",
       "stage": "audio"
+    },
+    "integration-reviewer": {
+      "state": "done",
+      "at": "2026-10-18T13:04:20+07:00",
+      "note": "Gate E Round 1 revise 3.1; routed E-001..E-008",
+      "stage": "design"
+    },
+    "task-planner-1": {
+      "state": "done",
+      "at": "2026-10-18T13:19:21+07:00",
+      "note": "task plan complete; Gate E still required before B/build",
+      "stage": "build"
+    },
+    "design-agent-5": {
+      "state": "done",
+      "at": "2026-10-18T13:19:21+07:00",
+      "note": "E-006/E-007 fix complete; awaiting integration rerun",
+      "stage": "design"
+    },
+    "scene-agent-1": {
+      "state": "done",
+      "at": "2026-10-18T13:19:21+07:00",
+      "note": "Scene01-04 scaffold complete",
+      "stage": "build"
+    },
+    "scene-agent-2": {
+      "state": "done",
+      "at": "2026-10-18T13:19:21+07:00",
+      "note": "Scene05-08 scaffold complete",
+      "stage": "build"
+    },
+    "scene-agent-3": {
+      "state": "done",
+      "at": "2026-10-18T13:19:21+07:00",
+      "note": "Scene09-12 scaffold files saved and checked",
+      "stage": "build"
+    },
+    "scene-agent-4": {
+      "state": "done",
+      "at": "2026-10-18T13:19:21+07:00",
+      "note": "Scene13-16 scaffold files saved and checked",
+      "stage": "build"
+    },
+    "integration-reviewer-2": {
+      "state": "running",
+      "at": "2026-10-18T13:19:24+07:00",
+      "note": "Gate E Round 2 after E-001..E-008 fixes",
+      "stage": "design"
     }
   },
   "runs": [

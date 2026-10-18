@@ -32,7 +32,7 @@ Round 3 final voice evidence, 2026-10-18. Scope is the 16 narration clips, `voic
 
 ## Summary and closure
 
-- 16/16 clips exist and decode; total voice duration is **43.737 s**. With the documented 7.700 s of holds/gaps, the expected video budget is approximately **51.437 s**.
+- 16/16 clips exist and decode; total voice duration is **44.133915 s** (rounded **44.140 s** from `voice-durations.ts`). With the documented 7.700 s of holds/gaps, the expected video budget is approximately **51.833915 s**.
 - Final loudness range is **-21.2…-22.7 LUFS**, spread **1.5 LU**, meeting the `<=2 LU` target. True peak range is **-2.4…-6.2 dBTP**, meeting `<=-1.5 dBTP`. No clip has an internal silence over 0.6 s.
 - Final PCM ASR pass count is **7/16**. The targeted ASR ticket is only partially closed: `s4b` passes, while `s1,s3a,s4a,s6a,s6b,s8,s10` remain over CER 0.04. `s3b` and `s9b` also fail in the final post-normalisation measurement, so the packet is not an audio-gate pass.
 

@@ -108,7 +108,7 @@ FLOW = [
 
 
 def roster() -> list:
-    """Agents defined in .claude/agents/*.md (name, color, description), plus the director thread."""
+    """Agents in .claude/agents/*.md (generated from .agents/roles/ by sync_agents.py), plus the director thread."""
     agents = [{"name": "video-director", "color": "teal", "description": "Main thread: orchestrates every phase, integrates shared files, records gates."}]
     for f in sorted(AGENTS_DIR.glob("*.md")):
         head = f.read_text(encoding="utf-8").split("---")
@@ -1280,8 +1280,8 @@ RULES_PREAMBLE = (
     "Work in this repository as `video-director`. Read and follow AGENTS.md and every file in `.agents/rules/` "
     "(README first): status only through `python3 -I scripts/pipeline.py`, every phase writes its documents, "
     "record every agent you act as with `pipeline.py agent`, keep `next` current, never publish. Use the production "
-    "workflow in `.claude/skills/ray-pineline-worflow-agent/SKILL.md` (tool-neutral summary: "
-    "`.agents/skills/video-production/SKILL.md`). The owner is not watching a terminal: do not ask questions; "
+    "workflow in `.agents/skills/ray-pineline-worflow-agent/SKILL.md` (every phase, stage and gate; "
+    "its Runtime mapping maps the tool names to your runtime). The owner is not watching a terminal: do not ask questions; "
     "when a critical input is missing, set the stage `blocked` with the exact reason and `--next`, which the "
     "monitor shows. Reply in Vietnamese in documents meant for the owner. Before you finish, run "
     "`python3 -I scripts/pipeline.py audit <vid>` and fix or write every error into `docs/<vid>/HANDOFF.md`. "

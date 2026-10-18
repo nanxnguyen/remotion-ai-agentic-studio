@@ -1,6 +1,6 @@
 # OpenCode adapter
 
-OpenCode **already discovers** `.claude/skills/ray-pineline-worflow-agent/SKILL.md` as a compatible skill. We deliberately **do not copy** the 61 KB workflow into `.opencode/skills/` to avoid conflicting versions.
+OpenCode **discovers** the workflow skill at `.agents/skills/ray-pineline-worflow-agent/SKILL.md` (also reachable through the `.claude/skills/` symlink; same file). We deliberately **do not copy** it into `.opencode/skills/` to avoid conflicting versions. The specialist subagents in `.opencode/agents/` are generated from `.agents/roles/` by `python3 scripts/sync_agents.py`; only `video-director.md` is hand-written.
 
 ## Use
 
@@ -14,7 +14,7 @@ Choose the custom **video-director** agent (or address `@video-director` if supp
 
 > Sản xuất video story 9:16 từ chủ đề "[chủ đề]" theo skill ray-pineline-worflow-agent; chạy review gates và báo file MP4 cuối.
 
-The agent reads `AGENTS.md` and loads the skill using OpenCode's native skill tool. The original skill remains at `.claude/skills/ray-pineline-worflow-agent/SKILL.md` and is **not modified** by this integration.
+The agent reads `AGENTS.md` and loads the skill using OpenCode's native skill tool. The skill's Runtime mapping section says how each Claude Code operation maps to OpenCode.
 
 **Requirements:** Node 22, npm dependencies, Python 3.12+, FFmpeg and FFprobe; voice and AI providers depend on your production profile. Check `npm run verify` before delivery.
 

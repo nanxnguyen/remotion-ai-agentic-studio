@@ -347,3 +347,19 @@ Cannot verify from this packet: exact voice-joined timing, SFX timing, and motio
 `score: 8.3  verdict: revise`
 
 Top 3 fixes: (1) rebuild the board tiles with genuinely distinct acting poses and exact s4/s7/s8/s9 staging; (2) strengthen motion evidence so easing/settling landmarks are independently verifiable; (3) repeat D10's full aesthetic-rule pass after D3/D6/D7/D8 close. D9 is accepted at 16/16 and should remain locked.
+
+## Gate E design-ticket closure — E-006 / E-007 (2026-10-18)
+
+The design-agent fix is limited to the requested prototype/storyboard ownership. `timeline.ts`, `Reel.tsx`, `Root.tsx`, `package.json`, audio, and production scene files were not edited.
+
+| Ticket | Design-owned result | Evidence | Acceptance check |
+|---|---|---|---|
+| E-006 | fixed | `src/videos/dung-bien-tuoi-30-thanh-ban-an/proto/scenes.tsx:690`; regenerated `out/qa/dung-bien-tuoi-30-thanh-ban-an-board.png` | s9b now renders the exact canonical text `Dạo này, bạn sống có vui không?` over two readable lines with the warm glow, hug-knees pose, and yellow underline. The former `mình muốn gì?` string is absent from the prototype source and regenerated board. |
+| E-007 | fixed in design-owned scope | regenerated `out/qa/dung-bien-tuoi-30-thanh-ban-an-board.png`; regenerated `style-hook.png`, `style-turn.png`, `style-end.png`, and `cover.png` | Full-size and thumbnail walk confirms distinct character/action/prop/location cues for s4b (temple reaction + feast), s7a (screen-lit thumb scroll), s7b (seated screen-off isolation), s8 (kneeling salary drain), s9a (clearing/exit), and s9b (hug-knees self-question). Production-scene implementation and Gate E integration remain with the build/director owners. |
+
+### Fix evidence and checks
+
+- Source: `src/videos/dung-bien-tuoi-30-thanh-ban-an/proto/scenes.tsx` only.
+- Evidence commands: five successful `npx remotion still` renders for `DBT-ProtoHook`, `DBT-ProtoTurn`, `DBT-ProtoEnd`, `DBT-ProtoHook --frame=0`, and `DBT-Board --frame=0`.
+- `npx tsc --noEmit`: PASS.
+- Visual inspection: board and all three style frames opened full-size; board inspected as a phone-thumbnail composition. Main text remains above the 210 px bottom safe zone.

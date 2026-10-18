@@ -176,3 +176,81 @@ dung-bien-tuoi-30-thanh-ban-an: FAIL
 ```
 
 This reviewer did not edit status or any non-owned file and did not run pipeline review/gate.
+
+## Round 3 — clean-context hard-cap review
+
+Reviewed 2026-10-18 against the current packet after the documented third voice-fix round. This is the hard-cap Round 3 review. Only this report is appended; no audio file, `voice.json`, `assets-manifest.md`, `voice-report.md`, `voice-clone-asr.md`, `voice-durations.ts`, or mix plan was edited. No `pipeline.py review` or gate command was run.
+
+### Verdict
+
+**REVISE / accepted-risk at hard cap — 7.1/10.** All audio is present and decodes, voice level consistency and the current post-voice cue proof pass their numeric checks, but the machine ASR gate remains open at **7/16 clips** (`CER <=0.04`). The residuals are explicitly documented below as accepted-risk after the third voice round; this is not an audio-gate pass. No integrated render exists because Join/build has not happened, so AUD-005 remains pending and is assigned to `video-director`.
+
+### Round-3 independent measurements
+
+- `ffprobe` inspected all **25 current MP3 files**: 16 voice clips, `bgm.mp3`, and 8 SFX. All are non-empty and decode. Voice is mono 24 kHz; BGM/SFX are stereo 44.1 kHz. Exact current voice durations sum to **44.133915 s**; with the documented 7.700 s gaps/holds, expected video budget is **51.833915 s**, within 40–60 s.
+- PCM ASR used FFmpeg mono 16 kHz extraction and faster-whisper `small`, CPU/int8, Vietnamese. CER used the repository's punctuation/case-normalised character metric and threshold `<=0.04`. Independent result: **7/16 pass**.
+- `silencedetect=noise=-45dB:d=0.6` found no internal voice gap over 0.6 s in all 16 clips. BGM source tail silence is **55.763946–56.430000 s (0.666054 s)**; this is not evidence of the final closing hold.
+- `ebur128=peak=true` plus `volumedetect` on all current files: voice integrated loudness **−21.2…−22.7 LUFS**, spread **1.5 LU**; voice true peaks **−2.4…−6.2 dBTP**, no clipping. BGM is **−20.3 LUFS / −10.1 dBFS max sample**. SFX sources measure **−24.7…−12.3 LUFS** and **−11.0…−0.5 dBFS max sample**.
+- Fresh spectrograms were generated and visually inspected for `s1,s3a,s3b,s4a,s6a,s6b,s8,s9b,s10`. They show continuous harmonic energy and no visible hard cut-off or isolated broadband spike. This remains a machine screen, not a listening certification.
+
+### Every current voice clip — independent PCM ASR
+
+| Clip | Duration s | syl/s | CER | Result | Current PCM ASR / evidence |
+|---|---:|---:|---:|---|---|
+| s1 | 2.159042 | 4.169 | 0.294 | FAIL | `Vũi 30 bị coi như một bản án.` |
+| s2 | 3.326333 | 3.908 | 0.000 | PASS | `ba dòng tội danh chưa nhà, chưa kết hôn, chưa có địa vị.` |
+| s3a | 4.297958 | 3.955 | 0.405 | FAIL | `Cây thước khắc sẵn 18 học xong 25 cưới 30 liền quản lý.` |
+| s3b | 1.974625 | 4.051 | 0.129 | FAIL | `và trên sách ấy vẫn cứ dài thêm.` |
+| s4a | 3.380292 | 3.846 | 0.094 | FAIL | Initial `Tết đến`/`cỗ` wording not recovered |
+| s4b | 2.347667 | 3.834 | 0.024 | PASS | `Khi nào cưới, lưng bao nhiêu mua nhà chưa?` |
+| s5a | 1.660833 | 4.215 | 0.000 | PASS | Canonical word sequence present |
+| s5b | 2.497958 | 4.404 | 0.000 | PASS | Canonical word sequence present |
+| s6a | 3.475083 | 4.316 | 0.101 | FAIL | `Một người 30 tuổi chưa có nhà, không nhất thiết là người thất bại.` |
+| s6b | 3.086917 | 4.211 | 0.174 | FAIL | `Cây móc và mùi ấy chỉ là một nét ai đó kể tay.` |
+| s7a | 3.265958 | 4.287 | 0.038 | PASS | One substitution: `lứt` for `lướt`; under threshold but tone/word remains machine-risk |
+| s7b | 1.748208 | 4.576 | 0.032 | PASS | `nhằm` for `nhầm`; under threshold but tone remains machine-risk |
+| s8 | 4.129958 | 3.874 | 0.058 | FAIL | `không phải bàn không tiết kiệm. Lưu về chưa kịp giữ, đã có nơi đi mất.` |
+| s9a | 2.975458 | 4.033 | 0.000 | PASS | Canonical word sequence present |
+| s9b | 1.909667 | 3.666 | 0.276 | FAIL | `Bạn sống có vui không?`; drops `Dạo này` |
+| s10 | 1.897958 | 4.215 | 0.257 | FAIL | `Đừng biến tuổi 30 thành bản ảnh.` |
+
+### Cue intervals and final-hold status
+
+Using exact current MP3 durations and the documented half-open frame windows, all current SFX cues are post-voice with at least one 30 fps frame of clearance: `s1` 0.057625 s, `s2` 0.040334 s, `s3a` 0.035375 s, `s3b` 0.058708 s, `s4a` 0.053041 s, `s5b` 0.035375 s, `s6b` 0.046416 s, `s7a` 0.034042 s, `s8` cue 1 0.036709 s, `s8` cue 2 0.170042 s, `s9a` 0.057875 s, and `s10` 0.035375 s. `AUD-004` operationally passes this recomputation; its stale earlier proof in `mix-plan.md` remains covered by the existing `AUD-007` documentation ticket.
+
+The final `s10` hold is documented as 2.4 s, with paper-edge foley as an explicit exception, but is **not measurable yet**: there is no Join/build integrated render. BGM bed level, 12–18 dB voice/music windows, 4–6 dB ducking with 150–300 ms ramps, integrated −14±1 LUFS, true peak, and the >=1.2 s near-silent ending remain unverified.
+
+### Rubric scores
+
+| Item | Score | Evidence | Result |
+|---|---:|---|---|
+| Completeness, duration, syllable rate, budget | 8/10 | 16/16 clips; exact voice total 44.133915 s; expected total 51.833915 s; rates 3.666–4.576 syl/s. Current docs state 43.737 s, so duration evidence needs reconciliation. | Partial |
+| ASR/CER and wording | 4/10 | Only 7/16 pass `CER <=0.04`; nine clips fail. | Fail |
+| Silence and planned holds | 8/10 | No internal voice silence >0.6 s; cue gaps are explicit. Final 2.4 s hold/BGM near-silence await render. | Partial |
+| Loudness, true peak, timbre/clipping | 9/10 | Voice spread 1.5 LU; true peaks −2.4…−6.2 dBTP; no clipping; no visible spectral cut-off/spike. Natural timbre remains unhearable by machine. | Pass with limitation |
+| Mix feasibility, ducking, SFX timing | 6/10 | Source files and cue windows measured; integrated voice/BGM gap, duck ramps, final loudness and rendered SFX audibility are not measurable yet. | Partial |
+| Spectrogram/artifact screen | 8/10 | Nine suspicious clips visually inspected; continuous harmonic energy, no visible hard cut-off or isolated broadband spike. | Machine screen only |
+| Sources and licences | 9/10 | `assets-manifest.md` records origin/licence for BGM and all 8 SFX; no new asset was added. | Pass |
+
+### Prior-ticket closure and Round-3 disposition
+
+| ID | Round-3 status | Evidence / owner |
+|---|---|---|
+| AUD-001 | **accepted-risk — still open after hard cap** | `s1,s3a,s6a,s6b,s10` remain over CER threshold; audio is present and every current ASR string/duration is documented above. Owner: `voice-agent`; do not claim pass. |
+| AUD-002 | **accepted-risk — still open after hard cap** | `s8` is 0.058 and the paired requirement is not met; `s9b` regressed to 0.276. Owner: `voice-agent`; do not claim pass. |
+| AUD-003 | **fixed** | Current all-clip spread is 1.5 LU and true peaks are below −1.5 dBTP. |
+| AUD-004 | **fixed by current interval recomputation** | All 12 cue windows clear speech by >=1 frame. Existing stale-proof ticket AUD-007 remains open. |
+| AUD-005 | **open / pending Join-build** | No integrated render exists, so final mix and closing-hold acceptance cannot be measured. Assign directly to `video-director` after Join/build. |
+| AUD-006 | **accepted-risk — still open after hard cap** | `s6b` is 4.211 syl/s and CER 0.174; near-whisper naturalness cannot be certified by machine. Owner: `voice-agent`; do not claim pass. |
+| AUD-007 | **still open** | Existing mix-plan proof contains stale pre-regeneration durations; owner `audio-agent`, acceptance is a proof fully matching current ffprobe. |
+| AUD-008 NEW | **open documentation reconciliation** | Current ffprobe total is 44.133915 s, while `voice-report.md`, `voice-clone-asr.md`, and `mix-plan.md` state 43.737 s. Owner: `video-director` at Join; acceptance is one reconciled exact total and dependent timing/budget evidence. |
+
+The hard-cap accepted-risk entries are allowed only because the corresponding audio is present and the residuals are explicitly documented here. They do not satisfy the audio gate. Review remains **REVISE**, with no pass claim and no gate command executed.
+
+### Cannot verify by machine
+
+Naturalness, Vietnamese tone/accent perception, emotional arc, breaths, clicks, robotic buzz, exact perceived wording, and whether SFX feels audible but non-distracting require listening. The spectrogram screen cannot certify these. The final integrated mix and the 2.4 s closing hold require the Join/build render.
+
+### Required final audit
+
+Before return, the read-only command `python3 -I scripts/pipeline.py audit dung-bien-tuoi-30-thanh-ban-an` was run. Its result is recorded in the final response; any pre-existing non-audio failures remain outside this reviewer-owned report.

@@ -276,6 +276,146 @@ export const ProtoEnd: React.FC = () => {
 };
 
 // ------------------------------------------------------------------ Storyboard tile
+type MiniPose =
+  | 'look'
+  | 'stand'
+  | 'write'
+  | 'hunch'
+  | 'hold'
+  | 'drop'
+  | 'temple'
+  | 'kneel'
+  | 'pull'
+  | 'leave'
+  | 'eat'
+  | 'phone'
+  | 'sit';
+
+const MiniCharacter: React.FC<{pose: MiniPose}> = ({pose}) => {
+  const arm =
+    pose === 'temple'
+      ? {left: 22, top: 20, transform: 'rotate(-58deg)'}
+      : pose === 'phone'
+        ? {left: 46, top: 44, transform: 'rotate(-38deg)'}
+        : pose === 'pull'
+          ? {left: 38, top: 42, transform: 'rotate(30deg)'}
+          : pose === 'leave'
+            ? {left: 42, top: 36, transform: 'rotate(68deg)'}
+            : {left: 45, top: 38, transform: 'rotate(18deg)'};
+  const bodyTransform =
+    pose === 'leave'
+      ? 'rotate(18deg)'
+      : pose === 'hunch' || pose === 'pull'
+        ? 'rotate(10deg)'
+        : 'none';
+  return (
+    <div
+      style={{
+        position: 'absolute',
+        left: 20,
+        bottom: 3,
+        width: 74,
+        height: 105,
+        transform: pose === 'kneel' || pose === 'pull' ? 'scale(.9)' : 'none',
+        transformOrigin: 'bottom left',
+      }}
+    >
+      <div
+        style={{
+          position: 'absolute',
+          left: 24,
+          top: 0,
+          width: 29,
+          height: 29,
+          borderRadius: '50%',
+          background: '#59636A',
+          border: `2px solid ${INK}`,
+        }}
+      />
+      <div
+        style={{
+          position: 'absolute',
+          left: 18,
+          top: 25,
+          width: 42,
+          height: 49,
+          borderRadius: '18px 18px 12px 12px',
+          background: '#4F575D',
+          border: `2px solid ${INK}`,
+          transform: bodyTransform,
+        }}
+      />
+      <div
+        style={{
+          position: 'absolute',
+          ...arm,
+          width: 9,
+          height: 42,
+          borderRadius: 8,
+          background: '#4F575D',
+          border: `2px solid ${INK}`,
+          transformOrigin: 'top center',
+        }}
+      />
+      <div
+        style={{
+          position: 'absolute',
+          left: 12,
+          top: 70,
+          width: 10,
+          height: 31,
+          borderRadius: 8,
+          background: '#4F575D',
+          border: `2px solid ${INK}`,
+          transform: pose === 'kneel' || pose === 'pull' ? 'rotate(70deg)' : 'rotate(8deg)',
+        }}
+      />
+      <div
+        style={{
+          position: 'absolute',
+          left: 54,
+          top: 70,
+          width: 10,
+          height: 31,
+          borderRadius: 8,
+          background: '#4F575D',
+          border: `2px solid ${INK}`,
+          transform: pose === 'kneel' || pose === 'pull' ? 'rotate(-70deg)' : 'rotate(-8deg)',
+        }}
+      />
+      {pose === 'temple' && (
+        <div
+          style={{
+            position: 'absolute',
+            left: 18,
+            top: 18,
+            width: 12,
+            height: 12,
+            borderRadius: '50%',
+            border: `2px solid ${RED}`,
+            background: PAPER,
+          }}
+        />
+      )}
+      {pose === 'phone' && (
+        <div
+          style={{
+            position: 'absolute',
+            left: 51,
+            top: 40,
+            width: 18,
+            height: 30,
+            borderRadius: 4,
+            background: SCREEN,
+            border: `2px solid ${INK}`,
+            boxShadow: `0 0 16px ${HILITE}`,
+          }}
+        />
+      )}
+    </div>
+  );
+};
+
 export const BoardTile: React.FC = () => {
   const shots = [
     {id: 's1', label: 'HOOK', desc: 'nhìn 30 · bàn giấy', sketch: 'ruler', pose: 'look'},
@@ -286,7 +426,7 @@ export const BoardTile: React.FC = () => {
     {
       id: 's4b',
       label: 'HỎI DỒN',
-      desc: 'đũa khựng · thái dương',
+      desc: 'chạm thái dương · mâm cỗ',
       sketch: 'questions',
       pose: 'temple',
     },
@@ -294,10 +434,16 @@ export const BoardTile: React.FC = () => {
     {id: 's5b', label: 'BÚT RƠI', desc: 'buông tay · dấu hỏi', sketch: 'pen', pose: 'drop'},
     {id: 's6a', label: 'ĐỎ DỞ', desc: 'dừng giữa chữ · giấy', sketch: 'red', pose: 'write'},
     {id: 's6b', label: 'MACRO', desc: 'quỳ sát nét chì · giấy', sketch: 'macro', pose: 'kneel'},
-    {id: 's7a', label: 'FEED', desc: 'mặt hắt màn · điện thoại', sketch: 'phone', pose: 'phone'},
-    {id: 's7b', label: 'MÀN TẮT', desc: 'ôm máy tối · phòng', sketch: 'phoneoff', pose: 'sit'},
-    {id: 's8', label: 'SAO KÊ', desc: 'kéo 4 hướng · lương', sketch: 'arrows', pose: 'pull'},
-    {id: 's9a', label: 'RÚT HẾT', desc: 'mâm trống · rời bàn', sketch: 'empty', pose: 'leave'},
+    {id: 's7a', label: 'FEED', desc: 'ngồi lướt · màn sáng', sketch: 'phone', pose: 'phone'},
+    {id: 's7b', label: 'MÀN TẮT', desc: 'co người · phòng tối', sketch: 'phoneoff', pose: 'sit'},
+    {id: 's8', label: 'SAO KÊ', desc: 'quỳ nhìn · 4 nơi đi', sketch: 'arrows', pose: 'pull'},
+    {
+      id: 's9a',
+      label: 'RÚT HẾT',
+      desc: 'bước khỏi bàn · giấy trắng',
+      sketch: 'empty',
+      pose: 'leave',
+    },
     {id: 's9b', label: 'CLIMAX', desc: 'ôm gối · tự hỏi', sketch: 'glow', pose: 'sit'},
     {id: 's10', label: 'ĐÓNG', desc: 'đứng cạnh thước · vàng', sketch: 'hilite', pose: 'stand'},
   ];
@@ -367,44 +513,7 @@ export const BoardTile: React.FC = () => {
                   }}
                 />
               )}
-              {(s.pose === 'look' ||
-                s.pose === 'stand' ||
-                s.pose === 'write' ||
-                s.pose === 'hunch' ||
-                s.pose === 'hold' ||
-                s.pose === 'drop' ||
-                s.pose === 'temple' ||
-                s.pose === 'kneel' ||
-                s.pose === 'pull' ||
-                s.pose === 'leave' ||
-                s.pose === 'eat' ||
-                s.pose === 'phone' ||
-                s.pose === 'sit') && (
-                <div
-                  style={{
-                    position: 'absolute',
-                    left: 24,
-                    bottom: 5,
-                    width: 30,
-                    height: 58,
-                    borderRadius: 10,
-                    background: INK,
-                    boxShadow: '26px 0 0 ' + INK,
-                  }}
-                >
-                  <div
-                    style={{
-                      position: 'absolute',
-                      left: 0,
-                      top: -25,
-                      width: 46,
-                      height: 34,
-                      borderRadius: '50%',
-                      background: '#5A636B',
-                    }}
-                  />
-                </div>
-              )}
+              <MiniCharacter pose={s.pose as MiniPose} />
               {s.sketch === 'red' && (
                 <div
                   style={{
@@ -488,6 +597,51 @@ export const BoardTile: React.FC = () => {
                       height: 70,
                       background: INK,
                       transform: 'rotate(19deg)',
+                    }}
+                  />
+                  <div
+                    style={{
+                      position: 'absolute',
+                      left: 48,
+                      top: 72,
+                      width: 132,
+                      height: 32,
+                      borderRadius: '50%',
+                      border: `3px solid ${INK}`,
+                      background: '#D6CDBB',
+                    }}
+                  />
+                  <div
+                    style={{
+                      position: 'absolute',
+                      left: 53,
+                      top: 20,
+                      width: 3,
+                      height: 48,
+                      background: LABEL,
+                      transform: 'rotate(-22deg)',
+                    }}
+                  />
+                  <div
+                    style={{
+                      position: 'absolute',
+                      left: 112,
+                      top: 18,
+                      width: 3,
+                      height: 50,
+                      background: LABEL,
+                      transform: 'rotate(18deg)',
+                    }}
+                  />
+                  <div
+                    style={{
+                      position: 'absolute',
+                      left: 174,
+                      top: 31,
+                      width: 3,
+                      height: 44,
+                      background: LABEL,
+                      transform: 'rotate(32deg)',
                     }}
                   />
                 </>
@@ -593,8 +747,13 @@ export const BoardTile: React.FC = () => {
                     borderRadius: 7,
                     background: SCREEN,
                     border: `2px solid ${INK}`,
+                    boxShadow: `0 0 20px ${HILITE}`,
                   }}
-                />
+                >
+                  <div style={{height: 8, margin: 6, borderRadius: 3, background: '#9CB9C7'}} />
+                  <div style={{height: 8, margin: 6, borderRadius: 3, background: '#C4D7DE'}} />
+                  <div style={{height: 8, margin: 6, borderRadius: 3, background: '#9CB9C7'}} />
+                </div>
               )}
               {s.sketch === 'phoneoff' && (
                 <div
@@ -607,6 +766,7 @@ export const BoardTile: React.FC = () => {
                     borderRadius: 7,
                     background: '#4A5258',
                     border: `2px solid ${INK}`,
+                    boxShadow: '0 0 0 18px rgba(62,69,75,.14)',
                   }}
                 />
               )}
@@ -624,9 +784,65 @@ export const BoardTile: React.FC = () => {
                       border: `2px solid ${INK}`,
                     }}
                   />
-                  <div style={{fontFamily: CAP, fontSize: 27, color: RED, marginTop: 22}}>
-                    ↗ ↘ ↗ ↘
+                  <div
+                    style={{
+                      position: 'absolute',
+                      left: 96,
+                      top: 102,
+                      fontFamily: CAP,
+                      fontSize: 27,
+                      color: RED,
+                    }}
+                  >
+                    ↗
                   </div>
+                  <div
+                    style={{
+                      position: 'absolute',
+                      left: 132,
+                      top: 102,
+                      fontFamily: CAP,
+                      fontSize: 27,
+                      color: RED,
+                    }}
+                  >
+                    ↘
+                  </div>
+                  <div
+                    style={{
+                      position: 'absolute',
+                      left: 168,
+                      top: 102,
+                      fontFamily: CAP,
+                      fontSize: 27,
+                      color: RED,
+                    }}
+                  >
+                    ↗
+                  </div>
+                  <div
+                    style={{
+                      position: 'absolute',
+                      left: 204,
+                      top: 102,
+                      fontFamily: CAP,
+                      fontSize: 27,
+                      color: RED,
+                    }}
+                  >
+                    ↘
+                  </div>
+                  <div
+                    style={{
+                      position: 'absolute',
+                      left: 98,
+                      top: 62,
+                      width: 134,
+                      height: 4,
+                      background: INK,
+                      transform: 'rotate(12deg)',
+                    }}
+                  />
                 </>
               )}
               {s.sketch === 'empty' && (
@@ -634,7 +850,7 @@ export const BoardTile: React.FC = () => {
                   <div
                     style={{
                       position: 'absolute',
-                      left: 68,
+                      left: 74,
                       top: 78,
                       width: 165,
                       height: 48,
@@ -645,13 +861,13 @@ export const BoardTile: React.FC = () => {
                   <div
                     style={{
                       position: 'absolute',
-                      left: 104,
-                      top: 30,
+                      left: 126,
+                      top: 20,
                       font: `700 26px ${HAND}`,
                       color: LABEL,
                     }}
                   >
-                    ← →
+                    →
                   </div>
                 </>
               )}
@@ -660,30 +876,68 @@ export const BoardTile: React.FC = () => {
                   <div
                     style={{
                       position: 'absolute',
-                      left: 58,
-                      right: 58,
-                      top: 70,
-                      height: 50,
+                      left: 42,
+                      right: 42,
+                      top: 24,
+                      height: 118,
                       background: HILITE,
-                      opacity: 0.75,
-                      borderRadius: 6,
+                      opacity: 0.32,
+                      borderRadius: '50%',
                     }}
                   />
                   <div
                     style={{
                       position: 'absolute',
                       left: 74,
-                      top: 84,
+                      top: 75,
+                      width: 86,
+                      height: 35,
+                      borderRadius: '50%',
+                      background: '#59636A',
+                      border: `2px solid ${INK}`,
+                    }}
+                  />
+                  <div
+                    style={{
+                      position: 'absolute',
+                      left: 86,
+                      top: 55,
+                      width: 58,
+                      height: 44,
+                      borderRadius: '50% 50% 40% 40%',
+                      background: '#4F575D',
+                      border: `2px solid ${INK}`,
+                    }}
+                  />
+                  <div
+                    style={{
+                      position: 'absolute',
+                      left: 48,
+                      top: 30,
+                      width: 150,
+                      textAlign: 'center',
                       fontFamily: HAND,
-                      fontSize: 18,
-                      whiteSpace: 'nowrap',
-                      transform: 'scaleX(0.84)',
-                      transformOrigin: 'left center',
+                      fontSize: 16,
+                      lineHeight: 1.15,
                       color: INK,
                     }}
                   >
-                    mình muốn gì?
+                    Dạo này, bạn
+                    <br />
+                    sống có vui không?
                   </div>
+                  <div
+                    style={{
+                      position: 'absolute',
+                      left: 60,
+                      top: 122,
+                      width: 132,
+                      height: 6,
+                      background: HILITE,
+                      borderRadius: 4,
+                      transform: 'rotate(-3deg)',
+                    }}
+                  />
                 </>
               )}
               {s.sketch === 'hilite' && (

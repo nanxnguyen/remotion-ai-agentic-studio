@@ -112,8 +112,9 @@ src/
 scripts/
 ├── pipeline.py           evidence, review gates, render checks and monitor
 └── video-new.mjs         transactional video scaffolder
-.agents/skills/           portable agent workflows
-.claude/agents/           optional Claude specialist adapters
+.agents/skills/           portable agent workflows (canonical)
+.agents/roles/            runtime-neutral agent roles (source of truth)
+.claude/ .opencode/ .codex/  generated or symlinked runtime adapters
 tests/golden/             three reference frames for each shipped composition
 ```
 
@@ -124,8 +125,11 @@ The seven existing video manifests preserve their original composition IDs, dura
 | Layer             | Canonical entry point                      | Purpose                                      |
 | ----------------- | ------------------------------------------ | -------------------------------------------- |
 | All agents        | `AGENTS.md`                                | architecture, safety, verification, language |
-| Portable workflow | `.agents/skills/video-production/SKILL.md` | production stages and review evidence        |
-| Claude Code       | `CLAUDE.md`, `.claude/agents/`             | thin adapter and optional specialist roles   |
+| Portable workflow | `.agents/skills/ray-pineline-worflow-agent/SKILL.md` | phases, stages, gates, runtime mapping |
+| Agent roles       | `.agents/roles/*.md` → `python3 scripts/sync_agents.py` | one source for every runtime's subagents |
+| Claude Code       | `CLAUDE.md`, `.claude/agents/` (generated), `.claude/skills/` (symlink) | thin adapter |
+| OpenCode          | `.opencode/agents/` (generated + hand-written `video-director`) | thin adapter |
+| Codex             | `AGENTS.md`, `.codex/agents/*.toml` (generated) | thin adapter |
 | Gemini CLI        | `GEMINI.md`                                | thin adapter                                 |
 | Cursor            | `.cursor/rules/agent-guide.mdc`            | thin always-on adapter                       |
 
