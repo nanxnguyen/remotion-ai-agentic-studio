@@ -1631,6 +1631,12 @@ def _record_run(folder: str, run: dict, agent_state: str, msg: str) -> None:
             runs.append(run)
         data.setdefault("agents", {})["video-director"] = {
             "state": agent_state, "at": now(), "stage": "", "note": f"monitor run {run['id']} via {run['label']}"}
+        if run.get("state") in {"done", "failed", "stopped", "exited"}:
+            # Process completion must never leave an orphan "running" badge.
+            for agent_name, agent in data.get("agents", {}).items():
+                if agent_name != "video-director" and agent.get("state") == "running":
+                    agent.update({"state": "idle" if run["state"] == "done" else "failed",
+                                  "at": now(), "note": f"agent run {run['id']} ended; awaiting authoritative stage/review"})
         log(data, "agent", msg, "monitor")
         save(folder, data)
 
