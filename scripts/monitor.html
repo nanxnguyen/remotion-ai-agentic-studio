@@ -600,7 +600,7 @@ const reviewOk=(v,g)=>!!(v.reviews?.[g]&&(v.reviews[g].passed||v.reviews[g].over
 // status.json. Derive *display* activity from the same snapshot for both graphs.
 // This does not change stages, evidence, gate decisions, or review outcomes.
 const agentRecords=(v,name)=>Object.entries(v.agents||{})
-  .filter(([id])=>id===name||id.replace(/-\\d+$/,'')===name)
+  .filter(([id])=>id===name||id.replace(/-\d+$/,'')===name)
   .map(([id,record])=>({id,...record}));
 function isProducerActive(v,n){
   if(!n?.stage)return false;
