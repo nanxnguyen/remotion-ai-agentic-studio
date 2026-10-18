@@ -1335,11 +1335,11 @@ DEFAULT_RUNNERS = {
     # Prompts go through stdin or a file, never argv: Windows .cmd shims re-parse argv through cmd.exe.
     # `model_args`/`effort_args` are inserted before the last argument; the model list comes from runner_models().
     "claude": {"label": "Claude Code", "prompt": "stdin",
-               "cmd": ["claude", "-p", "--permission-mode", "auto", "--output-format", "stream-json", "--verbose"],
+               "cmd": ["claude", "-p", "--agent", "video-director", "--permission-mode", "auto", "--output-format", "stream-json", "--verbose"],
                "model_args": ["--model", "{model}"], "effort_args": ["--effort", "{effort}"],
                "efforts": ["low", "medium", "high", "xhigh", "max"]},
     "opencode": {"label": "OpenCode", "prompt": "file",
-                 "cmd": ["opencode", "run", "--auto", "--format", "json", "--file", "{prompt_file}",
+                 "cmd": ["opencode", "run", "--agent", "video-director", "--auto", "--format", "json", "--file", "{prompt_file}",
                          "Follow the task in the attached file exactly."],
                  # effort is a model variant (`provider/model#max`); `ladder`: on a rate limit step down the ranked models
                  "model_args": ["--model", "{model}"], "effort_variant": True, "ladder": True, "efforts": []},
@@ -1619,7 +1619,11 @@ def add_owner_note(folder: str, text: str) -> list:
 
 
 RULES_PREAMBLE = (
-    "Work in this repository as `video-director`. Read and follow AGENTS.md and every file in `.agents/rules/` "
+    "You are running the SAME production workflow as the interactive IDE agent; never use a lighter shortcut. "
+    "Work in this repository as `video-director`. Read your native video-director role "
+    "(`.opencode/agents/video-director.md` for OpenCode, `.claude/agents/video-director.md` for Claude) "
+    "or the canonical workflow skill when an agent binding is unavailable. "
+    "Read and follow AGENTS.md and every file in `.agents/rules/` "
     "(README first): status only through `python3 -I scripts/pipeline.py`, every phase writes its documents, "
     "record every agent you act as with `pipeline.py agent`, keep `next` current, never publish. Use the production "
     "workflow in `.agents/skills/ray-pineline-worflow-agent/SKILL.md` (every phase, stage and gate; "
@@ -1799,8 +1803,15 @@ def maybe_fallback(folder: str, run: dict):
     if original.startswith(FALLBACK_NOTE.split("{", 1)[0]) and marker in original:
         original = original.split(marker, 1)[1]  # one note per hand-over, not a growing stack
     prompt = FALLBACK_NOTE.format(label=run_label(run), error=error[:200]).replace("<vid>", folder) + "\n\n" + original
+    # Keep creative quality stable when the owner disabled fallback.
+    # The old ordering silently stepped down OpenCode's model BEFORE checking
+    # the fallback flag, so 'do not switch' did not protect output quality.
+    if run.get("fallback") is False:
+        _record_run(folder, run, "failed", f"monitor run {run['id']} exhausted quota on {run_label(run)}; "
+                                          "quality lock: no automatic model downgrade or runner switch")
+        return None
     lower = lower_model(run)
-    if lower:  # same runner, next weaker model at its highest effort
+    if lower:  # explicit opt-in: same runner, next weaker model
         _record_run(folder, run, "failed", f"monitor run {run['id']} hit a rate limit on {run_label(run)}: "
                                            f"stepping down to {lower['id']}")
         try:
@@ -2161,7 +2172,9 @@ def create_video(body: dict) -> tuple:
     runner_id = str(body.get("runner") or "")
     try:
         parse_run_at(body.get("run_at"))
-        opts = run_options(runner_id, body) if runner_id else {}
+        # Creation defaults to quality lock (no silent fallback); owners can
+        # explicitly enable quota fallback in the Create Video dialog.
+        opts = run_options(runner_id, {**body, "fallback": body.get("fallback", False)}) if runner_id else {}
     except ValueError as e:
         return 400, {"error": str(e)}
     if runner_id and not (runners().get(runner_id) or {}).get("path"):
