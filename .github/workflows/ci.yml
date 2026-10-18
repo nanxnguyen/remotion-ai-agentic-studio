@@ -26,6 +26,7 @@ jobs:
           python-version: '3.12'
       - name: Install media test dependencies
         run: sudo apt-get update && sudo apt-get install --yes ffmpeg
+      - run: node --test tests/monitor_status_parity.test.cjs
       - run: npm ci
       - run: python3 -m unittest discover -s tests -p 'test_runtime_orchestrator.py'
       - run: python3 -m unittest discover -s tests -p 'test_voice_performance_handoff.py'
