@@ -147,7 +147,7 @@ test('real pipeline stage renderer marks inferred agent activity without changin
   ctx.esc=x=>String(x);
   ctx.bot=()=>'<svg></svg>';
   vm.runInContext("function chip(v,name){return '<span class=agent-chip>'+agentState(v,name).state+'</span>'}",ctx);
-  vm.runInContext(section('function stageNode(', '// Each review is its own node right after its producer.'),ctx);
+  vm.runInContext(section('function stageNode(', '// Each review is its own node right after its producer:'),ctx);
   const v=fixture({agents:{'voice-agent':{state:'running',stage:'voice'}}});
   const before=JSON.stringify(v);
   const html=vm.runInContext('stageNode(video,flowNode("voice",video),"3b.1")',Object.assign(ctx,{video:v}));
