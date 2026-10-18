@@ -717,6 +717,10 @@ cur=savedVideo();refresh();setInterval(refresh,1000);
    updateEfforts(chosenEffort);
    $('term-start').disabled=!backendReady||!term||!runner?.installed||
      !terminalCapabilities?.providers?.[$('term-provider').value]||session?.state==='running';
+   if(backendReady&&terminalCapabilities&&!session?.id&&!terminalCapabilities.providers?.[$('term-provider').value]){
+     notice('CLI chưa được cài','Chưa tìm thấy '+$('term-provider').selectedOptions[0].textContent+
+       ' trên PATH của tiến trình monitor. Cài CLI hoặc chọn provider khác.',true);
+   }
  }
  function lockChoices(){
    const locked=session?.state==='running';
