@@ -775,6 +775,9 @@ def cmd_set(a) -> None:
             if a.stage in {"voice", "build", "audio", "render"}:  # final QA reopening alone keeps the render
                 data.pop("render_check", None)
         s.update({"state": a.state, "at": now()})
+        if a.state in {"done", "blocked", "failed"}:
+            settle_agent_records(data, STAGE_OWNERS.get(a.stage, ()),
+                                 "done" if a.state == "done" else "failed", f"{a.stage} -> {a.state}")
         if a.note is not None:
             s["note"] = a.note
         msg = f"{a.stage} -> {a.state}" + (f": {a.note}" if a.note else "")
@@ -827,6 +830,33 @@ def cmd_upgrade(a) -> None:
         log(data, "-", f"workflow upgraded from v{previous} to v4; motion pending; E/B/C and QA reopened", "agent")
         save(a.folder, data)
     print(f"{a.folder}: workflow v{FLOW_VERSION}")
+
+
+# Agent lifecycle is not a quality gate. Keep its display state synchronized
+# with the authoritative stage/review transitions, never the reverse.
+STAGE_OWNERS = {
+    "research": ("research-agent",), "brief": ("script-agent",),
+    "script": ("script-agent",), "content": ("content-agent",),
+    "voice": ("voice-agent",), "audio": ("audio-agent",),
+    "design": ("design-agent",), "motion": ("motion-agent",),
+    "build": ("scene-agent",), "render": ("render-agent",),
+    "qa": ("qa-agent",),
+}
+GATE_REVIEWERS = {
+    "A": "script-reviewer", "content": "content-reviewer",
+    "audio": "audio-reviewer", "D": "design-reviewer",
+    "motion": "motion-reviewer", "E": "integration-reviewer",
+    "B": "task-reviewer", "C": "video-reviewer",
+}
+
+
+def settle_agent_records(data: dict, names, state: str, reason: str) -> None:
+    """Close explicit live records immediately when the corresponding gate/stage finishes."""
+    agents = data.setdefault("agents", {})
+    for name, item in agents.items():
+        if any(name == owner or re.fullmatch(re.escape(owner) + r"-\\d+", name) for owner in names):
+            if item.get("state") == "running":
+                item.update({"state": state, "at": now(), "note": reason})
 
 
 def cmd_agent(a) -> None:
@@ -915,6 +945,8 @@ def cmd_review(a) -> None:
             if gate in review_names(data):
                 data.setdefault("review_valid", {})[gate] = False
         log(data, a.gate, f"review {a.score}/10 {a.verdict}: {a.report}" + (f" ({a.note})" if a.note else ""), a.reviewer)
+        settle_agent_records(data, (GATE_REVIEWERS.get(a.gate, ""),), "done" if a.verdict == "pass" else "failed",
+                             f"review {a.gate} -> {a.verdict}")
         save(a.folder, data)
     print(f"review {a.gate}: {a.score}/10 {a.verdict}")
     if a.gate == "C" and a.verdict == "pass":
