@@ -30,6 +30,10 @@ Append one section `## Round N` to `docs/<vid>/script-review.md`. Nothing else.
 9. Profile content test (see SKILL.md profile rubric)
 10. Voice direction feasibility: meaningful intent/emotion/emphasis/tempo/pause cues, exact phrase-to-canonical fidelity, unsupported controls declared, and directions absent from speech/captions
 
+
+## Hook engineering gate (mandatory)
+Read `.agents/skills/ray-pineline-worflow-agent/references/hook-engineering.md` and `docs/<vid>/hook-options.md`. Review the first second separately from the first three seconds; cite the exact first-frame image/action and hook text. Verify the 3–8 s first payoff and the ending resolves the promised tension. Compare the winner with at least one rejected candidate. Hook sub-score must be >=9 and the artifact must be present; revise when no truthful first payoff or when a hook relies on unsourced claims. State what could only be verified after rendering or publication.
+
 ## Inspection procedure (do every step; cite each in the report)
 1. **Read as the viewer first**, before the rubric: read the spoken lines only, at the estimated durations. Write in 2 lines what you felt/understood and the exact second attention could drop.
 2. **Hook test:** first 3 s alone — what is the question or tension? Would a viewer who knows nothing stop? Compare against the five hook candidates in research; is the chosen one the strongest? Does the on-screen text carry the hook with sound off? Does the frame-0 cover description show the hook?
