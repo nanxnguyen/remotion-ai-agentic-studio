@@ -48,7 +48,7 @@
 @media(max-width:560px){.reference-shell{width:calc(100% - 32px);padding-top:16px}.brand p,.live-label{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}.overview-card{padding:22px}.overview-name{font-size:20px}.overview-stats{width:100%;flex-direction:row;justify-content:space-between}.stat{text-align:left}.output-card{padding:16px}.video-frame{width:120px}.pipeline-card,.review-card,.log-card,.orchestration-card{padding-left:14px;padding-right:14px}.gate-body{grid-template-columns:1fr}.review-grid{grid-template-columns:1fr auto auto;gap:4px 8px}.review-grid .review-who,.review-grid .rounds{display:none}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
 /* Interactive terminal scoped entirely to the existing command dock. */
-.command-dock-terminal{display:block}.command-dock-terminal .command-dock-terminal .terminal-shell{margin:0 0 18px;border:1px solid rgba(94,234,212,.22);border-radius:19px;overflow:hidden;background:#080d17;box-shadow:0 18px 56px rgba(0,0,0,.32),0 0 35px rgba(45,212,191,.055)}
+/* The existing command-dock is the terminal container; no extra shell is inserted. */
 .command-dock-terminal .term-toolbar{display:flex;align-items:center;gap:13px;padding:12px 17px;background:linear-gradient(90deg,#131d2a,#0b121e);border-bottom:1px solid rgba(148,163,184,.13);flex-wrap:wrap}
 .term-traffic{display:flex;gap:7px}.term-traffic i{width:10px;height:10px;border-radius:50%;display:block;background:#f87171}.term-traffic i:nth-child(2){background:#fbbf24}.term-traffic i:nth-child(3){background:#34d399}
 .term-brand{min-width:130px}.term-brand strong{display:block;font:700 12px var(--sans);color:#edf9ff}.term-brand small{display:block;font:10px var(--mono);color:#71839b;margin-top:2px}
@@ -714,7 +714,7 @@ cur=savedVideo();refresh();setInterval(refresh,1000);
      updateModels();
    }catch(error){feedback('Không tải được model catalog: '+error.message)}
  }
- const chosen=()=>decodeURIComponent(location.hash.slice(1));
+ const chosen=()=>decodeURIComponent(location.hash.slice(1))||currentVideo();
  const sessionHeader=()=>{
    const label=$('term-session-label');
    const vid=chosen();
@@ -738,23 +738,28 @@ cur=savedVideo();refresh();setInterval(refresh,1000);
    if(window.FitAddon){fit=new FitAddon.FitAddon();term.loadAddon(fit)}
    term.open($('term-render'));$('term-fallback').hidden=true;
    fit?.fit();
-   term.onData(data=>{if(!session)return;writeQueue+=data;flush()});
+   term.onData(data=>{if(!session||session.state!=='running')return;writeQueue+=data;flush()});
    term.onResize(({cols,rows})=>{if(session)api(base()+'/'+session.id+'/resize',{cols,rows}).catch(e=>feedback(e.message))});
  }
  async function flush(){
-   if(sending||!session||!writeQueue)return;
+   if(sending||!session||session.state!=='running'||!writeQueue)return;
    sending=true;
+   const sentTo=session.id,videoForInput=video;
    try{
-     while(writeQueue&&session){
+     while(writeQueue&&session?.id===sentTo&&session.state==='running'&&video===videoForInput){
        const data=writeQueue.slice(0,2048);writeQueue=writeQueue.slice(2048);
-       await api(base()+'/'+session.id+'/input',{data});
+       await api('/api/terminal/'+encodeURIComponent(videoForInput)+'/'+sentTo+'/input',{data});
      }
-   }catch(error){feedback('Input: '+error.message)}finally{sending=false}
+   }catch(error){feedback('Input: '+error.message)}
+   finally{
+     sending=false;
+     if(writeQueue&&session?.state==='running')queueMicrotask(flush);
+   }
  }
  async function attach(entry){
    session={id:entry.id,provider:entry.provider||$('term-provider').value,
      model:entry.model||'',effort:entry.effort||'',state:entry.state||'running'};
-   offset=0;decoder=new TextDecoder();
+   offset=0;decoder=new TextDecoder();writeQueue='';
    sessionHeader();
    $('term-provider').value=session.provider;
    updateModels(session.model,session.effort);
@@ -795,6 +800,14 @@ cur=savedVideo();refresh();setInterval(refresh,1000);
  window.addEventListener('resize',()=>fit?.fit());
  window.addEventListener('hashchange',()=>{
    session=null;offset=0;sessionHeader();
+   if(!document.getElementById('command-dock').hidden)reconnect();
+ });
+ // Project cards use history.replaceState (no hashchange event).
+ document.addEventListener('click',event=>{
+   if(!event.target.closest('[data-v]'))return;
+   const next=chosen();
+   if(next===video)return;
+   session=null;offset=0;writeQueue='';video=next;sessionHeader();
    if(!document.getElementById('command-dock').hidden)reconnect();
  });
  setInterval(async()=>{
