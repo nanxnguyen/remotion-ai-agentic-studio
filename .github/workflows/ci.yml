@@ -37,6 +37,7 @@ jobs:
       - run: python3 -m unittest discover -s tests -p 'test_interactive_terminal.py'
       - run: python3 -m unittest discover -s tests -p 'test_terminal_model_effort.py'
       - run: python3 -m unittest discover -s tests -p 'test_terminal_ui.py'
+      - run: node --test tests/monitor_status_parity.test.cjs
       - run: npm run verify
 
   render:
