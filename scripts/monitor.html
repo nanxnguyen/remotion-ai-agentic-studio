@@ -284,7 +284,7 @@ dialog.studio-dialog::backdrop{background:rgba(2,6,15,.76);backdrop-filter:blur(
           </div>
           <div class="dock-row"><label for="dock-runner" style="font-size:12px;color:var(--muted)">Chạy bằng</label><select id="dock-runner"></select><label for="dock-model" class="sr-only">Model</label><select id="dock-model" class="dock-model"></select><label for="dock-effort" class="sr-only">Mức suy luận</label><select id="dock-effort" class="dock-effort"></select>
             <button type="button" class="primary-btn" id="dock-send">Gửi</button><button type="button" class="ghost-btn danger-btn" id="dock-stop" hidden>Dừng agent</button></div>
-          <label class="fallback-toggle"><input type="checkbox" id="dock-fallback" checked><span>Hết token thì tự chuyển agent khác chạy tiếp</span></label>
+          <label class="fallback-toggle"><input type="checkbox" id="dock-fallback"><span>Cho phép tự hạ model / chuyển agent khi hết token (có thể giảm chất lượng)</span></label>
           <p class="studio-error" id="dock-error" role="alert"></p>
           <div class="notes-box" id="dock-notes" hidden><p class="side-label">Ghi chú gửi agent</p><ul class="notes-list" id="notes-list"></ul></div>
         </div>
@@ -364,7 +364,7 @@ dialog.studio-dialog::backdrop{background:rgba(2,6,15,.76);backdrop-filter:blur(
               </dl></div></div>
           <fieldset style="margin:0;padding:0;border:0"><legend class="side-label" style="margin-bottom:10px">Chạy bằng</legend><div class="runner-list" id="f-runners"></div>
             <div class="model-row" id="f-model-row"><label>Model<select id="f-model" name="model"></select></label><label>Mức suy luận<select id="f-effort" name="effort"></select></label></div>
-            <label class="fallback-toggle"><input type="checkbox" id="f-fallback" name="fallback" checked><span>Hết token thì tự chuyển agent khác chạy tiếp</span></label></fieldset>
+            <label class="fallback-toggle"><input type="checkbox" id="f-fallback" name="fallback"><span>Cho phép tự hạ model / chuyển agent khi hết token (có thể giảm chất lượng)</span></label></fieldset>
           <div class="matches" id="f-matches" role="alert"></div>
           <details class="prompt-preview"><summary>Xem prompt gửi cho agent</summary><pre id="prompt-preview">Nhập ý tưởng để xem.</pre></details>
         </div>
