@@ -91,6 +91,37 @@ test('a historical done agent record is not proof an unfinished stage is done',(
   assert.equal(stage(v,'voice'),'pending');
 });
 
+test('stale producer done is NOT completion after a stage was reopened',()=>{
+  const v=fixture({agents:{'voice-agent':{state:'done',stage:'voice'}}});
+  assert.equal(stage(v,'voice'),'pending');
+  assert.equal(agent(v,'voice-agent'),'idle');
+});
+
+test('invalidated gate never inherits historical reviewer done',()=>{
+  const v=fixture({agents:{'content-reviewer':{state:'done'}},
+    reviews:{content:{passed:true,stale:true,rounds:1,overridden:false}}});
+  assert.equal(agent(v,'content-reviewer'),'idle');
+  assert.equal(vm.runInContext('reviewOk(video,"content")',Object.assign(ctx,{video:v})),false);
+});
+
+test('failed producer and pending stage show same error without marking stage complete',()=>{
+  const v=fixture({agents:{'voice-agent':{state:'failed',stage:'voice'}}});
+  const before=JSON.stringify(v);
+  assert.equal(agent(v,'voice-agent'),'failed');
+  assert.equal(stage(v,'voice'),'failed');
+  assert.equal(v.stages.find(x=>x.id==='voice').state,'pending');
+  assert.equal(JSON.stringify(v),before);
+});
+
+test('stale agent running on a completed owned stage does not light another stage',()=>{
+  const v=fixture({states:{brief:'done'},agents:{
+    'script-agent':{state:'running',stage:'brief'},
+  }});
+  assert.equal(stage(v,'brief'),'done');
+  assert.equal(stage(v,'script'),'pending');
+  assert.equal(agent(v,'script-agent'),'idle');
+});
+
 test('two videos cannot contaminate each other even when global selection changes',()=>{
   const a=fixture({agents:{'voice-agent':{state:'running',stage:'voice'}}});
   const b=fixture({folder:'video-b'});
