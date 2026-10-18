@@ -27,6 +27,11 @@ jobs:
       - name: Install media test dependencies
         run: sudo apt-get update && sudo apt-get install --yes ffmpeg
       - run: npm ci
+      - run: python3 -m unittest discover -s tests -p 'test_runtime_orchestrator.py'
+      - run: python3 -m unittest discover -s tests -p 'test_voice_performance_handoff.py'
+      - run: python3 -m unittest discover -s tests -p 'test_agent_status_sync.py'
+      - run: python3 .agents/skills/ray-pineline-worflow-agent/scripts/quick_validate.py
+      - run: python3 scripts/sync_agents.py --check
       - run: npm run verify
 
   render:

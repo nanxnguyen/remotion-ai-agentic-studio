@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "defaultMaxRounds": 3,
+  "nonOverridableBlockers": [
+    "render_unverified",
+    "missing_or_cut_audio",
+    "incorrect_mandatory_text",
+    "unsourced_material_claim",
+    "unauthorized_voice",
+    "invalid_output",
+    "security_violation"
+  ],
+  "gates": {
+    "A": {
+      "minimumScore": 9,
+      "reviewerRole": "script-reviewer"
+    },
+    "content": {
+      "minimumScore": 9,
+      "reviewerRole": "content-reviewer"
+    },
+    "audio": {
+      "minimumScore": 9,
+      "reviewerRole": "audio-reviewer"
+    },
+    "D": {
+      "minimumScore": 8.5,
+      "reviewerRole": "design-reviewer"
+    },
+    "E": {
+      "minimumScore": 9,
+      "reviewerRole": "integration-reviewer"
+    },
+    "B": {
+      "minimumScore": 9,
+      "reviewerRole": "task-reviewer"
+    },
+    "C": {
+      "minimumScore": 8,
+      "reviewerRole": "video-reviewer"
+    },
+    "motion": {
+      "minimumScore": 9,
+      "reviewerRole": "motion-reviewer",
+      "allowOverride": false
+    }
+  },
+  "ticketFields": [
+    "id",
+    "severity",
+    "location",
+    "evidence",
+    "requiredChange",
+    "owner",
+    "acceptanceCheck"
+  ],
+  "severity": [
+    "critical",
+    "high",
+    "medium",
+    "low"
+  ]
+}

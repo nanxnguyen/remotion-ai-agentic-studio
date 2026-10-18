@@ -80,7 +80,26 @@ STAGE_GATE = {"script": "A", "content": "content", "design": "D", "motion": "mot
 # `set done` needs these gates accepted first; render is done once verified, and gate C reviews that file after.
 DONE_NEEDS_GATE = {s: g for s, g in STAGE_GATE.items() if s != "render"}
 REVIEW_ORDER = list(REVIEW_GATES)
-PASS_SCORE = {"A": 9, "D": 8.5, "E": 9, "B": 9, "content": 9, "audio": 9, "motion": 9}  # C passes at 8
+# Numeric gate thresholds are loaded from the versioned review policy.
+REVIEW_POLICY_FILE = ROOT / ".agents" / "skills" / "ray-pineline-worflow-agent" / "schemas" / "review-gates.json"
+
+
+def load_review_policy() -> dict:
+    policy = json.loads(REVIEW_POLICY_FILE.read_text(encoding="utf-8"))
+    if policy.get("schemaVersion") != 1:
+        raise RuntimeError("Unsupported review policy version")
+    expected = {"A", "content", "audio", "D", "motion", "E", "B", "C"}
+    if set(policy.get("gates", {})) != expected:
+        raise RuntimeError("Incomplete review policy")
+    for gate, config in policy["gates"].items():
+        score = config.get("minimumScore")
+        if isinstance(score, bool) or not isinstance(score, (int, float)) or not 0 <= score <= 10:
+            raise RuntimeError(f"Invalid review score for {gate}")
+    return policy
+
+
+REVIEW_POLICY = load_review_policy()
+PASS_SCORE = {gate: config["minimumScore"] for gate, config in REVIEW_POLICY["gates"].items()}
 INVALIDATE_FROM_STAGE = {
     "research": "A", "brief": "A", "script": "A", "content": "E", "voice": "E", "design": "D",
     "motion": "E", "build": "C", "audio": "C", "qa": None, "render": "C",  # final QA runs after C: starting it must not void C
@@ -756,6 +775,9 @@ def cmd_set(a) -> None:
             if a.stage in {"voice", "build", "audio", "render"}:  # final QA reopening alone keeps the render
                 data.pop("render_check", None)
         s.update({"state": a.state, "at": now()})
+        if a.state in {"done", "blocked", "failed"}:
+            settle_agent_records(data, STAGE_OWNERS.get(a.stage, ()),
+                                 "done" if a.state == "done" else "failed", f"{a.stage} -> {a.state}")
         if a.note is not None:
             s["note"] = a.note
         msg = f"{a.stage} -> {a.state}" + (f": {a.note}" if a.note else "")
@@ -808,6 +830,33 @@ def cmd_upgrade(a) -> None:
         log(data, "-", f"workflow upgraded from v{previous} to v4; motion pending; E/B/C and QA reopened", "agent")
         save(a.folder, data)
     print(f"{a.folder}: workflow v{FLOW_VERSION}")
+
+
+# Agent lifecycle is not a quality gate. Keep its display state synchronized
+# with the authoritative stage/review transitions, never the reverse.
+STAGE_OWNERS = {
+    "research": ("research-agent",), "brief": ("script-agent",),
+    "script": ("script-agent",), "content": ("content-agent",),
+    "voice": ("voice-agent",), "audio": ("audio-agent",),
+    "design": ("design-agent",), "motion": ("motion-agent",),
+    "build": ("scene-agent",), "render": ("render-agent",),
+    "qa": ("qa-agent",),
+}
+GATE_REVIEWERS = {
+    "A": "script-reviewer", "content": "content-reviewer",
+    "audio": "audio-reviewer", "D": "design-reviewer",
+    "motion": "motion-reviewer", "E": "integration-reviewer",
+    "B": "task-reviewer", "C": "video-reviewer",
+}
+
+
+def settle_agent_records(data: dict, names, state: str, reason: str) -> None:
+    """Close explicit live records immediately when the corresponding gate/stage finishes."""
+    agents = data.setdefault("agents", {})
+    for name, item in agents.items():
+        if any(name == owner or re.fullmatch(re.escape(owner) + r"-\d+", name) for owner in names):
+            if item.get("state") == "running":
+                item.update({"state": state, "at": now(), "note": reason})
 
 
 def cmd_agent(a) -> None:
@@ -896,6 +945,8 @@ def cmd_review(a) -> None:
             if gate in review_names(data):
                 data.setdefault("review_valid", {})[gate] = False
         log(data, a.gate, f"review {a.score}/10 {a.verdict}: {a.report}" + (f" ({a.note})" if a.note else ""), a.reviewer)
+        settle_agent_records(data, (GATE_REVIEWERS.get(a.gate, ""),), "done",
+                             f"review {a.gate} -> {a.verdict}")
         save(a.folder, data)
     print(f"review {a.gate}: {a.score}/10 {a.verdict}")
     if a.gate == "C" and a.verdict == "pass":
@@ -1580,6 +1631,12 @@ def _record_run(folder: str, run: dict, agent_state: str, msg: str) -> None:
             runs.append(run)
         data.setdefault("agents", {})["video-director"] = {
             "state": agent_state, "at": now(), "stage": "", "note": f"monitor run {run['id']} via {run['label']}"}
+        if run.get("state") in {"done", "failed", "stopped", "exited"}:
+            # Process completion must never leave an orphan "running" badge.
+            for agent_name, agent in data.get("agents", {}).items():
+                if agent_name != "video-director" and agent.get("state") == "running":
+                    agent.update({"state": "idle" if run["state"] == "done" else "failed",
+                                  "at": now(), "note": f"agent run {run['id']} ended; awaiting authoritative stage/review"})
         log(data, "agent", msg, "monitor")
         save(folder, data)
 

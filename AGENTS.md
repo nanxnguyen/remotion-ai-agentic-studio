@@ -53,3 +53,7 @@ Prefer CodeGraph for structural questions: symbol definition, callers/callees, i
 ## Language and safety
 
 Communicate with the project owner in Vietnamese. Keep code, public documentation, and commit messages in English. Do not publish credentials, personal media, generated MP4s, or assets without clear redistribution rights.
+
+## Responsibility split
+
+See `.agents/skills/ray-pineline-worflow-agent/references/architecture-contract.md`. The skill defines phases; `scripts/pipeline.py` enforces state transitions; `.agents/roles/` owns agent responsibilities; `schemas/review-gates.json` defines scoring; `scripts/runtime_orchestrator.py` records execution/retry/resume intent. Motion phase 4b remains part of the canonical workflow.

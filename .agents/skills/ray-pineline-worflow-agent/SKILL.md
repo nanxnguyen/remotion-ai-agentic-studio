@@ -3,6 +3,31 @@ name: ray-pineline-worflow-agent
 description: Use when producing a new Vietnamese vertical video in this repository, or changing an existing one, from idea or source material through voice, Remotion scenes, review, and final MP4 delivery. Binding workflow for every agent runtime (Claude Code, Codex, OpenCode, Cursor, Gemini).
 ---
 
+# Responsibility boundaries (normative)
+
+Read [architecture contract](references/architecture-contract.md) before executing this skill. This file defines **what work is required**, not mutable runtime state or approval logic.
+
+- **Workflow:** this skill defines phases, dependency order and expected artifacts.
+- **Transitions:** `scripts/pipeline.py` alone approves stage and gate transitions.
+- **Ownership:** agent roles in `.agents/roles/*.md` define who performs each task.
+- **Review:** [review-gates.json](schemas/review-gates.json) defines gate thresholds and blocker categories.
+- **Execution:** `scripts/runtime_orchestrator.py` records runtime dependencies and bounded retry/resume state, never bypassing pipeline review.
+
+Video source lives in `src/videos/<slug>/`, registered via `src/videos/registry.ts` (not direct `Root.tsx` registration). Existing legacy paths in examples are superseded. Do not self-approve a gate, invent successful checks, clone voices without appropriate permission, or apply retrospective changes to workflow policy without approval.
+
+## Mandatory immediate status synchronization
+
+The monitor is a *reflection of pipeline.py's authoritative status*, not a phase simulator.
+Every runtime, including those without subagents, MUST persist each lifecycle event immediately:
+
+1. Before dispatch, call `pipeline.py agent <vid> <role> running --stage <stage>`, then `pipeline.py set <vid> <stage> in_progress` when that stage starts (only once for a shared stage).
+2. Immediately after each producer returns, verify artifacts, run `pipeline.py agent <vid> <role> done|failed` and request the legal `set ... done|blocked|failed` transition. For a numbered role, update the exact numbered instance.
+3. Immediately after each reviewer returns, write its report, call `pipeline.py review <vid> <gate> <score> --reviewer <role> --report <file> --verdict pass|revise` and call `pipeline.py agent <vid> <reviewer> done`. Then run `pipeline.py gate <vid> <gate>`. A revise is a completed review with a failed *gate*, not a permanently running reviewer.
+4. After render returns, persist render stage and agent outcomes immediately, before beginning gate C or QA. An MP4 existing on disk never implies gate C/QA passed.
+5. If execution is interrupted, record blocked/failed and HANDOFF rather than retaining misleading running markers. On resumed production check `show` and live runs before marking anything active.
+
+Do NOT batch lifecycle updates until the end of a phase, video, or conversational turn. For monitor-started runs, pipeline.py clears orphan live flags on terminal process exit. A successful review or stage transition also settles matching running records atomically. Monitor must not infer that an agent is running from `stage=in_progress`; only explicit agent activity may mark it running. Poll every second or use an equivalent push mechanism. Never auto-mark a review passed because render completed.
+
 # Video production workflow
 
 This is the **single production workflow** for new and changed videos in this repository. Canonical file: `.agents/skills/ray-pineline-worflow-agent/SKILL.md` (`.claude/skills/ray-pineline-worflow-agent` is a symlink to it; Codex and OpenCode discover it under `.agents/skills/`). `video-director` owns the final result and status. Use `.claude/skills/viral-tech-video-creator/SKILL.md` for research and writing techniques and `.claude/skills/video-shotcraft/SKILL.md` for shot, motion, and sound references. When those resources disagree with this file, follow this file. Read `AGENTS.md` and the selected references before working. The rules in `.agents/rules/` (README first) bind every agent this workflow dispatches and override this file where stricter: include "follow `.agents/rules/`" in every dispatch packet, and run `python3 -I scripts/pipeline.py audit <vid>` after each phase and before ending any turn. Reply in Vietnamese; write code in English.
@@ -466,8 +491,8 @@ Order, all automatic and without asking the user: (1) `show <vid>` prints no `�
 7. **Evidence audit** — `show <vid>` output (no `⚠`), plus every `⚠`, `set done` refusal, or missing-file ticket seen during this video and the phase that caused it; each one becomes a row in section 6.
 8. **Deliverable verdict** — ship yes/no with the QA evidence behind it, and the accepted imperfections.
 
-**Apply the improvements automatically (self-improving workflow).** Right after writing section 6, the director applies every fix that belongs in this repository, without asking:
-- a rule or ordering change → edit this `SKILL.md` (the section that owns the rule, plus a dated "Seen YYYY-MM-DD" line in Common failure points); keep `.agents/roles/<name>.md` consistent when it states the same rule (then run `python3 scripts/sync_agents.py`), and mirror phase/stage/roster/gate changes into `scripts/monitor.html` (see Pipeline map);
+**Apply the improvements automatically (self-improving workflow).** Right after writing section 6, the director proposes fixes for review; workflow and enforcement changes require approval:
+- a rule or ordering change → propose an edit to this `SKILL.md` (the section that owns the rule, plus a dated "Seen YYYY-MM-DD" line in Common failure points); keep `.agents/roles/<name>.md` consistent when it states the same rule (then run `python3 scripts/sync_agents.py`), and mirror phase/stage/roster/gate changes into `scripts/monitor.html` (see Pipeline map);
 - a checker or command bug → fix `scripts/` test-first (add or update `scripts/test_*.py`) and run `python3 -m unittest scripts.test_pipeline scripts.test_voice_catalog scripts.test_monitor_ui scripts.test_sync_agents`; for app code also `npm run verify`;
 - a fix that needs the user's machine or credentials (venv, model download, API key) → do not attempt it; mark it `machine-only` and list it in the delivery report.
 A fix that would fail tests, or that weakens a gate, score threshold, blocker or reviewer-independence rule, is never auto-applied: record it as a ticket instead. Workflow fixes do not reopen the delivered video's gates; they apply from the next video on. Do not commit or push them unless the user asked; list the changed files in the delivery report.

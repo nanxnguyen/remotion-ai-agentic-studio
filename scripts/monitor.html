@@ -513,13 +513,20 @@ function nodeState(v,n){
   if(n.id==='delivery'){const s=summary(v);return s.done===s.total&&s.reviewOk===s.reviewTotal?'done':'pending'}
   return 'pending'}
 function agentState(v,name){
+  // Completed reviews and stages are authoritative; historical agent activity isn't.
+  const terminalGate=Object.entries(REVIEW_LABEL).find(([gate,entry])=>entry[1]===name&&reviewOk(v,gate));
+  if(terminalGate)return{state:'done',note:'Review gate '+terminalGate[0]+' đã đạt'};
+  const assignedStages=videoFlow(v).filter(n=>n.agents.includes(name)&&n.stage);
+  if(assignedStages.length&&assignedStages.every(n=>stageOf(v,n.stage)?.state==='done'))
+    return{state:'done',note:'Stage đã hoàn tất'};
+
   const recs=Object.entries(v.agents||{}).filter(([k])=>k===name||k.replace(/-\d+$/,'')===name).map(([k,r])=>({k,...r}));
   const running=recs.filter(r=>r.state==='running');
   if(running.length)return{state:'running',count:running.length,note:running.map(r=>`${r.k}: ${r.note||r.stage||'đang chạy'} (${short(r.at)})`).join('\n')};
   if(recs.some(r=>r.state==='failed'))return{state:'failed',note:recs.find(r=>r.state==='failed').note};
   // no explicit record: infer from the stages and reviews this agent owns
   const owned=videoFlow(v).filter(n=>n.agents.includes(name)),reviewing=videoFlow(v).filter(n=>n.reviewer===name);
-  if(owned.some(n=>n.stage&&stageOf(v,n.stage)?.state==='in_progress'))return{state:'running',inferred:true,note:'Suy ra từ stage đang chạy (chưa có lệnh pipeline.py agent)'};
+  // No explicit running record: a stage marked in_progress is not proof an agent is alive.
   if(recs.some(r=>r.state==='done'))return{state:'done',note:recs.map(r=>r.note).filter(Boolean).join('; ')};
   if(reviewing.length&&reviewing.every(n=>reviewOk(v,n.gate)))return{state:'done',inferred:true};
   if(owned.length&&owned.every(n=>nodeState(v,n)==='done'))return{state:'done',inferred:true};
@@ -570,7 +577,7 @@ async function refresh(){if(busy)return;try{if(!meta){const m=await fetch('/api/
 document.addEventListener('click',async event=>{const project=event.target.closest('[data-v]');if(project){selectVideo(project.dataset.v);return}const stage=event.target.closest('[data-s]');if(stage){sel=sel===stage.dataset.s?null:stage.dataset.s;renderMain();return}const lf=event.target.closest('[data-log]');if(lf){logFilter=lf.dataset.log;renderMain();return}const gate=event.target.closest('[data-g]');if(gate){busy=true;try{const response=await fetch('/api/gate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({video:cur,stage:gate.dataset.g,decision:gate.dataset.d,comment:document.getElementById('c-'+gate.dataset.g)?.value||''})});if(!response.ok)throw new Error(response.status);last=''}finally{busy=false;refresh()}}});
 window.addEventListener('hashchange',()=>{const h=decodeURIComponent(location.hash.slice(1));if(h&&h!==cur&&data.some(v=>v.folder===h))selectVideo(h)});
 window.addEventListener('resize',()=>requestAnimationFrame(drawOrchLines));
-cur=savedVideo();refresh();setInterval(refresh,2500);
+cur=savedVideo();refresh();setInterval(refresh,1000);
 </script>
 </body>
 </html>
