@@ -76,6 +76,32 @@ class TerminalApiTest(unittest.TestCase):
         self.assertIn("READY", output)
         self.assertIn("ECHO:hello", output)
 
+    def test_one_shot_conflict_never_spawns_a_second_agent(self):
+        fake = {"folder": "ui-smoke"}
+        with patch.object(pipeline, "terminal_command", return_value=[sys.executable]):
+            with pipeline.LIVE_LOCK:
+                pipeline.LIVE_RUNS["terminal-ui-smoke"] = fake
+            try:
+                code, data = self.request("POST", "/api/terminal/ui-smoke/start",
+                                          {"provider": "opencode"})
+            finally:
+                with pipeline.LIVE_LOCK:
+                    pipeline.LIVE_RUNS.pop("terminal-ui-smoke", None)
+        self.assertEqual(code, 409)
+        self.assertIn("one-shot agent is running", data["error"])
+
+    def test_terminal_post_rejects_cross_origin_request(self):
+        conn = http.client.HTTPConnection("127.0.0.1", self.port, timeout=6)
+        try:
+            conn.request("POST", "/api/terminal/ui-smoke/start",
+                         json.dumps({"provider": "opencode"}),
+                         {"Origin": "https://not-the-monitor.example",
+                          "Content-Type": "application/json"})
+            response = conn.getresponse()
+            self.assertEqual(response.status, 403)
+        finally:
+            conn.close()
+
     def test_unknown_video_slug_returns_explicit_error(self):
         self.stub.stop()
         code, data = self.request("GET", "/api/terminal/non-existing-video/sessions")
