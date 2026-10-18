@@ -1,0 +1,43 @@
+name: Interactive Terminal Smoke Tests
+on:
+  pull_request:
+    paths:
+      - 'scripts/monitor.html'
+      - 'scripts/pipeline.py'
+      - 'scripts/interactive_terminal.py'
+      - 'tests/test_monitor_quality.py'
+      - 'tests/test_terminal_api.py'
+      - 'tests/test_terminal_ui.py'
+      - 'tests/terminal_browser_smoke.py'
+      - '.github/workflows/terminal-smoke.yml'
+  workflow_dispatch:
+
+jobs:
+  smoke:
+    name: Native PTY API + Browser Smoke
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Native terminal API integration
+        run: |
+          python3 -m unittest discover -s tests -p 'test_monitor_quality.py' -v
+          python3 -m unittest discover -s tests -p 'test_terminal_api.py' -v
+          python3 -m unittest discover -s tests -p 'test_interactive_terminal.py' -v
+          python3 -m unittest discover -s tests -p 'test_terminal_model_effort.py' -v
+          python3 -m unittest discover -s tests -p 'test_terminal_ui.py' -v
+      - name: Install browser test dependencies
+        run: |
+          python3 -m pip install --disable-pip-version-check playwright==1.55.0
+          python3 -m playwright install chromium
+      - name: Real monitor browser smoke
+        run: python3 tests/terminal_browser_smoke.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: terminal-real-browser-screenshots
+          path: out/terminal-smoke/*.png
+          if-no-files-found: warn

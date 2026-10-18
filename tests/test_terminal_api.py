@@ -10,6 +10,8 @@ import os
 import sys
 import threading
 import time
+import tempfile
+from pathlib import Path
 import unittest
 from unittest.mock import patch
 
@@ -101,6 +103,30 @@ class TerminalApiTest(unittest.TestCase):
             self.assertEqual(response.status, 403)
         finally:
             conn.close()
+
+    def test_new_video_does_not_false_positive_file_mismatch(self):
+        """A new v4 video is pending, not 'Lệch file', even without artifacts."""
+        docs_root = pipeline.ROOT / "docs"
+        docs_root.mkdir(parents=True, exist_ok=True)
+        with tempfile.TemporaryDirectory(prefix=".monitor-create-test-", dir=docs_root) as temp_docs:
+            with patch.object(pipeline, "DOCS", Path(temp_docs)):
+                code, created = self.request("POST", "/api/videos", {
+                    "topic": "Video mới kiểm tra cảnh báo file",
+                    "slug": "test-monitor-create-status-pending",
+                    "comp": "TestMonitorCreateStatusPending",
+                    "profile": "story", "runner": "", "min_seconds": 30,
+                    "max_seconds": 45,
+                })
+                self.assertEqual(code, 201, created)
+                folder = created["video"]
+                self.assertTrue((Path(temp_docs) / folder / "status.json").is_file())
+                status, views = self.request("GET", "/api/status")
+                self.assertEqual(status, 200)
+                item = next(v for v in views if v["folder"] == folder)
+                self.assertFalse(any(st["mismatch"] for st in item["stages"]))
+                self.assertFalse(any(st["state"] == "done" for st in item["stages"]))
+                # Distinguish legitimate mismatch warnings for completed old stages:
+                # A warning must never come from missing artifacts in a pending stage.
 
     def test_unknown_video_slug_returns_explicit_error(self):
         self.stub.stop()

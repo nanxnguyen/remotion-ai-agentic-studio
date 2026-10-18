@@ -1483,7 +1483,7 @@ def run_options(runner_id: str, body: dict) -> dict:
         if model and spec.get("path") else []
     if effort and effort not in [*spec.get("efforts", []), *model_efforts]:
         raise ValueError(f"effort {effort!r} is not supported by runner {runner_id!r}")
-    return {"model": model, "effort": effort, "fallback": body.get("fallback", True) is not False}
+    return {"model": model, "effort": effort, "fallback": body.get("fallback") is True}
 
 
 def runner_cmd(spec: dict, prompt_file: str, opts: dict) -> list:
@@ -1540,11 +1540,22 @@ def request_record(req: dict) -> str:
         f"| Style reference | {req['reference'] or '(none)'} |",
         f"| Must not resemble | {req['avoid'] or '(not specified)'} |",
         f"| Light mode | {'yes' if req['light'] else 'no'} |",
+        f"| Agent runtime | {req.get('runner') or '(manual)'} |",
+        f"| Model / reasoning | {req.get('model') or '(CLI default)'} / {req.get('effort') or '(default)'} |",
+        f"| Allow lower-model fallback | {'yes (explicit opt-in)' if req.get('fallback') else 'no (quality first)'} |",
         f"| Duplicate-topic check | {req['duplicate_note']} |",
         "",
         "## Mandatory lines (keep verbatim)", "", mandatory, "",
         "## Sources", "", req["sources"].strip() or "(none supplied)", "",
         "## Owner notes", "", req["notes"].strip() or "(none)", "",
+        "## Quality acceptance (IDE-equivalent)", "",
+        "- Follow AGENTS.md and the canonical video-production skill in .claude/skills/.",
+        "- Preserve an original visual concept, polished motion, readable typography and a verified hook.",
+        "- Validate story rhythm, script, voice timing, soundtrack/SFX balance and distinct scene designs.",
+        "- Preview representative frames and the actual final video; run required visual/regression checks.",
+        "- Complete independent reviews and pipeline gates with real artifacts and reports.",
+        "- If quality verification cannot be completed, leave stage pending/blocked with HANDOFF, not done.",
+        "",
     ])
 
 
@@ -1584,6 +1595,28 @@ def add_owner_note(folder: str, text: str) -> list:
     return owner_notes(folder)
 
 
+QUALITY_PARITY_CONTRACT = (
+    "Quality contract (the same standard as an interactive IDE agent session): "
+    "Read the canonical .claude/skills/ray-pineline-worflow-agent/SKILL.md and "
+    "its architecture, design, hook and review references before implementing. "
+    "Treat the request as a production video, not an MVP/scaffold: first establish "
+    "the emotional arc, audience promise and hook, then script, voice direction, "
+    "storyboard/visual language, motion, sound design and sound/image synchronisation. "
+    "Preserve the video's own creative identity; do not replace authored scenes with "
+    "generic black backgrounds, placeholder text, repeated stock visuals, still slides, "
+    "or a generic template merely to complete the run. Validate every visual scene at "
+    "representative frames and inspect the actual rendered result when tools permit. "
+    "Run required code, visual and quality tests, verify timing, legibility, typography, "
+    "transitions, color contrast, voice and BGM/SFX balance, and record evidence under "
+    "docs/<vid>/. In particular, do not claim motion, script, audio or final QA review "
+    "has passed until the independent reviewer and required gate reports truly exist. "
+    "If the runtime, available model, context or asset licensing prevents the intended "
+    "quality, document the limitation in HANDOFF.md and leave the relevant stage "
+    "blocked/pending. Never substitute a lower-quality result for the agreed standard "
+    "or invent evidence to pass a gate."
+)
+
+
 RULES_PREAMBLE = (
     "Work in this repository as `video-director`. Read and follow AGENTS.md and every file in `.agents/rules/` "
     "(README first): status only through `python3 -I scripts/pipeline.py`, every phase writes its documents, "
@@ -1601,7 +1634,10 @@ RULES_PREAMBLE = (
 def create_prompt(req: dict) -> str:
     return "\n\n".join([
         RULES_PREAMBLE.replace("<vid>", req["video"]),
-        f"Task: produce the new video `{req['video']}` end to end (Phase 0 → 10). The monitor already ran "
+        QUALITY_PARITY_CONTRACT.replace("<vid>", req["video"]),
+        f"Task: produce the new video `{req['video']}` end to end (Phase 0 → 10), "
+        "strictly stage-by-stage with evidence and independent review. "
+        "Do not compress or skip any phase to finish in one CLI turn. The monitor already ran "
         f"`pipeline.py init {req['video']} --comp {req['comp']} --voice {req['voice_slug']} --profile {req['profile']}` "
         f"and the duplicate-topic check ({req['duplicate_note']}). Start with Phase 0 intake/preflight, then research.",
         "Owner request (also saved in `docs/" + req["video"] + "/request.md`; copy its decisions into `brief.md`):\n\n"
@@ -1612,6 +1648,7 @@ def create_prompt(req: dict) -> str:
 def command_prompt(folder: str, text: str) -> str:
     return "\n\n".join([
         RULES_PREAMBLE.replace("<vid>", folder),
+        QUALITY_PARITY_CONTRACT.replace("<vid>", folder),
         f"Task: continue video `{folder}`. First run `pipeline.py show {folder}` and `pipeline.py audit {folder}`, "
         f"and read `docs/{folder}/HANDOFF.md` if it exists. Then carry out this instruction from the owner "
         f"(sent from the Pipeline Monitor on {datetime.now().astimezone().isoformat(timespec='seconds')}):",
@@ -1765,21 +1802,24 @@ def maybe_fallback(folder: str, run: dict):
     if original.startswith(FALLBACK_NOTE.split("{", 1)[0]) and marker in original:
         original = original.split(marker, 1)[1]  # one note per hand-over, not a growing stack
     prompt = FALLBACK_NOTE.format(label=run_label(run), error=error[:200]).replace("<vid>", folder) + "\n\n" + original
+    # Opt-out means NO model downgrade either, not just "no other agent".
+    # Silent model weakening is a quality regression for creative video work.
+    if run.get("fallback") is not True:
+        _record_run(folder, run, "failed", f"monitor run {run['id']} ran out of quota; "
+                                           "quality-first mode: model downgrade and agent switch disabled")
+        return None
     lower = lower_model(run)
-    if lower:  # same runner, next weaker model at its highest effort
+    if lower:  # allowed explicitly: same runner, next weaker model at its highest effort
         _record_run(folder, run, "failed", f"monitor run {run['id']} hit a rate limit on {run_label(run)}: "
                                            f"stepping down to {lower['id']}")
         try:
             return launch_run(folder, run["runner"], prompt, run["kind"],
                               opts={"model": lower["id"], "effort": lower.get("default_effort", ""),
-                                    "fallback": run.get("fallback", True)},
+                                    "fallback": run.get("fallback") is True},
                               extra={"fallback_of": run["id"], "tried": run.get("tried") or [],
                                      "tried_models": sorted(set(run.get("tried_models") or []) | {run["model"]})})
         except (LookupError, RuntimeError, OSError):
             pass  # fall through to the next runner
-    if run.get("fallback") is False:
-        _record_run(folder, run, "failed", f"monitor run {run['id']} ran out of quota (runner switch is off)")
-        return None
     next_id = fallback_runner(run)
     if not next_id:
         _record_run(folder, run, "failed", f"monitor run {run['id']} ran out of quota; no other runner is installed")
@@ -1842,7 +1882,7 @@ def schedule_run(folder: str, runner_id: str, prompt: str, kind: str, when: date
            "prompt_file": rel(prompt_file).replace("\\", "/"),
            "summary": prompt.splitlines()[-1][:160] if kind == "command" else "create video",
            "model": (opts or {}).get("model", ""), "effort": (opts or {}).get("effort", ""),
-           "fallback": (opts or {}).get("fallback", True)}
+           "fallback": (opts or {}).get("fallback", False)}
     if after_current:
         run["after_current"] = True
     with status_lock(folder):
@@ -1982,7 +2022,7 @@ def launch_run(folder: str, runner_id: str, prompt: str, kind: str, run_id: str 
                "state": "running", "started": now(), "pid": proc.pid,
                "log": rel(log_file).replace("\\", "/"), "prompt_file": rel(prompt_file).replace("\\", "/"),
                "summary": prompt.splitlines()[-1][:160] if kind == "command" else "create video",
-               "model": opts.get("model", ""), "effort": opts.get("effort", ""), "fallback": opts.get("fallback", True),
+               "model": opts.get("model", ""), "effort": opts.get("effort", ""), "fallback": opts.get("fallback", False),
                **(extra or {})}
         LIVE_RUNS[run_id] = {"folder": folder, "proc": proc, "run": run}
     _record_run(folder, run, "running", f"monitor run {run_id} started via {run_label(run)} ({kind})")
@@ -2144,6 +2184,8 @@ def create_video(body: dict) -> tuple:
            "min_s": min_s, "max_s": max_s, "light": bool(body.get("light")),
            "mandatory": str(body.get("mandatory", ""))[:4000], "sources": str(body.get("sources", ""))[:6000],
            "notes": str(body.get("notes", ""))[:6000],
+           "runner": runner_id, "model": opts.get("model", ""),
+           "effort": opts.get("effort", ""), "fallback": opts.get("fallback", False),
            "duplicate_note": ("owner confirmed a new video despite similar: " + ", ".join(m["folder"] for m in matches))
            if matches else "no similar video found by the monitor (folder names); intake-agent re-checks content"}
     prompt = create_prompt(req)
@@ -2170,13 +2212,27 @@ def create_video(body: dict) -> tuple:
     return 201, {"video": folder, "comp": comp, "voice": req["voice_slug"], "run": run, "run_error": run_error}
 
 
+_TERMINAL_BACKEND = None
+
+
 def terminal_backend():
-    """Lazy import works both as python scripts/pipeline.py and as scripts.pipeline."""
-    if __package__:
-        from . import interactive_terminal
-    else:
-        import interactive_terminal
-    return interactive_terminal
+    """Load the PTY backend in both module mode and Python -I isolated CLI mode.
+
+    `python3 -I scripts/pipeline.py serve` removes the script directory from
+    sys.path; a normal `import interactive_terminal` raises ModuleNotFoundError.
+    Cache the loaded module so sessions survive across successive HTTP requests.
+    """
+    global _TERMINAL_BACKEND
+    if _TERMINAL_BACKEND is None:
+        import importlib.util
+        backend_path = Path(__file__).resolve().with_name("interactive_terminal.py")
+        spec = importlib.util.spec_from_file_location("_pipeline_interactive_terminal", backend_path)
+        if spec is None or spec.loader is None:
+            raise RuntimeError(f"cannot load interactive terminal backend: {backend_path}")
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        _TERMINAL_BACKEND = module
+    return _TERMINAL_BACKEND
 
 
 # Interactive providers use their native TUI, not one-shot exec/run commands.
