@@ -711,7 +711,7 @@ cur=savedVideo();refresh();setInterval(refresh,1000);
  function lockChoices(){
    const locked=session?.state==='running';
    $('term-provider').disabled=locked;
-   updateModels(session?.model||'',session?.effort||'');
+   updateModels(session?.model||$('term-model').value,session?.effort||$('term-effort').value);
    $('term-model').disabled=locked||!terminalRunners?.find(r=>r.id===$('term-provider').value)?.installed;
    $('term-effort').disabled=locked||$('term-effort').options.length===1;
    $('term-start').disabled=locked||!backendReady||!term||!terminalRunners?.find(r=>r.id===$('term-provider').value)?.installed;
@@ -834,7 +834,16 @@ cur=savedVideo();refresh();setInterval(refresh,1000);
      if(selected)await attach(selected);
      else {
        session=null;lockChoices();sessionHeader();badge('● Ready');
-       notice('Chưa mở phiên CLI','Chọn Agent, Model và Effort rồi bấm “Mở terminal”. Một phiên one-shot đang chạy không thể được reconnect thành PTY.');
+       // A normal one-shot job is not a PTY and cannot be adopted mid-run.
+       let oneShotActive=false;
+       try{
+         const running=await terminalGet('/api/runs/'+encodeURIComponent(selectedVideo));
+         oneShotActive=running?.runs?.some(x=>x.state==='running')||false;
+       }catch{}
+       if(chosen()!==selectedVideo)return;
+       if(oneShotActive)notice('Video đang có agent one-shot',
+         'Agent ở “Lệnh nhanh / one-shot” vẫn đang chạy. Hãy đợi hoặc dừng nó trước khi mở PTY; Reconnect không thể biến lượt one-shot thành session tương tác.',true);
+       else notice('Chưa mở phiên CLI','Chọn Agent, Model, Effort và bấm “Mở terminal” để bắt đầu phiên tương tác.');
      }
    }catch(error){
      if(chosen()!==selectedVideo)return;
@@ -860,8 +869,10 @@ cur=savedVideo();refresh();setInterval(refresh,1000);
        cols:term.cols||100,rows:term.rows||28});
      await attach(entry);
    }catch(error){
-     badge('● Unavailable');
-     notice('Không thể mở terminal',error.message,true);
+     const busy=error.message.includes('one-shot agent is running');
+     badge(busy?'● Busy':'● Unavailable');
+     notice(busy?'Video đang có agent one-shot':'Không thể mở terminal',
+       busy?'Agent one-shot đang chạy cho video này. Terminal không thể gắn vào process one-shot. Chờ agent hoàn thành hoặc bấm “Dừng agent” ở phần lệnh nhanh, sau đó mở phiên PTY mới.':error.message,true);
    }finally{lockChoices()}
  });
  $('term-provider').addEventListener('change',()=>updateModels());
