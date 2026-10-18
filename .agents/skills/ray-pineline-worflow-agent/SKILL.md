@@ -15,6 +15,19 @@ Read [architecture contract](references/architecture-contract.md) before executi
 
 Video source lives in `src/videos/<slug>/`, registered via `src/videos/registry.ts` (not direct `Root.tsx` registration). Existing legacy paths in examples are superseded. Do not self-approve a gate, invent successful checks, clone voices without appropriate permission, or apply retrospective changes to workflow policy without approval.
 
+## Mandatory immediate status synchronization
+
+The monitor is a *reflection of pipeline.py's authoritative status*, not a phase simulator.
+Every runtime, including those without subagents, MUST persist each lifecycle event immediately:
+
+1. Before dispatch, call `pipeline.py agent <vid> <role> running --stage <stage>`, then `pipeline.py set <vid> <stage> in_progress` when that stage starts (only once for a shared stage).
+2. Immediately after each producer returns, verify artifacts, run `pipeline.py agent <vid> <role> done|failed` and request the legal `set ... done|blocked|failed` transition. For a numbered role, update the exact numbered instance.
+3. Immediately after each reviewer returns, write its report, call `pipeline.py review <vid> <gate> <score> --reviewer <role> --report <file> --verdict pass|revise` and call `pipeline.py agent <vid> <reviewer> done`. Then run `pipeline.py gate <vid> <gate>`. A revise is a completed review with a failed *gate*, not a permanently running reviewer.
+4. After render returns, persist render stage and agent outcomes immediately, before beginning gate C or QA. An MP4 existing on disk never implies gate C/QA passed.
+5. If execution is interrupted, record blocked/failed and HANDOFF rather than retaining misleading running markers. On resumed production check `show` and live runs before marking anything active.
+
+Do NOT batch lifecycle updates until the end of a phase, video, or conversational turn. For monitor-started runs, pipeline.py clears orphan live flags on terminal process exit. A successful review or stage transition also settles matching running records atomically. Monitor must not infer that an agent is running from `stage=in_progress`; only explicit agent activity may mark it running. Poll every second or use an equivalent push mechanism. Never auto-mark a review passed because render completed.
+
 # Video production workflow
 
 This is the **single production workflow** for new and changed videos in this repository. Canonical file: `.agents/skills/ray-pineline-worflow-agent/SKILL.md` (`.claude/skills/ray-pineline-worflow-agent` is a symlink to it; Codex and OpenCode discover it under `.agents/skills/`). `video-director` owns the final result and status. Use `.claude/skills/viral-tech-video-creator/SKILL.md` for research and writing techniques and `.claude/skills/video-shotcraft/SKILL.md` for shot, motion, and sound references. When those resources disagree with this file, follow this file. Read `AGENTS.md` and the selected references before working. The rules in `.agents/rules/` (README first) bind every agent this workflow dispatches and override this file where stricter: include "follow `.agents/rules/`" in every dispatch packet, and run `python3 -I scripts/pipeline.py audit <vid>` after each phase and before ending any turn. Reply in Vietnamese; write code in English.
