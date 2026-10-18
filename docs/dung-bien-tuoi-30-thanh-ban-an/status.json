@@ -96,6 +96,23 @@
         "report": "",
         "note": "cap 3 rounds; accepted round-3 score 8.3 with carried D3,D6,D7,D8,D10 tickets; D9 verified 16/16",
         "by": "video-director"
+      },
+      {
+        "at": "2026-10-18T13:24:52+07:00",
+        "reviewer": "design-reviewer",
+        "score": 8.3,
+        "verdict": "revise",
+        "report": "docs/dung-bien-tuoi-30-thanh-ban-an/design-review.md",
+        "note": "Gate D Round 3 hard-cap review: 8.3, revise; D1/D5/D9 closure verified but D3/D6/D7/D8/D10 accepted-risk remain."
+      },
+      {
+        "at": "2026-10-18T13:24:57+07:00",
+        "reviewer": "override:video-director",
+        "score": 8.3,
+        "verdict": "override",
+        "report": "docs/dung-bien-tuoi-30-thanh-ban-an/design-review.md",
+        "note": "Gate D hard-cap after independent Round 3 score 8.3 revise. D1/D5/D9 evidence closed; D3/D6/D7/D8/D10 remain accepted-risk. Proceed only with documented risk; do not treat as clean pass.",
+        "by": "video-director"
       }
     ],
     "audio": [
@@ -108,13 +125,42 @@
         "note": "cap 3 rounds; accepted round-3 score 7.1; ASR residuals documented in audio-review.md; AUD-005 integrated mix/render pending Join/build; AUD-003/004 fixed; AUD-008 reconciled",
         "by": "video-director"
       }
+    ],
+    "E": [
+      {
+        "at": "2026-10-18T13:25:00+07:00",
+        "reviewer": "integration-reviewer-3",
+        "score": 6.8,
+        "verdict": "revise",
+        "report": "docs/dung-bien-tuoi-30-thanh-ban-an/integration-review.md",
+        "note": "Gate E Round 3: integrated preview renders, but E-002/E-003/E-004/E-005/E-008/E-009 remain open; no clean pass."
+      },
+      {
+        "at": "2026-10-18T13:25:05+07:00",
+        "reviewer": "override:video-director",
+        "score": 6.8,
+        "verdict": "override",
+        "report": "docs/dung-bien-tuoi-30-thanh-ban-an/integration-review.md",
+        "note": "Gate E hard-cap after independent Round 3 score 6.8 revise. Preview is renderable and all tracks mount, but accepted risks remain: E-002 mix -21.8 LUFS vs -14 target; E-003 ASR 7/16; E-004 5-frame lead-in not exact 0.150s contract; E-005 s8 pause unmeasured; E-008 integrated window/ending proof incomplete; E-009 ramp source present but not independently measured. Proceed to Gate B only with these risks carried into HANDOFF/QA; this is not a clean Gate E pass.",
+        "by": "video-director"
+      }
+    ],
+    "B": [
+      {
+        "at": "2026-10-18T13:26:10+07:00",
+        "reviewer": "task-reviewer",
+        "score": 4.8,
+        "verdict": "revise",
+        "report": "docs/dung-bien-tuoi-30-thanh-ban-an/task-review.md",
+        "note": "Gate B Round 1: 16/16 scenes and frame ranges verified, but build is blocked by carried Gate E risks, incomplete audio/timing evidence, and missing build/render/QA evidence."
+      }
     ]
   },
   "review_valid": {
     "A": true,
-    "D": false,
-    "E": false,
-    "B": false,
+    "D": true,
+    "E": true,
+    "B": true,
     "C": false,
     "content": true,
     "audio": true
@@ -876,9 +922,39 @@
       "stage": "design",
       "who": "integration-reviewer-2",
       "msg": "integration-reviewer-2 running: Gate E Round 2 after E-001..E-008 fixes"
+    },
+    {
+      "t": "2026-10-18T13:24:52+07:00",
+      "stage": "D",
+      "who": "design-reviewer",
+      "msg": "review 8.3/10 revise: design-review.md (Gate D Round 3 hard-cap review: 8.3, revise; D1/D5/D9 closure verified but D3/D6/D7/D8/D10 accepted-risk remain.)"
+    },
+    {
+      "t": "2026-10-18T13:24:57+07:00",
+      "stage": "D",
+      "who": "video-director",
+      "msg": "override by video-director: Gate D hard-cap after independent Round 3 score 8.3 revise. D1/D5/D9 evidence closed; D3/D6/D7/D8/D10 remain accepted-risk. Proceed only with documented risk; do not treat as clean pass."
+    },
+    {
+      "t": "2026-10-18T13:25:00+07:00",
+      "stage": "E",
+      "who": "integration-reviewer-3",
+      "msg": "review 6.8/10 revise: integration-review.md (Gate E Round 3: integrated preview renders, but E-002/E-003/E-004/E-005/E-008/E-009 remain open; no clean pass.)"
+    },
+    {
+      "t": "2026-10-18T13:25:05+07:00",
+      "stage": "E",
+      "who": "video-director",
+      "msg": "override by video-director: Gate E hard-cap after independent Round 3 score 6.8 revise. Preview is renderable and all tracks mount, but accepted risks remain: E-002 mix -21.8 LUFS vs -14 target; E-003 ASR 7/16; E-004 5-frame lead-in not exact 0.150s contract; E-005 s8 pause unmeasured; E-008 integrated window/ending proof incomplete; E-009 ramp source present but not independently measured. Proceed to Gate B only with these risks carried into HANDOFF/QA; this is not a clean Gate E pass."
+    },
+    {
+      "t": "2026-10-18T13:26:10+07:00",
+      "stage": "B",
+      "who": "task-reviewer",
+      "msg": "review 4.8/10 revise: task-review.md (Gate B Round 1: 16/16 scenes and frame ranges verified, but build is blocked by carried Gate E risks, incomplete audio/timing evidence, and missing build/render/QA evidence.)"
     }
   ],
-  "updated": "2026-10-18T13:19:24+07:00",
+  "updated": "2026-10-18T13:26:10+07:00",
   "agents": {
     "research-agent": {
       "state": "done",

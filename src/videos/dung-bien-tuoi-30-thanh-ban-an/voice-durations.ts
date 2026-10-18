@@ -3,7 +3,7 @@
 export const VOICE_SECONDS = {
   s1: 2.16,
   s2: 3.327,
-  s3a: 4.298,
+  s3a: 4.236,
   s3b: 1.975,
   s4a: 3.381,
   s4b: 2.348,
@@ -16,5 +16,5 @@ export const VOICE_SECONDS = {
   s8: 4.13,
   s9a: 2.976,
   s9b: 1.91,
-  s10: 1.898,
+  s10: 1.797,
 } as const;

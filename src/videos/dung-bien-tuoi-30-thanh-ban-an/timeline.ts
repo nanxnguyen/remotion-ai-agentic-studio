@@ -1,12 +1,17 @@
 import {defineSequentialTimeline} from '../../core';
 import {VOICE_SECONDS} from './voice-durations';
 
-// Join draft: measured voice + locked per-key holds/gaps from script.md.
-// Audio offsets and mix cues are integrated only after Gate E/B.
+// Join timeline: measured voice + locked per-key holds/gaps from script.md.
+// Audio offsets are relative to these frame-quantized shot boundaries.
 const shot = (id: string, voiceSeconds: number, holdSeconds: number) => ({
   id,
   durationInFrames: Math.round((voiceSeconds + holdSeconds) * 30),
 });
+
+export const VOICE_LEAD_IN_SECONDS = {scene01: 0.15} as const;
+// 0.15s is 4.5 frames at 30fps; round up to 5 frames so speech never starts early.
+export const VOICE_LEAD_IN_FRAMES = {scene01: Math.ceil(VOICE_LEAD_IN_SECONDS.scene01 * 30)} as const;
+export const S8_CAPTION_BOUNDARIES = {firstEnd: 38, secondEnd: 78} as const;
 
 export const timeline = defineSequentialTimeline([
   shot('scene01', VOICE_SECONDS.s1, 0.40),

@@ -38,6 +38,13 @@ Phase 4 director join draft, created after content/audio/design branch reviews.
 - The current audio review has accepted-risk ASR residuals and an unverified integrated mix. These are carried into Gate E/B/C; this document does not claim audio pass.
 - The 16 existing scene files are scaffold/build inputs; no scene is declared production-complete until Gate B passes and build QA verifies visual content.
 
+## Integrated preview evidence
+
+- Preview render: `/tmp/dung-bien-tuoi-30-thanh-ban-an-join-preview.mp4`.
+- Rendered range: frames `0–1552`, 1080×1920, 30fps, measured duration `51.776s`.
+- FFmpeg `ebur128` measurement: integrated loudness `-21.8 LUFS`, LRA `1.7 LU`; this is below the `-14±1 LUFS` target and therefore remains a Gate E revision finding.
+- The preview confirms the current Reel mounts the visual scenes, 16 voice tracks, BGM, and SFX without a render failure. It is not the final delivery render and does not close E-008 until windowed ducking, true peak, SFX audibility, and the near-silent ending are measured.
+
 ## Gate E handoff checks
 
 - Confirm `voice.json` order matches scene order: 16/16.

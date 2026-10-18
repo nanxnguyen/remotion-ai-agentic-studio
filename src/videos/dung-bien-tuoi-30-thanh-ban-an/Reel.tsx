@@ -1,6 +1,6 @@
 import React from 'react';
 import {AbsoluteFill, Audio, Sequence, interpolate, staticFile, useCurrentFrame} from 'remotion';
-import {timeline} from './timeline';
+import {S8_CAPTION_BOUNDARIES, VOICE_LEAD_IN_FRAMES, timeline} from './timeline';
 import {VOICE_SECONDS} from './voice-durations';
 import {Scene01} from './scenes/Scene01';
 import {Scene02} from './scenes/Scene02';
@@ -24,10 +24,13 @@ export const DungBienTuoi30ThanhBanAnReel = () => (
 );
 
 const AUDIO_ROOT = 'audio/dung-bien-tuoi-30-thanh-ban-an';
+// The regenerated source clips measure below the integrated delivery target after
+// MP3 encoding; apply one deterministic gain at the composition boundary.
+const VOICE_GAIN = 1.6;
 const KEYS = ['s1', 's2', 's3a', 's3b', 's4a', 's4b', 's5a', 's5b', 's6a', 's6b', 's7a', 's7b', 's8', 's9a', 's9b', 's10'] as const;
 const SCENE_IDS = KEYS.map((_, i) => `scene${String(i + 1).padStart(2, '0')}`) as Array<keyof typeof timeline.shots>;
 const VOICE_LEAD_IN: Record<(typeof KEYS)[number], number> = {
-  s1: 5, s2: 0, s3a: 0, s3b: 0, s4a: 0, s4b: 0, s5a: 0, s5b: 0,
+  s1: VOICE_LEAD_IN_FRAMES.scene01, s2: 0, s3a: 0, s3b: 0, s4a: 0, s4b: 0, s5a: 0, s5b: 0,
   s6a: 0, s6b: 0, s7a: 0, s7b: 0, s8: 0, s9a: 0, s9b: 0, s10: 0,
 };
 const SFX_CUES = [
@@ -52,7 +55,9 @@ const DungBienTuoi30ThanhBanAnComposition = () => {
   const bgmVolume = () => {
     if (frame >= lastVoiceEnd) return interpolate(frame, [lastVoiceEnd, lastVoiceEnd + 9], [0.2, 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
     for (const [start, end] of voiceWindows) {
-      if (frame >= start - 6 && frame <= end + 6) return 0.11;
+      if (frame >= start - 6 && frame < start) return interpolate(frame, [start - 6, start], [0.2, 0.11], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
+      if (frame >= start && frame <= end) return 0.11;
+      if (frame > end && frame <= end + 6) return interpolate(frame, [end, end + 6], [0.11, 0.2], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
     }
     return 0.2;
   };
@@ -66,7 +71,7 @@ const DungBienTuoi30ThanhBanAnComposition = () => {
       })}
       {KEYS.map((key) => {
         const shot = sceneFor(key);
-        return <Sequence key={`voice-${key}`} from={shot.from + VOICE_LEAD_IN[key]} durationInFrames={Math.round(VOICE_SECONDS[key] * 30) + 2}><Audio src={staticFile(`${AUDIO_ROOT}/${key}.mp3`)} /></Sequence>;
+        return <Sequence key={`voice-${key}`} from={shot.from + VOICE_LEAD_IN[key]} durationInFrames={Math.round(VOICE_SECONDS[key] * 30) + 2}><Audio src={staticFile(`${AUDIO_ROOT}/${key}.mp3`)} volume={VOICE_GAIN} /></Sequence>;
       })}
       {SFX_CUES.map(([key, file, offset, duration, volume], i) => <Sequence key={`sfx-${i}`} from={sceneFor(key).from + offset} durationInFrames={duration}><Audio src={staticFile(`${AUDIO_ROOT}/${file}`)} volume={volume} /></Sequence>)}
       <Audio src={staticFile(`${AUDIO_ROOT}/bgm.mp3`)} volume={bgmVolume} />

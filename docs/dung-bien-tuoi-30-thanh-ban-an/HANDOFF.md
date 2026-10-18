@@ -79,3 +79,16 @@ FAIL
 ```
 
 `npm run test:visual` also remains red outside this video: `CuocGoiNhoReel@1418` attempts to render frame 1418 although that composition ends at frame 1307. `npm run verify` reaches `format:check` but reports the repository's existing formatting debt across unrelated files; owned proto files were formatted and `npx tsc --noEmit` passes. The director/voice owner must repair the canonical script-review evidence and stale voice-agent state; design-agent did not edit status, timeline, Reel, Root, package.json, or other owners' files.
+
+## Director continuation — Gate E/B sequence (2026-10-18)
+
+- Integrated Join preview rendered at `/tmp/dung-bien-tuoi-30-thanh-ban-an-join-preview.mp4`: 1080×1920, 30fps, 51.776s, with video/audio streams. `npx tsc --noEmit` passes.
+- Gate D Round 3 was formally recorded: `8.3/10`, revise. D hard-cap override was recorded by `video-director`; D3/D6/D7/D8/D10 remain accepted-risk.
+- Gate E Round 3 was formally recorded: `6.8/10`, revise. E hard-cap override was recorded by `video-director`; E-002/E-003/E-004/E-005/E-008/E-009 remain accepted-risk. This is not a clean Gate E pass.
+- Gate B Round 1 was formally recorded: `4.8/10`, revise. B-001…B-005 remain open; Build/Render must not be declared complete from this state.
+- Preview audio measurement: integrated loudness `-21.8 LUFS`, LRA `1.7 LU`; this misses the `-14±1 LUFS` target. ASR evidence remains `7/16` passing, and s8 pause plus exact s1 timing contracts remain unproven.
+- Current pipeline audit still fails only on the three historical Gate A entries that contain the literal backslash path `docs\\dung-bien-tuoi-30-thanh-ban-an\\script-review.md`. This is carried as an audit blocker; no status file was hand-edited.
+
+## Safe next step
+
+Do not run a final delivery render or claim completion from this handoff. To proceed, resolve or explicitly accept the Gate B tickets with a new review cycle as allowed by the workflow, then run Build/Render/QA evidence and Gate C in order.

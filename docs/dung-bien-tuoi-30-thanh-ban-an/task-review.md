@@ -130,3 +130,54 @@ Run from `/Users/nguyenanhnhut/Desktop/Projects/AI-video-edition` on 2026-10-18:
 - Licensing risk: use only the manifest-listed original BGM and vendored Mixkit SFX; do not add unlicensed media or generated MP4s to Git.
 
 Acceptance before Gate B review: E-001…E-008 are closed or formally resolved by the owning review loop, Gate E is passed by the independent integration reviewer, all 16 scenes contain real visual content, the frame table reflects final measured voice, shared files are integrated by the director, and the tool checks above are rerun on the resulting tree. The reviewer must append all rounds and fix tickets below this plan; the producer must not self-review.
+
+## Round 1 — independent Gate B task review
+
+Reviewed 2026-10-18 as a clean-context, review-only task review. Inputs: this task plan, `join-notes.md`, `integration-review.md` through Gate E Round 3, the current `Scene01.tsx`–`Scene16.tsx`, `Reel.tsx`, `timeline.ts`, `index.ts`, `src/videos/registry.ts`, the core video-definition contract, and the workflow/rules. No source file, `status.json`, or pipeline state was edited. No `pipeline.py review`, `gate`, or `override` command was run.
+
+### Verdict
+
+**score: 4.8/10 — verdict: REVISE**
+
+Gate B **does not pass**. The task plan has a usable ownership split and the current runtime has 16 substantive scene files, but the plan is not yet an approval-ready build packet: Gate E Round 3 is `6.8/10 — REVISE` with open Cao/Trung tickets, the task evidence contains stale contradictions, the final timing/audio contract is still invalidated, and no build/render/QA evidence exists. Per workflow, Gate B remains blocked until Gate E is independently passed and the affected dependencies are recalculated.
+
+### Review rubric
+
+| Area | Score | Finding |
+|---|---:|---|
+| Ownership and handoff | 7.0 | Scene ownership is disjoint and clearly assigned as 4 files per scene agent; director owns shared timeline/Reel/voice/registry integration; audio ownership is separated. However the plan's required shared `lib/`, `kit.tsx`, and `workbench.ts` handoff is not present in the current video directory, so the declared precondition is incomplete. |
+| Scene coverage 16/16 | 8.0 | `Reel.tsx` imports and maps `Scene01`–`Scene16`, and the current files contain substantive frame-driven visuals; placeholder scan found no `Scene NN`, `TODO`, or `PROPOSED_FRAMES` in the scene directory. This closes the original coverage shape, but not downstream full-frame/thumbnail acceptance. |
+| Frame ranges and timeline | 5.0 | Runtime `timeline.ts` matches the listed sequential ranges: `0–77, 77–184, 184–322, 322–389, 389–499, 499–578, 578–641, 641–726, 726–842, 842–944, 944–1051, 1051–1112, 1112–1245, 1245–1355, 1355–1424, 1424–1553`; total is 1553 frames / 51.7667s. The table is still based on the unresolved 5-frame s1 approximation and hard-coded s8 boundaries, so E-004/E-005 invalidate the plan before approval. |
+| Audio integration dependencies | 3.5 | Track inventory and relative cues exist in `Reel.tsx`, but Gate E Round 3 measured `-21.8 LUFS`, only 7/16 ASR-clean clips, no accepted exact s1 lead-in contract, no voice-measured s8 boundaries, and no integrated duck/gap/true-peak/ending proof. These are open Cao/Trung dependencies, not task-plan-only risks. |
+| Build/render/QA checklist | 3.0 | The plan names the required checks and downstream ownership, but there is no Gate B-approved build packet, no final render fingerprint, no `final-check.md`/`render-evidence.md`/`video-review.md`, and no final `qa-report.md`. Existing stills are partial scene evidence and cannot substitute for the required post-build render and QA chain. |
+| Contract and risk carry | 6.0 | `index.ts` and the registry preserve `DungBienTuoi30ThanhBanAnReel`, 1080×1920, 30fps, and timeline-derived duration; `npx tsc --noEmit` passes. Gate D's hard-cap override and audio hard-cap accepted-risk are recorded and carried, but neither waives Gate E/B thresholds. The current Gate E report explicitly keeps E-002/E-003/E-004/E-005/E-008/E-009 open. |
+
+### Direct checks
+
+- Scene coverage: **PASS at source inventory level, 16/16**; all 16 scene files exist, are imported by `Reel.tsx`, and contain `useCurrentFrame()`-driven rendering. No placeholder/TODO marker was found in the scene files.
+- Runtime frame plan: **PASS for current draft consistency**; `timeline.ts` produces the exact 16 sequential ranges listed above and `index.ts` derives composition duration from `timeline.totalDurationInFrames`.
+- Registry/composition contract: **PASS**; the video manifest uses `defineVideo`, preserves the requested composition ID, slug, 30fps, 1080×1920 dimensions, and is registered through `src/videos/registry.ts`; no direct `Root.tsx` registration was found.
+- Type check: **PASS**; `npx tsc --noEmit` completed successfully.
+- Task evidence freshness: **FAIL**; the plan's own tool-check and risk sections still say the 16 production scenes are placeholders, contradicting the current source. This must be reconciled before a later Gate B review can rely on the packet.
+- Shared implementation dependency: **BLOCKED**; the plan requires video-owned shared helpers plus `kit.tsx`/`workbench.ts` before scene handoff, but the current video directory contains only `proto/` helpers and the scene files; no production `lib/`, `kit.tsx`, or `workbench.ts` was verified.
+- Pipeline audit: **FAIL (exit 1)** due the pre-existing Gate A report path defect: `docs\\dung-bien-tuoi-30-thanh-ban-an\\script-review.md is missing`. This review did not alter status or repair the defect.
+
+### Gate B blocker tickets
+
+| ID | Severity | Finding | Required resolution | Owner |
+|---|---|---|---|---|
+| B-001 | Cao | Gate E Round 3 is `6.8/10 — REVISE`; E-002, E-003, E-004, E-005, E-008, and E-009 remain open. | Close the owning E tickets, rerun required branch reviews, and obtain an independent Gate E pass at ≥9 with no open Cao/Trung ticket before rerunning Gate B. | video-director + owning branch agents |
+| B-002 | Cao | The task packet's current frame/audio contract is not stable: s1 lead-in is 5 frames rather than the specified 0.150s contract, and s8 caption boundaries are not voice-measured. | Recalculate `voice-durations.ts`, `join-notes.md`, `timeline.ts`, SFX offsets, scene frame rows, and Reel placement after E-004/E-005 resolution. | video-director + voice/audio/content agents |
+| B-003 | Cao | Integrated audio is not accepted: preview is −21.8 LUFS, ASR is 7/16, and required windowed mix/true-peak/ending evidence is absent. | Regenerate or formally resolve the failing voice keys, produce the accepted integrated mix proof, and rerun audio and Gate E reviews. | voice-agent + audio-agent + video-director |
+| B-004 | Trung | Task evidence is stale/inconsistent and shared production helper dependency is unfulfilled. | Update the plan's evidence to current 16-scene reality and complete or explicitly revise the `lib/kit/workbench` handoff before the next Gate B review. | video-director |
+| B-005 | Trung | Build/render/QA checklist has no approval evidence yet. | After Gate B passes, complete build, render, Gate C, and final QA in order; attach the required render/final-check/video-review/qa artifacts. | scene agents + render-agent + video-reviewer + qa-agent |
+
+### Accepted-risk carry-forward
+
+- Gate D's recorded hard-cap override is carried as an explicit accepted risk; it is not silently converted to a pass and must be reconsidered if production scenes materially diverge from the reviewed board.
+- Audio's hard-cap accepted-risk is also carried, but Gate E Round 3 correctly treats the unresolved heard-track/mix defects as open blockers. Accepted-risk does not authorize Gate B or build.
+- The Gate A audit path defect is recorded as pre-existing and outside this review-only scope; it remains a pipeline/audit defect that the director must resolve or document in `HANDOFF.md` before delivery.
+
+### Required disposition
+
+Keep Gate B at **REVISE / blocked**. Do not mark `build` done and do not render the final output from this packet. The next valid sequence is: resolve E tickets → rerun branch reviews as invalidated → pass Gate E independently → refresh task evidence and dependencies → rerun this Gate B review → only then build, render, Gate C, and final QA. This review intentionally did not mutate source or pipeline status.

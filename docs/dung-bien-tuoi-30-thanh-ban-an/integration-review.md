@@ -98,3 +98,153 @@ dung-bien-tuoi-30-thanh-ban-an: FAIL
 ```
 
 The missing canonical Gate A report and stale agent-state errors are pre-existing/outside this review's writable scope. No `pipeline.py review` or `pipeline.py gate` command was run.
+
+## Round 2 — clean-context Gate E integration review
+
+Reviewed 2026-10-18 after the Round 1 E-001…E-008 fix pass. Inputs re-read: `brief.md`, `script.md`, `content-pack.md` + `content-pack-review.md`, `voice-report.md`, `voice-clone-asr.md`, `voice.json`, `voice-durations.ts`, `assets-manifest.md`, `audio-review.md`, `mix-plan.md`, `design-spec.md`, `design-review.md`, `join-notes.md`, `task-review.md`, the Round 1 report and its ticket/closure evidence, all 16 scene files, `Reel.tsx`, `timeline.ts`, and the current cover/board/style/motion evidence. This is review-only: no source, audio, status, or pipeline review/gate file was edited.
+
+### Verdict
+
+**score: 8.1/10  verdict: revise**
+
+The Round 1 visual integration failures are materially repaired: the 16 scene files are no longer placeholders, the canonical text is present in the scene source, the current board has the corrected s9b question and the requested action vocabulary, and `Reel.tsx` now mounts all voice/SFX/BGM tracks. Gate E still cannot pass because Cao/Trung integration blockers remain: current voice evidence is only 7/16 ASR-clean, s8 has no measured internal pause, the s1 lead-in is not represented as an exact timeline contract, and no integrated render proves ducking/loudness/ending silence. One genuinely new mix-envelope defect is also recorded below.
+
+### Rubric
+
+| Item | Score | Evidence | Judgment |
+|---|---:|---|---|
+| Story ↔ frames | 8.7 | `Scene01.tsx`–`Scene16.tsx`; `design-review.md` Round 3; current `board.png` | Production scenes now contain real paper, character, props, actions, and deterministic frame-driven motion. The board is improved and s9b is corrected, but the independent design evidence still calls several tiles icon-level and no final joined render verifies every transition. |
+| Text ↔ frames | 8.8 | `content-pack.md`; exact strings in all 16 scene files; `Scene15.tsx:6,41-74`; `Scene16.tsx:6,34-48`; `board.png` | The ordered key text and mandatory line are present, safe-zone placement is documented, and s9b no longer says `mình muốn gì?`. Full rendered caption timing is not yet proven, especially s8's three chunks. |
+| Voice ↔ pacing | 6.8 | `voice-report.md:14-46`; `voice-durations.ts:3-19`; `timeline.ts:11-27`; `join-notes.md:9-31` | Duration budget is 1553 frames / 51.7667s and remains in the 40–60s target; the re-hook is at frame 578 (19.27s), s9a→s9b has 0.70s, and s10 has a 2.40s hold. But 9/16 current clips fail the final CER threshold, s8 has no pause boundary, and the s1 lead-in remains only a Reel-side 5-frame approximation. |
+| Sound ↔ story | 7.0 | `Reel.tsx:26-72`; `mix-plan.md:9-17,43-80`; `audio-review.md` Round 3 | All 16 voice clips, 12 bounded SFX cues, and BGM are now mounted; current cue recomputation is post-voice and the s10 fade is present. The BGM duck is a hard 0.20↔0.11 step rather than a 200ms ramp, there is no explicit 1s bed fade-in, and no integrated render proves loudness, duck delta, audibility, or the near-silent ending. |
+| Viewer experience | 8.2 | `brief.md:16-23`; `design-spec.md`; current scene sources and board | The planned hook → social verdict → Tết pressure → re-hook → macro reveal → self-question → quiet close now has corresponding scene implementations. The viewer experience is still not Gate-E-ready until canonical spoken delivery and the combined audio/visual timing are verified together. |
+| User constraints | 8.8 | `brief.md:5,10,22`; `voice.json:8-9,16-17`; `Scene07.tsx:53-58`; `Scene08.tsx:62-70`; `Scene15.tsx:6,41-74`; `Scene16.tsx:6,34-48`; current board | The mandatory sentence is exact in voice/source scenes, no CTA is added, and s9b/s10 use the required wording in current visual evidence. Current ASR still mishears/drops required wording in s1/s6b/s9b/s10, so the constraint is not yet proven in the heard track. |
+
+### Round 1 ticket verification
+
+| ID | Round 2 status | Evidence | Result |
+|---|---|---|---|
+| E-001 | **fixed for integration source** | All 16 files are substantive (no `Scene NN`, placeholder, or TODO); `Scene01.tsx`–`Scene16.tsx`; current QA stills for the scene clusters | The scenes now implement the accepted paper/character/prop/action map and exact key text. Final full-render visual QA remains a downstream Gate B/C check, not an open E ticket. |
+| E-002 | **partial / open** | `Reel.tsx:67-72` mounts 16 voice sequences, all listed SFX sequences, and BGM; `Reel.tsx:52-57` is the current envelope | Track mounting and relative placement are present, but the source has no integrated mix measurement and the ducking is not ramped as required. Keep open as a Cao integration blocker until the NEW envelope issue and render acceptance close. |
+| E-003 | **open** | `voice-report.md:16-31,35-46`; 7/16 pass; failures include `s1,s3a,s3b,s4a,s6a,s6b,s8,s9b,s10` | Not closed. The final current ASR still fails canonical/high-impact words and cannot be treated as a viewer-heard exact-text pass. |
+| E-004 | **partial / open** | `Reel.tsx:29-31,46-50,69`; `timeline.ts:11-12`; `mix-plan.md:9,43-65` | A 5-frame (`0.1667s`) s1 audio offset exists and cues are placed after the offset speech interval, but the required `0.150s` lead-in and `0.250s` post-roll are not explicit in the timeline contract. `timeline.ts` still documents a generic `voice + 0.40s` hold and the frame-quantized total is 1553 frames. |
+| E-005 | **open** | `voice-report.md:28,35-46`; `content-pack.md` s8 row; `Scene13.tsx:17-31`; `timeline.ts:24` | s8 remains one 4.130s key and no measured internal pause/split evidence exists. Scene13 switches captions at local frames 38/78 without a voice-derived pause boundary, so the three chunks are not yet integrated to delivery. |
+| E-006 | **fixed** | `design-review.md` Gate E closure; `proto/scenes.tsx:690`; current `board.png`; `Scene15.tsx:6,41-74` | The current board/prototype and production scene use the exact canonical `Dạo này, bạn sống có vui không?`; the old `mình muốn gì?` is absent from current s9b evidence. |
+| E-007 | **fixed in design-owned integration scope** | Current board/action tiles; `Scene06.tsx`, `Scene11.tsx`, `Scene12.tsx`, `Scene13.tsx`, `Scene14.tsx`, `Scene15.tsx`; Gate E design-ticket closure | The requested feast/reaction, phone on/off, salary drain, clearing, and hug-knees actions now exist in the current board and production scene sources. The independent Gate D report still carries separate design hard-cap risk; that is not silently re-scored here. |
+| E-008 | **open** | `Reel.tsx:33-39,52-72`; `mix-plan.md:82-90`; `audio-review.md` Round 3 | Relative offsets now mirror the current post-voice proof and s10 has a 9-frame BGM fade after the rounded last voice end, but no integrated render proves −14±1 LUFS, true peak, voice/music gap, duck ramps, or ≥1.2s near-silent ending. |
+
+### Exhaustive remaining and NEW tickets
+
+| ID | Status | Severity | Where | Evidence | Concrete change | Owner | Acceptance check |
+|---|---|---|---|---|---|---|---|
+| E-002 | remaining | Cao | `Reel.tsx:52-57,67-72` | Tracks are mounted, but integrated mix targets are not measured and the envelope is not yet compliant with the mix contract. | Complete the accepted mix integration after the final voice/timing decisions; implement the documented duck/fade behavior and produce the verification render. | video-director + audio-agent | Integrated render passes −14±1 LUFS, true peak ≤−1.5 dBTP, 12–18dB voice/music gap, 4–6dB duck with 150–300ms ramps, and the ending check. |
+| E-003 | remaining | Cao | `public/audio/dung-bien-tuoi-30-thanh-ban-an/s1.mp3`, `s3a.mp3`, `s3b.mp3`, `s4a.mp3`, `s6a.mp3`, `s6b.mp3`, `s8.mp3`, `s9b.mp3`, `s10.mp3`; `voice-report.md:16-31` | Current final PCM ASR is 7/16 pass; examples include `s6b` mistranscription, `s9b` dropped `Dạo này`, and `s10` `bản ảnh`. | Regenerate the failing keys from locked `voice.json`, then remeasure durations and dependent timing/cues. | voice-agent | Fresh PCM faster-whisper evidence has all 16 keys at CER ≤0.04 with the canonical word sequence present. |
+| E-004 | remaining | Cao | `timeline.ts:6-12`; `Reel.tsx:29-31,46-50,69`; `mix-plan.md:9,63-65` | Five frames encode ≈0.167s, not the specified 0.150s; timeline does not expose the lead-in/post-roll contract, so the first cue alignment is not reproducible from the timeline alone. | Add an explicit s1 lead-in/post-roll contract and recalculate the affected frame/cue table from exact current durations while keeping the total in 40–60s. | video-director + audio-agent | Timeline/join evidence explicitly records the s1 speech interval `0.150–2.310s` (or an explicitly frame-quantized equivalent), preserves ≥0.25s post-roll, and the rendered first cue is after speech. |
+| E-005 | remaining | Trung | `Scene13.tsx:29`; `voice-report.md:28,35-46`; `content-pack.md` s8 | No internal pause measurement or s8a/s8b split; caption changes are fixed local frames rather than measured delivery boundaries. | Measure the pause in the current clip; if absent, split/regenerate s8 and update content/timeline/mix cues. | voice-agent + content-agent + video-director | Evidence records the pause/split boundaries; every s8 caption appears within its spoken phrase and no cue overlaps speech. |
+| E-008 | remaining | Trung | `Reel.tsx:52-57,72`; `mix-plan.md:82-90`; `out/` | No joined render exists, so BGM duck/fade, integrated loudness, SFX audibility, and the ≥1.2s near-silent s10 hold are unverified. | Render the joined composition after E-003/E-004/E-005 and measure the final mix windows separately from paper-edge foley. | video-director + audio-agent | Verified render reports all mix targets and shows ≥1.2s BGM-near-silent after the last spoken sample, with paper foley reported separately. |
+| E-009 NEW | remaining | Trung | `Reel.tsx:52-57` | `bgmVolume` jumps between `0.20` and `0.11` when a voice window enters/exits (±6 frames); it does not interpolate 200ms attack/release ramps. The mix plan requires linear duck ramps and no pumping. | Replace the hard window switch with frame-derived attack/release interpolation around every voice window, preserving the s10 fade and intentional holds. | video-director + audio-agent | Source inspection shows explicit ramps; integrated audio review measures 150–300ms ramps and a 4–6dB duck without clicks/pumping. |
+
+No other NEW cross-branch Cao/Trung issue was found in the requested packet. The remaining design-review D3/D6/D7/D8/D10 hard-cap risks are recorded in `design-review.md`; they are not duplicated as new E tickets because the current Gate E board/source now contains the requested corrected s9b and action beats, while final visual fidelity remains a Gate B/C responsibility.
+
+### Measured walkthrough and highlight checks
+
+| Key / time | Sees · hears · reads in current integration | Finding |
+|---|---|---|
+| s1 0.00–2.57s | `Scene01`: headline, ruler/circled 30, character; voice sequence starts at `from+5`; pencil SFX at local 71f. | Visual/text fixed; exact 0.15s contract remains E-004; current ASR fails the opening word/number. |
+| s2–s4b 2.57–19.27s | Verdict lines, ruler/list, feast/steam, three question bursts; 4 scene sources and post-voice SFX offsets. | Story/props now exist; s3a/s3b/s4a voice wording remains in E-003; s4b text and action are present. |
+| s5a/s5b 19.27–24.20s | Freeze, exact mandatory two-part line, pen drop and question mark. | H1 is now source-integrated: exact scene text and mounted voice/SFX; heard-track proof still depends on the voice/mix tickets. |
+| s6a/s6b 24.20–31.47s | Red unfinished `thất bại`, then macro hand-drawn 30/eraser/graphite. | H2 visual beat is present; s6a/s6b ASR remains open and zoom SFX is only source/cue verified. |
+| s7a/s7b 31.47–37.07s | Feed with `minh hoạ`, thumb-scroll, screen-off isolation, exact self-question. | Action sources are present and no competing SFX is listed; final joined timing/render remains unverified. |
+| s8 37.07–41.50s | Number-free salary bar and four arrows, two notification cues, three caption chunks. | Visual constraint is met; pause/chunk alignment is open E-005 and first clause ASR fails. |
+| s9a/s9b 41.50–47.47s | Clearing paper, 0.70s gap, warm light, hug-knees, exact canonical question and yellow underline. | E-006 is fixed; no s9b SFX is correct; exact heard delivery and final render remain open. |
+| s10 47.47–51.77s | Exact closing card, unattended ruler, 2.40s hold, paper wind at local 58f; BGM fades over 9f after rounded voice end. | Source fade/hold design is present; final near-silence and current ASR `bản án` are not proven in an integrated render. |
+
+Concrete weaknesses despite the repaired packet:
+
+1. The visual branch and text source now agree, but the final heard track still contradicts canonical wording on nine keys, including the climax and close.
+2. `Reel.tsx` has the right track inventory and relative cue list, yet its BGM envelope is still a hard switch and therefore does not implement the mix-plan ramp semantics.
+3. The current 1553-frame composition is within the duration budget, but the exact voice total plus 7.700s of holds (51.833915s) and the quantized timeline total (51.7667s) are not reconciled into one explicit timing contract.
+
+### Invalidated reviews
+
+- `audio-review.md` must rerun after E-003, E-004, E-005, E-008, and E-009; the current audio override does not make these integrated checks pass.
+- `content-pack-review.md` must rerun if E-005 changes the s8 key structure or caption boundaries.
+- Gate D remains independently carried at its recorded hard-cap override; no new design taste score is assigned here. If production scenes materially change the board-owned actions, rerun Gate D before B.
+- Gate E remains `revise`; Gate B/build approval remains blocked until all Cao/Trung E tickets close and the joined evidence is rerun.
+
+### Audit
+
+Required read-only audit run after this append:
+
+`python3 -I scripts/pipeline.py audit dung-bien-tuoi-30-thanh-ban-an`
+
+Result: **FAIL (exit 1)**
+
+```text
+dung-bien-tuoi-30-thanh-ban-an: FAIL
+  ✗ review A report docs\\dung-bien-tuoi-30-thanh-ban-an\\script-review.md is missing
+  ✗ review A report docs\\dung-bien-tuoi-30-thanh-ban-an\\script-review.md is missing
+  ✗ review A report docs\\dung-bien-tuoi-30-thanh-ban-an\\script-review.md is missing
+```
+
+This is the pre-existing canonical Gate A report-path defect; it is outside this reviewer's writable scope. No `pipeline.py review` or `pipeline.py gate` command was run.
+
+## Round 3 — clean-context Gate E integration review
+
+Reviewed 2026-10-18 as an independent, review-only pass. Re-read the workflow/rules, `join-notes.md`, this report's prior rounds, `audio-review.md`, `task-review.md`, the current `Reel.tsx`, `timeline.ts`, and all 16 scene files. The current preview `/tmp/dung-bien-tuoi-30-thanh-ban-an-join-preview.mp4` was inspected with `ffprobe`, `ffmpeg` (`ebur128`, `volumedetect`, `silencedetect`, `astats`), and a frame contact sheet. No source, status, pipeline, audio, or task file was edited by this review.
+
+### Verdict
+
+**score: 6.8/10  verdict: revise**
+
+Gate E **does not pass**. The visual join is materially present and the preview renders, but open Cao/Trung tickets remain. In particular, the integrated preview misses the loudness target, the final voice evidence remains 7/16 ASR-clean, the exact s1 lead-in contract is still not represented in `timeline.ts`, and s8 caption boundaries are not voice-measured. E-009 is improved at source level but is not fully accepted without integrated ramp/pumping evidence. No automatic pass is permitted while any Cao/Trung ticket remains open.
+
+### Round 3 rubric
+
+| Item | Score | Evidence | Judgment |
+|---|---:|---|---|
+| Story ↔ frames | 8.5 | All 16 current scene files; preview contact sheet `/tmp/dung-bien-tuoi-30-thanh-ban-an-join-contact.png` | The preview shows the paper world, character, ruler, feast, phone, salary sheet, clearing beat, and closing card. This is materially integrated, but the contact sheet is sampled evidence rather than the downstream full visual QA. |
+| Text ↔ frames | 8.1 | `Scene01.tsx`–`Scene16.tsx`; `Scene13.tsx`; `Scene15.tsx`; `Scene16.tsx`; `content-pack.md` | Canonical s9b/s10 source strings and safe-zone captions are present. s8 uses hard-coded local boundaries (38/78), not a measured spoken boundary, so text/audio integration is not fully proven. |
+| Voice ↔ pacing | 5.4 | `voice-clone-asr.md`; `voice-report.md`; `voice-durations.ts`; `timeline.ts`; `join-notes.md` | 16 clips decode and the 51.7667s frame budget renders, but only 7/16 meet CER ≤0.04. E-004 and E-005 remain unresolved, so the timing contract is not approval-ready. |
+| Sound ↔ story | 5.0 | `Reel.tsx`; `mix-plan.md`; preview ffprobe/ffmpeg measurements | All voice/SFX/BGM tracks are mounted and the source now contains 6-frame duck ramps. The preview measures `-21.8 LUFS`, outside `-14±1 LUFS`; windowed voice/music gap, duck delta, SFX audibility, and separated ending-bed measurement are not demonstrated. |
+| Viewer experience | 7.4 | Preview contact sheet; `join-notes.md` walkthrough; all 16 scenes | Hook → social verdict → re-hook → macro reveal → self-question → quiet close is visually legible in the sampled preview. The heard wording and mix level can still undermine the intended emotional beat. |
+| User constraints | 7.2 | `voice.json`; `Scene15.tsx`; `Scene16.tsx`; `voice-clone-asr.md` | No CTA/shaming change is visible in the current source, and the required visual strings exist. The heard track still fails required wording on s9b/s10 and other high-impact keys, so full constraint compliance is not proven. |
+
+### Direct preview evidence
+
+- `ffprobe`: H.264 video plus AAC stereo audio, 1080×1920, 30fps, 51.776s.
+- `ebur128`: integrated loudness **-21.8 LUFS**, LRA 1.7 LU. This fails the stated `-14±1 LUFS` integrated target and keeps E-002/E-008 open.
+- `volumedetect`: mean volume **-24.5 dB**, max sample **-5.6 dB**. This is not a true-peak certification and cannot replace the required true-peak/windowed report.
+- `silencedetect` on the final section: silence intervals at approximately 49.630–49.947s and 51.000–51.733s. The latter is only about 0.733s of measured pure silence; paper-wind and BGM cannot be separated from the joined AAC by this check, so the required ≥1.2s near-silent bed window is not proven.
+- A sampled contact sheet shows real content in the current scene join; it does not substitute for Gate B/C full-frame QA.
+
+### Ticket verification
+
+| ID | Round 3 status | Evidence and finding |
+|---|---|---|
+| E-002 | **open — Cao** | `Reel.tsx` now mounts 16 voice clips, 12 bounded SFX cues, and BGM, and the preview renders. However integrated loudness is `-21.8 LUFS` versus `-14±1`; no windowed 12–18 dB voice/music gap, 4–6 dB duck delta, SFX audibility, or true-peak proof is recorded. Track presence is fixed; integration acceptance is not. |
+| E-003 | **open — Cao** | `voice-report.md`/`voice-clone-asr.md` report **7/16** pass. Failing keys still include `s1`, `s3a`, `s3b`, `s4a`, `s6a`, `s6b`, `s8`, `s9b`, and `s10`; the high-impact examples remain dropped `Dạo này` and `bản án`→`bản ảnh`. This is a direct heard-content blocker, not a documentation-only issue. |
+| E-004 | **open — Cao** | `Reel.tsx` applies `VOICE_LEAD_IN_FRAMES.scene01 = 5` (0.1667s at 30fps), but `timeline.ts` still exposes only the generic `VOICE_SECONDS.s1 + 0.40` shot contract. The required exact 0.150s lead-in and ≥0.250s post-roll are not encoded/reconciled as one reproducible timing contract. |
+| E-005 | **open — Trung** | `s8` remains one 4.129958s clip. `Scene13.tsx` changes captions at local frames 38/78, but no ASR/silence measurement establishes those as phrase boundaries and no s8a/s8b split exists. Caption timing remains an authored approximation. |
+| E-008 | **open — Trung** | The joined preview now exists, but it fails integrated loudness (`-21.8 LUFS`) and does not provide the required windowed duck/gap/SFX/ending evidence. Final pure silence is only measured for ~0.733s in the inspected tail; the planned paper-wind exception prevents claiming ≥1.2s near-silent integrated-bed proof without separated tracks or a documented window measurement. |
+| E-009 | **partial / open — Trung** | Source inspection confirms explicit 6-frame attack/release interpolation (200ms at 30fps) around ordinary voice windows in `Reel.tsx`. The last voice window takes the intentional s10 fade branch, so the source is improved but the acceptance check still requires integrated measurement of ramp duration, duck delta, and no pumping/clicks. No such measurement is present in the preview evidence. |
+
+### Required disposition
+
+Keep Gate E at **revise**. Route E-002/E-008 to director/audio integration, E-003 to voice regeneration and fresh ASR, E-004 to the shared timeline/Reel contract, E-005 to voice/content/timeline reconciliation, and E-009 to integrated mix verification. Gate B/build must remain blocked until Gate E is independently passed at ≥9/10 with no open Cao/Trung ticket. This review did not run `pipeline.py review`, `pipeline.py gate`, `override`, or any status mutation.
+
+### Required audit result
+
+After this Round 3 report was appended, the required read-only command was run:
+
+`python3 -I scripts/pipeline.py audit dung-bien-tuoi-30-thanh-ban-an`
+
+Result: **FAIL (exit 1)**. The only reported errors are the pre-existing Gate A report-path entries using Windows separators:
+
+```text
+✗ review A report docs\\dung-bien-tuoi-30-thanh-ban-an\\script-review.md is missing
+✗ review A report docs\\dung-bien-tuoi-30-thanh-ban-an\\script-review.md is missing
+✗ review A report docs\\dung-bien-tuoi-30-thanh-ban-an\\script-review.md is missing
+```
+
+`npx tsc --noEmit` completed successfully. This reviewer did not repair the audit/status defect because the requested scope was review-only.
