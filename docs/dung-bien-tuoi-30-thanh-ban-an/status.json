@@ -28,8 +28,8 @@
     },
     "voice": {
       "state": "done",
-      "at": "2026-10-18T12:58:10+07:00",
-      "note": "voice-agent-4 verifying current clips and closing AUD-001..003,006"
+      "at": "2026-10-18T13:45:45+07:00",
+      "note": "Current 16 regenerated/normalized clips, voice-durations.ts and current ASR snapshot verified; remaining 5 ASR risks carried to audio review."
     },
     "content": {
       "state": "done",
@@ -37,17 +37,19 @@
       "note": "content-pack.md from locked script/voice.json"
     },
     "design": {
-      "state": "in_progress",
-      "at": "2026-10-18T13:08:51+07:00",
-      "note": "E-006/E-007 design fix complete: board/style evidence regenerated; awaiting independent Gate D rerun"
+      "state": "done",
+      "at": "2026-10-18T13:40:10+07:00",
+      "note": "Gate D Round 3 formally reviewed 8.3 and hard-cap overridden; accepted design risks carried."
     },
     "audio": {
       "state": "done",
-      "at": "2026-10-18T13:02:06+07:00"
+      "at": "2026-10-18T13:50:03+07:00",
+      "note": "Audio branch complete through 3 fresh review rounds; hard-cap override carries five ASR risks and final mix evidence."
     },
     "build": {
       "state": "in_progress",
-      "at": "2026-10-18T13:04:20+07:00"
+      "at": "2026-10-18T13:40:10+07:00",
+      "note": "Early scene scaffold exists only; Build remains blocked until fresh audio branch review, Gate E and Gate B pass."
     }
   },
   "reviews": {
@@ -124,6 +126,39 @@
         "report": "",
         "note": "cap 3 rounds; accepted round-3 score 7.1; ASR residuals documented in audio-review.md; AUD-005 integrated mix/render pending Join/build; AUD-003/004 fixed; AUD-008 reconciled",
         "by": "video-director"
+      },
+      {
+        "at": "2026-10-18T13:41:10+07:00",
+        "reviewer": "audio-reviewer-4",
+        "score": 7.6,
+        "verdict": "revise",
+        "report": "docs/dung-bien-tuoi-30-thanh-ban-an/audio-review.md",
+        "note": "Fresh audio review after voice reopen: current clips decode, but ASR/timing/pause/ending proof and preview loudness remain incomplete."
+      },
+      {
+        "at": "2026-10-18T13:47:45+07:00",
+        "reviewer": "audio-reviewer-5",
+        "score": 8.1,
+        "verdict": "revise",
+        "report": "docs/dung-bien-tuoi-30-thanh-ban-an/audio-review.md",
+        "note": "Round 2: final-style preview loudness passes, but true peak margin, s8 boundary, ASR snapshot consistency, and stem-level ending proof remain open."
+      },
+      {
+        "at": "2026-10-18T13:50:00+07:00",
+        "reviewer": "audio-reviewer-6",
+        "score": 8.3,
+        "verdict": "revise",
+        "report": "docs/dung-bien-tuoi-30-thanh-ban-an/audio-review.md",
+        "note": "Round 3 hard-cap review: mix metrics pass on normalized preview, remaining ASR wording risks accepted; s3a one-frame cue overflow routed and fixed."
+      },
+      {
+        "at": "2026-10-18T13:50:01+07:00",
+        "reviewer": "override:video-director",
+        "score": 8.3,
+        "verdict": "override",
+        "report": "docs/dung-bien-tuoi-30-thanh-ban-an/audio-review.md",
+        "note": "Audio branch cap 3 after fresh Round 3 score 8.3. Accepted risks: five ASR failures s1/s3a/s6a/s6b/s10; final render normalization TP=-2.0; stem-level proof documented. s3a cue overflow fixed after review. This is an explicit accepted-risk override, not a clean audio pass.",
+        "by": "video-director"
       }
     ],
     "E": [
@@ -159,13 +194,13 @@
   "review_valid": {
     "A": true,
     "D": true,
-    "E": true,
-    "B": true,
+    "E": false,
+    "B": false,
     "C": false,
     "content": true,
     "audio": true
   },
-  "next": "design-reviewer rerun Gate D on regenerated board/style PNGs, then integration-reviewer rerun Gate E",
+  "next": "integration-reviewer",
   "log": [
     {
       "t": "2026-10-17T16:02:39+07:00",
@@ -952,9 +987,117 @@
       "stage": "B",
       "who": "task-reviewer",
       "msg": "review 4.8/10 revise: task-review.md (Gate B Round 1: 16/16 scenes and frame ranges verified, but build is blocked by carried Gate E risks, incomplete audio/timing evidence, and missing build/render/QA evidence.)"
+    },
+    {
+      "t": "2026-10-18T13:38:57+07:00",
+      "stage": "voice",
+      "who": "agent",
+      "msg": "voice -> in_progress: Regenerated and peak-normalized all 16 voice clips; durations and ASR evidence must be re-reviewed."
+    },
+    {
+      "t": "2026-10-18T13:38:58+07:00",
+      "stage": "audio",
+      "who": "agent",
+      "msg": "audio -> in_progress: Voice source changed; invalidate mix review and recompute integrated evidence."
+    },
+    {
+      "t": "2026-10-18T13:39:08+07:00",
+      "stage": "audio",
+      "who": "audio-reviewer-4",
+      "msg": "audio-reviewer-4 running: Fresh audio branch review after full voice regeneration and peak normalization."
+    },
+    {
+      "t": "2026-10-18T13:40:10+07:00",
+      "stage": "agent",
+      "who": "integration-reviewer-2",
+      "msg": "integration-reviewer-2 done: Stale Round 2 record closed; current Gate E review is integration-reviewer-3 and later branch reopen."
+    },
+    {
+      "t": "2026-10-18T13:40:10+07:00",
+      "stage": "design",
+      "who": "agent",
+      "msg": "design -> done: Gate D Round 3 formally reviewed 8.3 and hard-cap overridden; accepted design risks carried. (evidence: 1 file(s): docs/dung-bien-tuoi-30-thanh-ban-an/design-spec.md; gate D: override 8.3/10)"
+    },
+    {
+      "t": "2026-10-18T13:40:10+07:00",
+      "stage": "build",
+      "who": "agent",
+      "msg": "build -> in_progress: Early scene scaffold exists only; Build remains blocked until fresh audio branch review, Gate E and Gate B pass."
+    },
+    {
+      "t": "2026-10-18T13:41:10+07:00",
+      "stage": "agent",
+      "who": "audio-reviewer-4",
+      "msg": "audio-reviewer-4 done: Fresh audio review Round 1 complete: 7.6 revise; current metrics and tickets appended to audio-review.md."
+    },
+    {
+      "t": "2026-10-18T13:41:10+07:00",
+      "stage": "audio",
+      "who": "audio-reviewer-4",
+      "msg": "review 7.6/10 revise: audio-review.md (Fresh audio review after voice reopen: current clips decode, but ASR/timing/pause/ending proof and preview loudness remain incomplete.)"
+    },
+    {
+      "t": "2026-10-18T13:45:45+07:00",
+      "stage": "voice",
+      "who": "agent",
+      "msg": "voice -> done: Current 16 regenerated/normalized clips, voice-durations.ts and current ASR snapshot verified; remaining 5 ASR risks carried to audio review. (evidence: 16/16 clips)"
+    },
+    {
+      "t": "2026-10-18T13:46:00+07:00",
+      "stage": "audio",
+      "who": "audio-reviewer-5",
+      "msg": "audio-reviewer-5 running: Round 2 clean-context review on final-style normalized preview."
+    },
+    {
+      "t": "2026-10-18T13:47:44+07:00",
+      "stage": "agent",
+      "who": "audio-reviewer-5",
+      "msg": "audio-reviewer-5 done: Audio review Round 2 complete: 8.1 revise; loudness passed but TP/s8/ASR evidence/stem proof needed."
+    },
+    {
+      "t": "2026-10-18T13:47:45+07:00",
+      "stage": "audio",
+      "who": "audio-reviewer-5",
+      "msg": "review 8.1/10 revise: audio-review.md (Round 2: final-style preview loudness passes, but true peak margin, s8 boundary, ASR snapshot consistency, and stem-level ending proof remain open.)"
+    },
+    {
+      "t": "2026-10-18T13:47:53+07:00",
+      "stage": "audio",
+      "who": "audio-reviewer-6",
+      "msg": "audio-reviewer-6 running: Round 3 final clean-context audio review on normalized preview and reconciled snapshot."
+    },
+    {
+      "t": "2026-10-18T13:50:00+07:00",
+      "stage": "agent",
+      "who": "audio-reviewer-6",
+      "msg": "audio-reviewer-6 done: Audio review Round 3 complete: 8.3 revise; s3a overflow fixed after review; 5 ASR risks accepted for hard cap."
+    },
+    {
+      "t": "2026-10-18T13:50:00+07:00",
+      "stage": "audio",
+      "who": "audio-reviewer-6",
+      "msg": "review 8.3/10 revise: audio-review.md (Round 3 hard-cap review: mix metrics pass on normalized preview, remaining ASR wording risks accepted; s3a one-frame cue overflow routed and fixed.)"
+    },
+    {
+      "t": "2026-10-18T13:50:01+07:00",
+      "stage": "audio",
+      "who": "video-director",
+      "msg": "override by video-director: Audio branch cap 3 after fresh Round 3 score 8.3. Accepted risks: five ASR failures s1/s3a/s6a/s6b/s10; final render normalization TP=-2.0; stem-level proof documented. s3a cue overflow fixed after review. This is an explicit accepted-risk override, not a clean audio pass."
+    },
+    {
+      "t": "2026-10-18T13:50:04+07:00",
+      "stage": "audio",
+      "who": "agent",
+      "msg": "audio -> done: Audio branch complete through 3 fresh review rounds; hard-cap override carries five ASR risks and final mix evidence. (evidence: 1 file(s): docs/dung-bien-tuoi-30-thanh-ban-an/assets-manifest.md)"
+    },
+    {
+      "t": "2026-10-18T13:50:10+07:00",
+      "stage": "design",
+      "who": "integration-reviewer-4",
+      "msg": "integration-reviewer-4 running: Fresh Gate E Round 1 after voice/audio branch reopen and current normalized preview."
     }
   ],
-  "updated": "2026-10-18T13:26:10+07:00",
+  "updated": "2026-10-18T13:50:10+07:00",
   "agents": {
     "research-agent": {
       "state": "done",
@@ -1161,9 +1304,33 @@
       "stage": "build"
     },
     "integration-reviewer-2": {
+      "state": "done",
+      "at": "2026-10-18T13:40:10+07:00",
+      "note": "Stale Round 2 record closed; current Gate E review is integration-reviewer-3 and later branch reopen.",
+      "stage": ""
+    },
+    "audio-reviewer-4": {
+      "state": "done",
+      "at": "2026-10-18T13:41:10+07:00",
+      "note": "Fresh audio review Round 1 complete: 7.6 revise; current metrics and tickets appended to audio-review.md.",
+      "stage": ""
+    },
+    "audio-reviewer-5": {
+      "state": "done",
+      "at": "2026-10-18T13:47:44+07:00",
+      "note": "Audio review Round 2 complete: 8.1 revise; loudness passed but TP/s8/ASR evidence/stem proof needed.",
+      "stage": ""
+    },
+    "audio-reviewer-6": {
+      "state": "done",
+      "at": "2026-10-18T13:50:00+07:00",
+      "note": "Audio review Round 3 complete: 8.3 revise; s3a overflow fixed after review; 5 ASR risks accepted for hard cap.",
+      "stage": ""
+    },
+    "integration-reviewer-4": {
       "state": "running",
-      "at": "2026-10-18T13:19:24+07:00",
-      "note": "Gate E Round 2 after E-001..E-008 fixes",
+      "at": "2026-10-18T13:50:10+07:00",
+      "note": "Fresh Gate E Round 1 after voice/audio branch reopen and current normalized preview.",
       "stage": "design"
     }
   },

@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920">
+  <title>s1 hook — màn hình cuộc gọi nhỡ, nền văn phòng sáng lạnh</title>
+  <desc>Style-frame tĩnh s1: DAY_BG #E8EEF2, PhoneFrame trắng, badge đỏ MISS #E5484D, caption INK đáy 250px</desc>
+  <!-- nền ngày sáng lạnh -->
+  <rect x="0" y="0" width="1080" height="1920" fill="#E8EEF2"/>
+  <!-- cửa sổ văn phòng gợi ý -->
+  <rect x="80" y="120" width="920" height="420" rx="28" fill="#D5E2EA"/>
+  <rect x="110" y="150" width="890" height="360" rx="18" fill="#F4F8FA"/>
+  <line x1="540" y1="150" x2="540" y2="510" stroke="#C9D6DF" stroke-width="10"/>
+  <circle cx="850" cy="240" r="52" fill="#F5D98A" opacity="0.85"/>
+  <rect x="110" y="430" width="890" height="80" fill="#C9D6DF" opacity="0.7"/>
+  <!-- bàn làm việc -->
+  <rect x="0" y="1450" width="1080" height="470" fill="#C9D6DF"/>
+  <rect x="0" y="1440" width="1080" height="18" fill="#AEBFCC"/>
+  <rect x="90" y="1520" width="330" height="220" rx="16" fill="#1E2A33" opacity="0.85"/>
+  <rect x="110" y="1540" width="290" height="180" rx="8" fill="#9FB6CC"/>
+  <rect x="660" y="1560" width="300" height="34" rx="17" fill="#4A90B8"/>
+  <rect x="660" y="1610" width="220" height="34" rx="17" fill="#DCE6EC"/>
+
+  <!-- vệt rung cuộc gọi đến -->
+  <path d="M 200 780 q -40 110 0 220" fill="none" stroke="#E5484D" stroke-width="10" stroke-linecap="round" opacity="0.7"/>
+  <path d="M 150 730 q -60 160 0 320" fill="none" stroke="#E5484D" stroke-width="8" stroke-linecap="round" opacity="0.35"/>
+  <path d="M 880 780 q 40 110 0 220" fill="none" stroke="#E5484D" stroke-width="10" stroke-linecap="round" opacity="0.7"/>
+  <path d="M 930 730 q 60 160 0 320" fill="none" stroke="#E5484D" stroke-width="8" stroke-linecap="round" opacity="0.35"/>
+
+  <!-- PhoneFrame -->
+  <rect x="270" y="620" width="540" height="860" rx="64" fill="#1E2A33"/>
+  <rect x="288" y="638" width="504" height="824" rx="50" fill="#FFFFFF"/>
+  <!-- nhãn minh hoạ -->
+  <rect x="312" y="662" width="172" height="52" rx="26" fill="#8A94A0" opacity="0.9"/>
+  <text x="398" y="698" text-anchor="middle" font-family="'Be Vietnam Pro','Inter',sans-serif" font-size="30" font-weight="700" fill="#FFFFFF">minh hoạ</text>
+  <!-- badge gọi nhỡ: ống nghe + mũi tên (cấm tick) -->
+  <circle cx="540" cy="860" r="86" fill="#E5484D"/>
+  <g transform="translate(505,825) scale(2.9)" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
+  </g>
+  <path d="M 578 898 q 24 6 19 34" fill="none" stroke="#FFD9DC" stroke-width="7" stroke-linecap="round"/>
+  <path d="M 590 917 l 7 15 l -16 -4" fill="none" stroke="#FFD9DC" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="540" y="1010" text-anchor="middle" font-family="'Be Vietnam Pro','Inter',sans-serif" font-size="52" font-weight="700" fill="#E5484D">Cuộc gọi nhỡ</text>
+  <text x="540" y="1090" text-anchor="middle" font-family="'Be Vietnam Pro','Inter',sans-serif" font-size="72" font-weight="700" fill="#1E2A33">Mẹ</text>
+  <text x="540" y="1145" text-anchor="middle" font-family="'Be Vietnam Pro','Inter',sans-serif" font-size="32" fill="#8A94A0">Chiều nay</text>
+  <!-- nút -->
+  <rect x="326" y="1200" width="200" height="88" rx="44" fill="#DCE6EC"/>
+  <text x="426" y="1256" text-anchor="middle" font-family="'Be Vietnam Pro','Inter',sans-serif" font-size="32" font-weight="700" fill="#1E2A33">Nhắn tin</text>
+  <rect x="554" y="1200" width="200" height="88" rx="44" fill="#4A90B8"/>
+  <text x="654" y="1256" text-anchor="middle" font-family="'Be Vietnam Pro','Inter',sans-serif" font-size="32" font-weight="700" fill="#FFFFFF">Gọi lại</text>
+  <rect x="470" y="1350" width="140" height="14" rx="7" fill="#1E2A33" opacity="0.85"/>
+
+  <!-- caption mẫu s1 (đáy 250px, có nền đảm bảo tương phản) -->
+  <rect x="60" y="1505" width="960" height="150" rx="30" fill="#FFFFFF" opacity="0.82"/>
+  <text x="540" y="1570" text-anchor="middle" font-family="'Be Vietnam Pro','Inter',sans-serif" font-size="50" font-weight="700" fill="#1E2A33">Mẹ gọi lúc mình đang bận.</text>
+  <text x="540" y="1632" text-anchor="middle" font-family="'Be Vietnam Pro','Inter',sans-serif" font-size="50" font-weight="700" fill="#1E2A33">Mình định lát nữa <tspan fill="#2E6E94">gọi lại</tspan>…</text>
+
+  <!-- vạch safe-zone 210px -->
+  <line x1="40" y1="1710" x2="1040" y2="1710" stroke="#8A94A0" stroke-width="3" stroke-dasharray="14 10" opacity="0.8"/>
+  <text x="1040" y="1700" text-anchor="end" font-family="sans-serif" font-size="24" fill="#8A94A0">safe-zone 210px</text>
+</svg>

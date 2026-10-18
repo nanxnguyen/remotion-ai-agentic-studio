@@ -1,0 +1,36 @@
+{
+  "s1": [
+    {"t": "Tuổi ba mươi,", "pause_after": 0.08},
+    {"t": "bị coi như một bản án.", "pause_after": 0}
+  ],
+  "s2": "Ba dòng tội danh: chưa nhà, chưa kết hôn, chưa có địa vị.",
+  "s3a": [
+    {"t": "Cái thước khắc sẵn:", "pause_after": 0.08},
+    {"t": "mười tám học xong, hai mươi lăm cưới, ba mươi lên quản lý.", "pause_after": 0}
+  ],
+  "s3b": "Và danh sách ấy, vẫn cứ dài thêm.",
+  "s4a": [
+    {"t": "Tết đến.", "pause_after": 0.08},
+    {"t": "Mâm cỗ còn bốc khói, thì những câu hỏi bật lên.", "pause_after": 0}
+  ],
+  "s4b": "Khi nào cưới? Lương bao nhiêu? Mua nhà chưa?",
+  "s5a": "Bạn chưa có nhà, chưa kết hôn.",
+  "s5b": "Nhưng ai đã quy định hôm nay bạn phải có đủ?",
+  "s6a": [
+    {"t": "Một người ba mươi tuổi chưa có nhà,", "pause_after": 0.08},
+    {"t": "không nhất thiết là người thất bại.", "pause_after": 0}
+  ],
+  "s6b": [
+    {"t": "Cái mốc ba mươi ấy,", "pause_after": 0.10},
+    {"t": "chỉ là một nét ai đó kẻ tay.", "pause_after": 0}
+  ],
+  "s7a": "Nửa đêm, bạn lướt thấy bạn bè đã có nhà, có xe, đã cưới.",
+  "s7b": "Rồi tự hỏi: mình đi nhầm đường à?",
+  "s8": [
+    {"t": "Không phải bạn không tiết kiệm.", "pause_after": 0.302},
+    {"t": "Lương về chưa kịp giữ, đã có nơi đi mất.", "pause_after": 0}
+  ],
+  "s9a": "Mà đã bao nhiêu năm rồi, chẳng ai hỏi bạn một câu.",
+  "s9b": "Dạo này, bạn sống có vui không?",
+  "s10": "Đừng biến tuổi ba mươi thành bản án."
+}

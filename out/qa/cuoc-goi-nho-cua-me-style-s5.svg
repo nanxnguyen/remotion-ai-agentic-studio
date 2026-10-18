@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920">
+  <title>s5 bản lề — con gọi lại trên đường về, mẹ bắt máy ngay</title>
+  <desc>Style-frame tĩnh s5 (sửa C-2): beat 1 người con dưới đèn đường đêm đang gọi lại (PhoneFrame Đang gọi Mẹ, màn đêm #171310, không sub-rect xanh, pill minh hoạ ≥30px); beat 2 mẹ bắt máy, glow hổ phách #F2A65A; caption kem đáy 250px, accent Con ăn cơm chưa?</desc>
+  <defs>
+    <linearGradient id="s5bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1D1714"/>
+      <stop offset="0.5" stop-color="#2B2320"/>
+      <stop offset="0.62" stop-color="#3A2E28"/>
+      <stop offset="0.72" stop-color="#2B2320"/>
+      <stop offset="1" stop-color="#1D1714"/>
+    </linearGradient>
+    <radialGradient id="s5glow">
+      <stop offset="0" stop-color="#F2A65A" stop-opacity="0.55"/>
+      <stop offset="0.6" stop-color="#F2A65A" stop-opacity="0.22"/>
+      <stop offset="1" stop-color="#F2A65A" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="s5cone" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#F2A65A" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#F2A65A" stop-opacity="0.04"/>
+    </linearGradient>
+  </defs>
+  <rect x="0" y="0" width="1080" height="1920" fill="url(#s5bg)"/>
+
+  <!-- ============ BEAT 1: người con trên đường về, dưới đèn đường ============ -->
+  <!-- vệt đường đêm -->
+  <rect x="0" y="880" width="1080" height="110" fill="#14100D"/>
+  <line x1="0" y1="935" x2="1080" y2="935" stroke="#F2A65A" stroke-width="6" stroke-dasharray="46 40" opacity="0.4"/>
+  <!-- bóng nhà xa -->
+  <g fill="#171310" opacity="0.9">
+    <rect x="60" y="700" width="150" height="180"/>
+    <rect x="830" y="660" width="190" height="220"/>
+  </g>
+  <g fill="#F2A65A" opacity="0.35">
+    <rect x="90" y="730" width="28" height="36"/>
+    <rect x="880" y="700" width="28" height="36"/>
+    <rect x="930" y="700" width="28" height="36"/>
+  </g>
+
+  <!-- StreetLamp: cột đèn đường -->
+  <rect x="150" y="180" width="26" height="710" fill="#0F0C0A"/>
+  <rect x="150" y="180" width="220" height="24" fill="#0F0C0A"/>
+  <path d="M 300 204 L 388 204 L 408 252 L 280 252 Z" fill="#3A2C20" stroke="#5A4230" stroke-width="5"/>
+  <ellipse cx="348" cy="262" rx="28" ry="20" fill="#F2A65A"/>
+  <circle cx="350" cy="280" r="150" fill="url(#s5glow)" opacity="0.8"/>
+  <polygon points="280,252 408,252 560,890 140,890" fill="url(#s5cone)"/>
+
+  <!-- PhoneFrame: trạng thái đang gọi (màn đêm, KHÔNG sub-rect xanh) -->
+  <rect x="420" y="120" width="420" height="360" rx="48" fill="#0F0C0A"/>
+  <rect x="434" y="134" width="392" height="332" rx="38" fill="#171310"/>
+  <rect x="454" y="150" width="176" height="48" rx="24" fill="#8A94A0" opacity="0.9"/>
+  <text x="542" y="185" text-anchor="middle" font-family="'Be Vietnam Pro','Inter',sans-serif" font-size="30" font-weight="700" fill="#FFFFFF">minh hoạ</text>
+  <text x="630" y="300" text-anchor="middle" font-family="'Be Vietnam Pro','Inter',sans-serif" font-size="46" font-weight="700" fill="#FAF3E8">Đang gọi — Mẹ</text>
+  <text x="630" y="360" text-anchor="middle" font-family="'Be Vietnam Pro','Inter',sans-serif" font-size="38" fill="#F2A65A">00:03</text>
+  <!-- sóng âm -->
+  <rect x="548" y="396" width="10" height="40" rx="5" fill="#F2A65A"/>
+  <rect x="568" y="386" width="10" height="60" rx="5" fill="#F2A65A"/>
+  <rect x="588" y="396" width="10" height="40" rx="5" fill="#F2A65A" opacity="0.7"/>
+  <rect x="608" y="392" width="10" height="48" rx="5" fill="#F2A65A" opacity="0.7"/>
+  <rect x="628" y="400" width="10" height="32" rx="5" fill="#F2A65A" opacity="0.5"/>
+
+  <!-- người con: bust dưới đèn, áp phone, mắt cong cùng ngôn ngữ với mẹ -->
+  <path d="M 560 880 Q 575 720 730 715 Q 885 720 900 880 L 900 935 L 560 935 Z" fill="#3E5A78"/>
+  <rect x="697" y="640" width="66" height="96" rx="18" fill="#D8A67E"/>
+  <ellipse cx="730" cy="600" rx="105" ry="112" fill="#E9BE9C"/>
+  <path d="M 625 596 Q 627 486 730 484 Q 833 486 835 596 Q 815 516 730 514 Q 645 516 625 596 Z" fill="#23282E"/>
+  <!-- mắt cong cười (thống nhất với mẹ, không chấm tròn) -->
+  <path d="M 668 600 q 21 -15 42 0" fill="none" stroke="#2A2320" stroke-width="8" stroke-linecap="round"/>
+  <path d="M 750 600 q 21 -15 42 0" fill="none" stroke="#2A2320" stroke-width="8" stroke-linecap="round"/>
+  <path d="M 704 662 Q 730 678 756 662" fill="none" stroke="#2A2320" stroke-width="8" stroke-linecap="round"/>
+  <!-- phone áp tai phải + tay giữ -->
+  <rect x="806" y="530" width="62" height="124" rx="21" fill="#1E2A33"/>
+  <rect x="814" y="542" width="46" height="84" rx="10" fill="#171310"/>
+  <ellipse cx="818" cy="660" rx="40" ry="54" fill="#E9BE9C"/>
+
+  <!-- dải sóng thoại nối beat gọi → beat bắt máy -->
+  <g fill="none" stroke="#F2A65A" stroke-linecap="round" opacity="0.6">
+    <path d="M 440 1040 q 50 30 100 0 q 50 -30 100 0 q 50 30 100 0 q 50 -30 100 0" stroke-width="8"/>
+    <path d="M 480 1080 q 40 24 80 0 q 40 -24 80 0 q 40 24 80 0" stroke-width="6" opacity="0.6"/>
+  </g>
+
+  <!-- ============ BEAT 2: mẹ bắt máy, ấm tràn lên ============ -->
+  <circle cx="540" cy="1300" r="380" fill="url(#s5glow)"/>
+  <!-- vai / áo -->
+  <path d="M 300 1480 Q 318 1320 540 1312 Q 762 1320 780 1480 L 780 1540 L 300 1540 Z" fill="#8A5A6B"/>
+  <path d="M 508 1314 L 540 1356 L 572 1314" fill="none" stroke="#000000" stroke-opacity="0.25" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- cổ -->
+  <rect x="508" y="1230" width="64" height="92" rx="18" fill="#D8A67E"/>
+  <!-- mặt -->
+  <ellipse cx="540" cy="1150" rx="108" ry="118" fill="#E9BE9C"/>
+  <!-- tóc búi + điểm bạc -->
+  <path d="M 432 1150 Q 430 1012 540 1010 Q 650 1012 648 1150 Q 632 1070 540 1066 Q 448 1070 432 1150 Z" fill="#4A3A30"/>
+  <circle cx="540" cy="985" r="42" fill="#4A3A30"/>
+  <path d="M 476 1080 q 28 -16 56 -6" stroke="#C9BBA8" stroke-width="8" fill="none" stroke-linecap="round"/>
+  <!-- mắt cong cười + miệng mỉm -->
+  <path d="M 482 1150 q 21 -15 42 0" fill="none" stroke="#2A2320" stroke-width="8" stroke-linecap="round"/>
+  <path d="M 556 1150 q 21 -15 42 0" fill="none" stroke="#2A2320" stroke-width="8" stroke-linecap="round"/>
+  <path d="M 510 1212 Q 540 1232 570 1212" fill="none" stroke="#2A2320" stroke-width="8" stroke-linecap="round"/>
+  <circle cx="482" cy="1188" r="11" fill="#E5484D" opacity="0.25"/>
+  <circle cx="598" cy="1188" r="11" fill="#E5484D" opacity="0.25"/>
+  <!-- điện thoại áp tai phải -->
+  <rect x="624" y="1082" width="62" height="124" rx="21" fill="#1E2A33"/>
+  <rect x="632" y="1094" width="46" height="84" rx="10" fill="#171310"/>
+  <!-- tay giữ -->
+  <ellipse cx="636" cy="1220" rx="38" ry="52" fill="#E9BE9C"/>
+  <!-- tia ấm toả ra -->
+  <g stroke="#F2A65A" stroke-width="8" stroke-linecap="round" opacity="0.55">
+    <line x1="320" y1="990" x2="356" y2="1026"/>
+    <line x1="760" y1="990" x2="724" y2="1026"/>
+    <line x1="272" y1="1210" x2="318" y2="1210"/>
+    <line x1="808" y1="1210" x2="762" y2="1210"/>
+  </g>
+
+  <!-- caption mẫu s5 v2 (2 dòng, accent Con ăn cơm chưa?) -->
+  <text x="540" y="1595" text-anchor="middle" font-family="'Be Vietnam Pro','Inter',sans-serif" font-size="50" font-weight="600" fill="#FAF3E8">Mẹ bắt máy ngay, chưa kịp reo hai tiếng.</text>
+  <text x="540" y="1657" text-anchor="middle" font-family="'Be Vietnam Pro','Inter',sans-serif" font-size="50" font-weight="600" fill="#F2A65A">"Con ăn cơm chưa?"</text>
+
+  <!-- vạch safe-zone 210px -->
+  <line x1="40" y1="1710" x2="1040" y2="1710" stroke="#8A94A0" stroke-width="3" stroke-dasharray="14 10" opacity="0.8"/>
+  <text x="1040" y="1700" text-anchor="end" font-family="sans-serif" font-size="24" fill="#8A94A0">safe-zone 210px</text>
+</svg>

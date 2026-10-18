@@ -1,0 +1,130 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920">
+  <title>s8 kết — hai không gian riêng, trò chuyện qua điện thoại</title>
+  <desc>Style-frame tĩnh s8 (sửa C-1): panel Con (phòng lạnh #232B34, bàn ăn một mình) + panel Mẹ (nhà ấm #2B2320, mâm cơm phía mẹ) nối bằng sóng thoại; phone portrait "Đã gọi lại ✓" (outro sau cúp máy); caption chốt giữ nguyên đáy 250px</desc>
+  <defs>
+    <radialGradient id="s8momglow">
+      <stop offset="0" stop-color="#F2A65A" stop-opacity="0.5"/>
+      <stop offset="1" stop-color="#F2A65A" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect x="0" y="0" width="1080" height="1920" fill="#1D1714"/>
+
+  <!-- ============ PANEL CON (không gian riêng, tông lạnh) ============ -->
+  <rect x="60" y="100" width="960" height="650" rx="36" fill="#232B34" stroke="#3E5A78" stroke-width="4"/>
+  <!-- nhãn người nói (chỉ định danh, không khẳng định vị trí/giới tính) -->
+  <rect x="100" y="136" width="130" height="52" rx="26" fill="#3E5A78"/>
+  <text x="165" y="172" text-anchor="middle" font-family="'Be Vietnam Pro','Inter',sans-serif" font-size="30" font-weight="700" fill="#FAF3E8">Con</text>
+  <!-- cửa sổ đêm + mưa (không trăng) -->
+  <rect x="640" y="200" width="340" height="250" rx="24" fill="#141B26" stroke="#3E5A78" stroke-width="6"/>
+  <g stroke="#9FB6CC" stroke-width="6" stroke-linecap="round" opacity="0.5">
+    <line x1="720" y1="240" x2="688" y2="320"/>
+    <line x1="810" y1="230" x2="778" y2="310"/>
+    <line x1="900" y1="240" x2="868" y2="320"/>
+    <line x1="760" y1="340" x2="728" y2="410"/>
+    <line x1="850" y1="330" x2="818" y2="400"/>
+  </g>
+  <!-- người con: bust áp phone, mắt cong cùng ngôn ngữ với mẹ -->
+  <path d="M 120 750 Q 135 600 260 595 Q 385 600 400 750 L 400 750 L 120 750 Z" fill="#3E5A78"/>
+  <rect x="230" y="520" width="60" height="88" rx="16" fill="#D8A67E"/>
+  <ellipse cx="260" cy="480" rx="95" ry="105" fill="#E9BE9C"/>
+  <path d="M 165 476 Q 167 366 260 364 Q 353 366 355 476 Q 336 396 260 394 Q 184 396 165 476 Z" fill="#23282E" stroke="#4A5A6E" stroke-width="4"/>
+  <path d="M 200 480 q 20 -14 40 0" fill="none" stroke="#2A2320" stroke-width="7" stroke-linecap="round"/>
+  <path d="M 280 480 q 20 -14 40 0" fill="none" stroke="#2A2320" stroke-width="7" stroke-linecap="round"/>
+  <path d="M 236 536 Q 260 550 284 536" fill="none" stroke="#2A2320" stroke-width="7" stroke-linecap="round"/>
+  <!-- phone áp tai phải + tay giữ -->
+  <rect x="328" y="412" width="58" height="116" rx="19" fill="#1E2A33"/>
+  <rect x="336" y="424" width="42" height="78" rx="9" fill="#10151B"/>
+  <ellipse cx="340" cy="540" rx="36" ry="50" fill="#E9BE9C"/>
+  <!-- bàn ăn một mình: 1 bát + đũa + hơi nóng -->
+  <ellipse cx="790" cy="680" rx="150" ry="44" fill="#5A4230"/>
+  <ellipse cx="790" cy="672" rx="150" ry="44" fill="#6B4E36"/>
+  <ellipse cx="790" cy="650" rx="66" ry="25" fill="#FAF3E8"/>
+  <path d="M 724 650 L 856 650 L 836 694 L 744 694 Z" fill="#FAF3E8"/>
+  <ellipse cx="790" cy="650" rx="47" ry="16" fill="#E8D9BE"/>
+  <line x1="860" y1="620" x2="960" y2="608" stroke="#3A2C20" stroke-width="10" stroke-linecap="round"/>
+  <path d="M 790 600 q 14 -24 0 -48 q -14 -24 0 -48" fill="none" stroke="#FAF3E8" stroke-width="7" stroke-linecap="round" opacity="0.45" stroke-dasharray="22 18"/>
+
+  <!-- ============ DẢI SÓNG THOẠI nối hai panel ============ -->
+  <g fill="none" stroke="#F2A65A" stroke-linecap="round">
+    <path d="M 360 790 q -40 0 -70 -45" stroke-width="8" opacity="0.85"/>
+    <path d="M 360 790 q -60 0 -105 -80" stroke-width="6" opacity="0.5"/>
+    <path d="M 720 790 q 40 0 70 -45" stroke-width="8" opacity="0.85"/>
+    <path d="M 720 790 q 60 0 105 -80" stroke-width="6" opacity="0.5"/>
+    <path d="M 360 790 q -40 0 -70 45" stroke-width="8" opacity="0.85"/>
+    <path d="M 360 790 q -60 0 -105 80" stroke-width="6" opacity="0.5"/>
+    <path d="M 720 790 q 40 0 70 45" stroke-width="8" opacity="0.85"/>
+    <path d="M 720 790 q 60 0 105 80" stroke-width="6" opacity="0.5"/>
+  </g>
+  <line x1="60" y1="790" x2="300" y2="790" stroke="#3E5A78" stroke-width="4" stroke-dasharray="12 12" opacity="0.7"/>
+  <line x1="780" y1="790" x2="1020" y2="790" stroke="#5A4230" stroke-width="4" stroke-dasharray="12 12" opacity="0.7"/>
+
+  <!-- ============ PANEL MẸ (nhà, tông ấm; mâm cơm thuộc phía mẹ) ============ -->
+  <rect x="60" y="830" width="960" height="640" rx="36" fill="#2B2320" stroke="#5A4230" stroke-width="4"/>
+  <circle cx="800" cy="1080" r="280" fill="url(#s8momglow)" opacity="0.8"/>
+  <rect x="100" y="866" width="130" height="52" rx="26" fill="#8A5A6B"/>
+  <text x="165" y="902" text-anchor="middle" font-family="'Be Vietnam Pro','Inter',sans-serif" font-size="30" font-weight="700" fill="#FAF3E8">Mẹ</text>
+  <!-- cửa sổ đêm + mưa phía mẹ -->
+  <rect x="100" y="940" width="280" height="210" rx="22" fill="#141B26" stroke="#5A4230" stroke-width="6"/>
+  <g stroke="#9FB6CC" stroke-width="6" stroke-linecap="round" opacity="0.5">
+    <line x1="160" y1="975" x2="134" y2="1040"/>
+    <line x1="230" y1="965" x2="204" y2="1030"/>
+    <line x1="300" y1="975" x2="274" y2="1040"/>
+    <line x1="195" y1="1060" x2="169" y2="1115"/>
+    <line x1="265" y1="1050" x2="239" y2="1105"/>
+  </g>
+  <!-- mâm cơm phía mẹ: 2 bát (trung tính, không khẳng định sống một mình) -->
+  <ellipse cx="270" cy="1360" rx="185" ry="58" fill="#5A4230"/>
+  <ellipse cx="270" cy="1350" rx="185" ry="58" fill="#6B4E36"/>
+  <ellipse cx="270" cy="1344" rx="160" ry="46" fill="#7A5A40"/>
+  <ellipse cx="200" cy="1330" rx="62" ry="24" fill="#FAF3E8"/>
+  <path d="M 138 1330 L 262 1330 L 242 1372 L 158 1372 Z" fill="#FAF3E8"/>
+  <ellipse cx="200" cy="1330" rx="44" ry="15" fill="#E8D9BE"/>
+  <ellipse cx="345" cy="1330" rx="62" ry="24" fill="#FAF3E8"/>
+  <path d="M 283 1330 L 407 1330 L 387 1372 L 303 1372 Z" fill="#FAF3E8"/>
+  <ellipse cx="345" cy="1330" rx="44" ry="15" fill="#E8D9BE"/>
+  <line x1="360" y1="1270" x2="450" y2="1260" stroke="#3A2C20" stroke-width="10" stroke-linecap="round"/>
+  <g fill="none" stroke="#FAF3E8" stroke-width="7" stroke-linecap="round" opacity="0.5" stroke-dasharray="22 18">
+    <path d="M 200 1280 q 14 -24 0 -48 q -14 -24 0 -48"/>
+    <path d="M 345 1280 q 14 -24 0 -48 q -14 -24 0 -48"/>
+  </g>
+  <!-- mẹ: bust áp phone, mỉm cười -->
+  <path d="M 680 1470 Q 695 1330 810 1325 Q 925 1330 940 1470 L 940 1470 L 680 1470 Z" fill="#8A5A6B"/>
+  <path d="M 780 1327 L 810 1365 L 840 1327" fill="none" stroke="#000000" stroke-opacity="0.25" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="780" y="1245" width="60" height="88" rx="16" fill="#D8A67E"/>
+  <ellipse cx="810" cy="1205" rx="95" ry="105" fill="#E9BE9C"/>
+  <path d="M 715 1201 Q 715 1091 810 1089 Q 905 1091 905 1201 Q 889 1121 810 1119 Q 731 1121 715 1201 Z" fill="#4A3A30"/>
+  <circle cx="810" cy="1067" r="36" fill="#4A3A30"/>
+  <path d="M 758 1111 q 26 -15 52 -5" stroke="#C9BBA8" stroke-width="7" fill="none" stroke-linecap="round"/>
+  <path d="M 750 1201 q 20 -14 40 0" fill="none" stroke="#2A2320" stroke-width="7" stroke-linecap="round"/>
+  <path d="M 830 1201 q 20 -14 40 0" fill="none" stroke="#2A2320" stroke-width="7" stroke-linecap="round"/>
+  <path d="M 786 1259 Q 810 1273 834 1259" fill="none" stroke="#2A2320" stroke-width="7" stroke-linecap="round"/>
+  <!-- phone áp tai trái (hướng về phía con) + tay giữ -->
+  <rect x="678" y="1137" width="58" height="116" rx="19" fill="#1E2A33"/>
+  <rect x="686" y="1149" width="42" height="78" rx="9" fill="#10151B"/>
+  <ellipse cx="690" cy="1263" rx="36" ry="50" fill="#E9BE9C"/>
+
+  <!-- ============ PHONE cầu nối: đã cúp máy, outro "đã gọi lại" (fix C-5) ============ -->
+  <g>
+    <rect x="395" y="600" width="280" height="400" rx="44" fill="#0F0C0A" stroke="#F2A65A" stroke-width="4"/>
+    <rect x="407" y="612" width="256" height="376" rx="36" fill="#171310"/>
+    <rect x="423" y="626" width="150" height="44" rx="22" fill="#8A94A0" opacity="0.9"/>
+    <text x="498" y="658" text-anchor="middle" font-family="'Be Vietnam Pro','Inter',sans-serif" font-size="30" font-weight="700" fill="#FFFFFF">minh hoạ</text>
+    <text x="535" y="770" text-anchor="middle" font-family="'Be Vietnam Pro','Inter',sans-serif" font-size="38" font-weight="700" fill="#F2A65A">Đã gọi lại ✓</text>
+    <g fill="#F2A65A">
+      <rect x="473" y="866" width="9" height="36" rx="4.5"/>
+      <rect x="490" y="856" width="9" height="56" rx="4.5"/>
+      <rect x="507" y="866" width="9" height="36" rx="4.5" opacity="0.7"/>
+      <rect x="524" y="861" width="9" height="46" rx="4.5" opacity="0.7"/>
+      <rect x="541" y="869" width="9" height="30" rx="4.5" opacity="0.5"/>
+      <rect x="558" y="866" width="9" height="36" rx="4.5" opacity="0.5"/>
+    </g>
+    <circle cx="535" cy="946" r="10" fill="#F2A65A" opacity="0.8"/>
+  </g>
+
+  <!-- caption chốt s8 (giữ nguyên) -->
+  <text x="540" y="1570" text-anchor="middle" font-family="'Be Vietnam Pro','Inter',sans-serif" font-size="50" font-weight="700" fill="#FAF3E8">Một <tspan fill="#F2A65A">cuộc gọi lại</tspan> thôi,</text>
+  <text x="540" y="1632" text-anchor="middle" font-family="'Be Vietnam Pro','Inter',sans-serif" font-size="50" font-weight="700" fill="#FAF3E8">họ cũng vui rồi.</text>
+
+  <line x1="40" y1="1710" x2="1040" y2="1710" stroke="#8A94A0" stroke-width="3" stroke-dasharray="14 10" opacity="0.8"/>
+  <text x="1040" y="1700" text-anchor="end" font-family="sans-serif" font-size="24" fill="#8A94A0">safe-zone 210px</text>
+</svg>

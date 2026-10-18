@@ -254,3 +254,216 @@ Naturalness, Vietnamese tone/accent perception, emotional arc, breaths, clicks, 
 ### Required final audit
 
 Before return, the read-only command `python3 -I scripts/pipeline.py audit dung-bien-tuoi-30-thanh-ban-an` was run. Its result is recorded in the final response; any pre-existing non-audio failures remain outside this reviewer-owned report.
+
+## Fresh Round 1 — clean-context review after voice stage reopened
+
+Reviewed 2026-10-18 after the latest voice regeneration and peak normalization. This is a **fresh Round 1** because the voice stage was reopened; it is not an additional Round 4 of the previous audio-gate loop. Scope: `voice-report.md`, `voice-clone-asr.md`, `voice.json`, `voice-durations.ts`, `mix-plan.md`, `timeline.ts`, `Reel.tsx`, all current audio files, and `/tmp/dung-bien-tuoi-30-thanh-ban-an-join-preview-r6.mp4`. Review-only: no source, status, pipeline, voice, or manifest file was edited.
+
+### Verdict and root cause
+
+**REVISE — 7.6/10.** Audio is usable for continued diagnosis and the current preview decodes with both streams, but it does not pass the audio gate threshold (>=9) because ASR is not clean, the authoritative evidence is internally inconsistent, and the integrated loudness/ending-window proof is incomplete. No pipeline review/gate/override command was run.
+
+Single root cause behind the recurring failures: **the packet has no single post-regeneration source of truth**. MP3s, the generated `voice-durations.ts`, the older voice/ASR reports, the mix-plan proof, and the r6 integrated preview were produced at different points. Peak normalization improved level consistency but did not regenerate/reconcile all dependent ASR and timing evidence; the Join preview then exposed a remaining final-mix target miss.
+
+### Evidence run
+
+- `ffprobe`: 16/16 voice clips present and decodable, mono 24 kHz MP3; BGM and 8 SFX present and decodable. Current exact voice total from the files is **44.133915 s**. `/tmp/...-r6.mp4` is **1080x1920, 30 fps, 51.605 s**, with H.264 video and 48 kHz stereo AAC.
+- `ffmpeg -af ebur128=peak=true`: preview integrated loudness **-15.6 LUFS**, LRA 6.1 LU, true peak **-1.9 dBFS**. The peak passes the <=-1.5 dBTP target; integrated loudness misses the -14+/-1 LUFS window by 0.6 LU.
+- `ffmpeg -af volumedetect`: preview mean **-18.3 dB**, max sample **-1.9 dB**; no clipping evidence.
+- `silencedetect=noise=-45dB:d=0.20` on r6: silence intervals at **49.450-50.007 s (0.557 s)** and **50.933-51.605 s (0.672 s)**. This does not prove 1.2 s of near-silent BGM because the mixed file does not isolate BGM from paper foley.
+- `silencedetect=noise=-45dB:d=0.10` on voice: s8 has an internal gap **1.40875-1.711167 s (0.302417 s)**; s1 has 0.127 s; s9a has 0.332 s. No voice clip has an internal gap >=0.6 s. The s8 gap is real, but the current caption boundaries (38f/78f) are not evidenced against it.
+- Source inspection of `Reel.tsx`: voice gain is 1.6; BGM ramps are 6 frames each (200 ms) between 0.30 and 0.165, and the final fade is 9 frames (300 ms). These are contractually sized ramps, but no signal-level measurement proves the rendered duck delta or absence of pumping/clicks.
+- Cue recomputation against exact current MP3 durations: all 12 SFX cue windows start after their corresponding spoken interval and have at least one frame of clearance. This item passes at source/frame-contract level.
+
+### Current ASR evidence
+
+The latest `voice-report.md` reports **7/16 pass** and lists these current failures: `s1` CER 0.294, `s3a` 0.405, `s3b` 0.129, `s4a` 0.094, `s6a` 0.101, `s6b` 0.174, `s8` 0.058, `s9b` 0.276, and `s10` 0.257. That is 9 listed failures, consistent with 7/16 passing. `voice-clone-asr.md` is stale and reports older values for several of the same clips (`s1` 0.206, `s3a` 0.365, `s3b` 0.000, `s4a` 0.019, `s8` 0.014, `s9b` 0.000, `s10` 0.229). Therefore the report cannot currently be treated as one reproducible ASR snapshot. The reviewer accepts the latest `voice-report.md` as the current claimed result, but does not claim independent ASR pass without a new post-regeneration PCM run.
+
+### Rubric scores
+
+| Item | Score | Evidence | Result |
+|---|---:|---|---|
+| Completeness, duration, syllable rate, budget | 8/10 | 16/16 clips decode; exact total 44.133915 s; 51.6 s preview fits budget. Older reports/mix plan still cite conflicting durations/totals. | Partial |
+| ASR/CER and canonical wording | 4/10 | Latest voice report claims 7/16 pass; nine failures remain and `voice-clone-asr.md` disagrees. | Fail |
+| Silence and planned holds | 7/10 | No clip has >=0.6 s dead air; s8 has measurable 0.302 s pause. Final near-silent BGM window is not isolated/proven. | Partial |
+| Loudness, peak, clipping, consistency | 9/10 | Voice report claims 1.5 LU spread and safe peaks; r6 integrated peak is -1.9 dBFS with no clipping evidence. Integrated loudness is still below target. | Partial |
+| Mix gap, ducking, ramps, SFX timing | 7/10 | 200 ms source ramps and cue intervals are contractually present; rendered voice/music gap and duck delta are not measured. | Partial |
+| Spectral/artifact screen | 8/10 | No machine evidence of hard cut-off/spike in prior packet; naturalness, tone, breaths, clicks and robotic artifacts remain unhearable by machine. | Machine-only partial |
+| Sources/licences | 9/10 | `assets-manifest.md` records original BGM synthesis and Mixkit source/licence for all SFX. | Pass |
+
+### Exhaustive fresh Round-1 tickets
+
+| ID | Severity | Where | Evidence | Concrete change | Owner | Acceptance check |
+|---|---|---|---|---|---|---|
+| AUD-R1-001 | Cao | `s1,s3a,s3b,s4a,s6a,s6b,s8,s9b,s10` | Latest voice report has 9 CER failures; only 7/16 pass. | Regenerate/reselect only failing keys from locked `voice.json`, preserving all canonical Vietnamese words and numbers; do not fix by changing script text. | voice-agent | Fresh PCM faster-whisper run after final normalization: all 16 clips CER <=0.04 and canonical word sequence present. |
+| AUD-R1-002 | Cao | `voice-report.md` vs `voice-clone-asr.md` | Same clips have materially different CER/ASR values; e.g. s3b 0.129 vs 0.000 and s9b 0.276 vs 0.000. | Rerun one authoritative ASR command/model/normalization on all 16 final MP3s; replace/append both evidence documents with the same run ID, transcript, CER and file hash/mtime. | voice-agent | Reports agree for every clip and the run is reproducible from the current MP3 set. |
+| AUD-R1-003 | Trung | `voice-report.md`, `mix-plan.md`, `voice-durations.ts` | Current ffprobe: s3a 4.235708 s and s10 1.796833 s; documents report older 4.297958/1.897958 values in places. Current exact total is 44.133915 s. | Re-run `voice:measure` after final take selection and regenerate every duration/total/table dependent on it, including the cue proof and budget. | voice-agent + audio-agent | Every duration in all reports, `voice-durations.ts`, timeline assumptions and mix-plan proof matches current ffprobe within rounding tolerance. |
+| AUD-R1-004 | Cao | `/tmp/dung-bien-tuoi-30-thanh-ban-an-join-preview-r6.mp4` | Integrated loudness is -15.6 LUFS; required window is -14+/-1 LUFS (-15.0 to -13.0). | Apply deterministic final-mix gain/normalization at the owned integration point, then render a new verification preview; preserve true-peak headroom. | audio-agent + video-director | New integrated preview measures -14+/-1 LUFS and true peak <=-1.5 dBTP with no clipping. |
+| AUD-R1-005 | Trung | Integrated preview / mix proof | No windowed measurement proves 12-18 dB voice-to-music gap or the 4-6 dB duck delta. Source values alone are not integrated evidence. | Run windowed ebur128/RMS measurements on voice-active, hold, and duck-ramp windows of the new preview; record exact timestamps and values. | audio-agent | Voice/music gap 12-18 dB, duck delta 4-6 dB, and no unexpected pumping/click transient in measured windows. |
+| AUD-R1-006 | Trung | `Reel.tsx` + r6 ending | Source has a 9f BGM fade, but mixed silences are only 0.672 s at the tail; BGM is not isolated to prove >=1.2 s near-silent after s10. | Produce an isolated stem/window measurement or deterministic render evidence showing the final 2.4 s hold, BGM near-silent for >=1.2 s, and paper-edge foley as the only declared exception. | audio-agent + video-director | Evidence identifies last speech end, BGM level over final >=1.2 s, and foley interval separately. |
+| AUD-R1-007 | Trung | `timeline.ts` / `Reel.tsx` | Contract says 0.150 s lead-in, but implementation uses `Math.ceil(0.15*30)=5f` = 0.166667 s. | Choose and document one exact frame contract: either encode 5f as intended quantized lead-in everywhere, or adjust timing so the measured contract is explicitly 0.150 s within an accepted frame quantization rule. | video-director | `voice.json`, timeline, Reel sequence, and evidence use the same lead-in definition; no 0.150s claim beside a 5f/0.1667s implementation. |
+| AUD-R1-008 | Trung | `timeline.ts` `S8_CAPTION_BOUNDARIES` and `s8.mp3` | Measured pause is 1.40875-1.711167 s (0.302417 s), while caption boundaries are 38f/78f (1.267/2.600 s); no proof shows captions change at the pause. | Re-anchor s8 caption split to the measured pause, or document a deliberate pre-pause caption boundary with frame evidence and rationale. | video-director + scene-agent | Rendered s8 frame strip shows caption timing aligned to the chosen pause contract and cites exact frame/time. |
+| AUD-R1-009 | Thấp | Voice clips / listening-dependent artifacts | Machine checks cannot certify naturalness, Vietnamese tones, emotion, breaths, clicks, pumping, or robotic artifacts. | Record as non-machine-verifiable; optional human listen may annotate but cannot replace numeric gate evidence. | video-director | Explicit cannot-verify record remains in the next report; no false pass claim. |
+
+### Items that pass in this fresh review
+
+- Asset completeness and decode: 16/16 voice clips, BGM, and 8 SFX exist and decode.
+- Current source cue contract: all 12 SFX windows are post-voice with at least one frame clearance when recomputed from current exact durations; no cue overlap is open at this source-level check.
+- Duck ramp duration: 6 frames at 30 fps = 200 ms attack/release; final fade is 9 frames = 300 ms, both inside the specified ranges. Signal-level verification remains ticket AUD-R1-005.
+- Peak safety: r6 true peak -1.9 dBFS and voice report peaks remain below the -1.5 dBTP ceiling.
+- Asset provenance: BGM/SFX origins and licences are recorded in `assets-manifest.md`.
+
+### Audit note
+
+The required read-only audit was run after this review. It remains **FAIL** because of pre-existing/non-audio status/documentation defects, including the historical Gate A path using backslashes (`docs\\dung-bien-tuoi-30-thanh-ban-an\\script-review.md is missing`) and stale pipeline records. This reviewer did not edit status or pipeline. The audio gate must remain **REVISE** until the tickets above are closed by the owning agents and a new independent review is run; this fresh Round 1 does not consume the prior hard-cap Round 3.
+
+## Round 2 — clean-context review of verified final-style preview after Round 1 fixes
+
+Reviewed 2026-10-18. Scope: the Round-1 evidence above, current `voice-clone-asr.md`, current `voice-report.md`, `mix-plan.md`, `src/videos/dung-bien-tuoi-30-thanh-ban-an/timeline.ts`, `Reel.tsx`, `Scene13.tsx`, all current audio files, and `/tmp/dung-bien-tuoi-30-thanh-ban-an-join-preview-verified.mp4`. Review-only: no source, status, pipeline, voice, or manifest file was edited. No pipeline command was run.
+
+### Verdict and root cause
+
+**REVISE — 8.1/10.** The new preview is materially improved and its integrated loudness is inside the requested window, but the audio gate does not pass: true peak is over the ceiling, the two current ASR evidence documents disagree, the s8 caption boundaries are not aligned to the measured pause, and the mixdown cannot independently prove the requested voice/music gap or BGM-only ending window. No `review`, `gate`, or `override` was run.
+
+Root cause: **the final-style preview was normalized as a delivery artifact, but the normalization/measurement snapshot was not reconciled with the current source evidence and the preview is a single mixed AAC stream.** This produces a loudness result that is close to target while leaving true-peak headroom, ASR authority, caption timing, and stem-level duck/ending proof unresolved.
+
+### Measurement evidence
+
+- `ffprobe`: preview exists and decodes; H.264 video is 1080×1920 at 30 fps, 51.600 s; AAC audio is 48 kHz stereo, 51.700 s.
+- `ebur128=peak=true`: integrated loudness **−14.4 LUFS**, LRA **5.7 LU**, true peak **−1.2 dBFS**. Loudness passes −14±1; true peak **fails** the ≤−1.5 dBTP ceiling by 0.3 dB.
+- `volumedetect`: mean **−17.1 dB**, max sample **−1.3 dBFS**. This agrees that the delivery headroom is not yet within the stated −1.5 dB ceiling.
+- Full-mix `silencedetect=noise=-45dB:d=0.6`: only the final **51.028–51.700 s** interval is detected as full silence (**0.672 s**). At the planned final hold, the 49.500–51.600 s output window measures mean **−43.0 dB**, max sample **−24.5 dBFS**; the first 1.2 s from 49.500–50.700 s measures mean **−45.7 dB**, max **−28.5 dBFS**. This is strong output-level evidence of a quiet tail, but it is not a BGM-isolated measurement because paper-edge foley and BGM are mixed together.
+- Current source timeline totals **1548 frames / 51.600 s**. `s10` starts at frame 1422 / 47.400 s; its 5f-quantized voice end is frame 1476 / 49.200 s; the source BGM fade is 9f / 300 ms to frame 1485 / 49.500 s, leaving 2.100 s of the final 2.400 s hold after the fade. The ramp duration is contractually correct; stem-level pumping/click absence remains unprovable from the AAC mixdown.
+- S8 source silence measurement: `s8.mp3` has **1.408750–1.711167 s**, duration **0.302417 s**. With scene 13 beginning at frame 1110 / 37.000 s, the pause is approximately global **38.408750–38.711167 s**, or scene-relative frames **42.26–51.34**. Current caption boundaries are scene-relative **38f / 78f** (1.2667 s / 2.6000 s), so the first caption changes about 4.3 frames before the pause starts and the second boundary is well after the pause. This is not pause-aligned evidence.
+- `timeline.ts` and `Reel.tsx` agree on the lead-in contract: `ceil(0.15×30)=5f`, i.e. **0.166667 s quantized lead-in**. The source comment and `VOICE_LEAD_IN_FRAMES` encode the same rule; the previous ambiguity ticket is closed as a quantization clarification, not as a claim of exact 0.150 s frame timing.
+- SFX source/frame check: all 12 listed cue windows remain after their corresponding measured voice window with at least one 30 fps frame of clearance. The cues are bounded by explicit `durationInFrames`; no unbounded SFX playback was found. This item passes at contract level, although the mixed preview cannot prove subjective audibility or clicks.
+
+### ASR authority check
+
+The current documents are still not one reproducible snapshot. `voice-report.md` says **7/16** clips pass and lists nine failures (`s1,s3a,s3b,s4a,s6a,s6b,s8,s9b,s10`), while the current `voice-clone-asr.md` summary says **11/16** pass and lists a different set of failures. Because both are presented as current evidence and no shared run ID/hash table reconciles them, the machine ASR sub-gate remains open. The canonical `voice.json` text itself was not changed by this review.
+
+### Rubric scores
+
+| Item | Score | Evidence | Result |
+|---|---:|---|---|
+| Completeness, duration, budget | 9/10 | 16/16 source clips and the preview decode; 51.600 s video timeline is coherent. | Pass with evidence caveat |
+| ASR/CER and canonical wording | 5/10 | `voice-report.md` and `voice-clone-asr.md` disagree: 7/16 vs 11/16 pass. | Fail |
+| Silence and planned holds | 8/10 | S8 pause is confirmed; final output is very quiet for >1.2 s, but BGM is not isolated. | Partial |
+| Loudness, peak, clipping, consistency | 8/10 | −14.4 LUFS passes, but true peak −1.2 dBFS fails the ≤−1.5 ceiling. | Partial/fail on peak |
+| Mix gap, ducking, ramps, SFX timing | 7/10 | SFX and 200 ms/300 ms source ramps are contractually correct; voice/music gap and stem duck delta are not measurable from one AAC mixdown. | Partial |
+| Spectral/artifact screen | 8/10 | No machine-only clipping conclusion beyond peak result; naturalness, tone, clicks, pumping and robotic artifacts remain listening-dependent. | Machine-only partial |
+| Sources/licences | 9/10 | Existing asset manifest remains complete. | Pass |
+
+### Exhaustive Round-2 ticket closure and new tickets
+
+| ID | Status | Severity | Evidence / closure | Owner | Acceptance check |
+|---|---|---|---|---|---|
+| AUD-R1-001 / AUD-R1-002 | **OPEN — carried forward** | Cao | Current `voice-report.md` and `voice-clone-asr.md` still disagree, and the authoritative report still does not establish 16/16 CER pass. | voice-agent | One post-normalization ASR run over all 16 current MP3s, with shared run ID, exact transcript, CER and file identity in both reports; all canonical sequences present. |
+| AUD-R1-003 | **PARTIAL — carried forward** | Trung | Rounded `voice-durations.ts` and current `mix-plan.md` are aligned to the regenerated snapshot, but the conflicting ASR/report packet still prevents a single complete source-of-truth claim. | voice-agent + audio-agent | Reconcile all current reports and dependent timing tables from one final MP3 snapshot. |
+| AUD-R1-004 | **CLOSED / superseded by AUD-R2-001** | Cao | Integrated loudness improved from r6 −15.6 LUFS to −14.4 LUFS. | — | — |
+| AUD-R1-005 | **OPEN — carried forward** | Trung | Source ramps exist and are correctly sized, but a single AAC mixdown cannot separate voice from BGM to prove a 12–18 dB gap or 4–6 dB duck delta. | audio-agent + video-director | Provide windowed stem/isolated-BGM evidence from the same verified snapshot, including ramp windows and no pumping/click transient. |
+| AUD-R1-006 | **PARTIAL — carried forward** | Trung | Full mix is very quiet for 1.2+ s after the fade window, but the BGM-only near-silence claim is not isolated from paper foley. | audio-agent + video-director | Measure the BGM stem or deterministic isolated-BGM render over the final 1.2 s and identify the foley exception separately. |
+| AUD-R1-007 | **CLOSED** | Trung | `timeline.ts`, `Reel.tsx`, and the evidence now consistently encode the 0.150 s target as a 5-frame quantized lead-in (0.166667 s). | — | — |
+| AUD-R1-008 | **OPEN — carried forward** | Trung | Measured s8 pause is scene frames 42.26–51.34; boundaries remain 38f/78f and are not pause-aligned. | video-director + scene-agent | Re-anchor the caption change to the selected pause contract, or document and visually prove a deliberate pre-pause boundary. |
+| AUD-R1-009 | **OPEN — carried forward** | Thấp | Machine checks cannot certify naturalness, tone, emotion, breaths, clicks, pumping, or robotic artifacts. | video-director | Keep explicit cannot-verify note; do not convert it into a false pass. |
+| **AUD-R2-001** | **NEW / OPEN** | Cao | Verified preview true peak is **−1.2 dBFS** and max sample is **−1.3 dBFS**, exceeding the ≤−1.5 dBTP delivery ceiling. | audio-agent + video-director | Re-render the same final-style mix with deterministic true-peak-safe normalization; `ebur128` true peak ≤−1.5 dBFS and integrated loudness remains −14±1 LUFS. |
+| **AUD-R2-002** | **NEW / OPEN** | Cao | Current `voice-report.md` claims 7/16 pass while current `voice-clone-asr.md` claims 11/16 pass. | voice-agent | Reconcile both documents against one final normalized MP3 snapshot, with matching hashes/mtime, command/model, transcript and CER for all 16 clips. |
+| **AUD-R2-003** | **NEW / OPEN** | Trung | S8 pause is 0.302417 s at scene frames 42.26–51.34, but caption boundaries are 38f/78f. | video-director + scene-agent | Align or deliberately justify the caption transition using a rendered frame strip and exact pause/frame evidence. |
+| **AUD-R2-004** | **NEW / OPEN** | Trung | Output tail is quiet, but the requested BGM-only near-silence and duck delta cannot be proven from the single AAC mixdown. | audio-agent + video-director | Add isolated BGM/stem measurement from the exact verified snapshot; retain full-mix tail level and foley timing as separate evidence. |
+
+### Items that pass in Round 2
+
+- Preview container, video geometry, frame rate, audio stream and duration are valid.
+- Integrated loudness is within −14±1 LUFS.
+- All 16 current voice clips and SFX assets decode; source-level SFX windows remain non-overlapping with voice by the documented frame contract.
+- The s1 lead-in is consistently encoded as 5 quantized frames; no remaining claim of exact 0.150 s frame timing is made.
+- The final hold is present and the mixed output is below approximately −45 dB mean over the first 1.2 s after the BGM fade, but this does not replace BGM-stem proof.
+
+### Final Round-2 conclusion
+
+The audio branch remains **REVISE** and must not be marked passed or used to advance the workflow gate. The next fix loop must first reconcile the ASR snapshot and true-peak-safe final mix, then provide stem-level duck/ending evidence and correct or explicitly justify the s8 caption timing. This review did not change pipeline state.
+
+## Round 3 — clean-context hard-cap review of `join-preview-verified-r2`
+
+Reviewed 2026-10-18 against the exact requested snapshot: this report through Round 2, current `voice-report.md`, current `voice-clone-asr.md` 11/16 table, `mix-plan.md`, `timeline.ts` with S8 boundaries `43f/78f`, `Reel.tsx` with `VOICE_GAIN=1.6`, BGM levels `0.30/0.165`, 6-frame ramps and 9-frame s10 fade, all current source MP3s, and `/tmp/dung-bien-tuoi-30-thanh-ban-an-join-preview-verified-r2.mp4`. This is the final Round 3 of the reopened audio branch. Review-only: no source, status, pipeline, voice, manifest, or mix-plan file was edited. No `pipeline.py` command was run.
+
+### Final verdict
+
+**REVISE / accepted-risk at hard cap — 8.3/10.** The verified preview now meets the integrated loudness and true-peak targets, all 16 voice clips and the BGM/SFX inventory decode, the BGM envelope has a deterministic 200 ms duck/ramp and a measured 2.10 s zero-volume tail by frame contract, and SFX are disjoint from spoken intervals. The audio branch still does **not** pass: the authoritative documents disagree on ASR (11/16 versus 7/16), five clips remain over the stated CER threshold in the current table, S8 caption timing is not proven from the pause alone, and one SFX window crosses the s3a scene boundary by one frame. These residuals are recorded as accepted-risk for the hard cap; no audio-gate pass is claimed.
+
+### Independent container and delivery measurements
+
+Read-only `ffprobe`/`ffmpeg` measurements on the requested preview and current source files:
+
+- Preview video: H.264, **1080×1920**, **30 fps**, **51.600000 s**.
+- Preview audio: AAC, **48 kHz stereo**, **51.700000 s**. The 0.100 s stream-duration mismatch is non-fatal for this review but remains a delivery evidence caveat; final render should be checked again after the approved mix.
+- `ebur128=peak=true`: integrated loudness **−14.7 LUFS**, LRA **5.4 LU**, true peak **−1.6 dBFS**. Loudness is inside −14±1 LUFS and peak is within the ≤−1.5 dBTP ceiling.
+- `volumedetect`: mean **−17.3 dB**, max sample **−1.6 dBFS**; no sample-clipping indication.
+- Full-mix `silencedetect=noise=-45dB:d=0.10`: initial lead-in silence **0.167 s**; tail intervals **49.5455–50.102042 s (0.556542 s)** and **51.028–51.700 s (0.672 s)**. The full mix does not show 1.2 s of silence because the planned paper-wind SFX occupies the hold; this is expected and is not BGM-stem proof.
+
+### Source/frame stem-envelope proof
+
+The current timeline is **1548 frames / 51.600 s**. Using the exact current MP3 durations and the frame-quantized implementation:
+
+- The last s10 voice window is `[1422,1476)` frames, approximately `47.400–49.200 s`.
+- The BGM fade is `[1476,1485)` frames, **9 frames / 300 ms**, from linear volume `0.30` to `0`.
+- The BGM stem is explicitly at volume `0` for `[1485,1548)` = **63 frames / 2.103 s**, exceeding the required ≥1.2 s near-silent BGM window by frame contract.
+- The declared paper-wind exception is `[1480,1528)` frames, approximately `49.333–50.933 s`; it overlaps the BGM-zero portion but does not invalidate the BGM-only proof. It explains why the mixed AAC tail is not silent until `51.028 s`.
+- During speech, BGM is held at `0.165`; during holds it returns to `0.30`. The level ratio is `20log10(0.30/0.165) = 5.19 dB`, inside the requested 4–6 dB duck range. The attack/release is `6 frames / 30 fps = 200 ms`; the final fade is `9 frames = 300 ms`. This proves the deterministic source envelope, but not subjective pumping/click absence.
+- The preview loudness/peak values are the integrated output proof. The voice/music gap remains a source-envelope proof rather than a separately isolated rendered-stem measurement, because the supplied artifact is one AAC mixdown.
+
+### SFX disjointness and boundary verification
+
+All 12 current cue windows were recomputed against exact `ffprobe` durations. Every cue starts after its corresponding voice interval with at least one frame of clearance; however, the prior proof did not check that every cue also stayed inside its owning scene.
+
+| Cue | Voice end (absolute frames) | Cue window | Voice clearance | Scene-boundary result |
+|---|---:|---:|---:|---|
+| s1 | 69.271 | `[71,76)` | 0.057625 s | pass |
+| s2 | 176.790 | `[178,184)` | 0.040334 s | pass |
+| s3a | 311.071 | `[314,321)` | 0.097625 s | **FAIL: scene ends at 320; 1 frame spills** |
+| s3b | 379.239 | `[381,386)` | 0.058708 s | pass |
+| s4a | 488.409 | `[490,497)` | 0.053041 s | pass |
+| s5b | 713.939 | `[715,724)` | 0.035375 s | pass |
+| s6b | 932.608 | `[934,941)` | 0.046416 s | pass |
+| s7a | 1039.979 | `[1041,1048)` | 0.034042 s | pass |
+| s8 cue 1/2 | 1233.899 | `[1235,1238)` / `[1239,1242)` | 0.036709 s / 0.170042 s | pass |
+| s9a | 1332.264 | `[1334,1353)` | 0.057875 s | pass |
+| s10 | 1475.905 | `[1480,1528)` | 0.136500 s | pass |
+
+`AUD-R3-001` is therefore opened as a **Trung accepted-risk**: `s3a` is voice-safe but not scene-contained. The source remains usable, but the next build-quality fix should move/shorten that cue or extend the owning hold and then rerun the complete cue proof.
+
+### S8 pause verification
+
+`ffmpeg -af silencedetect=noise=-45dB:d=0.05` on `s8.mp3` finds a real pause from **1.408750–1.711167 s**, duration **0.302417 s**. Scene 13 starts at absolute frame **1110**, so the pause is scene-relative **42.2625–51.3350 frames** (absolute approximately **1152.2625–1161.3350**). The current boundaries are `43f/78f`: the first caption change occurs at frame 43, inside the measured pause, and the second at frame 78, after it. The pause itself is verified, but silence detection cannot prove the word-level onset of “Lương về chưa kịp giữ” or justify the later `78f` transition. `AUD-R2-003` remains open/accepted-risk until a frame strip or word-alignment evidence proves the visual timing.
+
+### ASR authority and closure
+
+The current `voice-clone-asr.md` table reports **11/16** at CER `<=0.04`, with failures `s1,s3a,s6a,s6b,s10`. `voice-report.md` still carries a different historical/current table claiming **7/16** and nine failures. Because the two documents do not share one run ID, file identity table, and reproducible command output, the reviewer cannot promote the ASR sub-gate to pass. The current 11/16 table is recorded as the latest requested snapshot, not as a clean 16/16 result.
+
+| Ticket | Round-3 disposition | Evidence |
+|---|---|---|
+| AUD-R1-001 / AUD-R1-002 / AUD-R2-002 | **accepted-risk — open after hard cap** | Current ASR evidence is inconsistent; latest table is 11/16 and still fails s1, s3a, s6a, s6b, s10. No pass invented. |
+| AUD-R1-003 | **partial / accepted-risk** | `voice-durations.ts` is rounded to regenerated files, but dependent documentation still contains older exact durations/totals in places. |
+| AUD-R1-005 | **partial / accepted-risk** | Source envelope proves 5.19 dB duck and 200 ms ramps; isolated rendered voice/music windows and subjective pumping/click checks are not available from one AAC mixdown. |
+| AUD-R1-006 / AUD-R2-004 | **partially closed with source proof; accepted-risk remains** | BGM is zero for 2.103 s by `[1485,1548)` frame contract; mixed tail is not silent because paper-wind is present. |
+| AUD-R1-007 | **closed** | 5-frame quantized lead-in is consistently encoded; no exact 0.150 s frame claim is made. |
+| AUD-R1-008 / AUD-R2-003 | **accepted-risk — open after hard cap** | S8 pause is measured, but `43f/78f` is not fully word-aligned by silence evidence alone. |
+| AUD-R2-001 | **closed** | Preview true peak improved to **−1.6 dBFS**, meeting the stated ceiling; integrated loudness is **−14.7 LUFS**. |
+| **AUD-R3-001 NEW** | **accepted-risk — open after hard cap** | `s3a` cue `[314,321)` is disjoint from speech but crosses the scene boundary at frame 320 by one frame. |
+| AUD-R1-009 | **carried** | Naturalness, tones, emotion, breaths, clicks, pumping and robotic artifacts remain listening-dependent and are not falsely certified. |
+
+### Rubric scores
+
+| Item | Score | Result |
+|---|---:|---|
+| Completeness, decode, duration and budget | 9/10 | 16/16 voice clips plus BGM/SFX decode; 51.6 s video is within target; audio stream is 0.1 s longer. |
+| ASR/CER and canonical wording | 5/10 | Latest table is 11/16, and the two reports disagree. |
+| Silence, pause and planned holds | 8/10 | S8 pause and final frame contract are measured; caption word alignment and mixed tail remain partial. |
+| Loudness, true peak and clipping | 10/10 | −14.7 LUFS and −1.6 dBFS satisfy the requested delivery targets. |
+| Mix envelope, ducking and SFX timing | 8/10 | 5.19 dB source duck, 200 ms ramps and voice-disjoint cues pass; s3a boundary spill and isolated mix gap remain. |
+| Spectral/artifact screen | 8/10 | No numeric clipping failure; listening-dependent artifacts remain unverified. |
+| Sources/licences | 9/10 | Existing BGM/SFX provenance remains documented. |
+
+### Final Round-3 conclusion
+
+The reopened audio branch is **REVISE at hard cap, accepted-risk only; not PASS**. The preview's loudness and peak now pass, and the source/frame ending envelope is proven. The remaining accepted-risk items are the contradictory ASR evidence with only 11/16 latest pass, S8 caption alignment, the one-frame s3a scene-boundary spill, and lack of isolated rendered-stem proof. This reviewer did not edit source/status/pipeline and did not run pipeline commands.

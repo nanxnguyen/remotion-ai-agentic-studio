@@ -11,7 +11,9 @@ const shot = (id: string, voiceSeconds: number, holdSeconds: number) => ({
 export const VOICE_LEAD_IN_SECONDS = {scene01: 0.15} as const;
 // 0.15s is 4.5 frames at 30fps; round up to 5 frames so speech never starts early.
 export const VOICE_LEAD_IN_FRAMES = {scene01: Math.ceil(VOICE_LEAD_IN_SECONDS.scene01 * 30)} as const;
-export const S8_CAPTION_BOUNDARIES = {firstEnd: 38, secondEnd: 78} as const;
+// Measured from s8.mp3: silence starts at 1.408750s and resumes at 1.711167s.
+// The first caption therefore changes on the first frame after 1.408750s.
+export const S8_CAPTION_BOUNDARIES = {firstEnd: 43, secondEnd: 78} as const;
 
 export const timeline = defineSequentialTimeline([
   shot('scene01', VOICE_SECONDS.s1, 0.40),

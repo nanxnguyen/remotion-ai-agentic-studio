@@ -803,7 +803,7 @@ def cmd_render(a) -> None:
                                     "--codec", "h264", "--crf", "18", "--pixel-format", "yuv420p"], cwd=ROOT, check=True)
                 final = work / "final.mp4"
                 subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", str(raw), "-c:v", "copy",
-                                "-af", "loudnorm=I=-14:TP=-1.5:LRA=11", "-ar", "48000", "-c:a", "aac",
+                                "-af", "loudnorm=I=-14:TP=-2.0:LRA=11", "-ar", "48000", "-c:a", "aac",
                                 "-b:a", "192k", str(final)], check=True)
                 validate_media(final, a.min_seconds, a.max_seconds)
                 os.replace(final, target)

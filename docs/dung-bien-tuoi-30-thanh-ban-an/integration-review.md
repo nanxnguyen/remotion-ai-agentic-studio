@@ -248,3 +248,87 @@ Result: **FAIL (exit 1)**. The only reported errors are the pre-existing Gate A 
 ```
 
 `npx tsc --noEmit` completed successfully. This reviewer did not repair the audit/status defect because the requested scope was review-only.
+
+## Fresh Gate E Round 1 — clean-context review after branch reopen
+
+Reviewed 2026-10-18 as a new integration-reviewer context after the audio branch was reopened. Review-only: no source, status, pipeline, voice, mix-plan, task, or manifest file was edited, and no pipeline command was run.
+
+### Review scope and snapshot
+
+Read in full: the Gate E workflow and `.agents/rules/`, `brief.md`, `script.md`, `content-pack.md` and `content-pack-review.md`, current `voice.json`, `src/videos/dung-bien-tuoi-30-thanh-ban-an/voice-durations.ts`, `voice-report.md`, `voice-clone-asr.md`, the complete `audio-review.md`, `mix-plan.md`, `design-review.md`, current `join-notes.md`, refreshed `task-review.md`, `Reel.tsx`, `timeline.ts`, all 16 production scene files, and the current preview:
+
+`/tmp/dung-bien-tuoi-30-thanh-ban-an-join-preview-verified-r2.mp4`
+
+The exact current source snapshot was also checked directly:
+
+- 16/16 voice MP3s decode; current exact total from `ffprobe` is **44.133915s**.
+- Timeline is **1548 frames / 51.600s** at 30fps; preview video is 1080×1920, 30fps, 51.600s.
+- Preview audio is AAC stereo 48kHz, **51.700s**, leaving a 0.100s audio/video stream-duration mismatch to recheck on final delivery render.
+- Preview `ebur128`: **−14.7 LUFS**, LRA 5.4 LU, true peak **−1.6 dBFS**. Loudness and the ≤−1.5 dBTP ceiling pass for this preview.
+- Preview `volumedetect`: mean −17.3dB, max sample −1.6dBFS.
+- Full-mix silence detects the 0.167s lead-in, 49.5455–50.102042s, and 51.028–51.700s; the mixed tail is not by itself a BGM-stem proof because paper-wind foley is present.
+- Source BGM envelope remains frame-deterministic: 6-frame/200ms duck ramps and a 9-frame/300ms s10 fade; the BGM zero-volume interval is `[1485,1548)` = **2.103s** by source contract.
+
+### Direct timing and cue verification
+
+- `s1` uses `VOICE_LEAD_IN_FRAMES = ceil(0.15×30) = 5f`; `Reel.tsx` starts the voice at `scene01.from + 5`. This is internally consistent as a **5-frame quantized** lead-in, not an exact 0.150-second frame duration.
+- S8 measured pause is **1.408750–1.711167s**, duration **0.302417s**. With scene 13 beginning at frame 1110, this is approximately scene-relative frames **42.26–51.34**. The first caption boundary at **43f** falls inside the pause; the second at **78f** is after the pause and is not independently word-aligned by the available silence evidence.
+- `s3a` overflow check is **PASS** in the current source. Scene 03 is `[184,320)`; the cue is `from + 130f = [314,320)` for 6 frames. It ends exactly at the exclusive scene boundary and does not spill into s3b. The older `[314,321)` failure is stale evidence from a 7-frame cue and must not be carried as a current defect.
+- All other current SFX intervals remain after their measured voice windows with explicit bounded `durationInFrames`; no unbounded SFX playback was found.
+
+### Story/text/frame walkthrough
+
+The preview and all 16 scene files preserve the accepted progression: paper-grid hook and circled 30 → red “ba chưa” verdict → ruler/deadline list → Tết feast and question pressure → hard freeze and exact mandatory re-hook → unfinished “thất bại” verdict → hand-drawn 30/eraser reveal → illustrative feed and screen-off question → number-free salary drain → clearing paper → warm self-question → unattended ruler and quiet closing card.
+
+The production scenes are substantive and frame-derived: they use `useCurrentFrame`, deterministic `ramp`/`mix` easing, bounded transforms, and no wall-clock/random animation. The mid-frame contact inspection confirms the intended motion grammar and readable transitions, including ruler drift, list/paper slide, feast/question reveal, freeze/pen drop, macro zoom, phone fade, salary arrows, clearing, yellow underline, and final push-in/hold. The visual language remains coherent: graph paper, graphite character, red judgment marks, and yellow self-authored emphasis.
+
+Two visual limitations remain relevant to Gate E/B carry: the character is still deliberately simplified/icon-like in some sampled frames, and full motion/easing fidelity for every key is not established by the available join preview alone. These are quality risks, not evidence to invent a pass.
+
+### Current ASR and accepted-risk carry
+
+The latest `voice-clone-asr.md` table reports **11/16** at CER ≤0.04, with current failures `s1, s3a, s6a, s6b, s10`. The current `voice-report.md` still contains an older/current mixed table claiming **7/16** and a different failure set. This is a reproducibility/evidence conflict, not a harmless formatting difference. The mandatory user sentence itself is visually exact and its two current clips `s5a/s5b` are listed as passing in the latest table, but the opening and closing heard wording are not fully proven; `s10` is currently transcribed as `bản ánh` rather than `bản án`.
+
+The following accepted risks are carried from previous capped reviews and are not silently converted to pass:
+
+- Audio branch hard-cap: contradictory ASR evidence, latest 11/16 rather than 16/16.
+- Gate D hard-cap: design review recorded 8.3/10 with D3/D6/D7/D8/D10 accepted-risk carry, despite the later design-owned E-006/E-007 correction.
+- Machine-only audio limits: no independent rendered stem measurement for voice/music gap, duck delta, pumping/click absence, or isolated BGM ending; source envelope proof is present.
+- S8 caption second boundary at 78f remains authored rather than word-aligned from the 0.302417s silence.
+- Preview AAC stream is 0.100s longer than the video stream and must be checked again on the final render.
+
+### Rubric score
+
+| Criterion | Score | Evidence and judgment |
+|---|---:|---|
+| Story ↔ frames | 8.6 | All 16 scene files and the preview carry the accepted story spine and the requested motion beats; full downstream visual QA is still pending. |
+| Text ↔ frames | 8.4 | Content pack joins 16/16, mandatory line and s9b/s10 visual strings are exact, safe-zone placement is consistent; s8 caption-to-pause proof is incomplete. |
+| Voice ↔ pacing | 6.8 | Durations/timeline render coherently, s1 lead-in is consistently 5f, and the s8 pause is measured; ASR authority conflicts and five current CER failures remain. |
+| Sound ↔ story | 8.0 | Preview meets −14.7 LUFS and −1.6dBFS peak; BGM ramps/2.103s source tail and bounded SFX are present, but stem-level gap/duck/ending evidence is incomplete. |
+| Viewer experience | 8.2 | Hook, re-hook, macro reveal, self-question and quiet close read in the preview; low-confidence heard wording and simplified character staging reduce emotional certainty. |
+| Exact user constraints | 8.0 | No CTA/shaming/checklist violation found; mandatory line is exact in source and latest s5a/s5b ASR pass, but latest s10 ASR does not prove the exact closing wording. |
+
+**Overall: 8.0/10 — verdict: REVISE. Gate E does not pass.** The score is below the required 9/10 and open Cao/Trung tickets remain. Gate B/build must remain blocked.
+
+### Exhaustive fresh Round-1 tickets
+
+| ID | Severity | Where | Evidence | Concrete change | Owner | Acceptance check |
+|---|---|---|---|---|---|---|
+| E-R1-001 | Cao | `voice-report.md` vs `voice-clone-asr.md` | The reports claim 7/16 and 11/16 with different failing keys and no single run ID/file-identity table. | Re-run one authoritative ASR/CER pass over the exact final MP3 set and reconcile both reports with command/model, hash or mtime, transcript, CER, and result for all 16 keys. | voice-agent | Both reports agree on the same 16-file snapshot and reproducible result. |
+| E-R1-002 | Cao | `s1,s3a,s6a,s6b,s10` | Latest authoritative table still fails five canonical clips; s10 is heard as `bản ánh`, so exact heard wording is not proven. | Regenerate/reselect only failing takes from locked `voice.json`, preserving every canonical Vietnamese word and number; remeasure durations and rerun ASR. | voice-agent | All 16 current clips contain the canonical word sequence at CER ≤0.04, or the clip remains an explicit blocking failure. |
+| E-R1-003 | Trung | `timeline.ts`, `Reel.tsx`, preview container | Video is 51.600s while AAC audio is 51.700s. | Re-render the integrated composition after the final audio snapshot and reconcile/remux duration without truncating the final 2.4s hold. | video-director + audio-agent | Final `ffprobe` shows intentional, documented stream durations with no accidental A/V tail mismatch. |
+| E-R1-004 | Trung | `Scene13.tsx`, `timeline.ts`, s8 caption contract | Pause is 0.302417s at 42.26–51.34f; 43f is inside it, but 78f has no word-level evidence. | Produce a word/frame alignment strip for the current clip and either re-anchor the second boundary or document the deliberate post-pause boundary with exact frame evidence. | video-director + scene-agent | Rendered s8 strip proves each caption change against the spoken phrase/pause. |
+| E-R1-005 | Trung | integrated mix evidence / `mix-plan.md` | Source proves 5.19dB duck, 200ms ramps, and BGM zero for 2.103s, but one AAC mixdown does not isolate voice/music windows or prove clicks/pumping absence. | Generate deterministic stem/isolated-BGM evidence from the same final snapshot and measure speech windows, hold window, duck ramps, and final BGM window. | audio-agent + video-director | Voice/music gap is 12–18dB, duck delta 4–6dB, ramps 150–300ms, and final BGM near-silent ≥1.2s with foley separately identified. |
+| E-R1-006 | Thấp | `design-review.md`, current preview | Gate D hard-cap carries visual risks: simplified character staging and incomplete all-key motion proof. | Preserve the accepted graphite/paper identity and add full per-key frame/transition evidence during Gate B/C; do not rewrite the visual system during audio repair. | video-director + scene agents | Gate B/C evidence verifies every key's action, transition, safe zone, and motion quality. |
+
+### Explicit passes in this review
+
+- Current `s3a` cue **does not overflow**: `[314,320)` ends at the scene's exclusive frame 320.
+- 16/16 voice assets, BGM and SFX files exist and decode.
+- `voice.json` order, scene order, and timeline order remain 16/16 aligned.
+- Content pack join-back remains 16/16 exact; mandatory user sentence is unchanged; no CTA was introduced.
+- Current source uses frame-derived motion and preserves the requested visual identity; no `Math.random`, `Date.now`, or wall-clock animation was found in the reviewed scene files.
+- Preview geometry, frame rate, integrated loudness, true peak, bounded SFX, BGM ramps, and source-level final BGM-zero contract are all present as evidence, subject to the open tickets above.
+
+### Disposition
+
+Return `score: 8.0  verdict: revise`. Route E-R1-001/E-R1-002 to voice, E-R1-003/E-R1-004/E-R1-005 to director/audio/timeline ownership, and carry E-R1-006 into Gate B/C visual evidence. Do not call `review`, `gate`, `override`, or change pipeline/status from this review-only pass. The next Gate E review must be a fresh context after all Cao/Trung tickets are resolved and the exact final snapshot is regenerated.

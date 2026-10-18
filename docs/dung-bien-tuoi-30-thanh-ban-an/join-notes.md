@@ -38,6 +38,13 @@ Phase 4 director join draft, created after content/audio/design branch reviews.
 - The current audio review has accepted-risk ASR residuals and an unverified integrated mix. These are carried into Gate E/B/C; this document does not claim audio pass.
 - The 16 existing scene files are scaffold/build inputs; no scene is declared production-complete until Gate B passes and build QA verifies visual content.
 
+## Current join snapshot after voice reopen (2026-10-18)
+
+- Voice source was regenerated and remeasured. Current rounded durations are `2.160, 3.327, 4.236, 1.975, 3.381, 2.348, 1.661, 2.498, 3.476, 3.087, 3.266, 1.749, 4.130, 2.976, 1.910, 1.797` seconds in `voice.json` order.
+- `timeline.ts` now derives its shot lengths from the current `VOICE_SECONDS`; the frame-quantized total is `1548` frames (`51.6s`). s1 uses a declared `0.15s` lead-in quantized conservatively to `5f`; s8 caption boundaries are `43f/78f`, based on measured silence `1.408750–1.711167s` (`0.302417s`).
+- Final-style normalized preview: `/tmp/dung-bien-tuoi-30-thanh-ban-an-join-preview-verified-r2.mp4`, measured `51.70s`, `-14.7 LUFS`, sample peak `-1.6 dBFS`. The delivery render uses the same `loudnorm` contract with `TP=-2.0` for AAC margin.
+- Current ASR evidence is consolidated in `voice-clone-asr.md`: `11/16` at CER `<=0.04`; remaining failures are explicitly carried, not hidden. This join snapshot is ready for the final audio review and Gate E rerun, not a clean pass claim.
+
 ## Integrated preview evidence
 
 - Preview render: `/tmp/dung-bien-tuoi-30-thanh-ban-an-join-preview.mp4`.

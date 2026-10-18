@@ -35,7 +35,7 @@ const VOICE_LEAD_IN: Record<(typeof KEYS)[number], number> = {
 };
 const SFX_CUES = [
   ['s1', 'sfx-pencil-write.mp3', 71, 5, 0.18], ['s2', 'sfx-pencil-write.mp3', 101, 6, 0.16],
-  ['s3a', 'sfx-paper-slide.mp3', 130, 7, 0.16], ['s3b', 'sfx-paper-slide.mp3', 61, 5, 0.13],
+  ['s3a', 'sfx-paper-slide.mp3', 130, 6, 0.16], ['s3b', 'sfx-paper-slide.mp3', 61, 5, 0.13],
   ['s4a', 'sfx-plate-slide.mp3', 103, 7, 0.12], ['s5b', 'sfx-pen-drop.mp3', 76, 9, 0.2],
   ['s6b', 'sfx-macro-zoom.mp3', 94, 7, 0.1], ['s7a', 'sfx-feed-swipe.mp3', 99, 7, 0.13],
   ['s8', 'sfx-paycheck-notify.mp3', 125, 3, 0.1], ['s8', 'sfx-paycheck-notify.mp3', 129, 3, 0.075],
@@ -53,13 +53,13 @@ const DungBienTuoi30ThanhBanAnComposition = () => {
   });
   const lastVoiceEnd = voiceWindows[voiceWindows.length - 1][1];
   const bgmVolume = () => {
-    if (frame >= lastVoiceEnd) return interpolate(frame, [lastVoiceEnd, lastVoiceEnd + 9], [0.2, 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
+    if (frame >= lastVoiceEnd) return interpolate(frame, [lastVoiceEnd, lastVoiceEnd + 9], [0.3, 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
     for (const [start, end] of voiceWindows) {
-      if (frame >= start - 6 && frame < start) return interpolate(frame, [start - 6, start], [0.2, 0.11], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
-      if (frame >= start && frame <= end) return 0.11;
-      if (frame > end && frame <= end + 6) return interpolate(frame, [end, end + 6], [0.11, 0.2], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
+      if (frame >= start - 6 && frame < start) return interpolate(frame, [start - 6, start], [0.3, 0.165], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
+      if (frame >= start && frame <= end) return 0.165;
+      if (frame > end && frame <= end + 6) return interpolate(frame, [end, end + 6], [0.165, 0.3], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
     }
-    return 0.2;
+    return 0.3;
   };
 
   return (

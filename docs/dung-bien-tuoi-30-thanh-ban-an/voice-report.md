@@ -34,7 +34,7 @@ Round 3 final voice evidence, 2026-10-18. Scope is the 16 narration clips, `voic
 
 - 16/16 clips exist and decode; total voice duration is **44.133915 s** (rounded **44.140 s** from `voice-durations.ts`). With the documented 7.700 s of holds/gaps, the expected video budget is approximately **51.833915 s**.
 - Final loudness range is **-21.2…-22.7 LUFS**, spread **1.5 LU**, meeting the `<=2 LU` target. True peak range is **-2.4…-6.2 dBTP**, meeting `<=-1.5 dBTP`. No clip has an internal silence over 0.6 s.
-- Final PCM ASR pass count is **7/16**. The targeted ASR ticket is only partially closed: `s4b` passes, while `s1,s3a,s4a,s6a,s6b,s8,s10` remain over CER 0.04. `s3b` and `s9b` also fail in the final post-normalisation measurement, so the packet is not an audio-gate pass.
+- Historical Round 3 PCM ASR pass count was **7/16**. The current regenerated snapshot is documented in `voice-clone-asr.md` and is the authoritative current table; it records **11/16** at CER `<=0.04`, with `s1,s3a,s6a,s6b,s10` still open. The packet is not an audio-gate pass.
 
 | ID | status | evidence |
 |---|---|---|
@@ -44,3 +44,11 @@ Round 3 final voice evidence, 2026-10-18. Scope is the 16 narration clips, `voic
 | AUD-006 | **open** | `s6b` remains CER 0.174; rate is documented at 4.211 syl/s. |
 
 This report does not claim naturalness, accent/tone quality, emotional fit, breaths, clicks, or robotic-artifact absence; those require listening. Integrated mix tickets AUD-004/AUD-005 remain outside this voice-only scope.
+
+## Current snapshot after voice reopen (2026-10-18)
+
+The preceding Round 3 table is historical. The current files were regenerated with the same authorized VieNeu clone route, then peak-normalized with `loudnorm=I=-16:TP=-3:LRA=9`; `voice-durations.ts` was regenerated from those exact files.
+
+- Current rounded durations: `s1 2.160`, `s2 3.327`, `s3a 4.236`, `s3b 1.975`, `s4a 3.381`, `s4b 2.348`, `s5a 1.661`, `s5b 2.498`, `s6a 3.476`, `s6b 3.087`, `s7a 3.266`, `s7b 1.749`, `s8 4.130`, `s9a 2.976`, `s9b 1.910`, `s10 1.797` seconds.
+- All 16 current clips decode; no internal silence over `0.6s` was found. The latest PCM ASR table is authoritative and records the remaining canonical/number-word risks.
+- This snapshot is not a clean audio pass. It is the input for the fresh independent audio review and the subsequent Gate E rerun.

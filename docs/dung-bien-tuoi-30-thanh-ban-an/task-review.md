@@ -1,14 +1,14 @@
 # Task review — dung-bien-tuoi-30-thanh-ban-an
 
-Phase 6 task plan, prepared from the locked brief/script/content/design/audio packet and the current join scaffold. This is an early scaffold plan while Gate E fixes are under review.
+Phase 6 task plan, refreshed after Gate E hard-cap disposition and current voice/timeline/mix integration.
 
 ## Gate and status constraint
 
-Gate E is not passed. The current integration review is `3.1/10`, verdict `revise`, with E-001 through E-008 still open. Therefore this document is a provisional build plan only:
+Gate E Round 3 is recorded as `6.8/10`, verdict `revise`, with an explicit hard-cap override and accepted-risk carry-forward. Gate B remains a separate review barrier; this document does not convert the Gate E override into a clean pass:
 
 - Gate E **must pass before Gate B is reviewed or build is declared**.
 - Gate B must pass before production build work is accepted as complete.
-- The current `timeline.ts` and scene files are scaffold inputs, not production approval.
+- The current `timeline.ts` and scene files are production build inputs pending Gate B approval; all 16 scenes are substantive and type-check.
 - Any Gate E change to voice keys, s1 lead-in, s8 split, card staging, or audio integration invalidates the affected rows below and requires the frame/dependency table to be recalculated before Gate B.
 - Do not edit shared timeline, Reel, kit, Root, or voice files from scene-agent work.
 
@@ -28,10 +28,10 @@ Gate E is not passed. The current integration review is `3.1/10`, verdict `revis
 
 ## Shared inputs and preparation order
 
-1. Resolve E-003/E-004/E-005 first: canonical voice clips, explicit s1 lead-in, and the s8 internal pause or split. Regenerate `voice-durations.ts` and update `join-notes.md`, `timeline.ts`, mix offsets, and any downstream frame rows.
+1. Carry the accepted E-003/E-004/E-005 risks explicitly: current voice clips were regenerated and remeasured, s1 exposes a 0.15s contract with a 5-frame conservative quantization, and s8 caption boundaries remain documented pending a voice-pause measurement.
 2. Resolve E-001/E-006/E-007 through the design/scene owners: replace all production placeholders; make s4b, s7a/s7b, s8, s9a/s9b action-readable; correct s9b to `Dạo này, bạn sống có vui không?`.
 3. After the fixes, rerun the independent Gate D/audio reviews as required by `integration-review.md`, then rerun Gate E. No Gate B/build declaration is valid before this pass.
-4. After Gate E passes, the director copies the accepted shared proto primitives into `src/videos/dung-bien-tuoi-30-thanh-ban-an/lib/`, creates/updates `kit.tsx` and `workbench.ts` per the shotcraft workbench guidance, and provides the scene agents with stable exports and measured durations.
+4. The director has exposed the accepted shared proto primitives through video-owned `kit.tsx`/`motion.ts` facades and created `workbench.ts` + `workbench-keys.ts`; scenes retain their reviewed `proto/` imports for this build revision.
 5. Scene agents work in parallel on their disjoint scene files. The director then integrates scenes, voice, BGM, SFX, and the registry-backed composition; run the Gate B review on the complete task packet before calling build complete.
 
 The edit is intentionally **not beat-synced**. `docs/dung-bien-tuoi-30-thanh-ban-an/analysis/no-beat-sync.md` is authoritative: shot boundaries, holds, SFX, and motion are voice/frame-led; no `beatF(n)` or `beat_data.json` dependency is planned.
@@ -118,8 +118,8 @@ Run from `/Users/nguyenanhnhut/Desktop/Projects/AI-video-edition` on 2026-10-18:
 | CompId uniqueness / registry path | PASS | `DungBienTuoi30ThanhBanAnReel` is defined in the video index and consumed through `src/videos/registry.ts`; `Root.tsx` maps the registry and has no direct video registration |
 | `npx tsc --noEmit` | PASS | Current tree type-checks with no output |
 | Beat-sync dependency | PASS / not applicable | `analysis/no-beat-sync.md` confirms no beat grid is consumed |
-| Current production scene readiness | BLOCKED | `Scene01.tsx`–`Scene16.tsx` still render placeholder `Scene NN`; this is the primary E-001/build dependency |
-| Gate E / Gate B readiness | BLOCKED | Integration review is 3.1 revise; `status.json` reports `review_valid.E=false` and `review_valid.B=false` |
+| Current production scene readiness | READY FOR GATE B | `Scene01.tsx`–`Scene16.tsx` contain substantive frame-driven visuals; `npx tsc --noEmit` passes |
+| Gate E / Gate B readiness | GATE B REVIEW REQUIRED | Gate E is hard-cap override with accepted risks; current task packet must be independently re-reviewed before build completion |
 
 ## Risks and acceptance checks
 

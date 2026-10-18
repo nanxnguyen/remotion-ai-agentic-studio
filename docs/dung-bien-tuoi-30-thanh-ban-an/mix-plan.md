@@ -4,16 +4,16 @@ Phase 3b audio packet. The director should translate each relative offset to `SH
 
 ## Final audio fix round 2 — measured source and rule
 
-This round does not edit voice clips, `voice.json`, `timeline.ts`, or `Reel.tsx`. `src/videos/dung-bien-tuoi-30-thanh-ban-an/voice-durations.ts` was re-generated with `npm run voice:measure -- dung-bien-tuoi-30-thanh-ban-an --out /tmp/dung-bien-voice-durations-check.ts`; the temporary output is byte-identical to the checked-in file. The current rounded voice durations used below are: `s1 2.160`, `s2 3.327`, `s3a 4.298`, `s3b 1.975`, `s4a 3.381`, `s4b 2.348`, `s5a 1.661`, `s5b 2.498`, `s6a 3.476`, `s6b 3.087`, `s7a 3.266`, `s7b 1.749`, `s8 4.130`, `s9a 2.976`, `s9b 1.910`, `s10 1.898` seconds. The 16 current voice files sum to 44.133915 seconds (44.140 seconds rounded).
+The current voice snapshot was regenerated and measured with `npm run voice:measure -- dung-bien-tuoi-30-thanh-ban-an --out src/videos/dung-bien-tuoi-30-thanh-ban-an/voice-durations.ts`. The current rounded voice durations are: `s1 2.160`, `s2 3.327`, `s3a 4.236`, `s3b 1.975`, `s4a 3.381`, `s4b 2.348`, `s5a 1.661`, `s5b 2.498`, `s6a 3.476`, `s6b 3.087`, `s7a 3.266`, `s7b 1.749`, `s8 4.130`, `s9a 2.976`, `s9b 1.910`, `s10 1.797` seconds. Recompute any cue proof against these values before final render.
 
 Every SFX cue below is post-voice. For a shot whose speech starts at relative time `t0`, the cue frame is `ceil((t0 + voice duration) × 30) + 1`; the first cue frame is therefore one complete 30 fps frame after the measured spoken end. Cue intervals are half-open `[start frame, start frame + durationInFrames)`, so the proof is deterministic and does not depend on wall-clock timing. `s1` retains its 0.150 s lead-in in `t0`.
 
 ## BGM bed
 
 - File: `bgm.mp3`, measured duration 56.43s, 44.1 kHz stereo, native mean −22.6 dB, peak −10.1 dB.
-- Bed: linear volume `0.20` (−14.0 dB) after a 1.0s fade-in. This places the native bed roughly 16–18 dB below the voice mean before render normalization.
-- Voice duck: linear volume `0.11` (−19.2 dB) while a voice clip is active, with 200 ms attack/release ramps. Keep short pauses from pumping by using the shot/key envelope rather than per-word toggles.
-- Holds: return to `0.20` during intentional gaps; a gentle swell to `0.23` is allowed in the s9a→s9b gap, then return to `0.11` under the climax line.
+- Bed: linear volume `0.30` (−10.5 dB) after a 1.0s fade-in. The final render applies a delivery loudness normalizer with a −1.5 dBTP ceiling.
+- Voice duck: linear volume `0.165` while a voice clip is active, with 200 ms attack/release ramps. Keep short pauses from pumping by using the shot/key envelope rather than per-word toggles.
+- Holds: return to `0.30` during intentional gaps; a gentle swell is allowed in the s9a→s9b gap, then return to `0.165` under the climax line.
 - Ending: fade BGM to zero over 300 ms after the s10 spoken line so the planned final 2.4s is pure silence except for the paper-edge foley.
 - No beat sync. Cuts and motion are voice-led; the generated track’s soft pulse is atmosphere only.
 
@@ -25,7 +25,7 @@ Gains are linear volume values with their dB equivalent. In this fix round, ever
 |---|---:|---|---:|---:|---|
 | s1 | **71f / 2.367s** | `sfx-pencil-write.mp3` | 0.18 (−14.9 dB) | **5f** | red-circle pencil contact, after s1 voice; 1f clearance |
 | s2 | **101f / 3.367s** | `sfx-pencil-write.mp3` | 0.16 (−15.9 dB) | **6f** | second red line tail, after s2 voice; 1f clearance |
-| s3a | **130f / 4.333s** | `sfx-paper-slide.mp3` | 0.16 (−15.9 dB) | **7f** | ruler-entry tail in the s3a→s3b hold; 1f clearance |
+| s3a | **130f / 4.333s** | `sfx-paper-slide.mp3` | 0.16 (−15.9 dB) | **6f** | ruler-entry tail in the s3a→s3b hold; fits the current 136f scene boundary |
 | s3b | **61f / 2.033s** | `sfx-paper-slide.mp3` | 0.13 (−17.7 dB) | **5f** | second sheet tail, after s3b voice; 1f clearance |
 | s4a | **103f / 3.433s** | `sfx-plate-slide.mp3` | 0.12 (−18.4 dB) | **7f** | bowl/chopstick tail in the s4a→s4b hold; 1f clearance |
 | s5b | **76f / 2.533s** | `sfx-pen-drop.mp3` | 0.20 (−14.0 dB) | **9f** | pen “cộp” in the post-line hold; 1f clearance |
