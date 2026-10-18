@@ -8,6 +8,20 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 class SyncAgentsTest(unittest.TestCase):
+    def test_claude_skill_is_the_single_source_of_truth(self):
+        """The .agents path is a working alias, never another editable skill copy."""
+        self.assertEqual(sync_agents.skill_alias_errors(), [])
+        canonical = sync_agents.CANONICAL_SKILL
+        alias = sync_agents.SHARED_SKILL
+        self.assertTrue(canonical.is_dir())
+        self.assertFalse(canonical.is_symlink())
+        self.assertTrue(alias.is_symlink())
+        self.assertEqual(alias.resolve(), canonical.resolve())
+        for filename in ("SKILL.md", "references/architecture-contract.md",
+                         "references/hook-engineering.md", "schemas/review-gates.json"):
+            self.assertEqual((canonical / filename).read_bytes(),
+                             (alias / filename).read_bytes())
+
     def test_generated_agent_files_match_the_roles(self):
         self.assertEqual(sync_agents.stale(), [], "run: python3 scripts/sync_agents.py")
 

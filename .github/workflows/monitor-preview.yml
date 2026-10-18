@@ -1,0 +1,66 @@
+name: Monitor UI Preview
+on:
+  pull_request:
+    paths:
+      - 'scripts/monitor.html'
+      - 'scripts/pipeline.py'
+      - 'scripts/interactive_terminal.py'
+      - '.github/workflows/monitor-preview.yml'
+  workflow_dispatch:
+
+jobs:
+  capture:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install headless Chromium for screenshot
+        run: |
+          python -m pip install --disable-pip-version-check playwright==1.55.0
+          python -m playwright install chromium
+      - name: Start real monitor server
+        run: |
+          nohup python3 -I scripts/pipeline.py serve --port 4180 >/tmp/pipeline-preview.log 2>&1 &
+          for i in $(seq 1 50); do
+            if curl -sf http://127.0.0.1:4180/api/meta >/dev/null; then exit 0; fi
+            sleep 1
+          done
+          cat /tmp/pipeline-preview.log
+          exit 1
+      - name: Capture complete page (terminal closed/open)
+        run: |
+          mkdir -p out/monitor-preview
+          python3 - <<'PY'
+          from pathlib import Path
+          from playwright.sync_api import sync_playwright
+          out = Path('out/monitor-preview')
+          with sync_playwright() as p:
+              browser = p.chromium.launch(headless=True, args=['--no-sandbox'])
+              page = browser.new_page(viewport={'width': 1600, 'height': 900}, device_scale_factor=1)
+              page.goto('http://127.0.0.1:4180/', wait_until='domcontentloaded', timeout=30000)
+              page.wait_for_function("document.querySelector('#p-orch')?.textContent?.includes('Agent Orchestration')", timeout=30000)
+              page.wait_for_timeout(1200)
+              assert page.locator('#terminal-toggle').count()==1
+              assert page.locator('#command-dock').is_hidden()
+              original = {x:page.locator(x).inner_html() for x in ('#p-orch','#p-overview','#p-pipe','#p-review')}
+              page.screenshot(path=str(out/'monitor-full-closed.png'), full_page=True, animations='disabled')
+              page.locator('#terminal-toggle').click()
+              page.wait_for_timeout(1400)
+              assert page.locator('#command-dock').is_visible()
+              assert page.locator('#terminal-toggle').get_attribute('aria-expanded')=='true'
+              for selector, html in original.items():
+                  assert page.locator(selector).inner_html()==html, f'Unrelated panel modified: {selector}'
+              page.screenshot(path=str(out/'monitor-full-open.png'), full_page=True, animations='disabled')
+              page.locator('#terminal-toggle').click()
+              assert page.locator('#command-dock').is_hidden()
+              browser.close()
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: monitor-full-page-preview
+          path: out/monitor-preview/
+          if-no-files-found: warn
