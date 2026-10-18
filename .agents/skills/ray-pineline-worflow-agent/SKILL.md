@@ -278,6 +278,10 @@ Record topic, target audience, platform, duration, profile, source material, use
 
 Write `research.md` with source URLs, dated facts, inferences, unknowns, audience questions, and five hook possibilities. For product/technical claims use primary sources. For news verify the event date and current status. For personal stories, preserve the user's supplied account as the primary source and research audience language only where it helps.
 
+
+## Hook engineering contract — Phase 2a / Gate A
+Read [hook-engineering.md](references/hook-engineering.md). `script-agent` produces `docs/<vid>/hook-options.md` with at least three distinct candidate openers, chosen from five research hooks, before locking the script and Phase 2b voice direction. Design 0–1 s visual stop-scroll, 1–3 s truthful curiosity/value promise and a concrete first payoff by ~8 s. The frame-0 cover must work without sound. `script-reviewer` must read the candidates, independently score the first second and first three seconds, and reject unearned clickbait or missing payoff. A passed Gate A still requires overall >=9 and hook sub-score >=9. This creative standard is not an algorithmic guarantee; post-publication analytics, when available, should compare `How many chose to view` and first-three-second retention for comparable videos. Do not claim measured effectiveness from a script-only review.
+
 ## Phase 2a — Brief and script · `script-agent`
 
 **Owner and handoff:** `script-agent` drafts `brief.md`, `script.md`, and `voice.proposed.json` from the accepted research and exact user wording, then completes Phase 2b before review. `video-director` checks consistency across these files. A separate `script-reviewer` scores the accepted draft at gate A; `video-director` sends required fixes back to `script-agent`, records the next round, and releases only a passing version to phase 3.

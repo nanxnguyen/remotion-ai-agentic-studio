@@ -32,6 +32,10 @@ One viewer need, one retellable sentence, tone, claim plan (each claim → sourc
 - Specificity is a gate item (>= 9): each beat shows a concrete sensory detail, the turn is a contrast pair, and the script must make a viewer feel something (moved), not just inform (flat). Check this yourself before returning.
 - `voice.proposed.json`: ordered map `{"s1": "spoken text", ...}`, keys = shots, text = caption text.
 
+
+## Mandatory hook engineering (before Voice Direction)
+Read `.agents/skills/ray-pineline-worflow-agent/references/hook-engineering.md`. Write `docs/<vid>/hook-options.md` comparing at least three substantially different candidates from research's five hooks. Choose by first-frame specificity, literal 0–1 s stop-scroll, 1–3 s truthful promise, first payoff by ~8 s, sound-off legibility, and payoff resolution. Reference the chosen candidate ID in `brief.md` and `script.md`. Do not begin voice direction until the selected spoken opening and its time budget are stable. Avoid generic greetings, forced shocking claims and unsupported trend statistics.
+
 ## Phase 2b voice direction
 Write `voice-direction.md` before gate A. Define who the speaker addresses, relationship, overall personality, energy curve and restraint. For every shot record intent, emotion, emphasis, fast/slow sections, breath/pause placement and ending contour. Keep every direction out of spoken text and captions.
 
