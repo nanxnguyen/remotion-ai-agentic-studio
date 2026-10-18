@@ -140,6 +140,24 @@ test('reviewer can be active while producer stage stays done; review remains una
   assert.equal(vm.runInContext('reviewOk(video,"content")',Object.assign(ctx,{video:v})),false);
 });
 
+test('real pipeline stage renderer marks inferred agent activity without changing status.json',()=>{
+  ctx.LABEL={in_progress:'Đang chạy',pending:'Đang chờ',done:'Hoàn tất',failed:'Lỗi'};
+  ctx.COLOR={in_progress:'#fbbf24',pending:'#64748b',done:'#4ade80',failed:'#f87171'};
+  ctx.sel=null;
+  ctx.esc=x=>String(x);
+  ctx.bot=()=>'<svg></svg>';
+  vm.runInContext("function chip(v,name){return '<span class=agent-chip>'+agentState(v,name).state+'</span>'}",ctx);
+  vm.runInContext(section('function stageNode(', '// Each review is its own node right after its producer.'),ctx);
+  const v=fixture({agents:{'voice-agent':{state:'running',stage:'voice'}}});
+  const before=JSON.stringify(v);
+  const html=vm.runInContext('stageNode(video,flowNode("voice",video),"3b.1")',Object.assign(ctx,{video:v}));
+  assert.match(html,/stage-node in_progress/);
+  assert.match(html,/agent-active/);
+  assert.match(html,/class=agent-chip>running/);
+  assert.match(html,/Agent đang hoạt động/);
+  assert.equal(JSON.stringify(v),before);
+});
+
 test('all graph/overview render paths use the shared nodeState projection',()=>{
   const orch = section('function orchestration(', 'function drawOrchLines(');
   const overview = section('function overview(', 'function output(');
@@ -149,4 +167,6 @@ test('all graph/overview render paths use the shared nodeState projection',()=>{
   assert.match(pipeline,/stageNode\(v,n,nums\[i\]\)/);
   assert.match(monitor,/function stageNode\(v,n,num\)\{const st=nodeState\(v,n\)/);
   assert.match(monitor,/\/api\/status/);
+  assert.match(section('function summary(', '// ---- panels ----'),/const blocked=/);
+  assert.match(orch,/states.includes\('running'\)\|\|nodes.some/);
 });
