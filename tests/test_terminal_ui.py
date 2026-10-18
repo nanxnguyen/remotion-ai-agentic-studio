@@ -74,6 +74,27 @@ class TerminalUiTests(unittest.TestCase):
         self.assertIn("if(!session||activeId!==session.id||activeVideo!==video)return;", self.text)
         self.assertIn("decoder.decode(bytes,{stream:true})", self.text)
 
+    def test_live_terminal_has_backend_handshake_and_visible_errors(self):
+        for required in (
+            "id=\"term-notice\"",
+            "/api/terminal/capabilities",
+            "OLD_BACKEND_TERMINAL",
+            "Không thể kết nối terminal",
+            "one-shot agent is running",
+            "Video đang có agent one-shot",
+            "if(!response.ok)",
+            "result?.sessions||[]",
+        ):
+            with self.subTest(required=required):
+                self.assertIn(required, self.text)
+
+    def test_dock_keyboard_and_submission_recovery(self):
+        self.assertIn("ev.isComposing||ev.keyCode===229", self.text)
+        self.assertIn("ev.preventDefault();", self.text)
+        self.assertIn("ev.shiftKey", self.text)
+        self.assertIn("finally{$('dock-send').disabled=false;$('dock-text').focus()}", self.text)
+        self.assertIn("term.onData(data=>", self.text)
+
     @unittest.skipUnless(shutil.which("node"), "Node.js needed for JS syntax checks")
     def test_inline_terminal_javascript_parses(self):
         scripts = re.findall(r"<script(?:\s[^>]*)?>([\s\S]*?)</script>", self.text)
