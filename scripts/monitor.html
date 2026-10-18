@@ -520,12 +520,17 @@ async function sendCommand(){const vid=currentVideo(),text=$('dock-text').value.
   if(!options||!$('dock-runner').value){$('dock-error').textContent=options?'Chưa có agent nào được cài trên máy này (claude / opencode / codex).':OLD_BACKEND;return}
   if(!vid){$('dock-error').textContent='Chọn một video ở cột trái trước.';return}if(!text){$('dock-error').textContent='Nhập tin nhắn cho agent.';$('dock-text').focus();return}
   $('dock-send').disabled=true;
-  const{ok,data}=await api(`/api/videos/${encodeURIComponent(vid)}/command`,{text:text.replaceAll('<vid>',vid),runner:$('dock-runner').value,
-    model:$('dock-model').value,effort:$('dock-effort').value,fallback:$('dock-fallback').checked});$('dock-send').disabled=false;
-  if(!ok){$('dock-error').textContent=data.error||'Không gửi được tin nhắn';return}
-  rememberModel($('dock-runner').value,$('dock-model'),$('dock-effort'));
-  $('dock-text').value='';if(data.notes)renderNotes(data.notes);
-  note('dock-error',data.delivery==='note'?'Đã gửi cho agent đang chạy. Nếu agent xong mà chưa xử lý, monitor tự chạy tiếp một lượt.':'Đã gửi, agent đang chạy.','ok');pollRuns(true)}
+  try{
+    const {ok,data}=await api(`/api/videos/${encodeURIComponent(vid)}/command`,{text:text.replaceAll('<vid>',vid),runner:$('dock-runner').value,
+      model:$('dock-model').value,effort:$('dock-effort').value,fallback:$('dock-fallback').checked});
+    if(!ok){$('dock-error').textContent=data.error||'Không gửi được tin nhắn';return}
+    rememberModel($('dock-runner').value,$('dock-model'),$('dock-effort'));
+    $('dock-text').value='';if(data.notes)renderNotes(data.notes);
+    note('dock-error',data.delivery==='note'?'Đã gửi cho agent đang chạy. Nếu agent xong mà chưa xử lý, monitor tự chạy tiếp một lượt.':'Đã gửi, agent đang chạy.','ok');
+    pollRuns(true);
+  }catch(error){$('dock-error').textContent='Mất kết nối khi gửi: '+error.message}
+  finally{$('dock-send').disabled=false;$('dock-text').focus()}
+}
 async function stopRun(){const target=activeRun||nextScheduled;if(!target)return;const vid=currentVideo();const{ok,data}=await api(`/api/runs/${encodeURIComponent(vid)}/${target.id}/stop`,{});
   if(ok)note('dock-error',target.state==='scheduled'?'Đã huỷ lịch.':'Đang dừng agent…','info');else $('dock-error').textContent=data.error||'Không dừng được';pollRuns(true)}
 $('create-video').addEventListener('click',openCreate);$('create-close').addEventListener('click',closeCreate);$('create-cancel').addEventListener('click',closeCreate);
@@ -551,7 +556,11 @@ $('dock-model').addEventListener('change',()=>{$('dock-effort').value='';fillEff
 $('create-form').addEventListener('change',ev=>{const runner=()=>document.querySelector('#create-form input[name=runner]:checked')?.value||'';
   if(ev.target.name==='runner'){$('f-model').value='';fillModels(runner(),$('f-model'),$('f-effort'))}
   else if(ev.target.id==='f-model'){$('f-effort').value='';fillEfforts(runner(),$('f-model'),$('f-effort'))}else return;updateSummary()},true);$('dock-stop').addEventListener('click',stopRun);
-$('dock-text').addEventListener('keydown',ev=>{if(ev.key==='Enter'&&(ev.ctrlKey||ev.metaKey))$('dock-send').click()});
+$('dock-text').addEventListener('keydown',ev=>{
+  if(ev.key!=='Enter'||ev.shiftKey||ev.isComposing||ev.keyCode===229)return;
+  ev.preventDefault();
+  if(!$('dock-send').disabled&&$('dock-text').value.trim())$('dock-send').click();
+});
 $('dock-chips').addEventListener('click',ev=>{const c=ev.target.closest('[data-cmd]');if(c){$('dock-text').value=c.dataset.cmd;$('dock-text').focus()}});
 const syncOptions=()=>loadOptions().then(()=>{renderDockRunner();$('dock-send').disabled=false;if($('dock-error').textContent===OLD_BACKEND)$('dock-error').textContent=''}).catch(showBackendError);
 syncOptions();pollRuns(true);setInterval(()=>{if(!options)syncOptions();pollRuns()},2000);
