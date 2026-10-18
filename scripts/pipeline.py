@@ -626,6 +626,7 @@ def view(folder: str) -> dict:
                       "by": last.get("by", ""), "at": last.get("at", ""),
                       "note": last.get("note", ""), "report": last.get("report", "")}
     return {"folder": folder, "name": data.get("name", folder), "comp": data.get("comp", ""),
+            "created": video_created_at(data),
             "join_ready": flow_version(data) >= 4 and not motion_join_problems(folder) and all(review_satisfied(data, g) for g in ("D", "content", "audio")),
             "flow": flow_version(data), "profile": data.get("profile", ""), "voice": data.get("voice", ""),
             "next": data.get("next", ""), "updated": data.get("updated", ""),
@@ -678,8 +679,40 @@ def cmd_timing(a) -> None:
         print(f"  {name} | {mins}")
 
 
+def video_created_at(data: dict) -> str:
+    """Return a stable creation timestamp without confusing edits with creation.
+
+    New videos store an immutable 'created' field. Legacy videos derive it from
+    their initialization event so updating a stage never pushes them to the top.
+    """
+    created = data.get("created")
+    if isinstance(created, str) and created:
+        return created
+    entries = data.get("log") or []
+    for entry in entries:
+        if isinstance(entry, dict) and entry.get("msg") == "status initialised" and entry.get("t"):
+            return entry["t"]
+    return next((entry["t"] for entry in entries
+                 if isinstance(entry, dict) and isinstance(entry.get("t"), str) and entry["t"]), "")
+
+
+def video_created_seconds(value: str) -> float:
+    """Timezone-normalized sort key; malformed or unknown dates sort last."""
+    try:
+        dt = datetime.fromisoformat(value.replace("Z", "+00:00"))
+        return dt.timestamp() if dt.tzinfo else 0.0
+    except (TypeError, ValueError, OverflowError, AttributeError):
+        return 0.0
+
+
 def all_views() -> list:
-    return [view(p.parent.name) for p in sorted(DOCS.glob("*/status.json"))]
+    folders = [p.parent.name for p in DOCS.glob("*/status.json")]
+    # Preload lightweight status metadata to order videos before expensive
+    # per-video evidence checks. Ties use stable alphabetical names.
+    folders.sort(key=lambda folder: (
+        -video_created_seconds(video_created_at(load(folder))), folder,
+    ))
+    return [view(folder) for folder in folders]
 
 
 def log(data: dict, stage: str, msg: str, who: str) -> None:
@@ -701,6 +734,7 @@ def cmd_init(a) -> None:
             raise SystemExit(f"{rel(p)} already exists")
         out_name = a.out or (f"{a.folder}-{a.voice}" if a.voice else a.folder)
         data = {"workflow_version": FLOW_VERSION, "name": a.name or a.folder, "comp": a.comp,
+                "created": now(),
                 "voice": a.voice or "", "profile": a.profile,
                 "paths": {"audio": a.audio or a.folder, "out": out_name, "qa": a.qa or a.folder},
                 "gates": gates, "stages": {}, "reviews": {}, "review_valid": {}, "next": "", "log": []}
