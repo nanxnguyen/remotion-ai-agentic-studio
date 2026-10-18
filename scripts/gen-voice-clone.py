@@ -525,7 +525,7 @@ def main(argv: Sequence[str] | None = None) -> int:
             reference_key = cache_key({"source": source_hash, "start": reference_plan.start_seconds,
                                        "duration": reference_plan.duration_seconds})
             identity = shot_identity(phrases, reference_key, args.max_cer)
-            if not args.force and shot_is_current(destination, manifest, identity):
+            if not args.force and not args.no_cache and shot_is_current(destination, manifest, identity):
                 print(f"{shot_key}: cache hit (verified shot inputs and output hash)")
                 continue
             t0 = time.perf_counter()
