@@ -8,6 +8,8 @@ Model loading and filesystem writes happen only from :func:`main`.
 from __future__ import annotations
 
 import argparse
+import hashlib
+import time
 import json
 import math
 import os
@@ -225,20 +227,98 @@ def _publish_copy(source: Path, destination: Path) -> None:
     atomic_publish(destination, lambda temporary: shutil.copyfile(source, temporary))
 
 
+def sha256_file(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as stream:
+        for block in iter(lambda: stream.read(1024 * 1024), b""):
+            digest.update(block)
+    return digest.hexdigest()
+
+
+def cache_key(payload: object) -> str:
+    return hashlib.sha256(json.dumps(payload, sort_keys=True, ensure_ascii=False,
+                                     separators=(",", ":")).encode("utf-8")).hexdigest()
+
+
+class VerifiedPhraseCache:
+    """Local, content-addressed WAVs accepted by an earlier ASR/CER gate.
+
+    A cache hit must match the precise reference bytes, phrase, engine and settings.
+    Cache metadata is validated before reuse; unknown or damaged entries are misses.
+    """
+
+    def __init__(self, root: Path, engine: str = "vieneu-v3-turbo-3.8.3+whisper-small"):
+        self.root, self.engine = root, engine
+        self.hits = 0
+        self.misses = 0
+
+    def key(self, phrase: PhrasePlan, reference_hash: str, max_cer: float) -> str:
+        return cache_key({"engine": self.engine, "text": phrase.text, "seed": phrase.seed,
+                          "denoise": phrase.denoise, "reference": reference_hash,
+                          "maxCer": max_cer})
+
+    def get(self, key: str, text: str, max_cer: float) -> Candidate | None:
+        folder = self.root / key[:2]
+        wav, meta = folder / (key + ".wav"), folder / (key + ".json")
+        try:
+            data = json.loads(meta.read_text(encoding="utf-8"))
+            if (not wav.is_file() or wav.stat().st_size == 0
+                    or sha256_file(wav) != data["sha256"]
+                    or data["text"] != text
+                    or not 0 <= data["cer"] <= max_cer
+                    or cer(text, data["transcript"]) > max_cer):
+                return None
+            self.hits += 1
+            return Candidate(float(data["cer"]), int(data["seed"]), wav, data["transcript"])
+        except (OSError, ValueError, KeyError, TypeError):
+            return None
+
+    def put(self, key: str, text: str, candidate: Candidate, max_cer: float) -> None:
+        if candidate.cer > max_cer:
+            raise ValueError("cannot cache an unverified candidate")
+        folder = self.root / key[:2]
+        wav, meta = folder / (key + ".wav"), folder / (key + ".json")
+        _publish_copy(candidate.path, wav)
+        payload = {"text": text, "seed": candidate.seed, "cer": candidate.cer,
+                   "transcript": candidate.transcript, "sha256": sha256_file(wav)}
+        atomic_publish(meta, lambda p: p.write_text(json.dumps(payload, ensure_ascii=False), encoding="utf-8"))
+        self.misses += 1
+
+
+def shot_identity(phrases: Sequence[PhrasePlan], reference_hash: str, max_cer: float) -> str:
+    return cache_key({"reference": reference_hash, "maxCer": max_cer,
+                      "engine": "vieneu-v3-turbo-3.8.3",
+                      "phrases": [p._asdict() for p in phrases]})
+
+
+def shot_is_current(destination: Path, manifest: dict, identity: str) -> bool:
+    record = manifest.get(destination.name, {})
+    return (destination.is_file() and destination.stat().st_size > 0
+            and record.get("identity") == identity
+            and record.get("sha256") == sha256_file(destination))
+
+
 def generate_shot(*, shot_key: str, phrases: Sequence[PhrasePlan], reference: str,
                   destination: Path, raw_dir: Path, max_candidates: int, max_cer: float,
                   synthesize: Callable[[str, int, str, bool], Path],
                   transcribe: Callable[[Path], str],
                   encode: Callable[[Sequence[tuple[Path, PhrasePlan]], Path], None],
-                  measure: Callable[[Path], dict[str, float | None]]) -> dict[str, object]:
+                  measure: Callable[[Path], dict[str, float | None]],
+                  phrase_cache: VerifiedPhraseCache | None = None,
+                  reference_hash: str = "") -> dict[str, object]:
     chosen = []
     for phrase in phrases:
         seeds = [phrase.seed] if phrase.seed is not None else range(max_candidates)
-        candidate = select_candidate(
-            text=phrase.text, seeds=seeds, max_candidates=max_candidates, max_cer=max_cer,
-            synthesize=lambda text, seed, p=phrase: synthesize(text, seed, reference, p.denoise),
-            transcribe=transcribe,
-        )
+        key = phrase_cache.key(phrase, reference_hash, max_cer) if phrase_cache else ""
+        candidate = phrase_cache.get(key, phrase.text, max_cer) if phrase_cache else None
+        if candidate is None:
+            candidate = select_candidate(
+                text=phrase.text, seeds=seeds, max_candidates=max_candidates, max_cer=max_cer,
+                synthesize=lambda text, seed, p=phrase: synthesize(text, seed, reference, p.denoise),
+                transcribe=transcribe,
+            )
+            if phrase_cache:
+                phrase_cache.put(key, phrase.text, candidate, max_cer)
         chosen.append((candidate, phrase))
     atomic_publish(destination, lambda temporary: encode(
         [(candidate.path, phrase) for candidate, phrase in chosen], temporary
@@ -372,6 +452,8 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--performance")
     parser.add_argument("--out-dir")
     parser.add_argument("--force", action="store_true")
+    parser.add_argument("--shot", action="append", help="Only generate selected shot key(s)")
+    parser.add_argument("--no-cache", action="store_true", help="Regenerate instead of using verified cache")
     parser.add_argument("--tries", type=int, default=3)
     parser.add_argument("--max-cer", type=float, default=0.08)
     return parser.parse_args(argv)
@@ -393,12 +475,32 @@ def main(argv: Sequence[str] | None = None) -> int:
     limitations = ([f"Requested {args.tries} candidates per phrase; capped at {GLOBAL_MAX_CANDIDATES}."]
                    if args.tries > GLOBAL_MAX_CANDIDATES else [])
     out_dir = _resolve_local(args.out_dir or f"public/audio/{args.video_id}")
-    fetch_models()
-    tts = load_tts()
-    from faster_whisper import WhisperModel
-    import numpy as np
-    asr = WhisperModel("small", device="cpu", compute_type="int8")
+    if args.shot and (unknown := set(args.shot) - set(plan)):
+        raise ValueError(f"unknown shot(s): {sorted(unknown)}")
+    manifest_file = out_dir / ".voice-input-manifest.json"
+    try:
+        manifest = json.loads(manifest_file.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        manifest = {}
+    cache = None if args.no_cache else VerifiedPhraseCache(ROOT / "out" / "voice-phrase-cache")
+    started = time.perf_counter()
+    timings = {"modelLoad": 0.0, "reference": 0.0, "generation": 0.0}
     records = []
+    tts = None
+    asr = None
+    np = None
+
+    def ensure_models():
+        nonlocal tts, asr, np
+        if tts is None:
+            before = time.perf_counter()
+            fetch_models()
+            tts = load_tts()
+            from faster_whisper import WhisperModel
+            import numpy as numpy
+            np = numpy
+            asr = WhisperModel("small", device="cpu", compute_type="int8")
+            timings["modelLoad"] += time.perf_counter() - before
     with tempfile.TemporaryDirectory() as td:
         temp = Path(td)
         counter = 0
@@ -412,27 +514,42 @@ def main(argv: Sequence[str] | None = None) -> int:
         def transcribe(path: Path) -> str:
             return " ".join(x.text for x in asr.transcribe(pcm16k(path), language="vi")[0]).strip()
         for shot_key, phrases in plan.items():
-            destination = out_dir / f"{shot_key}.mp3"
-            if destination.exists() and destination.stat().st_size > 0 and not args.force:
+            if args.shot and shot_key not in args.shot:
                 continue
+            destination = out_dir / f"{shot_key}.mp3"
             reference_plan = reference_for_shot(performance, shot_key, args.ref)
             reference_source = _resolve_local(reference_plan.source)
             if not reference_source.is_file():
                 raise FileNotFoundError(f"reference audio not found: {reference_source}")
-            reference_wav = temp / f"reference-{shot_key}.wav"
+            source_hash = sha256_file(reference_source)
+            reference_key = cache_key({"source": source_hash, "start": reference_plan.start_seconds,
+                                       "duration": reference_plan.duration_seconds})
+            identity = shot_identity(phrases, reference_key, args.max_cer)
+            if not args.force and shot_is_current(destination, manifest, identity):
+                print(f"{shot_key}: cache hit (verified shot inputs and output hash)")
+                continue
+            t0 = time.perf_counter()
+            reference_wav = (ROOT / "out" / "voice-reference-cache" / (reference_key + ".wav")) if cache else temp / f"reference-{shot_key}.wav"
             reference_args = []
             if reference_plan.start_seconds is not None:
                 reference_args.extend(["-ss", str(reference_plan.start_seconds)])
             reference_args.extend(["-i", str(reference_source)])
             if reference_plan.duration_seconds is not None:
                 reference_args.extend(["-t", str(reference_plan.duration_seconds)])
-            ffmpeg(*reference_args, "-ac", "1", "-c:a", "pcm_s16le", str(reference_wav))
+            if not reference_wav.is_file() or reference_wav.stat().st_size == 0 or args.no_cache:
+                reference_wav.parent.mkdir(parents=True, exist_ok=True)
+                atomic_publish(reference_wav, lambda target: ffmpeg(
+                    *reference_args, "-ac", "1", "-c:a", "pcm_s16le", str(target)
+                ))
+            timings["reference"] += time.perf_counter() - t0
+            ensure_models()
             reference_label = reference_plan.source
             if reference_plan.start_seconds is not None or reference_plan.duration_seconds is not None:
                 reference_label += (
                     f" [start={reference_plan.start_seconds or 0:.3f}s, "
                     f"duration={reference_plan.duration_seconds if reference_plan.duration_seconds is not None else 'to end'}]"
                 )
+            t0 = time.perf_counter()
             records.append(generate_shot(
                 shot_key=shot_key, phrases=phrases, reference=reference_label, destination=destination,
                 raw_dir=out_dir / "raw", max_candidates=max_candidates, max_cer=args.max_cer,
@@ -440,6 +557,12 @@ def main(argv: Sequence[str] | None = None) -> int:
                     text, seed, ref, denoise
                 ),
                 transcribe=transcribe, encode=_encode_parts, measure=audio_metrics,
+                phrase_cache=cache, reference_hash=reference_key,
+            ))
+            timings["generation"] += time.perf_counter() - t0
+            manifest[destination.name] = {"identity": identity, "sha256": sha256_file(destination)}
+            atomic_publish(manifest_file, lambda p: p.write_text(
+                json.dumps(manifest, indent=2, ensure_ascii=False), encoding="utf-8"
             ))
     if records:
         docs = ROOT / "docs" / args.video_id
@@ -463,6 +586,9 @@ def main(argv: Sequence[str] | None = None) -> int:
                 {str(record["shot"]) for record in records},
             )
         atomic_publish(asr_path, lambda p: p.write_text(asr_report, encoding="utf-8"))
+    print(f"VOICE_TIMING model_load={timings['modelLoad']:.2f}s reference={timings['reference']:.2f}s "
+          f"generation={timings['generation']:.2f}s total={time.perf_counter()-started:.2f}s "
+          f"phrase_cache_hits={cache.hits if cache else 0} phrase_cache_new={cache.misses if cache else 0}")
     start = 0
     for index, shot_key in enumerate(plan):
         duration = seconds(out_dir / f"{shot_key}.mp3")
