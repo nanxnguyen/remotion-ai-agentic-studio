@@ -28,6 +28,7 @@ jobs:
         run: sudo apt-get update && sudo apt-get install --yes ffmpeg
       - run: npm ci
       - run: npm run verify
+      - run: python3 -m unittest discover -s tests -p 'test_runtime_orchestrator.py'
 
   render:
     if: github.event_name == 'workflow_dispatch' && inputs.full_render

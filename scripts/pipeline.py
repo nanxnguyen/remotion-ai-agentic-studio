@@ -80,7 +80,26 @@ STAGE_GATE = {"script": "A", "content": "content", "design": "D", "motion": "mot
 # `set done` needs these gates accepted first; render is done once verified, and gate C reviews that file after.
 DONE_NEEDS_GATE = {s: g for s, g in STAGE_GATE.items() if s != "render"}
 REVIEW_ORDER = list(REVIEW_GATES)
-PASS_SCORE = {"A": 9, "D": 8.5, "E": 9, "B": 9, "content": 9, "audio": 9, "motion": 9}  # C passes at 8
+# Numeric gate thresholds are loaded from the versioned review policy.
+REVIEW_POLICY_FILE = ROOT / ".agents" / "skills" / "ray-pineline-worflow-agent" / "schemas" / "review-gates.json"
+
+
+def load_review_policy() -> dict:
+    policy = json.loads(REVIEW_POLICY_FILE.read_text(encoding="utf-8"))
+    if policy.get("schemaVersion") != 1:
+        raise RuntimeError("Unsupported review policy version")
+    expected = {"A", "content", "audio", "D", "motion", "E", "B", "C"}
+    if set(policy.get("gates", {})) != expected:
+        raise RuntimeError("Incomplete review policy")
+    for gate, config in policy["gates"].items():
+        score = config.get("minimumScore")
+        if isinstance(score, bool) or not isinstance(score, (int, float)) or not 0 <= score <= 10:
+            raise RuntimeError(f"Invalid review score for {gate}")
+    return policy
+
+
+REVIEW_POLICY = load_review_policy()
+PASS_SCORE = {gate: config["minimumScore"] for gate, config in REVIEW_POLICY["gates"].items()}
 INVALIDATE_FROM_STAGE = {
     "research": "A", "brief": "A", "script": "A", "content": "E", "voice": "E", "design": "D",
     "motion": "E", "build": "C", "audio": "C", "qa": None, "render": "C",  # final QA runs after C: starting it must not void C
