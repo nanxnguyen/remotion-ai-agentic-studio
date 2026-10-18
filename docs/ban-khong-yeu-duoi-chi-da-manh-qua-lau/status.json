@@ -1,0 +1,87 @@
+{
+  "workflow_version": 4,
+  "name": "ban-khong-yeu-duoi-chi-da-manh-qua-lau",
+  "comp": "BanKhongYeuDuoiReel",
+  "voice": "tbd",
+  "profile": "story",
+  "paths": {
+    "audio": "ban-khong-yeu-duoi-chi-da-manh-qua-lau",
+    "out": "ban-khong-yeu-duoi-chi-da-manh-qua-lau-tbd",
+    "qa": "ban-khong-yeu-duoi-chi-da-manh-qua-lau"
+  },
+  "gates": [],
+  "stages": {
+    "brief": {
+      "state": "done",
+      "at": "2026-10-18T23:06:17+07:00",
+      "note": "brief.md accepted as phase-2 input packet"
+    },
+    "motion": {
+      "state": "pending"
+    },
+    "qa": {
+      "state": "pending"
+    },
+    "research": {
+      "state": "done",
+      "at": "2026-10-18T23:06:44+07:00",
+      "note": "research.md written: user-supplied account as primary source, 5 hook candidates"
+    }
+  },
+  "reviews": {},
+  "review_valid": {},
+  "next": "script-agent drafts script.md + voice proposals (phase 2a/2b)",
+  "log": [
+    {
+      "t": "2026-10-18T23:03:19+07:00",
+      "stage": "-",
+      "who": "agent",
+      "msg": "status initialised"
+    },
+    {
+      "t": "2026-10-18T23:06:05+07:00",
+      "stage": "intake",
+      "who": "video-director",
+      "msg": "video-director running: Phase 0: duplicate-topic check cleared, brief.md written, pipeline init"
+    },
+    {
+      "t": "2026-10-18T23:06:10+07:00",
+      "stage": "brief",
+      "who": "agent",
+      "msg": "brief -> in_progress: brief.md written with user's exact wording and story profile"
+    },
+    {
+      "t": "2026-10-18T23:06:17+07:00",
+      "stage": "brief",
+      "who": "agent",
+      "msg": "brief -> done: brief.md accepted as phase-2 input packet (evidence: 1 file(s): docs/ban-khong-yeu-duoi-chi-da-manh-qua-lau/brief.md)"
+    },
+    {
+      "t": "2026-10-18T23:06:44+07:00",
+      "stage": "research",
+      "who": "agent",
+      "msg": "research -> done: research.md written: user-supplied account as primary source, 5 hook candidates (evidence: 1 file(s): docs/ban-khong-yeu-duoi-chi-da-manh-qua-lau/research.md)"
+    },
+    {
+      "t": "2026-10-18T23:07:00+07:00",
+      "stage": "script",
+      "who": "script-agent",
+      "msg": "script-agent running: Phase 2a/2b: draft script.md, voice.proposed.json, voice-direction.md, voice-performance.proposed.json"
+    }
+  ],
+  "updated": "2026-10-18T23:07:00+07:00",
+  "agents": {
+    "video-director": {
+      "state": "running",
+      "at": "2026-10-18T23:06:05+07:00",
+      "note": "Phase 0: duplicate-topic check cleared, brief.md written, pipeline init",
+      "stage": "intake"
+    },
+    "script-agent": {
+      "state": "running",
+      "at": "2026-10-18T23:07:00+07:00",
+      "note": "Phase 2a/2b: draft script.md, voice.proposed.json, voice-direction.md, voice-performance.proposed.json",
+      "stage": "script"
+    }
+  }
+}
