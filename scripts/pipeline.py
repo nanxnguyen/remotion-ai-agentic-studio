@@ -854,7 +854,7 @@ def settle_agent_records(data: dict, names, state: str, reason: str) -> None:
     """Close explicit live records immediately when the corresponding gate/stage finishes."""
     agents = data.setdefault("agents", {})
     for name, item in agents.items():
-        if any(name == owner or re.fullmatch(re.escape(owner) + r"-\\d+", name) for owner in names):
+        if any(name == owner or re.fullmatch(re.escape(owner) + r"-\d+", name) for owner in names):
             if item.get("state") == "running":
                 item.update({"state": state, "at": now(), "note": reason})
 
