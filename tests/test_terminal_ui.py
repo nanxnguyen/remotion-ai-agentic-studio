@@ -67,6 +67,13 @@ class TerminalUiTests(unittest.TestCase):
             with self.subTest(source=source):
                 self.assertIn(source, self.text)
 
+    def test_one_shot_enter_submission_is_ime_safe(self):
+        self.assertIn("ev.key!=='Enter'||ev.shiftKey||ev.isComposing||ev.keyCode===229", self.text)
+        self.assertIn("ev.preventDefault();", self.text)
+        self.assertIn("$('dock-send').click();", self.text)
+        self.assertIn("$('dock-text').focus();", self.text)
+        self.assertIn("term.onData(data=>", self.text)
+
     def test_sidebar_switch_does_not_leak_keyboard_or_output(self):
         self.assertIn("document.addEventListener('click',event=>", self.text)
         self.assertIn("event.target.closest('[data-v]')", self.text)
