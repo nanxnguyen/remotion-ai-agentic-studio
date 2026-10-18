@@ -1956,6 +1956,10 @@ def launch_run(folder: str, runner_id: str, prompt: str, kind: str, run_id: str 
     if not spec or not spec["path"]:
         raise LookupError(f"runner {runner_id!r} is not configured or not installed")
     with LIVE_LOCK:
+        if Path(__file__).with_name("interactive_terminal.py").is_file() and any(
+            item["state"] == "running" for item in terminal_backend().sessions(folder)
+        ):
+            raise RuntimeError("interactive terminal is active for this video")
         if any(r["folder"] == folder for r in [*LIVE_RUNS.values(), *DETACHED.values()]):
             raise RuntimeError("an agent run is already active for this video")
         run_id = run_id or new_run_id()
@@ -2166,6 +2170,60 @@ def create_video(body: dict) -> tuple:
     return 201, {"video": folder, "comp": comp, "voice": req["voice_slug"], "run": run, "run_error": run_error}
 
 
+def terminal_backend():
+    """Lazy import works both as python scripts/pipeline.py and as scripts.pipeline."""
+    if __package__:
+        from . import interactive_terminal
+    else:
+        import interactive_terminal
+    return interactive_terminal
+
+
+# Interactive providers use their native TUI, not one-shot exec/run commands.
+# Permission approvals are handled by each CLI inside the TTY.
+INTERACTIVE_COMMANDS = {
+    "claude": ["claude"],
+    "codex": ["codex"],
+    "opencode": ["opencode"],
+}
+
+
+TERMINAL_EFFORTS = {
+    "claude": {"low", "medium", "high", "xhigh", "max"},
+    "codex": {"low", "medium", "high", "xhigh", "max"},
+    # OpenCode calls this a model variant; available values depend on the provider/model.
+    "opencode": {"low", "medium", "high", "xhigh", "max"},
+}
+
+
+def terminal_command(provider: str, model: str = "", effort: str = "") -> list:
+    """Launch native interactive CLI with explicit model + supported effort flags.
+
+    OpenCode variants are selected with model#variant (not an undocumented TUI
+    --variant flag). A specific model may reject an unsupported variant.
+    """
+    if provider not in INTERACTIVE_COMMANDS:
+        raise ValueError("unsupported interactive provider")
+    if model and (not MODEL_RE.fullmatch(model) or "#" in model):
+        raise ValueError("invalid model id; select the effort separately")
+    if effort and effort not in TERMINAL_EFFORTS[provider]:
+        raise ValueError(f"unsupported {provider} effort {effort!r}")
+    if provider == "opencode" and effort and not model:
+        raise ValueError("OpenCode effort requires a selected model (model variant)")
+    executable = shutil.which(INTERACTIVE_COMMANDS[provider][0])
+    if not executable:
+        raise LookupError(f"{provider} interactive CLI not installed")
+    cmd = [executable]
+    if model:
+        selected = model + (f"#{effort}" if provider == "opencode" and effort else "")
+        cmd += ["--model", selected] if provider in {"claude", "opencode"} else ["-m", selected]
+    if effort and provider == "claude":
+        cmd += ["--effort", effort]
+    elif effort and provider == "codex":
+        cmd += ["-c", f'model_reasoning_effort="{effort}"']
+    return cmd
+
+
 class Handler(BaseHTTPRequestHandler):
     def _send(self, code: int, body: bytes, ctype: str) -> None:
         self.send_response(code)
@@ -2282,6 +2340,16 @@ class Handler(BaseHTTPRequestHandler):
             self._audio(*match.groups())
         elif self.path == "/vendor/howler.min.js" and HOWLER.is_file():
             self._send(200, HOWLER.read_bytes(), "text/javascript; charset=utf-8")
+        elif match := re.fullmatch(r"/api/terminal/([A-Za-z0-9_-]+)/sessions", self.path):
+            if self._load(match.group(1)) is None:
+                return self._json(404, {"error": "video not found"})
+            return self._json(200, {"sessions": terminal_backend().sessions(match.group(1))})
+        elif match := re.fullmatch(r"/api/terminal/([A-Za-z0-9_-]+)/([a-f0-9]{32})/output\?offset=(\d+)", self.path):
+            video, session_id, offset = match.groups()
+            try:
+                return self._json(200, terminal_backend().get(session_id, video).poll(int(offset)))
+            except KeyError:
+                return self._json(404, {"error": "terminal session not found"})
         elif self.path == "/api/create-options":
             self._create_options()
         elif match := re.fullmatch(r"/voice-preview/([A-Za-z0-9_-]+\.mp3)", self.path):
@@ -2328,6 +2396,42 @@ class Handler(BaseHTTPRequestHandler):
         body = self._trusted_json()
         if body is None:
             return
+        if match := re.fullmatch(r"/api/terminal/([A-Za-z0-9_-]+)/start", self.path):
+            video = match.group(1)
+            if self._load(video) is None:
+                return self._json(404, {"error": "video not found"})
+            try:
+                provider = str(body.get("provider", "opencode"))
+                model = str(body.get("model", "")).strip()
+                effort = str(body.get("effort", "")).strip()
+                cmd = terminal_command(provider, model, effort)
+                with LIVE_LOCK:
+                    if any(item["folder"] == video for item in [*LIVE_RUNS.values(), *DETACHED.values()]):
+                        raise ValueError("a one-shot agent is active for this video")
+                session = terminal_backend().start(video, provider, cmd, ROOT,
+                                              body.get("cols", 100), body.get("rows", 28),
+                                              model=model, effort=effort)
+                return self._json(201, {"id": session.id, "provider": provider,
+                                        "model": model, "effort": effort, "state": session.state})
+            except (ValueError, LookupError, RuntimeError, OSError) as exc:
+                return self._json(409, {"error": str(exc)})
+        if match := re.fullmatch(r"/api/terminal/([A-Za-z0-9_-]+)/([a-f0-9]{32})/(input|resize|interrupt|stop)", self.path):
+            video, session_id, action = match.groups()
+            if self._load(video) is None:
+                return self._json(404, {"error": "video not found"})
+            try:
+                session = terminal_backend().get(session_id, video)
+                if action == "input":
+                    session.input(str(body.get("data", "")))
+                elif action == "resize":
+                    session.resize(body.get("cols", 100), body.get("rows", 28))
+                elif action == "interrupt":
+                    session.interrupt()
+                elif action == "stop":
+                    session.stop()
+                return self._json(200, {"ok": True, "state": session.state})
+            except (KeyError, ValueError, OSError, ProcessLookupError) as exc:
+                return self._json(409, {"error": str(exc)})
         if self.path == "/api/videos":
             try:
                 code, payload = create_video(body)
@@ -2362,7 +2466,7 @@ class Handler(BaseHTTPRequestHandler):
     def do_POST(self):
         if self.path == "/api/audio-listen":
             return self._audio_listen()
-        if self.path == "/api/videos" or self.path.startswith(("/api/videos/", "/api/runs/")):
+        if self.path == "/api/videos" or self.path.startswith(("/api/videos/", "/api/runs/", "/api/terminal/")):
             return self._studio_post()
         if self.path != "/api/gate":
             return self._json(404, {"error": "not found"})

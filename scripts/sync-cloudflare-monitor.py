@@ -40,8 +40,12 @@ def main():
         db.execute("INSERT INTO revision(id,n) VALUES(1,?) ON CONFLICT(id) DO UPDATE SET n=excluded.n",(rev,))
         db.commit()
     payload=json.dumps({"revision":rev,"source":"local-pipeline-monitor","sourceUpdatedAt":datetime.now(timezone.utc).isoformat(),"status":status,"meta":meta},ensure_ascii=False).encode()
-    req=urllib.request.Request(remote+"/api/sync",data=payload,method="POST",
-        headers={"Content-Type":"application/json","Authorization":"Bearer "+token})
+    headers={"Content-Type":"application/json","Authorization":"Bearer "+token}
+    access_id=os.environ.get("CF_ACCESS_CLIENT_ID","")
+    access_secret=os.environ.get("CF_ACCESS_CLIENT_SECRET","")
+    if access_id and access_secret:
+        headers.update({"CF-Access-Client-Id":access_id,"CF-Access-Client-Secret":access_secret})
+    req=urllib.request.Request(remote+"/api/sync",data=payload,method="POST",headers=headers)
     try:
         with urllib.request.urlopen(req,timeout=30) as res:
             print(json.dumps({"synced":True,"revision":rev,"response":json.load(res)},ensure_ascii=False))

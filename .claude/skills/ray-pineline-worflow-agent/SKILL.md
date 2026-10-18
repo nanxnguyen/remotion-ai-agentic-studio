@@ -3,6 +3,16 @@ name: ray-pineline-worflow-agent
 description: Use when producing a new Vietnamese vertical video in this repository, or changing an existing one, from idea or source material through voice, Remotion scenes, review, and final MP4 delivery. Binding workflow for every agent runtime (Claude Code, Codex, OpenCode, Cursor, Gemini).
 ---
 
+# Canonical skill location
+
+**Edit this file in `.claude/skills/ray-pineline-worflow-agent/SKILL.md` only.**
+The `.agents/skills/ray-pineline-worflow-agent` path is a version-controlled
+symbolic link back to this folder, so Claude Code, Codex and OpenCode consume
+the same workflow, references and review policy without separate copies.
+Agent role adapters are generated independently from `.agents/roles/` by
+`python3 scripts/sync_agents.py`; run `python3 scripts/sync_agents.py --check`
+after editing roles or skill resources.
+
 # Responsibility boundaries (normative)
 
 Read [architecture contract](references/architecture-contract.md) before executing this skill. This file defines **what work is required**, not mutable runtime state or approval logic.
