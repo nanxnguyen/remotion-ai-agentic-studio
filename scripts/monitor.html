@@ -683,7 +683,7 @@ cur=savedVideo();refresh();setInterval(refresh,1000);
  let session=null,video=null,offset=0,term=null,fit=null,waiting=false,writeQueue='',sending=false;
  let decoder=new TextDecoder();
  let terminalRunners=null;
- let backendReady=false,checkingBackend=null;
+ let backendReady=false,checkingBackend=null,terminalCapabilities=null,sessionRequest=0;
  const COMMON_VARIANTS=['low','medium','high','xhigh','max'];
  const EFFORT_LABELS={low:'Low',medium:'Medium',high:'High',xhigh:'Extra high',max:'Max'};
  const selector=(element,choices,placeholder)=>{
@@ -715,7 +715,8 @@ cur=savedVideo();refresh();setInterval(refresh,1000);
    if(chosenModel)target.value=chosenModel;
    target.disabled=!runner?.installed||session?.state==='running';
    updateEfforts(chosenEffort);
-   $('term-start').disabled=!backendReady||!term||!runner?.installed||session?.state==='running';
+   $('term-start').disabled=!backendReady||!term||!runner?.installed||
+     !terminalCapabilities?.providers?.[$('term-provider').value]||session?.state==='running';
  }
  function lockChoices(){
    const locked=session?.state==='running';
@@ -723,7 +724,9 @@ cur=savedVideo();refresh();setInterval(refresh,1000);
    updateModels(session?.model||$('term-model').value,session?.effort||$('term-effort').value);
    $('term-model').disabled=locked||!terminalRunners?.find(r=>r.id===$('term-provider').value)?.installed;
    $('term-effort').disabled=locked||$('term-effort').options.length===1;
-   $('term-start').disabled=locked||!backendReady||!term||!terminalRunners?.find(r=>r.id===$('term-provider').value)?.installed;
+   $('term-start').disabled=locked||!backendReady||!term||
+     !terminalCapabilities?.providers?.[$('term-provider').value]||
+     !terminalRunners?.find(r=>r.id===$('term-provider').value)?.installed;
    $('term-stop').disabled=!locked;
    $('term-interrupt').disabled=!locked;
  }
@@ -774,6 +777,7 @@ cur=savedVideo();refresh();setInterval(refresh,1000);
      const capability=await terminalGet('/api/terminal/capabilities');
      if(!capability?.interactive||capability.api_version<2)throw Error(OLD_BACKEND_TERMINAL);
      if(!capability.pty_supported)throw Error('Máy chủ không hỗ trợ PTY; cần macOS hoặc Linux.');
+     terminalCapabilities=capability;
      backendReady=true;
      $('term-live').textContent='LOCAL • PTY READY';
      lockChoices();
@@ -826,6 +830,7 @@ cur=savedVideo();refresh();setInterval(refresh,1000);
    term?.focus();
  }
  async function reconnect(){
+   const request=++sessionRequest;
    const selectedVideo=chosen();
    video=selectedVideo;sessionHeader();
    if(!selectedVideo){
@@ -837,7 +842,7 @@ cur=savedVideo();refresh();setInterval(refresh,1000);
      await ensureBackend();
      const result=await terminalGet('/api/terminal/'+encodeURIComponent(selectedVideo)+'/sessions');
      // A stale request must never attach to a different video.
-     if(chosen()!==selectedVideo)return;
+     if(chosen()!==selectedVideo||request!==sessionRequest)return;
      const list=result?.sessions||[];
      const selected=[...list].reverse().find(x=>x.state==='running')||list.at(-1);
      if(selected)await attach(selected);
@@ -849,20 +854,21 @@ cur=savedVideo();refresh();setInterval(refresh,1000);
          const running=await terminalGet('/api/runs/'+encodeURIComponent(selectedVideo));
          oneShotActive=running?.runs?.some(x=>x.state==='running')||false;
        }catch{}
-       if(chosen()!==selectedVideo)return;
+       if(chosen()!==selectedVideo||request!==sessionRequest)return;
        if(oneShotActive)notice('Video đang có agent one-shot',
          'Agent ở “Lệnh nhanh / one-shot” vẫn đang chạy. Hãy đợi hoặc dừng nó trước khi mở PTY; Reconnect không thể biến lượt one-shot thành session tương tác.',true);
        else notice('Chưa mở phiên CLI','Chọn Agent, Model, Effort và bấm “Mở terminal” để bắt đầu phiên tương tác.');
      }
    }catch(error){
-     if(chosen()!==selectedVideo)return;
-     backendReady=false;
+     if(chosen()!==selectedVideo||request!==sessionRequest)return;
+     backendReady=false;terminalCapabilities=null;
      session=null;lockChoices();badge('● Unavailable');
      $('term-live').textContent='BACKEND CHƯA SẴN SÀNG';
      notice('Không thể kết nối terminal',error.message,true);
    }
  }
  $('term-start').addEventListener('click',async()=>{
+   ++sessionRequest; // invalidate any parallel auto-Reconnect started on open
    video=chosen();
    if(!video){notice('Chưa chọn video','Chọn video ở sidebar trước.',true);return}
    const button=$('term-start');
@@ -892,6 +898,7 @@ cur=savedVideo();refresh();setInterval(refresh,1000);
  $('term-screen').addEventListener('click',()=>term?.focus());
  window.addEventListener('resize',()=>fit?.fit());
  window.addEventListener('hashchange',()=>{
+   ++sessionRequest;
    session=null;offset=0;sessionHeader();
    if(!document.getElementById('command-dock').hidden)reconnect();
  });
@@ -900,6 +907,7 @@ cur=savedVideo();refresh();setInterval(refresh,1000);
    if(!event.target.closest('[data-v]'))return;
    const next=chosen();
    if(next===video)return;
+   ++sessionRequest;
    session=null;offset=0;writeQueue='';video=next;sessionHeader();
    if(!document.getElementById('command-dock').hidden)reconnect();
  });
