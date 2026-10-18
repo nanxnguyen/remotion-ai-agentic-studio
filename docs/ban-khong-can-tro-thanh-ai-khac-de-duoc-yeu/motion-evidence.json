@@ -1,0 +1,18 @@
+{
+  "fps": 30,
+  "durationFrames": 1767,
+  "shotStartFrames": [0, 192, 405, 588, 813, 960, 1104, 1353, 1530],
+  "animatic": "out/qa/ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu-motion-animatic.mp4",
+  "hook": "out/qa/ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu-motion-strip-hook.png",
+  "highlight": "out/qa/ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu-motion-strip-highlight.png",
+  "boundaries": [
+    {"frame": 192, "strip": "out/qa/ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu-motion-strip-192.png"},
+    {"frame": 405, "strip": "out/qa/ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu-motion-strip-405.png"},
+    {"frame": 588, "strip": "out/qa/ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu-motion-strip-588.png"},
+    {"frame": 813, "strip": "out/qa/ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu-motion-strip-813.png"},
+    {"frame": 960, "strip": "out/qa/ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu-motion-strip-960.png"},
+    {"frame": 1104, "strip": "out/qa/ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu-motion-strip-1104.png"},
+    {"frame": 1353, "strip": "out/qa/ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu-motion-strip-1353.png"},
+    {"frame": 1530, "strip": "out/qa/ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu-motion-strip-1530.png"}
+  ]
+}

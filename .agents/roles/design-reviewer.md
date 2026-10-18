@@ -52,3 +52,6 @@ Score table · fixes Cao/Trung/Thấp with concrete change · previous fixes ver
 - Round 2+ (you are a new reviewer): verify each old ticket by its acceptance check, regression-check what the fixes touched, and raise only genuinely NEW tickets, marked `NEW`. Do not re-litigate closed tickets or move the bar.
 - Pass = score >= threshold AND no open Cao/Trung ticket. The producer returns a closure table `id | fixed/not fixed/disagree | evidence`; judge `disagree` on evidence.
 - Rounds: 3 by default, 5 hard cap; if still failing, report the open tickets to the director instead of looping.
+
+## Workflow v4 motion contract
+Read accepted `motion-spec.md`, `motion-evidence.json` and `motion-review.md` alongside the E-approved packet. D judges preliminary art direction and hook; dedicated Phase 4b motion review after Join judges full actual-timing animatic before E. Keep reviewer independence and do not treat D as replacement for motion approval.

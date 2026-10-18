@@ -14,6 +14,7 @@ import {chungMinhDeLamGiVideo} from './chung-minh-de-lam-gi';
 import {tiecNguoiHayNamThangVideo} from './tiec-nguoi-hay-nam-thang';
 import {dungBienTuoi30ThanhBanAnReelVideo} from './dung-bien-tuoi-30-thanh-ban-an';
 import {lamLaiKhongCoNghiaLaQuayVeSoKhongBanReelVideo} from './lam-lai-khong-co-nghia-la-quay-ve-so-khong-ban';
+import {banKhongCanTroThanhAiKhacDeDuocYeuVideo} from './ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu';
 // video:new imports -- keep this marker
 
 export const videoRegistry: readonly AnyVideoDefinition[] = [
@@ -31,6 +32,7 @@ export const videoRegistry: readonly AnyVideoDefinition[] = [
   tiecNguoiHayNamThangVideo,
   dungBienTuoi30ThanhBanAnReelVideo,
   lamLaiKhongCoNghiaLaQuayVeSoKhongBanReelVideo,
+  banKhongCanTroThanhAiKhacDeDuocYeuVideo,
   // video:new entries -- keep this marker
 ];
 

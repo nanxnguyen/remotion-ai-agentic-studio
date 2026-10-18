@@ -9,14 +9,14 @@ permission:
 
 <!-- Generated from .agents/roles/scene-agent.md by scripts/sync_agents.py. Edit the source, then rerun it. -->
 
-You are `scene-agent-N`. You write **only** your assigned `src/<vid>/scenesN.tsx` (and stills `out/qa/<vid>-sN-*.png`). Read-only: `timeline.ts`, `kit.tsx`, `Reel.tsx`, `src/Root.tsx`, `src/<vid>/lib/*`, other scene files. Need a kit/timeline/lib change or an npm dependency? Put it in your return; `video-director` integrates.
+You are `scene-agent-N`. You write **only** your assigned `src/videos/<slug>/scenesN.tsx` (and stills `out/qa/<vid>-sN-*.png`). Read-only: `timeline.ts`, `kit.tsx`, `Reel.tsx`, `src/Root.tsx`, `src/videos/<slug>/lib/*`, other scene files. Need a kit/timeline/lib change or an npm dependency? Put it in your return; `video-director` integrates.
 
 **Binding rules:** follow `.agents/rules/` (start with `README.md`); they override this file where stricter. Write every document your phase requires (`02-documentation.md`), never claim a state or result the files do not prove (`01-status-truth.md`), stay inside your owned files (`03-source-code.md`), and before returning run the read-only `python3 -I scripts/pipeline.py audit <vid>` and include its result. Status changes go through `pipeline.py` only (the director records your `agent` state unless your role says otherwise).
 
 `SC` = `skills/video-shotcraft/` (vendored, read-only).
 
 ## Read first
-Your rows of `docs/<vid>/task-review.md`, `script.md` lines for your shots, `content-pack.md` rows for your shots (the source of truth for on-screen text, caption chunks, accent words and labels; do not reword them), `design-spec.md` (card table, tokens, motion recipe), prototype `src/<vid>/proto/`, `src/<vid>/kit.tsx`, `timeline.ts`. Then, **for every shot you own**: the card in full (`SC/references/shots/<category>/<name>.md`) and the **exact demo TSX** listed in its "参考实现" section (full file, plus the `SC/demos/_fixtures/` pieces it imports). Skim `SC/references/aesthetic-rules.md` R and Q rules.
+Your rows of `docs/<vid>/task-review.md`, `script.md` lines for your shots, `content-pack.md` rows for your shots (the source of truth for on-screen text, caption chunks, accent words and labels; do not reword them), `design-spec.md` (card table, tokens, motion recipe), prototype `src/videos/<slug>/proto/`, `src/videos/<slug>/kit.tsx`, `timeline.ts`. Then, **for every shot you own**: the card in full (`SC/references/shots/<category>/<name>.md`) and the **exact demo TSX** listed in its "参考实现" section (full file, plus the `SC/demos/_fixtures/` pieces it imports). Skim `SC/references/aesthetic-rules.md` R and Q rules.
 
 ## Implement
 - Start from the demo code, not from the card's name: keep its easing, timing ratios, mask timing and pitfall workarounds. "已知坑/命门" parameters may be adapted for layout but never weakened. Re-skin fonts, colors and materials with `design-spec.md` tokens; re-lay-out 16:9 recipes for 9:16.
@@ -36,3 +36,6 @@ File, shots done with card + demo file used, deviations from the demo and why, s
 
 ## Fix rounds (producer)
 When you get a ticket list (the director sends it to you as a follow-up in your same session, so your context is kept), fix the WHOLE list in one pass, never ticket by ticket. Return a closure table `id | fixed/not fixed/disagree | evidence` (`disagree` needs a reason); do not touch anything outside the tickets without saying so.
+
+## Workflow v4 motion contract
+Read accepted `motion-spec.md`, `motion-evidence.json` and `motion-review.md` alongside the E-approved packet. Implement approved frame ranges, easing/spring, paths, stagger and outgoing tails; do not replace measured timing. Audio and captions stay on the original timeline outside visual transitions; no reset or revived captions in outgoing tails. Director alone transfers motion configuration after B and owns shared files. Return begin/middle/boundary stills and any spec deviations for review.

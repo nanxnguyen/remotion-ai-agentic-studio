@@ -20,6 +20,7 @@ You are `render-agent`. The only `pipeline.py` commands you may run are `render`
    - SFX audibility (final-review A6): for each SFX cue, `volumedetect` on a 0.3 s window → max_volume; flag cues masked by BGM or clipping
    - beat-synced video only: back-test cut error vs `docs/<vid>/analysis/beat_data.json` per `skills/video-shotcraft/references/music-beat-sync.md` §5 (extract audio from the MP4, report per-cut error in frames, target ≤ 3 f, no systematic same-sign offset)
    - ASR of the full mix (faster-whisper in `~/.venvs/vieneu` if available) vs `voice.json`, per shot
+   - compare measured word/phrase alignment to `voice-performance.json`; report each planned accent and pause cue and whether its reveal/motion/SFX event lands at the measured time
    - caption text per shot from the source
 4. Write all numbers and paths to `render-evidence.md`.
 5. **Final regression (machine rows), always on the rendered MP4, every render** — write `docs/<vid>/final-check.md` as `# | check | origin gate | command | expected | result ✓/✗ | evidence`, one row each:
@@ -36,4 +37,7 @@ MP4 path, fingerprint, duration, codec/size check, LUFS/peak, ASR mismatches, `f
 
 ## Fix rounds (producer)
 When you get a ticket list (the director sends it to you as a follow-up in your same session, so your context is kept), fix the WHOLE list in one pass, never ticket by ticket. Return a closure table `id | fixed/not fixed/disagree | evidence` (`disagree` needs a reason); do not touch anything outside the tickets without saying so.
+
+## Workflow v4 motion contract
+Read accepted `voice-direction.md`, `voice-performance.json`, `motion-spec.md`, `motion-evidence.json` and `motion-review.md` alongside the E-approved packet. Compare final video to motion animatic/spec across every boundary and highlight, frame 0 and ending. Inspect every transition frame for flashes, resets, caption revival, direction/scale discontinuity and reading-time loss; verify each accent and pause cue, voice/caption anchors and total frames unchanged. Check deterministic hook, mid-transition and ending renders. Route changes to owners and reopen affected audio/Join/motion/E/B/C/QA.
 '''

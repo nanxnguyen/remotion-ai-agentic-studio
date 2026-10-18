@@ -25,7 +25,11 @@ Legend: **E** = `set ... done` refuses without it · **A** = `pipeline.py audit`
 | 3c Design · `design`         | `design-spec.md`                                                              | E              | palette, fonts + licences, caption component, motion recipe, shot-card table with exact demo TSX paths                                        |
 |                              | `out/qa/<vid>-style-*.png` ×3, `-cover.png`, `-board.png`, `-motion-hook.png` | R              | —                                                                                                                                             |
 |                              | `design-review.md`                                                            | A (report)     | beauty and fit-to-story answers with frame evidence                                                                                           |
-| 4 Join                       | `join-notes.md`                                                               | R (gate E)     | per key: duration, on-screen text, frame, SFX/beat, mismatch → owner                                                                          |
+| 4a Join                       | `join-notes.md`                                                               | R (gate E)     | per key: duration, on-screen text, frame, SFX/beat, mismatch → owner                                                                          |
+| 4b Motion · `motion` (v4) | `motion-spec.md` | E | every shot/boundary including cuts: frame ranges, paths, easing/spring, voice/beat cues, holds, tail behavior, sources/licenses |
+| | `motion-evidence.json` | E | fps, durationFrames, shotStartFrames, animatic/hook/highlight paths, boundaries [{frame, strip}]; repo-relative paths and exact coverage of nonzero shot starts |
+| | `out/qa/<vid>-motion-animatic.mp4`, `out/qa/<vid>-motion-strip-{hook,highlight,<frame>}.png` | E | full actual-timing animatic; decodable strips at hook, highlight and every boundary including cuts |
+| | `motion-review.md` | E, A (report) | clean-context review ≥9/10, frame evidence, ticket closure; truthful `open high/medium: 0` required for pass |
 | 5 Integration                | `integration-review.md`                                                       | A (report)     | second-by-second walk, cross-branch tickets                                                                                                   |
 | 6 Tasks                      | `task-review.md`                                                              | A (report)     | shot → file ownership, inputs, tool checks run, still-frame checks                                                                            |
 | 7 Build · `build`            | `src/videos/<slug>/voice-durations.ts` + `timeline.ts` built from it          | R (QA)         | see [03-source-code.md](03-source-code.md)                                                                                                    |
@@ -47,3 +51,5 @@ Legend: **E** = `set ... done` refuses without it · **A** = `pipeline.py audit`
 - Use the exact file names above. A differently named file is not found by the checks; rename it instead of adding a second copy.
 - Documents are English or Vietnamese as the skill specifies; spoken lines and captions are copied verbatim from `voice.json` / `content-pack.md`.
 - Do not store secrets, personal voice previews or unlicensed media in `docs/`.
+
+Motion evidence applies to workflow v4 only; explicit upgrade preserves earlier reports and invalidates downstream acceptance. Optional `motion-evidence.md` may explain measurements but never replaces machine-readable JSON.

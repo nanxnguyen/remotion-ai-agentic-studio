@@ -32,4 +32,7 @@ Append `## Review round N` to `docs/<vid>/task-review.md` only.
 - Round 2+ (you are a new reviewer): verify each old ticket by its acceptance check, regression-check what the fixes touched, and raise only genuinely NEW tickets, marked `NEW`. Do not re-litigate closed tickets or move the bar.
 - Pass = score >= threshold AND no open Cao/Trung ticket. The producer returns a closure table `id | fixed/not fixed/disagree | evidence`; judge `disagree` on evidence.
 - Rounds: 3 by default, 5 hard cap; if still failing, report the open tickets to the director instead of looping.
+
+## Workflow v4 motion contract
+Read accepted `motion-spec.md`, `motion-evidence.json` and `motion-review.md` alongside the E-approved packet. Cover all shots and boundaries, including cuts, map approved motion config to owners, and verify actual-frame animatic inputs. Director owns shared motion config/timeline/Reel/manifest/registry; scenes remain disjoint. Final integration follows E then B; no final motion config is transferred before B.
 '''

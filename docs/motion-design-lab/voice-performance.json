@@ -1,0 +1,237 @@
+{
+  "version": 1,
+  "canonicalText": "docs/motion-design-lab/voice.proposed.json",
+  "engine": {
+    "name": "VieNeu-TTS",
+    "version": "3.8.3",
+    "runtime": "local ONNX/CPU",
+    "externalUpload": false,
+    "supportedControls": ["referenceAudio", "seed", "denoise"],
+    "fixedControls": {
+      "denoise": false
+    },
+    "unsupportedControls": ["rate", "pitch", "volume", "style", "directEmotion"],
+    "postProcessingRestrictions": ["no atempo", "no pitch shifting for expression"]
+  },
+  "benchmark": {
+    "status": "pending",
+    "selectionMethod": "render the same original benchmark text with every candidate, then compare measured technical fidelity and documented performance evidence",
+    "text": "Báº¡n cÃ³ tháº¥y cháº¥m nhá» nÃ y vá»«a Ä‘á»•i cáº£nh Ä‘Ã£ khá»±ng láº¡i khÃ´ng? MÃ¬nh Ä‘ang giá»¯ nguyÃªn Ä‘Æ°á»ng Ä‘i cá»§a nÃ³, rá»“i thay tá»«ng lá»›p ná»n phÃ­a sau. LÃºc Ä‘áº§u cháº¥m báº­t ngÆ°á»£c nÃªn máº¯t mÃ¬nh bá»‹ kÃ©o khá»i cÃ¢u chuyá»‡n. Sau khi ná»‘i láº¡i Ä‘Ãºng hÆ°á»›ng, chuyá»ƒn Ä‘á»™ng trÃ´i liá»n hÆ¡n, vÃ  mÃ¬nh cÃ³ thá»ƒ táº­p trung vÃ o Ä‘iá»u tháº­t sá»± muá»‘n ká»ƒ. Cáº£m giÃ¡c áº¥y nháº¹ Ä‘i rÃµ rá»‡t.",
+    "planningSyllables": 71,
+    "planningSecondsAt4_1SyllablesPerSecond": 17.32,
+    "candidates": [
+      "vietnamese-voice-samples/previews/Anh-Khoi-Ke-Chuyen.mp3",
+      "vietnamese-voice-samples/previews/Thanh-Long-Nang-Cao.mp3",
+      "vietnamese-voice-samples/previews/Ngoc-Huyen.mp3"
+    ],
+    "selectedReference": null,
+    "resolvedReferencePath": "docs/motion-design-lab/voice-ref/benchmark-winner.wav",
+    "referenceCrop": {
+      "minimumSeconds": 6,
+      "preferredMaximumSeconds": 8,
+      "requirements": ["one speaker", "no music", "no overlapping sound", "clean phrase boundary"]
+    },
+    "machineChecks": [
+      "canonical text",
+      "CER/ASR",
+      "duration",
+      "silence",
+      "loudness",
+      "clipping",
+      "cross-phrase consistency"
+    ],
+    "naturalnessEvidence": "not verified by listening"
+  },
+  "candidatePolicy": {
+    "initialCandidatesPerPhrase": 1,
+    "maximumCandidatesPerPhrase": 3,
+    "regenerateOnlyFailedPhraseOrKeyword": true,
+    "pinnedSeedMustPassCanonicalTextCheck": true
+  },
+  "pauseImplementation": "explicit post-synthesis silence during phrase assembly; never inferred from punctuation",
+  "experimentalCues": {
+    "enabled": false,
+    "values": []
+  },
+  "shots": {
+    "s1": {
+      "slotStartFrame": 0,
+      "slotEndFrame": 210,
+      "reference": {"source": "docs/motion-design-lab/voice-ref/benchmark-winner.wav"},
+      "referenceSelectionStatus": "pending benchmark; create this crop from the measured winner before synthesis",
+      "intent": "point out the jump, then invite inspection of the repaired path",
+      "emotion": "curious surprise settling into confidence",
+      "accentWords": ["giáº­t", "Ä‘Æ°á»ng Ä‘i"],
+      "ending": "question rises; explanation ends level and assured",
+      "minimumPostClipHoldFrames": 0,
+      "postClipHoldPolicy": "use the measured remainder of this fixed slot",
+      "phrases": [
+        {
+          "text": "Sao cháº¥m nÃ y vá»«a Ä‘á»•i cáº£nh Ä‘Ã£ giáº­t?",
+          "tempoIntent": "brisk",
+          "emphasis": ["giáº­t"],
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.16,
+          "seed": null,
+          "controls": {"denoise": false}
+        },
+        {
+          "text": "NhÃ¬n Ä‘Æ°á»ng Ä‘i nÃ y nhÃ©, mÃ¬nh giá»¯ Ä‘Æ°á»ng Ä‘i cá»§a nÃ³, rá»“i má»›i Ä‘á»•i ná»n.",
+          "tempoIntent": "gentler invitation, then firm landing",
+          "emphasis": ["Ä‘Æ°á»ng Ä‘i"],
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.0,
+          "seed": null,
+          "controls": {"denoise": false}
+        }
+      ]
+    },
+    "s2": {
+      "slotStartFrame": 210,
+      "slotEndFrame": 450,
+      "reference": {"source": "docs/motion-design-lab/voice-ref/benchmark-winner.wav"},
+      "referenceSelectionStatus": "pending benchmark; create this crop from the measured winner before synthesis",
+      "intent": "reassure through observable continuity and crisp text",
+      "emotion": "calm and precise",
+      "accentWords": ["Ä‘i tiáº¿p", "tan vÃ o nhau", "váº«n rÃµ"],
+      "ending": "clean low fall on khÃ´ng tan theo",
+      "minimumPostClipHoldFrames": 0,
+      "postClipHoldPolicy": "use the measured remainder of this fixed slot",
+      "phrases": [
+        {
+          "text": "Cáº¯t tháº³ng, cháº¥m váº«n Ä‘i tiáº¿p.",
+          "tempoIntent": "quick and direct",
+          "emphasis": ["Ä‘i tiáº¿p"],
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.1,
+          "seed": null,
+          "controls": {"denoise": false}
+        },
+        {
+          "text": "Muá»‘n Ä‘á»•i ná»n nháº¹ hÆ¡n, cho hai cáº£nh tan vÃ o nhau.",
+          "tempoIntent": "ease slightly through the visual explanation",
+          "emphasis": ["tan vÃ o nhau"],
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.12,
+          "seed": null,
+          "controls": {"denoise": false}
+        },
+        {
+          "text": "Chá»¯ váº«n rÃµ, khÃ´ng tan theo.",
+          "tempoIntent": "measured contrast",
+          "emphasis": ["váº«n rÃµ"],
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.0,
+          "seed": null,
+          "controls": {"denoise": false}
+        }
+      ]
+    },
+    "s3": {
+      "slotStartFrame": 450,
+      "slotEndFrame": 660,
+      "reference": {"source": "docs/motion-design-lab/voice-ref/benchmark-winner.wav"},
+      "referenceSelectionStatus": "pending benchmark; create this crop from the measured winner before synthesis",
+      "intent": "re-hook with the moving-panel problem and resolve it visibly",
+      "emotion": "inquisitive, then confident and lightly satisfied",
+      "accentWords": ["cáº£ khung", "má»™t hÆ°á»›ng", "khÃ´ng báº­t ngÆ°á»£c"],
+      "ending": "soft fall on ná»¯a after precise result emphasis",
+      "minimumPostClipHoldFrames": 0,
+      "postClipHoldPolicy": "use the measured remainder; if the clip does not fit, return to Gate A",
+      "phrases": [
+        {
+          "text": "NhÆ°ng trÆ°á»£t cáº£ khung thÃ¬ sao?",
+          "tempoIntent": "brisk re-hook",
+          "emphasis": ["cáº£ khung"],
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.12,
+          "seed": null,
+          "controls": {"denoise": false}
+        },
+        {
+          "text": "MÃ¬nh cho ná»n Ä‘i cÃ¹ng má»™t hÆ°á»›ng, cÃ²n cháº¥m ná»‘i tiáº¿p Ä‘Æ°á»ng cÅ©.",
+          "tempoIntent": "confident forward explanation",
+          "emphasis": ["má»™t hÆ°á»›ng"],
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.08,
+          "seed": null,
+          "controls": {"denoise": false}
+        },
+        {
+          "text": "NhÃ¬n, cháº¥m khÃ´ng báº­t ngÆ°á»£c ná»¯a.",
+          "tempoIntent": "slightly slower observable result",
+          "emphasis": ["khÃ´ng báº­t ngÆ°á»£c"],
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.0,
+          "seed": null,
+          "controls": {"denoise": false}
+        }
+      ]
+    },
+    "s4": {
+      "slotStartFrame": 660,
+      "slotEndFrame": 900,
+      "reference": {"source": "docs/motion-design-lab/voice-ref/benchmark-winner.wav"},
+      "referenceSelectionStatus": "pending benchmark; create this crop from the measured winner before synthesis",
+      "intent": "make the wipe tactile, then reassure that cues stay aligned",
+      "emotion": "lightly playful, then precise",
+      "accentWords": ["táº¥m rÃ¨m", "Ä‘Ãºng nhá»‹p ban Ä‘áº§u"],
+      "ending": "firm on Ä‘Ãºng nhá»‹p, softer on ban Ä‘áº§u",
+      "minimumPostClipHoldFrames": 0,
+      "postClipHoldPolicy": "use the measured remainder for the timing demonstration",
+      "phrases": [
+        {
+          "text": "Rá»“i quÃ©t ná»n nhÆ° kÃ©o má»™t táº¥m rÃ¨m.",
+          "tempoIntent": "brisk tactile image",
+          "emphasis": ["táº¥m rÃ¨m"],
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.12,
+          "seed": null,
+          "controls": {"denoise": false}
+        },
+        {
+          "text": "Cháº¥m váº«n lÆ°á»›t qua, giá»ng nÃ³i vÃ  phá»¥ Ä‘á» váº«n vÃ o Ä‘Ãºng nhá»‹p ban Ä‘áº§u.",
+          "tempoIntent": "measured proof with a firm accent and soft release",
+          "emphasis": ["Ä‘Ãºng nhá»‹p ban Ä‘áº§u"],
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.0,
+          "seed": null,
+          "controls": {"denoise": false}
+        }
+      ]
+    },
+    "s5": {
+      "slotStartFrame": 900,
+      "slotEndFrame": 1080,
+      "reference": {"source": "docs/motion-design-lab/voice-ref/benchmark-winner.wav"},
+      "referenceSelectionStatus": "pending benchmark; create this crop from the measured winner before synthesis",
+      "intent": "invite one viewer to repeat the test",
+      "emotion": "warm, relaxed and curious",
+      "accentWords": ["báº¡n thá»­", "má»™t cháº¥m", "bá»‹ giáº­t"],
+      "ending": "gentle falling question, then complete silence",
+      "minimumPostClipHoldFrames": 30,
+      "postClipHoldPolicy": "preserve at least 30 frames of true timeline silence",
+      "phrases": [
+        {
+          "text": "Báº¡n thá»­ giá»¯ má»™t cháº¥m cháº¡y qua bá»‘n kiá»ƒu chuyá»ƒn cáº£nh nhÃ©.",
+          "tempoIntent": "warm conversational invitation",
+          "emphasis": ["báº¡n thá»­", "má»™t cháº¥m"],
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.14,
+          "seed": null,
+          "controls": {"denoise": false}
+        },
+        {
+          "text": "Xem nÃ³ cÃ³ bá»‹ giáº­t khÃ´ng.",
+          "tempoIntent": "slightly slower close",
+          "emphasis": ["bá»‹ giáº­t"],
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.0,
+          "seed": null,
+          "controls": {"denoise": false}
+        }
+      ]
+    }
+  }
+}
+

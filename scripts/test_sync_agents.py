@@ -31,6 +31,50 @@ class SyncAgentsTest(unittest.TestCase):
             self.assertEqual(codex["description"], meta["description"])
             self.assertEqual(codex["developer_instructions"].strip(), body.strip())
 
+    def test_motion_workflow_roles_and_independent_review_contract(self):
+        producer = ROOT / ".agents/roles/motion-agent.md"
+        reviewer = ROOT / ".agents/roles/motion-reviewer.md"
+        self.assertTrue(producer.is_file())
+        self.assertTrue(reviewer.is_file())
+        _, producer_body = sync_agents.parse(producer)
+        _, reviewer_body = sync_agents.parse(reviewer)
+        self.assertIn("motion-proto/", producer_body)
+        self.assertIn("motion-spec.md", producer_body)
+        self.assertIn("clean context", reviewer_body)
+        self.assertIn("9/10", reviewer_body)
+        self.assertIn("motion-review.md", reviewer_body)
+        skill = (ROOT / ".agents/skills/ray-pineline-worflow-agent/SKILL.md").read_text(encoding="utf-8")
+        self.assertLess(skill.index("## Phase 4a"), skill.index("## Phase 4b"))
+        self.assertLess(skill.index("## Phase 4b"), skill.index("## Phase 5"))
+        self.assertIn("workflow v4", skill)
+
+    def test_voice_direction_and_performance_contract_is_shared(self):
+        skill = (ROOT / ".agents/skills/ray-pineline-worflow-agent/SKILL.md").read_text(encoding="utf-8")
+        self.assertIn("Phase 2b — Voice Direction", skill)
+        self.assertIn("voice-direction.md", skill)
+        self.assertIn("voice-performance.proposed.json", skill)
+        self.assertIn("voice-performance.json", skill)
+        self.assertIn("Anh-Khoi-Ke-Chuyen", skill)
+        self.assertIn("Thanh-Long-Nang-Cao", skill)
+        self.assertIn("Ngoc-Huyen", skill)
+        self.assertIn("maximum three candidates per phrase", skill)
+        self.assertIn("cannot prove naturalness", skill)
+
+        expected = {
+            "script-agent": ("voice-direction.md", "voice-performance.proposed.json"),
+            "script-reviewer": ("voice-direction.md", "voice-performance.proposed.json"),
+            "voice-agent": ("voice-direction.md", "voice-performance.json"),
+            "audio-reviewer": ("Technical fidelity", "Performance evidence"),
+            "motion-agent": ("voice-performance.json", "accent and pause"),
+            "integration-reviewer": ("voice-performance.json", "naturalness"),
+            "render-agent": ("voice-performance.json", "accent and pause"),
+            "qa-agent": ("voice-performance.json", "accent and pause"),
+        }
+        for name, needles in expected.items():
+            _, body = sync_agents.parse(ROOT / ".agents/roles" / f"{name}.md")
+            for needle in needles:
+                self.assertIn(needle, body, f"{name} must consume the voice-performance contract")
+
     def test_reviewers_can_write_their_report_in_opencode(self):
         meta = {"tools": "Read, Write, Glob, Grep"}
         self.assertEqual(sync_agents.permission(meta), {"edit": "allow", "bash": "deny", "webfetch": "deny"})

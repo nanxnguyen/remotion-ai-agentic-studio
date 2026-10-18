@@ -1,6 +1,7 @@
 """Accessibility and shell regression checks for the pipeline monitor."""
 
 import re
+import subprocess
 import unittest
 from html.parser import HTMLParser
 from pathlib import Path
@@ -20,6 +21,25 @@ class LandmarkParser(HTMLParser):
 
 
 class MonitorUiTest(unittest.TestCase):
+    def test_join_does_not_complete_from_pending_motion_declaration(self):
+        source = MONITOR.read_text(encoding="utf-8")
+        node_state = source[source.index("function nodeState("):source.index("function agentState(")]
+        js = "const stageOf=(v,id)=>v.stages.find(s=>s.id===id); const reviewOk=(v,g)=>!!v.accepted?.includes(g);\n" + node_state
+        js += "\nconst v={flow:4,stages:[{id:'motion',state:'pending',declared:true}],reviews:{motion:{rounds:0}},accepted:[]};"
+        js += "if(nodeState(v,{id:'join'})!=='pending')throw Error('pending motion falsely completes Join');"
+        js += "v.accepted=['D','content','audio'];if(nodeState(v,{id:'join'})!=='in_progress')throw Error('join should run');"
+        js += "v.join_ready=true;if(nodeState(v,{id:'join'})!=='done')throw Error('measured join should complete');"
+        result = subprocess.run(["node", "-e", js], capture_output=True, text=True)
+        self.assertEqual(result.returncode, 0, result.stderr)
+
+    def test_motion_follows_join_with_separate_review_and_version_filter(self):
+        source = MONITOR.read_text(encoding="utf-8")
+        self.assertIn("const videoFlow=", source)
+        self.assertIn("v.flow>=n.min_version", source)
+        self.assertIn("['join','motion','integration','tasks'", source)
+        self.assertIn("motion-reviewer", source)
+        self.assertIn("reviewOk(v,'motion')", source)
+
     def test_monitor_uses_agent_orchestration_command_deck(self):
         source = MONITOR.read_text(encoding="utf-8")
 

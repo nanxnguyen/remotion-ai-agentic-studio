@@ -46,3 +46,6 @@ Score 1–10 with evidence. **pass** only if ≥ 8, every `final-check.md` row �
 - Round 2+ (you are a new reviewer): verify each old ticket by its acceptance check, regression-check what the fixes touched, and raise only genuinely NEW tickets, marked `NEW`. Do not re-litigate closed tickets or move the bar.
 - Pass = score >= threshold AND no open Cao/Trung ticket. The producer returns a closure table `id | fixed/not fixed/disagree | evidence`; judge `disagree` on evidence.
 - Rounds: hard cap 3, except blockers, which are never accepted and always need a fix + re-render + full re-test. Every re-render is reviewed as a whole, not only the changed shot.
+
+## Workflow v4 motion contract
+Read accepted `motion-spec.md`, `motion-evidence.json` and `motion-review.md` alongside the E-approved packet. Compare final video to motion animatic/spec across every boundary and highlight, frame 0 and ending. Inspect every transition frame for flashes, resets, caption revival, direction/scale discontinuity and reading-time loss; verify voice/caption anchors and total frames unchanged. Check deterministic hook, mid-transition and ending renders. Route changes to owners and reopen affected motion/E/B/C/QA.

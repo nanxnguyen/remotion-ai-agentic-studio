@@ -31,3 +31,11 @@
 - Code change: `npm run verify` (lint, format, typecheck, unit tests, Python tests). Visual change: `npm run test:visual` and read the diff images.
 - Scene work: render and read the stills for your shots (beginning, middle, boundary) and return their paths.
 - Report pre-existing failures as pre-existing, with the command output; never claim a check passed that you did not run.
+
+## C6 · Motion ownership and timing (workflow v4)
+
+- Design owns `proto/`; motion-agent owns only `motion-proto/` and its evidence. Director owns production motion configuration, shared integration and registry; scene agents own assigned scenes. Prototype registration also goes through manifest and registry.
+- Phase 4a measures voice before 4b; after motion review and E/B approval director transfers configuration. Preserve shot starts, audio/caption placement and total duration. For a `t`-frame transition extend outgoing visual tail by `t` and compensate overlap; never shorten the measured timeline.
+- Audio/captions remain outside visual transition layers. Define outgoing tail hold/continuation without restarting animation or reviving captions; reject oversized/colliding overlap. Blur selected visuals while captions stay sharp.
+- Core shares timing/transforms only. Keep art direction and motion personality per video; prefer official version-matched transitions. Individual RVE sample adaptation retains attribution and MIT notice in assets-manifest.md.
+- Regenerating voice or changing captions/storyboard/timeline/audio cues reopens motion and downstream gates. Source/evidence drift cannot retain motion approval.

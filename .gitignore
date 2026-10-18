@@ -2,6 +2,8 @@
 node_modules/
 
 # Generated renders and visual QA output
+/out/
+/public/audio/motion-design-lab/
 
 # Python caches and environments
 __pycache__/

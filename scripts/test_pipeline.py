@@ -35,9 +35,13 @@ class PipelineCliTest(unittest.TestCase):
             cwd=self.root, text=True, capture_output=True,
         )
 
-    def init(self):
+    def init(self, version=3):
         result = self.cli("init", "sample", "--comp", "SampleReel", "--voice", "anh-khoi")
         self.assertEqual(result.returncode, 0, result.stderr)
+        if version != 4:
+            data = json.loads((self.root / "docs/sample/status.json").read_text())
+            data["workflow_version"] = version
+            (self.root / "docs/sample/status.json").write_text(json.dumps(data))
 
     def status(self):
         return json.loads((self.root / "docs" / "sample" / "status.json").read_text())
@@ -76,6 +80,143 @@ class PipelineCliTest(unittest.TestCase):
             "-f", "lavfi", "-i", "sine=frequency=440:sample_rate=48000", "-t", "0.5", "-c:v", "libx264",
             "-preset", "ultrafast", "-pix_fmt", "yuv420p", "-c:a", "aac", str(path),
         ], check=True)
+
+    def test_v4_motion_is_required_but_legacy_flow_is_unchanged(self):
+        self.init(version=4)
+        module = self.load_pipeline_module()
+        self.assertIn("motion", module.required_stages(self.status()))
+        self.assertIn("motion", module.review_names(self.status()))
+        self.assertEqual(module.review_prerequisites(self.status(), "motion"), ["D", "content", "audio"])
+        self.assertIn("motion", module.review_prerequisites(self.status(), "E"))
+        self.assertNotIn("motion", module.required_stages({"workflow_version": 3}))
+        self.assertNotIn("motion", module.review_names({"workflow_version": 3}))
+
+    def test_v4_audio_review_tracks_voice_performance_inputs(self):
+        self.init(version=4)
+        self.pass_gates("A")
+        docs = self.root / "docs" / "sample"
+        audio = self.root / "public" / "audio" / "sample"
+        audio.mkdir(parents=True)
+        (docs / "voice.json").write_text('{"s1": "xin chao"}', encoding="utf-8")
+        (docs / "voice-direction.md").write_text("Conversational direction", encoding="utf-8")
+        (docs / "voice-performance.json").write_text(
+            json.dumps({"s1": {"phrases": [{"text": "xin chao"}], "reference": "local.wav"}}),
+            encoding="utf-8",
+        )
+        (audio / "s1.mp3").write_bytes(b"voice-v1")
+        report = docs / "audio-review.md"
+        report.write_text("Independent audio review with measured evidence", encoding="utf-8")
+        reviewed = self.cli(
+            "review", "sample", "audio", "9", "--reviewer", "audio-reviewer", "--report", report.name
+        )
+        self.assertEqual(reviewed.returncode, 0, reviewed.stderr)
+        module = self.load_pipeline_module()
+        self.assertTrue(module.review_passed(self.status(), "audio"))
+
+        (docs / "voice-performance.json").write_text(
+            json.dumps({"s1": {"phrases": [{"text": "xin chao"}], "reference": "changed.wav"}}),
+            encoding="utf-8",
+        )
+        self.assertFalse(module.review_passed(self.status(), "audio"))
+
+    def test_v4_motion_sources_include_voice_direction_and_performance(self):
+        self.init(version=4)
+        docs = self.root / "docs" / "sample"
+        (docs / "voice-direction.md").write_text("Direction", encoding="utf-8")
+        (docs / "voice-performance.json").write_text("{}", encoding="utf-8")
+        module = self.load_pipeline_module()
+        sources = {Path(path).name for path in module.motion_source_paths("sample", self.status())}
+        self.assertIn("voice-direction.md", sources)
+        self.assertIn("voice-performance.json", sources)
+
+    def test_v4_motion_start_and_e_are_blocked_without_join_evidence(self):
+        self.init(version=4)
+        self.assertNotEqual(self.cli("set", "sample", "motion", "in_progress").returncode, 0)
+        self.pass_gates("A", "D", "content", "audio")
+        report = self.root / "docs/sample/motion-review.md"
+        report.write_text("open high/medium: 0\nIndependent review")
+        result = self.cli("review", "sample", "motion", "9", "--reviewer", "critic", "--report", report.name)
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("join-notes", result.stderr)
+        report = self.root / "docs/sample/e-review.md"
+        report.write_text("integration review")
+        self.assertNotEqual(self.cli("review", "sample", "E", "9", "--reviewer", "critic", "--report", report.name).returncode, 0)
+
+    def test_v4_accepts_real_motion_media_and_detects_input_drift(self):
+        self.init(version=4)
+        self.pass_gates("A", "D", "content", "audio")
+        docs = self.root / "docs/sample"
+        video = self.root / "src/videos/sample"
+        video.mkdir(parents=True)
+        (video / "timeline.ts").write_text("export const starts = [0, 5, 10];")
+        (video / "voice-durations.ts").write_text("export const measured = {s1: 0.5};")
+        (docs / "join-notes.md").write_text("Measured voice duration 0.5s, 15 frames at 30fps")
+        (docs / "motion-spec.md").write_text("Cut and dissolve at frames 5 and 10")
+        (docs / "motion-review.md").write_text("open high/medium: 0\nIndependent motion review")
+        proto = video / "motion-proto"
+        proto.mkdir()
+        (proto / "Reel.tsx").write_text("export const Prototype = 1;")
+        animatic = self.root / "out/qa/sample-motion-animatic.mp4"
+        self.make_video(animatic)
+        strips = []
+        for index, color in enumerate(("red", "blue", "green", "yellow")):
+            strip = self.root / f"out/qa/sample-motion-strip-{index}.png"
+            subprocess.run(["ffmpeg", "-v", "error", "-y", "-f", "lavfi", "-i", f"color=c={color}:s=320x80", "-frames:v", "1", str(strip)], check=True)
+            strips.append(strip.relative_to(self.root).as_posix())
+        manifest = {"fps": 30, "durationFrames": 15, "shotStartFrames": [0, 5, 10],
+                    "animatic": animatic.relative_to(self.root).as_posix(), "hook": strips[0],
+                    "highlight": strips[1], "boundaries": [{"frame": 5, "strip": strips[2]}, {"frame": 10, "strip": strips[3]}]}
+        (docs / "motion-evidence.json").write_text(json.dumps(manifest))
+        start = self.cli("set", "sample", "motion", "in_progress")
+        self.assertEqual(start.returncode, 0, start.stderr)
+        passed = self.cli("review", "sample", "motion", "9", "--reviewer", "independent", "--report", "motion-review.md")
+        self.assertEqual(passed.returncode, 0, passed.stderr)
+        done = self.cli("set", "sample", "motion", "done")
+        self.assertEqual(done.returncode, 0, done.stderr)
+        self.assertEqual(self.cli("gate", "sample", "motion").returncode, 0)
+        (proto / "New.tsx").write_text("new input")
+        self.assertNotEqual(self.cli("gate", "sample", "motion").returncode, 0)
+        (proto / "New.tsx").unlink()
+        self.assertEqual(self.cli("gate", "sample", "motion").returncode, 0)
+        (proto / "Reel.tsx").write_text("export const Prototype = 2;")
+        self.assertNotEqual(self.cli("gate", "sample", "motion").returncode, 0)
+        module = self.load_pipeline_module()
+        manifest["boundaries"].pop()
+        (docs / "motion-evidence.json").write_text(json.dumps(manifest))
+        evidence = module.motion_evidence("sample", self.status())
+        self.assertFalse(evidence["ok"])
+        self.assertIn("every shot start", evidence["detail"])
+
+    def test_v4_audio_reopen_invalidates_motion_and_downstream(self):
+        self.init(version=4)
+        data = self.status()
+        for gate in ("motion", "E", "B", "C", "audio"):
+            data["reviews"][gate] = [{"score": 9, "verdict": "pass"}]
+            data["review_valid"][gate] = True
+        data["stages"]["qa"] = {"state": "done"}
+        (self.root / "docs/sample/status.json").write_text(json.dumps(data))
+        self.assertEqual(self.cli("set", "sample", "audio", "in_progress").returncode, 0)
+        result = self.status()
+        for gate in ("motion", "E", "B", "C"):
+            self.assertFalse(result["review_valid"][gate])
+        self.assertTrue(result["review_valid"]["audio"])
+        self.assertEqual(result["stages"]["qa"]["state"], "pending")
+
+    def test_upgrade_preserves_history_and_invalidates_downstream(self):
+        self.init()
+        data = self.status()
+        data["reviews"]["E"] = [{"score": 9, "verdict": "pass"}]
+        data["review_valid"]["E"] = True
+        data["stages"]["qa"] = {"state": "done"}
+        (self.root / "docs/sample/status.json").write_text(json.dumps(data))
+        result = self.cli("upgrade", "sample")
+        self.assertEqual(result.returncode, 0, result.stderr)
+        data = self.status()
+        self.assertEqual(data["workflow_version"], 4)
+        self.assertEqual(len(data["reviews"]["E"]), 1)
+        self.assertFalse(data["review_valid"]["E"])
+        self.assertEqual(data["stages"]["motion"]["state"], "pending")
+        self.assertEqual(data["stages"]["qa"]["state"], "pending")
 
     def test_review_gate_requires_report_and_passing_score(self):
         self.init()
@@ -134,6 +275,16 @@ class PipelineCliTest(unittest.TestCase):
         result = self.cli("verify", "sample")
         self.assertNotEqual(result.returncode, 0)
         self.assertNotIn("render_check", self.status())
+
+    def test_v4_default_duration_range_and_explicit_override(self):
+        self.init(version=4)
+        video = self.root / "out/sample-anh-khoi-reel.mp4"
+        self.make_video(video)
+        result = self.cli("verify", "sample")
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("30..45", result.stderr)
+        result = self.cli("verify", "sample", "--min-seconds", "0.1", "--max-seconds", "1")
+        self.assertEqual(result.returncode, 0, result.stderr)
 
     def test_default_duration_range_is_40_to_60_seconds(self):
         self.init()
@@ -259,6 +410,27 @@ class PipelineCliTest(unittest.TestCase):
         report.write_text("visual content: 7.5/10")
         self.assertEqual(module.visual_problem(report), "")
 
+    def test_active_minutes_skips_breaks_longer_than_the_limit(self):
+        from datetime import datetime, timedelta
+        module = self.load_pipeline_module()
+        start = datetime(2026, 10, 17, 9, 0)
+        times = [start, start + timedelta(minutes=5), start + timedelta(minutes=35), start + timedelta(minutes=40)]
+        self.assertEqual(module.active_minutes(times), 10)  # the 30-minute gap is a break, not work
+        self.assertEqual(module.active_minutes([]), 0)
+
+    def test_timing_reports_stage_and_agent_time_from_the_log(self):
+        self.init()
+        self.assertEqual(self.cli("set", "sample", "research", "in_progress").returncode, 0)
+        self.assertEqual(self.cli("agent", "sample", "research-agent", "running", "--stage", "research").returncode, 0)
+        self.assertNotEqual(self.cli("set", "sample", "research", "done").returncode, 0)  # research.md is absent: refused
+        timing = self.cli("timing", "sample")
+        self.assertEqual(timing.returncode, 0, timing.stderr)
+        self.assertIn("active", timing.stdout)
+        report = self.load_pipeline_module().timing_report("sample")
+        self.assertIn("research-agent", report["agents"])
+        self.assertEqual(report["review_agent_names"], 0)
+        self.assertIn("refused", timing.stdout)
+
     def test_revise_verdict_blocks_gate_and_next_review(self):
         self.init()
         (self.root / "docs" / "sample" / "a.md").write_text("review")
@@ -345,7 +517,7 @@ class PipelineCliTest(unittest.TestCase):
         (self.root / "docs" / "sample" / "status.json").write_text(json.dumps(status))
         self.pass_gates("A")
         self.assertEqual(self.cli("upgrade", "sample").returncode, 0)
-        self.assertEqual(self.status()["workflow_version"], 3)
+        self.assertEqual(self.status()["workflow_version"], 4)
         self.assertNotEqual(self.cli("upgrade", "sample").returncode, 0)
 
     def test_review_view_marks_stale_and_counts_only_scored_rounds(self):
@@ -471,7 +643,7 @@ class PipelineCliTest(unittest.TestCase):
         self.assertIn("1/2 clips", refused.stderr)
         self.assertNotEqual(self.status()["stages"].get("voice", {}).get("state"), "done")
         (audio / "s2.mp3").write_bytes(b"voice")
-        self.assertEqual(self.cli("set", "sample", "voice", "done").returncode, 0)
+        self.assertEqual(self.cli("set", "sample", "voice", "done", "--next", "audio-reviewer").returncode, 0)
         for stage in ("research", "qa", "render"):
             self.assertNotEqual(self.cli("set", "sample", stage, "done").returncode, 0, stage)
 
@@ -511,6 +683,51 @@ class PipelineCliTest(unittest.TestCase):
         self.assertIn("voice-clone-asr.md", failed.stdout)
         for name in ("voice-report.md", "voice-clone-asr.md"):
             (self.root / "docs" / "sample" / name).write_text("Measured\n")
+        self.assertEqual(self.cli("audit", "sample").returncode, 0)
+
+    def test_v4_audit_requires_voice_direction_and_performance_contracts(self):
+        self.init(version=4)
+        docs = self.root / "docs" / "sample"
+        audio = self.root / "public" / "audio" / "sample"
+        audio.mkdir(parents=True)
+        (docs / "voice.json").write_text('{"s1": "a"}', encoding="utf-8")
+        (audio / "s1.mp3").write_bytes(b"voice")
+        for name in ("voice-report.md", "voice-clone-asr.md"):
+            (docs / name).write_text("Measured\n", encoding="utf-8")
+        self.assertEqual(self.cli("set", "sample", "voice", "done", "--next", "audio-reviewer").returncode, 0)
+        failed = self.cli("audit", "sample")
+        self.assertNotEqual(failed.returncode, 0)
+        self.assertIn("voice-performance.json", failed.stdout)
+
+        (docs / "voice-performance.json").write_text("{}", encoding="utf-8")
+        self.assertEqual(self.cli("audit", "sample").returncode, 0)
+
+    def test_v4_audit_requires_phase_2b_documents_after_script_done(self):
+        self.init(version=4)
+        docs = self.root / "docs" / "sample"
+        (docs / "script.md").write_text("Script\n", encoding="utf-8")
+        (docs / "voice.proposed.json").write_text('{"s1": "a"}', encoding="utf-8")
+        self.pass_gates("A")
+        self.assertEqual(self.cli("set", "sample", "script", "done", "--next", "branches").returncode, 0)
+        failed = self.cli("audit", "sample")
+        self.assertNotEqual(failed.returncode, 0)
+        self.assertIn("voice-direction.md", failed.stdout)
+        self.assertIn("voice-performance.proposed.json", failed.stdout)
+
+        (docs / "voice-direction.md").write_text("Direction\n", encoding="utf-8")
+        (docs / "voice-performance.proposed.json").write_text("{}", encoding="utf-8")
+        self.assertEqual(self.cli("audit", "sample").returncode, 0)
+
+    def test_legacy_audit_does_not_require_voice_performance_contract(self):
+        self.init(version=3)
+        docs = self.root / "docs" / "sample"
+        audio = self.root / "public" / "audio" / "sample"
+        audio.mkdir(parents=True)
+        (docs / "voice.json").write_text('{"s1": "a"}', encoding="utf-8")
+        (audio / "s1.mp3").write_bytes(b"voice")
+        for name in ("voice-report.md", "voice-clone-asr.md"):
+            (docs / name).write_text("Measured\n", encoding="utf-8")
+        self.assertEqual(self.cli("set", "sample", "voice", "done", "--next", "audio-reviewer").returncode, 0)
         self.assertEqual(self.cli("audit", "sample").returncode, 0)
 
     def test_audit_requires_each_recorded_review_report(self):
@@ -1122,7 +1339,7 @@ class MonitorCreateFlowTest(unittest.TestCase):
         self.assertEqual(result["run_error"], "")
         status = self.status()
         self.assertNotIn("video-director", status.get("agents", {}))
-        self.assertEqual(status.get("workflow_version"), 3)
+        self.assertEqual(status.get("workflow_version"), 4)
         self.assertTrue(status["next"])
         self.assertIn("no agent launched", " ".join(e["msg"] for e in status["log"]))
 

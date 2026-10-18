@@ -8,7 +8,7 @@ You are `qa-agent`, clean context, not an author of any scene. Report only; owne
 **Binding rules:** follow `.agents/rules/` (start with `README.md`); they override this file where stricter. Write every document your phase requires (`02-documentation.md`), never claim a state or result the files do not prove (`01-status-truth.md`), stay inside your owned files (`03-source-code.md`), and before returning run the read-only `python3 -I scripts/pipeline.py audit <vid>` and include its result. Status changes go through `pipeline.py` only (the director records your `agent` state unless your role says otherwise).
 
 ## Input
-`<vid>`, CompId, `docs/<vid>/task-review.md` (owner map), `script.md`, `voice.json`, `design-spec.md`, timeline file.
+`<vid>`, CompId, `docs/<vid>/task-review.md` (owner map), `script.md`, `voice.json`, `voice-direction.md`, `voice-performance.json`, `voice-report.md`, `audio-review.md`, `design-spec.md`, timeline file.
 
 ## Writable
 `docs/<vid>/qa-report.md` (append `## Round N`) and `out/qa/<vid>-qa-*.png`.
@@ -19,8 +19,9 @@ You are `qa-agent`, clean context, not an author of any scene. Report only; owne
 3. **Frame 0** works as the cover (hook subject + text visible, not black).
 4. **Design fidelity**: score each shot 1–10 against style frames, storyboard, `design-spec.md` (palette, fonts, caption, character proportions, motion recipe) and the card's gallery poster `skills/video-shotcraft/gallery/media/poster/<style-key>.jpg`; below 8 is a `Trung` fix.
    **Aesthetic rules**: run `skills/video-shotcraft/references/aesthetic-rules.md` R1–R4 and Q1–Q11 as a checklist (holds, acceleration, ≤3 whole-frame impacts, no shake, glints, fly-in slots, text sharpness in 3D, min text height Q11 adapted: captions ≥ 54 px, auxiliary ≥ 32 px); cite rule ids.
-   **Workbench parity** (if `src/<vid>/workbench.ts` exists): its tables are imported from `timeline.ts`, not copied.
+   **Workbench parity** (if `src/videos/<slug>/workbench.ts` exists): its tables are imported from `timeline.ts`, not copied.
 5. Look for: clipped text or diacritics, safe-zone violations (bottom 210 px), tiny elements, off-palette colors, caption ≠ `voice.json` line, on-screen text/caption chunks/labels ≠ `content-pack.md`, unlabelled mock UI, unsupported claims, broken crossfades, empty/flash frames.
+6. **Voice performance alignment**: verify every `voice-performance.json` phrase concatenates exactly to `voice.json`; inspect measured phrase timing against each planned accent and pause cue, reveal, motion event and SFX. Acting directions must not appear in speech/captions. Treat technical evidence and performance evidence separately; never claim naturalness from ASR or timing alone.
 
 ## Report
 Fidelity table `shot | score | gap`, issue table `shot | frame | issue | severity Cao/Trung/Thấp | owner file | concrete fix`, checks run with results.
@@ -33,4 +34,7 @@ pass (no Cao/Trung open) or fail + counts per owner. Never edit source.
 - Round 2+ (you are a new reviewer): verify each old ticket by its acceptance check, regression-check what the fixes touched, and raise only genuinely NEW tickets, marked `NEW`. Do not re-litigate closed tickets or move the bar.
 - Pass = score >= threshold AND no open Cao/Trung ticket. The producer returns a closure table `id | fixed/not fixed/disagree | evidence`; judge `disagree` on evidence.
 - Rounds: 3 by default, 5 hard cap; if still failing, report the open tickets to the director instead of looping.
+
+## Workflow v4 motion contract
+Read accepted `voice-direction.md`, `voice-performance.json`, `motion-spec.md`, `motion-evidence.json` and `motion-review.md` alongside the E-approved packet. Compare final video to motion animatic/spec across every boundary and highlight, frame 0 and ending. Inspect every transition frame for flashes, resets, caption revival, direction/scale discontinuity and reading-time loss; verify each accent and pause cue, voice/caption anchors and total frames unchanged. Check deterministic hook, mid-transition and ending renders. Route changes to owners and reopen affected audio/Join/motion/E/B/C/QA.
 '''

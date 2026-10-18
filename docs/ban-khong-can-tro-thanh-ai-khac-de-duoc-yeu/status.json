@@ -1,0 +1,663 @@
+{
+  "workflow_version": 4,
+  "name": "ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu",
+  "comp": "BanKhongCanTroThanhAiKhacDeDuocYeuReel",
+  "voice": "thanh-long-nang-cao",
+  "profile": "story",
+  "paths": {
+    "audio": "ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu",
+    "out": "ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu-thanh-long-nang-cao",
+    "qa": "ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu"
+  },
+  "gates": [],
+  "stages": {
+    "research": {
+      "state": "done",
+      "at": "2026-10-18T17:07:01+07:00"
+    },
+    "motion": {
+      "state": "done",
+      "at": "2026-10-18T17:34:04+07:00"
+    },
+    "qa": {
+      "state": "in_progress",
+      "at": "2026-10-18T17:52:24+07:00"
+    },
+    "brief": {
+      "state": "done",
+      "at": "2026-10-18T17:08:00+07:00"
+    },
+    "script": {
+      "state": "done",
+      "at": "2026-10-18T17:08:43+07:00"
+    },
+    "voice": {
+      "state": "done",
+      "at": "2026-10-18T17:24:41+07:00"
+    },
+    "content": {
+      "state": "done",
+      "at": "2026-10-18T17:28:42+07:00"
+    },
+    "design": {
+      "state": "done",
+      "at": "2026-10-18T17:34:10+07:00"
+    },
+    "audio": {
+      "state": "done",
+      "at": "2026-10-18T17:25:56+07:00"
+    },
+    "build": {
+      "state": "done",
+      "at": "2026-10-18T17:43:47+07:00"
+    },
+    "render": {
+      "state": "done",
+      "at": "2026-10-18T17:49:36+07:00",
+      "note": "verified final MP4"
+    }
+  },
+  "reviews": {
+    "A": [
+      {
+        "at": "2026-10-18T17:08:34+07:00",
+        "reviewer": "script-reviewer",
+        "score": 9.1,
+        "verdict": "pass",
+        "report": "docs\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\script-review.md",
+        "note": ""
+      }
+    ],
+    "D": [
+      {
+        "at": "2026-10-18T17:28:06+07:00",
+        "reviewer": "design-reviewer",
+        "score": 8.8,
+        "verdict": "pass",
+        "report": "docs\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\design-review.md",
+        "note": ""
+      }
+    ],
+    "content": [
+      {
+        "at": "2026-10-18T17:28:34+07:00",
+        "reviewer": "content-reviewer",
+        "score": 9.2,
+        "verdict": "pass",
+        "report": "docs\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\content-pack-review.md",
+        "note": ""
+      }
+    ],
+    "audio": [
+      {
+        "at": "2026-10-18T17:29:06+07:00",
+        "reviewer": "audio-reviewer",
+        "score": 9.3,
+        "verdict": "pass",
+        "report": "docs\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\audio-review.md",
+        "note": ""
+      }
+    ],
+    "motion": [
+      {
+        "at": "2026-10-18T17:33:54+07:00",
+        "reviewer": "motion-reviewer",
+        "score": 9.1,
+        "verdict": "pass",
+        "report": "docs\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\motion-review.md",
+        "note": "",
+        "motion_inputs": {
+          "docs\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\assets-manifest.md": "6e34c2390f71050c2468f7b750351060de237537d65c29ed1e9c787a366175ab",
+          "docs\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\content-pack.md": "2a878f1741b9796119b72a3fb7170f5bfb5e6e0613a5f4b5a959429a2dbd8c62",
+          "docs\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\design-spec.md": "bbce4f429b5b410c755f45d39ae297706304e1f160c0c928a71882ad2dd10814",
+          "docs\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\join-notes.md": "d6d6d27998bde7756658481b00c7c4f864d673afd4f83060f4dbd2e45ee2a8be",
+          "docs\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\mix-plan.md": "363e4e9e77abe41025c796056c3b333c9f44b41a464d03a7115cf7edde49fc35",
+          "docs\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\motion-evidence.json": "3f6f4ef1271d0caf10d54e9e296d1e2d093e2b327a7f5b432514522dd818c3d4",
+          "docs\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\motion-review.md": "4baf74d2604c3f1cf24658bf276d694b85a6fd0842c78667fd694bbfaa5057f8",
+          "docs\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\motion-spec.md": "cb67b8feff0d4921215e8aa2204ca84d9d21a199ed5a06e78bf16f66f5ff824f",
+          "docs\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\script.md": "112d89df608c42b57c65ab722600b3d55f0665d28687ee2368f90af00a753571",
+          "docs\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\voice.json": "3630331a3b7d38044fdd4d9e5dd07765ff0d7d52060cf8025530a8b432303730",
+          "out\\qa\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu-board.png": "bcbafa57b9d7220289b2e1ae8854302307d26933bb4d7405b311bc0289124ea5",
+          "public\\audio\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\bgm-main.mp3": "3cca527dbde2f670aaab8a615fb019e55f14aeb0fd78158e5f61bb69b8713605",
+          "public\\audio\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\bgm-turn.mp3": "3cca527dbde2f670aaab8a615fb019e55f14aeb0fd78158e5f61bb69b8713605",
+          "public\\audio\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\s1.mp3": "b8b780e9a1b9a3a3e3deae1f37644ce74151fc909bd04a7947900c5dd6052c45",
+          "public\\audio\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\s2.mp3": "b8b780e9a1b9a3a3e3deae1f37644ce74151fc909bd04a7947900c5dd6052c45",
+          "public\\audio\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\s3.mp3": "b8b780e9a1b9a3a3e3deae1f37644ce74151fc909bd04a7947900c5dd6052c45",
+          "public\\audio\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\s4.mp3": "b8b780e9a1b9a3a3e3deae1f37644ce74151fc909bd04a7947900c5dd6052c45",
+          "public\\audio\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\s5.mp3": "b8b780e9a1b9a3a3e3deae1f37644ce74151fc909bd04a7947900c5dd6052c45",
+          "public\\audio\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\s6a.mp3": "b8b780e9a1b9a3a3e3deae1f37644ce74151fc909bd04a7947900c5dd6052c45",
+          "public\\audio\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\s6b.mp3": "b8b780e9a1b9a3a3e3deae1f37644ce74151fc909bd04a7947900c5dd6052c45",
+          "public\\audio\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\s7.mp3": "b8b780e9a1b9a3a3e3deae1f37644ce74151fc909bd04a7947900c5dd6052c45",
+          "public\\audio\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\s8.mp3": "b8b780e9a1b9a3a3e3deae1f37644ce74151fc909bd04a7947900c5dd6052c45",
+          "public\\audio\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\s9.mp3": "b8b780e9a1b9a3a3e3deae1f37644ce74151fc909bd04a7947900c5dd6052c45",
+          "public\\audio\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\sfx-breath.mp3": "3cca527dbde2f670aaab8a615fb019e55f14aeb0fd78158e5f61bb69b8713605",
+          "public\\audio\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\sfx-heartbeat.mp3": "3cca527dbde2f670aaab8a615fb019e55f14aeb0fd78158e5f61bb69b8713605",
+          "public\\audio\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\sfx-light-shimmer.mp3": "3cca527dbde2f670aaab8a615fb019e55f14aeb0fd78158e5f61bb69b8713605",
+          "public\\audio\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\sfx-type-delete.mp3": "3cca527dbde2f670aaab8a615fb019e55f14aeb0fd78158e5f61bb69b8713605",
+          "public\\audio\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\sfx-warm-resolve.mp3": "3cca527dbde2f670aaab8a615fb019e55f14aeb0fd78158e5f61bb69b8713605",
+          "src\\videos\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\timeline.ts": "6a7a97923c54b7fcb002afcde32bfa70e0f70b5002e971a57023093bb1fcacb9",
+          "src\\videos\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\voice-durations.ts": "88eeaba96b727605093d4c515bc7f27662d93f65d498e72a76c1477bb0ab756a",
+          "out\\qa\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu-motion-animatic.mp4": "d35f36c83472685eeefba50d29ff7add47e68f54b45880d897b5abfd8c4a1edc",
+          "out\\qa\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu-motion-strip-hook.png": "d7946923ce1c3d4906f5fe073ac3733b05eac46e07b0ffebbb0fd2a5cae01f8b",
+          "out\\qa\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu-motion-strip-highlight.png": "0f04ca7dcaffd082fd2fbed5b097f6332b752a1a1751f1ac210b7aadf3e90d92",
+          "out\\qa\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu-motion-strip-192.png": "90442633016d58290241af1dc3bd2840ebe2bc81e4d57e37036b0c42825b3cec",
+          "out\\qa\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu-motion-strip-405.png": "834f4b021f9e75114495e0b992fb2ac2354b20c7acd7749c0a8ba1204d76ed84",
+          "out\\qa\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu-motion-strip-588.png": "1245536fe8b1055ad63351493951d1c45ea6bba445472810bd60db1fdb9796af",
+          "out\\qa\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu-motion-strip-813.png": "f585932da6774c9b863a3fcc3ec55fd131e4b0ce9ae3d27a77874c4c4472c25f",
+          "out\\qa\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu-motion-strip-960.png": "ca3d11f89db2d5ee1304e4d68da677dd2d2246c98353f2718fd631a55539a4bf",
+          "out\\qa\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu-motion-strip-1104.png": "eaf7fa5ac685a1e2808af7caa0fa0463e5df75c58c67b7c27f1094015c0ab845",
+          "out\\qa\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu-motion-strip-1353.png": "a734280e4da3b048fb9ea9e458619cc8a76f81d246be8cf0a85a59f4b304c59a",
+          "out\\qa\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu-motion-strip-1530.png": "9b4f87765391b7b190f4c45a6fb0f52bb5888dbf5d285b8bd7bcfd4ae9b7c79e"
+        },
+        "motion_folder": "ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu",
+        "motion_source_paths": [
+          "docs\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\assets-manifest.md",
+          "docs\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\content-pack.md",
+          "docs\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\design-spec.md",
+          "docs\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\join-notes.md",
+          "docs\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\mix-plan.md",
+          "docs\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\motion-evidence.json",
+          "docs\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\motion-review.md",
+          "docs\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\motion-spec.md",
+          "docs\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\script.md",
+          "docs\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\voice.json",
+          "out\\qa\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu-board.png",
+          "public\\audio\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\bgm-main.mp3",
+          "public\\audio\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\bgm-turn.mp3",
+          "public\\audio\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\s1.mp3",
+          "public\\audio\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\s2.mp3",
+          "public\\audio\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\s3.mp3",
+          "public\\audio\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\s4.mp3",
+          "public\\audio\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\s5.mp3",
+          "public\\audio\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\s6a.mp3",
+          "public\\audio\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\s6b.mp3",
+          "public\\audio\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\s7.mp3",
+          "public\\audio\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\s8.mp3",
+          "public\\audio\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\s9.mp3",
+          "public\\audio\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\sfx-breath.mp3",
+          "public\\audio\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\sfx-heartbeat.mp3",
+          "public\\audio\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\sfx-light-shimmer.mp3",
+          "public\\audio\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\sfx-type-delete.mp3",
+          "public\\audio\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\sfx-warm-resolve.mp3",
+          "src\\videos\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\timeline.ts",
+          "src\\videos\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\voice-durations.ts"
+        ]
+      },
+      {
+        "at": "2026-10-18T17:51:24+07:00",
+        "reviewer": "motion-reviewer",
+        "score": 9.1,
+        "verdict": "pass",
+        "report": "docs\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\motion-review.md",
+        "note": "",
+        "motion_inputs": {
+          "docs\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\assets-manifest.md": "6e34c2390f71050c2468f7b750351060de237537d65c29ed1e9c787a366175ab",
+          "docs\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\content-pack.md": "2a878f1741b9796119b72a3fb7170f5bfb5e6e0613a5f4b5a959429a2dbd8c62",
+          "docs\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\design-spec.md": "bbce4f429b5b410c755f45d39ae297706304e1f160c0c928a71882ad2dd10814",
+          "docs\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\join-notes.md": "d6d6d27998bde7756658481b00c7c4f864d673afd4f83060f4dbd2e45ee2a8be",
+          "docs\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\mix-plan.md": "363e4e9e77abe41025c796056c3b333c9f44b41a464d03a7115cf7edde49fc35",
+          "docs\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\motion-evidence.json": "3f6f4ef1271d0caf10d54e9e296d1e2d093e2b327a7f5b432514522dd818c3d4",
+          "docs\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\motion-review.md": "4baf74d2604c3f1cf24658bf276d694b85a6fd0842c78667fd694bbfaa5057f8",
+          "docs\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\motion-spec.md": "cb67b8feff0d4921215e8aa2204ca84d9d21a199ed5a06e78bf16f66f5ff824f",
+          "docs\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\script.md": "112d89df608c42b57c65ab722600b3d55f0665d28687ee2368f90af00a753571",
+          "docs\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\voice.json": "3630331a3b7d38044fdd4d9e5dd07765ff0d7d52060cf8025530a8b432303730",
+          "out\\qa\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu-board.png": "bcbafa57b9d7220289b2e1ae8854302307d26933bb4d7405b311bc0289124ea5",
+          "public\\audio\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\bgm-main.mp3": "3cca527dbde2f670aaab8a615fb019e55f14aeb0fd78158e5f61bb69b8713605",
+          "public\\audio\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\bgm-turn.mp3": "3cca527dbde2f670aaab8a615fb019e55f14aeb0fd78158e5f61bb69b8713605",
+          "public\\audio\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\s1.mp3": "b8b780e9a1b9a3a3e3deae1f37644ce74151fc909bd04a7947900c5dd6052c45",
+          "public\\audio\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\s2.mp3": "b8b780e9a1b9a3a3e3deae1f37644ce74151fc909bd04a7947900c5dd6052c45",
+          "public\\audio\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\s3.mp3": "b8b780e9a1b9a3a3e3deae1f37644ce74151fc909bd04a7947900c5dd6052c45",
+          "public\\audio\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\s4.mp3": "b8b780e9a1b9a3a3e3deae1f37644ce74151fc909bd04a7947900c5dd6052c45",
+          "public\\audio\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\s5.mp3": "b8b780e9a1b9a3a3e3deae1f37644ce74151fc909bd04a7947900c5dd6052c45",
+          "public\\audio\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\s6.mp3": "35bfdb0a5ace3de95616bd6547bc4e0fc9bd328e297ebb539a5e1f1743cf56eb",
+          "public\\audio\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\s6a.mp3": "b8b780e9a1b9a3a3e3deae1f37644ce74151fc909bd04a7947900c5dd6052c45",
+          "public\\audio\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\s6b.mp3": "b8b780e9a1b9a3a3e3deae1f37644ce74151fc909bd04a7947900c5dd6052c45",
+          "public\\audio\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\s7.mp3": "b8b780e9a1b9a3a3e3deae1f37644ce74151fc909bd04a7947900c5dd6052c45",
+          "public\\audio\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\s8.mp3": "b8b780e9a1b9a3a3e3deae1f37644ce74151fc909bd04a7947900c5dd6052c45",
+          "public\\audio\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\s9.mp3": "b8b780e9a1b9a3a3e3deae1f37644ce74151fc909bd04a7947900c5dd6052c45",
+          "public\\audio\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\sfx-breath.mp3": "3cca527dbde2f670aaab8a615fb019e55f14aeb0fd78158e5f61bb69b8713605",
+          "public\\audio\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\sfx-heartbeat.mp3": "3cca527dbde2f670aaab8a615fb019e55f14aeb0fd78158e5f61bb69b8713605",
+          "public\\audio\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\sfx-light-shimmer.mp3": "3cca527dbde2f670aaab8a615fb019e55f14aeb0fd78158e5f61bb69b8713605",
+          "public\\audio\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\sfx-type-delete.mp3": "3cca527dbde2f670aaab8a615fb019e55f14aeb0fd78158e5f61bb69b8713605",
+          "public\\audio\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\sfx-warm-resolve.mp3": "3cca527dbde2f670aaab8a615fb019e55f14aeb0fd78158e5f61bb69b8713605",
+          "src\\videos\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\timeline.ts": "6a7a97923c54b7fcb002afcde32bfa70e0f70b5002e971a57023093bb1fcacb9",
+          "src\\videos\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\voice-durations.ts": "88eeaba96b727605093d4c515bc7f27662d93f65d498e72a76c1477bb0ab756a",
+          "out\\qa\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu-motion-animatic.mp4": "d35f36c83472685eeefba50d29ff7add47e68f54b45880d897b5abfd8c4a1edc",
+          "out\\qa\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu-motion-strip-hook.png": "d7946923ce1c3d4906f5fe073ac3733b05eac46e07b0ffebbb0fd2a5cae01f8b",
+          "out\\qa\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu-motion-strip-highlight.png": "0f04ca7dcaffd082fd2fbed5b097f6332b752a1a1751f1ac210b7aadf3e90d92",
+          "out\\qa\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu-motion-strip-192.png": "90442633016d58290241af1dc3bd2840ebe2bc81e4d57e37036b0c42825b3cec",
+          "out\\qa\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu-motion-strip-405.png": "834f4b021f9e75114495e0b992fb2ac2354b20c7acd7749c0a8ba1204d76ed84",
+          "out\\qa\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu-motion-strip-588.png": "1245536fe8b1055ad63351493951d1c45ea6bba445472810bd60db1fdb9796af",
+          "out\\qa\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu-motion-strip-813.png": "f585932da6774c9b863a3fcc3ec55fd131e4b0ce9ae3d27a77874c4c4472c25f",
+          "out\\qa\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu-motion-strip-960.png": "ca3d11f89db2d5ee1304e4d68da677dd2d2246c98353f2718fd631a55539a4bf",
+          "out\\qa\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu-motion-strip-1104.png": "eaf7fa5ac685a1e2808af7caa0fa0463e5df75c58c67b7c27f1094015c0ab845",
+          "out\\qa\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu-motion-strip-1353.png": "a734280e4da3b048fb9ea9e458619cc8a76f81d246be8cf0a85a59f4b304c59a",
+          "out\\qa\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu-motion-strip-1530.png": "9b4f87765391b7b190f4c45a6fb0f52bb5888dbf5d285b8bd7bcfd4ae9b7c79e"
+        },
+        "motion_folder": "ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu",
+        "motion_source_paths": [
+          "docs\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\assets-manifest.md",
+          "docs\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\content-pack.md",
+          "docs\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\design-spec.md",
+          "docs\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\join-notes.md",
+          "docs\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\mix-plan.md",
+          "docs\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\motion-evidence.json",
+          "docs\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\motion-review.md",
+          "docs\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\motion-spec.md",
+          "docs\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\script.md",
+          "docs\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\voice.json",
+          "out\\qa\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu-board.png",
+          "public\\audio\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\bgm-main.mp3",
+          "public\\audio\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\bgm-turn.mp3",
+          "public\\audio\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\s1.mp3",
+          "public\\audio\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\s2.mp3",
+          "public\\audio\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\s3.mp3",
+          "public\\audio\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\s4.mp3",
+          "public\\audio\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\s5.mp3",
+          "public\\audio\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\s6.mp3",
+          "public\\audio\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\s6a.mp3",
+          "public\\audio\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\s6b.mp3",
+          "public\\audio\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\s7.mp3",
+          "public\\audio\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\s8.mp3",
+          "public\\audio\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\s9.mp3",
+          "public\\audio\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\sfx-breath.mp3",
+          "public\\audio\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\sfx-heartbeat.mp3",
+          "public\\audio\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\sfx-light-shimmer.mp3",
+          "public\\audio\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\sfx-type-delete.mp3",
+          "public\\audio\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\sfx-warm-resolve.mp3",
+          "src\\videos\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\timeline.ts",
+          "src\\videos\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\voice-durations.ts"
+        ]
+      }
+    ],
+    "E": [
+      {
+        "at": "2026-10-18T17:34:36+07:00",
+        "reviewer": "integration-reviewer",
+        "score": 9.0,
+        "verdict": "pass",
+        "report": "docs\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\integration-review.md",
+        "note": ""
+      },
+      {
+        "at": "2026-10-18T17:51:36+07:00",
+        "reviewer": "integration-reviewer",
+        "score": 9.0,
+        "verdict": "pass",
+        "report": "docs\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\integration-review.md",
+        "note": ""
+      }
+    ],
+    "B": [
+      {
+        "at": "2026-10-18T17:35:15+07:00",
+        "reviewer": "task-reviewer",
+        "score": 9.2,
+        "verdict": "pass",
+        "report": "docs\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\task-review.md",
+        "note": ""
+      },
+      {
+        "at": "2026-10-18T17:51:47+07:00",
+        "reviewer": "task-reviewer",
+        "score": 9.2,
+        "verdict": "pass",
+        "report": "docs\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\task-review.md",
+        "note": ""
+      }
+    ],
+    "C": [
+      {
+        "at": "2026-10-18T17:52:10+07:00",
+        "reviewer": "video-reviewer",
+        "score": 9.0,
+        "verdict": "pass",
+        "report": "docs\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\video-review.md",
+        "note": "",
+        "render_fingerprint": "2035401:1792320575899593900",
+        "render_sha256": "bb64e1916d4756334447b428ca7742b5aa37f2860627a69e7b07bb5c35594c87",
+        "full_listen": false
+      }
+    ]
+  },
+  "review_valid": {
+    "A": true,
+    "D": true,
+    "E": true,
+    "B": true,
+    "C": true,
+    "content": true,
+    "audio": true,
+    "motion": true
+  },
+  "next": "",
+  "log": [
+    {
+      "t": "2026-10-18T17:05:40+07:00",
+      "stage": "-",
+      "who": "agent",
+      "msg": "status initialised"
+    },
+    {
+      "t": "2026-10-18T17:06:28+07:00",
+      "stage": "research",
+      "who": "agent",
+      "msg": "research -> in_progress"
+    },
+    {
+      "t": "2026-10-18T17:06:33+07:00",
+      "stage": "research",
+      "who": "research-agent",
+      "msg": "research-agent running: Research audience language, hook candidates, emotional beats for self-worth/masking story"
+    },
+    {
+      "t": "2026-10-18T17:07:01+07:00",
+      "stage": "research",
+      "who": "agent",
+      "msg": "research -> done (evidence: 1 file(s): docs\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\research.md)"
+    },
+    {
+      "t": "2026-10-18T17:07:04+07:00",
+      "stage": "brief",
+      "who": "agent",
+      "msg": "brief -> in_progress"
+    },
+    {
+      "t": "2026-10-18T17:07:10+07:00",
+      "stage": "script",
+      "who": "script-agent",
+      "msg": "script-agent running: Draft brief.md, script.md shot table, voice.proposed.json from research and user constraints"
+    },
+    {
+      "t": "2026-10-18T17:08:00+07:00",
+      "stage": "brief",
+      "who": "agent",
+      "msg": "brief -> done (evidence: 1 file(s): docs\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\brief.md)"
+    },
+    {
+      "t": "2026-10-18T17:08:09+07:00",
+      "stage": "script",
+      "who": "script-reviewer",
+      "msg": "script-reviewer running: Gate A review: fidelity, hook, clarity, spoken naturalness, timing, source accuracy, visual feasibility"
+    },
+    {
+      "t": "2026-10-18T17:08:34+07:00",
+      "stage": "A",
+      "who": "script-reviewer",
+      "msg": "review 9.1/10 pass: script-review.md"
+    },
+    {
+      "t": "2026-10-18T17:08:43+07:00",
+      "stage": "script",
+      "who": "agent",
+      "msg": "script -> done (evidence: 2 file(s): docs\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\script.md; gate A: pass 9.1/10)"
+    },
+    {
+      "t": "2026-10-18T17:08:58+07:00",
+      "stage": "voice",
+      "who": "agent",
+      "msg": "voice -> in_progress"
+    },
+    {
+      "t": "2026-10-18T17:09:03+07:00",
+      "stage": "content",
+      "who": "agent",
+      "msg": "content -> in_progress"
+    },
+    {
+      "t": "2026-10-18T17:09:08+07:00",
+      "stage": "design",
+      "who": "agent",
+      "msg": "design -> in_progress"
+    },
+    {
+      "t": "2026-10-18T17:09:22+07:00",
+      "stage": "content",
+      "who": "content-agent",
+      "msg": "content-agent running: Lock text layer: content-pack.md per voice.json key — on-screen text, caption chunks, accent words, cover, re-hook, CTA, claims table, labels"
+    },
+    {
+      "t": "2026-10-18T17:09:26+07:00",
+      "stage": "voice",
+      "who": "voice-agent",
+      "msg": "voice-agent running: Generate s1-s9, s6a, s6b clips via VieNeu-TTS clone (Thanh Long Nâng Cao), ASR check, durations, voice-report.md"
+    },
+    {
+      "t": "2026-10-18T17:09:31+07:00",
+      "stage": "audio",
+      "who": "audio-agent",
+      "msg": "audio-agent running: Select/create subtle BGM, beat grid, SFX cues, mix plan, assets-manifest.md"
+    },
+    {
+      "t": "2026-10-18T17:09:36+07:00",
+      "stage": "design",
+      "who": "design-agent",
+      "msg": "design-agent running: Style frames (hook, turn, ending), cover, storyboard, hook motion strip, design-spec.md with shot card mapping"
+    },
+    {
+      "t": "2026-10-18T17:24:41+07:00",
+      "stage": "voice",
+      "who": "agent",
+      "msg": "voice -> done (evidence: 10/10 clips)"
+    },
+    {
+      "t": "2026-10-18T17:25:56+07:00",
+      "stage": "audio",
+      "who": "agent",
+      "msg": "audio -> done (evidence: 1 file(s): docs\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\assets-manifest.md)"
+    },
+    {
+      "t": "2026-10-18T17:28:06+07:00",
+      "stage": "D",
+      "who": "design-reviewer",
+      "msg": "review 8.8/10 pass: design-review.md"
+    },
+    {
+      "t": "2026-10-18T17:28:17+07:00",
+      "stage": "design",
+      "who": "agent",
+      "msg": "design -> done (evidence: 1 file(s): docs\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\design-spec.md; gate D: pass 8.8/10)"
+    },
+    {
+      "t": "2026-10-18T17:28:34+07:00",
+      "stage": "content",
+      "who": "content-reviewer",
+      "msg": "review 9.2/10 pass: content-pack-review.md"
+    },
+    {
+      "t": "2026-10-18T17:28:42+07:00",
+      "stage": "content",
+      "who": "agent",
+      "msg": "content -> done (evidence: 1 file(s): docs\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\content-pack.md; gate content: pass 9.2/10)"
+    },
+    {
+      "t": "2026-10-18T17:29:06+07:00",
+      "stage": "audio",
+      "who": "audio-reviewer",
+      "msg": "review 9.3/10 pass: audio-review.md"
+    },
+    {
+      "t": "2026-10-18T17:30:03+07:00",
+      "stage": "motion",
+      "who": "agent",
+      "msg": "motion -> in_progress"
+    },
+    {
+      "t": "2026-10-18T17:30:10+07:00",
+      "stage": "motion",
+      "who": "motion-agent",
+      "msg": "motion-agent running: Create motion-spec.md, motion-evidence.json, full animatic, hook/highlight/boundary strips from join-notes.md and timeline.ts"
+    },
+    {
+      "t": "2026-10-18T17:33:55+07:00",
+      "stage": "motion",
+      "who": "motion-reviewer",
+      "msg": "review 9.1/10 pass: motion-review.md"
+    },
+    {
+      "t": "2026-10-18T17:34:05+07:00",
+      "stage": "motion",
+      "who": "agent",
+      "msg": "motion -> done (evidence: full animatic + 8 boundaries + hook/highlight; gate motion: pass 9.1/10)"
+    },
+    {
+      "t": "2026-10-18T17:34:11+07:00",
+      "stage": "design",
+      "who": "agent",
+      "msg": "design -> done (evidence: 1 file(s): docs\\ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu\\design-spec.md; gate D: pass 8.8/10)"
+    },
+    {
+      "t": "2026-10-18T17:34:36+07:00",
+      "stage": "E",
+      "who": "integration-reviewer",
+      "msg": "review 9.0/10 pass: integration-review.md"
+    },
+    {
+      "t": "2026-10-18T17:34:46+07:00",
+      "stage": "build",
+      "who": "agent",
+      "msg": "build -> in_progress"
+    },
+    {
+      "t": "2026-10-18T17:35:15+07:00",
+      "stage": "B",
+      "who": "task-reviewer",
+      "msg": "review 9.2/10 pass: task-review.md"
+    },
+    {
+      "t": "2026-10-18T17:43:48+07:00",
+      "stage": "build",
+      "who": "agent",
+      "msg": "build -> done (evidence: composition BanKhongCanTroThanhAiKhacDeDuocYeuReel)"
+    },
+    {
+      "t": "2026-10-18T17:43:54+07:00",
+      "stage": "render",
+      "who": "agent",
+      "msg": "render -> in_progress: rendering"
+    },
+    {
+      "t": "2026-10-18T17:46:47+07:00",
+      "stage": "render",
+      "who": "agent",
+      "msg": "render -> failed: Command '['C:\\\\nvm4w\\\\nodejs\\\\npx.CMD', 'remotion', 'render', 'src/index.ts', 'BanKhongCanTroThanhAiKhacDeDuocYeuReel', 'C:\\\\Users\\\\nhutn\\\\OneDrive\\\\Máy tính\\\\remotion-ai-agentic-studio\\\\out\\\\.ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu-thanh-long-nang-cao-m5n4vgh2\\\\raw.mp4', '--codec', 'h264', '--crf', '18', '--pixel-format', 'yuv420p']' returned non-zero exit status 1."
+    },
+    {
+      "t": "2026-10-18T17:47:06+07:00",
+      "stage": "render",
+      "who": "agent",
+      "msg": "render -> in_progress: rendering"
+    },
+    {
+      "t": "2026-10-18T17:49:36+07:00",
+      "stage": "render",
+      "who": "verify",
+      "msg": "verified 58.90s H.264/AAC 1080x1920 30fps"
+    },
+    {
+      "t": "2026-10-18T17:49:37+07:00",
+      "stage": "render",
+      "who": "agent",
+      "msg": "render -> done: verified final MP4 (evidence: verified 58.9s; gate C: no review yet)"
+    },
+    {
+      "t": "2026-10-18T17:51:25+07:00",
+      "stage": "motion",
+      "who": "motion-reviewer",
+      "msg": "review 9.1/10 pass: motion-review.md"
+    },
+    {
+      "t": "2026-10-18T17:51:36+07:00",
+      "stage": "E",
+      "who": "integration-reviewer",
+      "msg": "review 9.0/10 pass: integration-review.md"
+    },
+    {
+      "t": "2026-10-18T17:51:47+07:00",
+      "stage": "B",
+      "who": "task-reviewer",
+      "msg": "review 9.2/10 pass: task-review.md"
+    },
+    {
+      "t": "2026-10-18T17:52:10+07:00",
+      "stage": "C",
+      "who": "video-reviewer",
+      "msg": "review 9.0/10 pass: video-review.md"
+    },
+    {
+      "t": "2026-10-18T17:52:24+07:00",
+      "stage": "qa",
+      "who": "agent",
+      "msg": "qa -> in_progress"
+    },
+    {
+      "t": "2026-10-18T17:52:32+07:00",
+      "stage": "qa",
+      "who": "qa-agent",
+      "msg": "qa-agent running: Final QA re-verification on approved MP4: final-check.md, determinism, frame/transition/caption checks, design fidelity per shot"
+    }
+  ],
+  "updated": "2026-10-18T17:52:32+07:00",
+  "agents": {
+    "research-agent": {
+      "state": "running",
+      "at": "2026-10-18T17:06:33+07:00",
+      "note": "Research audience language, hook candidates, emotional beats for self-worth/masking story",
+      "stage": "research"
+    },
+    "script-agent": {
+      "state": "running",
+      "at": "2026-10-18T17:07:10+07:00",
+      "note": "Draft brief.md, script.md shot table, voice.proposed.json from research and user constraints",
+      "stage": "script"
+    },
+    "script-reviewer": {
+      "state": "running",
+      "at": "2026-10-18T17:08:09+07:00",
+      "note": "Gate A review: fidelity, hook, clarity, spoken naturalness, timing, source accuracy, visual feasibility",
+      "stage": "script"
+    },
+    "content-agent": {
+      "state": "running",
+      "at": "2026-10-18T17:09:22+07:00",
+      "note": "Lock text layer: content-pack.md per voice.json key — on-screen text, caption chunks, accent words, cover, re-hook, CTA, claims table, labels",
+      "stage": "content"
+    },
+    "voice-agent": {
+      "state": "running",
+      "at": "2026-10-18T17:09:26+07:00",
+      "note": "Generate s1-s9, s6a, s6b clips via VieNeu-TTS clone (Thanh Long Nâng Cao), ASR check, durations, voice-report.md",
+      "stage": "voice"
+    },
+    "audio-agent": {
+      "state": "running",
+      "at": "2026-10-18T17:09:31+07:00",
+      "note": "Select/create subtle BGM, beat grid, SFX cues, mix plan, assets-manifest.md",
+      "stage": "audio"
+    },
+    "design-agent": {
+      "state": "running",
+      "at": "2026-10-18T17:09:36+07:00",
+      "note": "Style frames (hook, turn, ending), cover, storyboard, hook motion strip, design-spec.md with shot card mapping",
+      "stage": "design"
+    },
+    "motion-agent": {
+      "state": "running",
+      "at": "2026-10-18T17:30:10+07:00",
+      "note": "Create motion-spec.md, motion-evidence.json, full animatic, hook/highlight/boundary strips from join-notes.md and timeline.ts",
+      "stage": "motion"
+    },
+    "qa-agent": {
+      "state": "running",
+      "at": "2026-10-18T17:52:32+07:00",
+      "note": "Final QA re-verification on approved MP4: final-check.md, determinism, frame/transition/caption checks, design fidelity per shot",
+      "stage": "qa"
+    }
+  },
+  "render_check": {
+    "fingerprint": "2035401:1792320575899593900",
+    "sha256": "bb64e1916d4756334447b428ca7742b5aa37f2860627a69e7b07bb5c35594c87",
+    "duration": 58.9,
+    "at": "2026-10-18T17:49:36+07:00"
+  }
+}

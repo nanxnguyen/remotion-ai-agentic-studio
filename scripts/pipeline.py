@@ -3,7 +3,7 @@
 
 Each video has docs/<folder>/status.json. The monitor shows declared progress
 alongside file evidence. The independent review gates run A -> D -> E -> B -> C.
-Final videos default to 40-60 seconds and use out/<topic>-<voice>-reel.mp4.
+Workflow v4 videos default to 30-45 seconds (legacy: 40-60 seconds) and use out/<topic>-<voice>-reel.mp4.
 
 Common commands:
   pipeline.py init <folder> --comp <CompId> --voice <voice-slug> [--profile story|product|knowledge|news]
@@ -22,7 +22,7 @@ Common commands:
   pipeline.py show [folder]
   pipeline.py serve [--port 4180]
 
-Stages: research, brief, script, content, voice, design, build, audio, qa, render (content: workflow v3 only).
+Stages: research, brief, script, content, voice, design, motion, build, audio, qa, render (motion: v4, content: v3+).
 Workflow v3: after A, three branches run in parallel (content -> review `content`, voice+audio -> review `audio`,
 design -> gate D); gate E (integration) needs all three. Branch reviews sit outside the A->D->E->B->C order.
 Gate pass scores: A, content, audio, E >= 9; D >= 8.5; B, C >= 8 (PASS_SCORE). The A sub-score for specificity (>= 9)
@@ -61,6 +61,7 @@ STAGES = [
     ("content", "Content pack"),
     ("voice", "Voice"),
     ("design", "Design + storyboard"),
+    ("motion", "Motion design"),
     ("build", "Timeline + scenes"),
     ("audio", "SFX / BGM"),
     ("render", "Render"),
@@ -73,20 +74,20 @@ DECISIONS = {"approved", "rejected"}
 REVIEW_GATES = {"A": "script", "D": "design", "E": "integration", "B": "tasks", "C": "video"}
 # Phase 3 branch reviews (workflow v3): checkpoints between A and E, outside the A->D->E->B->C order.
 BRANCH_REVIEWS = {"content": "content branch", "audio": "audio branch"}
-ALL_REVIEWS = [*REVIEW_GATES, *BRANCH_REVIEWS]
+ALL_REVIEWS = [*REVIEW_GATES, *BRANCH_REVIEWS, "motion"]
 # Stage -> review that guards it (E/B are phase-level, no single stage).
-STAGE_GATE = {"script": "A", "content": "content", "design": "D", "render": "C"}
+STAGE_GATE = {"script": "A", "content": "content", "design": "D", "motion": "motion", "render": "C"}
 # `set done` needs these gates accepted first; render is done once verified, and gate C reviews that file after.
 DONE_NEEDS_GATE = {s: g for s, g in STAGE_GATE.items() if s != "render"}
 REVIEW_ORDER = list(REVIEW_GATES)
-PASS_SCORE = {"A": 9, "D": 8.5, "E": 9, "B": 9, "content": 9, "audio": 9}  # C passes at 8
+PASS_SCORE = {"A": 9, "D": 8.5, "E": 9, "B": 9, "content": 9, "audio": 9, "motion": 9}  # C passes at 8
 INVALIDATE_FROM_STAGE = {
     "research": "A", "brief": "A", "script": "A", "content": "E", "voice": "E", "design": "D",
-    "build": "C", "audio": "C", "qa": None, "render": "C",  # final QA runs after C: starting it must not void C
+    "motion": "E", "build": "C", "audio": "C", "qa": None, "render": "C",  # final QA runs after C: starting it must not void C
 }
 # ponytail: `audio` is also reopened for Phase 7 mix integration, so only voice/content reopen a branch review.
 INVALIDATE_BRANCH = {"content": "content", "voice": "audio"}
-FLOW_VERSION = 3  # v3 = content/audio/design branches + join; v2 videos keep their linear history
+FLOW_VERSION = 4  # v4 adds measured motion design after Join; older videos retain their workflow
 
 # One map for the monitor: DAG node -> lane, stage, producers, reviewer, gate.
 FLOW = [
@@ -99,6 +100,8 @@ FLOW = [
     {"id": "audio", "label": "SFX / BGM", "lane": "audio", "stage": "audio", "agents": ["audio-agent"], "reviewer": "audio-reviewer", "gate": "audio"},
     {"id": "design", "label": "Design + storyboard", "lane": "design", "stage": "design", "agents": ["design-agent"], "reviewer": "design-reviewer", "gate": "D"},
     {"id": "join", "label": "Join + integration", "lane": "main", "stage": None, "agents": ["video-director"], "reviewer": "integration-reviewer", "gate": "E"},
+    {"id": "motion", "label": "Motion design", "lane": "main", "stage": "motion", "agents": ["motion-agent"], "reviewer": "motion-reviewer", "gate": "motion", "min_version": 4},
+    {"id": "integration", "label": "Integration", "lane": "main", "stage": None, "agents": ["video-director"], "reviewer": "integration-reviewer", "gate": "E", "min_version": 4},
     {"id": "tasks", "label": "Task plan", "lane": "main", "stage": None, "agents": ["task-planner"], "reviewer": "task-reviewer", "gate": "B"},
     {"id": "build", "label": "Timeline + scenes", "lane": "main", "stage": "build", "agents": ["scene-agent"], "reviewer": None, "gate": None},
     {"id": "render", "label": "Render + gate C", "lane": "main", "stage": "render", "agents": ["render-agent"], "reviewer": "video-reviewer", "gate": "C"},
@@ -125,11 +128,12 @@ def flow_version(data: dict) -> int:
 
 
 def required_stages(data: dict) -> list:
-    return STAGE_IDS if flow_version(data) >= 3 else [s for s in STAGE_IDS if s != "content"]
+    return [s for s in STAGE_IDS if (s != "content" or flow_version(data) >= 3)
+            and (s != "motion" or flow_version(data) >= 4)]
 
 
 def review_names(data: dict) -> list:
-    return ALL_REVIEWS if flow_version(data) >= 3 else REVIEW_ORDER
+    return ALL_REVIEWS if flow_version(data) >= 4 else ([g for g in ALL_REVIEWS if g != "motion"] if flow_version(data) >= 3 else REVIEW_ORDER)
 
 
 def now() -> str:
@@ -204,6 +208,10 @@ def invalidate_reviews(data: dict, first: str) -> None:
     gates = REVIEW_ORDER[REVIEW_ORDER.index(first):] if first in REVIEW_ORDER else [first]
     if first == "A":  # a script change re-opens both branch reviews too
         gates += list(BRANCH_REVIEWS)
+    if flow_version(data) >= 4 and first in {"A", "D", "E", "motion", "content", "audio"}:
+        gates += ["motion", "E", "B", "C"]
+        data.setdefault("stages", {}).setdefault("motion", {})["state"] = "pending"
+        data.setdefault("stages", {}).setdefault("qa", {})["state"] = "pending"
     for gate in gates:
         if data.get("reviews", {}).get(gate):
             data.setdefault("review_valid", {})[gate] = False
@@ -211,20 +219,37 @@ def invalidate_reviews(data: dict, first: str) -> None:
 
 def later_reviews(gate: str) -> list:
     """Reviews a new entry for `gate` makes stale: later gates, and for A also the branch reviews."""
+    if gate == "motion":
+        return ["E", "B", "C"]
     if gate in BRANCH_REVIEWS:
-        return REVIEW_ORDER[REVIEW_ORDER.index("E"):]
+        return ["motion", *REVIEW_ORDER[REVIEW_ORDER.index("E"):]]
     later = REVIEW_ORDER[REVIEW_ORDER.index(gate) + 1:]
-    return later + list(BRANCH_REVIEWS) if gate == "A" else later
+    return later + list(BRANCH_REVIEWS) + ["motion"] if gate == "A" else (later + ["motion"] if gate == "D" else later)
 
 
 def review_prerequisites(data: dict, gate: str) -> list:
+    if gate == "motion":
+        return ["D", "content", "audio"]
     if gate in BRANCH_REVIEWS:
         return ["A"]
     i = REVIEW_ORDER.index(gate)
     before = [REVIEW_ORDER[i - 1]] if i else []
     if gate == "E" and flow_version(data) >= 3:  # the join: all three branches must be accepted
         before += list(BRANCH_REVIEWS)
+        if flow_version(data) >= 4:
+            before += ["motion"]
     return before
+
+
+def motion_inputs_current(data: dict) -> bool:
+    motion = (data.get("reviews", {}).get("motion") or [{}])[-1]
+    inputs = motion.get("motion_inputs", {})
+    folder = motion.get("motion_folder")
+    if not folder or not inputs:
+        return False
+    sources = sorted(rel(p) for p in motion_source_paths(folder, data) if p.is_file())
+    return sources == motion.get("motion_source_paths", []) and all(
+        (ROOT / path).is_file() and file_sha256(ROOT / path) == sha for path, sha in inputs.items())
 
 
 def review_passed(data: dict, gate: str) -> bool:
@@ -232,6 +257,10 @@ def review_passed(data: dict, gate: str) -> bool:
     if not entries or not data.get("review_valid", {}).get(gate, False):
         return False
     last = entries[-1]
+    if flow_version(data) >= 4 and gate == "audio" and not audio_inputs_current(data):
+        return False
+    if flow_version(data) >= 4 and gate in {"motion", "E", "B", "C"} and not motion_inputs_current(data):
+        return False
     if last.get("verdict") == "override":
         return False
     if last["score"] < PASS_SCORE.get(gate, 8) or last["verdict"] != "pass":
@@ -248,6 +277,8 @@ def review_overridden(data: dict, gate: str) -> bool:
     Never fakes a score: the last review entry keeps its true score/verdict."""
     entries = data.get("reviews", {}).get(gate, [])
     if not entries or not data.get("review_valid", {}).get(gate, False):
+        return False
+    if flow_version(data) >= 4 and gate in {"E", "B", "C"} and not motion_inputs_current(data):
         return False
     return entries[-1].get("verdict") == "override"
 
@@ -324,6 +355,120 @@ def rel(p: Path) -> str:
     return str(p.relative_to(ROOT))
 
 
+def motion_join_problems(folder: str) -> list:
+    required = [DOCS / folder / "join-notes.md",
+                ROOT / "src/videos" / folder / "voice-durations.ts",
+                ROOT / "src/videos" / folder / "timeline.ts"]
+    return [f"missing measured join input: {rel(p)}" for p in required
+            if not p.is_file() or not p.read_text(encoding="utf-8").strip()]
+
+
+def motion_evidence(folder: str, data: dict) -> dict:
+    """Probe real animatic/strips, with complete frame-indexed boundary coverage."""
+    docs = DOCS / folder
+    found = []
+    try:
+        for name in ("motion-spec.md", "motion-review.md", "motion-evidence.json"):
+            path = docs / name
+            if not path.is_file() or not path.read_text(encoding="utf-8").strip():
+                raise ValueError(f"missing {name}")
+            found.append(rel(path))
+        manifest = json.loads((docs / "motion-evidence.json").read_text(encoding="utf-8"))
+        fps, duration = manifest["fps"], manifest["durationFrames"]
+        starts = manifest["shotStartFrames"]
+        if not isinstance(fps, (int, float)) or fps <= 0 or not isinstance(duration, int) or duration <= 0:
+            raise ValueError("invalid fps/durationFrames")
+        if not starts or starts[0] != 0 or any(type(x) is not int or x < 0 or x >= duration for x in starts) or sorted(set(starts)) != starts:
+            raise ValueError("shotStartFrames must be strictly increasing, start at zero, and fit duration")
+        boundaries = manifest["boundaries"]
+        if [b["frame"] for b in boundaries] != starts[1:]:
+            raise ValueError("boundary strips must cover every shot start after frame 0 in order")
+        paths = [manifest["animatic"], manifest["hook"], manifest["highlight"], *[b["strip"] for b in boundaries]]
+        if len(paths) != len(set(paths)):
+            raise ValueError("each motion evidence item needs a distinct file")
+        for i, name in enumerate(paths):
+            path = (ROOT / name).resolve()
+            if not path.is_relative_to(ROOT.resolve()) or not path.is_file():
+                raise ValueError(f"missing or unsafe evidence path: {name}")
+            result = subprocess.run(["ffprobe", "-v", "error", "-show_streams", "-show_format", "-of", "json", str(path)], capture_output=True, text=True)
+            if result.returncode:
+                raise ValueError(f"unreadable motion media: {name}")
+            probe = json.loads(result.stdout)
+            video = next((x for x in probe.get("streams", []) if x.get("codec_type") == "video"), None)
+            if not video or video.get("width", 0) <= 0 or video.get("height", 0) <= 0:
+                raise ValueError(f"no visual stream: {name}")
+            if i == 0:
+                rate = video.get("avg_frame_rate", "0/1").split("/")
+                actual_fps = float(rate[0]) / float(rate[1])
+                seconds = float(probe.get("format", {}).get("duration", 0))
+                if abs(actual_fps - fps) > .001 or abs(seconds - duration / fps) > 1 / fps:
+                    raise ValueError("animatic does not match measured durationFrames/fps")
+            elif video.get("codec_name") != "png":
+                raise ValueError(f"motion strip must be a PNG image: {name}")
+            found.append(rel(path))
+        if len({file_sha256(ROOT / p) for p in found[4:]}) < len(found[4:]):
+            raise ValueError("duplicate motion strip content")
+        return {"ok": True, "files": found, "detail": f"full animatic + {len(boundaries)} boundaries + hook/highlight"}
+    except (OSError, ValueError, TypeError, KeyError, ZeroDivisionError) as exc:
+        return {"ok": False, "files": found, "detail": str(exc)}
+
+
+def audio_source_paths(folder: str, data: dict) -> list:
+    """Voice-performance and media inputs bound to a new workflow-v4 audio review."""
+    docs = DOCS / folder
+    paths = [docs / name for name in
+             ("voice.json", "voice-direction.md", "voice-performance.json", "voice-report.md",
+              "voice-clone-asr.md", "mix-plan.md", "assets-manifest.md")]
+    audio = data.get("paths", {}).get("audio", folder)
+    paths += [p for p in (ROOT / "public/audio" / audio).rglob("*")
+              if p.is_file() and p.suffix.lower() in {".mp3", ".wav", ".m4a", ".aac", ".ogg", ".flac"}]
+    return sorted(set(paths))
+
+
+def audio_inputs(folder: str, data: dict) -> dict:
+    return {rel(p): file_sha256(p) for p in audio_source_paths(folder, data) if p.is_file()}
+
+
+def audio_inputs_current(data: dict) -> bool:
+    entry = (data.get("reviews", {}).get("audio") or [{}])[-1]
+    inputs = entry.get("audio_inputs")
+    folder = entry.get("audio_folder")
+    # Reviews created before the voice-performance contract remain valid for legacy videos.
+    if inputs is None and folder is None:
+        return True
+    if not folder or not inputs:
+        return False
+    sources = sorted(rel(p) for p in audio_source_paths(folder, data) if p.is_file())
+    return sources == entry.get("audio_source_paths", []) and all(
+        (ROOT / path).is_file() and file_sha256(ROOT / path) == sha for path, sha in inputs.items())
+
+
+def motion_source_paths(folder: str, data: dict) -> list:
+    """Inputs whose addition, deletion or modification reopens motion."""
+    paths = [DOCS / folder / name for name in
+             ("join-notes.md", "voice.json", "voice-direction.md", "voice-performance.json",
+              "content-pack.md", "script.md", "storyboard.md",
+              "design-spec.md", "assets-manifest.md", "mix-plan.md", "motion-spec.md",
+              "motion-review.md", "motion-evidence.json")]
+    paths += list((ROOT / "src/videos" / folder).glob("*timeline*.ts"))
+    paths += list((ROOT / "src/videos" / folder).glob("voice-durations.ts"))
+    paths += [p for p in (ROOT / "src/videos" / folder / "motion-proto").rglob("*") if p.is_file()]
+    paths += [p for p in (DOCS / folder).glob("*storyboard*") if p.is_file()]
+    paths += [p for p in (ROOT / "out/qa").glob(f"{folder}*storyboard*") if p.is_file()]
+    paths += [p for p in (ROOT / "out/qa").glob(f"{folder}*board*") if p.is_file()]
+    audio = data.get("paths", {}).get("audio", folder)
+    paths += [p for p in (ROOT / "public/audio" / audio).rglob("*") if p.is_file() and p.suffix.lower() in {".mp3", ".wav", ".m4a", ".aac", ".ogg", ".flac"}]
+    paths += [p for p in (DOCS / folder).glob("*caption*") if p.is_file()]
+    return sorted(set(paths))
+
+
+def motion_inputs(folder: str, data: dict) -> dict:
+    """Bind review to joined inputs and the exact reviewed motion artifacts."""
+    paths = motion_source_paths(folder, data)
+    paths += [ROOT / path for path in motion_evidence(folder, data)["files"]]
+    return {rel(p): file_sha256(p) for p in paths if p.is_file()}
+
+
 def evidence(folder: str, data: dict) -> dict:
     """Per stage: ok True/False/None (None = no file check for this stage) + files found."""
     paths = data.get("paths", {})
@@ -356,6 +501,8 @@ def evidence(folder: str, data: dict) -> dict:
 
     cp = files("content-pack.md")
     ev["content"] = {"ok": bool(cp), "files": cp, "detail": "" if cp else "no content-pack.md"}
+
+    ev["motion"] = motion_evidence(folder, data) if flow_version(data) >= 4 else {"ok": None, "files": []}
 
     ds = files("design-spec.md")
     ev["design"] = {"ok": bool(ds), "files": ds}
@@ -427,6 +574,8 @@ def view(folder: str) -> dict:
         e = ev[sid]
         # v3: only an agent's `set done` makes a stage done; files alone (a scaffold, design stills) never do.
         state = d.get("state") or ("done" if e["ok"] and flow_version(data) < 3 else "pending")
+        if flow_version(data) >= 4 and sid in {"motion", "qa"} and state == "done" and not review_passed(data, "motion"):
+            state = "pending"
         if sid not in required and not d.get("state") and not e["ok"]:
             state = "skipped"  # legacy (v2) video: the content branch did not exist yet
         rg = STAGE_GATE.get(sid)
@@ -449,7 +598,8 @@ def view(folder: str) -> dict:
         last = entries[-1] if entries else {}
         scored = [x for x in entries if x.get("verdict") != "override"]
         reviews[g] = {"passed": review_passed(data, g), "overridden": review_overridden(data, g),
-                      "stale": bool(entries) and not data.get("review_valid", {}).get(g, False),
+                      "stale": bool(entries) and (not data.get("review_valid", {}).get(g, False)
+                          or (flow_version(data) >= 4 and g in {"motion", "E", "B", "C"} and not motion_inputs_current(data))),
                       "rounds": len(scored), "threshold": PASS_SCORE.get(g, 8),
                       "kind": "branch" if g in BRANCH_REVIEWS else "gate",
                       "score": last.get("score"), "verdict": last.get("verdict"),
@@ -457,10 +607,56 @@ def view(folder: str) -> dict:
                       "by": last.get("by", ""), "at": last.get("at", ""),
                       "note": last.get("note", ""), "report": last.get("report", "")}
     return {"folder": folder, "name": data.get("name", folder), "comp": data.get("comp", ""),
+            "join_ready": flow_version(data) >= 4 and not motion_join_problems(folder) and all(review_satisfied(data, g) for g in ("D", "content", "audio")),
             "flow": flow_version(data), "profile": data.get("profile", ""), "voice": data.get("voice", ""),
             "next": data.get("next", ""), "updated": data.get("updated", ""),
             "stages": stages, "reviews": reviews, "agents": data.get("agents", {}),
             "log": data.get("log", [])[-60:][::-1]}
+
+
+BREAK_MIN = 20  # a gap between log lines longer than this is idle time (a break, overnight), not work
+
+
+def active_minutes(times: list) -> float:
+    """Work time in minutes: the sum of gaps between consecutive log lines, minus idle breaks."""
+    gaps = ((b - a).total_seconds() / 60 for a, b in zip(times, times[1:]))
+    return sum(gap for gap in gaps if gap <= BREAK_MIN)
+
+
+def timing_report(folder: str) -> dict:
+    """Where the production time went, from status.json log[] timestamps. Approximate: parallel branches overlap."""
+    log = load(folder).get("log", [])
+    times = [datetime.fromisoformat(e["t"]) for e in log]
+    stage_open, stage_active = {}, {}
+    for i, e in enumerate(log):
+        msg, stage = e.get("msg", ""), e.get("stage", "")
+        if " -> in_progress" in msg:
+            stage_open[stage] = i
+        elif " -> done" in msg and stage in stage_open:
+            start = stage_open.pop(stage)
+            stage_active[stage] = round(stage_active.get(stage, 0.0) + active_minutes(times[start:i + 1]), 1)
+    agents: dict = {}
+    for e, t in zip(log, times):
+        who = e.get("who", "")
+        if who not in ("", "agent", "you", "monitor", "verify", "-"):
+            agents.setdefault(who, []).append(t)
+    return {"video": folder, "log_lines": len(log),
+            "refused": sum("refused" in e.get("msg", "") for e in log),
+            "active_min": round(active_minutes(times), 1), "stages": stage_active,
+            "agents": {name: round(active_minutes(ts), 1) for name, ts in agents.items()},
+            "agent_names": len(agents), "review_agent_names": sum("review" in name for name in agents)}
+
+
+def cmd_timing(a) -> None:
+    r = timing_report(a.folder)
+    print(f"{r['video']}: active {r['active_min']} min · log lines {r['log_lines']} · refused {r['refused']} "
+          f"· agents {r['agent_names']} ({r['review_agent_names']} reviewers)")
+    print("stage | active min (approx.; parallel branches overlap)")
+    for stage, mins in sorted(r["stages"].items(), key=lambda kv: -kv[1]):
+        print(f"  {stage} | {mins}")
+    print("agent | active min")
+    for name, mins in sorted(r["agents"].items(), key=lambda kv: -kv[1])[:5]:
+        print(f"  {name} | {mins}")
 
 
 def all_views() -> list:
@@ -507,7 +703,9 @@ def cmd_voice(a) -> None:
         data["voice"] = a.voice
         data.setdefault("paths", {})["out"] = f"{a.folder}-{a.voice}"
         data.pop("render_check", None)
-        invalidate_reviews(data, "C")
+        invalidate_reviews(data, "motion" if flow_version(data) >= 4 else "C")
+        if flow_version(data) >= 4:
+            invalidate_reviews(data, "audio")
         for stage in ("voice", "render"):
             data.setdefault("stages", {}).setdefault(stage, {})["state"] = "pending"
         log(data, "voice", f"voice changed to {a.voice}; output {data['paths']['out']}-reel.mp4", "agent")
@@ -520,6 +718,9 @@ def missing_prerequisites(folder: str, data: dict, stage: str) -> list:
     with every other stage done, because it is the last barrier over the whole video."""
     declared = data.get("stages", {})
     missing = []
+    if stage == "motion":
+        missing += [f"review {g} has not passed" for g in ("D", "content", "audio") if not review_satisfied(data, g)]
+        missing += motion_join_problems(folder)
     if stage == "build":
         missing += [f"gate {g} has not passed" for g in ("E", "B") if not review_satisfied(data, g)]
         missing += scene_problems(folder)
@@ -540,12 +741,18 @@ def cmd_set(a) -> None:
         raise SystemExit(f"stage must be one of {STAGE_IDS}; state one of {sorted(STATES)}")
     with status_lock(a.folder):
         data = load(a.folder)
+        if a.stage not in required_stages(data):
+            raise SystemExit(f"stage {a.stage} is unavailable in workflow v{flow_version(data)}")
+        if a.stage == "motion" and a.state == "in_progress" and (missing := missing_prerequisites(a.folder, data, "motion")):
+            raise SystemExit("motion cannot start: " + "; ".join(missing))
         s = data.setdefault("stages", {}).setdefault(a.stage, {})
         if a.state in {"in_progress", "blocked", "failed"} and flow_version(data) >= 2:
             if INVALIDATE_FROM_STAGE[a.stage]:
                 invalidate_reviews(data, INVALIDATE_FROM_STAGE[a.stage])
             if a.stage in INVALIDATE_BRANCH:
                 invalidate_reviews(data, INVALIDATE_BRANCH[a.stage])
+            if flow_version(data) >= 4 and a.stage in {"content", "voice", "design", "audio", "motion"}:
+                invalidate_reviews(data, "motion")
             if a.stage in {"voice", "build", "audio", "render"}:  # final QA reopening alone keeps the render
                 data.pop("render_check", None)
         s.update({"state": a.state, "at": now()})
@@ -588,16 +795,17 @@ def cmd_set(a) -> None:
 
 
 def cmd_upgrade(a) -> None:
-    """Move an in-flight v2 video to the v3 branch flow, only while nothing after gate A was reviewed."""
+    """Explicitly add v4 motion while retaining all previous review entries."""
     with status_lock(a.folder):
         data = load(a.folder)
-        if flow_version(data) != 2:
-            raise SystemExit(f"only workflow v2 videos can be upgraded (this is v{flow_version(data)})")
-        later = [g for g in data.get("reviews", {}) if g != "A" and data["reviews"][g]]
-        if later:
-            raise SystemExit(f"reviews after A already recorded ({later}); finish this video on v2")
+        previous = flow_version(data)
+        if previous not in {2, 3}:
+            raise SystemExit(f"only workflow v2/v3 videos can be upgraded (this is v{previous})")
         data["workflow_version"] = FLOW_VERSION
-        log(data, "-", "workflow upgraded to v3 (content/audio/design branches + join)", "agent")
+        invalidate_reviews(data, "motion")
+        data.setdefault("stages", {}).setdefault("motion", {})["state"] = "pending"
+        data.setdefault("stages", {}).setdefault("qa", {})["state"] = "pending"
+        log(data, "-", f"workflow upgraded from v{previous} to v4; motion pending; E/B/C and QA reopened", "agent")
         save(a.folder, data)
     print(f"{a.folder}: workflow v{FLOW_VERSION}")
 
@@ -642,11 +850,25 @@ def cmd_review(a) -> None:
         data = load(a.folder)
         if flow_version(data) < 2:
             raise SystemExit("review gates require a workflow v2+ status; create a new video with init")
+        if a.gate not in review_names(data):
+            raise SystemExit(f"review {a.gate} is unavailable in this workflow")
         if a.gate in BRANCH_REVIEWS and flow_version(data) < 3:
             raise SystemExit("branch reviews require a workflow v3 status")
         for before in review_prerequisites(data, a.gate):
             if not review_satisfied(data, before):
                 raise SystemExit(f"review {before} must pass before {a.gate}")
+        if a.gate == "motion":
+            problems = missing_prerequisites(a.folder, data, "motion")
+            if problems:
+                raise SystemExit("motion: " + "; ".join(problems))
+            if a.verdict == "pass":
+                item = motion_evidence(a.folder, data)
+                if not item["ok"]:
+                    raise SystemExit("motion evidence: " + item["detail"])
+                if not re.search(r"open high/medium:\s*0\b", report.read_text(encoding="utf-8"), re.I):
+                    raise SystemExit("motion report requires open high/medium: 0")
+        if a.gate == "E" and flow_version(data) >= 4 and data.get("stages", {}).get("motion", {}).get("state") != "done":
+            raise SystemExit("motion stage must be done before E")
         # Audio needs no user confirmation (automatic workflow); `audio-listen` stays as an optional record.
         if a.gate == "C" and not verified_render(data):
             raise SystemExit("verify the current MP4 before video review")
@@ -654,14 +876,25 @@ def cmd_review(a) -> None:
             raise SystemExit(f"gate C cannot pass: {problem}")
         entry = {"at": now(), "reviewer": a.reviewer, "score": a.score,
                  "verdict": a.verdict, "report": rel(report), "note": a.note or ""}
+        if a.gate == "audio" and flow_version(data) >= 4:
+            entry["audio_inputs"] = audio_inputs(a.folder, data)
+            entry["audio_folder"] = a.folder
+            entry["audio_source_paths"] = sorted(rel(p) for p in audio_source_paths(a.folder, data) if p.is_file())
+        if a.gate == "motion":
+            entry["motion_inputs"] = motion_inputs(a.folder, data)
+            entry["motion_folder"] = a.folder
+            entry["motion_source_paths"] = sorted(rel(p) for p in motion_source_paths(a.folder, data) if p.is_file())
         if a.gate == "C":
             entry["render_fingerprint"] = data["render_check"]["fingerprint"]
             entry["render_sha256"] = data["render_check"].get("sha256")
             entry["full_listen"] = bool(a.full_listen)
+        if flow_version(data) >= 4 and a.gate in {"A", "D", "content", "audio"}:
+            invalidate_reviews(data, "motion")
         data.setdefault("reviews", {}).setdefault(a.gate, []).append(entry)
         data.setdefault("review_valid", {})[a.gate] = True
         for gate in later_reviews(a.gate):
-            data.setdefault("review_valid", {})[gate] = False
+            if gate in review_names(data):
+                data.setdefault("review_valid", {})[gate] = False
         log(data, a.gate, f"review {a.score}/10 {a.verdict}: {a.report}" + (f" ({a.note})" if a.note else ""), a.reviewer)
         save(a.folder, data)
     print(f"review {a.gate}: {a.score}/10 {a.verdict}")
@@ -725,12 +958,16 @@ def cmd_override(a) -> None:
     and a new entry {verdict: override, by, note} is appended. Ordering treats an
     overridden gate as satisfied; scoring (`review_passed`, monitor "Đạt") stays strict.
     """
+    if a.gate == "motion":
+        raise SystemExit("motion requires independent review >=9 and complete evidence; no override")
     if a.gate not in ALL_REVIEWS:
         raise SystemExit(f"gate must be one of {ALL_REVIEWS}")
     with status_lock(a.folder):
         data = load(a.folder)
         if flow_version(data) < 2:
             raise SystemExit("review gates require a workflow v2+ status; create a new video with init")
+        if flow_version(data) >= 4 and a.gate in {"E", "B", "C"} and not review_passed(data, "motion"):
+            raise SystemExit("motion must pass before downstream override")
         prev = (data.get("reviews", {}).get(a.gate) or [{}])[-1]
         entry = {"at": now(), "reviewer": f"override:{a.by}", "score": prev.get("score"),
                  "verdict": "override", "report": prev.get("report", ""),
@@ -738,7 +975,8 @@ def cmd_override(a) -> None:
         data.setdefault("reviews", {}).setdefault(a.gate, []).append(entry)
         data.setdefault("review_valid", {})[a.gate] = True
         for gate in later_reviews(a.gate):
-            data.setdefault("review_valid", {})[gate] = False
+            if gate in review_names(data):
+                data.setdefault("review_valid", {})[gate] = False
         log(data, a.gate, f"override by {a.by}" + (f": {a.note}" if a.note else ""), a.by)
         save(a.folder, data)
     print(f"review {a.gate}: user-override by {a.by} (last score: {prev.get('score')})")
@@ -749,12 +987,18 @@ def verified_render(data: dict) -> bool:
     return path.is_file() and data.get("render_check", {}).get("fingerprint") == file_fingerprint(path)
 
 
+def duration_limits(data: dict, args) -> tuple:
+    defaults = (30, 45) if flow_version(data) >= 4 else (40, 60)
+    return (args.min_seconds if args.min_seconds is not None else defaults[0],
+            args.max_seconds if args.max_seconds is not None else defaults[1])
+
+
 def cmd_verify(a) -> None:
     data = load(a.folder)
     path = ROOT / "out" / f"{data.get('paths', {}).get('out', a.folder)}-reel.mp4"
     if not path.is_file():
         raise SystemExit(f"missing final MP4: {path}")
-    duration = validate_media(path, a.min_seconds, a.max_seconds)
+    duration = validate_media(path, *duration_limits(data, a))
     fingerprint = file_fingerprint(path)
     sha256 = file_sha256(path)
     with status_lock(a.folder):
@@ -811,7 +1055,7 @@ def cmd_render(a) -> None:
                 subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", str(raw), "-c:v", "copy",
                                 "-af", "loudnorm=I=-14:TP=-2.0:LRA=11", "-ar", "48000", "-c:a", "aac",
                                 "-b:a", "192k", "-shortest", str(final)], check=True)
-                validate_media(final, a.min_seconds, a.max_seconds)
+                validate_media(final, *duration_limits(data, a))
                 os.replace(final, target)
             cmd_verify(a)
             cmd_set(argparse.Namespace(folder=a.folder, stage="render", state="done", note="verified final MP4", next=None))
@@ -888,6 +1132,10 @@ STAGE_DOCS = {
     "qa": ["qa-report*.md"],
     "render": ["final-check.md", "render-evidence.md"],
 }
+V4_STAGE_DOCS = {
+    "script": ["voice-direction.md", "voice-performance.proposed.json"],
+    "voice": ["voice-performance.json"],
+}
 STALE_SECONDS = 2 * 3600
 
 
@@ -923,7 +1171,10 @@ def audit(folder: str) -> dict:
         if s["gate_mismatch"] and s["id"] == "render":
             warnings.append("render is verified but gate C is not passed yet")
         if s["state"] == "done":
-            for pattern in STAGE_DOCS.get(s["id"], []):
+            patterns = list(STAGE_DOCS.get(s["id"], []))
+            if flow_version(data) >= 4:
+                patterns += V4_STAGE_DOCS.get(s["id"], [])
+            for pattern in patterns:
                 if not any(docs.glob(pattern)):
                     errors.append(f"stage {s['id']} is done but docs/{folder}/{pattern} is missing")
             if flow_version(data) >= 3 and s["id"] == "build":
@@ -1803,7 +2054,7 @@ def create_video(body: dict) -> tuple:
     if voice and voice not in voices:
         return 400, {"error": "voice is not in vietnamese-voice-samples/previews/"}
     try:
-        min_s, max_s = float(body.get("min_seconds", 40)), float(body.get("max_seconds", 60))
+        min_s, max_s = float(body.get("min_seconds", 30)), float(body.get("max_seconds", 45))
     except (TypeError, ValueError):
         return 400, {"error": "duration must be numbers"}
     if not 5 <= min_s < max_s <= 180:
@@ -2126,6 +2377,7 @@ def main() -> None:
     p = sub.add_parser("voice"); p.add_argument("folder"); p.add_argument("voice"); p.set_defaults(fn=cmd_voice)
     p = sub.add_parser("gate"); p.add_argument("folder"); p.add_argument("stage"); p.set_defaults(fn=cmd_gate)
     p = sub.add_parser("upgrade"); p.add_argument("folder"); p.set_defaults(fn=cmd_upgrade)
+    p = sub.add_parser("timing"); p.add_argument("folder"); p.set_defaults(fn=cmd_timing)
     p = sub.add_parser("agent"); p.add_argument("folder"); p.add_argument("agent"); p.add_argument("state", choices=sorted(AGENT_STATES))
     p.add_argument("--stage"); p.add_argument("--note"); p.set_defaults(fn=cmd_agent)
     p = sub.add_parser("review"); p.add_argument("folder"); p.add_argument("gate", choices=ALL_REVIEWS); p.add_argument("score", type=float)
@@ -2135,10 +2387,10 @@ def main() -> None:
     p.set_defaults(fn=cmd_review)
     p = sub.add_parser("override"); p.add_argument("folder"); p.add_argument("gate", choices=ALL_REVIEWS)
     p.add_argument("--by", required=True); p.add_argument("--note"); p.set_defaults(fn=cmd_override)
-    p = sub.add_parser("verify"); p.add_argument("folder"); p.add_argument("--min-seconds", type=float, default=40)
-    p.add_argument("--max-seconds", type=float, default=60); p.set_defaults(fn=cmd_verify)
+    p = sub.add_parser("verify"); p.add_argument("folder"); p.add_argument("--min-seconds", type=float, default=None)
+    p.add_argument("--max-seconds", type=float, default=None); p.set_defaults(fn=cmd_verify)
     p = sub.add_parser("render"); p.add_argument("folder"); p.add_argument("--raw")
-    p.add_argument("--min-seconds", type=float, default=40); p.add_argument("--max-seconds", type=float, default=60)
+    p.add_argument("--min-seconds", type=float, default=None); p.add_argument("--max-seconds", type=float, default=None)
     p.set_defaults(fn=cmd_render)
     p = sub.add_parser("listen"); p.add_argument("folder"); p.add_argument("--by", required=True); p.add_argument("--note")
     p.set_defaults(fn=cmd_listen)

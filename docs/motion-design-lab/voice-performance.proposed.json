@@ -1,0 +1,236 @@
+{
+  "version": 1,
+  "canonicalText": "docs/motion-design-lab/voice.proposed.json",
+  "engine": {
+    "name": "VieNeu-TTS",
+    "version": "3.8.3",
+    "runtime": "local ONNX/CPU",
+    "externalUpload": false,
+    "supportedControls": ["referenceAudio", "seed", "denoise"],
+    "fixedControls": {
+      "denoise": false
+    },
+    "unsupportedControls": ["rate", "pitch", "volume", "style", "directEmotion"],
+    "postProcessingRestrictions": ["no atempo", "no pitch shifting for expression"]
+  },
+  "benchmark": {
+    "status": "pending",
+    "selectionMethod": "render the same original benchmark text with every candidate, then compare measured technical fidelity and documented performance evidence",
+    "text": "Bạn có thấy chấm nhỏ này vừa đổi cảnh đã khựng lại không? Mình đang giữ nguyên đường đi của nó, rồi thay từng lớp nền phía sau. Lúc đầu chấm bật ngược nên mắt mình bị kéo khỏi câu chuyện. Sau khi nối lại đúng hướng, chuyển động trôi liền hơn, và mình có thể tập trung vào điều thật sự muốn kể. Cảm giác ấy nhẹ đi rõ rệt.",
+    "planningSyllables": 71,
+    "planningSecondsAt4_1SyllablesPerSecond": 17.32,
+    "candidates": [
+      "vietnamese-voice-samples/previews/Anh-Khoi-Ke-Chuyen.mp3",
+      "vietnamese-voice-samples/previews/Thanh-Long-Nang-Cao.mp3",
+      "vietnamese-voice-samples/previews/Ngoc-Huyen.mp3"
+    ],
+    "selectedReference": null,
+    "resolvedReferencePath": "docs/motion-design-lab/voice-ref/benchmark-winner.wav",
+    "referenceCrop": {
+      "minimumSeconds": 6,
+      "preferredMaximumSeconds": 8,
+      "requirements": ["one speaker", "no music", "no overlapping sound", "clean phrase boundary"]
+    },
+    "machineChecks": [
+      "canonical text",
+      "CER/ASR",
+      "duration",
+      "silence",
+      "loudness",
+      "clipping",
+      "cross-phrase consistency"
+    ],
+    "naturalnessEvidence": "not verified by listening"
+  },
+  "candidatePolicy": {
+    "initialCandidatesPerPhrase": 1,
+    "maximumCandidatesPerPhrase": 3,
+    "regenerateOnlyFailedPhraseOrKeyword": true,
+    "pinnedSeedMustPassCanonicalTextCheck": true
+  },
+  "pauseImplementation": "explicit post-synthesis silence during phrase assembly; never inferred from punctuation",
+  "experimentalCues": {
+    "enabled": false,
+    "values": []
+  },
+  "shots": {
+    "s1": {
+      "slotStartFrame": 0,
+      "slotEndFrame": 210,
+      "reference": {"source": "docs/motion-design-lab/voice-ref/benchmark-winner.wav"},
+      "referenceSelectionStatus": "pending benchmark; create this crop from the measured winner before synthesis",
+      "intent": "point out the jump, then invite inspection of the repaired path",
+      "emotion": "curious surprise settling into confidence",
+      "accentWords": ["giật", "đường đi"],
+      "ending": "question rises; explanation ends level and assured",
+      "minimumPostClipHoldFrames": 0,
+      "postClipHoldPolicy": "use the measured remainder of this fixed slot",
+      "phrases": [
+        {
+          "text": "Sao chấm này vừa đổi cảnh đã giật?",
+          "tempoIntent": "brisk",
+          "emphasis": ["giật"],
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.16,
+          "seed": null,
+          "controls": {"denoise": false}
+        },
+        {
+          "text": "Nhìn đường đi này nhé, mình giữ đường đi của nó, rồi mới đổi nền.",
+          "tempoIntent": "gentler invitation, then firm landing",
+          "emphasis": ["đường đi"],
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.0,
+          "seed": null,
+          "controls": {"denoise": false}
+        }
+      ]
+    },
+    "s2": {
+      "slotStartFrame": 210,
+      "slotEndFrame": 450,
+      "reference": {"source": "docs/motion-design-lab/voice-ref/benchmark-winner.wav"},
+      "referenceSelectionStatus": "pending benchmark; create this crop from the measured winner before synthesis",
+      "intent": "reassure through observable continuity and crisp text",
+      "emotion": "calm and precise",
+      "accentWords": ["đi tiếp", "tan vào nhau", "vẫn rõ"],
+      "ending": "clean low fall on không tan theo",
+      "minimumPostClipHoldFrames": 0,
+      "postClipHoldPolicy": "use the measured remainder of this fixed slot",
+      "phrases": [
+        {
+          "text": "Cắt thẳng, chấm vẫn đi tiếp.",
+          "tempoIntent": "quick and direct",
+          "emphasis": ["đi tiếp"],
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.1,
+          "seed": null,
+          "controls": {"denoise": false}
+        },
+        {
+          "text": "Muốn đổi nền nhẹ hơn, cho hai cảnh tan vào nhau.",
+          "tempoIntent": "ease slightly through the visual explanation",
+          "emphasis": ["tan vào nhau"],
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.12,
+          "seed": null,
+          "controls": {"denoise": false}
+        },
+        {
+          "text": "Chữ vẫn rõ, không tan theo.",
+          "tempoIntent": "measured contrast",
+          "emphasis": ["vẫn rõ"],
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.0,
+          "seed": null,
+          "controls": {"denoise": false}
+        }
+      ]
+    },
+    "s3": {
+      "slotStartFrame": 450,
+      "slotEndFrame": 660,
+      "reference": {"source": "docs/motion-design-lab/voice-ref/benchmark-winner.wav"},
+      "referenceSelectionStatus": "pending benchmark; create this crop from the measured winner before synthesis",
+      "intent": "re-hook with the moving-panel problem and resolve it visibly",
+      "emotion": "inquisitive, then confident and lightly satisfied",
+      "accentWords": ["cả khung", "một hướng", "không bật ngược"],
+      "ending": "soft fall on nữa after precise result emphasis",
+      "minimumPostClipHoldFrames": 0,
+      "postClipHoldPolicy": "use the measured remainder; if the clip does not fit, return to Gate A",
+      "phrases": [
+        {
+          "text": "Nhưng trượt cả khung thì sao?",
+          "tempoIntent": "brisk re-hook",
+          "emphasis": ["cả khung"],
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.12,
+          "seed": null,
+          "controls": {"denoise": false}
+        },
+        {
+          "text": "Mình cho nền đi cùng một hướng, còn chấm nối tiếp đường cũ.",
+          "tempoIntent": "confident forward explanation",
+          "emphasis": ["một hướng"],
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.08,
+          "seed": null,
+          "controls": {"denoise": false}
+        },
+        {
+          "text": "Nhìn, chấm không bật ngược nữa.",
+          "tempoIntent": "slightly slower observable result",
+          "emphasis": ["không bật ngược"],
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.0,
+          "seed": null,
+          "controls": {"denoise": false}
+        }
+      ]
+    },
+    "s4": {
+      "slotStartFrame": 660,
+      "slotEndFrame": 900,
+      "reference": {"source": "docs/motion-design-lab/voice-ref/benchmark-winner.wav"},
+      "referenceSelectionStatus": "pending benchmark; create this crop from the measured winner before synthesis",
+      "intent": "make the wipe tactile, then reassure that cues stay aligned",
+      "emotion": "lightly playful, then precise",
+      "accentWords": ["tấm rèm", "đúng nhịp ban đầu"],
+      "ending": "firm on đúng nhịp, softer on ban đầu",
+      "minimumPostClipHoldFrames": 0,
+      "postClipHoldPolicy": "use the measured remainder for the timing demonstration",
+      "phrases": [
+        {
+          "text": "Rồi quét nền như kéo một tấm rèm.",
+          "tempoIntent": "brisk tactile image",
+          "emphasis": ["tấm rèm"],
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.12,
+          "seed": null,
+          "controls": {"denoise": false}
+        },
+        {
+          "text": "Chấm vẫn lướt qua, giọng nói và phụ đề vẫn vào đúng nhịp ban đầu.",
+          "tempoIntent": "measured proof with a firm accent and soft release",
+          "emphasis": ["đúng nhịp ban đầu"],
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.0,
+          "seed": null,
+          "controls": {"denoise": false}
+        }
+      ]
+    },
+    "s5": {
+      "slotStartFrame": 900,
+      "slotEndFrame": 1080,
+      "reference": {"source": "docs/motion-design-lab/voice-ref/benchmark-winner.wav"},
+      "referenceSelectionStatus": "pending benchmark; create this crop from the measured winner before synthesis",
+      "intent": "invite one viewer to repeat the test",
+      "emotion": "warm, relaxed and curious",
+      "accentWords": ["bạn thử", "một chấm", "bị giật"],
+      "ending": "gentle falling question, then complete silence",
+      "minimumPostClipHoldFrames": 30,
+      "postClipHoldPolicy": "preserve at least 30 frames of true timeline silence",
+      "phrases": [
+        {
+          "text": "Bạn thử giữ một chấm chạy qua bốn kiểu chuyển cảnh nhé.",
+          "tempoIntent": "warm conversational invitation",
+          "emphasis": ["bạn thử", "một chấm"],
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.14,
+          "seed": null,
+          "controls": {"denoise": false}
+        },
+        {
+          "text": "Xem nó có bị giật không.",
+          "tempoIntent": "slightly slower close",
+          "emphasis": ["bị giật"],
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.0,
+          "seed": null,
+          "controls": {"denoise": false}
+        }
+      ]
+    }
+  }
+}

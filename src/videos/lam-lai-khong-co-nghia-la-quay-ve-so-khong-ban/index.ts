@@ -10,5 +10,9 @@ export const lamLaiKhongCoNghiaLaQuayVeSoKhongBanReelVideo = defineVideo({
   fps: 30,
   width: 1080,
   height: 1920,
-  testFrames: [0, Math.floor(timeline.totalDurationInFrames / 2), timeline.totalDurationInFrames - 1],
+  testFrames: [
+    0,
+    Math.floor(timeline.totalDurationInFrames / 2),
+    timeline.totalDurationInFrames - 1,
+  ],
 });
