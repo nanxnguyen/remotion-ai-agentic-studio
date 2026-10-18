@@ -32,6 +32,7 @@ jobs:
       - run: python3 -m unittest discover -s tests -p 'test_agent_status_sync.py'
       - run: python3 .agents/skills/ray-pineline-worflow-agent/scripts/quick_validate.py
       - run: python3 scripts/sync_agents.py --check
+      - run: python3 -m unittest scripts.test_sync_agents
       - run: python3 -m unittest scripts.test_voice_cache scripts.test_voice_performance
       - run: python3 -m unittest discover -s tests -p 'test_interactive_terminal.py'
       - run: python3 -m unittest discover -s tests -p 'test_terminal_model_effort.py'
