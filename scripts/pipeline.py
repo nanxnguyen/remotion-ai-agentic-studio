@@ -945,7 +945,7 @@ def cmd_review(a) -> None:
             if gate in review_names(data):
                 data.setdefault("review_valid", {})[gate] = False
         log(data, a.gate, f"review {a.score}/10 {a.verdict}: {a.report}" + (f" ({a.note})" if a.note else ""), a.reviewer)
-        settle_agent_records(data, (GATE_REVIEWERS.get(a.gate, ""),), "done" if a.verdict == "pass" else "failed",
+        settle_agent_records(data, (GATE_REVIEWERS.get(a.gate, ""),), "done",
                              f"review {a.gate} -> {a.verdict}")
         save(a.folder, data)
     print(f"review {a.gate}: {a.score}/10 {a.verdict}")
