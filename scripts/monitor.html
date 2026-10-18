@@ -602,18 +602,18 @@ const reviewOk=(v,g)=>!!(v.reviews?.[g]&&(v.reviews[g].passed||v.reviews[g].over
 const agentRecords=(v,name)=>Object.entries(v.agents||{})
   .filter(([id])=>id===name||id.replace(/-\d+$/,'')===name)
   .map(([id,record])=>({id,...record}));
-function isProducerActive(v,n){
-  if(!n?.stage)return false;
-  return n.agents.some(agent=>agentRecords(v,agent).some(record=>{
-    if(record.state!=='running')return false;
-    // Respect a declared stage; a producer such as script-agent may own
-    // both Brief and Script, but must not light both when only one is active.
+function producerActivity(v,n){
+  if(!n?.stage)return null;
+  const records=n.agents.flatMap(agent=>agentRecords(v,agent).filter(record=>{
+    // Shared producers (e.g. script-agent) can own more than one stage.
     if(record.stage)return record.stage===n.stage||record.stage===n.id;
-    // Older status records omit stage: choose the first unfinished owned node.
     const firstPending=videoFlow(v).find(other=>other.stage&&other.agents.includes(agent)
       &&stageOf(v,other.stage)?.state!=='done');
     return firstPending?.id===n.id;
   }));
+  if(records.some(r=>r.state==='running'))return 'running';
+  if(records.some(r=>r.state==='failed'))return 'failed';
+  return null;
 }
 function nodeState(v,n){
   if(!n)return 'skipped';
@@ -622,7 +622,11 @@ function nodeState(v,n){
     // Pending means not yet declared in_progress, not necessarily idle.
     // A live assigned producer should light the Pipeline node just as in
     // Agent Orchestration; failed/blocked/done retain authoritative priority.
-    return persisted==='pending'&&isProducerActive(v,n)?'in_progress':persisted;
+    if(persisted==='pending'){
+      const activity=producerActivity(v,n);
+      return activity==='running'?'in_progress':activity==='failed'?'failed':'pending';
+    }
+    return persisted;
   }
   if(n.id==='intake')return 'done';
   if((n.id==='join'||n.id==='tasks')&&!Object.keys(v.reviews||{}).length)return 'skipped';  // v1 legacy: no review gates
@@ -641,15 +645,28 @@ function agentState(v,name){
     return{state:'done',note:'Stage đã hoàn tất'};
 
   const recs=agentRecords(v,name).map(({id,...record})=>({k:id,...record}));
+  const owned=videoFlow(v).filter(n=>n.agents.includes(name));
+  const reviewing=videoFlow(v).filter(n=>n.reviewer===name);
   const running=recs.filter(r=>r.state==='running');
-  if(running.length)return{state:'running',count:running.length,note:running.map(r=>`${r.k}: ${r.note||r.stage||'đang chạy'} (${short(r.at)})`).join('\n')};
-  if(recs.some(r=>r.state==='failed'))return{state:'failed',note:recs.find(r=>r.state==='failed').note};
-  // no explicit record: infer from the stages and reviews this agent owns
-  const owned=videoFlow(v).filter(n=>n.agents.includes(name)),reviewing=videoFlow(v).filter(n=>n.reviewer===name);
-  // No explicit running record: a stage marked in_progress is not proof an agent is alive.
-  if(recs.some(r=>r.state==='done'))return{state:'done',note:recs.map(r=>r.note).filter(Boolean).join('; ')};
-  if(reviewing.length&&reviewing.every(n=>reviewOk(v,n.gate)))return{state:'done',inferred:true};
-  if(owned.length&&owned.every(n=>nodeState(v,n)==='done'))return{state:'done',inferred:true};
+  // A stale 'running' record scoped to a completed stage cannot light an
+  // unrelated pending stage. Virtual coordinators/reviewers have no stage.
+  const runningValid=!owned.some(n=>n.stage)
+    ||owned.some(n=>n.stage&&producerActivity(v,n)==='running'
+      &&nodeState(v,n)==='in_progress');
+  if(running.length&&runningValid)
+    return{state:'running',count:running.length,
+      note:running.map(r=>`${r.k}: ${r.note||r.stage||'đang chạy'} (${short(r.at)})`).join('\n')};
+  if(recs.some(r=>r.state==='failed')
+    &&(!owned.some(n=>n.stage)||owned.some(n=>n.stage&&nodeState(v,n)==='failed')))
+    return{state:'failed',note:recs.find(r=>r.state==='failed').note};
+  // Historical agent 'done' is NOT proof of a current passed stage/review.
+  // Reopening a stage or invalidating a review must make the chip idle again.
+  if(reviewing.length&&reviewing.every(n=>reviewOk(v,n.gate)))
+    return{state:'done',inferred:true};
+  if(owned.length&&owned.every(n=>nodeState(v,n)==='done'))
+    return{state:'done',inferred:true};
+  if(!owned.length&&!reviewing.length&&recs.some(r=>r.state==='done'))
+    return{state:'done',note:recs.map(r=>r.note).filter(Boolean).join('; ')};
   return{state:'idle'}}
 function summary(v){const req=v.stages.filter(x=>x.state!=='skipped'),done=req.filter(x=>x.state==='done').length,reviews=Object.values(v.reviews||{}),reviewOkN=Object.keys(v.reviews||{}).filter(g=>reviewOk(v,g)).length,running=meta?meta.agents.filter(a=>a.name!=='video-director'&&agentState(v,a.name).state==='running').length:0;const active=v.stages.some(x=>x.gate==='waiting')?'gate':v.stages.find(x=>['failed','blocked','in_progress'].includes(x.state))?.state||(running?'in_progress':(done===req.length?'done':'pending'));return{done,total:req.length,reviewOk:reviewOkN,reviewPassed:reviews.filter(x=>x.passed&&!x.stale).length,reviewTotal:reviews.length,hasMismatch:v.stages.some(x=>x.mismatch),running,active,percent:req.length?Math.round(done/req.length*100):0}}
 
@@ -666,7 +683,7 @@ function overview(v,s){const current=videoFlow(v).find(n=>nodeState(v,n)==='in_p
   ||v.stages.find(x=>x.state==='in_progress')
   ||videoFlow(v).find(n=>nodeState(v,n)!=='done');return `<section class="overview-card"><div class="overview-copy"><div class="eyebrow">Production Overview</div><div class="overview-name">${esc(v.name)}</div><div class="overview-meta"><strong>${esc(v.comp)}</strong><span class="flow-badge" title="v4: Join / Motion / Integration; legacy flows preserved">workflow v${esc(v.flow)}</span>${v.profile?`<span>${esc(v.profile)}</span>`:''}${v.voice?`<span>· voice ${esc(v.voice)}</span>`:''}<span>·</span><code>docs/${esc(v.folder)}/status.json</code><span>·</span><span>Cập nhật ${fmt(v.updated)}</span></div><div class="next-step"><span class="next-icon"><svg width="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14m-6-6 6 6-6 6" stroke="#5eead4" stroke-width="2"/></svg></span><span><small>Bước tiếp theo</small><b>${esc(v.next||'Chưa ghi bước tiếp theo (pipeline.py set … --next)')}</b></span></div></div><div class="progress-ring" style="--progress:${s.percent}%" role="progressbar" aria-label="Tiến độ stage" aria-valuemin="0" aria-valuemax="${s.total}" aria-valuenow="${s.done}"><span class="ring-copy"><b>${s.percent}%</b><span>stage xong</span></span></div><div class="overview-stats"><span class="stat"><small>Stages</small><b>${s.done}/${s.total}</b></span><span class="stat"><small>Reviews đạt</small><b>${s.reviewPassed}/${s.reviewTotal}</b></span><span class="stat"><small>Agent chạy</small><b>${s.running}</b></span><span class="stat current"><small>Hiện tại</small><b>${esc(current?.label||'Hoàn tất')}</b></span></div></section>`}
 function output(v,s){const render=stageOf(v,'render'),ready=render?.state==='done'&&render.evidence?.ok;if(!ready)return '<section class="output-locked"><svg width="20" viewBox="0 0 24 24" fill="none"><rect x="5" y="11" width="14" height="9" rx="2" stroke="#64748b"/><path d="M8 11V8a4 4 0 0 1 8 0v3" stroke="#64748b"/></svg>Video đầu ra sẽ xuất hiện ở đây sau khi render và qua rào chắn cuối (gate C).</section>';const c=reviewOk(v,'C');return `<section class="output-card"><div class="video-frame" id="video-slot"></div><div class="output-copy"><div><div class="eyebrow">Video đầu ra</div><div class="output-title">${esc(render.evidence.files?.[0]?.split('/').pop()||v.name+'.mp4')}</div></div><div class="output-meta"><span>${esc(render.evidence.detail||'')}</span><span>·</span><span>1080×1920</span><span>·</span><span class="${c?'pass':'warn'}">${c?'Đã qua rào chắn cuối (C)':'Chưa qua gate C — chưa giao'}</span><span>·</span><span>${s.reviewPassed}/${s.reviewTotal} review đạt</span></div><div class="output-actions"><button type="button" class="action primary" id="play-output">▶ Xem video</button><a class="action" href="/media/${encodeURIComponent(v.folder)}" download>Tải xuống</a></div></div></section>`}
-function stageNode(v,n,num){const st=nodeState(v,n),declared=n.stage?stageOf(v,n.stage)?.state:null,activityInferred=declared==='pending'&&st==='in_progress',warn=n.gate&&st==='done'&&['revise','stale'].includes(reviewNodeState(v,n));const agents=n.agents.map(a=>chip(v,a,'producer',true)).join('');return `<button type="button" class="stage-node ${st}${warn?' gate-warn':''}${activityInferred?' agent-active':''}${n.stage?'':' virtual'}" style="--stage-color:${COLOR[st]}" data-s="${esc(n.id)}" aria-pressed="${n.id===sel}" title="${activityInferred?'Agent đang hoạt động; stage chưa được đánh dấu in_progress':''}"><span class="stage-robot"><i class="stage-number">${num}</i>${bot(COLOR[st])}</span><span class="stage-name">${esc(n.label)}</span><span class="stage-status"><i></i>${LABEL[st]}</span><span class="stage-agents">${agents}</span></button>`}
+function stageNode(v,n,num){const st=nodeState(v,n),declared=n.stage?stageOf(v,n.stage)?.state:null,activityInferred=declared==='pending'&&st==='in_progress',failureInferred=declared==='pending'&&st==='failed',warn=n.gate&&st==='done'&&['revise','stale'].includes(reviewNodeState(v,n));const agents=n.agents.map(a=>chip(v,a,'producer',true)).join('');return `<button type="button" class="stage-node ${st}${warn?' gate-warn':''}${activityInferred?' agent-active':''}${n.stage?'':' virtual'}" style="--stage-color:${COLOR[st]}" data-s="${esc(n.id)}" aria-pressed="${n.id===sel}" title="${activityInferred?'Agent đang hoạt động; stage chưa được đánh dấu in_progress':failureInferred?'Agent báo lỗi; trạng thái stage lưu vẫn là pending':''}"><span class="stage-robot"><i class="stage-number">${num}</i>${bot(COLOR[st])}</span><span class="stage-name">${esc(n.label)}</span><span class="stage-status"><i></i>${LABEL[st]}</span><span class="stage-agents">${agents}</span></button>`}
 // Each review is its own node right after its producer: producer → reviewer.
 function reviewNodeState(v,n){const r=v.reviews?.[n.gate];if(!r)return 'skipped';if(agentState(v,n.reviewer).state==='running')return 'in_progress';if(r.stale)return 'stale';if((r.passed||r.overridden))return 'done';if(r.rounds)return 'revise';return nodeState(v,n)==='done'?'waiting':'pending'}
 function reviewNode(v,n){const st=reviewNodeState(v,n),r=v.reviews?.[n.gate],c=reviewChip(v,n.gate),color=COLOR[st];return `<button type="button" class="stage-node review-node ${st}" style="--stage-color:${color}" data-s="r:${esc(n.id)}" aria-pressed="${'r:'+n.id===sel}" title="${esc(n.reviewer)} chấm ${esc(n.gate)} · ngưỡng ${r?.threshold??''}"><span class="stage-robot"><i class="stage-number">${esc(n.gate.length>1?n.gate[0].toUpperCase()+'·R':n.gate)}</i><svg width="30" height="30" viewBox="0 0 24 24" fill="none"><path d="M12 3 5 6v5c0 4.5 3 8.3 7 10 4-1.7 7-5.5 7-10V6l-7-3z" stroke="${color}" stroke-width="1.5" fill="#0e1520"/><path d="m9 12 2 2 4-4" stroke="${color}" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="stage-name">${esc(n.reviewer)}</span><span class="stage-status"><i></i>${LABEL[st]}</span>${c?`<span class="stage-gate ${c.cls}">${esc(c.text)}</span>`:''}<span class="stage-agents">${chip(v,n.reviewer,'reviewer',true)}</span></button>`}
@@ -674,7 +691,7 @@ function pipeline(v,s){const conn=(a,b)=>`<span class="stage-connector ${nodeSta
   const fork=`<div class="pipeline-fork"><span class="fork-label">${v3?'song song sau gate A':'v2: chạy tuần tự'}</span>${laneHtml}</div>`;const chosen=meta.flow.find(n=>n.id===String(sel).replace(/^r:/,''));
   const body=`${seq(['intake','research','brief','script'],['0','1','2a','2b'])}${conn('script')}${fork}${conn('join')}${v.flow>=4?seq(['join','motion','integration','tasks','build','render','qa','delivery'],['4a','4b','5','6','7','8','9','10']):seq(['join','tasks','build','render','qa','delivery'],['4-5','6','7','8','9','10'])}`;
   return `<section class="card pipeline-card"><div class="section-head"><div><h2>Production pipeline</h2><p>Gate A → content / audio / design → Join → Motion (v4) → E → Build → C</p></div><span class="counter">${s.done}/${s.total} stage xong</span></div><div class="pipeline-scroll" id="pipe-scroll" tabindex="0" aria-label="Sơ đồ pipeline — cuộn ngang để xem đầy đủ">${body}</div><div class="legend"><span style="color:#4ade80"><i></i>Hoàn tất</span><span style="color:#fbbf24"><i></i>Đang chạy</span><span style="color:#64748b"><i></i>Đang chờ</span><span style="color:#f87171"><i></i>Lỗi / bị chặn</span><span style="color:#a78bfa"><i></i>Chờ review</span><span style="color:#fb923c"><i></i>Review hết hiệu lực</span><span>Ô vuông khiên = node reviewer (chấm gate của bước ngay trước)</span></div>${chosen?detail(v,chosen):''}</section>`}
-function detail(v,n){const stage=n.stage?stageOf(v,n.stage):null,r=n.gate?v.reviews?.[n.gate]:null,ag=[...n.agents,n.reviewer].filter(Boolean).map(a=>{const st=agentState(v,a);return `${esc(a)}: ${st.state}${st.inferred?' (suy ra)':''}${st.note?' — '+esc(st.note):''}`}).join('<br>');return `<div class="stage-note"><b>${esc(n.label)}</b>${stage?`<br>Stage <b>${esc(stage.id)}</b>: ${esc(LABEL[nodeState(v,n)])}${stage.state==='pending'&&nodeState(v,n)==='in_progress'?' (agent đang chạy; trạng thái lưu vẫn chờ)':''}${stage.at?' · '+fmt(stage.at):''}${stage.note?'<br>Ghi chú: '+esc(stage.note):''}<br>Bằng chứng: ${stage.evidence?.ok===false?'<span style="color:#f87171">thiếu</span>':esc(stage.evidence?.detail||'')} ${(stage.evidence?.files||[]).map(esc).join(' · ')}`:'<br>Bước điều phối (không có stage riêng trong status.json)'}${r?`<br>Review ${esc(n.gate)}: ${r.score??'—'}/${r.threshold} · ${r.rounds} vòng · ${esc(r.verdict||'chưa review')}${r.stale?' · <span style="color:#fb923c">hết hiệu lực</span>':''}${r.report?' · '+esc(r.report):''}`:''}<br>Agent:<br>${ag}</div>`}
+function detail(v,n){const stage=n.stage?stageOf(v,n.stage):null,r=n.gate?v.reviews?.[n.gate]:null,ag=[...n.agents,n.reviewer].filter(Boolean).map(a=>{const st=agentState(v,a);return `${esc(a)}: ${st.state}${st.inferred?' (suy ra)':''}${st.note?' — '+esc(st.note):''}`}).join('<br>');return `<div class="stage-note"><b>${esc(n.label)}</b>${stage?`<br>Stage <b>${esc(stage.id)}</b>: ${esc(LABEL[nodeState(v,n)])}${stage.state==='pending'&&nodeState(v,n)==='in_progress'?' (agent đang chạy; trạng thái lưu vẫn chờ)':stage.state==='pending'&&nodeState(v,n)==='failed'?' (agent báo lỗi; trạng thái lưu vẫn chờ)':''}${stage.at?' · '+fmt(stage.at):''}${stage.note?'<br>Ghi chú: '+esc(stage.note):''}<br>Bằng chứng: ${stage.evidence?.ok===false?'<span style="color:#f87171">thiếu</span>':esc(stage.evidence?.detail||'')} ${(stage.evidence?.files||[]).map(esc).join(' · ')}`:'<br>Bước điều phối (không có stage riêng trong status.json)'}${r?`<br>Review ${esc(n.gate)}: ${r.score??'—'}/${r.threshold} · ${r.rounds} vòng · ${esc(r.verdict||'chưa review')}${r.stale?' · <span style="color:#fb923c">hết hiệu lực</span>':''}${r.report?' · '+esc(r.report):''}`:''}<br>Agent:<br>${ag}</div>`}
 function reviewsAndLogs(v,s){const names=REVIEW_ORDER.filter(g=>v.reviews?.[g]);const rows=names.map(g=>{const r=v.reviews[g],[label,agent]=REVIEW_LABEL[g]||[g,''],c=reviewChip(v,g),state=r.stale?'Hết hiệu lực':r.passed?'Đạt':r.overridden?`Chấp nhận (${esc(r.by||'override')})`:r.rounds?'Chưa đạt':'Chưa review';return `<div class="review-grid${r.kind==='branch'?' branch':''}"><strong>${esc(label)}<small>${esc(agent)}</small></strong><span class="review-state" style="--review-color:${c.color}"><i></i>${state}</span><span class="review-value">${r.score==null?'—':esc(r.score)}<span style="color:var(--faint)"> / ${r.threshold}</span></span><span class="review-value rounds">${r.rounds} vòng</span><span class="review-who" title="${esc(r.reviewer)}">${esc(r.reviewer||'—')}</span>${r.note||r.report?`<div class="review-note">${r.note?esc(r.note)+' ':''}${r.report?`<code>${esc(r.report)}</code>`:''}${r.at?` · ${fmt(r.at)}`:''}</div>`:''}</div>`}).join('');
   const kinds={all:'Tất cả',agent:'Agent',review:'Review'},isReview=x=>/review|^[ADEBC]$|^content$|^audio$|override/.test(x.stage+' '+x.who+' '+x.msg),logs=v.log.filter(x=>logFilter==='all'||(logFilter==='review'?isReview(x):!isReview(x))).slice(0, 40).map(x=>{const col=x.who==='you'||x.who==='user'?'#a78bfa':/review/.test(x.who)||isReview(x)?'#c084fc':x.who==='verify'?'#38bdf8':x.who==='agent'?'#64748b':'#2dd4bf';return `<div class="log-line" style="--log-color:${col}"><span class="log-meta">${fmt(x.t)}</span><span class="log-agent"> ${esc(x.who)}</span><span class="log-tag"> · ${esc(x.stage)}</span><div class="log-msg">${esc(x.msg)}</div></div>`}).join('');
   return `<div class="review-log-grid"><section class="card review-card"><div class="section-head"><div><h2>Review gates</h2><p>${v.flow>=4?'A / branches / Motion / E / B / C':v.flow>=3?'A → [content · audio · D] song song → E → B → C (rào chắn cuối)':'A → D → E → B → C'}</p></div><span class="counter">${s.reviewPassed}/${s.reviewTotal} đạt${s.reviewOk>s.reviewPassed?` · ${s.reviewOk-s.reviewPassed} chấp nhận`:''}</span></div><div class="review-grid header"><span>Gate</span><span>Trạng thái</span><span>Điểm / ngưỡng</span><span class="rounds">Vòng</span><span class="review-who">Reviewer</span></div>${rows||'<div class="empty">Video legacy: chưa có review gate trong status.json.</div>'}</section><section class="card log-card"><div class="log-head"><strong>Nhật ký hoạt động</strong><span class="log-filter">${Object.entries(kinds).map(([k,l])=>`<button type="button" data-log="${k}" aria-pressed="${k===logFilter}">${l}</button>`).join('')}</span></div><div class="log-lines" id="log-lines">${logs||'<div class="empty">Chưa có sự kiện.</div>'}</div></section></div>`}
