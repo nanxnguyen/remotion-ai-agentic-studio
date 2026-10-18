@@ -207,6 +207,12 @@ dialog.studio-dialog::backdrop{background:rgba(2,6,15,.76);backdrop-filter:blur(
 .fallback-toggle{display:flex;align-items:center;gap:8px;margin-top:10px;color:var(--muted);font-size:12px;cursor:pointer}.fallback-toggle input{accent-color:var(--teal)}
 .run-pill.quota{color:var(--amber);border-color:rgba(251,191,36,.45)}
 /* studio:end */
+.command-dock-terminal .term-notice{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:24px;text-align:center;background:rgba(5,10,18,.9);color:#8ca7bb;z-index:2;pointer-events:none;font:12px/1.65 var(--sans)}
+.command-dock-terminal .term-notice strong{font:600 15px var(--sans);color:#c2fff0}
+.command-dock-terminal .term-notice span{max-width:550px;overflow-wrap:anywhere}
+.command-dock-terminal .term-notice[hidden]{display:none!important}
+.command-dock-terminal .term-notice[data-error="true"] strong{color:#fda4af}
+
 /* Terminal launcher and dock layout ONLY; keep every other monitor panel untouched. */
 .header-actions .terminal-toggle-btn{display:inline-flex;align-items:center;gap:8px;justify-content:center;min-height:38px;padding:0 15px;border:1px solid rgba(94,234,212,.28);border-radius:999px;background:rgba(15,27,39,.88);color:#b9d3e4;font:600 12px var(--sans);cursor:pointer;transition:color .18s,border-color .18s,background .18s}
 .header-actions .terminal-toggle-btn:hover,.header-actions .terminal-toggle-btn[aria-expanded="true"]{color:#a7fff1;border-color:rgba(94,234,212,.72);background:rgba(18,72,69,.42)}
@@ -256,6 +262,10 @@ dialog.studio-dialog::backdrop{background:rgba(2,6,15,.76);backdrop-filter:blur(
         <div class="term-status"><span id="term-session-label">Chọn video và mở phiên CLI để gõ lệnh trực tiếp.</span><b id="term-live">LOCAL • PTY</b></div>
         <div class="term-screen" id="term-screen" tabindex="0">
           <div id="term-render"></div>
+          <div id="term-notice" role="status" aria-live="polite" class="term-notice">
+            <strong id="term-notice-title">Chưa kết nối terminal</strong>
+            <span id="term-notice-text">Chọn video, agent, model rồi bấm Mở terminal để bắt đầu một phiên tương tác.</span>
+          </div>
           <pre id="term-fallback">❯ Ready to connect.
   Terminal dùng PTY thật của CLI, không gửi prompt qua owner-notes.md.
   Gõ /help, /plan… theo đúng các lệnh CLI thực sự hỗ trợ.</pre>
