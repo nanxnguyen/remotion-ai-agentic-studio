@@ -5,7 +5,7 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[4]
-SKILL = Path(__file__).resolve().parent
+SKILL = Path(__file__).resolve().parent.parent  # the skill root, not the scripts/ directory
 REQUIRED_ROLES = (
     "script-agent", "script-reviewer", "voice-agent", "audio-reviewer",
     "motion-agent", "motion-reviewer", "integration-reviewer",
