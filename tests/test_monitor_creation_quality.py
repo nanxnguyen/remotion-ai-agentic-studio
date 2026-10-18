@@ -83,6 +83,23 @@ class MonitorQualityParityTests(unittest.TestCase):
             self.assertFalse(launch.called)
             self.assertIn("quality lock", record.call_args.args[-1])
 
+    def test_monitor_create_selects_new_video_and_shows_created_date(self):
+        monitor = (Path(__file__).resolve().parents[1] / "scripts" / "monitor.html").read_text(encoding="utf-8")
+        self.assertIn("window.selectVideo=selectVideo;", monitor)
+        self.assertIn("window.refresh=refresh;", monitor)
+        self.assertIn("await window.refresh?.();", monitor)
+        self.assertIn("window.selectVideo?.(data.video);", monitor)
+        self.assertIn("videoCreationLabel(v.created)", monitor)
+        self.assertIn("Tạo: ", monitor)
+        self.assertIn("catch(error){$('create-error').textContent=", monitor)
+
+    def test_quality_first_is_default_and_fallback_is_explicit(self):
+        monitor = (Path(__file__).resolve().parents[1] / "scripts" / "monitor.html").read_text(encoding="utf-8")
+        self.assertIn('id="f-fallback" name="fallback"', monitor)
+        self.assertNotIn('id="f-fallback" name="fallback" checked', monitor)
+        self.assertNotIn('id="dock-fallback" checked', monitor)
+        self.assertIn('có thể giảm chất lượng', monitor)
+
     def test_no_shortcut_quality_contract(self):
         preamble = p.RULES_PREAMBLE
         self.assertIn("SAME production workflow", preamble)
