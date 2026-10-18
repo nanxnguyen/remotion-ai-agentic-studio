@@ -231,6 +231,11 @@ class PipelineCliTest(unittest.TestCase):
         self.assertNotEqual(refused.returncode, 0)
         self.assertIn("text on a background only", refused.stderr)
         (scenes / "Scene01.tsx").write_text(
+            "export const S = () => <AbsoluteFill><div style={{transform: `scale(${ramp(frame, 0, 20)})`}}>Chữ</div></AbsoluteFill>;",
+            encoding="utf-8",
+        )
+        self.assertEqual(self.cli("set", "sample", "build", "done").returncode, 0)
+        (scenes / "Scene01.tsx").write_text(
             "export const S = () => <AbsoluteFill><Img src={staticFile('assets/cover.png')} /></AbsoluteFill>;")
         self.assertEqual(self.cli("set", "sample", "build", "done").returncode, 0)
 

@@ -11,8 +11,8 @@ import {
   LampGlow,
   PAPER,
   PencilChar,
-} from '../proto/kit';
-import {E_SINE, mix, ramp} from '../proto/motion';
+} from '../kit';
+import {E_SINE, mix, ramp} from '../motion';
 import {S8_CAPTION_BOUNDARIES} from '../timeline';
 
 const CAPTIONS = [

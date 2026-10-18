@@ -1,7 +1,7 @@
 import React from 'react';
 import {AbsoluteFill, useCurrentFrame} from 'remotion';
-import {E_SINE, mix, ramp} from '../proto/motion';
-import {DBTFonts, DbtLine, Finish, GridPaper, HAND, HILITE, INK, LampGlow} from '../proto/kit';
+import {E_SINE, mix, ramp} from '../motion';
+import {DBTFonts, DbtLine, Finish, GridPaper, HAND, HILITE, INK, LampGlow} from '../kit';
 
 /** s6b — macro reveal: the “30” is a hand-drawn pencil mark, not a real ruler. */
 export const Scene10: React.FC = () => {

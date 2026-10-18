@@ -249,6 +249,75 @@ Result: **FAIL (exit 1)**. The only reported errors are the pre-existing Gate A 
 
 `npx tsc --noEmit` completed successfully. This reviewer did not repair the audit/status defect because the requested scope was review-only.
 
+## Round 3 — final clean-context closure on verified-r4
+
+Reviewed 2026-10-18 as a fresh, review-only Gate E context. This closure supersedes stale preview measurements from the earlier Round 3 entry above; it does not mutate source, status, pipeline, or task files, and it does not run any pipeline command.
+
+### Review packet
+
+Re-read in full: the workflow and `.agents/rules/`, all prior `integration-review.md` rounds, current `integration-mix-proof.md`, current `join-notes.md`, every round of `audio-review.md`, authoritative `voice-clone-asr.md` (11/16), `voice-report.md`, refreshed `task-review.md`, `design-spec.md`/`design-review.md`, `content-pack.md`/`content-pack-review.md`, `script.md`/`script-review.md`, `Reel.tsx`, `timeline.ts`, and `Scene01.tsx` through `Scene16.tsx`.
+
+Inspected preview: `/tmp/dung-bien-tuoi-30-thanh-ban-an-join-preview-verified-r4.mp4`.
+
+### Verdict
+
+**score: 8.8/10 — verdict: revise; hard-cap accepted-risk, not a clean pass.**
+
+The verified-r4 join is technically renderable and visually coherent, with smooth frame-derived motion and the accepted paper/graphite design system. The R2 integration fixes are materially verified. Five ASR failures remain in the authoritative snapshot, so this review does not claim exact heard-text compliance or a clean Gate E pass. Because those residual voice errors are articulation/number-word risks rather than missing, corrupt, or unusable audio, they are recorded as accepted-risk at the review cap and must remain visible in Gate B/C/QA carry-forward.
+
+### Verified R2 fixes
+
+| Check | Result | Evidence |
+|---|---|---|
+| s1 lead-in and post-roll | **PASS** | `timeline.ts` uses `VOICE_LEAD_IN_FRAMES = 5`; current s1 shot is `[0,78)`, rounded voice window is `[5,70)`, leaving **8 frames / 0.2667s** post-roll. This closes the former 7-frame/0.233s defect. |
+| s8 caption timing | **PASS with low residual risk** | `S8_CAPTION_BOUNDARIES = {firstEnd: 43, secondEnd: 89}`; current evidence records first phrase near 1.320s, measured pause 1.408750–1.711167s, second phrase near 2.960s. At 30fps, 43f lands in the pause and 89f is the first frame after the second phrase. |
+| s3a SFX cue | **PASS** | Current timeline is s3a `[185,321)`; `Reel.tsx` places the 6-frame cue at `[315,321)`, ending on the exclusive scene boundary. The older `[314,320)` line in `integration-mix-proof.md` is stale documentation, not the current source behavior. |
+| A/V duration | **PASS** | r4 `ffprobe`: video 51.633333s, AAC 51.614667s, container 51.633333s. The small AAC padding difference is shorter than the video and does not create an accidental audio tail; the render path is documented as `-shortest`. |
+| Integrated loudness/peak | **PASS** | r4 `ebur128`: **−14.7 LUFS**, LRA 5.4 LU, true peak **−1.9 dBFS**; `volumedetect` max sample −1.9 dBFS. This satisfies the −14±1 LUFS and ≤−1.5 dBTP targets. |
+| Stem-level proof | **PARTIAL/PASS for source envelope** | Independent stems exist and decode: voice stem −15.6 LUFS, BGM envelope stem −30.6 LUFS; source proves 6-frame/200ms duck ramps, 0.165 versus 0.30 hold (5.19dB), and 2.10s BGM-zero tail. A formal per-window rendered duck/pumping/click measurement is still not present. |
+| Motion/visual quality | **PASS for Gate E integration** | r4 contact-sheet and key-frame inspection show the hook, verdict, feast/reaction, freeze/pen drop, macro reveal, feed/screen-off, salary drain, clearing, self-question, and closing hold. All 16 scenes use `useCurrentFrame()`/deterministic easing; no `Math.random`, `Date.now`, TODO, or placeholder marker was found. `npx tsc --noEmit` passed. |
+
+### ASR authority and accepted-risk carry
+
+`voice-clone-asr.md` is the current authoritative snapshot: **11/16** clips at CER ≤0.04. The five failures are `s1`, `s3a`, `s6a`, `s6b`, and `s10`; examples include number-word normalization and `bản án` heard as `bản ánh`. `voice-report.md` retains an older 7/16 table but explicitly labels the 11/16 regenerated snapshot as current. This is not silently promoted to 16/16.
+
+| ID | Severity | Status at hard cap | Carry-forward |
+|---|---|---|---|
+| E-R3-001 | Cao | **accepted-risk, not cleanly closed** | Five current clips do not meet the canonical ASR threshold. Retain the exact failure list in Gate B/C/QA; do not describe the heard track as exact-text compliant. |
+| E-R3-002 | Trung | **accepted-risk / evidence hygiene** | `integration-mix-proof.md` still names the older r2 preview and contains the stale s3a `[314,320)` line; the current r4 measurements and source intervals above are authoritative for this review. |
+| E-R3-003 | Thấp | **carried** | Stem files prove the deterministic envelope and final BGM-zero contract, but no isolated per-window transient/pumping measurement is recorded. Recheck on the final delivery MP4. |
+| E-R3-004 | Thấp | **carried** | Character staging remains intentionally simplified in a few keys; the r4 join is readable and motion-coherent, but full per-shot thumbnail QA remains Gate B/C/QA work. |
+
+### Rubric
+
+| Criterion | Score | Judgment |
+|---|---:|---|
+| Story ↔ frames | 9.1 | All 16 story beats are represented with readable props, poses, and transitions in the r4 join. |
+| Text ↔ frames | 8.9 | Visual copy and safe-zone placement are strong; s8 timing is now evidence-backed, while heard ASR failures limit exact-text confidence. |
+| Voice ↔ pacing | 8.0 | Measured durations, 5f lead-in, 8f post-roll, and 43/89 caption boundaries are coherent; five ASR failures remain. |
+| Sound ↔ story | 9.0 | r4 loudness, peak, A/V duration, bounded SFX, duck envelope, and BGM tail are materially verified; formal windowed transient proof remains carried. |
+| Viewer experience | 9.0 | Motion grammar is smooth and deterministic, with a clear hook → pressure → re-hook → reveal → quiet close arc. |
+| Exact user constraints | 8.6 | No CTA/shaming violation and all mandatory visual strings are present, but the five heard-track failures prevent an exact compliance claim. |
+
+### Final disposition
+
+R2 integration fixes are accepted for the Gate E packet, but this is **not a clean Gate E pass** because the authoritative audio snapshot remains 11/16 and the report packet has stale r2/s3a evidence lines. The remaining ASR risks are not unusable; therefore they are recorded as hard-cap accepted-risk rather than misreported as a pass. Gate B must still independently review the refreshed task packet, and final Render → Gate C → QA must reverify the approved MP4 before delivery.
+
+No source/status mutation or review/gate/override command was run in this review; only the mandatory read-only audit below was executed.
+
+### Required audit result
+
+The mandatory read-only audit was run after this closure and remains **FAIL (exit 1)**:
+
+```text
+✗ review A report docs\\dung-bien-tuoi-30-thanh-ban-an\\script-review.md is missing
+✗ review A report docs\\dung-bien-tuoi-30-thanh-ban-an\\script-review.md is missing
+✗ review A report docs\\dung-bien-tuoi-30-thanh-ban-an\\script-review.md is missing
+✗ agent integration-reviewer-6 is still running but stage design is done
+```
+
+These are repository/status evidence defects and do not change the r4 media measurements above. They are recorded for the director in `HANDOFF.md`; this review did not repair status or the historical Gate A path.
+
 ## Fresh Gate E Round 1 — clean-context review after branch reopen
 
 Reviewed 2026-10-18 as a new integration-reviewer context after the audio branch was reopened. Review-only: no source, status, pipeline, voice, mix-plan, task, or manifest file was edited, and no pipeline command was run.
@@ -332,3 +401,80 @@ The following accepted risks are carried from previous capped reviews and are no
 ### Disposition
 
 Return `score: 8.0  verdict: revise`. Route E-R1-001/E-R1-002 to voice, E-R1-003/E-R1-004/E-R1-005 to director/audio/timeline ownership, and carry E-R1-006 into Gate B/C visual evidence. Do not call `review`, `gate`, `override`, or change pipeline/status from this review-only pass. The next Gate E review must be a fresh context after all Cao/Trung tickets are resolved and the exact final snapshot is regenerated.
+
+## Round 2 — clean-context Gate E integration review after Round 1 fixes
+
+Reviewed 2026-10-18 from a fresh context. This is review-only: no source, audio, status, pipeline, task, or manifest file was edited. Inputs reviewed: all prior rounds in this report, `integration-mix-proof.md`, current `join-notes.md`, current `voice-report.md` and `voice-clone-asr.md`, all rounds of `audio-review.md`, content/design/task packets, `Reel.tsx`, `timeline.ts`, all 16 scene files, and `/tmp/dung-bien-tuoi-30-thanh-ban-an-join-preview-verified-r3.mp4`.
+
+### Verdict
+
+**score: 8.5/10 — verdict: revise**
+
+Gate E **does not pass**. The Round 1 integration blockers are materially reduced: the ASR snapshot is now explicitly identified as the current 11/16 table, the preview is rendered with `-shortest`, s8 uses the requested `43f/89f` boundaries, and the s3a cue ends at `[314,320)`. The preview demonstrates a coherent paper/graphite visual language with frame-derived motion and readable story progression. Two blocking issues remain: five canonical voice clips still fail the authoritative ASR threshold, and the mix packet still has source-level envelope proof rather than independent stem-level signal measurements. The s1 quantized lead-in is explicit, but its post-roll does not meet the documented ≥0.250s acceptance check. Because Cao/Trung tickets remain open, this review cannot pass Gate E.
+
+### Round 2 rubric
+
+| Criterion | Score | Evidence and judgment |
+|---|---:|---|
+| Story ↔ frames | 9.0 | All 16 scene files and the r3 contact sheet show the accepted hook → verdict → pressure → re-hook → reveal → self-question → quiet-close progression with real props and character states. Full Gate B/C visual evidence is still downstream. |
+| Text ↔ frames | 8.9 | Canonical s9b and s10 visual strings are present, content join remains 16/16, safe-zone treatment is consistent, and s8 now uses `43f/89f`. The heard-word failures prevent a full text/audio integration score. |
+| Voice ↔ pacing | 7.2 | The current authoritative ASR table is internally identified as 11/16, measured durations drive the 1548-frame timeline, s8 has measured word/pause evidence, and the preview fits 40–60s. s1 has a 5f quantization and only 7f post-roll; s1/s3a/s6a/s6b/s10 still fail CER ≤0.04. |
+| Sound ↔ story | 8.5 | r3 measures −14.7 LUFS and −1.8 dBFS true peak, mounts all voice/SFX/BGM, uses deterministic duck/fade ramps, and the `-shortest` stream durations are reconciled. The 5.19 dB duck and 2.103s BGM-zero interval are source/frame proofs; isolated stem/window measurements and pumping/click evidence are still absent. |
+| Viewer experience | 8.9 | Independent contact-sheet inspection shows a polished, coherent vertical paper world: ruler drift, list/paper slide, feast/question reveal, freeze/pen drop, macro 30, feed/offline isolation, salary drain, clearing, warm self-question, and final title hold. Some simplified character poses remain an accepted Gate D risk and require full per-shot QA later. |
+| Exact user constraints | 7.9 | No CTA, shaming checklist, nondeterministic animation, or bottom safe-zone breach was found; exact visual s9b/s10 strings are present. Five heard clips still do not prove the canonical words, including number-word and closing `bản án` articulation. |
+
+### Independent verification
+
+- r3 preview: H.264 1080×1920, 30fps; video stream `51.600s`, AAC stereo stream `51.593667s`, container `51.600s`. The earlier ~0.1s tail mismatch is fixed by the `-shortest` render path; the remaining sub-frame AAC padding is normal container encoding residue and is not an accidental content tail.
+- r3 `ebur128`: integrated loudness **−14.7 LUFS**, LRA **5.4 LU**, true peak **−1.8 dBFS**. These meet the stated integrated loudness and ≤−1.5 dBTP thresholds.
+- r3 `silencedetect`: final pure-silence spans are approximately `49.5455–50.102042s` and `51.028–51.593667s`; the mixed AAC measurement alone cannot prove the BGM stem is near-silent for ≥1.2s because paper-wind foley is intentionally present. The source contract does prove BGM zero from `[1485,1548)` = **2.103s**.
+- Current ASR authority: `voice-clone-asr.md` reports **11/16** at CER ≤0.04 with failures `s1,s3a,s6a,s6b,s10`. `voice-report.md` retains the older 7/16 table but explicitly labels it historical and identifies the current regenerated snapshot as authoritative. This is now documented, but the five actual failures remain open.
+- s8: `integration-mix-proof.md` records word timestamps and the measured pause; current boundaries are `43f` and `89f`, matching the requested contract. The first boundary lands in the measured pause and the second is at the end of the second phrase; no cue overlap was found.
+- s3a: scene `[184,320)`, cue `[314,320)`; it ends exactly on the exclusive scene boundary and does not spill into s3b.
+- TypeScript: `npx tsc --noEmit` passed. A source scan found no `Math.random`, `Date.now`, wall-clock animation, placeholder scene labels, or TODO markers in the video source.
+- Visual inspection: r3 contact sheet shows all major story beats, text hierarchy, motion states, transition grammar, and the requested paper/graphite identity. This is integration evidence only; it does not replace Gate B/C full-frame QA.
+
+### Previous-ticket verification
+
+| Previous ticket | Round 2 result | Evidence |
+|---|---|---|
+| E-R1-001 ASR snapshot consistency | **fixed as documentation / open as quality** | Both current reports identify the regenerated 11/16 table as authoritative; the 7/16 table is retained as historical. Five clips still fail the actual quality threshold under that authoritative snapshot. |
+| E-R1-002 failing canonical clips | **open — Cao** | Current `voice-clone-asr.md` still fails `s1,s3a,s6a,s6b,s10`; `s10` hears `30`/`bản ánh` rather than the exact canonical number-word/`bản án` delivery. |
+| E-R1-003 A/V duration mismatch | **fixed** | r3 was rendered with `-shortest`; video is 51.600s and AAC is 51.593667s with container duration 51.600s. |
+| E-R1-004 s8 word/frame alignment | **fixed for current evidence** | `integration-mix-proof.md` records word timestamps and the measured 0.302417s pause; `Scene13.tsx`/`timeline.ts` use `43f/89f`; no SFX overlap was found. |
+| E-R1-005 stem-level duck/ending proof | **partial / open — Trung** | Source proves 6f attack/release, 5.19 dB duck, 9f s10 release, and 63f BGM-zero tail. No isolated BGM/voice stem measurement proves windowed gap, duck delta in the rendered signal, or click/pumping absence. |
+| E-R1-006 accepted design risk | **carried — Thấp** | Gate D's 8.3 hard-cap risks are not silently re-scored. The r3 preview improves readability and motion, but full per-shot motion evidence remains a Gate B/C responsibility. |
+
+### New/current timing finding
+
+| ID | Severity | Where | Finding | Required change | Acceptance check |
+|---|---|---|---|---|---|
+| E-R2-001 | **Cao** | `timeline.ts:11-20`, `Reel.tsx:49-75` | s1 lead-in is explicitly quantized to 5f (`0.166667s`) from the requested 0.150s; the s1 shot is `round((2.159042+0.40)*30)=77f`, so after 5f lead-in and 65f rounded voice there are only 7f (`0.233s`) of post-roll, below the documented ≥0.250s acceptance check. | Reconcile the s1 contract using an explicit frame-equivalent rule: preserve a 5f safe lead-in and increase/recompute the post-roll so the accepted frame contract is ≥8f, then regenerate dependent timeline/cue/render evidence. | Timeline and mix proof state one reproducible s1 lead-in/post-roll contract, and the integrated render shows the first cue after speech with ≥0.250s post-roll. |
+
+### Remaining blockers and disposition
+
+| ID | Severity | Status | Owner / next action |
+|---|---|---|---|
+| E-R2-002 | Cao | **open** | Voice owner must regenerate/reselect `s1,s3a,s6a,s6b,s10`, remeasure the exact final MP3 snapshot, and rerun ASR so canonical words are heard. |
+| E-R2-003 | Trung | **open** | Audio/director must produce same-snapshot isolated stem or windowed signal evidence for 12–18 dB voice/music gap, 4–6 dB duck, 150–300ms ramps, SFX audibility, and ≥1.2s ending BGM near-silence with foley separated. |
+| E-R2-004 | Cao | **open** | Director/audio must close the s1 frame-quantization/post-roll contract above and rerender. |
+| E-R2-005 | Thấp | **carried** | Preserve Gate D accepted design risk; verify every shot's transition/easing/safe zone during Gate B/C and final QA. |
+
+### Final disposition
+
+Return **8.5/10 — REVISE**. Gate E remains blocked. The r3 preview is materially closer to publish quality and demonstrates smooth, deterministic motion and a coherent visual identity, but it is not acceptable to advance to Gate B/build while the five canonical ASR failures, s1 timing contract, and stem-level mix proof remain unresolved. This reviewer did not run `pipeline.py review`, `pipeline.py gate`, `override`, or any status mutation.
+
+### Required audit
+
+The required read-only audit must be run after this report is appended. Any pre-existing audit errors will be recorded in the handoff and must not be treated as a Gate E pass.
+
+Audit result after this report was appended: **FAIL (exit 1)**. Existing repository/status defects reported by the read-only audit are:
+
+```text
+✗ review A report docs\\dung-bien-tuoi-30-thanh-ban-an\\script-review.md is missing
+✗ review A report docs\\dung-bien-tuoi-30-thanh-ban-an\\script-review.md is missing
+✗ review A report docs\\dung-bien-tuoi-30-thanh-ban-an\\script-review.md is missing
+✗ agent integration-reviewer-5 is still running but stage design is done
+```
+
+No status or agent record was changed because this was explicitly a review-only Gate E pass.

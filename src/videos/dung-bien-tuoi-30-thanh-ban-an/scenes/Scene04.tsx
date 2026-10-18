@@ -1,8 +1,8 @@
 import React from 'react';
 import {AbsoluteFill, useCurrentFrame} from 'remotion';
 import {FitText} from '../../../core/fit-text';
-import {E_SINE, mix, ramp} from '../proto/motion';
-import {CAP, DBTFonts, Finish, GridPaper, Handwrite, INK, PencilChar, Ruler} from '../proto/kit';
+import {E_SINE, mix, ramp} from '../motion';
+import {CAP, DBTFonts, Finish, GridPaper, Handwrite, INK, PencilChar, Ruler} from '../kit';
 
 const Sheet: React.FC<{
   x: number;

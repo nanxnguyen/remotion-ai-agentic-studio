@@ -1,8 +1,8 @@
 import React from 'react';
 import {AbsoluteFill, interpolate, useCurrentFrame} from 'remotion';
 import {FitText} from '../../../core/fit-text';
-import {E_SINE, ramp} from '../proto/motion';
-import {CAP, DBTFonts, Finish, GridPaper, Handwrite, PencilChar, Ruler} from '../proto/kit';
+import {E_SINE, ramp} from '../motion';
+import {CAP, DBTFonts, Finish, GridPaper, Handwrite, PencilChar, Ruler} from '../kit';
 
 const Caption: React.FC<{text: string; start: number; end?: number}> = ({
   text,

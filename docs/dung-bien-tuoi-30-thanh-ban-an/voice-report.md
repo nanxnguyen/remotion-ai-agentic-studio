@@ -1,6 +1,10 @@
 # Voice report — dung-bien-tuoi-30-thanh-ban-an
 
-Round 3 final voice evidence, 2026-10-18. Scope is the 16 narration clips, `voice-clone-asr.md`, and `voice-durations.ts`. `voice.json`, `voice-expressive.json`, `timeline.ts`, BGM/SFX, and mix-plan files were not edited.
+> Current authoritative snapshot: the exact current MP3 files, durations, and ASR results are the **Current snapshot after voice reopen** below plus `voice-clone-asr.md`. The older Round 3 table is explicitly historical and must not be used for current counts.
+
+## Historical Round 3 voice evidence (superseded)
+
+Round 3 final voice evidence, 2026-10-18. This section is retained for audit history only; it is superseded by the current snapshot at the end of this report. Scope was the 16 narration clips, `voice-clone-asr.md`, and `voice-durations.ts`.
 
 ## Route and checks
 
@@ -34,7 +38,7 @@ Round 3 final voice evidence, 2026-10-18. Scope is the 16 narration clips, `voic
 
 - 16/16 clips exist and decode; total voice duration is **44.133915 s** (rounded **44.140 s** from `voice-durations.ts`). With the documented 7.700 s of holds/gaps, the expected video budget is approximately **51.833915 s**.
 - Final loudness range is **-21.2…-22.7 LUFS**, spread **1.5 LU**, meeting the `<=2 LU` target. True peak range is **-2.4…-6.2 dBTP**, meeting `<=-1.5 dBTP`. No clip has an internal silence over 0.6 s.
-- Historical Round 3 PCM ASR pass count was **7/16**. The current regenerated snapshot is documented in `voice-clone-asr.md` and is the authoritative current table; it records **11/16** at CER `<=0.04`, with `s1,s3a,s6a,s6b,s10` still open. The packet is not an audio-gate pass.
+- Historical Round 3 PCM ASR pass count was **7/16** (superseded; not a current result). The current regenerated snapshot is documented in `voice-clone-asr.md` and is the only authoritative current table; it records **11/16** at CER `<=0.04`, with `s1,s3a,s6a,s6b,s10` still open. The packet is not an audio-gate pass.
 
 | ID | status | evidence |
 |---|---|---|
@@ -45,7 +49,7 @@ Round 3 final voice evidence, 2026-10-18. Scope is the 16 narration clips, `voic
 
 This report does not claim naturalness, accent/tone quality, emotional fit, breaths, clicks, or robotic-artifact absence; those require listening. Integrated mix tickets AUD-004/AUD-005 remain outside this voice-only scope.
 
-## Current snapshot after voice reopen (2026-10-18)
+## Current authoritative snapshot after voice reopen (2026-10-18)
 
 The preceding Round 3 table is historical. The current files were regenerated with the same authorized VieNeu clone route, then peak-normalized with `loudnorm=I=-16:TP=-3:LRA=9`; `voice-durations.ts` was regenerated from those exact files.
 

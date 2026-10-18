@@ -92,3 +92,17 @@ FAIL
 ## Safe next step
 
 Do not run a final delivery render or claim completion from this handoff. To proceed, resolve or explicitly accept the Gate B tickets with a new review cycle as allowed by the workflow, then run Build/Render/QA evidence and Gate C in order.
+
+## Latest Gate E Round 3 closure — verified-r4 (2026-10-18)
+
+- Fresh clean-context review appended to `integration-review.md`: **8.8/10, revise; hard-cap accepted-risk, not a clean pass**.
+- Verified r4: 1080×1920, 30fps, video 51.633333s, AAC 51.614667s, container 51.633333s; `ebur128` −14.7 LUFS; true peak −1.9 dBFS.
+- R2 fixes verified: s1 5f lead-in plus 8f/0.2667s post-roll; s8 boundaries 43f/89f; current s3a cue `[315,321)` fits current scene `[185,321)`; deterministic motion and all 16 scenes type-check.
+- Independent voice/BGM stems exist and decode; source envelope proves 200ms duck ramps and 2.10s BGM-zero tail. Per-window transient/pumping measurement remains a low-severity carry item.
+- Authoritative ASR remains 11/16; failures `s1,s3a,s6a,s6b,s10` are carried honestly as accepted-risk and are not a clean audio/text pass.
+- Required audit still fails on three historical Gate A backslash paths and stale `integration-reviewer-6` activity. No status/pipeline mutation was made during the review.
+- Latest continuation: final MP4 exists at `out/dung-bien-tuoi-30-thanh-ban-an-trung-kien-nang-cao-reel.mp4` and was re-rendered after shortening the s10 paper-wind cue to `[1481,1505)`. Gate C visual lens passed at 8.2/10 (visual content 8.1), but audio 6.8 and alignment 7.6 remained REVISE after three fresh Gate C rounds.
+- Current blocking condition: local VieNeu clone remains 11/16 CER-clean. `s3a`, `s6b`, and `s10` are content-significant wording risks; `s1` and `s6a` have number-word normalization risks. Whole-line, phrase-split, punctuation-steering, and 60-seed targeted regeneration did not yield a selected clean take. Edge-TTS fallback was attempted but the service failed before producing audio. Do not claim Gate C pass or Final QA completion.
+- Safe next step requiring external state: provide replacement MP3s for the five keys, or restore a working provider/fallback TTS route; then run `npm run voice:measure`, refresh voice evidence, reopen Build → Render → Gate C, and rerun Final QA. Do not change `voice.json` to match ASR output.
+- Latest render measurements: H.264/AAC 1080×1920 30fps, 51.633333s; -14.7 LUFS; -1.9 dBFS peak; BGM zero 2.10s; MP4 tail silence ~1.396s after foley.
+- Verification: `npx tsc --noEmit` and targeted detector regression test pass. `npm run test:visual` fails on unrelated `CuocGoiNhoReel` golden/frame baseline. `npm run verify` stops at repository Prettier failures. `pipeline.py audit` still reports the historical Gate A backslash path.

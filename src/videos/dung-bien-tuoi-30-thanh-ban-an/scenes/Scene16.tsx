@@ -1,7 +1,7 @@
 import React from 'react';
 import {AbsoluteFill, useCurrentFrame} from 'remotion';
-import {DBTFonts, Finish, GridPaper, HILITE, LampGlow, PAPER, Ruler} from '../proto/kit';
-import {E_SINE, mix, ramp} from '../proto/motion';
+import {DBTFonts, Finish, GridPaper, HILITE, LampGlow, PAPER, Ruler} from '../kit';
+import {E_SINE, mix, ramp} from '../motion';
 
 const CLOSING_TEXT = 'Đừng biến tuổi ba mươi thành bản án.';
 const HOLD_FRAMES = 72;

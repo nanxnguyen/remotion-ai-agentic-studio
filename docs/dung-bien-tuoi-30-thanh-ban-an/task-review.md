@@ -4,7 +4,7 @@ Phase 6 task plan, refreshed after Gate E hard-cap disposition and current voice
 
 ## Gate and status constraint
 
-Gate E Round 3 is recorded as `6.8/10`, verdict `revise`, with an explicit hard-cap override and accepted-risk carry-forward. Gate B remains a separate review barrier; this document does not convert the Gate E override into a clean pass:
+Gate E Round 3 is recorded as `8.8/10`, verdict `revise`, with an explicit hard-cap override and accepted-risk carry-forward. Gate B remains a separate review barrier; this document does not convert the Gate E override into a clean pass:
 
 - Gate E **must pass before Gate B is reviewed or build is declared**.
 - Gate B must pass before production build work is accepted as complete.
@@ -31,7 +31,7 @@ Gate E Round 3 is recorded as `6.8/10`, verdict `revise`, with an explicit hard-
 1. Carry the accepted E-003/E-004/E-005 risks explicitly: current voice clips were regenerated and remeasured, s1 exposes a 0.15s contract with a 5-frame conservative quantization, and s8 caption boundaries remain documented pending a voice-pause measurement.
 2. Resolve E-001/E-006/E-007 through the design/scene owners: replace all production placeholders; make s4b, s7a/s7b, s8, s9a/s9b action-readable; correct s9b to `Dạo này, bạn sống có vui không?`.
 3. After the fixes, rerun the independent Gate D/audio reviews as required by `integration-review.md`, then rerun Gate E. No Gate B/build declaration is valid before this pass.
-4. The director has exposed the accepted shared proto primitives through video-owned `kit.tsx`/`motion.ts` facades and created `workbench.ts` + `workbench-keys.ts`; scenes retain their reviewed `proto/` imports for this build revision.
+4. The director has established the video-owned `kit.tsx`/`motion.ts` facades and created `workbench.ts` + `workbench-keys.ts`. All 16 production scenes import `../kit` and `../motion`; the facades are the stable ownership boundary and re-export the reviewed `proto/` implementations. No mutable shared demo-tree import is part of the current build contract.
 5. Scene agents work in parallel on their disjoint scene files. The director then integrates scenes, voice, BGM, SFX, and the registry-backed composition; run the Gate B review on the complete task packet before calling build complete.
 
 The edit is intentionally **not beat-synced**. `docs/dung-bien-tuoi-30-thanh-ban-an/analysis/no-beat-sync.md` is authoritative: shot boundaries, holds, SFX, and motion are voice/frame-led; no `beatF(n)` or `beat_data.json` dependency is planned.
@@ -61,7 +61,32 @@ The design spec validates 16/16 card/style/poster/demo lookups, with 14 unique d
 
 Required shared visual locks: paper/grid surface, graphite character with an active pose in every shot, thin red measuring marks, yellow agency marks only from s8 onward, caption safe zone `bottom: 224`, and no resemblance to the forbidden prior-video systems in `design-spec.md`.
 
-## Scene split and frame plan
+## Current authoritative scene split and frame plan (2026-10-18)
+
+The following table is the only frame plan valid for Gate B and downstream work. It is generated from the current `timeline.ts`, current `voice-durations.ts`, the 5-frame s1 lead-in, the 43/89 s8 caption boundaries, and the current bounded cue offsets.
+
+| Shot | Current frames | Duration |
+|---|---:|---:|
+| s1 | `[0,78)` | 2.600s |
+| s2 | `[78,185)` | 3.567s |
+| s3a | `[185,321)` | 4.533s |
+| s3b | `[321,388)` | 2.233s |
+| s4a | `[388,498)` | 3.667s |
+| s4b | `[498,577)` | 2.633s |
+| s5a | `[577,640)` | 2.100s |
+| s5b | `[640,725)` | 2.833s |
+| s6a | `[725,841)` | 3.867s |
+| s6b | `[841,943)` | 3.400s |
+| s7a | `[943,1050)` | 3.567s |
+| s7b | `[1050,1111)` | 2.033s |
+| s8 | `[1111,1244)` | 4.433s |
+| s9a | `[1244,1354)` | 3.667s |
+| s9b | `[1354,1423)` | 2.300s |
+| s10 | `[1423,1549)` | 4.200s |
+
+Total: **1549 frames / 51.633333s**. Current s1 voice lead-in is 5 frames with 8 frames post-roll; current s3a cue is `[315,321)`; current s10 BGM release is `[1477,1486)` followed by a 63-frame BGM-zero tail.
+
+## Historical scaffold frame plan (superseded — do not use for current review)
 
 Current join draft: 30 fps, 1553 total frames, 51.7667 s. Each row uses the current measured `VOICE_SECONDS`, current post-voice hold, and frame-quantized `from`/`end` from `join-notes.md`. Motion must be derived from `useCurrentFrame()`/local frame, not wall-clock time or unseeded randomness.
 
@@ -131,6 +156,15 @@ Run from `/Users/nguyenanhnhut/Desktop/Projects/AI-video-edition` on 2026-10-18:
 
 Acceptance before Gate B review: E-001…E-008 are closed or formally resolved by the owning review loop, Gate E is passed by the independent integration reviewer, all 16 scenes contain real visual content, the frame table reflects final measured voice, shared files are integrated by the director, and the tool checks above are rerun on the resulting tree. The reviewer must append all rounds and fix tickets below this plan; the producer must not self-review.
 
+## Current packet refresh after Gate E Round 3 (2026-10-18)
+
+- Gate E has completed three fresh rounds on the reopened branch: `8.8/10 — revise`, then an explicit hard-cap override. This is accepted-risk disposition, not a clean score pass.
+- Current timeline is `1549` frames / `51.633s`; s1 uses a declared `0.15s` lead-in quantized to `5f` plus a full `0.25s` post-roll; s8 caption boundaries are measured `43f/89f`.
+- All 16 scene files are substantive; no `Scene NN`, `TODO`, or `PROPOSED_FRAMES` placeholder remains. Video-owned `kit.tsx`, `motion.ts`, `workbench.ts`, and `workbench-keys.ts` now exist.
+- Current normalized preview is `/tmp/dung-bien-tuoi-30-thanh-ban-an-join-preview-verified-r4.mp4`: video `51.633s`, AAC `51.615s`, `-14.7 LUFS`, sample peak `-1.8 dBFS`. Independent stem evidence is in `integration-mix-proof.md`.
+- Current ASR evidence is consolidated at `11/16` with five accepted clone-articulation risks (`s1,s3a,s6a,s6b,s10`); no clean audio pass is claimed.
+- Gate B review must evaluate this current packet and must not treat the historical Round 1 section below as current evidence.
+
 ## Round 1 — independent Gate B task review
 
 Reviewed 2026-10-18 as a clean-context, review-only task review. Inputs: this task plan, `join-notes.md`, `integration-review.md` through Gate E Round 3, the current `Scene01.tsx`–`Scene16.tsx`, `Reel.tsx`, `timeline.ts`, `index.ts`, `src/videos/registry.ts`, the core video-definition contract, and the workflow/rules. No source file, `status.json`, or pipeline state was edited. No `pipeline.py review`, `gate`, or `override` command was run.
@@ -181,3 +215,83 @@ Gate B **does not pass**. The task plan has a usable ownership split and the cur
 ### Required disposition
 
 Keep Gate B at **REVISE / blocked**. Do not mark `build` done and do not render the final output from this packet. The next valid sequence is: resolve E tickets → rerun branch reviews as invalidated → pass Gate E independently → refresh task evidence and dependencies → rerun this Gate B review → only then build, render, Gate C, and final QA. This review intentionally did not mutate source or pipeline status.
+
+## Fresh Gate B Round 1 — clean-context task review after Gate E hard-cap disposition
+
+Reviewed 2026-10-18 as a new task-reviewer context. This is review-only. The current packet, all historical Gate B/task-review rounds, `integration-review.md` through the Gate E Round 3 hard-cap disposition, `join-notes.md`, `integration-mix-proof.md`, every round of `audio-review.md`, `voice-clone-asr.md`, `voice-report.md`, `timeline.ts`, `voice-durations.ts`, `Reel.tsx`, `index.ts`, `src/videos/registry.ts`, `kit.tsx`, `motion.ts`, `workbench.ts`, `workbench-keys.ts`, all 16 production scene files, the workflow, and `.agents/rules/` were read. The verified current preview was also probed:
+
+`/tmp/dung-bien-tuoi-30-thanh-ban-an-join-preview-verified-r4.mp4`
+
+No source file, `status.json`, pipeline state, or manifest was edited. No `pipeline.py review`, `gate`, `override`, `set`, `render`, or `check` command was run.
+
+### Current evidence snapshot
+
+- The current runtime timeline is **1549 frames / 51.633333s**, not the stale 1553-frame table in the historical Round 1 section above. The current sequential ranges are: `s1 [0,78)`, `s2 [78,185)`, `s3a [185,321)`, `s3b [321,388)`, `s4a [388,498)`, `s4b [498,577)`, `s5a [577,640)`, `s5b [640,725)`, `s6a [725,841)`, `s6b [841,943)`, `s7a [943,1050)`, `s7b [1050,1111)`, `s8 [1111,1244)`, `s9a [1244,1354)`, `s9b [1354,1423)`, `s10 [1423,1549)`.
+- The s1 contract is explicit in source: `VOICE_LEAD_IN_FRAMES = 5`; rounded voice end is frame 70 and the shot ends at frame 78, leaving **8 frames / 0.2667s post-roll**, satisfying the stated `>=0.250s` frame contract.
+- s8 uses `S8_CAPTION_BOUNDARIES = {firstEnd: 43, secondEnd: 89}`. The pause evidence is present and the first boundary is inside the measured pause; the second boundary remains a low-confidence authored boundary rather than independently word-aligned proof.
+- All 16 scene files are present, imported by `Reel.tsx`, substantive, and use frame-derived motion. The source scan found no `TODO`, `PROPOSED_FRAMES`, `Math.random`, `Date.now`, wall-clock animation, or placeholder scene marker. The current preview and QA still inventory show the accepted paper/grid, graphite character, red judgment marks, yellow self-authored emphasis, hook/re-hook/reveal/quiet-close motion grammar. This is a positive build-input result, not a substitute for Gate C and final QA.
+- `kit.tsx`, `motion.ts`, `workbench.ts`, and `workbench-keys.ts` exist. Ownership is disjoint: scene agents have four scene files each; the director owns timeline, Reel, voice, workbench, kit facade, and registry integration.
+- Audio inventory is complete: 16 voice clips, BGM, and 8 SFX files exist. `Reel.tsx` mounts all 16 voice clips, 12 bounded SFX cues, and BGM. The current s3a cue is `[315,321)`, exactly ending at the exclusive `[185,321)` scene boundary; no current overflow is claimed.
+- The r4 preview probes as 1080x1920 H.264, 30fps, video `51.633333s`, AAC `51.614667s`, container `51.633333s`. Current integration evidence records `-14.7 LUFS` and `-1.9 dBFS` true peak, plus source-level BGM duck/fade and a `2.10s` BGM-zero tail.
+- The current authoritative ASR table is **11/16**, with failures `s1,s3a,s6a,s6b,s10`. `voice-report.md` still contains an older 7/16 table, even though it labels the regenerated 11/16 snapshot as current. This remains evidence inconsistency plus five actual canonical-word failures.
+- Gate E Round 3 is recorded as **8.8/10 — REVISE**, followed by hard-cap accepted-risk disposition. That is not a clean Gate E pass and does not waive Gate B's `>=9` and no-open-Cao/Trung rule.
+
+### Verdict
+
+**Score: 7.8/10 — verdict: REVISE. Gate B does not pass.**
+
+The task packet now has a credible ownership split, 16 substantive scenes, a current 1549-frame timeline, and a coherent motion/visual system. It is still not approval-ready because Gate E carries open Cao/Trung risks, the authoritative audio snapshot is not exact-text clean, evidence documents contain stale conflicting measurements, and the downstream Build → Render → Gate C → QA acceptance checklist has not yet been executed. The Gate E override is carried transparently; it is not converted into a Gate B pass.
+
+### Rubric
+
+| Area | Score | Finding |
+|---|---:|---|
+| Ownership, disjoint files, handoff | 9.0 | Four scene-agent scopes are disjoint, shared-file ownership is explicit, and current video-owned facades/workbench exist. The packet still contains an old `lib/` copy dependency that does not match the current proto/facade imports and must be reconciled. |
+| 16/16 scene coverage and motion quality | 8.8 | All 16 files are substantive and frame-driven; the r4 preview demonstrates smooth deterministic transitions and coherent paper/graphite visual identity. Full per-shot transition/safe-zone/thumbnail evidence remains Gate C/QA work. |
+| Current frame ranges and timing contract | 8.6 | Runtime computes 1549 frames and the current s1 5f lead + 8f post-roll and s8 43/89 boundaries are present. The historical 1553-frame table and older timing rows remain stale evidence in the same packet. |
+| Audio assets, cues, and integration | 7.5 | All assets decode and cues are bounded; r4 loudness/peak and source envelope evidence are good. Five ASR failures remain, the 7/16 historical table is still visible, and isolated rendered-window proof of gap/duck/pumping/clicks is incomplete. |
+| Contract and Gate E carry | 5.5 | Composition ID, registry path, 1080x1920, 30fps, and timeline-derived duration are correct. Gate E is only an accepted-risk hard cap at 8.8 with open Cao/Trung carry, so it cannot be treated as a clean prerequisite. |
+| Downstream Build → Render → C → QA readiness | 5.0 | The required sequence is known, but no final MP4, `final-check.md`, `render-evidence.md`, `video-review.md`, `qa-report.md`, or `eval.md` exists yet. Those are downstream deliverables, not evidence to invent early. |
+
+### Exact downstream checklist required after a valid Gate B pass
+
+The following order is mandatory and is not satisfied by the current preview:
+
+1. **Build:** only after Gate B `>=9` with no open Cao/Trung tickets; verify all 16 scene files, `voice-durations.ts` from the current MP3 snapshot, `timeline.ts` with no proposal placeholders, composition registration through `src/videos/registry.ts`, `npx tsc --noEmit`, deterministic frame motion, and all audio assets.
+2. **Render:** render only the final contract path `out/dung-bien-tuoi-30-thanh-ban-an-<voice>-reel.mp4`; verify with `ffprobe` 1080x1920/30fps/duration, integrated loudness, true peak, A/V duration, black/freeze/silence checks, ASR, SFX windows, and deterministic fingerprint. Write `final-check.md` and `render-evidence.md`.
+3. **Gate C:** use fresh video reviewers for visual, audio, and alignment/regression lenses. Record every round in `video-review.md`; pass requires `>=8/10`, `visual content >=7/10`, and no open Cao/Trung ticket.
+4. **Final QA:** run the QA agent on the approved MP4, including tsc/determinism, per-shot frame and transition checks, caption safe zone, exact claims/text, audio/cue/tail checks, and at least 3 distinct stills per shot plus cover under `out/qa/`. Write `qa-report.md` with no open Cao/Trung ticket.
+5. **Delivery:** write `eval.md`, run the repository delivery check only after every stage/gate is truthful, then write the delivery handoff. Any QA fix reopens Build → Render → Gate C → QA in order.
+
+### Exhaustive Gate B Round 1 tickets
+
+| ID | Severity | Where | Finding / evidence | Concrete change | Owner | Acceptance check |
+|---|---|---|---|---|---|---|
+| B-R1-001 | Cao | `integration-review.md`, Gate E carry | Gate E Round 3 is `8.8/10 — REVISE` with hard-cap accepted-risk, not pass; E-R3-001 remains open for five ASR failures and E-R3-002 remains open for stale evidence. | Resolve or formally close the carried Gate E Cao/Trung tickets through their owning fix loops, then obtain a clean independent Gate E review at `>=9` with no open Cao/Trung ticket before treating this packet as B-ready. | video-director + voice/audio owners | Current integration report says `PASS`, not hard-cap `REVISE`; no Cao/Trung ticket remains open. |
+| B-R1-002 | Cao | `voice-clone-asr.md`, `voice-report.md`, `s1,s3a,s6a,s6b,s10` | Authoritative ASR is only `11/16`; five clips fail canonical wording, and `voice-report.md` still exposes a conflicting historical 7/16 table. | Run one final ASR/CER snapshot over the exact MP3 files, regenerate/reselect failing takes from locked `voice.json`, reconcile both reports with file identity/run metadata, and remeasure durations. | voice-agent | All 16 current clips are canonical at the chosen threshold and both reports agree on one snapshot, or the item remains a blocking failure. |
+| B-R1-003 | Trung | `integration-mix-proof.md`, `audio-review.md`, final mix contract | r4 proves integrated loudness/peak and a deterministic source envelope, but not independent rendered window measurements for voice/music gap, duck delta, pumping/click absence, or BGM-only ending. | Produce same-snapshot isolated voice/BGM/stem evidence and rerun the final-style integrated mix after any voice/timing change. | audio-agent + video-director | Evidence measures 12–18dB voice/music gap, 4–6dB duck, 150–300ms ramps, SFX windows, and BGM near-silence `>=1.2s` with foley separately identified. |
+| B-R1-004 | Trung | `task-review.md` frame plan vs current `timeline.ts`/`join-notes.md` | The current runtime is 1549 frames with ranges beginning `s2=78`, `s3a=185`, etc., while the historical plan table still lists 1553-frame ranges. The packet explicitly says stale evidence must not be used, but leaves it adjacent to the current plan. | Refresh or clearly mark the old table as historical and regenerate the single current shot/dependency table from `timeline.ts`, `voice-durations.ts`, current cue offsets, s1 contract, and s8 boundaries. | video-director | One unambiguous current table matches all 16 runtime ranges and every cue/voice window. |
+| B-R1-005 | Trung | `task-review.md` shared-helper dependency vs source tree | The plan's earlier preparation order requires copied video-owned `lib/` helpers, while current scenes import `proto/kit`/`proto/motion` and the video-owned `kit.tsx`/`motion.ts` are facades. This is a packet/source ownership contradiction, not a reason to invent a missing lib. | Decide and document the accepted ownership model: either migrate scenes to the video-owned facades and update the plan, or create/verify the declared `lib/` handoff before Build; do not leave both contracts active. | video-director | Every scene import resolves through the documented stable ownership boundary and the task packet matches the actual tree. |
+| B-R1-006 | Trung | `task-review.md` downstream acceptance section | The current packet does not yet contain one authoritative executable checklist tying Build, final render evidence, Gate C reviewer evidence, QA still count/report, and delivery `eval.md` to their exact paths and pass thresholds. | Keep the checklist above as the single downstream contract and attach each artifact only after its phase runs in order; do not use the r4 preview as final render evidence. | video-director | Before delivery, all named artifacts exist, are non-empty, point to the approved final MP4, and each threshold/no-open-ticket condition is evidenced. |
+| B-R1-007 | Thấp | Gate D carry, scene QA inventory | The visual system and motion read well in r4, but Gate D's accepted-risk character simplification and incomplete all-key thumbnail/transition proof remain carried. | Preserve the paper/graphite design and collect full per-shot still/transition/safe-zone evidence during Build, Gate C, and QA; do not re-score the accepted risk as a pass in this task review. | scene agents + video-reviewer + qa-agent | Every shot has readable action/prop/character state, smooth transition, safe-zone check, and at least three distinct QA stills. |
+
+### Explicit passes
+
+- Ownership is disjoint at the file level; no two scene agents claim the same scene file.
+- The current source contains 16 substantive scenes and deterministic frame-derived motion; no placeholder or wall-clock animation marker was found. All scene helper imports resolve through the video-owned facades.
+- The current runtime frame table is internally sequential and totals 1549 frames; s1 has 5f lead plus 8f post-roll, and s8 exposes 43/89 boundaries.
+- All 16 voice assets, BGM, and 8 SFX assets exist; current `Reel.tsx` mounts 16 voice tracks, 12 bounded cues, and BGM. Current s3a cue ends on the scene boundary.
+- Registry/composition contract is preserved: `DungBienTuoi30ThanhBanAnReel`, 1080x1920, 30fps, and registry-backed composition catalog.
+- The r4 preview is technically decodable and visually coherent; its measurements are useful integration evidence but not final delivery evidence.
+
+### Disposition
+
+Return **7.8/10 — REVISE**. Gate B is **not passed**. The next valid sequence is: resolve B-R1-001 through B-R1-006 in the owning workflow loops, obtain a clean Gate E pass, refresh this task packet, run a new independent Gate B review, then Build → Render → Gate C → Final QA → Delivery. This reviewer did not edit source/status and did not run pipeline commands.
+
+## Director continuation after Gate B Round 2 and Round 3 (2026-10-18)
+
+- Pipeline records Gate B Round 2 as `7.7/10 — REVISE`; the packet fixes closed B-R1-003, B-R1-004, B-R1-005 and B-R1-006 at the planning/evidence level. B-R1-001 and B-R1-002 remain high-risk carries.
+- A fresh Gate B Round 3 review scored `7.5/10 — REVISE`. It confirms the packet is technically renderable but recommends against a clean Gate B claim because the five clone articulation risks remain: `s1,s3a,s6a,s6b,s10`.
+- Targeted voice remediation was attempted in three ways: whole-line regeneration (24 seeds), phrase-split regeneration (12 seeds), and punctuation/word-boundary steering (12 seeds). None produced a take better than the selected current 16-file normalized snapshot; no experiment output was copied into `public/audio` and `voice.json` was not changed.
+- The edge-TTS fallback route was attempted as a clearly labeled temporary voice but the service returned `FAILED` before producing a clip, so the requested Trung Kiên clone remains the active route.
+- The remaining voice risks are therefore explicit accepted risks for downstream render inspection; this document does not call them a clean audio or Gate E pass. Gate C must verify whether the final MP4 is actually usable and must reopen the audio route if any mandatory wording is materially wrong.

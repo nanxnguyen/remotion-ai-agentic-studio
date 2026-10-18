@@ -39,7 +39,7 @@ const SFX_CUES = [
   ['s4a', 'sfx-plate-slide.mp3', 103, 7, 0.12], ['s5b', 'sfx-pen-drop.mp3', 76, 9, 0.2],
   ['s6b', 'sfx-macro-zoom.mp3', 94, 7, 0.1], ['s7a', 'sfx-feed-swipe.mp3', 99, 7, 0.13],
   ['s8', 'sfx-paycheck-notify.mp3', 125, 3, 0.1], ['s8', 'sfx-paycheck-notify.mp3', 129, 3, 0.075],
-  ['s9a', 'sfx-paper-wind.mp3', 91, 19, 0.1], ['s10', 'sfx-paper-wind.mp3', 58, 48, 0.08],
+  ['s9a', 'sfx-paper-wind.mp3', 91, 19, 0.1], ['s10', 'sfx-paper-wind.mp3', 58, 24, 0.08],
 ] as const;
 
 const sceneFor = (key: (typeof KEYS)[number]) => timeline.shots[SCENE_IDS[KEYS.indexOf(key)]];

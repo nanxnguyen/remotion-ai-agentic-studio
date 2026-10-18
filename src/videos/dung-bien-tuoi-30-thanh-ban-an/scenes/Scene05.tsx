@@ -1,6 +1,6 @@
 import React from 'react';
 import {AbsoluteFill, useCurrentFrame} from 'remotion';
-import {E_SINE, Grain, mix, ramp} from '../proto/motion';
+import {E_SINE, Grain, mix, ramp} from '../motion';
 import {
   CAP,
   DBTFonts,
@@ -12,7 +12,7 @@ import {
   PAPER,
   PencilChar,
   RED,
-} from '../proto/kit';
+} from '../kit';
 
 const Scene05Caption: React.FC = () => {
   const f = useCurrentFrame();

@@ -10,8 +10,8 @@ import {
   LampGlow,
   PAPER,
   PencilChar,
-} from '../proto/kit';
-import {E_SINE, mix, ramp} from '../proto/motion';
+} from '../kit';
+import {E_SINE, mix, ramp} from '../motion';
 
 export const Scene14 = () => {
   const frame = useCurrentFrame();

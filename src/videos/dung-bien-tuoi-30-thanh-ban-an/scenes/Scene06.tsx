@@ -1,6 +1,6 @@
 import React from 'react';
 import {AbsoluteFill, useCurrentFrame} from 'remotion';
-import {E_SINE, ramp} from '../proto/motion';
+import {E_SINE, ramp} from '../motion';
 import {
   CAP,
   DBTFonts,
@@ -12,7 +12,7 @@ import {
   PAPER,
   PencilChar,
   RED,
-} from '../proto/kit';
+} from '../kit';
 
 const questions = ['Khi nào cưới?', 'Lương bao nhiêu?', 'Mua nhà chưa?'];
 

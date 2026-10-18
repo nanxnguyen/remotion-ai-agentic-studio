@@ -1,6 +1,6 @@
 import React from 'react';
 import {AbsoluteFill, useCurrentFrame} from 'remotion';
-import {E_SINE, ramp} from '../proto/motion';
+import {E_SINE, ramp} from '../motion';
 import {
   DBTFonts,
   Finish,
@@ -10,7 +10,7 @@ import {
   PencilChar,
   RedPenLines,
   PAPER,
-} from '../proto/kit';
+} from '../kit';
 
 export const Scene07 = () => {
   const f = useCurrentFrame();

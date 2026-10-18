@@ -6,10 +6,10 @@ Phase 4 director join draft, created after content/audio/design branch reviews.
 
 - Locked spoken text: `docs/dung-bien-tuoi-30-thanh-ban-an/voice.json`.
 - Current measured durations: `src/videos/dung-bien-tuoi-30-thanh-ban-an/voice-durations.ts`.
-- Current voice total: **44.133915s**; locked holds/gaps: **7.700s**; frame-quantized timeline: **1553 frames / 51.7667s** at 30fps.
-- `timeline.ts` is the current join draft. It uses one scene per ordered voice key and allocates the locked holds/gaps to the following scene boundary.
+- Current authoritative voice total: **44.133915s**; the current frame-quantized timeline is **1549 frames / 51.633333s** at 30fps. The first table below is retained only as historical audit context.
+- `timeline.ts` is the current join contract. It uses one scene per ordered voice key and allocates the locked holds/gaps to the current scene boundaries.
 
-## Key reconciliation
+## Historical first join draft (superseded — do not use for current review)
 
 | key | scene | voice s | hold/gap s | from f | duration f | end f |
 |---|---:|---:|---:|---:|---:|---:|
@@ -41,9 +41,10 @@ Phase 4 director join draft, created after content/audio/design branch reviews.
 ## Current join snapshot after voice reopen (2026-10-18)
 
 - Voice source was regenerated and remeasured. Current rounded durations are `2.160, 3.327, 4.236, 1.975, 3.381, 2.348, 1.661, 2.498, 3.476, 3.087, 3.266, 1.749, 4.130, 2.976, 1.910, 1.797` seconds in `voice.json` order.
-- `timeline.ts` now derives its shot lengths from the current `VOICE_SECONDS`; the frame-quantized total is `1548` frames (`51.6s`). s1 uses a declared `0.15s` lead-in quantized conservatively to `5f`; s8 caption boundaries are `43f/78f`, based on measured silence `1.408750–1.711167s` (`0.302417s`).
-- Final-style normalized preview: `/tmp/dung-bien-tuoi-30-thanh-ban-an-join-preview-verified-r2.mp4`, measured `51.70s`, `-14.7 LUFS`, sample peak `-1.6 dBFS`. The delivery render uses the same `loudnorm` contract with `TP=-2.0` for AAC margin.
+- `timeline.ts` now derives its shot lengths from the current `VOICE_SECONDS`; the frame-quantized total is `1549` frames (`51.633s`). The authoritative sequential ranges are `s1 [0,78)`, `s2 [78,185)`, `s3a [185,321)`, `s3b [321,388)`, `s4a [388,498)`, `s4b [498,577)`, `s5a [577,640)`, `s5b [640,725)`, `s6a [725,841)`, `s6b [841,943)`, `s7a [943,1050)`, `s7b [1050,1111)`, `s8 [1111,1244)`, `s9a [1244,1354)`, `s9b [1354,1423)`, `s10 [1423,1549)`. s1 uses a declared `0.15s` lead-in quantized conservatively to `5f` and a full `0.25s` post-roll; s8 caption boundaries are `43f/89f`.
+- Final-style normalized preview: `/tmp/dung-bien-tuoi-30-thanh-ban-an-join-preview-verified-r3.mp4`, measured `51.600s` video / `51.594s` AAC, `-14.7 LUFS`, sample peak `-1.8 dBFS`. The delivery render uses the same `loudnorm` contract with `TP=-2.0` and `-shortest` for AAC margin.
 - Current ASR evidence is consolidated in `voice-clone-asr.md`: `11/16` at CER `<=0.04`; remaining failures are explicitly carried, not hidden. This join snapshot is ready for the final audio review and Gate E rerun, not a clean pass claim.
+- Independent stem proof is recorded in `integration-mix-proof.md`; the s1 frame contract now allocates a full post-roll frame after the 5-frame lead-in quantization.
 
 ## Integrated preview evidence
 

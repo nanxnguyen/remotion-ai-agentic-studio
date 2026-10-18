@@ -34,7 +34,7 @@ Gains are linear volume values with their dB equivalent. In this fix round, ever
 | s8 | **125f / 4.167s** | `sfx-paycheck-notify.mp3` | 0.10 (−20.0 dB) | **3f** | first notification tail, after s8 voice; system-speaks exception |
 | s8 | **129f / 4.300s** | `sfx-paycheck-notify.mp3` | 0.075 (−22.5 dB) | **3f** | second notification tail, descending repeat volume |
 | s9a | **91f / 3.033s** | `sfx-paper-wind.mp3` | 0.10 (−20.0 dB) | **19f** | paper/marks retracting in the post-line hold; 1f clearance |
-| s10 | **58f / 1.933s** | `sfx-paper-wind.mp3` | 0.08 (−21.9 dB) | **48f** | final paper edge during the 2.4s hold; 1f clearance |
+| s10 | **58f / 1.933s offset** | `sfx-paper-wind.mp3` | 0.08 (−21.9 dB) | **24f / 0.800s** | final paper edge during the first 0.8s of the hold; leaves a longer quiet tail |
 
 There is deliberately no SFX on s9b: the question “Dạo này, bạn sống có vui không?” needs the warm writing gesture and its silence. There is no riser→impact→sparkle stack at the end because the storyboard requires a quiet, non-triumphal close.
 
@@ -54,7 +54,7 @@ The measured voice durations used for this table are the current `voice-duration
 | s7a | 0.000–3.266s | 99–106f |
 | s8 | 0.000–4.130s | 125–128f; 129–132f |
 | s9a | 0.000–2.975s | 91–110f |
-| s10 | 0.000–1.898s | 58–106f |
+| s10 | 0.000–1.898s | 58–82f |
 
 ### Round-2 no-overlap proof
 
@@ -73,18 +73,18 @@ The following clearance values use the rounded durations above and are conservat
 | s8 cue 1 | 4.130s | 125f / 4.167s | [125f, 128f) | 0.037s | PASS |
 | s8 cue 2 | 4.130s | 129f / 4.300s | [129f, 132f) | 0.170s | PASS |
 | s9a | 2.976s | 91f / 3.033s | [91f, 110f) | 0.057s | PASS |
-| s10 | 1.898s | 58f / 1.933s | [58f, 106f) | 0.035s | PASS |
+| s10 | 1.898s | 58f / 0.800s | [58f, 82f) | 0.035s | PASS |
 
-No cue window intersects its shot's spoken interval. The previously failing round-2 cases are explicitly repaired: `s3a` now starts at 130f (not 129f), `s6b` at 94f (not 80f), and `s10` at 58f (not 55f). `s10` ends at 106f / 3.533s, inside the planned 2.4s post-voice hold ending at 4.298s; the paper-edge foley remains the stated exception to pure silence.
+No cue window intersects its shot's spoken interval. The previously failing round-2 cases are explicitly repaired: `s3a` now starts at 130f (not 129f), `s6b` at 94f (not 80f), and `s10` at 58f (not 55f). `s10` ends at 82f / 2.733s, inside the planned 2.4s post-voice hold ending at 4.200s; the shortened paper-edge foley remains the stated exception to pure silence.
 
 No cue is allowed to be moved earlier to recover the original visual-action timing without reopening AUD-004. The integrated implementation may use these cues only at the listed relative frame offsets.
 
 ## Final mix targets and AUD-005 pending acceptance
 
-- **Pending after Join/build; no integrated render exists in this fix round.** Do not report any of these as measured or passed yet. The integrated render is a director/build dependency, not an audio-agent result.
+- **Current final render measured.** The integrated MP4 is `out/dung-bien-tuoi-30-thanh-ban-an-trung-kien-nang-cao-reel.mp4`; delivery loudness/peak, A/V duration, and the shortened ending tail are recorded in `render-evidence.md` and `final-check.md`. Source-stem proof remains separate from MP4 window verification.
 - Integrated render: `ebur128` integrated loudness −14 LUFS ±1; `volumedetect`/true-peak check ≤ −1.5 dBTP.
 - Voice-to-music gap: 12–18 dB in measured voice windows versus a music-only hold window.
 - Ducking: additional 4–6 dB under speech with 150–300 ms attack/release ramps.
 - SFX: every rendered SFX interval remains disjoint from each measured spoken interval; no unbounded sample playback; repeated notification descends in level.
-- Ending: after the last s10 spoken sample, retain the planned 2.4s hold; BGM must be near-silent for at least 1.2s of that hold. The paper-edge foley is permitted only as the explicitly planned exception and must be reported separately from the near-silence measurement. This is not yet verified because the integrated render is absent.
+- Ending: after the last s10 spoken sample, retain the planned 2.4s hold; BGM must be near-silent for at least 1.2s of that hold. The shortened paper-edge foley is permitted only in the first 0.8s of the hold, leaving at least 1.47s of absolute audio tail for final verification.
 - Verification commands after integration: `ffprobe`, `ffmpeg -af ebur128=framelog=verbose`, and `ffmpeg -af volumedetect` on the rendered mix, with the audio reviewer recording measured windows and ramp timings. Naturalness and emotional fit remain “cannot verify by machine” until an optional human listen.

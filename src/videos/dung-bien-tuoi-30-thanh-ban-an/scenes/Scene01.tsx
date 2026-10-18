@@ -1,7 +1,7 @@
 import React from 'react';
 import {AbsoluteFill, useCurrentFrame} from 'remotion';
 import {FitText} from '../../../core/fit-text';
-import {E_SINE, mix, ramp} from '../proto/motion';
+import {E_SINE, mix, ramp} from '../motion';
 import {
   CAP,
   DBTFonts,
@@ -14,7 +14,7 @@ import {
   PencilChar,
   RED,
   Ruler,
-} from '../proto/kit';
+} from '../kit';
 
 export const Scene01 = () => {
   const frame = useCurrentFrame();

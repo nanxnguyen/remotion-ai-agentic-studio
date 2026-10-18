@@ -1,7 +1,7 @@
 import React from 'react';
 import {AbsoluteFill, useCurrentFrame} from 'remotion';
-import {DBTFonts, Finish, GridPaper, HILITE, Handwrite, LampGlow, PAPER} from '../proto/kit';
-import {E_SINE, mix, ramp} from '../proto/motion';
+import {DBTFonts, Finish, GridPaper, HILITE, Handwrite, LampGlow, PAPER} from '../kit';
+import {E_SINE, mix, ramp} from '../motion';
 
 const CLIMAX_TEXT = 'Dạo này, bạn sống có vui không?';
 

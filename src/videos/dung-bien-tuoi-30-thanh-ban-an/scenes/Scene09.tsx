@@ -1,6 +1,6 @@
 import React from 'react';
 import {AbsoluteFill, useCurrentFrame} from 'remotion';
-import {E_SINE, ramp} from '../proto/motion';
+import {E_SINE, ramp} from '../motion';
 import {
   CAP,
   DBTFonts,
@@ -12,7 +12,7 @@ import {
   LampGlow,
   PencilChar,
   RED,
-} from '../proto/kit';
+} from '../kit';
 
 /** s6a — the red verdict stops before it can finish writing “thất bại”. */
 export const Scene09: React.FC = () => {

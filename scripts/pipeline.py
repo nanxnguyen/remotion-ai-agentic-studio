@@ -268,7 +268,13 @@ def scene_problems(folder: str) -> list:
     problems = []
     for f in scenes:
         text = f.read_text(encoding="utf-8")
-        if VISUAL_ASSET_RE.search(text) or (MOTION_RE.search(text) and "interpolate(" in text):
+        # Video-owned scenes commonly use deterministic helper functions such as
+        # ramp()/mix() instead of importing Remotion's interpolate() directly.
+        # Treat those helpers as motion evidence while preserving the text-only
+        # rejection for a static background with no visual primitive.
+        if VISUAL_ASSET_RE.search(text) or (
+            MOTION_RE.search(text) and any(token in text for token in ("interpolate(", "ramp(", "mix(", "spring("))
+        ):
             continue
         problems.append(f"{f.name} is text on a background only (no image, shape, video or motion)")
     return problems
@@ -804,7 +810,7 @@ def cmd_render(a) -> None:
                 final = work / "final.mp4"
                 subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", str(raw), "-c:v", "copy",
                                 "-af", "loudnorm=I=-14:TP=-2.0:LRA=11", "-ar", "48000", "-c:a", "aac",
-                                "-b:a", "192k", str(final)], check=True)
+                                "-b:a", "192k", "-shortest", str(final)], check=True)
                 validate_media(final, a.min_seconds, a.max_seconds)
                 os.replace(final, target)
             cmd_verify(a)
