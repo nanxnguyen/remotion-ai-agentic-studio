@@ -1,6 +1,9 @@
 """Generate each runtime's agent definitions from the runtime-neutral roles in `.agents/roles/`.
 
-Edit `.agents/roles/<name>.md`, then run `python3 scripts/sync_agents.py`. `--check` exits 1 when a
+Edit `.agents/roles/<name>.md`, then run `python3 scripts/sync_agents.py`. The canonical
+workflow skill lives in `.claude/skills/ray-pineline-worflow-agent/`; `.agents/skills/`
+is a symlink back to it, verified by `--check`.
+`--check` exits 1 when a
 generated file is stale. Outputs: `.claude/agents/*.md` (Claude Code), `.opencode/agents/*.md`
 (OpenCode, mode: subagent) and `.codex/agents/*.toml` (Codex). Hand-written files with no role
 (the OpenCode primary `video-director.md`) are never touched.
@@ -10,6 +13,11 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+# Claude is the authoritative skill tree. The .agents name is a shared
+# directory alias for Codex/OpenCode; only role adapters are generated below.
+CANONICAL_SKILL = ROOT / ".claude" / "skills" / "ray-pineline-worflow-agent"
+SHARED_SKILL = ROOT / ".agents" / "skills" / "ray-pineline-worflow-agent"
+EXPECTED_SKILL_LINK = "../../.claude/skills/ray-pineline-worflow-agent"
 ROLES = ROOT / ".agents" / "roles"
 NOTE = "<!-- Generated from .agents/roles/{name}.md by scripts/sync_agents.py. Edit the source, then rerun it. -->"
 EFFORT = {"opus": "high", "sonnet": "medium", "haiku": "low"}  # Claude model tier -> Codex reasoning effort
@@ -61,9 +69,27 @@ def outputs() -> dict:
     return out
 
 
+def skill_alias_errors() -> list:
+    """Prevent diverging Claude/Codex/OpenCode workflow copies."""
+    problems = []
+    if not (CANONICAL_SKILL / "SKILL.md").is_file():
+        problems.append("missing canonical .claude/skills/ray-pineline-worflow-agent/SKILL.md")
+    if (not SHARED_SKILL.is_symlink()
+            or SHARED_SKILL.readlink().as_posix() != EXPECTED_SKILL_LINK
+            or not (SHARED_SKILL / "SKILL.md").is_file()):
+        problems.append(".agents/skills/ray-pineline-worflow-agent must symlink to .claude canonical skill")
+    if CANONICAL_SKILL.is_dir():
+        for path in CANONICAL_SKILL.rglob("*"):
+            if path.is_file() and not (SHARED_SKILL / path.relative_to(CANONICAL_SKILL)).is_file():
+                problems.append(f"broken shared skill resource: {path.relative_to(ROOT)}")
+    return problems
+
+
 def stale() -> list:
-    return [str(p.relative_to(ROOT)) for p, text in outputs().items()
-            if not p.is_file() or p.read_text(encoding="utf-8") != text]
+    return skill_alias_errors() + [
+        str(p.relative_to(ROOT)) for p, text in outputs().items()
+        if not p.is_file() or p.read_text(encoding="utf-8") != text
+    ]
 
 
 def main(argv: list) -> int:

@@ -47,6 +47,36 @@
 @media(max-width:900px){.reference-shell{grid-template-columns:1fr}.project-rail{position:relative;top:0;max-height:none}.project-list{overflow-x:auto;overflow-y:hidden;flex-direction:row;padding-bottom:4px;scrollbar-width:none}.project-card{min-width:230px}}
 @media(max-width:560px){.reference-shell{width:calc(100% - 32px);padding-top:16px}.brand p,.live-label{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}.overview-card{padding:22px}.overview-name{font-size:20px}.overview-stats{width:100%;flex-direction:row;justify-content:space-between}.stat{text-align:left}.output-card{padding:16px}.video-frame{width:120px}.pipeline-card,.review-card,.log-card,.orchestration-card{padding-left:14px;padding-right:14px}.gate-body{grid-template-columns:1fr}.review-grid{grid-template-columns:1fr auto auto;gap:4px 8px}.review-grid .review-who,.review-grid .rounds{display:none}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+/* Interactive terminal scoped entirely to the existing command dock. */
+.command-dock-terminal{display:block}.command-dock-terminal .command-dock-terminal .terminal-shell{margin:0 0 18px;border:1px solid rgba(94,234,212,.22);border-radius:19px;overflow:hidden;background:#080d17;box-shadow:0 18px 56px rgba(0,0,0,.32),0 0 35px rgba(45,212,191,.055)}
+.command-dock-terminal .term-toolbar{display:flex;align-items:center;gap:13px;padding:12px 17px;background:linear-gradient(90deg,#131d2a,#0b121e);border-bottom:1px solid rgba(148,163,184,.13);flex-wrap:wrap}
+.term-traffic{display:flex;gap:7px}.term-traffic i{width:10px;height:10px;border-radius:50%;display:block;background:#f87171}.term-traffic i:nth-child(2){background:#fbbf24}.term-traffic i:nth-child(3){background:#34d399}
+.term-brand{min-width:130px}.term-brand strong{display:block;font:700 12px var(--sans);color:#edf9ff}.term-brand small{display:block;font:10px var(--mono);color:#71839b;margin-top:2px}
+.term-badge{font:10px var(--mono);padding:5px 9px;border:1px solid #254d52;border-radius:100px;color:#5eead4;background:#0c2b2b}
+.term-toolbar select{background:#0b1421;border:1px solid #253246;border-radius:8px;color:#c7d9e9;padding:8px 10px;min-height:34px;max-width:170px;font:11px var(--mono)}
+.term-field{display:flex;flex-direction:column;gap:4px;min-width:0;color:#7f94ac;font:600 9px var(--mono);letter-spacing:.1em}
+.term-field select{max-width:none;width:100%;text-overflow:ellipsis;white-space:nowrap}
+.term-model-field{flex:0 1 220px;min-width:145px}.term-effort-field{flex:0 0 116px}
+.term-toolbar .term-field:first-of-type{flex:0 0 128px}
+.term-field select:disabled{opacity:.52;cursor:not-allowed}
+.term-field select:focus-visible{outline:2px solid #5eead4;outline-offset:2px}
+@media(max-width:950px){.term-model-field{flex:1 1 180px}.term-effort-field{flex:0 0 106px}.term-toolbar .term-field:first-of-type{flex:0 0 116px}}
+.term-spacer{flex:1}.term-action{border:1px solid #26394a;border-radius:8px;background:#142231;color:#d2e7f1;padding:8px 12px;font:600 11px var(--sans);cursor:pointer}.term-action:hover{border-color:#52cfcb}.term-action.primary{border-color:#31887f;background:#1b7d74;color:#ecfffa}.term-action.danger{border-color:#60363f;color:#ffa5aa;background:#301b24}
+.term-status{padding:8px 16px;border-bottom:1px solid #162535;display:flex;align-items:center;justify-content:space-between;gap:14px;color:#7f93aa;font:11px var(--mono)}.term-status b{color:#6ee7b7;font-weight:500}
+.command-dock-terminal .term-screen{position:relative;height:380px;overflow:hidden;padding:12px;background:radial-gradient(ellipse at 55% 110%,rgba(20,83,78,.15),transparent 65%),#050a12}
+#term-render{height:100%;width:100%}.term-screen .xterm{height:100%;padding:4px 3px}.term-screen .xterm-viewport{scrollbar-color:#355263 transparent}
+#term-fallback{height:100%;overflow:auto;white-space:pre-wrap;overflow-wrap:anywhere;color:#b5ebd7;font:12px/1.65 var(--mono);margin:0}
+.term-foot{padding:11px 16px;display:flex;gap:13px;align-items:center;flex-wrap:wrap;border-top:1px solid #172536;background:#0a111c;color:#7388a1;font:10px var(--mono)}
+.term-foot kbd{border:1px solid #2a3c52;background:#121e2a;border-radius:4px;padding:2px 5px;color:#a9c3d4;font:10px var(--mono)}
+@media(max-width:850px){.command-dock-terminal .term-toolbar{gap:8px}.command-dock-terminal .term-screen{height:310px}.term-spacer{display:none}.term-brand{min-width:unset}.term-toolbar select{max-width:138px}}
+
+.command-dock-terminal .dock-legacy{border-top:1px solid rgba(148,163,184,.14);padding-top:16px;margin-top:10px}
+.command-dock-terminal .terminal-shell{width:100%}
+.command-dock-terminal .term-screen{height:350px}
+.command-dock-terminal .dock-legacy,.command-dock-terminal>.run-panel{min-width:0}
+.command-dock-terminal{grid-template-columns:1fr 1fr}
+@media(min-width:1000px){.command-dock-terminal{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:14px}.command-dock-terminal .term-toolbar,.command-dock-terminal .term-status,.command-dock-terminal .term-screen,.command-dock-terminal .term-foot{grid-column:1/-1}.command-dock-terminal>.term-toolbar{grid-column:1/-1}.command-dock-terminal>.term-status{grid-column:1/-1}.command-dock-terminal>.term-screen{grid-column:1/-1}.command-dock-terminal>.term-foot{grid-column:1/-1}.command-dock-terminal .dock-legacy{grid-column:1}.command-dock-terminal>.run-panel{grid-column:2;align-self:start;margin-top:10px}}
+
 /* studio:start */
 .header-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
 .create-btn{position:relative;display:inline-flex;align-items:center;gap:8px;min-height:38px;padding:0 18px;border:1px solid rgba(94,234,212,.55);border-radius:999px;background:linear-gradient(135deg,rgba(45,212,191,.24),rgba(167,139,250,.2));color:#e6fffb;font:600 12.5px var(--sans);cursor:pointer;box-shadow:0 0 18px rgba(45,212,191,.2);transition:box-shadow .2s,transform .2s}
@@ -177,6 +207,28 @@ dialog.studio-dialog::backdrop{background:rgba(2,6,15,.76);backdrop-filter:blur(
 .fallback-toggle{display:flex;align-items:center;gap:8px;margin-top:10px;color:var(--muted);font-size:12px;cursor:pointer}.fallback-toggle input{accent-color:var(--teal)}
 .run-pill.quota{color:var(--amber);border-color:rgba(251,191,36,.45)}
 /* studio:end */
+/* Terminal launcher and dock layout ONLY; keep every other monitor panel untouched. */
+.header-actions .terminal-toggle-btn{display:inline-flex;align-items:center;gap:8px;justify-content:center;min-height:38px;padding:0 15px;border:1px solid rgba(94,234,212,.28);border-radius:999px;background:rgba(15,27,39,.88);color:#b9d3e4;font:600 12px var(--sans);cursor:pointer;transition:color .18s,border-color .18s,background .18s}
+.header-actions .terminal-toggle-btn:hover,.header-actions .terminal-toggle-btn[aria-expanded="true"]{color:#a7fff1;border-color:rgba(94,234,212,.72);background:rgba(18,72,69,.42)}
+.header-actions .terminal-toggle-btn:focus-visible{outline:2px solid #99f6e4;outline-offset:3px}
+#command-dock[hidden]{display:none!important}
+.command-dock.command-dock-terminal{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:12px 16px;align-items:start}
+.command-dock.command-dock-terminal>.term-toolbar,
+.command-dock.command-dock-terminal>.term-status,
+.command-dock.command-dock-terminal>.term-screen,
+.command-dock.command-dock-terminal>.term-foot{grid-column:1/-1;min-width:0}
+.command-dock.command-dock-terminal>.term-toolbar{border:1px solid rgba(148,163,184,.13);border-radius:12px 12px 0 0;margin-bottom:-12px}
+.command-dock.command-dock-terminal>.term-status{border-left:1px solid rgba(148,163,184,.13);border-right:1px solid rgba(148,163,184,.13);margin-bottom:-12px}
+.command-dock.command-dock-terminal>.term-screen{height:350px;border-left:1px solid rgba(148,163,184,.13);border-right:1px solid rgba(148,163,184,.13);margin-bottom:-12px}
+.command-dock.command-dock-terminal>.term-foot{border:1px solid rgba(148,163,184,.13);border-radius:0 0 12px 12px}
+.command-dock.command-dock-terminal>.dock-legacy{grid-column:1;margin:0;min-width:0}
+.command-dock.command-dock-terminal>.run-panel{grid-column:2;min-width:0;padding-top:16px}
+.command-dock.command-dock-terminal .term-toolbar select{max-width:100%}
+.command-dock.command-dock-terminal>.term-status>span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.command-dock.command-dock-terminal>.term-status>b{flex:none}
+
+.command-dock.command-dock-terminal .term-action:disabled{opacity:.45;cursor:not-allowed}
+@media(max-width:1100px){.command-dock.command-dock-terminal{grid-template-columns:minmax(0,1fr)}.command-dock.command-dock-terminal>.dock-legacy,.command-dock.command-dock-terminal>.run-panel{grid-column:1}.command-dock.command-dock-terminal>.run-panel{padding-top:0}.command-dock.command-dock-terminal>.term-screen{height:310px}}
 </style>
 </head>
 <body>
@@ -185,10 +237,32 @@ dialog.studio-dialog::backdrop{background:rgba(2,6,15,.76);backdrop-filter:blur(
   <div class="reference-shell">
     <nav class="project-rail floating-rail" id="list" aria-label="Danh sách video"></nav>
     <div class="content-column">
-      <header class="monitor-header"><div class="brand"><span class="brand-mark" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="6" cy="6" r="2.4" fill="#e6fffb"/><circle cx="18" cy="6" r="2.4" fill="#e6fffb"/><circle cx="12" cy="18" r="2.4" fill="#e6fffb"/><path d="M6 6 12 18M18 6 12 18M6 6h12" stroke="#e6fffb"/></svg></span><div><h1>Agent Workflow Monitor</h1><p>AI Video Production Control</p></div></div><div class="header-actions"><button type="button" class="create-btn" id="create-video" aria-haspopup="dialog"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>Tạo video</button><span class="live" id="live" role="status" aria-live="polite"><i class="live-dot"></i><span class="live-label">Đang kết nối trực tiếp</span></span></div></header>
-      <section class="command-dock" id="command-dock" aria-label="Ra lệnh cho agent">
-        <div class="dock-form">
-          <div class="dock-head"><h2 class="dock-title">Ra lệnh cho agent</h2><span class="dock-video" id="dock-video">Chưa chọn video</span></div>
+      <header class="monitor-header"><div class="brand"><span class="brand-mark" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="6" cy="6" r="2.4" fill="#e6fffb"/><circle cx="18" cy="6" r="2.4" fill="#e6fffb"/><circle cx="12" cy="18" r="2.4" fill="#e6fffb"/><path d="M6 6 12 18M18 6 12 18M6 6h12" stroke="#e6fffb"/></svg></span><div><h1>Agent Workflow Monitor</h1><p>AI Video Production Control</p></div></div><div class="header-actions"><button type="button" class="create-btn" id="create-video" aria-haspopup="dialog"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>Tạo video</button><button type="button" class="terminal-toggle-btn" id="terminal-toggle" aria-controls="command-dock" aria-expanded="false" title="Hiện/ẩn Agent Terminal"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="15" rx="3"/><path d="m7 9 3 3-3 3m6 0h4"/></svg><span id="terminal-toggle-label">Terminal</span></button><span class="live" id="live" role="status" aria-live="polite"><i class="live-dot"></i><span class="live-label">Đang kết nối trực tiếp</span></span></div></header>
+      <section class="command-dock command-dock-terminal" id="command-dock" aria-label="Ra lệnh cho agent" hidden>
+
+        <div class="term-toolbar">
+          <div class="term-traffic" aria-hidden="true"><i></i><i></i><i></i></div>
+          <div class="term-brand"><strong>Agent Terminal</strong><small>INTERACTIVE SESSION</small></div>
+          <span class="term-badge" id="term-badge">● Ready</span>
+          <label class="term-field" for="term-provider"><span>AGENT</span><select id="term-provider" aria-label="Interactive CLI provider"><option value="opencode">OpenCode</option><option value="codex">Codex</option><option value="claude">Claude Code</option></select></label>
+          <label class="term-field term-model-field" for="term-model"><span>MODEL</span><select id="term-model" aria-label="Model cho terminal"><option value="">Mặc định của CLI</option></select></label>
+          <label class="term-field term-effort-field" for="term-effort"><span>EFFORT</span><select id="term-effort" aria-label="Effort cho terminal"><option value="">Mặc định</option></select></label>
+          <span class="term-spacer"></span>
+          <button class="term-action primary" id="term-start" type="button">▶ Mở terminal</button>
+          <button class="term-action" id="term-reconnect" type="button">↻ Reconnect</button>
+          <button class="term-action" id="term-interrupt" type="button">Ctrl+C</button>
+          <button class="term-action danger" id="term-stop" type="button">■ Stop</button>
+        </div>
+        <div class="term-status"><span id="term-session-label">Chọn video và mở phiên CLI để gõ lệnh trực tiếp.</span><b id="term-live">LOCAL • PTY</b></div>
+        <div class="term-screen" id="term-screen" tabindex="0">
+          <div id="term-render"></div>
+          <pre id="term-fallback">❯ Ready to connect.
+  Terminal dùng PTY thật của CLI, không gửi prompt qua owner-notes.md.
+  Gõ /help, /plan… theo đúng các lệnh CLI thực sự hỗ trợ.</pre>
+        </div>
+        <div class="term-foot"><span><kbd>Enter</kbd> gửi lệnh</span><span><kbd>↑</kbd><kbd>↓</kbd> lịch sử CLI</span><span><kbd>Ctrl</kbd>+<kbd>C</kbd> interrupt</span><span>Model/Effort chọn khi mở phiên; trong phiên dùng lệnh CLI để thay đổi</span><span id="term-feedback"></span></div>
+        <div class="dock-form dock-legacy" id="dock-legacy">
+          <div class="dock-head"><h2 class="dock-title">Lệnh nhanh / one-shot</h2><span class="dock-video" id="dock-video">Chưa chọn video</span></div>
           <label for="dock-text" class="sr-only">Lệnh cho agent</label>
           <p class="dock-mode" id="dock-mode">● Agent đang chạy: tin nhắn vào owner-notes.md, agent đọc ở lần chuyển stage kế tiếp. Nếu agent xong mà chưa xử lý, monitor tự chạy tiếp một lượt để xử lý.</p>
           <textarea id="dock-text" placeholder="Ví dụ: Làm tiếp voice cho s1–s8 rồi chạy audio-reviewer"></textarea>
@@ -578,6 +652,205 @@ document.addEventListener('click',async event=>{const project=event.target.close
 window.addEventListener('hashchange',()=>{const h=decodeURIComponent(location.hash.slice(1));if(h&&h!==cur&&data.some(v=>v.folder===h))selectVideo(h)});
 window.addEventListener('resize',()=>requestAnimationFrame(drawOrchLines));
 cur=savedVideo();refresh();setInterval(refresh,1000);
+</script>
+<script src="https://cdn.jsdelivr.net/npm/@xterm/xterm@5.5.0/lib/xterm.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@xterm/xterm@5.5.0/css/xterm.css">
+<script src="https://cdn.jsdelivr.net/npm/@xterm/addon-fit@0.10.0/lib/addon-fit.js"></script>
+<script>
+/* This panel is a true PTY: keystrokes go to the native interactive CLI.
+   The original command-dock still supports one-shot jobs and queued notes. */
+(()=>{
+ const $=id=>document.getElementById(id);
+ let session=null,video=null,offset=0,term=null,fit=null,waiting=false,writeQueue='',sending=false;
+ let decoder=new TextDecoder();
+ let terminalRunners=null;
+ const COMMON_VARIANTS=['low','medium','high','xhigh','max'];
+ const EFFORT_LABELS={low:'Low',medium:'Medium',high:'High',xhigh:'Extra high',max:'Max'};
+ const selector=(element,choices,placeholder)=>{
+   const old=element.value;
+   element.replaceChildren(new Option(placeholder,''));
+   choices.forEach(choice=>element.add(new Option(choice.label,choice.value)));
+   if(choices.some(choice=>choice.value===old))element.value=old;
+ };
+ function updateEfforts(chosenEffort=''){
+   const provider=$('term-provider').value,model=$('term-model').value;
+   const runner=terminalRunners?.find(r=>r.id===provider);
+   const selectedModel=runner?.models?.find(m=>m.id===model);
+   const available=selectedModel?.efforts?.length?selectedModel.efforts:
+     provider==='opencode'?(model?COMMON_VARIANTS:[]):(runner?.efforts||[]);
+   const effort=$('term-effort');
+   selector(effort,available.map(value=>({label:EFFORT_LABELS[value]||value,value})), 'Mặc định');
+   if(chosenEffort){
+     if(!available.includes(chosenEffort)&&session?.state==='running')effort.add(new Option(chosenEffort+' (đang dùng)',chosenEffort));
+     if([...effort.options].some(x=>x.value===chosenEffort))effort.value=chosenEffort;
+   }
+   effort.disabled=!available.length||session?.state==='running';
+   effort.title=provider==='opencode'?'OpenCode effort là model variant; model cụ thể có thể không hỗ trợ tất cả variants.':'';
+ }
+ function updateModels(chosenModel='',chosenEffort=''){
+   const runner=terminalRunners?.find(r=>r.id===$('term-provider').value),target=$('term-model');
+   selector(target,(runner?.models||[]).map(m=>({label:m.label||m.id,value:m.id})), 'Mặc định của CLI');
+   if(chosenModel&&![...target.options].some(o=>o.value===chosenModel))
+     target.add(new Option(chosenModel+' (phiên đã mở)',chosenModel));
+   if(chosenModel)target.value=chosenModel;
+   target.disabled=!runner?.installed||session?.state==='running';
+   updateEfforts(chosenEffort);
+   $('term-start').disabled=!!terminalRunners&&!runner?.installed||session?.state==='running';
+ }
+ function lockChoices(){
+   const locked=session?.state==='running';
+   $('term-provider').disabled=locked;
+   updateModels(session?.model||'',session?.effort||'');
+   $('term-model').disabled=locked||!terminalRunners?.find(r=>r.id===$('term-provider').value)?.installed;
+   $('term-effort').disabled=locked||$('term-effort').options.length===1;
+   $('term-start').disabled=locked||!!terminalRunners&&!terminalRunners.find(r=>r.id===$('term-provider').value)?.installed;
+ }
+ async function loadChoices(){
+   if(terminalRunners)return;
+   try{
+     const res=await fetch('/api/create-options',{cache:'no-store'});
+     if(!res.ok)throw Error('HTTP '+res.status);
+     terminalRunners=(await res.json()).runners||[];
+     updateModels();
+   }catch(error){feedback('Không tải được model catalog: '+error.message)}
+ }
+ const chosen=()=>decodeURIComponent(location.hash.slice(1));
+ const sessionHeader=()=>{
+   const label=$('term-session-label');
+   const vid=chosen();
+   label.textContent=vid
+     ? vid+' / '+(session?session.provider+' · '+session.id.slice(0,8):'Chưa mở phiên CLI')
+     : 'Chọn video trước khi mở terminal.';
+   label.title=label.textContent;
+ };
+ const log=text=>{const node=$('term-fallback');node.textContent+=text;node.scrollTop=node.scrollHeight};
+ const show=text=>{if(term)term.write(text);else log(text)};
+ const badge=(text)=>{$('term-badge').textContent=text};
+ const feedback=text=>{$('term-feedback').textContent=text};
+ const api=async(path,body)=>{const response=await fetch(path,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});const result=await response.json();if(!response.ok)throw Error(result.error||'HTTP '+response.status);return result};
+ const base=()=>'/api/terminal/'+encodeURIComponent(video);
+ function prepare(){
+   if(term||!window.Terminal)return;
+   term=new Terminal({cursorBlink:true,scrollback:4000,convertEol:false,fontFamily:'JetBrains Mono, monospace',
+     fontSize:12,lineHeight:1.42,theme:{background:'#050a12',foreground:'#cbdee8',cursor:'#5eead4',
+     selectionBackground:'#2f6a73',black:'#101827',green:'#5eead4',cyan:'#38bdf8',
+     yellow:'#fbbf24',red:'#fb7185',blue:'#80a7ff'}});
+   if(window.FitAddon){fit=new FitAddon.FitAddon();term.loadAddon(fit)}
+   term.open($('term-render'));$('term-fallback').hidden=true;
+   fit?.fit();
+   term.onData(data=>{if(!session)return;writeQueue+=data;flush()});
+   term.onResize(({cols,rows})=>{if(session)api(base()+'/'+session.id+'/resize',{cols,rows}).catch(e=>feedback(e.message))});
+ }
+ async function flush(){
+   if(sending||!session||!writeQueue)return;
+   sending=true;
+   try{
+     while(writeQueue&&session){
+       const data=writeQueue.slice(0,2048);writeQueue=writeQueue.slice(2048);
+       await api(base()+'/'+session.id+'/input',{data});
+     }
+   }catch(error){feedback('Input: '+error.message)}finally{sending=false}
+ }
+ async function attach(entry){
+   session={id:entry.id,provider:entry.provider||$('term-provider').value,
+     model:entry.model||'',effort:entry.effort||'',state:entry.state||'running'};
+   offset=0;decoder=new TextDecoder();
+   sessionHeader();
+   $('term-provider').value=session.provider;
+   updateModels(session.model,session.effort);
+   lockChoices();
+   prepare();
+   if(term)term.reset();else $('term-fallback').textContent='';
+   badge('● Attached');
+   feedback('Session '+session.id.slice(0,8)+' · '+(session.model||'CLI default')+
+     (session.effort?' · '+session.effort:''));
+   term?.focus();
+ }
+ async function reconnect(){
+   video=chosen();sessionHeader();if(!video){feedback('Hãy chọn một video');return}
+   try{
+     const response=await fetch(base()+'/sessions',{cache:'no-store'});
+     if(!response.ok)throw Error('HTTP '+response.status);
+     const list=(await response.json()).sessions;
+     const selected=[...list].reverse().find(x=>x.state==='running')||list.at(-1);
+     if(selected)await attach(selected);
+     else {session=null;badge('● Ready');feedback('Chưa có session');lockChoices();sessionHeader()}
+   }catch(e){feedback('Reconnect: '+e.message)}
+ }
+ $('term-start').addEventListener('click',async()=>{
+   video=chosen();if(!video){feedback('Chọn video trước');return}
+   try{
+     const cli=$('term-provider').value,model=$('term-model').value,effort=$('term-effort').value;
+     const response=await api(base()+'/start',{provider:cli,model,effort,
+       cols:term?.cols||110,rows:term?.rows||30});
+     await attach(response);
+   }catch(e){feedback(e.message)}
+ });
+ $('term-provider').addEventListener('change',()=>updateModels());
+ $('term-model').addEventListener('change',()=>updateEfforts());
+ $('term-reconnect').addEventListener('click',reconnect);
+ $('term-interrupt').addEventListener('click',()=>{if(session)api(base()+'/'+session.id+'/interrupt',{}).catch(e=>feedback(e.message))});
+ $('term-stop').addEventListener('click',()=>{if(session&&confirm('Dừng phiên CLI hiện tại?'))api(base()+'/'+session.id+'/stop',{}).catch(e=>feedback(e.message))});
+ $('term-screen').addEventListener('click',()=>term?.focus());
+ window.addEventListener('resize',()=>fit?.fit());
+ window.addEventListener('hashchange',()=>{
+   session=null;offset=0;sessionHeader();
+   if(!document.getElementById('command-dock').hidden)reconnect();
+ });
+ setInterval(async()=>{
+   if(document.getElementById("command-dock").hidden||!session||waiting)return;
+   waiting=true;
+   const activeId=session.id,activeVideo=video;
+   try{
+     const result=await (await fetch(base()+'/'+activeId+'/output?offset='+offset,{cache:'no-store'})).json();
+     if(!session||activeId!==session.id||activeVideo!==video)return;
+     offset=result.offset;
+     if(result.output){
+       const bytes=Uint8Array.from(atob(result.output),c=>c.charCodeAt(0));
+       show(decoder.decode(bytes,{stream:true}));
+     }
+     if(result.truncated)feedback('Scrollback đầy; đang hiển thị phần log mới nhất.');
+     badge(result.state==='running'?'● Live':'● Exited');
+     $('term-live').textContent=[result.state.toUpperCase(),result.provider,
+       result.model||'Default model',result.effort||'Default effort'].join(' • ');
+     if(session.state!==result.state){
+       session.state=result.state;lockChoices();
+     }
+     if(result.state!=='running')feedback('Exit code: '+result.exitCode);
+   }catch(e){feedback('Connection lost: '+e.message)}finally{waiting=false}
+ },180);
+ window.addEventListener('agent-terminal:open',()=>{
+   sessionHeader();
+   prepare();
+   if(!term){
+     feedback('Thiếu xterm.js: không thể nhập lệnh. Hãy kiểm tra mạng hoặc asset terminal.');
+     $('term-start').disabled=true;
+     return;
+   }
+   requestAnimationFrame(()=>fit?.fit());
+   if(!terminalRunners)loadChoices().then(()=>{if(session)lockChoices()});
+   reconnect();
+ });
+
+})();
+</script>
+<script>
+/* Visibility only: no changes to Agent Orchestration, Production Overview or gates. */
+(()=>{
+  const button=document.getElementById('terminal-toggle');
+  const dock=document.getElementById('command-dock');
+  const label=document.getElementById('terminal-toggle-label');
+  button.addEventListener('click',()=>{
+    const open=dock.hidden;
+    dock.hidden=!open;
+    button.setAttribute('aria-expanded',String(open));
+    label.textContent=open?'Ẩn Terminal':'Terminal';
+    if(open){
+      window.dispatchEvent(new Event('agent-terminal:open'));
+      dock.scrollIntoView({behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'});
+    }
+  });
+})();
 </script>
 </body>
 </html>
