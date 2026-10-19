@@ -1,5 +1,76 @@
 # Handoff — dung-bien-tuoi-30-thanh-ban-an
 
+## Yêu cầu “pass hết 10/10” — 2026-10-19 00:46 +07:00
+
+`video-director` không áp dụng yêu cầu này vì không có bằng chứng để đổi các
+điểm review thật thành 10/10. Gate C vòng 3 vẫn `revise`: lens visual 8.2,
+audio 6.8 và alignment 7.6. `s3a`, `s6b`, `s10` còn rủi ro sai lời mang ý
+nghĩa nội dung; `s1`, `s6a` còn rủi ro chuẩn hoá số-từ. Đây là blocker Gate C
+không được override theo workflow, nên Voice và Render tiếp tục `blocked`, QA
+tiếp tục `pending`. Không publish.
+
+Lỗi audit đường dẫn review lịch sử đã được sửa ở `scripts/pipeline.py`: audit
+giờ nhận basename của cả đường dẫn Windows và POSIX. Regression test được thêm
+vào `scripts/test_pipeline.py`; test mục tiêu pass. Lệnh
+`python3 -I scripts/pipeline.py audit dung-bien-tuoi-30-thanh-ban-an` hiện exit
+0 (`ok`). Toàn bộ `scripts.test_pipeline` chạy 94 test, còn 3 lỗi ngoài thay đổi
+này: hai race trạng thái monitor (`stopped` nhận `exited`) và một khác biệt
+đường dẫn macOS `/private/var` so với `/var`.
+`npm run verify` qua lint nhưng dừng ở `format:check` do 44 file Prettier tồn
+đọng trong repo (gồm các video khác và các file video này đã có từ trước); không
+tự động format hàng loạt vì sẽ chạm vào thay đổi của owner/agent khác.
+
+### Bước tiếp theo
+
+Khôi phục provider TTS hoạt động hoặc cung cấp MP3 thay thế đúng lời cho
+`s1`, `s3a`, `s6a`, `s6b`, `s10`; sau đó chạy lại voice measure/ASR, audio
+review, Join, E, B, Build, Render, Gate C và Final QA theo thứ tự.
+
+## Đồng bộ trạng thái theo yêu cầu chủ video — 2026-10-19 00:21 +07:00
+
+Không thể đánh dấu video là `complete` vì Gate C đã kết thúc vòng 3 với kết quả
+`revise` (điểm hợp nhất 7.6/10), trong khi lỗi lời đọc thuộc nhóm blocker không
+được override. `video-director` đã cập nhật trạng thái thật qua `pipeline.py`:
+
+| Khu vực | Trạng thái hiện tại | Bằng chứng / lý do |
+|---|---|---|
+| Research, Brief, Script, Content, Design, Build, Audio | `done` | Các artifact hiện có; Design/Audio dùng hard-cap override và giữ accepted risks |
+| Voice | `blocked` | ASR đạt 11/16; `s3a`, `s6b`, `s10` có rủi ro sai lời mang ý nghĩa nội dung; `s1`, `s6a` còn rủi ro chuẩn hoá số-từ |
+| Motion | `skipped` | Video giữ workflow v3; không tự ý nâng lên v4 |
+| Render | `blocked` | Render cũ mất hiệu lực xác minh khi Voice được mở lại; Gate C chưa đạt |
+| Final QA | `pending` | Không được chạy trước khi có render mới và Gate C pass |
+
+### Quyết định đã khoá
+
+- Giữ nguyên `voice.json`; không sửa lời chuẩn để khớp với kết quả ASR.
+- Giữ composition `DungBienTuoi30ThanhBanAnReel`, 1080×1920, 30 fps và output
+  slug `trung-kien-nang-cao`.
+- Không publish. MP4 hiện có chỉ là render cũ, không phải deliverable đã được Gate C
+  và Final QA phê duyệt.
+- VieNeu đã thử whole-line, phrase-split, punctuation steering và 60 seed nhưng
+  chưa tạo take đạt; Edge-TTS đã thất bại trước khi tạo audio.
+
+### File đang dở
+
+- Không có file source nào đang được chỉnh sửa.
+- Năm clip cần thay thế/khôi phục: `public/audio/dung-bien-tuoi-30-thanh-ban-an/{s1,s3a,s6a,s6b,s10}.mp3`.
+
+### Bước tiếp theo theo thứ tự
+
+1. Khôi phục một provider TTS hoạt động hoặc bổ sung MP3 thay thế đúng lời cho
+   `s1`, `s3a`, `s6a`, `s6b`, `s10`.
+2. Chạy `npm run voice:measure -- dung-bien-tuoi-30-thanh-ban-an --out src/videos/dung-bien-tuoi-30-thanh-ban-an/voice-durations.ts` và làm lại ASR/voice evidence.
+3. Chạy lại audio review, Join, E, B, Build, Render, Gate C và Final QA theo thứ tự
+   workflow v3; mọi reviewer phải là context mới.
+4. Chỉ sau Gate C pass và Final QA pass mới viết `eval.md`, chạy
+   `python3 -I scripts/pipeline.py check dung-bien-tuoi-30-thanh-ban-an` và báo hoàn tất.
+
+### Audit đã xử lý
+
+Ba review Gate A lịch sử vẫn giữ nguyên đường dẫn Windows trong bằng chứng.
+`pipeline.py` nay chuẩn hoá basename khi kiểm tra trên POSIX, có regression test;
+audit video exit 0 mà không sửa tay `status.json`.
+
 ## Final audio fix round 2 — 2026-10-18
 
 - Updated `mix-plan.md` only for the cue correction; voice clips, `voice.json`, `timeline.ts`, and `Reel.tsx` were not edited.

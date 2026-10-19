@@ -1,40 +1,64 @@
 {
-  "version": 2,
+  "version": 3,
   "canonicalText": "docs/ban-khong-yeu-duoi-chi-da-manh-qua-lau/voice.proposed.json",
   "engine": {
-    "name": "tbd — voice route unresolved; no preview catalogue on this machine",
-    "candidates": ["vietnamese-voice-samples/previews/ (absent on this machine)", "vi-VN-NamMinhNeural (temporary route 3)"],
-    "runtime": "not yet selected",
+    "name": "route 2 — local VieNeu clone (~/.venvs/vieneu) with a local WAV reference",
+    "selectedReference": "docs/ban-khong-yeu-duoi-chi-da-manh-qua-lau/voice-ref/refThanhLong.wav",
+    "runtime": "vieneu-v3-turbo-3.8.3 (local)",
     "externalUpload": false,
-    "supportedControls": ["referenceAudio", "seed", "denoise", "silencePadding"],
+    "supportedControls": ["referenceAudio", "seed", "denoise"],
     "fixedControls": {
       "denoise": false
     },
-    "unsupportedControls": ["rate", "pitch", "volume", "style", "directEmotion", "atempo"],
+    "unsupportedControls": ["rate", "pitch", "volume", "speed", "atempo", "style", "directEmotion"],
     "postProcessingRestrictions": ["no atempo", "no pitch shifting for expression"],
-    "note": "Engine and supported controls are confirmed only after the voice-route benchmark. Any control not in supportedControls is an explicit limitation, never silently ignored."
+    "note": "Controls listed here are the declared baseline; any control not in supportedControls is an explicit limitation, never silently ignored."
   },
+  "phraseJoin": " ",
+  "phraseJoinRule": "\" \".join(phrase.text) must equal voice.proposed.json[key] byte-for-byte; every phrase boundary below falls on a canonical single space. Verified before generation.",
   "benchmark": {
-    "status": "pending",
-    "selectionMethod": "benchmark the candidate previews on the same 15-20 s passage of this script (hook, turn, re-hook, soft close), then select one consistent voice for all fourteen shots s1-s10 and a1-a4",
-    "planningSyllables": 142,
+    "status": "route selected — no pending state remains in this packet",
+    "selectionAuthority": "video-director decision, justified by consistency with the two videos already delivered in this repo that use the identical reference (docs/cuoc-goi-nho-cua-me/voice-ref/, docs/thuong-hay-so-bat-dau-lai/voice-ref/refThanhLong.wav)",
+    "ownerConfirmed": false,
+    "ownerConfirmationEvidence": "owner-notes.md contains two 'hi' notes and no voice instruction; no owner confirmation of any voice exists or is claimed",
+    "selectedReference": "docs/ban-khong-yeu-duoi-chi-da-manh-qua-lau/voice-ref/refThanhLong.wav",
+    "resolvedReferencePath": "docs/ban-khong-yeu-duoi-chi-da-manh-qua-lau/voice-ref/refThanhLong.wav",
+    "referenceFileFacts": "exists; 8.20 s, 24 kHz, mono, pcm_s16le — director-verified. I could not run ffprobe: this runtime has no shell or process-execution tool.",
+    "previewCatalogueAvailable": false,
+    "previewCatalogueNote": "vietnamese-voice-samples/previews/ does not exist on this machine, so no preview slug is cited and scripts/test_voice_catalog could not be run.",
+    "identity": "planningTotal(rate) = SUM(syl/rate) + SUM(phrase-gap holds) + SUM(post-clip holds) + END hold = SUM(syl/rate) + 2.54 + 10.60 + 3.20 = SUM(syl/rate) + 16.34 s — every silence term is a timeline hold; clips hold spoken text only",
+    "planningSyllables": 127,
+    "ownerSyllables": 111,
+    "addedSyllables": 16,
     "planningRateSyllablesPerSecond": 3.9,
-    "planningSpeechSeconds": 36.41,
-    "planningSilenceSeconds": 13.05,
-    "planningTotalSeconds": 49.46,
-    "totalSecondsAt4_2SyllablesPerSecond": 46.86,
-    "totalSecondsAt3_7SyllablesPerSecond": 51.43,
-    "selectedReference": null,
-    "resolvedReferencePath": null,
-    "whyPending": "vietnamese-voice-samples/previews/ does not exist on this machine (the parent folder holds only .DS_Store). `ls vietnamese-voice-samples/previews/` and `python3 -m unittest scripts.test_voice_catalog` could not be executed: this runtime has no shell or process-execution tool. No slug is invented here.",
+    "sumPauseAfterSeconds": 2.54,
+    "sumPostClipHoldSeconds": 10.6,
+    "fixedSilenceSeconds": 16.34,
+    "totalSecondsAt4_2": 46.58,
+    "totalSecondsAt3_9": 48.9,
+    "totalSecondsAt3_7": 50.66,
+    "breakEvenFloorRateSyllablesPerSecond": 4.43,
+    "breakEvenCeilingRateSyllablesPerSecond": 3.29,
     "machineChecks": ["canonical text", "CER/ASR", "duration", "silence", "loudness", "clipping", "cross-phrase consistency"],
     "naturalnessEvidence": "not verified by listening"
   },
   "keyPlan": {
-    "order": ["s1", "s2", "a1", "s3", "a2", "s4", "s5", "a3", "s6", "s7", "s8", "s9", "a4", "s10"],
-    "ownerKeys": ["s1", "s2", "s3", "s4", "s5", "s6", "s7", "s8", "s9", "s10"],
-    "addedKeys": ["a1", "a2", "a3", "a4"],
-    "note": "s1-s10 are the owner's ten mandatory lines, verbatim and in the owner's original order. a1-a4 are the four [ADD] sensory connectors justified in script.md section 5; they are counted in the 142-syllable total. The trailing END title card is silence and has no key. scripts/gen-voice-clone.py walks voice.proposed.json in insertion order, so this order is the playback order."
+    "order": ["s1", "s2a", "a1", "s2b", "s3", "a2", "s4", "s5", "s6", "s7", "s8", "s9", "s10"],
+    "ownerKeys": ["s1", "s2a", "s2b", "s3", "s4", "s5", "s6", "s7", "s8", "s9", "s10"],
+    "addedKeys": ["a1", "a2"],
+    "noVoiceKeyShots": ["img1 (the deletion, staged inside s5's 1.70 s post-clip hold)", "img2 (the umbrella tilt, staged inside s9's 1.30 s post-clip hold)", "END (silent title card)"],
+    "ownerLineTwoSplit": "s2a + a1 + s2b; s2a and s2b are the two verbatim halves of owner line #2 and their join reproduces it byte-for-byte. a1 is an [ADD] connector placed between them so the payoff lands at 7.00 / 7.46 / 7.81 s instead of after second 8."
+  },
+  "ending": {
+    "lastWordEndsAtSeconds": 43.9,
+    "bgmCutsAtSeconds": 43.9,
+    "lastWordNote": "s10 is two phrase segments with a real 0.30 s timeline hold BETWEEN them (applied by the Reel layer, not inside the WAV), so its clip end — and the last word of the video — is s10Start + 7/rate + 0.30 + 8/rate = 41.58 / 43.90 / 45.66 s at 4.2 / 3.9 / 3.7 syl/s. start + 15/rate is NOT the last word: it drops the timeline gap and would cut BGM 0.30 s before the climax question ends.",
+    "postClipHoldSeconds": 1.8,
+    "silentCardSeconds": 3.2,
+    "audioTailSeconds": 5.0,
+    "audioTailNote": "the post-word audio tail is postClipHoldSeconds + silentCardSeconds = 1.80 + 3.20 = 5.00 s; and lastWordEndsAtSeconds + postClipHoldSeconds + silentCardSeconds = 43.90 + 1.80 + 3.20 = 48.90 = benchmark.totalSecondsAt3_9",
+    "silentCardElasticRange": [2.2, 5.2],
+    "silentCardElasticRangeNote": "this range bounds silentCardSeconds only; stretching it lengthens audioTailSeconds, so script.md section 1 must be recomputed at the measured rate"
   },
   "candidatePolicy": {
     "initialCandidatesPerPhrase": 1,
@@ -42,7 +66,7 @@
     "regenerateOnlyFailedPhraseOrKeyword": true,
     "pinnedSeedMustPassCanonicalTextCheck": true
   },
-  "pauseImplementation": "explicit post-synthesis silence during phrase assembly; never inferred from punctuation or ellipsis. The post-clip hold of each shot (minimumPostClipHoldSeconds) is a real gap between two clips in the timeline, not padding inside the clip, so every measured clip duration contains speech only.",
+  "pauseImplementation": "Unified silence model: every clip (key) contains spoken text only — phrases are joined with exactly one space and the WAV holds no synthesized silence. pauseBeforeSeconds/pauseAfterSeconds are timeline holds applied by the timeline/Reel layer between phrase segments inside the key's slot; minimumPostClipHoldSeconds is the timeline hold after the clip. Silence is never inferred from punctuation or ellipsis, and no pause is ever created by padding inside a clip.",
   "experimentalCues": {
     "enabled": false,
     "values": [],
@@ -50,14 +74,14 @@
   },
   "shots": {
     "s1": {
-      "reference": { "source": "pending voice-route benchmark" },
-      "referenceSelectionStatus": "pending",
-      "intent": "HOOK + frame-0 cover: name the viewer's role; the on-screen text must carry it with the sound off",
+      "reference": { "source": "docs/ban-khong-yeu-duoi-chi-da-manh-qua-lau/voice-ref/refThanhLong.wav" },
+      "referenceSelectionStatus": "selected",
+      "intent": "HOOK + frame-0 cover: name the viewer's role; the on-screen headline must carry the hook with the sound off",
       "emotion": "curious, warm, direct, slightly rueful recognition",
       "accentWords": ["tìm đến bạn", "chuyện buồn"],
       "tempoIntent": "hook: brisk on the opening phrase, settle through the middle, hard stop at the end",
       "ending": "flat, level — a statement, not a question",
-      "minimumPostClipHoldSeconds": 0.35,
+      "minimumPostClipHoldSeconds": 0.3,
       "postClipHoldPolicy": "timeline silence after clip, not punctuation",
       "phrases": [
         {
@@ -80,16 +104,16 @@
         }
       ]
     },
-    "s2": {
-      "reference": { "source": "pending voice-route benchmark" },
-      "referenceSelectionStatus": "pending",
-      "intent": "First concrete proof of the hook: state the known fact about them, in three separate statements",
+    "s2a": {
+      "reference": { "source": "docs/ban-khong-yeu-duoi-chi-da-manh-qua-lau/voice-ref/refThanhLong.wav" },
+      "referenceSelectionStatus": "selected",
+      "intent": "Set up what the viewer already does; the payoff lands on the next key",
       "emotion": "reassuring, matter-of-fact",
-      "accentWords": ["an ủi", "thấy ổn hơn"],
-      "tempoIntent": "conversational triad; each sentence lands separately; weight on the last phrase",
-      "ending": "full stop",
+      "accentWords": ["an ủi", "nói gì"],
+      "tempoIntent": "two statements, each landing on its own; the second marginally quicker",
+      "ending": "flat, waiting",
       "minimumPostClipHoldSeconds": 0.25,
-      "postClipHoldPolicy": "timeline silence after clip",
+      "postClipHoldPolicy": "the real split gap inside owner line #2 — the payoff a1 lands on this beat",
       "phrases": [
         {
           "text": "Bạn biết cách an ủi.",
@@ -102,17 +126,8 @@
         },
         {
           "text": "Biết phải nói gì.",
-          "tempoIntent": "even, list still running",
-          "emphasis": [],
-          "pauseBeforeSeconds": 0.0,
-          "pauseAfterSeconds": 0.32,
-          "seed": null,
-          "controls": { "denoise": false }
-        },
-        {
-          "text": "Biết làm sao để người khác thấy ổn hơn.",
-          "tempoIntent": "slow, weighted landing",
-          "emphasis": ["thấy ổn hơn"],
+          "tempoIntent": "list still running",
+          "emphasis": ["nói gì"],
           "pauseBeforeSeconds": 0.0,
           "pauseAfterSeconds": 0.0,
           "seed": null,
@@ -121,27 +136,27 @@
       ]
     },
     "a1": {
-      "reference": { "source": "pending voice-route benchmark" },
-      "referenceSelectionStatus": "pending",
-      "intent": "[ADD] Show the effect the previous line only asserted, and plant the contrast the turn lands on",
+      "reference": { "source": "docs/ban-khong-yeu-duoi-chi-da-manh-qua-lau/voice-ref/refThanhLong.wav" },
+      "referenceSelectionStatus": "selected",
+      "intent": "[ADD] THE PAYOFF — stage the effect the previous line only asserted, and plant CP1",
       "emotion": "observational, quiet",
-      "accentWords": ["nhẹ hẳn xuống", "đứng ngoài"],
-      "tempoIntent": "even; the second sentence slightly lower, no pathos",
-      "ending": "falling, leaves the floor open for the turn",
-      "minimumPostClipHoldSeconds": 0.7,
-      "postClipHoldPolicy": "the largest early beat — timeline silence after clip so the turn has air",
+      "accentWords": ["chùng xuống", "đứng ngoài"],
+      "tempoIntent": "even; the second sentence slightly lower",
+      "ending": "falling, leaves the floor open for s2b",
+      "minimumPostClipHoldSeconds": 0.3,
+      "postClipHoldPolicy": "timeline silence after clip — the turn needs air",
       "phrases": [
         {
-          "text": "Vai người khác nhẹ hẳn xuống.",
+          "text": "Vai người khác chùng xuống.",
           "tempoIntent": "observational",
-          "emphasis": ["nhẹ hẳn xuống"],
+          "emphasis": ["chùng xuống"],
           "pauseBeforeSeconds": 0.0,
           "pauseAfterSeconds": 0.24,
           "seed": null,
           "controls": { "denoise": false }
         },
         {
-          "text": "Còn bạn đứng ngoài.",
+          "text": "Còn bạn thì đứng ngoài.",
           "tempoIntent": "slightly lower, plain",
           "emphasis": ["đứng ngoài"],
           "pauseBeforeSeconds": 0.0,
@@ -151,16 +166,38 @@
         }
       ]
     },
+    "s2b": {
+      "reference": { "source": "docs/ban-khong-yeu-duoi-chi-da-manh-qua-lau/voice-ref/refThanhLong.wav" },
+      "referenceSelectionStatus": "selected",
+      "intent": "Land the last clause of owner line #2",
+      "emotion": "warm, quietly proud",
+      "accentWords": ["thấy ổn hơn"],
+      "tempoIntent": "even and unhurried — this clause settles after the payoff and must not compete with it",
+      "ending": "full stop",
+      "minimumPostClipHoldSeconds": 0.35,
+      "postClipHoldPolicy": "timeline silence after clip, before the turn",
+      "phrases": [
+        {
+          "text": "Biết làm sao để người khác thấy ổn hơn.",
+          "tempoIntent": "even, natural emphasis — no extra weight, no slowing",
+          "emphasis": ["thấy ổn hơn"],
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.0,
+          "seed": null,
+          "controls": { "denoise": false }
+        }
+      ]
+    },
     "s3": {
-      "reference": { "source": "pending voice-route benchmark" },
-      "referenceSelectionStatus": "pending",
-      "intent": "HIGHLIGHT 1 — the turn: alone with the phone",
+      "reference": { "source": "docs/ban-khong-yeu-duoi-chi-da-manh-qua-lau/voice-ref/refThanhLong.wav" },
+      "referenceSelectionStatus": "selected",
+      "intent": "The turn: alone with the phone",
       "emotion": "quiet tension, held under control",
       "accentWords": ["một tối", "rất lâu", "trước màn hình điện thoại"],
       "tempoIntent": "the hinge: plain opening, slow through the middle so the duration is audible, flat ending",
       "ending": "flat, no lift",
-      "minimumPostClipHoldSeconds": 0.45,
-      "postClipHoldPolicy": "timeline silence after clip",
+      "minimumPostClipHoldSeconds": 1.05,
+      "postClipHoldPolicy": "withheld-message beat — deliberately BEFORE a2 so the re-hook lands on a beat instead of out of a fade",
       "phrases": [
         {
           "text": "Nhưng có một tối,",
@@ -183,19 +220,19 @@
       ]
     },
     "a2": {
-      "reference": { "source": "pending voice-route benchmark" },
-      "referenceSelectionStatus": "pending",
+      "reference": { "source": "docs/ban-khong-yeu-duoi-chi-da-manh-qua-lau/voice-ref/refThanhLong.wav" },
+      "referenceSelectionStatus": "selected",
       "intent": "[ADD] Put the room's sound into a story that otherwise has no audible environment",
-      "emotion": "quietest read so far, almost said to the room",
-      "accentWords": ["đều đều"],
-      "tempoIntent": "slowest, even, no rubato; the repetition is gentle, not theatrical",
+      "emotion": "quiet, close — said as if the narrator had just noticed it, still to one listener",
+      "accentWords": ["mưa rơi đều"],
+      "tempoIntent": "slow, even, no rubato",
       "ending": "level, trailing slightly",
-      "minimumPostClipHoldSeconds": 1.2,
-      "postClipHoldPolicy": "withheld-message beat — timeline silence before the re-hook",
+      "minimumPostClipHoldSeconds": 0.25,
+      "postClipHoldPolicy": "timeline silence after clip — the re-hook lands on this beat",
       "phrases": [
         {
-          "text": "Mưa ngoài cửa sổ,",
-          "tempoIntent": "slow, even",
+          "text": "Ngoài cửa sổ,",
+          "tempoIntent": "set the room",
           "emphasis": [],
           "pauseBeforeSeconds": 0.0,
           "pauseAfterSeconds": 0.14,
@@ -203,9 +240,9 @@
           "controls": { "denoise": false }
         },
         {
-          "text": "đều đều.",
-          "tempoIntent": "gentle repetition, trailing",
-          "emphasis": ["đều đều"],
+          "text": "mưa rơi đều.",
+          "tempoIntent": "close, plain",
+          "emphasis": ["mưa rơi đều"],
           "pauseBeforeSeconds": 0.0,
           "pauseAfterSeconds": 0.0,
           "seed": null,
@@ -214,14 +251,14 @@
       ]
     },
     "s4": {
-      "reference": { "source": "pending voice-route benchmark" },
-      "referenceSelectionStatus": "pending",
+      "reference": { "source": "docs/ban-khong-yeu-duoi-chi-da-manh-qua-lau/voice-ref/refThanhLong.wav" },
+      "referenceSelectionStatus": "selected",
       "intent": "RE-HOOK — say the message she cannot send, in her own imagined voice",
       "emotion": "hesitant, intimate, tender",
       "accentWords": ["mệt quá", "nhắn"],
-      "tempoIntent": "slower than the previous shot; the quoted message softer than the narration",
+      "tempoIntent": "slower than a2; the quoted message softer than the narration",
       "ending": "falling on the quoted words, no fade",
-      "minimumPostClipHoldSeconds": 0.35,
+      "minimumPostClipHoldSeconds": 0.4,
       "postClipHoldPolicy": "timeline silence after clip — the draft is left hanging",
       "phrases": [
         {
@@ -245,15 +282,15 @@
       ]
     },
     "s5": {
-      "reference": { "source": "pending voice-route benchmark" },
-      "referenceSelectionStatus": "pending",
+      "reference": { "source": "docs/ban-khong-yeu-duoi-chi-da-manh-qua-lau/voice-ref/refThanhLong.wav" },
+      "referenceSelectionStatus": "selected",
       "intent": "Give the verdict on her own small decision",
       "emotion": "rueful, close to a shrug, never self-pity",
       "accentWords": ["nghĩ một lúc", "lại thôi"],
       "tempoIntent": "light first half, settling downward on the second",
       "ending": "settles down, does not rise",
-      "minimumPostClipHoldSeconds": 0.45,
-      "postClipHoldPolicy": "timeline silence after clip",
+      "minimumPostClipHoldSeconds": 1.7,
+      "postClipHoldPolicy": "this hold stages img1 — the deletion is seen, never narrated; no voice key exists for it",
       "phrases": [
         {
           "text": "Rồi nghĩ một lúc,",
@@ -275,52 +312,21 @@
         }
       ]
     },
-    "a3": {
-      "reference": { "source": "pending voice-route benchmark" },
-      "referenceSelectionStatus": "pending",
-      "intent": "[ADD] The re-hook's answer: report the deletion — the give-up has to be seen",
-      "emotion": "plain; the image carries the emotion, the voice does not",
-      "accentWords": ["bấm xoá", "từng chữ"],
-      "tempoIntent": "deliberate and slow, no rubato",
-      "ending": "hard stop",
-      "minimumPostClipHoldSeconds": 0.9,
-      "postClipHoldPolicy": "timeline silence after clip — the deletion is seen before anyone corrects the assumption",
-      "phrases": [
-        {
-          "text": "Ngón tay bấm xoá",
-          "tempoIntent": "deliberate",
-          "emphasis": ["bấm xoá"],
-          "pauseBeforeSeconds": 0.0,
-          "pauseAfterSeconds": 0.16,
-          "seed": null,
-          "controls": { "denoise": false }
-        },
-        {
-          "text": "từng chữ.",
-          "tempoIntent": "slow, weighted",
-          "emphasis": ["từng chữ"],
-          "pauseBeforeSeconds": 0.0,
-          "pauseAfterSeconds": 0.0,
-          "seed": null,
-          "controls": { "denoise": false }
-        }
-      ]
-    },
     "s6": {
-      "reference": { "source": "pending voice-route benchmark" },
-      "referenceSelectionStatus": "pending",
-      "intent": "Correct an assumption the viewer is already making",
+      "reference": { "source": "docs/ban-khong-yeu-duoi-chi-da-manh-qua-lau/voice-ref/refThanhLong.wav" },
+      "referenceSelectionStatus": "selected",
+      "intent": "Correct an assumption the viewer is already making; this call is the actor s10 pays",
       "emotion": "gentle, direct, looking at the viewer",
-      "accentWords": ["không có ai", "nhắn"],
+      "accentWords": ["không có ai"],
       "tempoIntent": "level, then a small lowering on the last phrase",
       "ending": "falling, leaves the answer to s7",
-      "minimumPostClipHoldSeconds": 0.45,
-      "postClipHoldPolicy": "timeline silence after clip",
+      "minimumPostClipHoldSeconds": 0.5,
+      "postClipHoldPolicy": "timeline silence after clip — the unanswered call hangs",
       "phrases": [
         {
           "text": "Không phải vì không có ai",
           "tempoIntent": "level, matter-of-fact",
-          "emphasis": [],
+          "emphasis": ["không có ai"],
           "pauseBeforeSeconds": 0.0,
           "pauseAfterSeconds": 0.18,
           "seed": null,
@@ -329,7 +335,7 @@
         {
           "text": "để nhắn.",
           "tempoIntent": "slight lowering",
-          "emphasis": ["không có ai"],
+          "emphasis": [],
           "pauseBeforeSeconds": 0.0,
           "pauseAfterSeconds": 0.0,
           "seed": null,
@@ -338,14 +344,14 @@
       ]
     },
     "s7": {
-      "reference": { "source": "pending voice-route benchmark" },
-      "referenceSelectionStatus": "pending",
-      "intent": "Say the true reason she did not send it — the truest line in the video",
-      "emotion": "the truest, quietest, least performed line here",
+      "reference": { "source": "docs/ban-khong-yeu-duoi-chi-da-manh-qua-lau/voice-ref/refThanhLong.wav" },
+      "referenceSelectionStatus": "selected",
+      "intent": "The gut punch — say the true reason she did not send it",
+      "emotion": "the truest, quietest, least performed line in the video",
       "accentWords": ["đã quen", "phải là người ổn"],
       "tempoIntent": "slowest real line; the first phrase almost offhand, the second slow with the last two words dropping in volume",
       "ending": "stops; the last two words drop in level but never fade to a whisper",
-      "minimumPostClipHoldSeconds": 0.55,
+      "minimumPostClipHoldSeconds": 0.6,
       "postClipHoldPolicy": "timeline silence after clip — the recognition lands in it",
       "phrases": [
         {
@@ -369,15 +375,15 @@
       ]
     },
     "s8": {
-      "reference": { "source": "pending voice-route benchmark" },
-      "referenceSelectionStatus": "pending",
+      "reference": { "source": "docs/ban-khong-yeu-duoi-chi-da-manh-qua-lau/voice-ref/refThanhLong.wav" },
+      "referenceSelectionStatus": "selected",
       "intent": "Ask whether anyone is still there — a breath-word, not a stage aside",
       "emotion": "natural, conversational",
-      "accentWords": ["biết", "không…"],
+      "accentWords": ["không…"],
       "tempoIntent": "short, unhurried; the ellipsis is not performed",
       "ending": "unresolved, falls and waits",
-      "minimumPostClipHoldSeconds": 1.6,
-      "postClipHoldPolicy": "the longest beat in the video — timeline silence after clip, never the punctuation",
+      "minimumPostClipHoldSeconds": 1.8,
+      "postClipHoldPolicy": "the longest hold between two voiced clips before the resolution (1.80 s, tied with the closing hold) — timeline silence after clip, never the punctuation",
       "phrases": [
         {
           "text": "Bạn biết không…",
@@ -391,15 +397,15 @@
       ]
     },
     "s9": {
-      "reference": { "source": "pending voice-route benchmark" },
-      "referenceSelectionStatus": "pending",
-      "intent": "HIGHLIGHT 2 — deliver the umbrella metaphor honestly",
+      "reference": { "source": "docs/ban-khong-yeu-duoi-chi-da-manh-qua-lau/voice-ref/refThanhLong.wav" },
+      "referenceSelectionStatus": "selected",
+      "intent": "Deliver the umbrella metaphor honestly on the same street as frame 0",
       "emotion": "warm, not poeticising",
       "accentWords": ["che ô", "cũng", "bị ướt"],
-      "tempoIntent": "conversational through the first phrase, then slow on the reversal so it is audible rather than announced",
+      "tempoIntent": "conversational through the first clause, then slow on the reversal so it is audible rather than announced",
       "ending": "plain landing",
-      "minimumPostClipHoldSeconds": 0.9,
-      "postClipHoldPolicy": "umbrella landing hold — timeline silence after clip",
+      "minimumPostClipHoldSeconds": 1.3,
+      "postClipHoldPolicy": "this hold stages img2 — the umbrella's tilt completes with no voice; the owner has already said it in s9",
       "phrases": [
         {
           "text": "Người thường xuyên che ô cho người khác",
@@ -421,47 +427,16 @@
         }
       ]
     },
-    "a4": {
-      "reference": { "source": "pending voice-route benchmark" },
-      "referenceSelectionStatus": "pending",
-      "intent": "[ADD] Make the metaphor visible: the umbrella tilts and the rain lands on her",
-      "emotion": "quiet, almost clinical — stating a physical fact is the whole point",
-      "accentWords": ["nghiêng đi", "rơi lên vai bạn"],
-      "tempoIntent": "level on both sentences; the second quieter than the first",
-      "ending": "falling, hands the frame to the closing question",
-      "minimumPostClipHoldSeconds": 0.7,
-      "postClipHoldPolicy": "timeline silence after clip",
-      "phrases": [
-        {
-          "text": "Chiếc ô nghiêng đi.",
-          "tempoIntent": "level, plain",
-          "emphasis": ["nghiêng đi"],
-          "pauseBeforeSeconds": 0.0,
-          "pauseAfterSeconds": 0.22,
-          "seed": null,
-          "controls": { "denoise": false }
-        },
-        {
-          "text": "Mưa rơi lên vai bạn.",
-          "tempoIntent": "quieter, physical",
-          "emphasis": ["rơi lên vai bạn"],
-          "pauseBeforeSeconds": 0.0,
-          "pauseAfterSeconds": 0.0,
-          "seed": null,
-          "controls": { "denoise": false }
-        }
-      ]
-    },
     "s10": {
-      "reference": { "source": "pending voice-route benchmark" },
-      "referenceSelectionStatus": "pending",
-      "intent": "HIGHLIGHT 3 and the climax — ask the viewer the question nobody asks them; last spoken shot of the video",
+      "reference": { "source": "docs/ban-khong-yeu-duoi-chi-da-manh-qua-lau/voice-ref/refThanhLong.wav" },
+      "referenceSelectionStatus": "selected",
+      "intent": "The climax — ask the viewer the question nobody asks them; last spoken shot of the video",
       "emotion": "warmest and most open, still not loud",
-      "accentWords": ["một người hỏi", "Hôm nay có chuyện gì"],
-      "tempoIntent": "unhurried setup, then the quoted question at normal volume with a real question contour",
+      "accentWords": ["một người hỏi", "với bạn thế?"],
+      "tempoIntent": "unhurried setup, then the quoted question as ONE clause, ONE breath, no internal pause, at normal volume with a real question contour",
       "ending": "rising then held open; the final word falls; no call to action",
       "minimumPostClipHoldSeconds": 1.8,
-      "postClipHoldPolicy": "after this clip the voice stops; the END card is 2.40 s of total silence",
+      "postClipHoldPolicy": "after this clip the voice stops; the END card adds 3.20 s; the post-word audio tail is 5.00 s in total",
       "phrases": [
         {
           "text": "Và họ cũng cần một người hỏi:",
@@ -473,18 +448,9 @@
           "controls": { "denoise": false }
         },
         {
-          "text": "'Hôm nay có chuyện gì",
-          "tempoIntent": "normal volume, question contour",
-          "emphasis": ["Hôm nay có chuyện gì"],
-          "pauseBeforeSeconds": 0.0,
-          "pauseAfterSeconds": 0.15,
-          "seed": null,
-          "controls": { "denoise": false }
-        },
-        {
-          "text": "với bạn thế?'",
-          "tempoIntent": "held, falling at the end",
-          "emphasis": ["với bạn thế"],
+          "text": "'Hôm nay có chuyện gì với bạn thế?'",
+          "tempoIntent": "one clause, one breath, normal volume, question contour — no pause inside",
+          "emphasis": ["với bạn thế?"],
           "pauseBeforeSeconds": 0.0,
           "pauseAfterSeconds": 0.0,
           "seed": null,
@@ -494,11 +460,15 @@
     }
   },
   "limitations": [
-    "The voice reference is unresolved: vietnamese-voice-samples/previews/ does not exist on this machine and no slug is proposed. All fourteen reference fields stay pending until the catalogue test and the benchmark are run.",
-    "The VieNeu clone supports only seed, denoise, local reference and silence padding. rate, pitch, volume, speed, atempo and style are unavailable and are requested nowhere in this file; all pacing and intensity direction is read by the voice-agent from phrase intent, not from the engine.",
+    "Reference handling: the pinned reference.source is the synthesis reference and is used UNMODIFIED — it carries no startSeconds/durationSeconds, so gen-voice-clone.py does not crop it. voice-agent must not create a second reference file under a different name: the sidecar is read-only for it, so a new filename would be invisible to the contract and the run would silently use the uncropped audio. If a re-cut is genuinely needed, overwrite this exact path and report it to the director.",
+    "The reference is a director decision (route 2, Thanh Long), justified by consistency with two videos already delivered in this repo that use the same file. It is NOT an owner confirmation: owner-notes.md holds only two 'hi' notes. vietnamese-voice-samples/previews/ does not exist on this machine, so no preview catalogue is cited and scripts/test_voice_catalog could not be run.",
+    "The VieNeu clone supports only seed, denoise and local reference (silence padding is not a supported control — no silence is synthesized inside the WAV). rate, pitch, volume, speed, atempo and style are unavailable and are requested nowhere in this file; all pacing and intensity direction is read by the voice-agent from phrase intent, not from the engine.",
     "All non-spoken cues stay disabled: no [cười], no [thở dài], no [hắng giọng] and no actingCue field anywhere.",
-    "Silence is real: pauseBeforeSeconds/pauseAfterSeconds pad inside one clip, and minimumPostClipHoldSeconds is a gap between two clips in the timeline. No beat is ever created with punctuation.",
+    "Silence is real: pauseBeforeSeconds/pauseAfterSeconds are timeline holds applied by the timeline/Reel layer between phrase segments (never WAV padding), and minimumPostClipHoldSeconds is the timeline hold after the clip. No beat is ever created with punctuation or ellipsis. img1, img2 and END have no voice key and carry no speech.",
+    "silencePadding is not used by this packet: all silence lives in the timeline as phrase-gap holds, post-clip holds and the END card hold; every WAV clip contains spoken text only.",
+    "Phrases are joined with exactly one space (phraseJoin). An assembler joining with an empty string would merge two words and fail the CER gate.",
     "Naturalness, intimacy and emotional delivery are not verifiable from this file or from ASR; only the voice-agent's measured clip data and the user's optional listen can confirm them.",
-    "The 3.9 syl/s planning rate is an assumption. Measured clips decide the final timeline; the plan stays inside 45-55 s from 4.2 down to 3.7 syl/s (script.md section 4 gives the elasticity order in both directions)."
+    "The 3.9 syl/s planning rate is a planning figure, not a measurement: 4.1 syl/s is this repo's planning convention (docs/motion-design-lab/script.md:23) and the measured Thanh-Long runs in this repo are lower (docs/xay-doi-minh-hay-chung-minh/voice-report.md:24 = 3.75 syl/s; docs/lam-lai-.../audio-review.md:12 = 3.5-3.7), so the plan already sits at the measured rate and the intimate register is carried by holds, emphasis and light rather than by slowing the voice down.",
+    "The 3.9 syl/s figure is an assumption pending measurement of this video's own clips. Measured clips decide the final timeline; the plan stays inside 45-55 s for any rate between 3.29 and 4.43 syl/s, and script.md section 5 gives the elasticity order in both directions."
   ]
 }

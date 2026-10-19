@@ -84,8 +84,6 @@ Render a registered composition without editing `package.json`:
 
 ```bash
 npm run render -- --list
-npm run render -- --id TruongThanhReel --out out/truong-thanh.mp4
-npm run render -- --id TruongThanhReel --dry-run
 ```
 
 `npm run render` still renders the previous default composition (`UnderstandAnythingReel`) for backward compatibility. Existing assets referenced by some compositions are external; follow `public/.external-assets.json` if a render reports missing media.

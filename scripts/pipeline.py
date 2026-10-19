@@ -44,7 +44,7 @@ import unicodedata
 from contextlib import contextmanager
 from datetime import datetime
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
-from pathlib import Path
+from pathlib import Path, PureWindowsPath
 
 ROOT = Path(__file__).resolve().parent.parent
 DOCS = ROOT / "docs"
@@ -1190,18 +1190,21 @@ V4_STAGE_DOCS = {
 STALE_SECONDS = 2 * 3600
 
 
-def review_report_exists(folder: str, report: str) -> bool:
+def review_report_candidates(folder: str, report: str) -> tuple[Path, ...]:
     # Reports may be stored relative to the repo or as an absolute path from another machine.
     p = Path(report)
-    return (ROOT / p).is_file() or p.is_file() or (DOCS / folder / p.name).is_file()
+    return ROOT / p, p, DOCS / folder / PureWindowsPath(report).name
+
+
+def review_report_exists(folder: str, report: str) -> bool:
+    return any(p.is_file() for p in review_report_candidates(folder, report))
 
 
 MIN_REVIEW_BYTES = 600  # a passing report this small cannot hold scored criteria plus evidence
 
 
 def review_report_size(folder: str, report: str) -> int:
-    p = Path(report)
-    for c in (ROOT / p, p, DOCS / folder / p.name):
+    for c in review_report_candidates(folder, report):
         if c.is_file():
             return c.stat().st_size
     return 0
@@ -1236,12 +1239,12 @@ def audit(folder: str) -> dict:
         for entry in data.get("reviews", {}).get(gate, []):
             report = entry.get("report")
             if entry.get("verdict") != "override" and report and not review_report_exists(folder, report):
-                errors.append(f"review {gate} report {Path(report).name} is missing")
+                errors.append(f"review {gate} report {PureWindowsPath(report).name} is missing")
             elif gate == "C" and entry.get("verdict") == "pass" and report and review_report_exists(folder, report) \
-                    and (problem := visual_problem(next(c for c in (ROOT / Path(report), Path(report), DOCS / folder / Path(report).name) if c.is_file()))):
+                    and (problem := visual_problem(next(c for c in review_report_candidates(folder, report) if c.is_file()))):
                 errors.append(f"review C passed without visual evidence: {problem}")
             elif entry.get("verdict") == "pass" and report and review_report_size(folder, report) < MIN_REVIEW_BYTES:
-                errors.append(f"review {gate} report {Path(report).name} is too thin to be evidence "
+                errors.append(f"review {gate} report {PureWindowsPath(report).name} is too thin to be evidence "
                               f"({review_report_size(folder, report)} bytes; a real review cites files, frames or rows)")
     for name, agent in data.get("agents", {}).items():
         stage = stages.get(agent.get("stage", ""))

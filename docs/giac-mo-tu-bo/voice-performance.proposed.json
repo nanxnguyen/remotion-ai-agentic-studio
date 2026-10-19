@@ -1,0 +1,662 @@
+{
+  "version": 3,
+  "canonicalText": "docs/giac-mo-tu-bo/voice.proposed.json",
+  "engine": {
+    "name": "route 2 — local VieNeu clone (~/.venvs/vieneu) with a local WAV reference",
+    "selectedReference": "docs/giac-mo-tu-bo/voice-ref/thanh-long-nang-cao-ref.wav",
+    "runtime": "vieneu-v3-turbo-3.8.3 (local)",
+    "externalUpload": false,
+    "supportedControls": ["referenceAudio", "seed", "denoise", "silencePadding"],
+    "fixedControls": {
+      "denoise": false
+    },
+    "unsupportedControls": ["rate", "pitch", "volume", "speed", "atempo", "style", "directEmotion"],
+    "postProcessingRestrictions": ["no atempo", "no pitch shifting for expression"],
+    "note": "Controls listed here are the declared baseline; any control not in supportedControls is an explicit limitation, never silently ignored. Every per-phrase controls block below requests denoise:false only — nothing in this packet asks the engine for rate, pitch, volume or an emotion."
+  },
+  "phraseJoin": " ",
+  "phraseJoinRule": "\" \".join(phrase.text) must equal voice.proposed.json[key] byte-for-byte; every phrase boundary below falls on a canonical single space. Verified before generation. 33 phrases across 17 keys.",
+  "benchmark": {
+    "status": "reference PENDING — docs/giac-mo-tu-bo/voice-ref/ does not exist yet; voice-agent cuts the reference into that exact path",
+    "selectionAuthority": "video-director / Phase 0 fact: the owner authorised cloning Thanh Long Nâng Cao in the monitor on 2026-10-18 (request.md), status.json already carries voice: \"thanh-long-nang-cao\", and Phase 0 preflight recorded the preview decoding",
+    "ownerConfirmed": false,
+    "ownerConfirmationEvidence": "owner-notes.md carries no voice instruction; no owner confirmation of any reference cut exists and none is claimed. The voice CHOICE is an owner authorisation; the reference FILE is not yet cut.",
+    "selectedReference": "docs/giac-mo-tu-bo/voice-ref/thanh-long-nang-cao-ref.wav",
+    "resolvedReferencePath": "docs/giac-mo-tu-bo/voice-ref/thanh-long-nang-cao-ref.wav",
+    "referenceFileFacts": "does NOT exist yet — the directory docs/giac-mo-tu-bo/voice-ref/ contains no files as of this writing (directory listing returns nothing). It must be 6-8 s, one speaker, no music, no background. I could not run ffprobe or ls: this runtime has no shell or process-execution tool.",
+    "referenceNamingConvention": "a same-named reference already exists for another video (docs/ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu/voice-ref/thanh-long-nang-cao-ref.wav), which is why this packet uses that filename",
+    "previewCatalogueAvailable": true,
+    "previewCatalogueNote": "vietnamese-voice-samples/previews/ DOES exist on this machine and contains Thanh-Long-Nang-Cao.mp3 (confirmed by listing the directory). Phase 0 preflight recorded that preview decoding as a 35.93 s mp3. voice-agent must listen to it before cutting, because it is a demo reel and the cut has to be one clean sentence.",
+    "identity": "planningTotal(rate) = SUM(syl/rate) + SUM(pauseAfterSeconds) + SUM(postClipHold over voiced keys) + END hold = SUM(syl/rate) + 2.60 + 5.80 + 2.80 = SUM(syl/rate) + 11.20 s",
+    "durationContractSeconds": [50, 60],
+    "planningSyllables": 175,
+    "ownerSyllables": 129,
+    "addedSyllables": 46,
+    "addedKeys": ["s3", "s4", "s6", "s8", "s15"],
+    "planningRateSyllablesPerSecond": 3.9,
+    "sumPauseAfterSeconds": 2.6,
+    "sumPostClipHoldSeconds": 5.8,
+    "endHoldSeconds": 2.8,
+    "fixedSilenceSeconds": 11.2,
+    "totalSecondsAt4_4": 50.97,
+    "totalSecondsAt4_2": 52.87,
+    "totalSecondsAt4_1": 53.88,
+    "totalSecondsAt3_9": 56.07,
+    "totalSecondsAt3_7": 58.5,
+    "totalSecondsAt3_6": 59.81,
+    "breakEvenFloorRateSyllablesPerSecond": 4.51,
+    "breakEvenCeilingRateSyllablesPerSecond": 3.586,
+    "noTrimRateBandSyllablesPerSecond": [3.586, 4.51],
+    "trimSetRecoveredSeconds": 1.85,
+    "trimSetFloorRateSyllablesPerSecond": 3.455,
+    "extensionSetAddedSeconds": 3.0,
+    "extensionSetCeilingRateSyllablesPerSecond": 4.888,
+    "plannedSlotsAt3_9SyllablesPerSecond": {
+      "s1": [0.0, 2.82],
+      "s2": [3.07, 6.15],
+      "s3": [6.4, 8.96],
+      "s4": [9.21, 11.26],
+      "s5a": [11.51, 13.76],
+      "s5b": [13.76, 14.78],
+      "s6": [15.03, 18.1],
+      "s7": [18.35, 22.96],
+      "s8": [23.36, 25.87],
+      "s9": [26.17, 27.97],
+      "s10": [28.42, 31.23],
+      "s11": [31.58, 34.4],
+      "s12": [34.85, 38.38],
+      "s13": [38.83, 41.39],
+      "s14": [41.69, 43.69],
+      "s15": [44.39, 46.94],
+      "s16": [47.29, 52.72],
+      "END": [53.27, 56.07]
+    },
+    "machineChecks": ["canonical text", "CER/ASR", "duration", "silence", "loudness", "clipping", "cross-phrase consistency"],
+    "naturalnessEvidence": "not verified by listening"
+  },
+  "keyPlan": {
+    "order": ["s1", "s2", "s3", "s4", "s5a", "s5b", "s6", "s7", "s8", "s9", "s10", "s11", "s12", "s13", "s14", "s15", "s16"],
+    "ownerKeys": ["s1", "s2", "s5a", "s5b", "s7", "s9", "s10", "s11", "s12", "s13", "s14", "s16"],
+    "addedKeys": ["s3", "s4", "s6", "s8", "s15"],
+    "noVoiceKeyShots": ["END (silent topic card, 53.27-56.07 s, no speech at all)"],
+    "ownerLineFourSplit": "s5a + s5b are owner line #4 split across two keys. Their join reproduces the owner's sentence order, but the break is a REAL timestamp gap, not punctuation: a cloned voice cannot be told to pause, so 'Để khi nào rảnh.' is a separate key. This is the single most important structural decision in the packet — the deferral must be heard as small and finished, and the silence after it is what makes it land.",
+    "ownerLineOneMerge": "s1 merges owner lines 1 + 3 and drops the two-syllable opener 'Ngày trước,' so the hook is a two-clause sentence whose last syllable falls at 11/rate = 2.50/2.62/2.82/2.97/3.06 s at 4.4/4.2/3.9/3.7/3.6 syl/s (inside 3 s for rate >= 3.667; the 3.586 band edge = 3.07 s is stated honestly in script.md section 1.1).",
+    "playback": "scripts/gen-voice-clone.py walks voice.proposed.json in insertion order, so keyPlan.order IS the playback order; no key is reordered."
+  },
+  "ending": {
+    "lastWordEndsAtSeconds": 52.72,
+    "lastWordAtOtherRates": { "4.4": 47.62, "4.2": 49.52, "3.9": 52.72, "3.7": 55.15, "3.6": 56.46 },
+    "bgmCutsAtSeconds": 52.72,
+    "lastWordNote": "s16 is two sentences with a real 0.30 s pauseAfterSeconds BETWEEN them, so its clip end — and the last word of the video — is s16Start(rate) + 9/rate + 0.30 + 11/rate. start + 20/rate is NOT the last word: it drops the intra-clip gap and would cut BGM 0.30 s before the closing sentence ends.",
+    "postClipHoldSeconds": 0.55,
+    "silentCardSeconds": 2.8,
+    "audioTailSeconds": 3.35,
+    "audioTailNote": "the post-word audio tail is postClipHoldSeconds + silentCardSeconds = 0.55 + 2.80 = 3.35 s; and lastWordEndsAtSeconds + postClipHoldSeconds + silentCardSeconds = 52.72 + 0.55 + 2.80 = 56.07 = benchmark.totalSecondsAt3_9",
+    "silentCardElasticRange": [2.4, 4.8],
+    "silentCardElasticRangeNote": "this range bounds silentCardSeconds only. The +0.40 s shrink (2.80 -> 2.40) is step 2 of the too-long elasticity set, and the +2.00 s stretch (2.80 -> 4.80) is step 1 of the too-short set. Stretching the card lengthens audioTailSeconds, so script.md section 1 must be recomputed at the measured rate.",
+    "closeNeverRefilled": "s16 is never re-read faster, slower, louder or with more feeling to fill a gap. If the total lands short, the fix is the tail (END card, then s16 hold, then s14 hold), in exactly that order."
+  },
+  "candidatePolicy": {
+    "initialCandidatesPerPhrase": 1,
+    "maximumCandidatesPerPhrase": 3,
+    "regenerateOnlyFailedPhraseOrKeyword": true,
+    "pinnedSeedMustPassCanonicalTextCheck": true
+  },
+  "pauseImplementation": "explicit post-synthesis silence during phrase assembly; never inferred from punctuation or ellipsis. pauseBeforeSeconds/pauseAfterSeconds pad inside one clip; minimumPostClipHoldSeconds is a real gap between two clips in the timeline, so every measured clip duration contains speech plus its own clause pauses only. s5a/s5b exist as two keys precisely because a cloned voice cannot be told to pause; s13's beat is an intra-clip pauseAfterSeconds and NOT the owner's ellipsis.",
+  "experimentalCues": {
+    "enabled": false,
+    "values": [],
+    "note": "[cười], [thở dài], [hắng giọng] and similar non-spoken cues remain disabled unless a local benchmark proves the installed engine renders them as intended without leaking into narration or captions. No actingCue field exists anywhere in this file: s15's 'slightly amused' is a direction, not a sound, and no performed laugh or sigh is requested."
+  },
+  "shots": {
+    "s1": {
+      "reference": { "source": "docs/giac-mo-tu-bo/voice-ref/thanh-long-nang-cao-ref.wav" },
+      "referenceSelectionStatus": "pending",
+      "referenceSelectionReason": "docs/giac-mo-tu-bo/voice-ref/ does not exist yet; voice-agent cuts the 6-8 s single-speaker WAV into this exact path",
+      "intent": "HOOK + frame-0 cover: name what the viewer promised and what got in the way; the on-screen headline 'Bạn từng nói sẽ học đàn.' must carry the hook with the sound off",
+      "emotion": "curious, recognising, level, faintly wry",
+      "accentWords": ["học đàn", "đi làm"],
+      "tempoIntent": "the lightest and quickest read in the video: brisk and light through 'Bạn từng nói mình sẽ', settling on 'học đàn' with a full stop, then the second sentence delivered LOWER AND FLATTER than the first",
+      "ending": "flat, level — a statement, not a question; 'làm.' set down and closed",
+      "minimumPostClipHoldSeconds": 0.25,
+      "postClipHoldPolicy": "timeline silence after clip, not punctuation — the badge lands on the list during it",
+      "phrases": [
+        {
+          "text": "Bạn từng nói mình sẽ học đàn.",
+          "tempoIntent": "brisk and light, settling on the last two words",
+          "emphasis": ["học đàn"],
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.0,
+          "seed": null,
+          "controls": { "denoise": false }
+        },
+        {
+          "text": "Rồi bạn đi làm.",
+          "tempoIntent": "lower and flatter than the first sentence — a cut, not a lament",
+          "emphasis": ["đi làm"],
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.0,
+          "seed": null,
+          "controls": { "denoise": false }
+        }
+      ]
+    },
+    "s2": {
+      "reference": { "source": "docs/giac-mo-tu-bo/voice-ref/thanh-long-nang-cao-ref.wav" },
+      "referenceSelectionStatus": "pending",
+      "referenceSelectionReason": "docs/giac-mo-tu-bo/voice-ref/ does not exist yet; voice-agent cuts the 6-8 s single-speaker WAV into this exact path",
+      "intent": "The first payoff: turn 'you wanted this' into a page with eleven lines on it; this is the beat the contract marks as the first payoff (< 8 s)",
+      "emotion": "warm by one degree, unhurried — the only line in the video allowed to sound pleased",
+      "accentWords": ["danh sách", "muốn chơi"],
+      "tempoIntent": "even through 'Bạn đã lưu cả một danh sách', then slightly slower on 'những bài hát muốn chơi.' with the stress on 'muốn'",
+      "ending": "flat landing on 'chơi.'; pleased but not rising",
+      "minimumPostClipHoldSeconds": 0.25,
+      "postClipHoldPolicy": "timeline silence after clip — the page settles in it",
+      "phrases": [
+        {
+          "text": "Bạn đã lưu cả một danh sách",
+          "tempoIntent": "even, unhurried",
+          "emphasis": ["danh sách"],
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.0,
+          "seed": null,
+          "controls": { "denoise": false }
+        },
+        {
+          "text": "những bài hát muốn chơi.",
+          "tempoIntent": "slightly slower, stress on 'muốn'",
+          "emphasis": ["muốn chơi"],
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.0,
+          "seed": null,
+          "controls": { "denoise": false }
+        }
+      ]
+    },
+    "s3": {
+      "reference": { "source": "docs/giac-mo-tu-bo/voice-ref/thanh-long-nang-cao-ref.wav" },
+      "referenceSelectionStatus": "pending",
+      "referenceSelectionReason": "docs/giac-mo-tu-bo/voice-ref/ does not exist yet; voice-agent cuts the 6-8 s single-speaker WAV into this exact path",
+      "intent": "[ADD] make the paper itself physical — three short statements, nothing more",
+      "emotion": "quiet, factual, almost to itself",
+      "accentWords": ["mỏng", "bút bi xanh", "viết dở"],
+      "tempoIntent": "three short statements, each landing on its own; the third is the slowest of the three",
+      "ending": "flatter and lower on 'viết dở', then stopped — deliberately NOT a sad ending",
+      "minimumPostClipHoldSeconds": 0.25,
+      "postClipHoldPolicy": "timeline silence after clip, before the office",
+      "phrases": [
+        {
+          "text": "Trang sổ mỏng,",
+          "tempoIntent": "short, plain",
+          "emphasis": ["mỏng"],
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.25,
+          "seed": null,
+          "controls": { "denoise": false }
+        },
+        {
+          "text": "chữ bút bi xanh, viết dở.",
+          "tempoIntent": "slowest of the three, settled",
+          "emphasis": ["bút bi xanh", "viết dở"],
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.0,
+          "seed": null,
+          "controls": { "denoise": false }
+        }
+      ]
+    },
+    "s4": {
+      "reference": { "source": "docs/giac-mo-tu-bo/voice-ref/thanh-long-nang-cao-ref.wav" },
+      "referenceSelectionStatus": "pending",
+      "referenceSelectionReason": "docs/giac-mo-tu-bo/voice-ref/ does not exist yet; voice-agent cuts the 6-8 s single-speaker WAV into this exact path",
+      "intent": "[ADD] stage the cause as routine, with no complaint — this is the frame where the light turns cold (L1)",
+      "emotion": "flat, administrative — the least emotional read in the video",
+      "accentWords": ["quẹt thẻ", "hộp thư đầy"],
+      "tempoIntent": "even and slightly hurried on the first clause; 'hộp thư đầy' lower, delivered as a full stop",
+      "ending": "flat, closed; no sigh and no weariness in the voice",
+      "minimumPostClipHoldSeconds": 0.25,
+      "postClipHoldPolicy": "timeline silence after clip — the routine lets go",
+      "phrases": [
+        {
+          "text": "Sáng nào cũng quẹt thẻ,",
+          "tempoIntent": "even, slightly hurried — a worn routine",
+          "emphasis": ["quẹt thẻ"],
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.0,
+          "seed": null,
+          "controls": { "denoise": false }
+        },
+        {
+          "text": "hộp thư đầy.",
+          "tempoIntent": "lower, full stop",
+          "emphasis": ["hộp thư đầy"],
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.0,
+          "seed": null,
+          "controls": { "denoise": false }
+        }
+      ]
+    },
+    "s5a": {
+      "reference": { "source": "docs/giac-mo-tu-bo/voice-ref/thanh-long-nang-cao-ref.wav" },
+      "referenceSelectionStatus": "pending",
+      "referenceSelectionReason": "docs/giac-mo-tu-bo/voice-ref/ does not exist yet; voice-agent cuts the 6-8 s single-speaker WAV into this exact path",
+      "intent": "Stage the habit, with no self-judgement; the colon at the end is left hanging on purpose",
+      "emotion": "faintly amused, completely unbothered",
+      "accentWords": ["định mua đàn", "lại nghĩ"],
+      "tempoIntent": "light through 'Mỗi lần định mua đàn,', then 'bạn lại nghĩ:' lower and slower",
+      "ending": "hanging — the colon is NOT resolved inside this key, deliberately",
+      "minimumPostClipHoldSeconds": 0.0,
+      "postClipHoldPolicy": "no gap after this clip — s5b starts on the same timestamp (13.76 s at 3.9 syl/s). The two keys are joined by the ear, not by silence, so the excuse arrives as one movement.",
+      "phrases": [
+        {
+          "text": "Mỗi lần định mua đàn,",
+          "tempoIntent": "light, conversational",
+          "emphasis": ["định mua đàn"],
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.2,
+          "seed": null,
+          "controls": { "denoise": false }
+        },
+        {
+          "text": "bạn lại nghĩ:",
+          "tempoIntent": "lower and slower, colon left hanging",
+          "emphasis": ["lại nghĩ"],
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.0,
+          "seed": null,
+          "controls": { "denoise": false }
+        }
+      ]
+    },
+    "s5b": {
+      "reference": { "source": "docs/giac-mo-tu-bo/voice-ref/thanh-long-nang-cao-ref.wav" },
+      "referenceSelectionStatus": "pending",
+      "referenceSelectionReason": "docs/giac-mo-tu-bo/voice-ref/ does not exist yet; voice-agent cuts the 6-8 s single-speaker WAV into this exact path",
+      "intent": "CP2, member 1 — say the deferral AS SMALL AS IT WAS ACTUALLY SAID. This is the turn the whole video is built on, and it only works if the voice under-sells it.",
+      "emotion": "quiet, quick, dismissive. Nothing in the voice may sound like a warning, a regret or a lesson.",
+      "accentWords": ["khi nào rảnh"],
+      "tempoIntent": "the whole key is FAST; there is no slow section in it at all. This is the smallest and quickest line in the packet.",
+      "ending": "level to the end; the sentence simply finishes and is left with nobody to answer it",
+      "minimumPostClipHoldSeconds": 0.25,
+      "postClipHoldPolicy": "timeline silence after clip — deliberately BEFORE s6, so the excuse has one beat of air before the finger reaches the button. The beat is never made by punctuation; the key is split precisely because a cloned voice cannot be told to pause.",
+      "phrases": [
+        {
+          "text": "'Để khi nào rảnh.'",
+          "tempoIntent": "fast, small, dismissive — said once, not performed",
+          "emphasis": ["khi nào rảnh"],
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.0,
+          "seed": null,
+          "controls": { "denoise": false }
+        }
+      ]
+    },
+    "s6": {
+      "reference": { "source": "docs/giac-mo-tu-bo/voice-ref/thanh-long-nang-cao-ref.wav" },
+      "referenceSelectionStatus": "pending",
+      "referenceSelectionReason": "docs/giac-mo-tu-bo/voice-ref/ does not exist yet; voice-agent cuts the 6-8 s single-speaker WAV into this exact path",
+      "intent": "[ADD] make the deferral cost something visible — the finger that stops short; this shot carries the other member of CP2 (the live 'Mua ngay' button and the frozen finger)",
+      "emotion": "almost casual, then anticlimactic. There must be NO regret in the voice at all.",
+      "accentWords": ["khựng", "Mua ngay", "tắt màn hình"],
+      "tempoIntent": "fast through 'Ngón tay khựng trên nút Mua ngay,' and stopping dead on 'ngay'; then 'rồi tắt màn hình.' quieter and lower than everything before it",
+      "ending": "falling, small, closed — an anticlimax delivered as an anticlimax",
+      "minimumPostClipHoldSeconds": 0.25,
+      "postClipHoldPolicy": "timeline silence after clip — the dead screen is left alone for the whole hold before the re-hook, with no voice over it",
+      "phrases": [
+        {
+          "text": "Ngón tay khựng trên nút Mua ngay,",
+          "tempoIntent": "fast, then a dead stop on the last word",
+          "emphasis": ["khựng", "Mua ngay"],
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.25,
+          "seed": null,
+          "controls": { "denoise": false }
+        },
+        {
+          "text": "rồi tắt màn hình.",
+          "tempoIntent": "quieter and lower than everything before it; no breath after",
+          "emphasis": ["tắt màn hình"],
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.0,
+          "seed": null,
+          "controls": { "denoise": false }
+        }
+      ]
+    },
+    "s7": {
+      "reference": { "source": "docs/giac-mo-tu-bo/voice-ref/thanh-long-nang-cao-ref.wav" },
+      "referenceSelectionStatus": "pending",
+      "referenceSelectionReason": "docs/giac-mo-tu-bo/voice-ref/ does not exist yet; voice-agent cuts the 6-8 s single-speaker WAV into this exact path",
+      "intent": "RE-HOOK + H1 — the object is not lost, it is found, and the warm light arrives with it (L2, the video's one arrival). Measured at this clip's START (the first syllable of 'Vài năm sau'), because the reveal is the object appearing, not the sentence finishing.",
+      "emotion": "almost offhand, then warm — the plainest reading of the most important line in the video",
+      "accentWords": ["dọn nhà", "tìm thấy", "danh sách ấy"],
+      "tempoIntent": "light and level through 'Vài năm sau, trong một buổi dọn nhà,'; after the gap it is slower and lower, and 'danh sách ấy' lands as ONE unit",
+      "ending": "the last syllable stops, never fades; warmer but not louder",
+      "minimumPostClipHoldSeconds": 0.4,
+      "postClipHoldPolicy": "timeline silence after clip — the longest hold in the first half; the warm light and the found object are given time to be believed",
+      "phrases": [
+        {
+          "text": "Vài năm sau, trong một buổi dọn nhà,",
+          "tempoIntent": "light, level, unhurried — deliberately not dramatic",
+          "emphasis": ["dọn nhà"],
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.25,
+          "seed": null,
+          "controls": { "denoise": false }
+        },
+        {
+          "text": "bạn tìm thấy cuốn sổ có danh sách ấy.",
+          "tempoIntent": "slower and lower than the first phrase; the last three words as one unit",
+          "emphasis": ["tìm thấy", "danh sách ấy"],
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.0,
+          "seed": null,
+          "controls": { "denoise": false }
+        }
+      ]
+    },
+    "s8": {
+      "reference": { "source": "docs/giac-mo-tu-bo/voice-ref/thanh-long-nang-cao-ref.wav" },
+      "referenceSelectionStatus": "pending",
+      "referenceSelectionReason": "docs/giac-mo-tu-bo/voice-ref/ does not exist yet; voice-agent cuts the 6-8 s single-speaker WAV into this exact path",
+      "intent": "[ADD] the dust, and the hand doing the thing — said BESIDE the action, not about it",
+      "emotion": "small, tactile",
+      "accentWords": ["phủ kín", "vệt tay kéo qua"],
+      "tempoIntent": "light through 'Bụi phủ kín bìa,'; slower on 'một vệt tay kéo qua.' with the stress on 'vệt'",
+      "ending": "plain landing; closed",
+      "minimumPostClipHoldSeconds": 0.3,
+      "postClipHoldPolicy": "timeline silence after clip — the dust settles in it",
+      "phrases": [
+        {
+          "text": "Bụi phủ kín bìa,",
+          "tempoIntent": "light, tactile",
+          "emphasis": ["phủ kín"],
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.2,
+          "seed": null,
+          "controls": { "denoise": false }
+        },
+        {
+          "text": "một vệt tay kéo qua.",
+          "tempoIntent": "slower, stress on 'vệt'",
+          "emphasis": ["vệt tay kéo qua"],
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.0,
+          "seed": null,
+          "controls": { "denoise": false }
+        }
+      ]
+    },
+    "s9": {
+      "reference": { "source": "docs/giac-mo-tu-bo/voice-ref/thanh-long-nang-cao-ref.wav" },
+      "referenceSelectionStatus": "pending",
+      "referenceSelectionReason": "docs/giac-mo-tu-bo/voice-ref/ does not exist yet; voice-agent cuts the 6-8 s single-speaker WAV into this exact path",
+      "intent": "Make 'still intact' TRUE — the steadiest line in the video, and the steadiness is the point",
+      "emotion": "quiet, even",
+      "accentWords": ["ngày xưa", "còn nguyên"],
+      "tempoIntent": "no fast section; the whole key is even, with 'vẫn còn nguyên' only MARGINALLY slower than what precedes it",
+      "ending": "level and closed; no lift, and no gravity either",
+      "minimumPostClipHoldSeconds": 0.45,
+      "postClipHoldPolicy": "timeline silence after clip — the longest silence in the first half; the intact writing is allowed to be true",
+      "phrases": [
+        {
+          "text": "Chữ viết ngày xưa",
+          "tempoIntent": "even, steady",
+          "emphasis": ["ngày xưa"],
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.0,
+          "seed": null,
+          "controls": { "denoise": false }
+        },
+        {
+          "text": "vẫn còn nguyên.",
+          "tempoIntent": "marginally slower; level landing",
+          "emphasis": ["còn nguyên"],
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.0,
+          "seed": null,
+          "controls": { "denoise": false }
+        }
+      ]
+    },
+    "s10": {
+      "reference": { "source": "docs/giac-mo-tu-bo/voice-ref/thanh-long-nang-cao-ref.wav" },
+      "referenceSelectionStatus": "pending",
+      "referenceSelectionReason": "docs/giac-mo-tu-bo/voice-ref/ does not exist yet; voice-agent cuts the 6-8 s single-speaker WAV into this exact path",
+      "intent": "H2 (i) + L3 — the turn into tenderness. Pity, not self-blame (I3): the viewer must not hear the narrator judging the past self.",
+      "emotion": "close, plain",
+      "accentWords": ["ngồi đọc", "thấy thương"],
+      "tempoIntent": "'Bạn ngồi đọc,' level and ordinary; then the line THINS — it does not swell",
+      "ending": "the final syllable stops; quieter than everything before it",
+      "minimumPostClipHoldSeconds": 0.35,
+      "postClipHoldPolicy": "timeline silence after clip — the reader's held breath, without any performed breath",
+      "phrases": [
+        {
+          "text": "Bạn ngồi đọc,",
+          "tempoIntent": "level, ordinary",
+          "emphasis": ["ngồi đọc"],
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.25,
+          "seed": null,
+          "controls": { "denoise": false }
+        },
+        {
+          "text": "thấy thương người đã viết ra nó.",
+          "tempoIntent": "thinning, not swelling; no trembling, no breathiness, no upward bend on 'thương'",
+          "emphasis": ["thấy thương"],
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.0,
+          "seed": null,
+          "controls": { "denoise": false }
+        }
+      ]
+    },
+    "s11": {
+      "reference": { "source": "docs/giac-mo-tu-bo/voice-ref/thanh-long-nang-cao-ref.wav" },
+      "referenceSelectionStatus": "pending",
+      "referenceSelectionReason": "docs/giac-mo-tu-bo/voice-ref/ does not exist yet; voice-agent cuts the 6-8 s single-speaker WAV into this exact path",
+      "intent": "H2 (ii) — say the fact the past self could not have known. This is the quietest line in the packet.",
+      "emotion": "not sad — observational. Said about a stranger, not about yourself.",
+      "accentWords": ["đâu biết", "bận đến thế"],
+      "tempoIntent": "nearly conversational on 'Người ấy đâu biết sau này'; slower and lower on 'mình sẽ bận đến thế.'",
+      "ending": "volume drops on 'bận đến thế' and stops there — never a whisper, never a trail-off",
+      "minimumPostClipHoldSeconds": 0.45,
+      "postClipHoldPolicy": "timeline silence after clip — the flat hand on the cover; the pity beat is not interrupted by the next line",
+      "phrases": [
+        {
+          "text": "Người ấy đâu biết sau này",
+          "tempoIntent": "nearly conversational",
+          "emphasis": ["đâu biết"],
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.0,
+          "seed": null,
+          "controls": { "denoise": false }
+        },
+        {
+          "text": "mình sẽ bận đến thế.",
+          "tempoIntent": "slower and lower; drops in level and stops — no breath, no trail-off",
+          "emphasis": ["bận đến thế"],
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.0,
+          "seed": null,
+          "controls": { "denoise": false }
+        }
+      ]
+    },
+    "s12": {
+      "reference": { "source": "docs/giac-mo-tu-bo/voice-ref/thanh-long-nang-cao-ref.wav" },
+      "referenceSelectionStatus": "pending",
+      "referenceSelectionReason": "docs/giac-mo-tu-bo/voice-ref/ does not exist yet; voice-agent cuts the 6-8 s single-speaker WAV into this exact path",
+      "intent": "CP3, member 1 — take the musician off the viewer, as a permission",
+      "emotion": "steady, even, unsentimental — not relief, and not melancholy either",
+      "accentWords": ["Có thể", "không còn muốn", "nhạc công"],
+      "tempoIntent": "'Có thể hôm nay' light; then the long clause steady and even, with the stress on 'không còn muốn' and on 'nhạc công'",
+      "ending": "'nữa.' set down flat and closed — this is a permission, not a loss",
+      "minimumPostClipHoldSeconds": 0.45,
+      "postClipHoldPolicy": "timeline silence after clip — the empty page in the warm bar",
+      "phrases": [
+        {
+          "text": "Có thể hôm nay",
+          "tempoIntent": "light",
+          "emphasis": ["Có thể"],
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.2,
+          "seed": null,
+          "controls": { "denoise": false }
+        },
+        {
+          "text": "bạn không còn muốn trở thành nhạc công nữa.",
+          "tempoIntent": "steady and even to the end; flat close",
+          "emphasis": ["không còn muốn", "nhạc công"],
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.0,
+          "seed": null,
+          "controls": { "denoise": false }
+        }
+      ]
+    },
+    "s13": {
+      "reference": { "source": "docs/giac-mo-tu-bo/voice-ref/thanh-long-nang-cao-ref.wav" },
+      "referenceSelectionStatus": "pending",
+      "referenceSelectionReason": "docs/giac-mo-tu-bo/voice-ref/ does not exist yet; voice-agent cuts the 6-8 s single-speaker WAV into this exact path",
+      "intent": "The pivot — the one word that turns the whole video. The owner's '…' is KEPT VERBATIM in the text and is NOT performed: the beat is the 0.25 s clip-internal gap after 'Nhưng', never a sustained vowel and never the ellipsis itself.",
+      "emotion": "quiet, level, warm — 'Nhưng' said without any lift at all",
+      "accentWords": ["Nhưng", "vẫn thích", "cây đàn"],
+      "tempoIntent": "'Nhưng' alone, quiet and level; then 0.25 s of real silence; then the clause unhurried to the end",
+      "ending": "the last syllable trails very slightly and is NOT stretched; deliberately unresolved",
+      "minimumPostClipHoldSeconds": 0.3,
+      "postClipHoldPolicy": "timeline silence after clip — the note rings out",
+      "phrases": [
+        {
+          "text": "Nhưng",
+          "tempoIntent": "one word, quiet, level, no lift",
+          "emphasis": ["Nhưng"],
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.25,
+          "seed": null,
+          "controls": { "denoise": false }
+        },
+        {
+          "text": "nếu vẫn thích âm thanh của cây đàn…",
+          "tempoIntent": "unhurried to the end; the ellipsis is not performed and the vowel is not held",
+          "emphasis": ["vẫn thích", "cây đàn"],
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.0,
+          "seed": null,
+          "controls": { "denoise": false }
+        }
+      ]
+    },
+    "s14": {
+      "reference": { "source": "docs/giac-mo-tu-bo/voice-ref/thanh-long-nang-cao-ref.wav" },
+      "referenceSelectionStatus": "pending",
+      "referenceSelectionReason": "docs/giac-mo-tu-bo/voice-ref/ does not exist yet; voice-agent cuts the 6-8 s single-speaker WAV into this exact path",
+      "intent": "CP3, member 2 — the smallest possible sentence. An offer, not advice and not a challenge.",
+      "emotion": "minimal weight; nothing is being sold here",
+      "accentWords": ["học", "một hợp âm"],
+      "tempoIntent": "'Bạn có thể học' light and quick; 'một hợp âm.' slow and level",
+      "ending": "finished and closed — a full stop, definitely NOT a hook and NOT a call to action",
+      "minimumPostClipHoldSeconds": 0.7,
+      "postClipHoldPolicy": "timeline silence after clip — the video's longest pre-climax hold; the finger presses, releases, presses again inside it",
+      "phrases": [
+        {
+          "text": "Bạn có thể học",
+          "tempoIntent": "light and quick",
+          "emphasis": ["học"],
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.2,
+          "seed": null,
+          "controls": { "denoise": false }
+        },
+        {
+          "text": "một hợp âm.",
+          "tempoIntent": "slow and level, closed",
+          "emphasis": ["một hợp âm"],
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.0,
+          "seed": null,
+          "controls": { "denoise": false }
+        }
+      ]
+    },
+    "s15": {
+      "reference": { "source": "docs/giac-mo-tu-bo/voice-ref/thanh-long-nang-cao-ref.wav" },
+      "referenceSelectionStatus": "pending",
+      "referenceSelectionReason": "docs/giac-mo-tu-bo/voice-ref/ does not exist yet; voice-agent cuts the 6-8 s single-speaker WAV into this exact path",
+      "intent": "[ADD] H3 + L4 — the sound payoff, and it is imperfect ON PURPOSE. The buzz is in the mix, not in the voice; no performed laugh sound is requested anywhere.",
+      "emotion": "warm, slightly amused, unimpressed with itself",
+      "accentWords": ["rè nhẹ", "chưa quen"],
+      "tempoIntent": "'Một hợp âm rè nhẹ,' almost apologetic; slower on 'ngón ấn chưa quen.'",
+      "ending": "'chưa quen' takes the last emphasis of the video and the final syllable stops dead",
+      "minimumPostClipHoldSeconds": 0.35,
+      "postClipHoldPolicy": "timeline silence after clip — the buzz and the dent are left alone",
+      "phrases": [
+        {
+          "text": "Một hợp âm rè nhẹ,",
+          "tempoIntent": "almost apologetic, small",
+          "emphasis": ["rè nhẹ"],
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.25,
+          "seed": null,
+          "controls": { "denoise": false }
+        },
+        {
+          "text": "ngón ấn chưa quen.",
+          "tempoIntent": "slower, unimpressed with itself; final syllable stops dead",
+          "emphasis": ["chưa quen"],
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.0,
+          "seed": null,
+          "controls": { "denoise": false }
+        }
+      ]
+    },
+    "s16": {
+      "reference": { "source": "docs/giac-mo-tu-bo/voice-ref/thanh-long-nang-cao-ref.wav" },
+      "referenceSelectionStatus": "pending",
+      "referenceSelectionReason": "docs/giac-mo-tu-bo/voice-ref/ does not exist yet; voice-agent cuts the 6-8 s single-speaker WAV into this exact path",
+      "intent": "The close — refuse the debt, then allow the joy. Last spoken key of the video; no CTA follows it.",
+      "emotion": "warm, settled — warmer than anything else in the video and not one degree louder",
+      "accentWords": ["bù lại", "được vui", "từng yêu thích"],
+      "tempoIntent": "the first sentence steady and slightly firm; the second warmer, with the movement on 'được vui' and the last three words slowing",
+      "ending": "settled, level, closed — the voice stops on the word",
+      "minimumPostClipHoldSeconds": 0.55,
+      "postClipHoldPolicy": "after this clip the voice stops and never returns; the END card adds 2.80 s; the post-word audio tail is 0.55 + 2.80 = 3.35 s in total, and BGM cuts at the last word (52.72 s at 3.9 syl/s)",
+      "phrases": [
+        {
+          "text": "Không phải để bù lại những năm đã qua.",
+          "tempoIntent": "steady and slightly firm — a debt being refused, not a lesson",
+          "emphasis": ["bù lại"],
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.3,
+          "seed": null,
+          "controls": { "denoise": false }
+        },
+        {
+          "text": "Chỉ để được vui với một điều mình từng yêu thích.",
+          "tempoIntent": "warmer, movement on 'được vui', last three words slowing; no breath and no sigh after",
+          "emphasis": ["được vui", "từng yêu thích"],
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.0,
+          "seed": null,
+          "controls": { "denoise": false }
+        }
+      ]
+    }
+  },
+  "limitations": [
+    "REFERENCE IS PENDING. docs/giac-mo-tu-bo/voice-ref/ does not exist yet — a directory listing returns no files — so all 17 referenceSelectionStatus fields are 'pending' and no field in this packet claims the WAV exists or is verified. voice-agent cuts a 6-8 s, one-speaker, music-free, background-free WAV from vietnamese-voice-samples/previews/Thanh-Long-Nang-Cao.mp3 (which DOES exist and was recorded by Phase 0 preflight as decoding to 35.93 s) into the exact pinned path.",
+    "Reference handling: the pinned reference.source is the synthesis reference and is used UNMODIFIED — it carries no startSeconds/durationSeconds, so gen-voice-clone.py does not crop it. voice-agent must not create a second reference file under a different name: the sidecar is read-only for it, so a new filename would be invisible to the contract and the run would silently use the wrong take. If a re-cut is genuinely needed, overwrite this exact path and report it to the director.",
+    "The voice CHOICE is a Phase 0 owner authorisation (Thanh Long Nâng Cao, 2026-10-18), not an agent choice; but the reference FILE is not owner-confirmed and owner-notes.md carries no voice instruction. Nothing here is presented as an owner confirmation.",
+    "I could not run ffprobe, ls, or the pipeline audit: this runtime has no shell or process-execution tool. Therefore no duration, sample rate, channel count or codec is claimed for a file that does not exist, and no measured per-clip rate for this video is claimed anywhere in this file.",
+    "The VieNeu clone supports only seed, denoise, local reference and silence padding. rate, pitch, volume, speed, atempo and style are unavailable and are requested nowhere in this file; all pacing and intensity direction must be read by the voice-agent from phrase intent, not from the engine.",
+    "All non-spoken cues stay disabled: no [cười], no [thở dài], no [hắng giọng], and no actingCue field anywhere. s15's 'slightly amused' must be carried by timing and the mix, never by a vocal sound effect.",
+    "Silence is real: pauseBeforeSeconds/pauseAfterSeconds pad inside one clip, and minimumPostClipHoldSeconds is a gap between two clips in the timeline. No beat is created with punctuation. This is why s5a and s5b are two keys, and why s13's pivot beat is an intra-clip pauseAfterSeconds rather than the owner's ellipsis — the ellipsis stays in the TEXT and is never performed.",
+    "Phrases are joined with exactly one space (phraseJoin). An assembler joining with an empty string would merge two words and fail the CER gate. 33 phrases over 17 keys, every boundary on a canonical single space.",
+    "Naturalness, intimacy and emotional delivery are not verifiable from this file or from ASR; only the voice-agent's measured clip data and the user's optional listen can confirm them.",
+    "The 3.9 syl/s planning rate is a PLANNING figure backed by same-voice measurements, not a measurement of this video: docs/thuong-hay-so-bat-dau-lai/voice-report.md:34 reports 207 syllables over 52.6 s = 3.9 syl/s for the identical Thanh-Long clone with per-clip values 3.58-4.01 (lines 17-27), and docs/chung-minh-de-lam-gi/voice-report.md (same ref) shows 3.17-4.45. 4.1 syl/s is this repo's planning CONVENTION, not a measurement (docs/motion-design-lab/script.md:23), which is why it is not the plan.",
+    "Measured clips decide the final timeline. The plan stays inside the owner's 50-60 s for any measured rate between 3.586 and 4.510 syl/s with no trim; script.md section 5 gives the elasticity order in both directions (1.85 s recoverable, 3.00 s extensible) and states the honest bounds, and no owner word and no audio speed is ever traded for timing.",
+    "The END card is intended to stay silent. If the owner later asks for the topic line to be SPOKEN, it becomes an 18th key inserted BEFORE the card, not inside it (script.md section 8: 10 syl = 2.56 s at 3.9 syl/s, total 58.63 s). No figure in that contingency is a timeline number today."
+  ]
+}

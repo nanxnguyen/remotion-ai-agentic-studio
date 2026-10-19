@@ -2,7 +2,7 @@ import {describe, expect, it} from 'vitest';
 import {videoRegistry} from '../../src/videos/registry';
 
 describe('videoRegistry', () => {
-  it('preserves the eight published compositions and their metadata', () => {
+  it('preserves the published compositions and their metadata', () => {
     expect(
       videoRegistry
         .filter((video) => !video.tags?.includes('demo'))
@@ -14,16 +14,18 @@ describe('videoRegistry', () => {
           height,
         })),
     ).toEqual([
-      {id: 'TruongThanhReel', durationInFrames: 1613, fps: 30, width: 1080, height: 1920},
       {id: 'CamonReel', durationInFrames: 1521, fps: 30, width: 1080, height: 1920},
-      {id: 'GaplaiReel', durationInFrames: 1518, fps: 30, width: 1080, height: 1920},
       {id: 'MetkhongReel', durationInFrames: 1531, fps: 30, width: 1080, height: 1920},
-      {id: 'CuocGoiNhoReel', durationInFrames: 1419, fps: 30, width: 1080, height: 1920},
+      {id: 'CuocGoiNhoReel', durationInFrames: 1308, fps: 30, width: 1080, height: 1920},
       {id: 'UnderstandAnythingReel', durationInFrames: 1290, fps: 30, width: 1080, height: 1920},
       {id: 'ThuongHaySoReel', durationInFrames: 1769, fps: 30, width: 1080, height: 1920},
       {id: 'XayDoiMinhReel', durationInFrames: 1776, fps: 30, width: 1080, height: 1920},
       {id: 'ChungMinhDeLamGiReel', durationInFrames: 1728, fps: 30, width: 1080, height: 1920},
       {id: 'TiecNguoiHayNamThangReel', durationInFrames: 1422, fps: 30, width: 1080, height: 1920},
+      {id: 'DungBienTuoi30ThanhBanAnReel', durationInFrames: 1549, fps: 30, width: 1080, height: 1920},
+      {id: 'LamLaiKhongCoNghiaLaQuayVeSoKhongBanReel', durationInFrames: 875, fps: 30, width: 1080, height: 1920},
+      {id: 'BanKhongCanTroThanhAiKhacDeDuocYeuReel', durationInFrames: 1767, fps: 30, width: 1080, height: 1920},
+      {id: 'BanKhongYeuDuoiReel', durationInFrames: 720, fps: 30, width: 1080, height: 1920},
     ]);
   });
 

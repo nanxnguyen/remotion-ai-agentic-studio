@@ -1,0 +1,254 @@
+{
+  "workflow_version": 4,
+  "name": "8. Có những giấc mơ bạn đã âm thầm từ bỏ\nChủ đề: Ước mơ · Nuối tiếc · Khao khát ",
+  "comp": "GiacMoTuBoReel",
+  "voice": "thanh-long-nang-cao",
+  "profile": "story",
+  "paths": {
+    "audio": "giac-mo-tu-bo",
+    "out": "giac-mo-tu-bo-thanh-long-nang-cao",
+    "qa": "giac-mo-tu-bo"
+  },
+  "gates": [],
+  "stages": {
+    "research": {
+      "state": "done",
+      "at": "2026-10-18T23:56:00+07:00",
+      "note": "Phase 1: audience language + 5 hook candidates; owner account is primary source"
+    },
+    "motion": {
+      "state": "pending"
+    },
+    "qa": {
+      "state": "pending"
+    },
+    "brief": {
+      "state": "in_progress",
+      "at": "2026-10-18T23:56:07+07:00"
+    },
+    "script": {
+      "state": "in_progress",
+      "at": "2026-10-18T23:56:07+07:00"
+    }
+  },
+  "reviews": {
+    "A": [
+      {
+        "at": "2026-10-19T00:43:28+07:00",
+        "reviewer": "script-reviewer",
+        "score": 8.9,
+        "verdict": "revise",
+        "report": "docs/giac-mo-tu-bo/script-review.md",
+        "note": "round 1: 3 clean-context lenses (fidelity 9.2, hook 9.0, craft 8.9); merged=8.9 revise; open Cao B1, open Trung B2/C-01/C-02"
+      }
+    ]
+  },
+  "review_valid": {
+    "A": true,
+    "D": false,
+    "E": false,
+    "B": false,
+    "C": false,
+    "content": false,
+    "audio": false,
+    "motion": false
+  },
+  "next": "video-director: Phase 2 script (script-agent)",
+  "log": [
+    {
+      "t": "2026-10-18T23:45:54+07:00",
+      "stage": "-",
+      "who": "agent",
+      "msg": "status initialised"
+    },
+    {
+      "t": "2026-10-18T23:45:54+07:00",
+      "stage": "-",
+      "who": "you",
+      "msg": "created from the monitor (runner opencode)"
+    },
+    {
+      "t": "2026-10-18T23:45:54+07:00",
+      "stage": "agent",
+      "who": "monitor",
+      "msg": "monitor run 20261018-234554-806 started via OpenCode · opencode/deepseek-v4.1-flash-free (create)"
+    },
+    {
+      "t": "2026-10-18T23:51:20+07:00",
+      "stage": "intake",
+      "who": "intake-agent",
+      "msg": "intake-agent done: duplicate-topic check: none"
+    },
+    {
+      "t": "2026-10-18T23:51:20+07:00",
+      "stage": "intake",
+      "who": "intake-agent-2",
+      "msg": "intake-agent-2 done: preflight: all ok"
+    },
+    {
+      "t": "2026-10-18T23:51:52+07:00",
+      "stage": "research",
+      "who": "agent",
+      "msg": "research -> in_progress: Phase 1: audience language + 5 hook candidates; owner account is primary source"
+    },
+    {
+      "t": "2026-10-18T23:51:52+07:00",
+      "stage": "research",
+      "who": "research-agent",
+      "msg": "research-agent running: research.md: audience language + 5 hooks"
+    },
+    {
+      "t": "2026-10-18T23:56:00+07:00",
+      "stage": "agent",
+      "who": "research-agent",
+      "msg": "research-agent done"
+    },
+    {
+      "t": "2026-10-18T23:56:00+07:00",
+      "stage": "research",
+      "who": "agent",
+      "msg": "research -> done (evidence: 1 file(s): docs/giac-mo-tu-bo/research.md)"
+    },
+    {
+      "t": "2026-10-18T23:56:07+07:00",
+      "stage": "brief",
+      "who": "agent",
+      "msg": "brief -> in_progress"
+    },
+    {
+      "t": "2026-10-18T23:56:07+07:00",
+      "stage": "script",
+      "who": "agent",
+      "msg": "script -> in_progress"
+    },
+    {
+      "t": "2026-10-18T23:56:07+07:00",
+      "stage": "script",
+      "who": "script-agent",
+      "msg": "script-agent running: brief+script+voice proposals+hook-options for 50-60s"
+    },
+    {
+      "t": "2026-10-19T00:20:03+07:00",
+      "stage": "agent",
+      "who": "script-agent",
+      "msg": "script-agent done"
+    },
+    {
+      "t": "2026-10-19T00:20:09+07:00",
+      "stage": "script",
+      "who": "script-reviewer-1",
+      "msg": "script-reviewer-1 running: gate A lens A: fidelity+sources+constraints"
+    },
+    {
+      "t": "2026-10-19T00:20:09+07:00",
+      "stage": "script",
+      "who": "script-reviewer-2",
+      "msg": "script-reviewer-2 running: gate A lens B: hook+specificity+structure"
+    },
+    {
+      "t": "2026-10-19T00:20:09+07:00",
+      "stage": "script",
+      "who": "script-reviewer-3",
+      "msg": "script-reviewer-3 running: gate A lens C: naturalness+timing+voice+visual"
+    },
+    {
+      "t": "2026-10-19T00:43:28+07:00",
+      "stage": "A",
+      "who": "script-reviewer",
+      "msg": "review 8.9/10 revise: script-review.md (round 1: 3 clean-context lenses (fidelity 9.2, hook 9.0, craft 8.9); merged=8.9 revise; open Cao B1, open Trung B2/C-01/C-02)"
+    },
+    {
+      "t": "2026-10-19T00:43:33+07:00",
+      "stage": "script",
+      "who": "script-reviewer-1",
+      "msg": "script-reviewer-1 done: gate A lens 1 round 1 done: report written"
+    },
+    {
+      "t": "2026-10-19T00:43:33+07:00",
+      "stage": "script",
+      "who": "script-reviewer-2",
+      "msg": "script-reviewer-2 done: gate A lens 2 round 1 done: report written"
+    },
+    {
+      "t": "2026-10-19T00:43:33+07:00",
+      "stage": "script",
+      "who": "script-reviewer-3",
+      "msg": "script-reviewer-3 done: gate A lens 3 round 1 done: report written"
+    },
+    {
+      "t": "2026-10-19T00:43:37+07:00",
+      "stage": "script",
+      "who": "script-agent",
+      "msg": "script-agent running: gate A round 1 fix pass: B1(+option A), B2, C-01, C-02, A1-A5, B3-B8, C-03-C-11"
+    }
+  ],
+  "updated": "2026-10-19T00:43:37+07:00",
+  "runs": [
+    {
+      "id": "20261018-234554-806",
+      "folder": "giac-mo-tu-bo",
+      "kind": "create",
+      "runner": "opencode",
+      "label": "OpenCode",
+      "state": "running",
+      "started": "2026-10-18T23:45:54+07:00",
+      "pid": 33290,
+      "log": "out/agent-runs/giac-mo-tu-bo/20261018-234554-806.log",
+      "prompt_file": "out/agent-runs/giac-mo-tu-bo/20261018-234554-806.prompt.md",
+      "summary": "create video",
+      "model": "opencode/deepseek-v4.1-flash-free",
+      "effort": "",
+      "fallback": true
+    }
+  ],
+  "agents": {
+    "video-director": {
+      "state": "running",
+      "at": "2026-10-18T23:45:54+07:00",
+      "stage": "",
+      "note": "monitor run 20261018-234554-806 via OpenCode"
+    },
+    "intake-agent": {
+      "state": "done",
+      "at": "2026-10-18T23:51:20+07:00",
+      "note": "duplicate-topic check: none",
+      "stage": "intake"
+    },
+    "intake-agent-2": {
+      "state": "done",
+      "at": "2026-10-18T23:51:20+07:00",
+      "note": "preflight: all ok",
+      "stage": "intake"
+    },
+    "research-agent": {
+      "state": "done",
+      "at": "2026-10-18T23:56:00+07:00",
+      "note": "",
+      "stage": ""
+    },
+    "script-agent": {
+      "state": "running",
+      "at": "2026-10-19T00:43:37+07:00",
+      "note": "gate A round 1 fix pass: B1(+option A), B2, C-01, C-02, A1-A5, B3-B8, C-03-C-11",
+      "stage": "script"
+    },
+    "script-reviewer-1": {
+      "state": "done",
+      "at": "2026-10-19T00:43:33+07:00",
+      "note": "gate A lens 1 round 1 done: report written",
+      "stage": "script"
+    },
+    "script-reviewer-2": {
+      "state": "done",
+      "at": "2026-10-19T00:43:33+07:00",
+      "note": "gate A lens 2 round 1 done: report written",
+      "stage": "script"
+    },
+    "script-reviewer-3": {
+      "state": "done",
+      "at": "2026-10-19T00:43:33+07:00",
+      "note": "gate A lens 3 round 1 done: report written",
+      "stage": "script"
+    }
+  }
+}

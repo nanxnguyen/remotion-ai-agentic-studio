@@ -27,9 +27,9 @@
       "note": "brief.md Content/Style by script-agent, gate A pass"
     },
     "voice": {
-      "state": "done",
-      "at": "2026-10-18T13:45:45+07:00",
-      "note": "Current 16 regenerated/normalized clips, voice-durations.ts and current ASR snapshot verified; remaining 5 ASR risks carried to audio review."
+      "state": "blocked",
+      "at": "2026-10-19T00:47:00+07:00",
+      "note": "Gate C vòng 3 không đạt: s3a, s6b, s10 còn rủi ro sai lời mang ý nghĩa nội dung; s1, s6a còn rủi ro chuẩn hoá số-từ. Không được đổi điểm thành 10/10 hoặc override blocker."
     },
     "content": {
       "state": "done",
@@ -52,9 +52,9 @@
       "note": "Rebuilt after s10 tail cue fix; current source type-checks and all 16 scenes satisfy visual build contract."
     },
     "render": {
-      "state": "done",
-      "at": "2026-10-18T14:28:34+07:00",
-      "note": "verified final MP4"
+      "state": "blocked",
+      "at": "2026-10-19T00:22:08+07:00",
+      "note": "Render hiện tại không còn được xác minh sau khi voice bị mở lại; Gate C Round 3 vẫn revise 7.6 với blocker lời đọc s3a/s6b/s10 và rủi ro s1/s6a."
     }
   },
   "reviews": {
@@ -366,13 +366,13 @@
   "review_valid": {
     "A": true,
     "D": true,
-    "E": true,
-    "B": true,
-    "C": true,
+    "E": false,
+    "B": false,
+    "C": false,
     "content": true,
-    "audio": true
+    "audio": false
   },
-  "next": "render-agent",
+  "next": "Khôi phục provider TTS hoặc cung cấp MP3 đúng lời cho s1,s3a,s6a,s6b,s10; voice-agent đo/ASR lại, rồi chạy audio review, Join, E, B, Build, Render, Gate C và Final QA",
   "log": [
     {
       "t": "2026-10-17T16:02:39+07:00",
@@ -1621,9 +1621,75 @@
       "stage": "render",
       "who": "render-agent",
       "msg": "render-agent done: Latest final render after s10 tail fix verified 51.633s H.264/AAC; Gate C remains revise due voice wording."
+    },
+    {
+      "t": "2026-10-19T00:20:27+07:00",
+      "stage": "agent",
+      "who": "monitor",
+      "msg": "monitor run 20261019-002027-076 started via Codex · gpt-5.6-sol · medium (command)"
+    },
+    {
+      "t": "2026-10-19T00:21:23+07:00",
+      "stage": "qa",
+      "who": "video-director",
+      "msg": "video-director running: Đối soát yêu cầu hoàn tất; Gate C đang không đạt, kiểm tra bằng chứng và cập nhật trạng thái trung thực"
+    },
+    {
+      "t": "2026-10-19T00:21:42+07:00",
+      "stage": "voice",
+      "who": "agent",
+      "msg": "voice -> blocked: Gate C Round 3 không đạt: ASR chỉ 11/16; s3a, s6b và s10 sai/rủi ro lời có ý nghĩa nội dung, s1 và s6a còn rủi ro chuẩn hoá số-từ. Đây là blocker Gate C không được override; VieNeu đã thử whole-line, phrase-split, punctuation steering và 60 seed nhưng chưa tạo take đạt, Edge-TTS không tạo được audio."
+    },
+    {
+      "t": "2026-10-19T00:21:42+07:00",
+      "stage": "agent",
+      "who": "video-director",
+      "msg": "video-director done: Đã đối soát: không thể đánh dấu hoàn thành sai sự thật; chuyển voice sang blocked với blocker Gate C và bước tiếp theo chính xác."
+    },
+    {
+      "t": "2026-10-19T00:22:08+07:00",
+      "stage": "render",
+      "who": "agent",
+      "msg": "render -> blocked: Render hiện tại không còn được xác minh sau khi voice bị mở lại; Gate C Round 3 vẫn revise 7.6 với blocker lời đọc s3a/s6b/s10 và rủi ro s1/s6a."
+    },
+    {
+      "t": "2026-10-19T00:22:39+07:00",
+      "stage": "agent",
+      "who": "monitor",
+      "msg": "monitor run 20261019-002027-076 done (exit 0)"
+    },
+    {
+      "t": "2026-10-19T00:42:47+07:00",
+      "stage": "agent",
+      "who": "monitor",
+      "msg": "monitor run 20261019-004247-315 started via Codex · gpt-5.6-sol · medium (command)"
+    },
+    {
+      "t": "2026-10-19T00:43:47+07:00",
+      "stage": "voice",
+      "who": "video-director",
+      "msg": "video-director running: Đối chiếu yêu cầu cập nhật 10/10 với bằng chứng Gate C và sửa audit lịch sử nếu hợp lệ"
+    },
+    {
+      "t": "2026-10-19T00:47:00+07:00",
+      "stage": "voice",
+      "who": "agent",
+      "msg": "voice -> blocked: Gate C vòng 3 không đạt: s3a, s6b, s10 còn rủi ro sai lời mang ý nghĩa nội dung; s1, s6a còn rủi ro chuẩn hoá số-từ. Không được đổi điểm thành 10/10 hoặc override blocker."
+    },
+    {
+      "t": "2026-10-19T00:47:13+07:00",
+      "stage": "voice",
+      "who": "video-director",
+      "msg": "video-director done: Không giả lập 10/10; giữ blocker Gate C, sửa audit đường dẫn Windows và cập nhật HANDOFF"
+    },
+    {
+      "t": "2026-10-19T00:47:32+07:00",
+      "stage": "agent",
+      "who": "monitor",
+      "msg": "monitor run 20261019-004247-315 done (exit 0)"
     }
   ],
-  "updated": "2026-10-18T14:36:39+07:00",
+  "updated": "2026-10-19T00:47:32+07:00",
   "agents": {
     "research-agent": {
       "state": "done",
@@ -1674,10 +1740,10 @@
       "stage": "design"
     },
     "video-director": {
-      "state": "idle",
-      "at": "2026-10-18T12:15:35+07:00",
+      "state": "done",
+      "at": "2026-10-19T00:47:32+07:00",
       "stage": "",
-      "note": "monitor run 20261018-121528-409 via Codex"
+      "note": "monitor run 20261019-004247-315 via Codex"
     },
     "content-agent-2": {
       "state": "done",
@@ -1969,12 +2035,42 @@
       "stop_requested": true,
       "exit_code": 0,
       "ended": "2026-10-18T12:15:35+07:00"
+    },
+    {
+      "id": "20261019-002027-076",
+      "folder": "dung-bien-tuoi-30-thanh-ban-an",
+      "kind": "command",
+      "runner": "codex",
+      "label": "Codex",
+      "state": "done",
+      "started": "2026-10-19T00:20:27+07:00",
+      "pid": 12093,
+      "log": "out/agent-runs/dung-bien-tuoi-30-thanh-ban-an/20261019-002027-076.log",
+      "prompt_file": "out/agent-runs/dung-bien-tuoi-30-thanh-ban-an/20261019-002027-076.prompt.md",
+      "summary": "update status cho video này hoàn thanh luôn đi",
+      "model": "gpt-5.6-sol",
+      "effort": "medium",
+      "fallback": true,
+      "exit_code": 0,
+      "ended": "2026-10-19T00:22:39+07:00"
+    },
+    {
+      "id": "20261019-004247-315",
+      "folder": "dung-bien-tuoi-30-thanh-ban-an",
+      "kind": "command",
+      "runner": "codex",
+      "label": "Codex",
+      "state": "done",
+      "started": "2026-10-19T00:42:47+07:00",
+      "pid": 69764,
+      "log": "out/agent-runs/dung-bien-tuoi-30-thanh-ban-an/20261019-004247-315.log",
+      "prompt_file": "out/agent-runs/dung-bien-tuoi-30-thanh-ban-an/20261019-004247-315.prompt.md",
+      "summary": "update trạng thái cho pass hết đi 10/10",
+      "model": "gpt-5.6-sol",
+      "effort": "medium",
+      "fallback": true,
+      "exit_code": 0,
+      "ended": "2026-10-19T00:47:32+07:00"
     }
-  ],
-  "render_check": {
-    "fingerprint": "7874763:1792308514069717139",
-    "sha256": "12858ab412b4a08e7d139f24c08d674d8dcc3e85865f6760c418a7ba65622023",
-    "duration": 51.63,
-    "at": "2026-10-18T14:28:34+07:00"
-  }
+  ]
 }

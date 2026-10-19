@@ -3,11 +3,9 @@ import {validateVideoRegistry} from '../core';
 import {camOnVideo} from './cam-on';
 import {cuocGoiNhoVideo} from './cuoc-goi-nho';
 import {editorialQuoteVideo} from './editorial-quote';
-import {gapLaiVideo} from './gap-lai';
 import {helloWorldVideo} from './hello-world';
 import {metKhongVideo} from './met-khong';
 import {thuongHaySoVideo} from './thuong-hay-so';
-import {truongThanhVideo} from './truong-thanh';
 import {understandAnythingVideo} from './understand-anything';
 import {xayDoiMinhVideo} from './xay-doi-minh-hay-chung-minh';
 import {chungMinhDeLamGiVideo} from './chung-minh-de-lam-gi';
@@ -21,9 +19,7 @@ import {banKhongYeuDuoiReelVideo} from './ban-khong-yeu-duoi-chi-da-manh-qua-lau
 export const videoRegistry: readonly AnyVideoDefinition[] = [
   helloWorldVideo,
   editorialQuoteVideo,
-  truongThanhVideo,
   camOnVideo,
-  gapLaiVideo,
   metKhongVideo,
   cuocGoiNhoVideo,
   understandAnythingVideo,

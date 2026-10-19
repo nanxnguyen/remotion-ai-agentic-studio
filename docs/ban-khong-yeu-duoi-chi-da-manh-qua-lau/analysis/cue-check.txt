@@ -1,0 +1,54 @@
+planning rate 3.9 syl/s; 14 voiced clips, 15 silence windows
+
+speech windows (start -> last word)
+    s1   0.000 ->  2.821
+   s2a   3.340 ->  5.648
+    a1   6.180 ->  8.744
+   s2b   9.280 -> 11.588
+    s3  11.940 -> 15.786
+    a2  17.100 -> 18.638
+    s4  19.020 -> 21.071
+    s5  21.720 -> 23.515
+    s6  25.390 -> 27.441
+    s7  28.120 -> 31.197
+    s8  32.040 -> 32.809
+    s9  34.610 -> 38.200
+  s10a  39.760 -> 41.555
+  s10b  41.855 -> 43.906
+
+silence windows
+  after s1 (intra 0.22 + hold 0.30)             2.821 ->  3.340  (0.519s)
+  after s2a (intra 0.28 + hold 0.25)            5.648 ->  6.180  (0.532s)
+  after a1 (intra 0.24 + hold 0.30)             8.744 ->  9.280  (0.536s)
+  after s2b (intra 0.00 + hold 0.35)           11.588 -> 11.940  (0.352s)
+  after s3 (intra 0.26 + hold 1.05)            15.786 -> 17.100  (1.314s)
+  after a2 (intra 0.14 + hold 0.25)            18.638 -> 19.020  (0.382s)
+  after s4 (intra 0.24 + hold 0.40)            21.071 -> 21.720  (0.649s)
+  after s5 (intra 0.18 + hold 1.70)            23.515 -> 25.390  (1.875s)
+  after s6 (intra 0.18 + hold 0.50)            27.441 -> 28.120  (0.679s)
+  after s7 (intra 0.24 + hold 0.60)            31.197 -> 32.040  (0.843s)
+  after s8 (intra 0.00 + hold 1.80)            32.809 -> 34.610  (1.801s)
+  after s9 (intra 0.26 + hold 1.30)            38.200 -> 39.760  (1.560s)
+  s10 clause gap                               41.555 -> 41.855  (0.300s)
+  after s10 hold                               43.906 -> 45.700  (1.794s)
+  END silent card                              45.700 -> 48.900  (3.200s)
+
+CUE CHECK (each cue must be 100% inside one silence window)
+  OK  sfx-rain-wash      s3+ 4.16s  abs 16.100->17.000  host=after s3 (intra 0.26 + hold 1.05)
+  OK  sfx-drop-glass     a2+ 1.56s  abs 18.660->18.980  host=after a2 (intra 0.14 + hold 0.25)
+  OK  sfx-back-a#1       s5+ 2.04s  abs 23.760->24.040  host=after s5 (intra 0.18 + hold 1.70)
+  OK  sfx-back-b         s5+ 2.40s  abs 24.120->24.380  host=after s5 (intra 0.18 + hold 1.70)
+  OK  sfx-back-a#2       s5+ 2.74s  abs 24.460->24.740  host=after s5 (intra 0.18 + hold 1.70)
+  OK  sfx-phone-down     s5+ 3.20s  abs 24.920->25.320  host=after s5 (intra 0.18 + hold 1.70)
+  OK  sfx-screen-wake    s6+ 2.31s  abs 27.700->27.854  host=after s6 (intra 0.18 + hold 0.50)
+  OK  sfx-umbrella-lift  s7+ 3.28s  abs 31.400->31.950  host=after s7 (intra 0.24 + hold 0.60)
+  OK  sfx-drop-fabric    s9+ 3.99s  abs 38.600->38.900  host=after s9 (intra 0.26 + hold 1.30)
+  OK  sfx-light-turn     s9+ 4.49s  abs 39.100->39.700  host=after s9 (intra 0.26 + hold 1.30)
+  OK  sfx-cup-down       s10+ 1.81s  abs 41.570->41.837  host=s10 clause gap
+
+BGM CHECK
+  last spoken word ends at 43.91s (script.md §1 / §5)
+  BGM envelope reaches 0 at 43.90s -> OK
+  tail 43.90-48.90 s carries no audio element -> OK (5.00 s, script.md §5)
+
+ALL CHECKS PASS

@@ -294,15 +294,6 @@ class Component extends DCLogic {
   stageNames = ['Research','Brief','Script','Voice','Timeline + scenes','SFX / BGM','Stills QA','Render'];
 
   data = [
-    { id:'claude-mem', name:'claude-mem', subtitle:'ClaudeMemReel', dotColor:'#64748b', badge:null, progress:15, status:'Đang chờ',
-      updated:'07:40 14/10/2026', nextStep:'hoàn thiện brief v1',
-      stageStatus:['done','running','waiting','waiting','waiting','waiting','waiting','waiting'],
-      stageNotes:['Hoàn tất · 9 nguồn tổng hợp','Đang soạn outline v1','Chưa bắt đầu','Chưa bắt đầu','Chưa bắt đầu','Chưa bắt đầu','Chưa bắt đầu','Chưa bắt đầu'],
-      reviewsPass:0, reviewsTotal:3,
-      gates:[{code:'Gate A',status:'Đang chờ',score:'—',rounds:'—',statusColor:'#fbbf24'}],
-      initialLogs:[{time:'07:40',agent:'brief',tag:'draft',text:'brief -> draft: outline v1 đang soạn'},{time:'07:12',agent:'research',tag:'done',text:'research -> done: 9 nguồn, tổng hợp bối cảnh'}],
-      logPool:[{agent:'brief',tag:'run',text:'brief -> run: chỉnh giọng kể cho tự nhiên hơn'},{agent:'research',tag:'note',text:'research -> note: bổ sung 2 nguồn tư liệu cũ'}] },
-
     { id:'cuoc-goi-nho-cua-me', name:'cuoc-goi-nho-cua-me', subtitle:'CuocGoiNhoCuaMe', dotColor:'#2dd4bf', badge:null, progress:100, status:'Hoàn tất',
       updated:'08:01:34 14/10/2026', nextStep:'gate C', duration:'00:58', resolution:'1080×1920',
       stageStatus:['done','done','done','done','done','done','done','done'],
@@ -323,15 +314,6 @@ class Component extends DCLogic {
       ],
       logPool:[{agent:'render',tag:'queue',text:'render -> queued: chờ gate C trước khi xuất bản'},{agent:'voice',tag:'done',text:'voice -> done: lồng tiếng mẹ, 12 đoạn, -16 LUFS'},{agent:'stills',tag:'done',text:'stills -> done: QA 42 khung hình, 0 lỗi màu'}] },
 
-    { id:'gaplai', name:'gaplai', subtitle:'GaplaiReel', dotColor:'#fbbf24', badge:'Lệch file', progress:58, status:'Đang chạy',
-      updated:'06:12 14/10/2026', nextStep:'voice QA',
-      stageStatus:['done','done','done','running','waiting','waiting','waiting','waiting'],
-      stageNotes:['Hoàn tất · research 7 nguồn','Hoàn tất · outline v2 duyệt','Hoàn tất · script v3 142 từ','Đang đọc lại 4 đoạn lỗi file nguồn','Chưa bắt đầu','Chưa bắt đầu','Chưa bắt đầu','Chưa bắt đầu'],
-      reviewsPass:1, reviewsTotal:2,
-      gates:[{code:'Gate A',status:'Đạt',score:'7.8/10',rounds:'1 vòng',statusColor:'#4ade80'},{code:'Gate D',status:'Đang chờ',score:'—',rounds:'—',statusColor:'#fbbf24'}],
-      initialLogs:[{time:'06:12',agent:'voice',tag:'run',text:'voice -> run: đang đọc lại 4 đoạn lỗi file nguồn'},{time:'05:48',agent:'build',tag:'warn',text:'build -> warn: lệch file asset v1 vs v2'}],
-      logPool:[{agent:'script',tag:'done',text:'script -> done: v3 142 từ, chờ duyệt gate D'},{agent:'voice',tag:'warn',text:'voice -> warn: 1 đoạn audio nhiễu nền'}] },
-
     { id:'met-khong', name:'Met khong (Lon roi)', subtitle:'MetkhongReel', dotColor:'#4ade80', badge:'Lệch file', progress:68, status:'Đang chạy',
       updated:'05:50 14/10/2026', nextStep:'sfx mix',
       stageStatus:['done','done','done','done','running','waiting','waiting','waiting'],
@@ -341,22 +323,6 @@ class Component extends DCLogic {
       initialLogs:[{time:'05:50',agent:'timeline',tag:'run',text:'timeline -> run: ghép 9 cảnh, đang canh nhịp thoại'},{time:'05:20',agent:'voice',tag:'done',text:'voice -> done: lồng tiếng xong 8 đoạn'}],
       logPool:[{agent:'qa',tag:'warn',text:'qa -> warn: lệch file kịch bản v2 vs v3'},{agent:'timeline',tag:'run',text:'timeline -> run: chỉnh nhịp cảnh 5-7'}] },
 
-    { id:'truong-thanh', name:'Trưởng Thành', subtitle:'TruongThanhReel', dotColor:'#4ade80', badge:null, progress:20, status:'Đang chạy',
-      updated:'04:30 14/10/2026', nextStep:'brief review',
-      stageStatus:['done','running','waiting','waiting','waiting','waiting','waiting','waiting'],
-      stageNotes:['Hoàn tất · 9 nguồn tổng hợp','Đang soạn outline nhân vật chính','Chưa bắt đầu','Chưa bắt đầu','Chưa bắt đầu','Chưa bắt đầu','Chưa bắt đầu','Chưa bắt đầu'],
-      reviewsPass:0, reviewsTotal:1,
-      gates:[{code:'Gate A',status:'Đang chờ',score:'—',rounds:'—',statusColor:'#fbbf24'}],
-      initialLogs:[{time:'04:30',agent:'brief',tag:'run',text:'brief -> run: soạn outline nhân vật chính'},{time:'04:05',agent:'research',tag:'done',text:'research -> done: 9 nguồn tổng hợp'}],
-      logPool:[{agent:'brief',tag:'run',text:'brief -> run: điều chỉnh tông giọng kể'}] },
-
-    { id:'lan', name:'Lan (nghỉ việc)', subtitle:'LanReel', dotColor:'#64748b', badge:null, progress:8, status:'Tạm dừng', paused:true,
-      updated:'02:15 14/10/2026', nextStep:'chờ phân công lại',
-      stageStatus:['running','waiting','waiting','waiting','waiting','waiting','waiting','waiting'],
-      stageNotes:['Tạm dừng giữa chừng','Chưa bắt đầu','Chưa bắt đầu','Chưa bắt đầu','Chưa bắt đầu','Chưa bắt đầu','Chưa bắt đầu','Chưa bắt đầu'],
-      reviewsPass:0, reviewsTotal:1, gates:[],
-      initialLogs:[{time:'02:15',agent:'system',tag:'pause',text:'system -> pause: tạm dừng do đổi người phụ trách'}],
-      logPool:[] },
   ];
 
   moduleDefs = [

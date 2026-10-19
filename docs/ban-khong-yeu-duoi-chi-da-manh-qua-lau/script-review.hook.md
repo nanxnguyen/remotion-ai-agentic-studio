@@ -320,3 +320,519 @@ Ticket fields: `id | severity | where | evidence | concrete change | owner | acc
 ---
 
 **Round 1 result — `score: 7.3` (hook 7.0 · specificity 7.5 · story content test 7.5), verdict `revise`.** 7 Cao + 4 Trung + 3 Thấp tickets open.
+
+---
+
+## Round 2 — lens: hook & emotional impact
+
+**Reviewer** `script-reviewer-r2-hook` — new clean-context session; I did not write the artifact and I did not write round 1.
+**Rubric items owned:** 2 (hook), 8 (specificity / emotional impact, mandatory sub-score), 9 (`story` profile content test).
+Items 1, 3, 4, 5, 6, 7, 10 are not scored here.
+
+**Inputs read (read-only):** `AGENTS.md`, `.agents/rules/README.md` + `01-status-truth.md` + `02-documentation.md` + `03-source-code.md` + `04-handoff-and-concurrency.md`, `.agents/roles/script-reviewer.md`, `references/hook-engineering.md` (all 43 lines), `SKILL.md` (Hook engineering contract, Phase 2a, Phase 2b, Gate A, Profile rubric `story` row, Common failure points last bullet), round-1 `script-review.md` + `script-review.hook.md`, then `brief.md`, `research.md`, `script.md`, `hook-options.md`, `voice.proposed.json`, `voice-performance.proposed.json`, `voice-direction.md`, `script.alt-1.md`, `script.alt-2.md`, `owner-notes.md`.
+
+**Arithmetic recomputed independently** from `voice.proposed.json` (unit = space-separated token), not from §1:
+
+| key | syl I counted | §1 syl |
+|---|---:|---:|
+| s1 11 · s2a 9 · a1 10 · s2b 9 · s3 15 · a2 6 · s4 8 · s5 7 · s6 8 · s7 12 · s8 3 · s9 14 · s10 15 | **127** | 127 ✅ |
+
+Owner 111 + `[ADD]` 16 = 127 ✅. Σ`pauseAfterSeconds` 2.54 ✅ · Σ`postClipHold` 10.70 ✅ · END 3.10 ✅ · silence 16.34 s ✅. I re-derived every slot start from the sidecar's real numbers (`voice-performance.proposed.json`: s1 0.22/0.30, s2a 0.28/**0.25**, a1 0.24/0.30, s2b 0.00/0.35, s3 0.26/1.05, a2 0.14/0.25, s4 0.24/0.40, s5 0.18/1.70, s6 0.18/0.50, s7 0.24/0.60, s8 0.00/1.80, s9 0.26/1.30, s10 0.30/1.90) and **every figure in §1 reproduces**: hook complete 2.62 / 2.82 / 2.97 s · `a1` phrase 1 complete 7.00 / 7.46 / 7.81 s · owner #2 complete 10.88 / 11.59 / 12.13 s · re-hook 17.93 / 19.02 / 19.86 s · last word 41.28 / 43.60 / 45.36 s · totals 46.58 / 48.90 / 50.66 s. **`script.md`'s numbers are honest again.** `s2a + s2b` joins to owner line #2 byte-for-byte. My complaints below are about what is *on screen* at those seconds, never about the arithmetic.
+
+---
+
+## Step 1 — read as the viewer first (spoken lines only, at the estimated durations)
+
+**What I felt / understood.** 0–3 s: I understood immediately, and this time I *looked* — the frame already told me she is the wet one. 3.34–7.46 s: the viewer is told what they already do, and then at 7.46 s something lands that I could not have predicted: *"Vai người khác chùng xuống. Còn bạn thì đứng ngoài."* — I felt it, because the shoulders drop on screen while her own glass stays empty. 11.94 s: the hinge, clean. 19.02 s: the unsent message, still the best re-hook in the packet. 25.39 s and 28.12 s: the unanswered call and `phải là người ổn` — the gut punch, unchanged. 34.61 s: the umbrella, on the same street, in her own doorway this time. 39.76 s: the climax, and **this time it is served by someone I have already watched fail to reach her.** 43.60–48.90 s: silence, with the rim tilted back over her.
+
+**The exact second attention can now drop: ~8.2 s** — at the end of `a1`, when the contrast has fully resolved and `s2b` begins with the longest, softest clause of the owner's line ("Biết làm sao để người khác thấy ổn hơn") over an image cell I cannot build (`NEW-3`). In round 1 the drop risk was at ~6.5 s and there was a second one at ~2.9 s; **the 2.9 s drop is gone** — that was the hook's worst failure and it is fixed.
+
+**Verdict in one line:** the first third is no longer flat, the middle is unchanged and strong, and the ending is now earned rather than convenient. **The remaining losses are not creative ones — they are three text-layer defects, all of them newly introduced by this round's own fixes.**
+
+---
+
+## A · The first second (0–1 s) — judged again, literally
+
+**The exact frame I judged** (`script.md:90` = `brief.md:56` = `hook-options.md:16`, verified byte-identical across the three files by grep), headline upper third **`Ai che ô cho bạn?`** (5 words, 17 characters), nothing in the bottom 210 px, complete at frame 0, clearing on the `s1`→`s2a` boundary.
+
+**The three things I said were broken are now two-thirds fixed.**
+
+| round-1 failure (`script-review.hook.md:27–31`) | round 2 | evidence |
+|---|---|---|
+| 1. the frame does not show its own thesis (both people dry) | **fixed in substance** | "Her right shoulder and the outside of her sleeve are already dark with rain, a wet stripe from shoulder to elbow" — a visible value/sheen sign that the shelter is not covering her, on the correct body |
+| 2. no action in progress ("she holds" = held pose) | **fixed, but weakly** | water beads on the rim and drips off the lower edge (a real continuous action), plus the umbrella mid-tilt — but the tilt is only *"a few degrees toward them"*, and *"she has not noticed and does not adjust"* is explicitly a non-action |
+| 3. "someone smaller" is not stageable | **fixed** | "a child, about her shoulder height" — buildable without interpretation |
+
+**What is new and genuinely good:** the lit apartment window across the street, *"a warmth she is not standing under"* — a second warm note that is not the turn (correctly de-claimed in L0: *"This is the world, not the turn — it is already there in the cover"*) and paid at L4. That is a genuine addition, not decoration: it gives frame 0 a second thing to look at and it becomes the closing warmth.
+
+**Why this is 8.5 and not 9: `NEW-1`.** The canonical paragraph contains the **negation of its own thesis, in the same sentence**: *"The contrast is carried by value and sheen…: wet sheen and a darker tone on **the child's coat** and on the pavement, **matte and dry on her sleeve**."* That says the **child** is wet and she is dry — the exact inversion of the two sentences immediately before it (*"her sleeve… already dark with rain"* / *"The child's shoulder under the rim is dry"*) and the exact inversion of what CP2 pays at `s9`/`img2`. The paragraph is mandated to be the single source, is reproduced word-for-word into `brief.md` and `hook-options.md`, and `hook-options.md:27`'s sound-off claim (*"The frame says 'she is sheltering a child and is getting wet doing it'"*) rests on it. I cannot certify a hook whose first-frame source asserts the opposite of the hook.
+
+**First-second score: 8.5 / 10.**
+
+---
+
+## B · The first three seconds (1–3 s) — judged again
+
+**The exact line I judged:** `Mọi người thường tìm đến bạn mỗi khi có chuyện buồn.` — 11 syl, speech 0.00 → **2.82 s** at the planning rate (2.62 s at 4.2, 2.97 s at 3.7). Inside the ≤3 s window across the whole band ✅.
+
+| round-1 failure | round 2 | evidence |
+|---|---|---|
+| no curiosity gap at all — topic announced, nothing open | **fixed** | `Ai che ô cho bạn?` — one precise referent, one act, answerable, non-clickbait; `hook-options.md:30` states it in one sentence and names where it is paid |
+| the three seconds end on a stop, not a lean | **fixed by the frame, not by the voice** | the headline question holds from frame 0 through the `s1`→`s2a` boundary, and the lit window she is not under gives it a visual second beat. `voice-direction.md:73` still reads *"Flat, level — a statement, not a question"* — the speech contributes no gap, the screen supplies all of it |
+| payoff not paid inside the window | **fixed** | see C |
+
+**Precise / truthful / answerable / no clickbait / sound-off — my own verdict on the new headline:** precise ✅ (one act, one referent); truthful ✅ (the video shows the answer rather than withholding it); answerable ✅ (`s10` pays it by action, and the END frame keeps the rim tilted back over her); **no clickbait** ✅ — it does not promise a name, a statistic or a cure, and the saved name is never named on screen either, so nothing is dangled; legible sound-off ✅ (5 words, upper third, nothing below y≈1710 px). It also does not collide with `s10`'s own on-screen text (`Có chuyện gì với bạn thế?`) — two different questions, 37 s apart.
+
+**Residual, recorded but *not* a ticket** (round 1's own H-07 prescribed exactly this solution — keeping the owner line untouched and building the gap in frame + headline, so I will not re-open it): `hook-engineering.md:8` asks for the gap *"expressed in speech **and** readable on-screen text"*. Only the text delivers it. The packet has the machinery to fix that itself — two `[ADD]` connectors already exist and 16.34 s of silence could buy a 5–7 syl truthful promise — and round 1 chose the frame route instead. I deduct for it; I do not re-litigate it.
+
+**First-three-seconds score: 8.5 / 10.**
+
+**Item 2 (hook), combined: 8.5 / 10.** — **below the ≥9 gate.** Six of seven contract literals now pass (composed frame 0, nameable + stageable subject, thesis visible in frame, precise/answerable/non-clickbait gap, hook on time across the whole band, payoff inside 8 s at every rate). It fails on the reliability of its own first-frame source (`NEW-1`, Cao), on on-screen text that shows the wrong half of owner line #2 inside the payoff window (`NEW-2`), and on the residual that the speech carries none of the gap.
+
+---
+
+## C · The 3–8 s payoff — I recomputed it, and the producer's arithmetic is correct
+
+**Recomputed from `voice.proposed.json` + the sidecar's real pauses** (`a1` phrase 1 = `Vai người khác chùng xuống.` = 5 syl, with the 0.24 s clause gap *after* it):
+
+| measured rate | `a1` starts | **phrase 1 completes** | inside 8 s? |
+|---:|---:|---:|---|
+| 4.2 syl/s | 5.81 s | **7.00 s** | ✅ |
+| **3.9 (planning)** | 6.18 s | **7.46 s** | ✅ |
+| 3.7 syl/s | 6.46 s | **7.81 s** | ✅ |
+
+Reproduces `script.md:61`, `brief.md:58` and `hook-options.md:33` exactly, at all three rates. **H-01's arithmetic claim is true and I confirm it.** The mechanism is also implemented the way `SKILL.md:299` requires: the 0.25 s gap is `minimumPostClipHoldSeconds` on `s2a` — a real gap between two clips in the timeline, not punctuation.
+
+**Is `s2a` itself the payoff? No — and the packet now says so in every file** (`script.md:66` "One beat is called the payoff in this document and nowhere else: `a1`"; `s2a`'s delivery cell "**Not the payoff** — this is what the payoff lands on"; `hook-options.md:33` "s2a is the setup the payoff lands on, not a payoff itself"). `s2a` = *"Bạn biết cách an ủi. Biết phải nói gì."* is still an assertion and I do not pretend otherwise — but it is now the floor the payoff stands on, interrupted by it, and it is the shortest of the triad's clauses rather than the whole of it.
+
+**Residual I am obliged to state (not a ticket):** the *full* contrast CP1 needs both clauses of `a1`, and `Còn bạn thì đứng ngoài.` completes at **8.19 / 8.74 / 9.16 s** — past 8 s at every rate. What is inside the window is the payoff *event* (shoulders visibly drop, 6.18 s planning) and its first proposition (7.46 s). Round 1's H-01 acceptance check named the first sentence as the criterion, so this closes; a stricter criterion would not have been reachable without moving an owner clause, and I am not moving the bar in round 2.
+
+---
+
+## D · Competing candidates — does the hook still lose to one?
+
+The contract requires me to name a competitor the hook loses to, or state plainly why it now wins. I do both, because the answer differs per candidate.
+
+### D1 · `H4` (contrast one-liner) — **H1 now wins.** `H4` still pays earlier (4.76–5.41 s vs 7.00–7.81 s) but it has now lost both of its other tests outright:
+
+- **0–1 s: `H1` wins clearly.** `H4`'s frame is a *split comparison* — a hand on a shoulder beside a hand alone with a phone (`hook-options.md:66`). Two vignettes, each small, in one second at thumbnail scale. The winner is now one legible scene with a value contrast and one named subject. Round 1 said the same thing about the old frame 0; the fix made it decisively true.
+- **1–3 s: `H1` wins clearly.** `H4`'s own file now states its fatal flaw in its own words (`hook-options.md:79`): *"Its 1–3 s window is the flattest sentence in the packet"* — `Bạn biết cách an ủi.` names nobody and raises no gap. The winner raises one in the frame and pays it at 39.76 s.
+- **The 2.3 s of payoff headroom `H4` still holds is real but is no longer decisive**, because the winner is now inside the window too.
+- **And the winner has absorbed `H4`'s single best idea**: `H4`'s rejected cover headline was `An ủi cả người. Ai an ủi mình?` — a question. The chosen headline is also a question. `H4`'s contrast, which round 1 said was better paid than the winner's, is now `s2a`→`a1`→`s2b`. **The selection got stronger, not merely re-argued.**
+
+### D2 · `script.alt-2.md`'s frame 0 — **the hook still loses the literal first-second test, and I am not going to pretend the fix closed it.**
+
+| literal test | primary `H1` (round 2) | `script.alt-2.md` frame 0 |
+|---|---|---|
+| observable subject + **action in progress** in 0–1 s | subject ✅; action = water dripping + a *few degrees* of tilt + a 3 % push — real but thin | ✅ **thumb hovering a few millimetres above an unpressed send key — a decision suspended, mid-frame** |
+| precise, answerable gap in 1–3 s | ✅ `Ai che ô cho bạn?`, paid at 39.76 s | ✅ full message text in the bubble + label `Một tin nhắn chưa gửi` |
+| concrete payoff before 8 s | ✅ 7.00–7.81 s (`a1`) | ✅ 6.48 s (thumb lifts, bubble greys empty) |
+| sound-off legible | ✅ — **except `NEW-1`** | ✅ unambiguous |
+
+**Honest statement: the primary still loses the first second to alt-2 by exactly the margin round 1 named — "no action in progress" — and it closed that gap only partially.** Round 1's H-02 asked for an action in progress and offered, in its own concrete change, "tilted a few degrees toward them". The producer implemented that sentence literally. It is the weakest available version of the fix: a few degrees of tilt is close to invisible at phone size, and the explicitly staged non-action ("she has not noticed and does not adjust") cannot supply the missing motion. What *does* work is the dripping water off the rim, and the packet should lean on that rather than on the tilt. **I am not filing this as a ticket** — H-02's acceptance check is met, the frame is materially better, and re-opening it would be moving the bar. I record it as the standing reason item 2 is 8.5 rather than 9.0, and the director should know that the strongest first frame in this video's own option set is still not the one that ships.
+
+---
+
+## E · Specificity / emotional impact — the mandatory sub-score
+
+### E1 · Per-beat sensory audit, re-run against the shot table
+
+| beat | detail the viewer can **see/hear**, as staged | verdict |
+|---|---|---|
+| s1 | umbrella tilted toward a child; **wet stripe shoulder→elbow on her sleeve**; the child's dry shoulder; the rim's shadow between them; **the lit window she is not under** | **strong** — the thesis, in the thumbnail, before a word |
+| s2a | **she finishes their sentence before they say it — their mouth is still open when they nod**; their glass of water; **her own glass untouched and empty** | **strong** — `S-01` fixed, and this detail now carries the line's own content |
+| a1 | the other's shoulders visibly drop; their glass still theirs; **her glass still untouched where she left it**; L1 arrives on her collar's edge | **strong** — but two signals share one 2.5 s beat (see weakness 5) |
+| s2b | *"the other person is visibly easier and **still holding her untouched-empty glass's table**"* | **unbuildable** → `NEW-3` |
+| s3 | the furled scuffed umbrella dripping by the door; the black screen reflecting her eyes; the blinking cursor; rain out of focus on the glass | **strong** |
+| a2 | rain hitting the glass; the sodium lamp broken into moving dots; her head a dark shape at frame edge | **strong** |
+| s4 | characters one by one; **the thumb hovers over an unpressed send key**; the far lit window | **strong** |
+| s5 | knees pulled up; rain texture on the wall; a very dark room | acceptable (a 7-syl shrug beat) |
+| img1 | backspace; characters vanish one by one; the hand hesitates; the phone turns face-down; the black screen shows her head | **strong** — silence + backspace is more affecting than the narrated deletion round 1 removed |
+| s6 | the saved-name call ringing once and going unanswered; her head in the phone glow | **strong** |
+| s7 | the rain stops without her noticing; the furled umbrella held **and not opened**; her glass still behind her; L2 widens onto her hands | **strong** |
+| s8 | hands on the closed umbrella; the light holds; the room is still | a deliberate hold, on the longest beat in the video |
+| s9 | **the same street, the same scuffed tip, the same child, the same collar, and her own doorway behind her in frame**; the wet patch **begins to spread**; L3 turns the palette | **strong** — `S-03` fixed; a viewer can now answer *when* and *why* |
+| img2 | the patch darkens; drops run off the sleeve edge; **the child's shoulder stays dry under the same rim** | **strong** |
+| s10 | **the missed call from `s6` still lit**; the same hand that would have rung it twice sets a warm cup down and tilts the rim back; **she looks at the hand, then the phone, and does not speak**; L4 warmest, two sources | **strong** — the climax is no longer convenient |
+| END | the rim still tilted back, the cup, the missed call still on screen, the rain thinning, 3.10 s of nothing | **strong** hold |
+
+**Result: 14 strong, 1 acceptable, 1 unbuildable.** Round 1: 11 strong, 1 recycle, 3 thin. **The load-bearing early beat is no longer the thinnest image in the video — it is now among the strongest.**
+
+### E2 · Contrast pair carrying the turn — ✅ and now registered in one place
+
+§6.1 lists exactly CP1 (`a1`→`s3`, the turn), CP2 (`s1` frame 0 → `s9` → `img2` → `s10` + the END card, the resolution), CP3 (`s6`→`s7`, the reveal), and every shot row names a pair **by id only**. `s7` is claimed by CP3 alone. CP2 is the best structural idea in the packet and it closes on the object that opened the video.
+
+### E3 · Highlight beats — ✅ exactly three, each with delivery + visual + light
+
+`s3` / `s7` / `s10` (§6.2), with "the gut punch" on `s7` and on nothing else, and every shot carrying a light beat either appearing above or explicitly marked "no light beat". `S-02` closed cleanly.
+
+### E4 · Genuine silent hold after the closing line — ✅
+
+Last word 43.60 s → 48.90 s = **5.00 s of total silence** (1.90 s post-clip + 3.10 s card), BGM cut on the last word, no CTA, climax and END in different shots. Round 1 endorsed a 2.40 s base with elasticity to 5.20 s; 5.00 s sits inside that range.
+
+### E5 · The light arc — ✅ one arrival, and it now has a real callback
+
+L0 (frame 0: the street's own cold-warm sodium lamp + the lit window, *"this is the world, not the turn"*) → **L1 the single arrival** (`a1`: a warm sliver at the edge of her collar, *"small, narrow, unexplained"*) → L2 (`s7`, the same sliver wider, on her hands and the closed umbrella) → L3 (`s9`/`img2`, full warm rim, the palette turns) → L4 (`s10`, warmest, two sources — *"the lit window now on this side"*). **Grep-verified: zero occurrences of "first … amber / first … warm" survive in `script.md` or `voice-direction.md`.** The L0→L4 return of the window is the best new detail in the packet, because it turns a set piece into a rhyme.
+
+### E6 · MOVED or FLAT — **moved from the first three seconds now**
+
+- **0–3 s: no longer flat.** A cover that already shows the cost, a question the viewer is holding, and a viewer named inside the first sentence.
+- **3.3–9.3 s: moved.** The payoff at 7.46 s is the first time the viewer sees the video's thesis as an event rather than an assertion, and her untouched glass is the detail that makes it personal.
+- **11.9–32.0 s: moved, unchanged from round 1 and still the strongest stretch.**
+- **34.6–45.8 s: moved, and now *earned*.** Round 1's central charge was that the climax is served by a stranger. It is now served by the hand of the person whose call the viewer watched ring once and go unanswered at 25.39 s, with the missed call still lit on the phone beside the cup — and the closing gesture is *"she looks at the hand, then at the phone, and does not speak"*, which is the opposite of a bare "she looks up".
+
+**Item 8 (specificity / emotional impact, mandatory sub-score): 9.0 / 10.** — **clears the ≥9 bar.** Credit for: a truthful staged payoff inside 3–8 s at every rate; the early beat now carrying its own line's content instead of a stock gesture; one light arrival with four ordered states and a genuine L0→L4 callback; an introduced actor and a non-generic gesture closing the climax; exactly three highlights with full triples; the deletion staged in silence rather than narrated; the same-street bridge at `s9`; 5.00 s of post-word silence; and CP2 closing on the object that opened the video. Held down by: one of sixteen beats has no buildable image and is missing from the sensory self-check (`NEW-3`, inside the payoff run), and one signal (the untouched glass) now appears three times in 28 s.
+
+---
+
+## F · Profile `story` content test
+
+- **Hero of each shot: one consistent character acting out the beat** ✅ — §2.3 declares the hero as **one stylised vector/SVG figure with no face**, and maps every micro-action in §3 to a frame-driven scalar (wetness per figure, one seeded wet-patch asset continuous `s9`→`img2`→`s10`, shoulder-line interpolation, rim-bead markers on a fixed phase function). That is the difference between a mood line and a buildable figure — and it also removes the old `a4`'s unstageable "shows her face".
+- **Expressive close-ups where useful** ✅ — the push into her lit only by the screen at `s3`; the over-the-shoulder at `s4`; `a1`/`s2b` in the same doorway shot as `s2a`, widening.
+- **Situation feels earned** ✅ — staged at `s2a`/`a1` rather than asserted.
+- **Turn feels earned** ✅ — `s3`'s hinge, then `s6`→`s7` correcting an assumption the viewer is already making. Unchanged and correct.
+- **Ending feels earned** ✅ — **this is what round 1 failed and what round 2 fixes.** The saved name is introduced at `s6`, §6.4's actor registry names every actor that acts anywhere in the video, and `s10`'s image cell names `s6` by shot id.
+- **Captions support the scene** ⚠️ — §4 reproduces `voice.proposed.json` word-for-word for all 13 keys, but §3's **on-screen-text column** for `s2a` carries the wrong half of owner line #2 (`NEW-2`), and §6.3's "16/16" sensory self-check omits `s2b` entirely (`NEW-3`).
+
+**Item 9 (`story` content test): 9.0 / 10.**
+
+---
+
+## G · Closure table — every round-1 ticket in this lens, verified by its acceptance check
+
+| id | acceptance check | verdict | evidence |
+|---|---|---|---|
+| **H-01** Cao | payoff sentence ≤8.00 s at 4.2/3.9/3.7; total inside 45–55 s; `s2a+s2b` byte-identical to owner #2; all three files name the same shot id; one "proof"/payoff word | **CLOSED** | recomputed 7.00 / 7.46 / 7.81 s ✅; 46.58 / 48.90 / 50.66 s ✅; join reproduces `Bạn biết cách an ủi. Biết phải nói gì. Biết làm sao để người khác thấy ổn hơn.` exactly ✅; `script.md:66` names `a1` as the only payoff and `s2a`'s own delivery cell de-labels it ✅. *Note:* `script.md` uses "payoff" uniformly and contains **zero** "proof", so the literal wording "appears once per document" is not met — uniformity is the better outcome, so I do not re-open. Residual stated in §C (the second clause completes 8.19–9.16 s). |
+| **H-02** Cao | ≥1 visible sign the shelter is not covering her; second figure stageable; identical in all three files; gate D cover proof | **CLOSED as specified — but regressed in substance, see `NEW-1`** | wet stripe on her sleeve ✅; "a child, about her shoulder height" ✅; grep confirms the three files are byte-identical ✅; gate D's cover proof is not possible pre-render. The delivered paragraph also contains the negation of its own sign. |
+| **H-03** Cao | exactly one "first … amber / first … warm" across `script.md` + `voice-direction.md`; four distinct ordered states; "the palette turns here" at `s9`, "warmest" at `s10` | **CLOSED** | §2.1 L0–L4 published once, others reference ids ✅; grep finds **zero** surviving "first … amber/warm" claims ✅; §2.1 L3 and §6.2 carry "the palette turns here"; L4 carries "warmest" ✅. Genuinely better than round 1 asked: L0→L4 window callback. |
+| **H-04** Cao | every acting off-screen element introduced earlier; `s10` names `s6` by id; no bare gesture; retellable point delivered by an actor | **CLOSED** | §6.4 actor registry, 3 actors, each introduced earlier ✅; `s10`'s image cell says "The ending pays `s6`" ✅; "she looks at the hand, then at the phone, and does not speak" ✅; `brief.md:31`'s "deserves someone to ask" now has a hand that exists ✅. |
+| **H-05** Cao | every "proof" occurrence points at the same shot id; every row's source cell names a pair §6 lists; `s7` names CP3; no member in two rows | **CLOSED** | `script.md` has 0 "proof"; `voice-direction.md`'s 3 occurrences (`:38`, `:49`, `:74`) all resolve to `a1` ✅; §6.1 has exactly CP1/CP2/CP3 and §6.1 explicitly states "`s7` is CP3 and never CP2" ✅; `s7`'s source cell now reads "CP3" ✅. |
+| **H-06** Cao | §H4 §2/§4 cite the 20-syl duration and completion times; Decision row shows the payoff; §72 no longer claims a false pre-8 payoff | **CLOSED — done properly, not cosmetically** | `hook-options.md:67–75` re-argues from `H4`'s own 20 syllables (4.76/5.13/5.41 s), states the round-1 reason is withdrawn, then gives **three real costs** (flattest 1–3 s sentence; burns the `Nhưng` hinge and empties the re-hook slot; a split frame instead of one readable image) ✅; Decision row `H4` reads "yes — 4.76 / 5.13 / 5.41 s" ✅; `:96`'s summary sentence is now true of the fixed timeline ✅; `:98` names H4 and tells the reviewer to test the *structural* argument ✅. |
+| **H-07** Cao | §H1 §3 states the question in one sentence; cover text is not a compression of the spoken line; every question the cover raises is answered | **CLOSED** | `hook-options.md:30` — *"who holds the umbrella over you?"*, raised by the headline and the lit window, paid at `s10` and on the END card's retained image ✅; `Ai che ô cho bạn?` = 5 words / 17 chars, upper third, safe zone, clears on the `s1`→`s2a` boundary ✅; not a compression of `s1` ✅; no clickbait ✅. See B for my own verdict on each contract adjective. |
+| **S-01** Trung | every row names an object/action unique to that shot; §6's count verifiable shot by shot | **CLOSED** | `s2a` now stages "she finishes their sentence before they say it" (unique to `s2a`) and the untouched-empty glass, re-shown at `a1` and `s7` ✅; §6.3 replaces the old "15/15" boast with a per-beat list ✅ — *but the list omits `s2b` and the count is inflated → `NEW-3`*. |
+| **S-02** Trung | exactly three rows in the highlight table; "gut punch" on exactly one; every light-beat shot listed or marked "no light beat" | **CLOSED** | §6.2 has exactly three rows, `s3`/`s7`/`s10` ✅; "the gut punch" on `s7` only, with the explicit note "this line and no other carries that name" ✅; §6.2's closing paragraph names `a1`=L1, `s9`/`img2`=L3 and marks the other ten shots "no light beat" ✅. |
+| **S-03** Trung | frame-0 umbrella named as the same object in `s9`/`img2`/`s10`; a reader can answer *when* and *why* she is outside | **CLOSED** | §2.2 names the through-line object and the scuffed metal tip ✅; `s9`'s image cell asserts the same street, umbrella, child and collar, **and her own doorway behind her in frame** ✅; `script.md:94` + `:133` ✅. I re-read and can answer in one sentence: *the night she is standing outside because she has finally gone out in the rain herself.* |
+| **S-06** Trung | §4/§5 shows the `a2`-adjacent silence **with its position**; re-hook preceded by a beat, not by the fade; total silence unchanged | **CLOSED** | §5 now reads "**1.05 · after `s3`, i.e. BEFORE `a2`** — the withheld-message beat, moved ahead of the whisper" ✅; `a2` rewritten to "Ngoài cửa sổ, mưa rơi đều." ✅; silence total recomputed to 16.34 s (the ticket's 13.05 s figure is stale — the packet changed wholesale) ✅. *Residual:* the re-hook still sits directly after the softest line, now off a 0.25 s beat instead of a 1.20 s fade. Round 1 prescribed exactly this move, so I record it and do not re-open. |
+| **H-08** Thấp | the promise sentence in §H1 §3 matches what `s10` + the END card deliver | **CLOSED** | `hook-options.md:30` — *"nobody asks the person who holds the umbrella"*, cross-referenced to `s10` and the END card ✅. |
+| **H-09** Thấp | §H2 quotes the frame-0 text that makes it sound-off legible and names the surviving objections; Decision row reflects it | **CLOSED** | `hook-options.md:45` quotes `script.alt-2.md`'s bubble + `Một tin nhắn chưa gửi`, withdraws the straw-man objection by name, and names the objections that survive (8 syl is thin; the author is unnamed in frame 0; that variant drops under 45 s if its add-ons are cut) ✅; Decision row `:92` now reads "**yes** (objection withdrawn, `H-09`)" ✅. This is exactly the correction round 1 asked for, and it is honest. |
+| **S-05** Thấp | the headline's clear event is named with its frame; `design-spec.md` treats it as frame-accurate | **CLOSED** | `script.md:95` — "holds from frame 0 and **clears on the `s1`→`s2a` boundary**, leaving the caption layer alone; `content-agent` and `design-spec.md` must treat that clear as a frame-accurate event" ✅; restated in §4 (`:142`) and in `s1`'s row ✅; `hook-options.md:23` ✅. Named by shot boundary rather than by an absolute frame number — correct at the planning stage, since the frame number is not yet measured; content-agent turns it into a frame. The original near-duplicate text problem is gone anyway: `Ai che ô cho bạn?` vs caption 1 `Mọi người thường tìm đến bạn` no longer overlap. |
+
+**14 / 14 round-1 tickets in this lens verified CLOSED, none disputed.** One (`H-02`) is closed *as specified* while its delivered text carries a new, separate defect — that is `NEW-1` below, and I am filing it as new rather than re-opening a closed ticket.
+
+---
+
+## H · NEW tickets — all three introduced by this round's own fixes
+
+### `NEW-1` · **Cao** · the canonical cover paragraph negates its own thesis
+
+- **Where:** `script.md:90` (= `brief.md:56` = `hook-options.md:16`, byte-identical — verified by grep); the consequence lands on `hook-options.md:20`, `:27`, `brief.md:56–58`, `script.md:93` ("The thesis is visible at thumbnail scale"), and CP2 at `s9`/`img2`.
+- **Evidence:** the paragraph says **"wet sheen and a darker tone on the child's coat and on the pavement, matte and dry on her sleeve."** Two sentences earlier it says **"Her right shoulder and the outside of her sleeve are already dark with rain"**, and one sentence earlier **"The child's shoulder under the rim is dry."** As written, the cover states the *inversion* of the video's thesis — she dry, the child wet — and the inversion is exactly what `s9`/`img2` later exist to undo.
+- **Why this is Cao and not a style note:** this paragraph is the **single source** for the thumbnail (§2.2 mandates the other two files reproduce it word for word, and they do). `hook-options.md:27` bases the sound-off claim on it. `design-agent`, `motion-agent`, gate D and gate C all build frame 0 from it literally. A design agent that resolves the contradiction the obvious way builds a cover whose wet figure is the child — i.e. the video opens by showing the opposite of what it spends 40 s arguing. It is also the sentence I am required by the hook gate to cite.
+- **Concrete change (one clause, propagated to all three files verbatim):** replace
+  > "wet sheen and a darker tone on the child's coat and on the pavement, matte and dry on her sleeve."
+  with
+  > "a wet sheen and a darker tone down her right sleeve, matte and dry on the child's coat and on the shoulder under the rim; wet sheen on the pavement below."
+- **Acceptance check:** in `script.md` §2.2, `brief.md` §Hook and `hook-options.md` §H1 §1, exactly one figure is described as wet — hers — and the other as dry; the three copies remain byte-identical; no sentence in the paragraph contradicts any other; `hook-options.md:27`'s sound-off sentence and `script.md:93`'s thumbnail claim are then literally true.
+- **Why round 1 missed it:** round 1 judged the *old* paragraph, which had no internal conflict. This sentence is new — it was added when the producer implemented H-02's rewrite.
+
+### `NEW-2` · **Trung** · `s2a`'s on-screen text is the *second* half of owner line #2
+
+- **Where:** `script.md:122` (`s2a` row, on-screen-text column), `script.md:124` (`s2b` row), `script.md:147`/`:149` (§4 caption chunks).
+- **Evidence:** `s2a` speaks *"Bạn biết cách an ủi. Biết phải nói gì."* during **3.34–6.18 s**, but its on-screen text is **`Biết làm sao để người khác` / `thấy ổn hơn.`** — which is `s2b`'s spoken text, not due until **9.28 s**, six seconds later, and which partly duplicates `s2b`'s own on-screen text `Người khác thấy ổn hơn.` So §3 and §4 disagree about the same key, and a sound-off viewer inside the hook's 3–8 s payoff window reads words the speaker has not said and will not say for another three seconds.
+- **Concrete change:** set `s2a`'s on-screen text to **`Bạn biết cách an ủi.` / `Biết phải nói gì.`** (two elements, 4 and 3 words, both ≤6), or a compression that adds to the spoken half rather than quoting the other half — e.g. `Bạn biết cách an ủi.`
+- **Acceptance check:** every row's on-screen text is drawn from **that row's own spoken words** (compression or direct quote, never another key's words); no on-screen string appears in two different rows' columns; `content-agent` can copy §3 and §4 without resolving a conflict.
+- **Why round 1 missed it:** `s2a` did not exist in round 1. The pre-split `s2` row's on-screen text was correct for a full line; the split duplicated that cell into `s2a` without recomputing it.
+
+### `NEW-3` · **Trung** · `s2b` has no buildable image and is absent from the sensory self-check
+
+- **Where:** `script.md:124` (`s2b` image cell), `script.md:224–228` (§6.3 "Sensory detail per beat — 16/16").
+- **Evidence:** (a) the image cell reads *"the other person is visibly easier and **still holding her untouched-empty glass's table**"* — unparseable; a person cannot hold a table, and a design agent cannot build it. (b) §6.3 lists **15** of the **16** beats: `s1 · s2a · a1 · s3 · a2 · s4 · s5 · img1 · s6 · s7 · s8 · s9 · img2 · s10 · END`. `s2b` is not there (grep: `s2b` appears in `script.md` at lines 6, 28, 62, 124, 149, 176, 222 — never at §6.3). So the count "16/16" is 15/16, and the one beat that is missing from the audit is also the one beat whose image is broken. This is the same failure mode `S-01` was raised for, reappearing in the row the fix created.
+- **Concrete change:** (a) rewrite `s2b`'s image cell — e.g. *"The same doorway, wider: the other person is visibly easier, the glass of water now in their hands and half gone, and her own glass still on the table where she left it, untouched and empty; she is already half-turned toward the hall."* (b) add `s2b` to §6.3's per-beat list and restate the count from the table so the design branch can verify it row by row.
+- **Acceptance check:** every one of the 16 beats appears in §6.3; the count in §6.3 equals the number of beats listed and equals the number of rows in §3; no image cell contains a phrase that cannot be built from a frame-driven property (§2.3's table).
+- **Why round 1 missed it:** `s2b` did not exist in round 1.
+
+---
+
+## Weakness hunt (required even when scoring ≥9 — six concrete rewrites)
+
+1. **The cover says the opposite of the cover.** Rewrite the contrast clause to *"a wet sheen and a darker tone down her right sleeve, matte and dry on the child's coat…"* — one clause, propagated to three files. *Ticket `NEW-1`.*
+2. **The payoff window shows the wrong words.** `s2a`'s on-screen text should be `Bạn biết cách an ủi. / Biết phải nói gì.`, not `Biết làm sao để người khác / thấy ổn hơn.` *Ticket `NEW-2`.*
+3. **`s2b` has no image.** Rewrite as *"their glass of water now in their hands and half gone; her own glass still untouched and empty where she left it; she is already half-turned toward the hall."* *Ticket `NEW-3`.*
+4. **The beat carrying the whole payoff has the smallest gap in the opening.** `s2a`'s post-clip hold is **0.25 s** — shorter than `s1`→`s2a` (0.30), `a1`→`s2b` (0.30) and `s2b`→`s3` (0.35). For the split that exists so the payoff can land, that is thin. Consider **0.45 s**, absorbing the +0.20 s from the END card (3.10 → 2.90 s, still a real hold); the total stays 48.90 s and no spoken second moves. *(Round 1 prescribed 0.25 s, so this is a note, not a ticket.)*
+5. **The untouched glass now appears three times in 28 s** (`s2a`, `a1`, `s7`). At `a1` it competes with the shoulders dropping — the single strongest image in the first third — inside one 2.56 s beat. **Drop the `a1` re-show** and let the payoff beat carry exactly one signal; keep the glass for `s7`, where it is doing real work.
+6. **`s8`'s addressee is not in the actor registry.** §6.4 lists the child, the saved name and "the narrator's `bạn`". *"Bạn biết không…"* at 32.04 s is addressed to someone, and `voice-direction.md:83` reads it as *"checking whether the other person is still there"* — which means the **saved name**, who is absent. That is a good reading, but it is only in the voice direction; one line in §6.4 would put it where design reads it: *the saved name — introduced `s6`; its hand acts at `s10`; **it is also who `s8` is addressed to, and is not in the room**.* *(Pre-existing and unchanged by this round's fixes — round 1 did not raise it — so I record it as a weakness rather than open a ticket; the director should decide whether it goes to a round 3.)*
+
+---
+
+## Scores
+
+| item | round 1 | round 2 | verdict |
+|---|---:|---:|---|
+| **2 · hook clear ≤3 s** (first second 7.5→**8.5** · first three seconds 6.5→**8.5**) | 7.0 | **8.5** | **below the ≥9 gate** — the cover's own source negates its thesis (`NEW-1`, Cao); on-screen text shows the wrong half of owner line #2 inside the payoff window (`NEW-2`); the speech still carries none of the gap. Wins: thesis visible in frame, stageable second figure, a precise/answerable/non-clickbait gap, hook on time across the whole band, **and a truthful staged payoff at 7.00–7.81 s — inside the window at every rate, which round 1 said was unrecoverable without `alt-2`'s costs.** |
+| **8 · specificity / emotional impact** (mandatory sub-score) | 7.5 | **9.0** | **clears the ≥9 bar** — the opening is no longer flat; the early beat now carries its own line's content; one light arrival with a real L0→L4 callback; an *earned* climax. Held down by `NEW-3` (one of sixteen beats has no buildable image, inside the payoff run) and by the glass appearing three times. |
+| **9 · profile `story` content test** | 7.5 | **9.0** | **clears the ≥9 bar** — the ending now feels earned, which was the one clause that failed. Held down by `NEW-2`/`NEW-3` in the captions-support-the-scene clause. |
+
+**Lens score = 8.8** (mean of the three items this lens owns; the director records the lowest lens score for gate A).
+
+**Verdict: `revise`.** Item 2 is below the ≥9 hook bar, and three NEW tickets are open (one Cao, two Trung). The correct reading of this round is that **the creative problems are gone and the remaining problems are typographic** — three sentences of text, none of which touches an owner word, a second, or a claim. One focused fix round closes them.
+
+---
+
+## What I could not verify (and will not claim)
+
+1. **Whether frame 0 reads at phone size.** I judged a written paragraph. Whether a viewer resolves *"one dark wet stripe down her sleeve"* against *"the child's dry, lighter shoulder"* across a rim's shadow at ~240 px wide, and whether that reads as a contrast or as two people under an umbrella, is provable only on `out/qa/<vid>-cover.png` (gate D) and on the final MP4 (gate C). I assert no readability.
+2. **Whether "a few degrees of tilt" reads as an action at all** in second one. This is why D2 is not a ticket but is the standing reason item 2 is 8.5.
+3. **The measured speech rate**, and therefore the payoff's real second. Every time here is a 3.9 syl/s planning figure. `H-01`'s acceptance check must be re-run against the measured band at Phase 3b — and note that at any rate below 3.29 syl/s the packet leaves 45–55 s and §5's elasticity applies.
+4. **Whether the headline clear at 3.34 s is felt as relief or as a loss of the frame's question.** A design decision; only frames answer it.
+5. **Whether the `s6`→`s10` callback lands as recognition or as coincidence.** I judge it earned on paper — the missed call is still lit, the hand is identified, the actor is registered. A rendered frame and a real viewer answer the rest. This is precisely why it was a ticket with a concrete rewrite in round 1 rather than a taste note.
+6. **Any claim about retention, "how many chose to view", or first-three-second hold.** Only measurable after publication through `docs/<vid>/hook-experiment.md`, against comparable videos. **I assert no predicted effectiveness for this hook, and no measured one.**
+7. **Whether the voice can deliver the intended contours** — `a1`'s deliberate drop, `s7`'s "stops, never a whisper", `s10`'s single rising contour. ASR cannot prove emotion (`SKILL.md:531`); for the audio reviewer and the optional listen.
+8. **Items 1, 3, 4, 5, 6, 7 and 10** — fidelity to owner wording, clarity, spoken naturalness, syllable timing feasibility, source accuracy, Remotion feasibility and voice-direction feasibility were not scored by this lens and are not implied by anything above.
+9. **No `pipeline.py` command was run** — this runtime has no shell tool, and the reviewer's role forbids it in any case. The director must run `python3 -I scripts/pipeline.py review ban-khong-yeu-duoi-chi-da-manh-qua-lau A <score> --reviewer script-reviewer-r2-hook --report script-review.hook.md --verdict revise` and the real `audit` before this round is recorded.
+
+---
+
+**Round 2 result — `score: 8.8` (hook **8.5** · specificity **9.0** · story content test **9.0**), verdict `revise`. 0 round-1 tickets open (14/14 verified closed); 3 NEW tickets open: `NEW-1` Cao, `NEW-2` Trung, `NEW-3` Trung.**
+
+---
+
+## Round 3 — lens: hook & emotional impact
+
+**Reviewer** `script-reviewer-r3-hook` — new clean-context session; I did not write the artifact, and I did not write round 1 or round 2.
+**Rubric items owned:** 2 (hook), 8 (specificity / emotional impact, mandatory sub-score), 9 (`story` profile content test). Items 1, 3, 4, 5, 6, 7, 10 are **not** scored here.
+**Inputs read (read-only):** `AGENTS.md`, `.agents/rules/README.md`, `.agents/roles/script-reviewer.md`, `references/hook-engineering.md` (all 43 lines), `SKILL.md` §Hook engineering contract, §Gate A, §Profile-specific visual rubric (`story` row), §Common failure points last bullet, round-1+2 merged `script-review.md`, this file's rounds 1–2, then `brief.md`, `research.md`, `script.md`, `hook-options.md`, `voice.proposed.json`, `voice-performance.proposed.json`, `voice-direction.md`.
+
+### Arithmetic re-derived from `voice.proposed.json` (unit = space-separated token), not from §1
+
+Per key I counted 11 · 9 · 10 · 9 · 15 · 6 · 8 · 7 · 8 · 12 · 3 · 14 · 15 = **127** ✅ (owner 111 + `[ADD]` 16). Re-derived from the sidecar's real `pauseAfterSeconds` / `minimumPostClipHoldSeconds` (read directly: s1 0.22/0.30 · s2a 0.28/**0.25** · a1 0.24/0.30 · s2b 0.00/0.35 · s3 0.26/1.05 · a2 0.14/0.25 · s4 0.24/0.40 · s5 0.18/1.70 · s6 0.18/0.50 · s7 0.24/0.60 · s8 0.00/1.80 · s9 0.26/1.30 · s10 0.30/1.80): Σpause **2.54** ✅ · ΣpostClipHold **10.60** ✅ · END **3.20** ✅ · silence **16.34 s** ✅ = 33.4 % of 48.90 ✅. Every figure in §1 reproduces: slot starts 0.00 / 3.34 / 6.18 / 9.28 / 11.94 / 17.10 / 19.02 / 21.72 / 25.39 / 28.12 / 32.04 / 34.61 / 39.76 / 45.70; hook complete **2.62 / 2.82 / 2.97 s**; `a1` sentence 1 last word **7.00 / 7.46 / 7.81 s**; re-hook **17.93 / 19.02 / 19.86 s**; last word **41.58 / 43.90 / 45.66 s**; totals **46.58 / 48.90 / 50.66 s**; break-even **4.43 / 3.285 (3.29)**. **`script.md`'s numbers are honest again, and the round-3 shift of 0.10 s from `s10`'s hold to the END card left the total untouched at 48.90 s** (sidecar `ending`: 1.80 + 3.20 = 5.00 s ✅). Everything below is about what is *on screen*, never about the arithmetic.
+
+---
+
+### Step 1 — read as the viewer first (spoken lines only, at the estimated durations)
+
+**What I felt / understood.** 0–3 s I looked before I understood: the frame says she is the one getting wet, and the question *Ai che ô cho bạn?* was in my head before the sentence finished. 7.46 s: the shoulders drop on screen while her own glass stays empty — that landed, and it is the first time the video shows its thesis as an event instead of an assertion. 11.94 s the hinge, and the 1.05 s hold now has a picture in it (the cursor blinks twice, the screen dims once) which is the kind of small thing that makes a held beat feel like a held beat. 19.02 s the unsent message, 25.39 s the call that rings once, 30 s `phải là người ổn`, 37 s the umbrella landing, 43.90 s the question — and then five seconds of nothing, with the rim tilted back over her. **Moved throughout, and the ending is earned rather than convenient.**
+
+**The exact second attention could drop: ~9.3 s** — when `s2b` begins. The payoff has fully resolved at 8.98 s, and the next 2.3 s are the third clause of a triad I already accepted at 0.3 s, over an image that re-shows the shoulders `a1` just dropped (weakness 1 below). Round 1's drop risk was ~6.5 s (and a second at ~2.9 s); round 2's was ~8.2 s. **The 2.9 s drop — the hook's worst failure in round 1 — remains gone.**
+
+---
+
+### A · The first second (0–1 s) — re-certified, three questions answered literally
+
+**The frame I judged** (`script.md:101` = `brief.md:56` = `hook-options.md:16`, verified byte-identical by grep on the corrected clause and confirmed against the previous wording, which now appears **nowhere** in the packet). Headline **`Ai che ô cho bạn?`** — 5 words / 17 chars, upper third, nothing in the bottom 210 px, complete at frame 0, clears on the `s1`→`s2a` boundary (`script.md:107`).
+
+1. **Is the thesis visible at thumbnail scale? Yes — for the first time, and now consistently.** The paragraph carries three polarity sentences and they agree: *"Her right shoulder and the outside of her sleeve are already dark with rain"* / *"The child's shoulder under the rim is dry"* / *"a wet sheen and a darker tone down her right sleeve, matte and dry on the child's coat and on the shoulder under the rim; wet sheen on the pavement below."* The contrast is specified as **value + sheen**, with the **rim's shadow as the separator** (`script.md:105`, `hook-options.md:20`) — a buildable instruction, not a mood word, and "must read as a tone and sheen difference, not as a caption" tells design what not to do. The polarity is now declared an **invariant** in four places (`script.md:103`, `:106`, `:228` CP2, `:252`) and mirrored in `hook-options.md:20`: *she is wet from the first frame and gets wetter; the child is dry for the whole runtime* — so design, motion, D and C can no longer invert it.
+2. **Is there an action in progress? Yes, and the packet now says which motion carries it.** *"water is actively beading and dripping off the rim (**that drip, not the tilt, is the strongest motion in the frame at phone size**)"* (`script.md:104`), repeated in `hook-options.md:19`. Round 2's complaint was that a "few degrees of tilt" cannot supply the motion and the packet leaned on it anyway; the round-3 text keeps the frame identical and removes the ambiguity by naming the continuous motion and demoting the tilt. The deliberate non-action (*"she has not noticed and does not adjust"*) is now declared as such rather than left ambiguous.
+3. **Is the contrast namable in one sentence? Yes: "she is the one getting wet while holding the umbrella over the child."** That sentence was not sayable from the round-2 paragraph, which asserted the opposite. `hook-options.md:27`'s sound-off claim (*"the frame says 'she is sheltering a child and is getting wet doing it'"*) is now literally true.
+
+**First-second score: 9.0 / 10.** What still holds it below a clean 10: the strongest single gesture of motion available to this video is still not in this frame (see D2), and *whether a viewer resolves one dark sleeve against one lighter shoulder across a rim's shadow at ~240 px wide* is a render question I cannot answer from text.
+
+---
+
+### B · The first three seconds (1–3 s) — judged separately again
+
+**The exact line:** `Mọi người thường tìm đến bạn mỗi khi có chuyện buồn.` — 11 syl, speech 0.00 → **2.62 / 2.82 / 2.97 s** at 4.2 / 3.9 / 3.7. Inside the ≤3 s window across the whole modelled band ✅.
+
+| contract test (`hook-engineering.md:8`) | verdict |
+|---|---|
+| one **precise** gap | ✅ *who holds the umbrella over you?* — one act, one referent, stated once in `hook-options.md:30` |
+| **truthful** | ✅ the video shows the answer; nothing is withheld |
+| **answerable** | ✅ paid at `s10` by the hand of the saved name from `s6`, and again on the silent END card |
+| **not clickbait** | ✅ no superlative, no statistic, no cure, no name dangled — the saved name is never named on screen either |
+| **readable sound-off** | ✅ 5 words, upper third, safe zone, clear event declared; the frame itself carries the thesis |
+| **in speech as well as on screen** | ⚠️ **only on screen.** `voice-direction.md:76` still reads *"Flat, level — a statement, not a question"* |
+
+**On the last row I hold the same position as round 2 and do not re-open it:** round 1's `H-07` explicitly prescribed building the gap in the frame and the headline with the owner line untouched, which is what shipped, and the gap is real, precise and paid. `hook-engineering.md:8` asks for both channels and only one carries it; the packet has the machinery to fix that (two `[ADD]` connectors, 16.34 s of silence) and chose the cheaper route. I deduct for it once, here, and leave it there.
+
+**First-three-seconds score: 9.0 / 10.**
+
+**Item 2 (hook), combined: 9.0 / 10 — clears the ≥9 bar.** Nine of the ten literals in `hook-engineering.md:7–12` pass; the one partial is the speech channel of the gap, plus the standing first-frame comparison in D2, plus one stale number in the hook document's Decision table (`NEW-5`, Thấp, not a hook-design defect).
+
+---
+
+### C · The 3–8 s payoff — recomputed at all three rates, from scratch
+
+`a1` starts at `20/r + 1.05` (s1 + s2a speech, their two intra-clip gaps and their two post-clip holds); `a1` phrase 1 = `Vai người khác chùng xuống.` = 5 syl.
+
+| rate | `a1` starts | **payoff event inside 8 s?** | **sentence 1 last word** | inside 8 s? |
+|---:|---:|---:|---:|---:|
+| 4.2 syl/s | 5.81 | ✅ | **7.00 s** | ✅ |
+| **3.9 (planning)** | 6.18 | ✅ | **7.46 s** | ✅ |
+| 3.7 syl/s | 6.46 | ✅ | **7.81 s** | ✅ |
+
+Reproduces `script.md:68`, `:75`, `brief.md:58` and `hook-options.md:33` exactly. **Still inside the window at every rate in the band** — and I can now state the robustness the earlier rounds could not: the payoff **event** (the shoulders visibly dropping) lands inside 8 s for any rate ≥ **2.88** syl/s, and the first proposition's **last word** for any rate ≥ **3.60** syl/s. `script.md:75` discloses the next-phrase variant (7.24 / 7.70 / **8.05 s**, 0.05 s past at 3.7) rather than rounding it away, which is the right disclosure.
+
+**Residual, stated and not ticketed:** at the low end of the measured evidence `script.md:297` cites (≈3.5–3.7 syl/s) the sentence-1 criterion slips to 8.19 s while the event itself is still 4.6 s inside the window. The packet models 3.7–4.2 and must be re-run against `voice-durations.ts` at Phase 3b; that is a measurement, not a defect.
+
+**And the payoff is genuinely a payoff now:** `s2a` is de-labelled in its own delivery cell (*"**Not the payoff** — this is what the payoff lands on"*), §1.1 states one beat is called the payoff and nowhere else, and the word "proof" appears **zero** times in `script.md`, `brief.md`, `hook-options.md` and `voice-direction.md` (grep, case-insensitive) — so the round-1 H-05 contradiction has not regressed.
+
+---
+
+### D · Competing candidates — who the hook still loses to, and why it now wins
+
+### D1 · `H4` (contrast one-liner) — **`H1` wins, and the margin widened this round.**
+
+`H4` still pays its contrast earlier (4.76 / 5.13 / 5.41 s). But three things changed in its disfavour and one in its favour did not change:
+
+- **0–1 s:** `H4`'s frame is a split comparison (a hand on a shoulder / the same hand alone with a phone) — two vignettes, each small, at thumbnail scale. `H1`'s frame is now one legible scene with a value-and-sheen contrast and a named second figure. The round-3 polarity fix is what makes this decisive rather than merely true.
+- **1–3 s:** `H4`'s own file says its first line *"is the flattest sentence in the packet"* (`hook-options.md:79`) — it names nobody and opens no gap. The winner now opens one and pays it at 43.90 s.
+- **Structural cost, unchanged and still fatal:** `H4` spends the `Nhưng` hinge inside the first five seconds, which empties the 15–20 s re-hook slot. I re-derived the re-hook from scratch: 17.93 / 19.02 / 19.86 s — inside the window at every rate, on owner line #4, a genuinely new event. `H4` cannot produce that slot.
+
+**Plainly:** `H1` wins. `H4` remains the only candidate that beats it on one number, and that number no longer decides anything now that the winner is inside the window itself. `hook-options.md:98`'s request that a reviewer "test that argument, not the timing one" — tested, and the argument holds.
+
+### D2 · `script.alt-2.md`'s frame 0 — **the standing honest answer: this video's strongest first-frame *gesture* still loses to it, and it is not the one that ships.**
+
+| literal test | shipped `H1` (round 3) | `script.alt-2.md` frame 0 |
+|---|---|---|
+| subject + **action in progress** in 0–1 s | ✅ subject; the named primary motion is the drip off the rim + the mid-tilt + a 3 % push | ✅ **a thumb hovering a few millimetres above an unpressed send key — a decision suspended mid-frame** |
+| **thesis visible in the thumbnail** | ✅ **yes — she is wet, the child is dry, three consistent sentences** | ❌ its frame states "an unsent message", which is `s4`/`s5`'s beat, not the video's thesis |
+| precise, answerable gap in 1–3 s | ✅ `Ai che ô cho bạn?`, paid at 43.90 s | ✅ message text in the bubble + label `Một tin nhắn chưa gửi` |
+| payoff before 8 s | ✅ 7.00–7.81 s | ✅ 6.48 s |
+| sound-off | ✅ | ✅ |
+
+**Round 2 declined to ticket this and I hold that position** — `H-02`'s acceptance check is met and the frame is materially better; re-opening it would be moving the bar. But I will not pretend the gap closed: **on the literal "action in progress" test, a suspended decision still beats a rim that is dripping**, and the director should know that the strongest motion in this video's own option set is in a file that will be deleted once A passes. What settles the choice is the row above it: after the round-3 fix, `H1`'s frame states the video's thesis and `alt-2`'s does not, and hook #1's job is the thesis.
+
+---
+
+### E · Specificity / emotional impact — the mandatory sub-score
+
+**E1 · Per-beat sensory audit, re-run against §3 (not against the self-check).** All 16 beats: `s1` ✅ wet sleeve stripe / child's dry shoulder / rim's shadow / lit window · `s2a` ✅ she finishes their sentence, mouth open as they nod, her glass untouched and empty · **`s2b` ✅ now buildable** — same doorway pulled back a step, head coming up off their hands, hand closing around their own glass, hers still where she left it, half-turned toward the hall · `a1` ✅ shoulders dropping, their glass still theirs, L1 arriving on her collar · `s3` ✅ furled umbrella dripping, black screen reflecting her head, blinking cursor, **and now in the hold: the cursor blinks twice more, the screen dims once** · `a2` ✅ rain on glass, sodium lamp in moving dots · `s4` ✅ characters appearing, the thumb hovering over an unpressed key, the far window · `s5` ✅ knees up, rain texture on the wall · `img1` ✅ backspace, characters vanishing, the hand hesitating, phone face-down · `s6` ✅ saved-name call ringing once, unanswered · `s7` ✅ rain stopping unnoticed, umbrella closed but unopened, the glass re-shown, L2 · `s8` ✅ hands on the closed umbrella, the still room · `s9` ✅ same street/umbrella/child/collar, her own doorway in frame, the wet patch spreading from the same right sleeve, L3 · `img2` ✅ patch darkening, drops off the sleeve, the child's dry shoulder · `s10` ✅ the missed call still lit, the warm cup, the rim tilting back · END ✅ rim tilted back, cup, missed call, rain thinning, lamp steady.
+
+**Result: 16/16 verified by me against the shot table** — and I now agree with the packet's count, which was 15/16 in round 2. Round 3 fixed the one beat that had no buildable image, and it was the beat inside the payoff run. **The 1.05 s hold on the hinge gained its own picture** (`script.md:139`, `:191`, `voice-direction.md:80`, §6.2 H1 — four places, consistent), so the packet's claim that every silence is a named beat is now literally true rather than aspirational.
+
+**E2 · Contrast pairs — ✅ registered once, with a polarity invariant.** §6.1 holds exactly CP1 (`a1`→`s3`, the turn), CP2 (`s1` frame 0 → `s9` → `img2` → `s10` + END card, the resolution), CP3 (`s6`→`s7`, the reveal); every row names a pair by id; `s7` is CP3 and never CP2; and CP2 now carries an explicit polarity rule that cannot be inverted downstream.
+
+**E3 · Highlight beats — ✅ exactly three**, `s3` / `s7` / `s10`, each with delivery + visual + light, "the gut punch" on `s7` and nowhere else, and every other shot either listed (`a1`=L1, `s9`/`img2`=L3) or marked "no light beat".
+
+**E4 · Genuine silent hold after the close — ✅ 5.00 s**, last word 43.90 s → 48.90 s (1.80 post-clip + 3.20 card), BGM cut on the last word, no CTA, climax and END in different shots.
+
+**E5 · Light arc — ✅ one arrival (L1) and four ordered states**, with the L0→L4 return of the lit window still the best structural rhyme in the packet. Grep re-run: **zero** occurrences of "first warm amber / first amber / first warm" anywhere in the packet. No regression from round 2.
+
+**E6 · MOVED or FLAT — moved, from the first three seconds.** Not flat anywhere. The one place the density is wrong is `a1`→`s2b`, where the payoff's own image is re-shown 3.1 s later (weakness 1), and where two object signals share one 2.56 s beat (weakness 2). Both are pre-existing, both are recorded in round 2 without a ticket, and neither is a blocker.
+
+**Item 8 (specificity / emotional impact, mandatory sub-score): 9.0 / 10 — clears the ≥9 bar.** Not a 9.5, because the payoff run repeats its own signal and because "moved" is a claim about a viewer I cannot interview — it is decidable on frames and a real viewer, never from a text audit.
+
+---
+
+### F · Profile `story` content test
+
+- **"A consistent character acting out the beat, with expressive close-ups where useful"** ✅ — §2.3 declares one stylised vector/SVG figure and maps every micro-action to a frame-driven scalar; the new `NEW-06` row (**"eyes / a mouth on a stylised figure → two eye dots and a mouth shape drawn as part of the head plate, driven by the same `wetness` and blink scalars"**) and the closing paragraph **now reconcile `brief.md:40`'s "expressive close-ups"** with §2.3's no-rendered-face rule, which was the last contradiction between those two files. That is a real reconciliation, not a patch.
+- **Situation feels earned** ✅ — staged at `s2a`/`a1`, not asserted.
+- **Turn feels earned** ✅ — `s3`'s hinge, then `s6`→`s7` correcting an assumption the viewer is already making.
+- **Ending feels earned** ✅ — the saved name is introduced at `s6`, §6.4 registers every acting actor, `s10`'s cell names `s6` by shot id, and the closing gesture is *"she looks at the hand, then at the phone, and does not speak"*.
+- **Captions support the scene** ✅ with one Thấp caveat — §4 is word-for-word from `voice.proposed.json` for all 13 keys, and after the round-3 fix every row's on-screen text is drawn from that row's own spoken words (`NEW-2` closed). The caveat is `NEW-4`: `s2a`'s new headline shares four words with the caption it sits on and has no declared clear event.
+
+**Item 9 (`story` content test): 9.0 / 10 — clears the ≥9 bar.**
+
+---
+
+### G · Closure table — every round-1 and round-2 ticket in this lens, verified by its acceptance check
+
+**Round 1 (14):**
+
+| id | acceptance check | verdict | evidence (independent) |
+|---|---|---|---|
+| **H-01** Cao | payoff sentence ≤8.00 s at 4.2/3.9/3.7; total 45–55 s; `s2a+s2b` byte-identical to owner #2; all three files name one shot id | **CLOSED** | recomputed 7.00 / 7.46 / 7.81 s ✅; 46.58 / 48.90 / 50.66 s ✅; join reproduces owner line #2 exactly ✅; `script.md:77` names `a1` as the only payoff ✅ |
+| **H-02** Cao | ≥1 visible sign the shelter is not covering her; second figure stageable; identical in all three files; gate D cover proof | **CLOSED** | wet stripe on her right sleeve ✅; "a child, about her shoulder height" ✅; three copies byte-identical (grep) ✅; and the sign is no longer contradicted by its own paragraph (that was `NEW-1`, now closed) ✅. Gate D's cover proof remains pre-render. |
+| **H-03** Cao | one "first … amber/warm" across `script.md` + `voice-direction.md`; four ordered states; "the palette turns here" at `s9`, "warmest" at `s10` | **CLOSED** | L0–L4 published once, others cite ids ✅; grep returns **zero** "first warm amber/first amber/first warm" ✅; no regression |
+| **H-04** Cao | acting off-screen elements introduced earlier; `s10` names `s6`; no bare gesture; point delivered by an actor | **CLOSED** | §6.4 registry; `s10`'s cell names `s6` ✅; the gesture is specific ✅. *See weakness 4: the registry omits the **on-screen** person at `s2a`/`a1`/`s2b` — outside this ticket's wording ("off-screen"), pre-existing, so recorded, not re-opened.* |
+| **H-05** Cao | one "proof" word per document, same shot id; every row names a real pair; `s7` = CP3 | **CLOSED** | grep: **0** "proof" in `script.md` / `brief.md` / `hook-options.md` / `voice-direction.md` ✅; §6.1 states "`s7` is CP3 and never CP2" ✅ |
+| **H-06** Cao | §H4 §2/§4 cite its own 20 syl and completion times; Decision row shows the payoff; no false pre-8 claim | **CLOSED** | `hook-options.md:67–83` re-argues from `H4`'s own syllables (4.76/5.13/5.41 s), withdraws the false reason by name, and states three real costs ✅; I re-tested the structural argument in D1 and it holds ✅ |
+| **H-07** Cao | §H1 §3 states the gap in one sentence; cover text is not a compression of the spoken line; every question answered | **CLOSED** | `hook-options.md:30` ✅; `Ai che ô cho bạn?` is not a compression of `s1` ✅; answered at `s10` + END card ✅. *Speech-channel residual recorded in B; not re-opened.* |
+| **S-01** Trung | every row names an object/action unique to it; the count is verifiable row by row | **CLOSED** | `s2a` carries "she finishes their sentence before they say it" + her untouched-empty glass ✅; §6.3 is now a per-beat list I verified beat by beat — 16/16 ✅ |
+| **S-02** Trung | exactly three highlight rows; "gut punch" on one; every light-beat shot listed or marked | **CLOSED** | §6.2 has three rows; "gut punch" on `s7` only, with an explicit exclusivity note ✅; the closing paragraph accounts for all other shots ✅ |
+| **S-03** Trung | frame-0 umbrella named as the same object downstream; a reader can answer *when* and *why* | **CLOSED** | `s9`'s cell asserts the same street, same scuffed tip, same child, same collar **and her own doorway in frame** ✅; §2.2 names the through-line object and body part ✅; and the round-3 rewrite keeps the child's shoulder **dry**, matching §2.2's invariant ✅ |
+| **S-06** Trung | the `a2`-adjacent silence shows its position; re-hook lands on a beat; total silence unchanged | **CLOSED** | §5 states "**1.05 · after `s3`, i.e. BEFORE `a2`**" and "0.25 · after `a2` · the whisper's tail → the re-hook" ✅; silence recomputed to 16.34 s ✅ (the ticket's 13.05 s figure is stale — the packet changed wholesale). *Residual recorded in I: the re-hook still follows the softest line, now off a 0.25 s beat — round 1 prescribed exactly this move.* |
+| **H-08** Thấp | the promise sentence matches what `s10` + the END card deliver | **CLOSED** | `hook-options.md:30` — *"nobody asks the person who holds the umbrella"*, cross-referenced ✅ |
+| **H-09** Thấp | §H2 quotes the frame-0 text that makes it sound-off legible and names surviving objections | **CLOSED** | `hook-options.md:45` quotes `alt-2`'s bubble and label, withdraws the straw-man objection by name, and names what survives ✅ |
+| **S-05** Thấp | the headline's clear event is named with its boundary; `design-spec.md` treats it as frame-accurate | **CLOSED** | `script.md:107`, `:156` and `hook-options.md:23` all name the `s1`→`s2a` clear and say it must be treated as a frame-accurate event ✅. *Round-3 caveat: the new `s2a` headline has no clear event → `NEW-4`.* |
+
+**Round 2 (3):**
+
+| id | acceptance check | verdict | evidence |
+|---|---|---|---|
+| **NEW-1** Cao | exactly one figure described as wet and one as dry, in all three copies, byte-identical, with no internal contradiction; `hook-options.md:27` and `script.md:93`'s thumbnail claim then literally true | **CLOSED — fully, in all three files** | the corrected clause appears exactly once in each of `script.md:101`, `brief.md:56`, `hook-options.md:16` and is byte-identical across them (grep) ✅; the old inverted clause appears **nowhere** in the packet ✅; polarity declared invariant at `script.md:103/106/228/252` + `hook-options.md:20` ✅; `hook-options.md:27`'s sound-off sentence is now true ✅. Re-certified in A: thesis visible / action in progress / contrast namable — all three yes. |
+| **NEW-2** Trung | every row's on-screen text drawn from that row's own spoken words; no on-screen string in two rows; `content-agent` can copy §3 and §4 without resolving a conflict | **CLOSED** | `s2a`'s on-screen text is now `Bạn luôn biết phải nói gì.` (6 words, ≤6 cap ✅), built from `s2a`'s own half; I listed all 12 non-empty on-screen strings and **no string repeats across rows** ✅. *One new, smaller instance of the same family — `s2b`'s "their shoulders are down" echoing `a1` — recorded as weakness 1; and a headline/caption overlap — `NEW-4`.* |
+| **NEW-3** Trung | every beat in §6.3; the count equals the list and equals §3's rows; no image cell unbuildable | **CLOSED** | `s2b`'s cell is now six buildable elements in one doorway shot ✅; §6.3 lists **16** beats including `s2b` ✅ and matches §3's 16 rows one for one ✅ |
+
+**14/14 + 3/3 round-1 and round-2 tickets in this lens verified closed, none disputed.**
+
+---
+
+### H · NEW tickets — both newly introduced by the round-3 fixes, both Thấp
+
+#### `NEW-4` (hook lens) · **Thấp** · `script.md:136` (`s2a` on-screen text) against `script.md:161` (§4 caption chunks)
+
+- **Evidence.** For 3.34–6.18 s the screen would carry two text layers: the headline `Bạn luôn biết phải nói gì.` and caption chunk 2 `Biết phải nói gì.` — **four shared words in two layers of the same safe-zone column, simultaneously**. Worse, `a1`'s headline `Còn bạn thì đứng ngoài.` has to take that same slot at 6.18 s, so `s2a`'s headline must clear inside **0.25 s** or two headlines collide in one place — and, exactly as `S-05` required for the cover headline, **no clear event is declared for it anywhere**.
+- **Severity: Thấp, and the precedent sets it.** No `hook-engineering.md:39` common blocker applies (both layers are ≤6 words, inside the safe zone, nothing below y≈1710 px), the legibility is design's to place, and round 1's ticket for the identical family of defect (`S-05`, two near-duplicate text blocks inside a 3-second window) was Thấp. Calling this Trung would be me raising the bar on taste in the final round, which the fix-loop discipline forbids.
+- **Concrete change (pick one; all are one clause):** (a) declare the clear event *and* remove the overlap — `s2a` on-screen text → `Bạn luôn biết lời nào cần nói.` (6 words, shares no word with that key's caption chunks), and add to the cell *"clears on the `s2a`→`a1` boundary"*; or (b) mark `s2a`'s on-screen text `—` (caption layer only), as `a2`, `s8`, `img1` and `img2` already do — the opening then carries two text moments instead of four.
+- **Acceptance check.** For every row, either the on-screen text shares no word with that row's own caption chunks, or the row declares a clear event on a named shot boundary and the two layers cannot occupy the same zone at the same time. §4 stays verbatim.
+- **Not part of the ticket, flagged only:** `luôn` is a quantifier absent from the owner's wording (`s1` says `thường`, "usually"). It is not a claim about the world, it is supported by `s2a`'s own staged image (she finishes their sentence), and it is therefore not a clickbait breach — but the fidelity lens may want to see it.
+
+#### `NEW-5` (hook lens) · **Thấp** · `hook-options.md:91` — the Decision table still prints the round-2 tail
+
+- **Evidence.** The `H1` row's "Payoff resolved" cell reads **`s10` + END card + 3.10 s tail**. The post-word tail is **5.00 s** = `s10`'s 1.80 s hold + the END card's **3.20 s** — stated correctly at `hook-options.md:100`, `script.md:208`, `voice-direction.md:70`, `brief.md:60` and `voice-performance.proposed.json:56–59`. **3.10 s is the round-2 END-card length**, left behind by the round-3 shift of 0.10 s from `s10`'s hold into the card. This cell understates the tail by 1.90 s and is the cell a Phase-3 agent reads to size it.
+- **Concrete change:** `3.10 s tail` → `5.00 s tail` in that one cell.
+- **Acceptance check:** grep `3.10` in `hook-options.md` returns nothing that is not a clearly-labelled END-card length; the cell agrees with `:100`.
+
+---
+
+### I · Cross-lens flags — found by me, **owned by other lenses**, not tickets of mine
+
+1. **`voice-performance.proposed.json:29`** still prints the identity as `… + 2.54 + 10.70 + 3.10 = … + 16.34 s` while `:35` says `sumPostClipHoldSeconds: 10.6` and `:57` says `silentCardSeconds: 3.2`. Same 0.10 s round-3 shift; the sum (16.34) is still right, the two components are stale. **Item 10 lens.**
+2. **`script.md:285` (the spoken-title contingency, fidelity `NEW-07`)** — *"takes 2.82 s at the 3.9 planning rate out of the END card's 3.20 s and leaves a 1.2 s card — so the total goes 48.90 → 49.82 s"*. 3.20 − 2.82 = **0.38 s**, not 1.20 s; and 49.82 reproduces only if the new 14th key contributes ≈0.10 s of pause + hold, which no key in this packet does (every one has ≥0.25). If the speech really comes out of the card the total is 48.90 with a 0.38 s card; with the packet's own hold pattern the figure is ≈50.29 s. The old irreconcilable "near 47.9 s" is gone and the sentence now shows its reasoning — **partially closed**, and the round-3 fix is what produced the new figure. **Item 4/5 lens.**
+3. **`script.md:212`** — *"at 3.04 syl/s with all five applied the total is exactly 55.00 s"*: 127/3.04 + 13.24 = **55.02 s**. A 0.02 s rounding slip, non-material. **Item 5 lens.**
+4. **`research.md:23`** still reads *"the umbrella metaphor as the ~8 s payoff; the title line as closing re-hook/resolution"*. All three have moved: the 3–8 s payoff is `a1`, the re-hook is `s4` at 19.02 s, and the title line is the silent END card. `research.md` belongs to the research-agent and is neither mine nor the producer's to edit — **the director should own the one-line correction**, because Phase-3 agents read that line. Pre-existing (created by round 1's `H-01`/`H-07`), so not a NEW ticket by my rules.
+
+---
+
+### J · The `a2` fronted locative — **my verdict: PASS, with reason**
+
+Round 2 recorded the residual and declined to ticket it; I was asked to judge it myself. **`Ngoài cửa sổ, mưa rơi đều.` passes.** Four reasons:
+
+1. **It is not an owner line.** `a2` is an `[ADD]` narrator connector (`script.md:269`), one of 13 keys, 6 syllables, 1.9 s long, doing one job: putting the room's sound into the story between the hinge and the re-hook.
+2. **Its speaker register is explicitly different from the rest of the packet.** `voice-direction.md:81` directs it *"said as if the narrator had just noticed it, still to one listener"* — a narrator's aside, not the direct address that carries the ten owner lines. In *that* register a fronted locative is correct, ordinary narration syntax, and it is **deictic**: `Ngoài cửa sổ` points the viewer's eye out of the window, which is exactly what the image cell does (*"Hold on the window"*).
+3. **The alternative is worse, not better.** Conversational order would open the video's quietest beat on `Mưa` — the blandest available first word — and would lose the spatial push that tells the viewer where to look. If the line must change at all, the same-syllable alternative is `Mưa ngoài cửa sổ rơi đều.` (6 syl, keeps the image words); I am not recommending it, only noting that the count would not move.
+4. **Nothing downstream moves.** Timing (17.10–19.02 s), the 0.14 s intra-clip gap, the 0.25 s pre-re-hook gap and the 16.34 s silence total are unchanged.
+
+**The counter-argument, stated honestly:** a reviewer who reads the whole script as one continuous direct address to a single listener could reasonably call this register literary, and spoken naturalness is **item 4 — another lens's item, which I do not score**. The two readings differ only because `a2` is deliberately *not* the direct address, and `voice-direction.md:81` says so in writing. If the spoken lens disagrees, the fix is an `[ADD]` line only — no owner word, no second moved.
+
+---
+
+### Weakness hunt (required even at ≥9 — six, each with a concrete change)
+
+1. **The payoff's own image is re-shown 3.1 s later.** `s2b`'s rewritten cell says *"their shoulders are down"* (`script.md:138`), 3.10 s after `a1`'s *"the other person's shoulders visibly drop"* — the one signal the whole payoff rests on appears twice in a single doorway run, and `s2b`'s own delivery cell promises it *"does not compete with it"*. Rewrite `s2b`'s cell to lead with the settled aftermath: *"The same doorway, pulled back one step: the other person's head has come up off their hands, their hand has finally closed around their own glass, and she is already half-turned toward the hall; her own glass is still where she left it, untouched and empty."* Five details, zero echo.
+2. **Two object signals in one 2.56 s beat.** At `a1` the shoulders drop *and* her untouched glass is re-shown (`:137`), competing inside the single strongest beat of the first third — carried since round 2 as an unticketed weakness. Rewrite `a1`'s cell: *"Same shot one beat later: the other person's shoulders visibly drop; the glass in front of them is still theirs; **light L1: a warm sliver from the doorway reaches the edge of her collar**"* — drop the glass from `a1` and keep it at `s2a` and `s7`, where it is doing real work.
+3. **The screen never rests before 11.94 s.** Four headline events in the first eleven seconds (`Ai che ô cho bạn?` → `Bạn luôn biết phải nói gì.` → `Còn bạn thì đứng ngoài.` → `Người khác thấy ổn hơn.`). Applying `NEW-4`'s option (b) — caption-layer-only for `s2a` — cuts it to two.
+4. **The person in the doorway is neither named nor registered.** `s2a`/`a1`/`s2b` are played by "the other person", whose size, age and relation to the frame-0 child are never stated, and who is absent from §6.4's actor registry — so a reader cannot say whether the dry shoulder carried in from the street is the dry shoulder in the kitchen. Add one row to §6.4: *"the person in the doorway — introduced `s2a`; **the same child from frame 0** (asserted, not implied), present at `s2b` and behind her at `s7`"* — or state plainly that they are a second, different figure. Either answer ships; the current silence should not. (Round 2's weakness 6, the same class of gap: `s8`'s addressee is likewise in the voice direction and in no registry.)
+5. **`research.md:23`'s hook mapping is stale** — quoted and corrected in I.4.
+6. **`hook-options.md:91`'s tail figure is stale** — `NEW-5`.
+
+---
+
+### Scores
+
+| item | round 1 | round 2 | **round 3** | verdict |
+|---|---:|---:|---:|---|
+| **2 · hook clear ≤3 s** (first second 7.5→8.5→**9.0** · first three seconds 6.5→8.5→**9.0**) | 7.0 | 8.5 | **9.0** | **clears the ≥9 bar.** The frame now states its own thesis with the polarity fixed and declared as an invariant; the action in progress is named (the drip, not the tilt); the gap is precise, answerable, non-clickbait and sound-off; the payoff is inside 3–8 s at 4.2 / 3.9 / 3.7 syl/s. Held down by: the speech carrying none of the gap (recorded, not re-openable), `alt-2`'s suspended thumb remaining the stronger first-frame gesture, and one stale number in the Decision table. |
+| **8 · specificity / emotional impact** (mandatory sub-score) | 7.5 | 9.0 | **9.0** | **clears the ≥9 bar.** 16/16 beats carry a verified sensory detail; the hinge's hold now has a picture; one light arrival with a real L0→L4 callback; three named highlights with triples; an earned climax; 5.00 s of post-word silence. Held down by the payoff signal repeating at `s2b` and by two signals sharing one beat at `a1`. |
+| **9 · profile `story` content test** | 7.5 | 9.0 | **9.0** | **clears the ≥9 bar.** Hero clause now reconciled end to end (`NEW-06`), situation/turn/ending all earned, captions word-for-word with every row's on-screen text now drawn from that row's own words. Held down by the un-registered doorway person and `NEW-4`. |
+
+**Lens score = 9.0** (mean of the three items this lens owns). The gate score remains the **lowest** lens score, which is the director's to take, not mine.
+**Verdict: `pass` for this lens.** No open Cao ticket and no open Trung ticket in items 2, 8 or 9; the two tickets I raise are Thấp and neither blocks. I do not claim the gate has passed — only that the hook, the specificity sub-score and the `story` content test each clear their bars on the text as it now stands.
+
+---
+
+### What I could not verify (and will not claim)
+
+1. **Whether frame 0 reads at phone size.** I judged a written paragraph. Whether one dark wet sleeve resolves against one lighter, dry shoulder across a rim's shadow at ~240 px wide — and whether it reads as a *contrast* rather than as two people under an umbrella — is provable only on `out/qa/<vid>-cover.png` (gate D) and the final MP4 (gate C). **I assert no readability.**
+2. **Whether water beading off a rim is legible as an action in second one.** The packet now names it as the primary motion, but whether it registers as motion (rather than as texture) on a phone screen is a frame question. Same limit as above.
+3. **The measured speech rate, and therefore the payoff's real second.** Every figure above is the 3.9 syl/s planning rate. What I *can* state from the structure: the payoff event is inside 8 s for any rate ≥ 2.88 syl/s and the first proposition's last word for any rate ≥ 3.60. `script.md:297` cites measured runs at 3.75 and ≈3.5–3.7; at the 3.5 end the sentence-1 criterion slips to 8.19 s (the event is still 4.6 s inside). `voice-durations.ts` at Phase 3b decides it.
+4. **Whether the 3.34 s headline clear is felt as relief or as the loss of the frame's question.** A design decision; only frames answer it.
+5. **Whether `s6`→`s10` reads as recognition or as coincidence.** I judge it earned on paper — the missed call stays lit, the actor is registered, the gesture is named. A real viewer answers it.
+6. **Any claim about retention, "how many chose to view", or first-three-second hold.** Only measurable after publication through `docs/<vid>/hook-experiment.md`, against comparable videos. **I assert no predicted effectiveness for this hook and no measured one.**
+7. **Items 1, 3, 4, 5, 6, 7 and 10** — fidelity, clarity, spoken naturalness, syllable-timing feasibility, source accuracy, Remotion feasibility and voice-direction feasibility are not scored by this lens and are not implied by anything above.
+8. **No `pipeline.py` command was run.** This runtime has no shell tool and the role forbids it in any case. The director must run `python3 -I scripts/pipeline.py review ban-khong-yeu-duoi-chi-da-manh-qua-lau A 9.0 --reviewer script-reviewer-r3-hook --report script-review.hook.md --verdict pass` and the real `audit` before this round is recorded. **I did not write, rewrite or truncate `script-review.md`.**
+
+---
+
+**Round 3 result — `score: 9.0` (hook **9.0** · specificity **9.0** · story content test **9.0**), verdict `pass` for this lens. 17/17 round-1 + round-2 tickets in this lens verified closed, none disputed. 0 open Cao, 0 open Trung. 2 NEW tickets, both Thấp: `NEW-4` (headline/caption overlap at `s2a`) and `NEW-5` (stale "3.10 s tail" at `hook-options.md:91`). `a2`'s fronted locative: passed, with reason (J).**

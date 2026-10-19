@@ -1,0 +1,23 @@
+OK   url   https://assets.mixkit.co/active_storage/sfx/1461/1461-preview.mp3
+OK   url   https://assets.mixkit.co/active_storage/sfx/3179/3179-preview.mp3
+OK   url   https://assets.mixkit.co/active_storage/sfx/1382/1382-preview.mp3
+OK   url   https://assets.mixkit.co/active_storage/sfx/2582/2582-preview.mp3
+OK   url   https://assets.mixkit.co/active_storage/sfx/2380/2380-preview.mp3
+OK   url   https://assets.mixkit.co/active_storage/sfx/2579/2579-preview.mp3
+OK   url   https://assets.mixkit.co/active_storage/sfx/1494/1494-preview.mp3
+OK   url   https://assets.mixkit.co/active_storage/sfx/1311/1311-preview.mp3
+OK   url   https://assets.mixkit.co/active_storage/sfx/3083/3083-preview.mp3
+OK   url   https://assets.mixkit.co/active_storage/sfx/1527/1527-preview.mp3
+OK   file  sfx/transition/wind-swoosh-short.mp3
+OK   file  sfx/fluid/water-drop-cave.mp3
+OK   file  sfx/text/typewriter-hit-single.mp3
+OK   file  sfx/ui/switch-click-quick.mp3
+OK   file  sfx/paper/paper-move-quick.mp3
+OK   file  sfx/ui/switch-light.mp3
+OK   file  sfx/fluid/sand-swish.mp3
+OK   file  sfx/fluid/water-splash.mp3
+OK   file  sfx/light/sparkle-touch.mp3
+OK   file  sfx/glass/glass-plate-slide.mp3
+OK   bgm   original synthesis declared (no external URL expected)
+
+10 urls + 10 sources + 1 bgm checked; licence gaps: 0

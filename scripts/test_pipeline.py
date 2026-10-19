@@ -15,6 +15,7 @@ from pathlib import Path
 
 
 SOURCE = Path(__file__).with_name("pipeline.py")
+REVIEW_POLICY = SOURCE.parent.parent / ".agents/skills/ray-pineline-worflow-agent/schemas/review-gates.json"
 
 
 class PipelineCliTest(unittest.TestCase):
@@ -24,6 +25,9 @@ class PipelineCliTest(unittest.TestCase):
         self.root = Path(self.tmp.name)
         (self.root / "scripts").mkdir()
         shutil.copy2(SOURCE, self.root / "scripts" / "pipeline.py")
+        policy = self.root / ".agents/skills/ray-pineline-worflow-agent/schemas/review-gates.json"
+        policy.parent.mkdir(parents=True)
+        shutil.copy2(REVIEW_POLICY, policy)
         (self.root / "docs" / "sample").mkdir(parents=True)
         (self.root / "src").mkdir()
         (self.root / "src" / "Root.tsx").write_text('<Composition id="SampleReel" />')
@@ -735,6 +739,12 @@ class PipelineCliTest(unittest.TestCase):
         self.pass_gates("A")
         self.cli("set", "sample", "research", "pending", "--next", "branches")
         self.assertEqual(self.cli("audit", "sample").returncode, 0)
+
+        status = self.status()
+        status["reviews"]["A"][0]["report"] = r"docs\sample\a-review.md"
+        (self.root / "docs" / "sample" / "status.json").write_text(json.dumps(status))
+        self.assertEqual(self.cli("audit", "sample").returncode, 0)
+
         (self.root / "docs" / "sample" / "a-review.md").unlink()
         failed = self.cli("audit", "sample")
         self.assertNotEqual(failed.returncode, 0)
