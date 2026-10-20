@@ -12,8 +12,8 @@
 - platform: TikTok / Reels / Shorts (9:16, 1080×1920, 30 fps)
 - duration: **50–60 s** (owner explicit override; includes speech, pauses, transitions and the ending hold)
   - Conflict recorded: the request's structured `Duration` field says "30–45 s" (the repo default), but the
-    owner's own topic line says "**50–60 giây**". The topic prose wins, exactly as the sibling video
-    `ban-khong-yeu-duoi-chi-da-manh-qua-lau` honoured its prose duration as an explicit override.
+    owner's own topic line says "**50–60 giây**". **An explicit owner duration outranks the repo default**, as the
+    sibling video's explicit **45–55 s** owner override shows.
     Render with `--min-seconds 50 --max-seconds 60`.
 - voice route: **route 2** — local VieNeu-TTS clone from the owner-provided preview
   `vietnamese-voice-samples/previews/Thanh-Long-Nang-Cao.mp3` (35.93 s mp3, verified by preflight).
@@ -79,20 +79,20 @@ a written list in §Constraints below. `owner-notes.md` is **not** one of this r
 
 | # | claim, exactly as the video makes it | spoken in | on screen | source | status |
 |---|---|---|---|---|---|
-| C1 | The character once said they would learn the guitar, and then went to work | `s1` | cover headline `Bạn từng nói sẽ học đàn.`; caption `Rồi bạn đi làm.` | **`S1`** lines 1 + 3 (owner, verbatim except the dropped two-syllable `Ngày trước,`) | owner's own words |
+| C1 | The character once said they would learn the guitar, and then went to work | `s1` | cover headline `Bạn từng nói sẽ học đàn.` — **only this string; the second sentence `Rồi bạn đi làm.` is never printed** (carried by the badge lying on the list and by `s4`) | **`S1`** lines 1 + 3 (owner, verbatim except the dropped two-syllable `Ngày trước,`) | owner's own words |
 | C2 | They kept a whole list of songs they wanted to play | `s2` | caption | **`S1`** line 2, verbatim | owner's own words |
-| C3 | The list is thin paper, blue ballpoint, written half-way | `s3` `[ADD]` | caption | **`S1`** line 5 ("cuốn sổ có danh sách ấy") + `I4` (ink colour is a **design** choice, not a sourced fact — labelled `I4` here and never presented as fact) | inference, labelled |
+| C3 | The list is thin paper, written half-way in blue ballpoint (**the colour is image-only and is never spoken** — `A1`/`C-08`) | `s3` `[ADD]` | caption | **`S1`** line 5 ("cuốn sổ có danh sách ấy") + `I4` (ink colour is a **design** choice, not a sourced fact — labelled `I4` here, shown on screen, and never said) | inference, labelled |
 | C4 | Every morning: a badge tapped, a full inbox | `s4` `[ADD]` | caption + `minh hoạ` on the recreated inbox screen | **`S1`** line 3 ("Rồi bạn đi làm") expanded into research §4 item 6 staging (fluorescent office, badge on a lanyard, overflowing inbox). **No number, no job title, no company** | staging from an owner line |
 | C5 | Each time they meant to buy a guitar they thought: "Để khi nào rảnh." | `s5a` `s5b` | headline `'Để khi nào rảnh.'` | **`S1`** line 4, verbatim (`s5a` + `s5b` = 8 + 4 = 12 syl = the whole line) | owner's own words |
-| C6 | The finger stopped on a `Mua ngay` button and the screen went off | `s6` `[ADD]` | `minh hoạ` on the recreated product page | **`I1`**, labelled: the owner never states a purchase. The shot shows **hovering, not buying**; see §Constraints | inference, labelled |
-| C7 | Years later, clearing the house, they found the notebook with that list in it | `s7` | headline `Bạn tìm thấy cuốn sổ ấy.`; caption | **`S1`** line 5, verbatim | owner's own words |
+| C6 | The finger **stopped just short of** a `Mua ngay` button and the screen went off | `s6` `[ADD]` | `minh hoạ` on the recreated product page | **`I1`**, labelled: the owner never states a purchase. The shot shows **hovering, not buying** — the finger never lands and the button never changes state; see §Constraints | inference, labelled |
+| C7 | Years later, clearing the house, they found the notebook with that list in it | `s7` | caption only (no headline in this key) | **`S1`** line 5, verbatim | owner's own words |
 | C8 | The cover was covered in dust; one finger drew a streak through it | `s8` `[ADD]` | caption | **`S1`** line 5 ("buổi dọn nhà" — the object was out of sight long enough to gather dust) + research §4 item 2 | staging from an owner line |
 | C9 | The old handwriting is still intact | `s9` | caption | **`S1`** line 6, verbatim | owner's own words |
-| C10 | They sat reading it and felt sorry for whoever wrote it | `s10` | headline `Bạn thương người viết ra nó.`; caption | **`S1`** line 7, verbatim; the shot chose *pity, not regret* per **`I3`** (labelled inference: "thấy thương" is self-compassion, not self-blame) | owner's own words + labelled inference |
+| C10 | They sat reading it and felt sorry for whoever wrote it | `s10` | caption only (no headline in this key) | **`S1`** line 7, verbatim; the shot chose *pity, not regret* per **`I3`** (labelled inference: "thấy thương" is self-compassion, not self-blame) | owner's own words + labelled inference |
 | C11 | That person had no idea how busy they would become | `s11` | caption | **`S1`** line 8, verbatim | owner's own words |
 | C12 | Today they may no longer want to be a musician | `s12` | caption | **`S1`** line 9, verbatim | owner's own words |
 | C13 | But if they still like the sound of the guitar… | `s13` | caption | **`S1`** line 10, verbatim, including the owner's own `…` | owner's own words |
-| C14 | They can learn one chord | `s14` | headline `Học một hợp âm.`; caption | **`S1`** line 11, verbatim; the **worth of one chord** is grounded in `F5` (`S2` "Học cho vui…"), `F6` (`S2` "Lần đầu tiên đàn được bản nhạc, sướng lắm") and `F15` (`S9`) | owner's own words + grounded |
+| C14 | They can learn one chord | `s14` | caption only (no headline in this key) | **`S1`** line 11, verbatim; the **worth of one chord** is grounded in `F5` (`S2` "Học cho vui…"), `F6` (`S2` "Lần đầu tiên đàn được bản nhạc, sướng lắm") and `F15` (`S9`) | owner's own words + grounded |
 | C15 | A chord, slightly buzzing, fingers not used to pressing | `s15` `[ADD]` | headline `Một hợp âm rè nhẹ.` | **`F8`** (`S3`: fingertips blistered, string-shaped dents "5 ngón tay phồng rộp, lõm lại vết hằn của dây đàn") is the sensory grounding of the buzz and the dent. **The chord is heard, not claimed as success** | staging from a research fact |
 | C16 | Not to make up for the lost years — only to be glad about something once loved | `s16` | caption | **`S1`** line 12, verbatim; the "for joy, not achievement" framing is corroborated by `F5`, `F17` (`S11` "quay lại với những đam mê từng bị bỏ dở"), `F19` (`S13`) | owner's own words + corroborated |
 | C17 | *(silent card)* the topic line | — | `Có những giấc mơ` / `bạn đã âm thầm từ bỏ` | the owner's own topic line (`request.md`) | owner's own words |
@@ -108,9 +108,9 @@ statistic, no trend claim. See §Constraints.
   |---|---|---|
   | workroom slate (base, present from frame 0) | `#1C2229` | wall, floor, the dark that dust and ink sit on |
   | aged paper ivory | `#EDE4D2` | the notebook's pages, the paper panel behind quoted text |
-  | ruled line | `#C9BFA8` | the notebook's printed rules, table edges |
+  | ruled line | `#C9BFA8` | the notebook's printed rules and its page edges |
   | **hero: ballpoint ink blue** | `#243A8C` | the handwriting, and **only** the handwriting — thin strokes, one weight, never a fill |
-  | dust grey-brown | `#9A8F7C` | the film on the cover, the smear on the table, the motes |
+  | dust grey-brown | `#9A8F7C` | the film on the cover, the smear on the boards, the motes |
   | office fluorescent cast | `#DCE7DE` | `s4`, `s6` — the only green-grey in the video, i.e. the only room that is not home |
   | phone screen light | `#8FB6E8` | the recreated shopping page |
   | locked-screen grey | `#6E7A85` | `s6` after the phone goes off |
@@ -119,14 +119,20 @@ statistic, no trend claim. See §Constraints.
   **No amber bulb, no candle, no red, no neon, no gradient glow.** The only saturated colour in the video is the
   ink blue, and the only warm light is the window.
 - **Type.** **Manrope** (Google Fonts, OFL, has a Vietnamese subset) for the cover headline, on-screen text and
-  captions — verified unused anywhere in the repo (`grep -r Manrope` over `*.tsx/ts/json/md/css`: **no matches**),
+  captions — verified **unused in any other repo file**: a repo-wide `grep -r Manrope` returns **zero** hits in any
+  `*.tsx/ts/json/css`, and the only text hits are this brief's own four uses plus the two review files that quote
+  this sentence (checked 2026-10-20),
   so this video's type is unambiguous. **No handwriting font anywhere**: the song list is drawn as **vector ink
   strokes**, deliberately unlike `dung-bien-tuoi-30-thanh-ban-an`, which uses Caveat/Lora-italic hand-lettering
   (`docs/dung-bien-tuoi-30-thanh-ban-an/brief.md`). Weights: headline 700, on-screen text 600, captions 600.
 - **Motion.** Slow and single-direction only: one push-in per shot (1.00→1.03 at most), no whips, no zoom-punches,
-  no parallax for its own sake, no speed ramps. The video's motion budget is spent on **four** real movements —
-  the push-in at frame 0, the pocket of the box flap at `s7`, the finger's dust streak at `s8`, and the finger
-  pressing a string at `s14`–`s15` — and on nothing else. Dust motes drift on a fixed phase of the frame index.
+  no parallax for its own sake, no speed ramps. The video's motion budget is spent on **six** named movements —
+  the push-in at frame 0, **the forefinger entering from the lower right inside the first 0.5 s and tracing the
+  first line to its full stop at `s1`**, **the strap's coil settling flat and the page's lower corner lifting
+  ~1 mm at `s1` (the badge plate itself never moves — the strap is the moving object, and it is the same strap that
+  straightens onto a torso at `s4`)**, the flap of the box at `s7`, the finger's dust streak at `s8`, and
+  the finger pressing a string at `s14`–`s15` — and on nothing else. Dust motes drift on a fixed phase of the frame
+  index. **Frames 0–15 are never a still image with only motes in it.**
 - **Caption treatment.** Manrope 600, ivory `#EDE4D2` on a `#1C2229` pill at 86 %, two lines maximum, centred,
   bottom edge at y ≈ 1710 px of 1920 — **nothing in the bottom 210 px**. Word-for-word from `voice.proposed.json`
   (`script.md` §4). Accent words are set by weight only (700), never by colour: colour is reserved for the ink and
@@ -174,7 +180,13 @@ statistic, no trend claim. See §Constraints.
 > light touches this frame anywhere**. Dust motes drift through the cold light. Slow push-in 1.00→1.03.
 
 Cover headline **`Bạn từng nói sẽ học đàn.`** (6 words) is complete at frame 0, is the only text on screen during
-`s1`, and clears on the `s1`→`s2` boundary at 3.07 s, where the caption layer takes over.
+`s1`, and clears on the `s1`→`s2` boundary at **`11 ÷ rate + 0.25`** = 2.75 / 2.87 / 3.07 / 3.22 / 3.31 s at
+4.4 / 4.2 / 3.9 / 3.7 / 3.6 syl/s, where the caption layer takes over. **Keyed to the measured `s1` clip end, never
+to a fixed number**: the headline is removed on the boundary frame before `s2`'s first caption draws, so the two
+layers never share a frame at any rate. **Frame-0 note (`B1`): the badge plate is already on the list at frame 0 and
+never lands again during `s1`** — there is no drop and no landing; the only motion in `s1` is the forefinger's entry and
+trace, **the strap** relaxing flat (the strap is a different object from the plate), and the page's lower corner
+lifting ~1 mm.
 
 ## Constraints the script must obey in every shot (`U1`–`U5`, `I1`)
 | id | constraint | how the packet obeys it |

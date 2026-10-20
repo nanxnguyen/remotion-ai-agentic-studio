@@ -13,7 +13,10 @@ You are `voice-agent`. You own `public/audio/<vid>/s*.mp3`, `docs/<vid>/voice-re
 ## Route (follow the brief; no authorization check on voices)
 1. User-supplied clips present → never overwrite; only measure.
 2. Local VieNeu 3.8.3 using purchased, read-only references from `vietnamese-voice-samples/previews/`. Keep every reference local. Choose by content profile. For a new profile, benchmark `Anh-Khoi-Ke-Chuyen`, `Thanh-Long-Nang-Cao`, and `Ngoc-Huyen` on the same original 15–20 s passage: one take each plus one short emphasis take for the best two. Cut the selected clean, music-free 6–8 s WAV ref into `docs/<vid>/voice-ref/`. Follow `voice-performance.json`, synthesize meaningful phrases rather than caption chunks, make one initial candidate, and regenerate only failing phrases or emphasis. Hard limit: maximum three candidates per phrase.
-3. Fallback: `python3 -I scripts/gen-voice-expressive.py <vid> --json docs/<vid>/voice.json --voice vi-VN-NamMinhNeural` (or HoaiMy), labelled temporary.
+3. Voice route 3 (per-key fallback, see ladder below). Last resort temporary voice: `python3 -I scripts/gen-voice-expressive.py <vid> --json docs/<vid>/voice.json --voice vi-VN-NamMinhNeural` (or HoaiMy), labelled temporary.
+
+## Per-key hard-stop ladder (route 3 is never a whole-video route)
+For a key that still fails ASR/CER after the VieNeu limit: (1) VieNeu, maximum three candidates per phrase, keeping that exact sentence; (2) re-split the phrase boundaries ONCE and retry; (3) route 3: `python3 -X utf8 -I scripts/gen-voice-vc.py <vid> --key <k>` (Seed-VC voice conversion of a tone-correct macOS Linh or other source into the brief's reference voice; output goes to `candidates/`, accepted only if clip-level ASR CER <= 0.04); (4) otherwise record `accepted-risk` plus a listen item in `voice-report.md`. Hard cap about 15 minutes wall time per key; no further loops. Edge TTS may return 403 and is only a last-resort temporary voice, never the plan.
 
 Follow each shot's intent/emotion, accent words, pace changes and breath placement with supported engine controls. Target conversational, emotionally expressive delivery that follows the story. Where controls are unavailable, use suitable reference delivery and phrase splits; document limitations rather than inventing parameters. Record intended delivery and controls actually used per clip in `voice-report.md`; keep acting notes out of speech.
 
@@ -26,6 +29,9 @@ Never speed up audio to fit timing. One voice across shots unless the script has
 
 ## Return
 Table `shot | duration s | syl/s | CER | issues`, total voice seconds, regenerated phrases, **cannot-verify list** (tones, accents, slowed lines; informational, nobody is waiting to listen). Never claim the delivery sounds natural: ASR cannot hear.
+
+## Self-review before returning (producer)
+Before you return, read `.agents/roles/audio-reviewer.md` and run its rubric against your own output. List every failing item, fix it, and re-check. Return a `self-review` table `rubric item | score | evidence` (file:line, frame, clip key, command output). Round 1 must already look like round 2. This never replaces the independent reviewer and relaxes no gate, threshold or blocker; the reviewer still scores a new clean-context pass.
 
 ## Fix rounds (producer)
 When you get a ticket list (the director sends it to you as a follow-up in your same session, so your context is kept), fix the WHOLE list in one pass, never ticket by ticket. Return a closure table `id | fixed/not fixed/disagree | evidence` (`disagree` needs a reason); do not touch anything outside the tickets without saying so.

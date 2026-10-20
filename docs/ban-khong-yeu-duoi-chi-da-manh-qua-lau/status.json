@@ -28,12 +28,13 @@
       "note": "research.md written: user-supplied account as primary source, 5 hook candidates"
     },
     "script": {
-      "state": "done",
-      "at": "2026-10-19T00:06:08+07:00",
-      "note": "gate A accepted at cap 3 (8.8, zero Cao/Trung, hook+specificity 9.0); 13 voice keys, 127 syl, 46.58-50.66 s"
+      "state": "in_progress",
+      "at": "2026-10-20T23:42:25+07:00",
+      "note": "voice.json+voice.proposed.json a1: 'chùng xuống'→'nhẹ xuống' to fix AR-04 (engine cannot render 'chùng' tone); Gate A re-review required"
     },
     "voice": {
-      "state": "pending"
+      "state": "done",
+      "at": "2026-10-20T22:27:01+07:00"
     },
     "render": {
       "state": "pending"
@@ -42,6 +43,14 @@
       "state": "done",
       "at": "2026-10-19T00:15:36+07:00",
       "note": "audio-agent: bgm.mp3 (60.43s, -20.1 LUFS on the played 43.90s segment), 10 foley cues (11 cue slots), beat-grid verdict = no beat sync (measured), mix-plan.md + assets-manifest.md + analysis/{grid_drift.json,no-beat-sync.md,check-cues.py,check-licences.py}; 11/11 cues inside silence windows (exit 0), 0 licence gaps (exit 0). Gate 'audio' still unrecorded - audio-reviewer has not run."
+    },
+    "content": {
+      "state": "done",
+      "at": "2026-10-20T22:16:21+07:00"
+    },
+    "design": {
+      "state": "in_progress",
+      "at": "2026-10-20T22:03:26+07:00"
     }
   },
   "reviews": {
@@ -193,17 +202,283 @@
           "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/sfx-screen-wake.mp3",
           "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/sfx-umbrella-lift.mp3"
         ]
+      },
+      {
+        "at": "2026-10-20T22:06:59+07:00",
+        "reviewer": "audio-reviewer",
+        "score": 5.0,
+        "verdict": "revise",
+        "report": "docs/ban-khong-yeu-duoi-chi-da-manh-qua-lau/audio-review.md",
+        "note": "",
+        "audio_inputs": {
+          "docs/ban-khong-yeu-duoi-chi-da-manh-qua-lau/assets-manifest.md": "03edaa374cc581a9c69956a6e91458bb901ab88784e77441ebd656ba26eb17ef",
+          "docs/ban-khong-yeu-duoi-chi-da-manh-qua-lau/mix-plan.md": "c3707b1a5c97e8e924c76d3d40c3e0b31e7482811e7e9a6a83a8ae054ac99a80",
+          "docs/ban-khong-yeu-duoi-chi-da-manh-qua-lau/voice-clone-asr.md": "b26a5cf765f191f262095523475cfcec925edaa0f98e8fa3bf3c928eea489bbc",
+          "docs/ban-khong-yeu-duoi-chi-da-manh-qua-lau/voice-direction.md": "34bd7e0733039475ff758182051867276e0cb72ff806ffb0756cc4080af72f79",
+          "docs/ban-khong-yeu-duoi-chi-da-manh-qua-lau/voice-performance.json": "c927f626ea01a54a648ab672a6a01609ed23b16b182c2d9cb9adb51ad2308f06",
+          "docs/ban-khong-yeu-duoi-chi-da-manh-qua-lau/voice-report.md": "f1b6d00a38faaf0b4e101df2ea653ed4f02b7e1249617a26105ddbe15623c8f2",
+          "docs/ban-khong-yeu-duoi-chi-da-manh-qua-lau/voice.json": "d6f369c7870465be9f5acb26f9057beb7ca2bda79d2f3c308830d2127ef0c878",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/a1.mp3": "28aeaf0a3bd5c68a3fcb0d9332cdf64a46e340f54d563f5d2f62c51a2adf100c",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/bgm.mp3": "8720ee474381127d262fb84ed2f2eae2a83008098e1ea66785ed6b195fcb1dc3",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/raw/a1-p1.wav": "17bed249364b39622fbf6e159035d41669eefa5548bd85e282e87c0c6152144b",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/raw/a1-p2.wav": "d4377bc9f8dd3b599323222e92fa6b64212a2cf173460a0f57fcbec0fe46dc25",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/raw/s1-p1.wav": "1db0554f33a9e8922a0e3d5aa40775408504cced4e961a53fb0c40f3dba1a9bd",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/raw/s1-p2.wav": "9c75e3ae93f691eab99672ef4d9ae032b81b8fd2a3875d5f53b6829763f822e5",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/raw/s2a-p1.wav": "1a84b130cbeccd12a61c802d92a036bd41b48a51d3e4c19382cdbf33c3892fa3",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/raw/s2a-p2.wav": "1e46c467958a50c61e8c465e3bb2ecdee493b422381efc52d516c03cfa4dec7a",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/raw/s2b-p1.wav": "6facf2f7bf031b32a9e62d937fe414af06bcbd7f85b81acc057f3a9bfa419259",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/raw/s3-p1.wav": "c17955e4ccf4fc0d24d323c5f55bdbec443345a1aade2b18f525d35f19ac1151",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/raw/s3-p2.wav": "6028d47e4b739d517d9751ee18c92b1d41cde5c2ded57d7c4cb2b6e1ef3a5050",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/raw/s4-p1.wav": "dc94a894411167416807746b789c9e5463c34e4097f64bd0ad979a80871d7156",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/raw/s4-p2.wav": "20150130a33cf7927f6918c04b7738cdfc2330ccfbf06d099d6a1e380f145178",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/raw/s5-p1.wav": "654dad061738bb63b12518123e35b4da3c7843519752591d0d67429579b8365a",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/raw/s5-p2.wav": "bfc6f9004c0c81f96b97f267365abdc2333669123570043ab0afe4dd30375ea3",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/raw/s7-p1.wav": "87a95f4c3aada16591fc07d092d15e74d15e7a69e9d37e5af556a4b63dad9f69",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/raw/s7-p2.wav": "1b82cf585f624cca0d7a17b8c8b1c13d1f0f0680c20f8f78ae929d11fcc4a098",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/raw/s8-p1.wav": "11d82d7e746867f12b014e3d81668e796185e36d46ed5531d8220115b8f19f18",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/raw/s9-p1.wav": "dff5d3fc0633e12dd7e822bf2a2bbf8205906cd3427861d2acb71dd9b72330e1",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/raw/s9-p2.wav": "10a33abed6d32ea7aae805fc4cb8809eec497b6f436bedce9cabd7eb9d87e5d3",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/s1.mp3": "5a74b33b537548223775dca702b5a661bbf7851e70206f4ea8e848f6021c01a8",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/s2a.mp3": "43e6cf819a75ce46a073058516b6b69189f379ba9c8170d694351c3aaf61dfeb",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/s2b.mp3": "17379479214ce2803ba4cf1e7d9dceb647e553c2b08d036e95fa743f5c72df85",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/s3.mp3": "2943d5e8122aef22a3b91b993c9b9bb45ee1415c4ad9d8e08318756506e0e485",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/s4.mp3": "571b853e35a550293e8e59f8bbfbf13eb53ccba54bf363dc8a04e50e56eb7a23",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/s5.mp3": "b2bf245949eb8b2b9b9ab5f124f9d755b7cbde98104f42eb86e4458e1d989d76",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/s7.mp3": "f019273ffc40c8cf12223536bacb293e910b0d18c4fecc23f032d3da103676ae",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/s8.mp3": "dc825dad032ce08a4a2dbbfd5190d3c8c65729b1f736a6b12ecd42a339a0fddc",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/s9.mp3": "6dc3f5a8f6377a2f05f43c77148dca99b388e0ad27fc04a0d76506e2f7433f98",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/sfx-back-a.mp3": "c0d504f9d3e9150a10d8c236366d0d74e444be098a6ddf1d34e83156a4ba2a4a",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/sfx-back-b.mp3": "859d59206e918d461e4840b94ce40a5c76a22fd740ef91b9ba4c15d51cd615d5",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/sfx-cup-down.mp3": "f4530cc617bd3cbe6d77c4c1a360317274c041a33bcf3c1bdd5ddabe8de2de27",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/sfx-drop-fabric.mp3": "530fad8da44519227842e0f0a577d58ebdb06880b80fd1612fbcfa9a67593a3d",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/sfx-drop-glass.mp3": "5c3925737c067c93e4354a871d85c8e9cfa2fa2ff7d2ddc5d429469fedf042f3",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/sfx-light-turn.mp3": "db27009b0cbcfaccb9236d48b0a191a801687b8687406e7856a6a38bf1f51829",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/sfx-phone-down.mp3": "097dac3a8bc5b9944f680c5802cd3a68da084a4ffeeb506c432df1fec2e1a654",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/sfx-rain-wash.mp3": "fb88bfd83fc59c3505b50339683f82414e1ede46f3becaff3c67564d3943e200",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/sfx-screen-wake.mp3": "95734a217108b87ecd6e145def42f1d49cdf1895d0a88e7f92f857828175ab12",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/sfx-umbrella-lift.mp3": "9cae4cdc0344746ee46ee45f2bbc1ff6bfd1a387a34b71a5b8b057d4832bc6f1"
+        },
+        "audio_folder": "ban-khong-yeu-duoi-chi-da-manh-qua-lau",
+        "audio_source_paths": [
+          "docs/ban-khong-yeu-duoi-chi-da-manh-qua-lau/assets-manifest.md",
+          "docs/ban-khong-yeu-duoi-chi-da-manh-qua-lau/mix-plan.md",
+          "docs/ban-khong-yeu-duoi-chi-da-manh-qua-lau/voice-clone-asr.md",
+          "docs/ban-khong-yeu-duoi-chi-da-manh-qua-lau/voice-direction.md",
+          "docs/ban-khong-yeu-duoi-chi-da-manh-qua-lau/voice-performance.json",
+          "docs/ban-khong-yeu-duoi-chi-da-manh-qua-lau/voice-report.md",
+          "docs/ban-khong-yeu-duoi-chi-da-manh-qua-lau/voice.json",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/a1.mp3",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/bgm.mp3",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/raw/a1-p1.wav",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/raw/a1-p2.wav",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/raw/s1-p1.wav",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/raw/s1-p2.wav",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/raw/s2a-p1.wav",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/raw/s2a-p2.wav",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/raw/s2b-p1.wav",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/raw/s3-p1.wav",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/raw/s3-p2.wav",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/raw/s4-p1.wav",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/raw/s4-p2.wav",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/raw/s5-p1.wav",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/raw/s5-p2.wav",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/raw/s7-p1.wav",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/raw/s7-p2.wav",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/raw/s8-p1.wav",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/raw/s9-p1.wav",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/raw/s9-p2.wav",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/s1.mp3",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/s2a.mp3",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/s2b.mp3",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/s3.mp3",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/s4.mp3",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/s5.mp3",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/s7.mp3",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/s8.mp3",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/s9.mp3",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/sfx-back-a.mp3",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/sfx-back-b.mp3",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/sfx-cup-down.mp3",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/sfx-drop-fabric.mp3",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/sfx-drop-glass.mp3",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/sfx-light-turn.mp3",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/sfx-phone-down.mp3",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/sfx-rain-wash.mp3",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/sfx-screen-wake.mp3",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/sfx-umbrella-lift.mp3"
+        ]
+      },
+      {
+        "at": "2026-10-20T23:39:26+07:00",
+        "reviewer": "audio-reviewer",
+        "score": 7.0,
+        "verdict": "revise",
+        "report": "docs/ban-khong-yeu-duoi-chi-da-manh-qua-lau/audio-review.md",
+        "note": "",
+        "audio_inputs": {
+          "docs/ban-khong-yeu-duoi-chi-da-manh-qua-lau/assets-manifest.md": "03edaa374cc581a9c69956a6e91458bb901ab88784e77441ebd656ba26eb17ef",
+          "docs/ban-khong-yeu-duoi-chi-da-manh-qua-lau/mix-plan.md": "c3707b1a5c97e8e924c76d3d40c3e0b31e7482811e7e9a6a83a8ae054ac99a80",
+          "docs/ban-khong-yeu-duoi-chi-da-manh-qua-lau/voice-clone-asr.md": "b398dfe672a1e05dea65f511c9427df7d98f9f91838a7f95f983d2a6f17cad72",
+          "docs/ban-khong-yeu-duoi-chi-da-manh-qua-lau/voice-direction.md": "34bd7e0733039475ff758182051867276e0cb72ff806ffb0756cc4080af72f79",
+          "docs/ban-khong-yeu-duoi-chi-da-manh-qua-lau/voice-performance.json": "f91d89c1922fed22e61169c78fbfd4eb8c168c9770025041140f8bb458194510",
+          "docs/ban-khong-yeu-duoi-chi-da-manh-qua-lau/voice-report.md": "0be487d7cd1b4c30e4381227685666478b2451b19886bd40fc12a03262dd27f1",
+          "docs/ban-khong-yeu-duoi-chi-da-manh-qua-lau/voice.json": "d6f369c7870465be9f5acb26f9057beb7ca2bda79d2f3c308830d2127ef0c878",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/a1.mp3": "fe0901a94f0aea9d4362dff0777d81115f83a68729a664dd1b209ff5505a119c",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/a2.mp3": "9d1aae3427d6564339cfce62afecd263de6366f6e035e81043a4595bd277fd05",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/bgm.mp3": "8720ee474381127d262fb84ed2f2eae2a83008098e1ea66785ed6b195fcb1dc3",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/raw/a1-p1.wav": "0ef3d5cf64011eb25d4dd80fc90e9f07f6f03dd9ea69511aa92671363a0e9d55",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/raw/a1-p2.wav": "7a9fd8a0134e3149cc4a673b173ff015331d8486fb88f0be9f7753ccbe3353e0",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/raw/a1-p3.wav": "d4377bc9f8dd3b599323222e92fa6b64212a2cf173460a0f57fcbec0fe46dc25",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/raw/a2-p1.wav": "07882bdc1c19c97c5a653b1f5b3cef2ecd7af1b8dffcc6ee26e9fe52d1a83128",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/raw/a2-p2.wav": "d8377295863e4cf6af4cfe5db4b99227932818b0674e3fd71da3bf61472526f7",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/raw/s1-p1.wav": "1db0554f33a9e8922a0e3d5aa40775408504cced4e961a53fb0c40f3dba1a9bd",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/raw/s1-p2.wav": "9c75e3ae93f691eab99672ef4d9ae032b81b8fd2a3875d5f53b6829763f822e5",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/raw/s10-p1.wav": "586e70a35eb44afb14437385f0f804ee9d629cea54661d3ec7d7167d81a46f67",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/raw/s10-p2.wav": "67703027d5bd16c9d67e14af688dc0823a858fb3cb7d024ebce3ef44f4e188f2",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/raw/s2a-p1.wav": "bd02ee33976f47e64e33a01ed02ebf99f0de13b0794cc3bc2f21452cfeb1dbad",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/raw/s2a-p2.wav": "febf5a64e8db0fcca8964961afe67b1df1021c7377d4e569bc0681caa68cf874",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/raw/s2a-p3.wav": "1e46c467958a50c61e8c465e3bb2ecdee493b422381efc52d516c03cfa4dec7a",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/raw/s2b-p1.wav": "6facf2f7bf031b32a9e62d937fe414af06bcbd7f85b81acc057f3a9bfa419259",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/raw/s3-p1.wav": "c17955e4ccf4fc0d24d323c5f55bdbec443345a1aade2b18f525d35f19ac1151",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/raw/s3-p2.wav": "6028d47e4b739d517d9751ee18c92b1d41cde5c2ded57d7c4cb2b6e1ef3a5050",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/raw/s4-p1.wav": "dc94a894411167416807746b789c9e5463c34e4097f64bd0ad979a80871d7156",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/raw/s4-p2.wav": "20150130a33cf7927f6918c04b7738cdfc2330ccfbf06d099d6a1e380f145178",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/raw/s5-p1.wav": "654dad061738bb63b12518123e35b4da3c7843519752591d0d67429579b8365a",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/raw/s5-p2.wav": "bfc6f9004c0c81f96b97f267365abdc2333669123570043ab0afe4dd30375ea3",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/raw/s6-p1.wav": "a12394ace8de1a7ddc8a7feeda37f6cffe03eafd4974542522304e1981cd6811",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/raw/s6-p2.wav": "b7f8629c0d3153ef86ae101c8ba9d6328677229224806b74588684976b273664",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/raw/s6-p3.wav": "a04e9f44787a4e268560f4d4708efb197cc998a3e45b52977a9febda92015fcd",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/raw/s7-p1.wav": "e79ab7d884f71e6cc05332a2e50dfd8b79bdff0f9b00285b35cb3dc49d3462e9",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/raw/s7-p2.wav": "1b82cf585f624cca0d7a17b8c8b1c13d1f0f0680c20f8f78ae929d11fcc4a098",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/raw/s8-p1.wav": "11d82d7e746867f12b014e3d81668e796185e36d46ed5531d8220115b8f19f18",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/raw/s9-p1.wav": "9bf821a8a8b2c70104f5d986d230cfcfa5217d3a6bd761853f8c74fe69886f79",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/raw/s9-p2.wav": "cd91d262639146eac6d1bca0074fa8135dbdd3d00426e908612916ce6ecdfb3d",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/raw/s9-p3.wav": "25dedba980fdf71aa968e2d474baffef3cca0515bf8b99c96bc8bccca3b65bc6",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/raw/s9-p4.wav": "a2f4377ecf44c71049f83258c187a60bb0dddbe4418fe3cde89172fec220fc2b",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/s1.mp3": "5a74b33b537548223775dca702b5a661bbf7851e70206f4ea8e848f6021c01a8",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/s10.mp3": "ea2ed677b17361d5b087fb9ac08da6ea728e86253543fa7091e4f24302a91c70",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/s2a.mp3": "a7b41264150fa39caea531db3b13299b4582626a7bdcba6b01b8afaa54bc0067",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/s2b.mp3": "17379479214ce2803ba4cf1e7d9dceb647e553c2b08d036e95fa743f5c72df85",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/s3.mp3": "2943d5e8122aef22a3b91b993c9b9bb45ee1415c4ad9d8e08318756506e0e485",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/s4.mp3": "571b853e35a550293e8e59f8bbfbf13eb53ccba54bf363dc8a04e50e56eb7a23",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/s5.mp3": "b2bf245949eb8b2b9b9ab5f124f9d755b7cbde98104f42eb86e4458e1d989d76",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/s6.mp3": "63ad17e94646d3f71f09681541581e6b02d7db83b8252bdbc067a92cc08547b6",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/s7.mp3": "41ba9294f71e609c48442dbd40361ec092b30c3dccbdd54f497f243328f51ad2",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/s8.mp3": "dc825dad032ce08a4a2dbbfd5190d3c8c65729b1f736a6b12ecd42a339a0fddc",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/s9.mp3": "f95faee8125475975ab5a8b22507dd3bc7d91954db41eda4b6daa880f520bac7",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/sfx-back-a.mp3": "c0d504f9d3e9150a10d8c236366d0d74e444be098a6ddf1d34e83156a4ba2a4a",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/sfx-back-b.mp3": "859d59206e918d461e4840b94ce40a5c76a22fd740ef91b9ba4c15d51cd615d5",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/sfx-cup-down.mp3": "f4530cc617bd3cbe6d77c4c1a360317274c041a33bcf3c1bdd5ddabe8de2de27",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/sfx-drop-fabric.mp3": "530fad8da44519227842e0f0a577d58ebdb06880b80fd1612fbcfa9a67593a3d",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/sfx-drop-glass.mp3": "5c3925737c067c93e4354a871d85c8e9cfa2fa2ff7d2ddc5d429469fedf042f3",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/sfx-light-turn.mp3": "db27009b0cbcfaccb9236d48b0a191a801687b8687406e7856a6a38bf1f51829",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/sfx-phone-down.mp3": "097dac3a8bc5b9944f680c5802cd3a68da084a4ffeeb506c432df1fec2e1a654",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/sfx-rain-wash.mp3": "fb88bfd83fc59c3505b50339683f82414e1ede46f3becaff3c67564d3943e200",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/sfx-screen-wake.mp3": "95734a217108b87ecd6e145def42f1d49cdf1895d0a88e7f92f857828175ab12",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/sfx-umbrella-lift.mp3": "9cae4cdc0344746ee46ee45f2bbc1ff6bfd1a387a34b71a5b8b057d4832bc6f1"
+        },
+        "audio_folder": "ban-khong-yeu-duoi-chi-da-manh-qua-lau",
+        "audio_source_paths": [
+          "docs/ban-khong-yeu-duoi-chi-da-manh-qua-lau/assets-manifest.md",
+          "docs/ban-khong-yeu-duoi-chi-da-manh-qua-lau/mix-plan.md",
+          "docs/ban-khong-yeu-duoi-chi-da-manh-qua-lau/voice-clone-asr.md",
+          "docs/ban-khong-yeu-duoi-chi-da-manh-qua-lau/voice-direction.md",
+          "docs/ban-khong-yeu-duoi-chi-da-manh-qua-lau/voice-performance.json",
+          "docs/ban-khong-yeu-duoi-chi-da-manh-qua-lau/voice-report.md",
+          "docs/ban-khong-yeu-duoi-chi-da-manh-qua-lau/voice.json",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/a1.mp3",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/a2.mp3",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/bgm.mp3",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/raw/a1-p1.wav",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/raw/a1-p2.wav",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/raw/a1-p3.wav",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/raw/a2-p1.wav",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/raw/a2-p2.wav",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/raw/s1-p1.wav",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/raw/s1-p2.wav",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/raw/s10-p1.wav",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/raw/s10-p2.wav",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/raw/s2a-p1.wav",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/raw/s2a-p2.wav",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/raw/s2a-p3.wav",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/raw/s2b-p1.wav",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/raw/s3-p1.wav",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/raw/s3-p2.wav",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/raw/s4-p1.wav",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/raw/s4-p2.wav",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/raw/s5-p1.wav",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/raw/s5-p2.wav",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/raw/s6-p1.wav",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/raw/s6-p2.wav",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/raw/s6-p3.wav",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/raw/s7-p1.wav",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/raw/s7-p2.wav",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/raw/s8-p1.wav",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/raw/s9-p1.wav",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/raw/s9-p2.wav",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/raw/s9-p3.wav",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/raw/s9-p4.wav",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/s1.mp3",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/s10.mp3",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/s2a.mp3",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/s2b.mp3",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/s3.mp3",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/s4.mp3",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/s5.mp3",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/s6.mp3",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/s7.mp3",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/s8.mp3",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/s9.mp3",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/sfx-back-a.mp3",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/sfx-back-b.mp3",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/sfx-cup-down.mp3",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/sfx-drop-fabric.mp3",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/sfx-drop-glass.mp3",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/sfx-light-turn.mp3",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/sfx-phone-down.mp3",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/sfx-rain-wash.mp3",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/sfx-screen-wake.mp3",
+          "public/audio/ban-khong-yeu-duoi-chi-da-manh-qua-lau/sfx-umbrella-lift.mp3"
+        ]
+      }
+    ],
+    "content": [
+      {
+        "at": "2026-10-20T22:10:24+07:00",
+        "reviewer": "content-reviewer",
+        "score": 8.1,
+        "verdict": "revise",
+        "report": "docs/ban-khong-yeu-duoi-chi-da-manh-qua-lau/content-pack-review.md",
+        "note": ""
+      },
+      {
+        "at": "2026-10-20T22:16:21+07:00",
+        "reviewer": "content-reviewer",
+        "score": 9.1,
+        "verdict": "pass",
+        "report": "docs/ban-khong-yeu-duoi-chi-da-manh-qua-lau/content-pack-review.md",
+        "note": ""
+      }
+    ],
+    "D": [
+      {
+        "at": "2026-10-20T22:13:19+07:00",
+        "reviewer": "design-reviewer-1+2",
+        "score": 4.6,
+        "verdict": "revise",
+        "report": "docs/ban-khong-yeu-duoi-chi-da-manh-qua-lau/design-review.md",
+        "note": ""
       }
     ]
   },
   "review_valid": {
-    "A": true,
+    "A": false,
     "D": false,
     "E": false,
     "B": false,
     "C": false,
     "content": false,
-    "audio": true,
+    "audio": false,
     "motion": false
   },
   "next": "audio-reviewer round 1 on voice clips + bgm.mp3 + 10 sfx-* files (must re-derive BGM_FILE_GAIN from the final voice-report.md)",
@@ -471,20 +746,296 @@
       "stage": "audio",
       "who": "audio-reviewer",
       "msg": "review 5.0/10 revise: audio-review.md"
+    },
+    {
+      "t": "2026-10-20T22:03:10+07:00",
+      "stage": "agent",
+      "who": "content-agent",
+      "msg": "content-agent failed: interrupted session; re-dispatching"
+    },
+    {
+      "t": "2026-10-20T22:03:10+07:00",
+      "stage": "agent",
+      "who": "voice-agent",
+      "msg": "voice-agent failed: interrupted session; re-dispatching"
+    },
+    {
+      "t": "2026-10-20T22:03:10+07:00",
+      "stage": "agent",
+      "who": "design-agent",
+      "msg": "design-agent failed: interrupted session; re-dispatching"
+    },
+    {
+      "t": "2026-10-20T22:03:11+07:00",
+      "stage": "voice",
+      "who": "video-director",
+      "msg": "video-director running: resume: re-dispatch content/voice/design, audio fixes AR-01..09"
+    },
+    {
+      "t": "2026-10-20T22:03:26+07:00",
+      "stage": "content",
+      "who": "content-agent",
+      "msg": "content-agent done: content-pack.md on disk"
+    },
+    {
+      "t": "2026-10-20T22:03:26+07:00",
+      "stage": "design",
+      "who": "design-agent",
+      "msg": "design-agent done: design artifacts on disk"
+    },
+    {
+      "t": "2026-10-20T22:03:26+07:00",
+      "stage": "content",
+      "who": "agent",
+      "msg": "content -> in_progress"
+    },
+    {
+      "t": "2026-10-20T22:03:26+07:00",
+      "stage": "design",
+      "who": "agent",
+      "msg": "design -> in_progress"
+    },
+    {
+      "t": "2026-10-20T22:03:26+07:00",
+      "stage": "voice",
+      "who": "agent",
+      "msg": "voice -> in_progress"
+    },
+    {
+      "t": "2026-10-20T22:03:26+07:00",
+      "stage": "voice",
+      "who": "voice-agent",
+      "msg": "voice-agent running: fix AR-01..14: gen s6,s10,a2; regen s2a,a1,s9,s7p1; full report"
+    },
+    {
+      "t": "2026-10-20T22:03:26+07:00",
+      "stage": "content",
+      "who": "content-reviewer",
+      "msg": "content-reviewer running: round 1"
+    },
+    {
+      "t": "2026-10-20T22:03:26+07:00",
+      "stage": "design",
+      "who": "design-reviewer-1",
+      "msg": "design-reviewer-1 running: gate D r1 lens a beauty/craft"
+    },
+    {
+      "t": "2026-10-20T22:03:27+07:00",
+      "stage": "design",
+      "who": "design-reviewer-2",
+      "msg": "design-reviewer-2 running: gate D r1 lens b fit/story/motion"
+    },
+    {
+      "t": "2026-10-20T22:06:59+07:00",
+      "stage": "audio",
+      "who": "audio-reviewer",
+      "msg": "review 5.0/10 revise: audio-review.md"
+    },
+    {
+      "t": "2026-10-20T22:07:06+07:00",
+      "stage": "audio",
+      "who": "audio-reviewer",
+      "msg": "audio-reviewer done"
+    },
+    {
+      "t": "2026-10-20T22:08:30+07:00",
+      "stage": "voice",
+      "who": "voice-agent",
+      "msg": "voice-agent running: Fix round 1 audio: regenerate missing s6/a2/s10 clips, fix voice errors s2a/a1/s9, complete voice-report.md, re-verify ASR/CER/duration/loudness"
+    },
+    {
+      "t": "2026-10-20T22:08:30+07:00",
+      "stage": "audio",
+      "who": "audio-reviewer",
+      "msg": "audio-reviewer done: Round 1 audio review: overall 5/10, revise; 5 Cao tickets (missing s6/a2/s10 clips, voice-report rows, voice errors s2a/a1/s9), 2 Trung, 8 Thấp"
+    },
+    {
+      "t": "2026-10-20T22:10:24+07:00",
+      "stage": "content",
+      "who": "content-reviewer",
+      "msg": "review 8.1/10 revise: content-pack-review.md"
+    },
+    {
+      "t": "2026-10-20T22:10:24+07:00",
+      "stage": "agent",
+      "who": "content-reviewer",
+      "msg": "content-reviewer done"
+    },
+    {
+      "t": "2026-10-20T22:10:32+07:00",
+      "stage": "content",
+      "who": "content-agent",
+      "msg": "content-agent running: round-1 fixes CR-01..15"
+    },
+    {
+      "t": "2026-10-20T22:13:19+07:00",
+      "stage": "D",
+      "who": "design-reviewer-1+2",
+      "msg": "review 4.6/10 revise: design-review.md"
+    },
+    {
+      "t": "2026-10-20T22:13:19+07:00",
+      "stage": "agent",
+      "who": "design-reviewer-1",
+      "msg": "design-reviewer-1 done"
+    },
+    {
+      "t": "2026-10-20T22:13:19+07:00",
+      "stage": "agent",
+      "who": "design-reviewer-2",
+      "msg": "design-reviewer-2 done"
+    },
+    {
+      "t": "2026-10-20T22:13:19+07:00",
+      "stage": "design",
+      "who": "design-agent",
+      "msg": "design-agent running: gate D r1 fixes: lens-a 14 + lens-b 24 tickets"
+    },
+    {
+      "t": "2026-10-20T22:14:07+07:00",
+      "stage": "content",
+      "who": "content-agent",
+      "msg": "content-agent done"
+    },
+    {
+      "t": "2026-10-20T22:14:07+07:00",
+      "stage": "content",
+      "who": "content-reviewer-r2",
+      "msg": "content-reviewer-r2 running: round 2 verify CR-01..15"
+    },
+    {
+      "t": "2026-10-20T22:16:21+07:00",
+      "stage": "agent",
+      "who": "content-reviewer-r2",
+      "msg": "content-reviewer-r2 done"
+    },
+    {
+      "t": "2026-10-20T22:16:21+07:00",
+      "stage": "content",
+      "who": "content-reviewer",
+      "msg": "review 9.1/10 pass: content-pack-review.md"
+    },
+    {
+      "t": "2026-10-20T22:16:21+07:00",
+      "stage": "content",
+      "who": "agent",
+      "msg": "content -> done (evidence: 1 file(s): docs/ban-khong-yeu-duoi-chi-da-manh-qua-lau/content-pack.md; gate content: pass 9.1/10)"
+    },
+    {
+      "t": "2026-10-20T22:19:04+07:00",
+      "stage": "voice",
+      "who": "voice-agent",
+      "msg": "voice-agent running: round 3: AR-03/04/05 via new phrase splits"
+    },
+    {
+      "t": "2026-10-20T22:27:01+07:00",
+      "stage": "voice",
+      "who": "voice-agent",
+      "msg": "voice-agent done"
+    },
+    {
+      "t": "2026-10-20T22:27:01+07:00",
+      "stage": "voice",
+      "who": "agent",
+      "msg": "voice -> done (evidence: 13/13 clips)"
+    },
+    {
+      "t": "2026-10-20T22:27:01+07:00",
+      "stage": "audio",
+      "who": "audio-reviewer-r2",
+      "msg": "audio-reviewer-r2 running: round 2: 13 clips + mix"
+    },
+    {
+      "t": "2026-10-20T22:30:52+07:00",
+      "stage": "audio",
+      "who": "audio-reviewer-r2",
+      "msg": "audio-reviewer-r2 failed: stopped by user"
+    },
+    {
+      "t": "2026-10-20T22:30:52+07:00",
+      "stage": "design",
+      "who": "design-agent",
+      "msg": "design-agent failed: stopped by user mid-rebuild of proto kit"
+    },
+    {
+      "t": "2026-10-20T22:30:52+07:00",
+      "stage": "agent",
+      "who": "video-director",
+      "msg": "video-director idle"
+    },
+    {
+      "t": "2026-10-20T22:56:55+07:00",
+      "stage": "audio",
+      "who": "audio-reviewer",
+      "msg": "audio-reviewer running: round 2: verify AR-01..NEW-15 on 13 regenerated clips + mix, multi-model ASR on s2a/a1/s9/s6"
+    },
+    {
+      "t": "2026-10-20T22:56:56+07:00",
+      "stage": "design",
+      "who": "design-agent",
+      "msg": "design-agent running: gate D r1 round 2: rebuild prototype, fix 38 tickets D-A01..14 + D-01..24, apply content-pack + frontend-design guidance"
+    },
+    {
+      "t": "2026-10-20T23:12:22+07:00",
+      "stage": "audio",
+      "who": "audio-reviewer",
+      "msg": "audio-reviewer done: stale running record cleared; stage audio already done; round 2 to be re-dispatched by director"
+    },
+    {
+      "t": "2026-10-20T23:14:35+07:00",
+      "stage": "voice",
+      "who": "voice-agent",
+      "msg": "voice-agent done: Round 1 closure: all Cao tickets fixed except AR-04 (a1 tone, best CER 0.0408, engine cannot render 'chùng' — escalated to director); 13 clips verified; voice-report.md complete; audit exit 0"
+    },
+    {
+      "t": "2026-10-20T23:39:26+07:00",
+      "stage": "audio",
+      "who": "audio-reviewer",
+      "msg": "review 7.0/10 revise: /Users/nguyenanhnhut/Desktop/Projects/AI-video-edition/docs/ban-khong-yeu-duoi-chi-da-manh-qua-lau/audio-review.md"
+    },
+    {
+      "t": "2026-10-20T23:39:32+07:00",
+      "stage": "audio",
+      "who": "audio-reviewer",
+      "msg": "audio-reviewer done"
+    },
+    {
+      "t": "2026-10-20T23:42:25+07:00",
+      "stage": "script",
+      "who": "script-agent",
+      "msg": "script-agent running: Re-open script for Gate A re-review: a1 spoken text changed (chùng→nhẹ); will regenerate a1 after A re-passes"
+    },
+    {
+      "t": "2026-10-20T23:42:25+07:00",
+      "stage": "script",
+      "who": "agent",
+      "msg": "script -> in_progress: voice.json+voice.proposed.json a1: 'chùng xuống'→'nhẹ xuống' to fix AR-04 (engine cannot render 'chùng' tone); Gate A re-review required"
+    },
+    {
+      "t": "2026-10-21T00:03:22+07:00",
+      "stage": "script",
+      "who": "script-agent",
+      "msg": "script-agent running: sync script.md a1 to 'nhẹ xuống' (match voice.json), fix AR-04, prepare Gate A re-review"
+    },
+    {
+      "t": "2026-10-21T00:09:06+07:00",
+      "stage": "script",
+      "who": "script-agent",
+      "msg": "script-agent done"
     }
   ],
-  "updated": "2026-10-19T00:49:02+07:00",
+  "updated": "2026-10-21T00:09:06+07:00",
   "agents": {
     "video-director": {
-      "state": "running",
-      "at": "2026-10-18T23:33:49+07:00",
-      "note": "resumed run; phase 2 verified on disk; dispatching gate A lens reviewers x3",
+      "state": "idle",
+      "at": "2026-10-20T22:30:52+07:00",
+      "note": "",
       "stage": ""
     },
     "script-agent": {
       "state": "done",
-      "at": "2026-10-19T00:06:08+07:00",
-      "note": "script -> done",
+      "at": "2026-10-21T00:09:06+07:00",
+      "note": "",
       "stage": "script"
     },
     "script-reviewer-1": {
@@ -530,16 +1081,16 @@
       "stage": ""
     },
     "content-agent": {
-      "state": "running",
-      "at": "2026-10-19T00:06:36+07:00",
-      "note": "phase 3 branch dispatch",
-      "stage": ""
+      "state": "done",
+      "at": "2026-10-20T22:14:07+07:00",
+      "note": "",
+      "stage": "content"
     },
     "voice-agent": {
-      "state": "running",
-      "at": "2026-10-19T00:06:36+07:00",
-      "note": "phase 3 branch dispatch",
-      "stage": ""
+      "state": "done",
+      "at": "2026-10-20T23:14:35+07:00",
+      "note": "Round 1 closure: all Cao tickets fixed except AR-04 (a1 tone, best CER 0.0408, engine cannot render 'chùng' — escalated to director); 13 clips verified; voice-report.md complete; audit exit 0",
+      "stage": "voice"
     },
     "audio-agent": {
       "state": "done",
@@ -549,14 +1100,44 @@
     },
     "design-agent": {
       "state": "running",
-      "at": "2026-10-19T00:06:36+07:00",
-      "note": "phase 3 branch dispatch",
-      "stage": ""
+      "at": "2026-10-20T22:56:56+07:00",
+      "note": "gate D r1 round 2: rebuild prototype, fix 38 tickets D-A01..14 + D-01..24, apply content-pack + frontend-design guidance",
+      "stage": "design"
     },
     "audio-reviewer": {
       "state": "done",
-      "at": "2026-10-19T00:49:02+07:00",
-      "note": "review audio -> revise",
+      "at": "2026-10-20T23:39:32+07:00",
+      "note": "",
+      "stage": "audio"
+    },
+    "content-reviewer": {
+      "state": "done",
+      "at": "2026-10-20T22:10:24+07:00",
+      "note": "",
+      "stage": ""
+    },
+    "design-reviewer-1": {
+      "state": "done",
+      "at": "2026-10-20T22:13:19+07:00",
+      "note": "",
+      "stage": ""
+    },
+    "design-reviewer-2": {
+      "state": "done",
+      "at": "2026-10-20T22:13:19+07:00",
+      "note": "",
+      "stage": ""
+    },
+    "content-reviewer-r2": {
+      "state": "done",
+      "at": "2026-10-20T22:16:21+07:00",
+      "note": "",
+      "stage": ""
+    },
+    "audio-reviewer-r2": {
+      "state": "failed",
+      "at": "2026-10-20T22:30:52+07:00",
+      "note": "stopped by user",
       "stage": "audio"
     }
   },

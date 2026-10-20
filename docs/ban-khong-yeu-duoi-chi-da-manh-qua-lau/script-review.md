@@ -164,3 +164,69 @@ Rounds 3 of 3 used. Per the hard cap the director **accepts the round-3 version*
 ### Still unverifiable at this gate
 
 Frame-0 legibility at phone size, the measured speech rate, voice contours by ear, ASR/CER, loudness, clipping, timbre match and every retention claim. The gate C and audio reviews run them on the rendered file.
+
+---
+
+## Round 4 — 2026-10-20 · a1 spoken-text re-review · verdict: pass · score 9.2
+
+**Scope (clean context, Gate A only).** Single input changed since the round-3 acceptance: `voice.json` key `a1` and `voice.proposed.json` key `a1` from `"Vai người khác chùng xuống. Còn bạn thì đứng ngoài."` to `"Vai người khác nhẹ xuống. Còn bạn thì đứng ngoài."` — fixing audio-gate Cao ticket AR-04 (engine cannot render the "chùng" tone with `refThanhLong.wav`; best CER 0.0408 > 0.04, ASR "trùng xuống", per `audio-review.md:85` and `voice-report.md:13`). `a1` is an `[ADD]` connector between `s2a` and `s2b` (`voice-performance.proposed.json:50` keyPlan), **not** one of the 10 mandatory user lines. The 10 mandatory lines are untouched. Everything below was re-checked against the current files.
+
+### Acceptance checks (run by reviewer)
+
+| check | result |
+|---|---|
+| `voice.json == voice.proposed.json` byte-for-byte, all 13 keys | ✅ identical; `a1` = `"Vai người khác nhẹ xuống. Còn bạn thì đứng ngoài."` in both (`voice.json:4`, `voice.proposed.json:4`) |
+| 10 mandatory lines unchanged in `voice.proposed.json` | ✅ `s1`–`s10` verbatim vs `brief.md:18–27`; `s2a` + `" "` + `s2b` rejoins owner line #2 byte-for-byte |
+| Timing: `a1` syllable count and all seconds | ✅ `"nhẹ xuống"` = 2 syl = `"chùng xuống"`; `a1` stays 10 syl / 2.56 s / slot 6.18–9.28 s (`script.md:29`); totals unchanged **46.58 / 48.90 / 50.66 s** at 4.2 / 3.9 / 3.7 syl/s, inside 45–55 s (`script.md:39-41, 61-68`); payoff `a1` last word 7.00 / 7.46 / 7.81 s < 8 s at every rate (`script.md:77`); re-hook `s4` inside 15–20 s (`script.md:79`) |
+| Hook ≤ 3 s (`s1`), re-hook ~15–20 s (`s4–s5`) | ✅ unchanged (`script.md:76, 79`) |
+| New Cao/Trung ticket from the `a1` change | ✅ none; one Thấp ticket (T-R4-01) for cross-artifact wording alignment |
+
+### Per-rubric scores (1–10; evidence = file:line or shot id)
+
+| # | rubric item | score | evidence |
+|---|---|---:|---|
+| 1 | Fidelity — mandated lines verbatim, user intent kept | 9.5 | `s1`–`s10` verbatim in `voice.proposed.json` vs `brief.md:18–27`; `voice.json == voice.proposed.json` on all 13 keys; `a1` is `[ADD]`, not mandatory. Not 10 because seven metadata artifacts still print the superseded `"chùng xuống"` (ticket T-R4-01 below) — none of them is a mandated line. |
+| 2 | Hook clear ≤ 3 s | 9.0 | Frame 0 = composed cover, action in progress: umbrella mid-tilt toward the child, her right sleeve already wet, child's shoulder dry, lit window across the street (`script.md:112`, `hook-options.md:16`, reproduced word-for-word in `brief.md:55-56`); headline `Ai che ô cho bạn?` (5 words, upper third, clears on `s1`→`s2a`); spoken `s1` = 11 syl complete at 2.62 / 2.82 / 2.97 s ≤ 3 s at every rate (`script.md:76`, `hook-options.md:26`); sound-off legible. First-second frame cites an observable subject/action per `hook-engineering.md:7`. |
+| 3 | Clarity — ending retellable in one sentence | 9.0 | Even the umbrella-holder gets rained on and deserves to be asked; paid by `s10` (last word 43.90 s) + silent END title card with the owner's title line, no CTA (`script.md:160-161, 271-273`). Unchanged by `a1`. |
+| 4 | Spoken naturalness (Vietnamese as people talk) | 9.0 | `"Vai người khác nhẹ xuống."` is ordinary conversational Vietnamese (shoulders sink softly) — more colloquial than `"chùng xuống"`; no line > one breath; longest `s3` 15 syl ≈ 3.85 s; no tongue-twisters; `s8` keeps owner's `…`; `nhẹ` is a ngang tone, renderable by the clone (fixes AR-04). `a1` structure unchanged (two sentences, 0.24 s clause gap, `voice-performance.proposed.json:149-166`). |
+| 5 | Timing feasible at ~4.1 syl/s (Thanh Long unit = space-separated syllables) | 10.0 | `a1` = 10 syl either wording; identity `Σ(syl/rate) + 2.54 + 10.60 + 3.20 = +16.34 s` holds (`script.md:20-23`); band 3.29–4.43 syl/s stays inside 45–55 s (`script.md:70-72`). No second figure changes. |
+| 6 | Source accuracy — no claim without source | 10.0 | Story profile; no factual/product claims (`research.md:4-5`, `brief.md:49-51`); `a1` is a declared `[ADD]` sensory observation staged in its own image cell, not presented as fact (`script.md:148, 281-284`). Inferences flagged as inferences (`research.md:12-13`). |
+| 7 | Visual feasibility in Remotion | 9.5 | Stylised vector/SVG figure, frame-driven scalars, no `Date.now()`/`Math.random()`/photoreal face; all micro-actions map to frame properties (`script.md:2.3`); light plan L0–L4 has exactly one arrival (L1 at `a1`) — unchanged by the edit. Not 10 only because the `a1` shot-row copy still quotes the old wording (ticket T-R4-01). |
+| 8 | **Specificity / emotional impact (sub-score, must be ≥ 9)** | **9.0** | 16/16 sensory details verified (`script.md:6.3`); exactly 3 highlight beats H1/H2/H3 each with delivery + visual + light (`script.md:6.2`); contrast pairs CP1 (`a1`→`s3`), CP2 (frame 0 → `s9` → `img2` → `s10` → END), CP3 (`s6`→`s7`) (`script.md:6.1`); hold after close (END 3.20 s, tail 5.00 s). `a1` keeps the same observation (other person's shoulders drop; she stands outside), so CP1 and the turn are intact — the viewer feels the wet-sleeve/dry-shoulder contrast, not just understands it. Unchanged by the edit. |
+| 9 | Profile content test (story profile) | 9.0 | One consistent figure ("the strong one"), addressed as "bạn" directly; gentle/intimate/not theatrical; no humor, no CTA, no advice; umbrella/rain metaphor; navy/grey/amber palette (`brief.md:33-47`); `s10` references `s6`'s saved name — no anonymous hand (`script.md:6.4`). Unchanged. |
+| 10 | Voice-direction feasibility | 8.5 | Every key carries intent/emotion/accent/tempo/breath/pause/ending contour; no direction leaks into speech or captions; unsupported controls (`rate`, `pitch`, `volume`, `speed`, `atempo`, `style`, `directEmotion`) declared and requested nowhere; experimental cues disabled (`voice-performance.proposed.json:9-14, 69-74`, `voice-direction.md:90-92`). Not higher because `a1` accentWords `["chùng xuống","đứng ngoài"]` and `phrases[0].emphasis`/`text` still say `"chùng xuống"` — exact phrase-to-canonical fidelity fails for `a1` until aligned (ticket T-R4-01). |
+
+**Overall = mean = 9.25 → 9.2 (not rounded up). Specificity/emotional-impact sub-score = 9.0 ≥ 9 ✅. No item below 8 ✅. Zero Cao / Trung tickets ✅ → verdict: pass.**
+
+### Hook engineering gate (hook-options.md artifact present ✅)
+
+- **0–1 s (first second, separate from the first three seconds):** frame 0 is the cover — no fade from black, no logo, no title animation; 9:16 night street mid-shot; she holds the black umbrella out over the child beside her, tilted a few degrees toward them so the rim's shadow falls across them and not across her; her right shoulder/sleeve already dark with rain, wet sheen and beads on the rim, drips off the lower edge; across the street one lit window glows warm — a warmth she is not standing under; slow push-in 1.00→1.03 (`hook-options.md:16`, `script.md:112`). Observable subject **acting** in the first second per `hook-engineering.md:7`.
+- **1–3 s:** spoken `s1` `Mọi người thường tìm đến bạn mỗi khi có chuyện buồn.` (11 syl, complete ≤ 2.97 s at every rate) + on-screen headline `Ai che ô cho bạn?` (5 words, a question, not a compression of the spoken line, `hook-options.md:23`). Gap: *who holds the umbrella over you?* — answered at `s10` and on the END card (`hook-options.md:30`).
+- **3–8 s first payoff:** `a1` — `Vai người khác nhẹ xuống. Còn bạn thì đứng ngoài.` — one beat named once in all documents, lands 7.00 / 7.46 / 7.81 s at 4.2 / 3.9 / 3.7 syl/s, inside the window at every rate (`hook-options.md:33`, `script.md:77`). `s2a` is the setup; the payoff lands on it across the real 0.25 s gap.
+- **Ending resolves the promised tension:** `s10` pays the cover question (`script.md:6.4`); END card carries the title line silent 45.70–48.90 s; post-word tail 5.00 s.
+- **Competing candidate weighed:** `H4` pays earlier (4.76–5.41 s) but opens no 1–3 s gap and burns the `Nhưng` hinge in the first 5 s, emptying the 15–20 s re-hook slot → rejected on structure, `H1` kept (`hook-options.md:79-96`).
+- **Not verifiable here:** frame-0 legibility at phone size (gate D cover check) and the *measured* real payoff second (all packet seconds are 3.9 syl/s projections; the measured rate decides the true position).
+
+### Fix list (Thấp only; zero Cao/Trung)
+
+**T-R4-01 | Thấp | `a1` wording alignment across metadata artifacts | where:** `voice-performance.proposed.json:143` (`accentWords`), `:150` (`phrases[0].text`), `:152` (`phrases[0].emphasis`); `voice-direction.md:78` (a1 accent words); `script.md:77` (structural-marks payoff quote), `:148` (a1 shot row), `:173` (caption chunk a1), `:281` (§7 justification); `hook-options.md:33` (§H1 payoff quote); `brief.md:58` (§Hook payoff quote); `content-pack.md:65, 99` (a1 caption chunks) | **evidence:** `voice.proposed.json:4` = `"Vai người khác nhẹ xuống. Còn bạn thì đứng ngoài."` but the locations above still print `"chùng xuống"`; F-05 join rule violated for `a1`: `" ".join(phrases)` = `"Vai người khác chùng xuống. Còn bạn thì đứng ngoài."` ≠ canonical; accent word `"chùng xuống"` absent from the spoken text | **change:** replace every `"chùng xuống"` with `"nhẹ xuống"` in the listed locations; sidecar `phrases[0].text` → `"Vai người khác nhẹ xuống."`, `emphasis` → `["nhẹ xuống"]`, `accentWords` → `["nhẹ xuống", "đứng ngoài"]` | **owner:** script-agent (`script.md`, `hook-options.md`, `brief.md` §Hook quote with director awareness), voice-agent (`voice-performance.proposed.json`, `voice-direction.md`), content-agent (`content-pack.md`) | **acceptance:** `grep "chùng xuống"` across `docs/ban-khong-yeu-duoi-chi-da-manh-qua-lau/` → 0 hits; `" ".join(a1 phrase texts) == voice.proposed.json["a1"]` byte-for-byte; every accent word contained in its key's spoken text. Must close before voice regenerates `a1` and the audio gate re-runs ASR/CER (AR-04 is fixed by the wording change itself; the regenerated `a1.mp3` must match `"nhẹ xuống"`).
+
+**Previous-round fixes (round 3, cap 3 reached):** all Cao/Trung closed; gate accepted by director override at 8.8 with hook 9.0 and specificity 9.0 (`status.json` reviews.A, 2026-10-19T00:06:04). This re-review adds no regression: `a1` syllable count and every second in `script.md` §1 are unchanged, so nothing the round-3 fixes touched is affected. Round-3 accepted-risk items (content-agent `s2a` headline clarity; END-contingency figures not used as timeline numbers) remain carried outside Gate A and are unchanged by this edit → **verified: yes.**
+
+### What could not be verified at this gate
+
+Frame-0 legibility at phone size, the measured speech rate (decides the real payoff second vs the 8 s contract), voice contours by ear, ASR/CER/loudness/clipping on the regenerated `a1` clip, and retention/publication metrics — provable only after render and after publication; no reviewer asserts measured effectiveness.
+
+**Verdict: pass.** `a1` change breaks nothing: same 10 syl, same seconds (46.58–50.66 s), hook and specificity/emotional-impact sub-scores untouched at 9.0; it strictly fixes AR-04 ("chùng" unrenderable → "nhẹ" renderable).
+
+`score: 9.2  verdict: pass  report: docs/ban-khong-yeu-duoi-chi-da-manh-qua-lau/script-review.md (## Round 4)`
+
+**Pipeline commands to run (could not be executed in this sandbox — no process-execution tool available in this session):**
+
+```
+python3 -I scripts/pipeline.py review ban-khong-yeu-duoi-chi-da-manh-qua-lau A 9.2 --reviewer script-reviewer --report docs/ban-khong-yeu-duoi-chi-da-manh-qua-lau/script-review.md --verdict pass
+python3 -I scripts/pipeline.py gate ban-khong-yeu-duoi-chi-da-manh-qua-lau A
+python3 -I scripts/pipeline.py agent ban-khong-yeu-duoi-chi-da-manh-qua-lau script-reviewer done --stage script
+```
+
+Expected effects: `review A` appends a 9.2/10 pass entry for `script-reviewer`, sets `review_valid.A = true` (score ≥ PASS_SCORE.A = 9, report file present), invalidates later reviews (motion/E/B/C under workflow v4), and settles the `script-reviewer` agent record to `done` at stage `script`; `gate A` then prints `review A: pass` (exit 0); `agent ... done` lights the monitor dim for `script-reviewer`.

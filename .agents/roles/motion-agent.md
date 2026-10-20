@@ -27,3 +27,6 @@ Own `docs/<vid>/motion-spec.md`, `motion-evidence.json`, optional `motion-eviden
 Run typecheck, render animatic at actual fps and duration, ffprobe it, inspect real-time motion and strips for hook/highlight/all boundaries plus frame 0/ending. Confirm continuity of position/scale/direction/speed, reading holds, voice/SFX synchronization and safe zones. Report actual commands, measured values, all evidence paths, director integration requests and remaining issues. Missing evidence is blocked, never represented by placeholder artifacts.
 
 Fix the whole reviewer ticket list in one pass in the same producer session. Return `id | fixed/not fixed/disagree | evidence`; reviewer is new clean context every round. Only director transfers approved config after B; scene owners implement it.
+
+## Self-review before returning (producer)
+Before you return, read `.agents/roles/motion-reviewer.md` and run its rubric against your own output. List every failing item, fix it, and re-check. Return a `self-review` table `rubric item | score | evidence` (file:line, frame, clip key, command output). Round 1 must already look like round 2. This never replaces the independent reviewer and relaxes no gate, threshold or blocker; the reviewer still scores a new clean-context pass.

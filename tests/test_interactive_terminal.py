@@ -52,6 +52,25 @@ class TerminalTests(unittest.TestCase):
         self.assertFalse(second["truncated"])
         self.assertEqual(base64.b64decode(second["output"]), b"56789")
 
+    def test_poll_reports_whether_more_buffered_output_is_available(self):
+        import base64
+        import threading
+        obj = t.Session.__new__(t.Session)
+        obj.id, obj.video, obj.provider = "s", "vid", "opencode"
+        obj.model, obj.effort, obj.state = "", "", "running"
+        obj.lock = threading.RLock()
+        obj.output_start = 0
+        obj.output = bytearray(b"abcdefgh")
+
+        with patch.object(t, "POLL_BYTES", 4):
+            first = obj.poll(0)
+            last = obj.poll(first["offset"])
+
+        self.assertEqual(base64.b64decode(first["output"]), b"abcd")
+        self.assertTrue(first["hasMore"])
+        self.assertEqual(base64.b64decode(last["output"]), b"efgh")
+        self.assertFalse(last["hasMore"])
+
     def test_provider_allowlist(self):
         with self.assertRaises(ValueError):
             t.start("test-video", "shell", [sys.executable], Path.cwd())

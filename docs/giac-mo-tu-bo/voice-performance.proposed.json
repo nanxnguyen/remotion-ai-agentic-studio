@@ -1,21 +1,24 @@
 {
   "version": 3,
-  "canonicalText": "docs/giac-mo-tu-bo/voice.proposed.json",
+  "canonicalText": "docs/giac-mo-tu-bo/voice.json",
+  "canonicalTextNote": "voice.proposed.json is the Phase-2 PROPOSAL and the source this file was written against; the director copies it to voice.json at acceptance, and voice.json (the Phase-3 copy) is the text the voice-agent actually reads. If the two ever differ, voice.json wins and this sidecar must be re-joined against it before synthesis.",
   "engine": {
     "name": "route 2 — local VieNeu clone (~/.venvs/vieneu) with a local WAV reference",
     "selectedReference": "docs/giac-mo-tu-bo/voice-ref/thanh-long-nang-cao-ref.wav",
     "runtime": "vieneu-v3-turbo-3.8.3 (local)",
     "externalUpload": false,
+    "engineParameters": ["referenceAudio", "denoise"],
+    "toolingParameters": ["seed", "silencePadding"],
     "supportedControls": ["referenceAudio", "seed", "denoise", "silencePadding"],
     "fixedControls": {
       "denoise": false
     },
     "unsupportedControls": ["rate", "pitch", "volume", "speed", "atempo", "style", "directEmotion"],
     "postProcessingRestrictions": ["no atempo", "no pitch shifting for expression"],
-    "note": "Controls listed here are the declared baseline; any control not in supportedControls is an explicit limitation, never silently ignored. Every per-phrase controls block below requests denoise:false only — nothing in this packet asks the engine for rate, pitch, volume or an emotion."
+    "note": "Two kinds of control are mixed in this engine object and must not be confused. ENGINE PARAMETERS are the only two the installed clone actually exposes and they are the two that change the waveform: referenceAudio (the pinned WAV, used unmodified) and denoise (fixed false for every phrase). TOOLING PARAMETERS are applied by the local generation script around the engine and are not synthesis controls at all: seed makes a take reproducible, and silencePadding is the explicit silence inserted during phrase assembly. Anything not listed in either array (rate, pitch, volume, speed, atempo, style, directEmotion) is unavailable and is requested nowhere in this file; no per-phrase block asks the engine for an emotion. Any whole-line level difference is CLIP GAIN IN THE MIX, a timeline parameter — never an engine parameter — and no phrase block asks for one."
   },
   "phraseJoin": " ",
-  "phraseJoinRule": "\" \".join(phrase.text) must equal voice.proposed.json[key] byte-for-byte; every phrase boundary below falls on a canonical single space. Verified before generation. 33 phrases across 17 keys.",
+  "phraseJoinRule": "\" \".join(phrase.text) must equal voice.json[key] byte-for-byte (voice.json is the accepted copy of voice.proposed.json); every phrase boundary below falls on a canonical single space. Verified before generation. 33 phrases across 17 keys.",
   "benchmark": {
     "status": "reference PENDING — docs/giac-mo-tu-bo/voice-ref/ does not exist yet; voice-agent cuts the reference into that exact path",
     "selectionAuthority": "video-director / Phase 0 fact: the owner authorised cloning Thanh Long Nâng Cao in the monitor on 2026-10-18 (request.md), status.json already carries voice: \"thanh-long-nang-cao\", and Phase 0 preflight recorded the preview decoding",
@@ -79,7 +82,7 @@
     "ownerKeys": ["s1", "s2", "s5a", "s5b", "s7", "s9", "s10", "s11", "s12", "s13", "s14", "s16"],
     "addedKeys": ["s3", "s4", "s6", "s8", "s15"],
     "noVoiceKeyShots": ["END (silent topic card, 53.27-56.07 s, no speech at all)"],
-    "ownerLineFourSplit": "s5a + s5b are owner line #4 split across two keys. Their join reproduces the owner's sentence order, but the break is a REAL timestamp gap, not punctuation: a cloned voice cannot be told to pause, so 'Để khi nào rảnh.' is a separate key. This is the single most important structural decision in the packet — the deferral must be heard as small and finished, and the silence after it is what makes it land.",
+    "ownerLineFourSplit": "s5a + s5b are owner line #4 split into two keys. Their join reproduces the owner's sentence order, but the break is the KEY BOUNDARY, not punctuation: a cloned voice cannot be told to pause, so 'Để khi nào rảnh.' is a separate key. The 0.20 s gap sits INSIDE s5a (pauseAfterSeconds 0.20) after 'Mỗi lần định mua đàn,'; the s5a to s5b boundary itself is 0.00 s — the two clips butt at 13.76 s. This is the single most important structural decision in the packet — the deferral must be heard as small and finished, and the silence after it is what makes it land.",
     "ownerLineOneMerge": "s1 merges owner lines 1 + 3 and drops the two-syllable opener 'Ngày trước,' so the hook is a two-clause sentence whose last syllable falls at 11/rate = 2.50/2.62/2.82/2.97/3.06 s at 4.4/4.2/3.9/3.7/3.6 syl/s (inside 3 s for rate >= 3.667; the 3.586 band edge = 3.07 s is stated honestly in script.md section 1.1).",
     "playback": "scripts/gen-voice-clone.py walks voice.proposed.json in insertion order, so keyPlan.order IS the playback order; no key is reordered."
   },
@@ -113,13 +116,13 @@
       "reference": { "source": "docs/giac-mo-tu-bo/voice-ref/thanh-long-nang-cao-ref.wav" },
       "referenceSelectionStatus": "pending",
       "referenceSelectionReason": "docs/giac-mo-tu-bo/voice-ref/ does not exist yet; voice-agent cuts the 6-8 s single-speaker WAV into this exact path",
-      "intent": "HOOK + frame-0 cover: name what the viewer promised and what got in the way; the on-screen headline 'Bạn từng nói sẽ học đàn.' must carry the hook with the sound off",
+      "intent": "HOOK + frame-0 cover: name what the viewer promised and what got in the way. The badge plate is ALREADY on the song list at frame 0, so it is part of the cover, not a reveal: the on-screen headline 'Bạn từng nói sẽ học đàn.' carries the hook with the sound off, and the second sentence lands under an image where only a forefinger, a coiled strap and a lifted page corner move",
       "emotion": "curious, recognising, level, faintly wry",
       "accentWords": ["học đàn", "đi làm"],
       "tempoIntent": "the lightest and quickest read in the video: brisk and light through 'Bạn từng nói mình sẽ', settling on 'học đàn' with a full stop, then the second sentence delivered LOWER AND FLATTER than the first",
       "ending": "flat, level — a statement, not a question; 'làm.' set down and closed",
       "minimumPostClipHoldSeconds": 0.25,
-      "postClipHoldPolicy": "timeline silence after clip, not punctuation — the badge lands on the list during it",
+      "postClipHoldPolicy": "timeline silence after clip, not punctuation. The badge plate has not moved since frame 0 and never lands again in this shot; what moves in the hold is the page's lifted lower corner falling back (~1 mm) while the coiled strap finishes coming to rest flat. No new object enters and the light does not change.",
       "phrases": [
         {
           "text": "Bạn từng nói mình sẽ học đàn.",
@@ -177,27 +180,27 @@
       "reference": { "source": "docs/giac-mo-tu-bo/voice-ref/thanh-long-nang-cao-ref.wav" },
       "referenceSelectionStatus": "pending",
       "referenceSelectionReason": "docs/giac-mo-tu-bo/voice-ref/ does not exist yet; voice-agent cuts the 6-8 s single-speaker WAV into this exact path",
-      "intent": "[ADD] make the paper itself physical — three short statements, nothing more",
+      "intent": "[ADD] make the paper itself physical — three short statements, nothing more. The ink colour is carried by the image only, never spoken, so the line stays about the page and the unfinished hand rather than a colour swatch",
       "emotion": "quiet, factual, almost to itself",
-      "accentWords": ["mỏng", "bút bi xanh", "viết dở"],
-      "tempoIntent": "three short statements, each landing on its own; the third is the slowest of the three",
+      "accentWords": ["mỏng quá", "viết tay", "viết dở"],
+      "tempoIntent": "three short statements, each landing on its own; the first leans on 'quá' so it reads as a spoken clause rather than a list item, and the third is the slowest of the three",
       "ending": "flatter and lower on 'viết dở', then stopped — deliberately NOT a sad ending",
       "minimumPostClipHoldSeconds": 0.25,
       "postClipHoldPolicy": "timeline silence after clip, before the office",
       "phrases": [
         {
-          "text": "Trang sổ mỏng,",
-          "tempoIntent": "short, plain",
-          "emphasis": ["mỏng"],
+          "text": "Trang giấy mỏng quá,",
+          "tempoIntent": "short, plain, leaning on 'quá'",
+          "emphasis": ["mỏng quá"],
           "pauseBeforeSeconds": 0.0,
           "pauseAfterSeconds": 0.25,
           "seed": null,
           "controls": { "denoise": false }
         },
         {
-          "text": "chữ bút bi xanh, viết dở.",
+          "text": "chữ viết tay, viết dở.",
           "tempoIntent": "slowest of the three, settled",
-          "emphasis": ["bút bi xanh", "viết dở"],
+          "emphasis": ["viết tay", "viết dở"],
           "pauseBeforeSeconds": 0.0,
           "pauseAfterSeconds": 0.0,
           "seed": null,
@@ -299,13 +302,13 @@
       "intent": "[ADD] make the deferral cost something visible — the finger that stops short; this shot carries the other member of CP2 (the live 'Mua ngay' button and the frozen finger)",
       "emotion": "almost casual, then anticlimactic. There must be NO regret in the voice at all.",
       "accentWords": ["khựng", "Mua ngay", "tắt màn hình"],
-      "tempoIntent": "fast through 'Ngón tay khựng trên nút Mua ngay,' and stopping dead on 'ngay'; then 'rồi tắt màn hình.' quieter and lower than everything before it",
+      "tempoIntent": "fast through 'Ngón tay khựng trước nút Mua ngay,' and stopping dead on 'ngay' — the finger never reaches the button, so the voice must not land on it either; then 'rồi tắt màn hình.' smaller and lower than everything before it",
       "ending": "falling, small, closed — an anticlimax delivered as an anticlimax",
       "minimumPostClipHoldSeconds": 0.25,
       "postClipHoldPolicy": "timeline silence after clip — the dead screen is left alone for the whole hold before the re-hook, with no voice over it",
       "phrases": [
         {
-          "text": "Ngón tay khựng trên nút Mua ngay,",
+          "text": "Ngón tay khựng trước nút Mua ngay,",
           "tempoIntent": "fast, then a dead stop on the last word",
           "emphasis": ["khựng", "Mua ngay"],
           "pauseBeforeSeconds": 0.0,
@@ -315,7 +318,7 @@
         },
         {
           "text": "rồi tắt màn hình.",
-          "tempoIntent": "quieter and lower than everything before it; no breath after",
+          "tempoIntent": "smaller and lower than everything before it; no breath after",
           "emphasis": ["tắt màn hình"],
           "pauseBeforeSeconds": 0.0,
           "pauseAfterSeconds": 0.0,
@@ -362,14 +365,14 @@
       "referenceSelectionReason": "docs/giac-mo-tu-bo/voice-ref/ does not exist yet; voice-agent cuts the 6-8 s single-speaker WAV into this exact path",
       "intent": "[ADD] the dust, and the hand doing the thing — said BESIDE the action, not about it",
       "emotion": "small, tactile",
-      "accentWords": ["phủ kín", "vệt tay kéo qua"],
-      "tempoIntent": "light through 'Bụi phủ kín bìa,'; slower on 'một vệt tay kéo qua.' with the stress on 'vệt'",
+      "accentWords": ["phủ kín", "tay kéo vệt qua"],
+      "tempoIntent": "light through 'Bụi phủ kín hết bìa,' with 'hết' doing the work of a spoken hinge; slower on 'tay kéo vệt qua.' with the stress on 'kéo'",
       "ending": "plain landing; closed",
       "minimumPostClipHoldSeconds": 0.3,
       "postClipHoldPolicy": "timeline silence after clip — the dust settles in it",
       "phrases": [
         {
-          "text": "Bụi phủ kín bìa,",
+          "text": "Bụi phủ kín hết bìa,",
           "tempoIntent": "light, tactile",
           "emphasis": ["phủ kín"],
           "pauseBeforeSeconds": 0.0,
@@ -378,9 +381,9 @@
           "controls": { "denoise": false }
         },
         {
-          "text": "một vệt tay kéo qua.",
-          "tempoIntent": "slower, stress on 'vệt'",
-          "emphasis": ["vệt tay kéo qua"],
+          "text": "tay kéo vệt qua.",
+          "tempoIntent": "slower, stress on 'kéo'",
+          "emphasis": ["tay kéo vệt qua"],
           "pauseBeforeSeconds": 0.0,
           "pauseAfterSeconds": 0.0,
           "seed": null,
@@ -428,7 +431,7 @@
       "emotion": "close, plain",
       "accentWords": ["ngồi đọc", "thấy thương"],
       "tempoIntent": "'Bạn ngồi đọc,' level and ordinary; then the line THINS — it does not swell",
-      "ending": "the final syllable stops; quieter than everything before it",
+      "ending": "the final syllable stops; smaller than everything before it",
       "minimumPostClipHoldSeconds": 0.35,
       "postClipHoldPolicy": "timeline silence after clip — the reader's held breath, without any performed breath",
       "phrases": [
@@ -456,13 +459,13 @@
       "reference": { "source": "docs/giac-mo-tu-bo/voice-ref/thanh-long-nang-cao-ref.wav" },
       "referenceSelectionStatus": "pending",
       "referenceSelectionReason": "docs/giac-mo-tu-bo/voice-ref/ does not exist yet; voice-agent cuts the 6-8 s single-speaker WAV into this exact path",
-      "intent": "H2 (ii) — say the fact the past self could not have known. This is the quietest line in the packet.",
+      "intent": "H2 (ii) — say the fact the past self could not have known. This is the smallest line in the packet.",
       "emotion": "not sad — observational. Said about a stranger, not about yourself.",
       "accentWords": ["đâu biết", "bận đến thế"],
       "tempoIntent": "nearly conversational on 'Người ấy đâu biết sau này'; slower and lower on 'mình sẽ bận đến thế.'",
-      "ending": "volume drops on 'bận đến thế' and stops there — never a whisper, never a trail-off",
+      "ending": "the line thins on 'bận đến thế' — the last three words lose energy and stop there — never a whisper, never a trail-off; no level automation inside the take",
       "minimumPostClipHoldSeconds": 0.45,
-      "postClipHoldPolicy": "timeline silence after clip — the flat hand on the cover; the pity beat is not interrupted by the next line",
+      "postClipHoldPolicy": "timeline silence after clip — the flat hand resting on the open page; the pity beat is not interrupted by the next line",
       "phrases": [
         {
           "text": "Người ấy đâu biết sau này",
@@ -475,7 +478,7 @@
         },
         {
           "text": "mình sẽ bận đến thế.",
-          "tempoIntent": "slower and lower; drops in level and stops — no breath, no trail-off",
+          "tempoIntent": "slower and lower; loses energy and stops — no breath, no trail-off",
           "emphasis": ["bận đến thế"],
           "pauseBeforeSeconds": 0.0,
           "pauseAfterSeconds": 0.0,
@@ -650,12 +653,16 @@
     "Reference handling: the pinned reference.source is the synthesis reference and is used UNMODIFIED — it carries no startSeconds/durationSeconds, so gen-voice-clone.py does not crop it. voice-agent must not create a second reference file under a different name: the sidecar is read-only for it, so a new filename would be invisible to the contract and the run would silently use the wrong take. If a re-cut is genuinely needed, overwrite this exact path and report it to the director.",
     "The voice CHOICE is a Phase 0 owner authorisation (Thanh Long Nâng Cao, 2026-10-18), not an agent choice; but the reference FILE is not owner-confirmed and owner-notes.md carries no voice instruction. Nothing here is presented as an owner confirmation.",
     "I could not run ffprobe, ls, or the pipeline audit: this runtime has no shell or process-execution tool. Therefore no duration, sample rate, channel count or codec is claimed for a file that does not exist, and no measured per-clip rate for this video is claimed anywhere in this file.",
-    "The VieNeu clone supports only seed, denoise, local reference and silence padding. rate, pitch, volume, speed, atempo and style are unavailable and are requested nowhere in this file; all pacing and intensity direction must be read by the voice-agent from phrase intent, not from the engine.",
+    "The VieNeu clone exposes exactly two engine parameters (referenceAudio, denoise); seed and silencePadding are applied by the local generation tooling, not by the engine model. rate, pitch, volume, speed, atempo and style are unavailable and are requested nowhere in this file; all pacing and intensity direction must be read by the voice-agent from phrase intent, not from the engine.",
     "All non-spoken cues stay disabled: no [cười], no [thở dài], no [hắng giọng], and no actingCue field anywhere. s15's 'slightly amused' must be carried by timing and the mix, never by a vocal sound effect.",
     "Silence is real: pauseBeforeSeconds/pauseAfterSeconds pad inside one clip, and minimumPostClipHoldSeconds is a gap between two clips in the timeline. No beat is created with punctuation. This is why s5a and s5b are two keys, and why s13's pivot beat is an intra-clip pauseAfterSeconds rather than the owner's ellipsis — the ellipsis stays in the TEXT and is never performed.",
     "Phrases are joined with exactly one space (phraseJoin). An assembler joining with an empty string would merge two words and fail the CER gate. 33 phrases over 17 keys, every boundary on a canonical single space.",
     "Naturalness, intimacy and emotional delivery are not verifiable from this file or from ASR; only the voice-agent's measured clip data and the user's optional listen can confirm them.",
-    "The 3.9 syl/s planning rate is a PLANNING figure backed by same-voice measurements, not a measurement of this video: docs/thuong-hay-so-bat-dau-lai/voice-report.md:34 reports 207 syllables over 52.6 s = 3.9 syl/s for the identical Thanh-Long clone with per-clip values 3.58-4.01 (lines 17-27), and docs/chung-minh-de-lam-gi/voice-report.md (same ref) shows 3.17-4.45. 4.1 syl/s is this repo's planning CONVENTION, not a measurement (docs/motion-design-lab/script.md:23), which is why it is not the plan.",
+    "The 3.9 syl/s planning rate is a PLANNING figure backed by same-voice measurements, not a measurement of this video: docs/thuong-hay-so-bat-dau-lai/voice-report.md:34 reports 207 syllables over 52.6 s = 3.9 syl/s for the identical Thanh-Long clone, with per-clip values 3.58 to 4.22 (lines 17–27); docs/chung-minh-de-lam-gi/voice-report.md (same ref) shows 3.17 to 4.45. 4.1 syl/s is this repo's planning CONVENTION, not a measurement of this video, and it is therefore not the plan: the only trace of it I could find is a quotation inside docs/ban-khong-yeu-duoi-chi-da-manh-qua-lau/script-review.fidelity.md:502, which quotes a file that no longer exists in this repository — that absent file is not claimed to exist and no first-hand 4.1 measurement is claimed.",
+    "Observed floor (honest bound, not a plan): the lowest same-voice per-clip rate measured in this repo is 3.17 syl/s (docs/chung-minh-de-lam-gi). At that rate this script runs 175/3.17 = 55.21 s of speech + 11.20 s of silence = 66.41 s, and 64.56 s even with the whole 1.85 s trim set applied — outside the owner's 50-60 s window. If the measured rate lands below 3.586 syl/s the escalation is a director/owner decision: accept a video longer than 60 s, or cut an owner word. A silent cut, a sped-up take or a shortened END card beyond its declared range is never the fix.",
+    "Join obligation (timeline, not this file): the 17 minimumPostClipHoldSeconds values above (sum 5.80 s) plus the 2.80 s silent END card must be written into the video's timeline as PER-KEY holds — one real gap after each named clip — and the timeline must prove their sum is exactly 11.20 s. If timeline.ts rounds, overlaps or trims them, the identity 2.60 + 5.80 + 2.80 = 11.20 s fails and every duration figure in this packet is wrong. The voice-agent/Join step reports the measured sum, not an assumed one.",
+    "Six joins are 0.00 s, and only one of them is a KEY boundary. Five are INTRA-KEY phrase joins inside s1 ('Bạn từng nói mình sẽ học đàn.' | 'Rồi bạn đi làm.'), s2 ('Bạn đã lưu cả một danh sách' | 'những bài hát muốn chơi.'), s4 ('Sáng nào cũng quẹt thẻ,' | 'hộp thư đầy.'), s9 ('Chữ viết ngày xưa' | 'vẫn còn nguyên.') and s11 ('Người ấy đâu biết sau này' | 'mình sẽ bận đến thế.'), where both pauseAfterSeconds and pauseBeforeSeconds are 0.00 and phraseJoin is a single space. The sixth is the s5a→s5b SPLIT: s5a's 0.20 s pauseAfterSeconds sits after 'Mỗi lần định mua đàn,' INSIDE that clip (it separates s5a's two phrases), so the s5a clip end butts the s5b clip start at 0.00 s with no hold between the keys. No key boundary that carries a minimumPostClipHoldSeconds is a 0.00 s join. The voice-agent click-checks or prosody-checks each of the six on the assembled track; a click, a swallowed consonant or a broken contour is fixed by 0.05-0.10 s pauseBeforeSeconds on the second phrase INSIDE the key (or a small pad at the s5a→s5b split) — never by merging two keys and never by changing a single word of the canonical text.",
+    "Two phrase costs are unproven and must be reported by the voice-agent: s5b is planned at 1.03 s and s13 at 2.31 s at 3.9 syl/s. The voice-agent reports the measured duration of both, and for s13 also whether the owner's '…' added audible time (a held vowel or a trailing pause) on top of the planned 2.31 s. If it did, the fix is agreed with the director BEFORE synthesis: the '…' is stripped from BOTH the canonical line and this phrase text so the join stays byte-identical, and the beat remains the real 0.25 s pauseAfterSeconds after 'Nhưng'. The ellipsis is never performed as sound, and the text is never changed without the change being recorded in both files.",
     "Measured clips decide the final timeline. The plan stays inside the owner's 50-60 s for any measured rate between 3.586 and 4.510 syl/s with no trim; script.md section 5 gives the elasticity order in both directions (1.85 s recoverable, 3.00 s extensible) and states the honest bounds, and no owner word and no audio speed is ever traded for timing.",
     "The END card is intended to stay silent. If the owner later asks for the topic line to be SPOKEN, it becomes an 18th key inserted BEFORE the card, not inside it (script.md section 8: 10 syl = 2.56 s at 3.9 syl/s, total 58.63 s). No figure in that contingency is a timeline number today."
   ]

@@ -18,6 +18,8 @@ You are `script-reviewer` (gate A), the **strictest gate** in the pipeline. Ever
 ## Input
 `docs/<vid>/research*.md`, `brief.md`, `script.md`, `voice.proposed.json`, `voice-direction.md`, `voice-performance.proposed.json`, profile, user constraints quoted, previous round's `script-review.md` section (verify its fixes).
 
+Lens (c) also checks that `voice-direction.md` holds the `tone-probe.py` table (every RISK word rewritten); a missing table is a Cao ticket.
+
 ## Writable
 Append one section `## Round N` to `docs/<vid>/script-review.md`. Nothing else.
 

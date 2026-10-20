@@ -18,7 +18,13 @@ import {
   HOOK_DUR,
   ProtoEnd,
   ProtoHook,
+  ProtoS7,
+  ProtoS9,
+  ProtoS10,
   ProtoTurn,
+  S10_DUR,
+  S7_DUR,
+  S9_DUR,
   TURN_DUR,
 } from './scenes';
 
@@ -59,6 +65,30 @@ export const ProtoRoot: React.FC = () => (
       width={BKYD_PROTO_W}
       height={BKYD_PROTO_H}
       defaultProps={{shot: BOARD_IDS[0]}}
+    />
+    <Composition
+      id="BanKhongYeuDuoiProtoS7"
+      component={ProtoS7}
+      durationInFrames={S7_DUR}
+      fps={30}
+      width={BKYD_PROTO_W}
+      height={BKYD_PROTO_H}
+    />
+    <Composition
+      id="BanKhongYeuDuoiProtoS9"
+      component={ProtoS9}
+      durationInFrames={S9_DUR}
+      fps={30}
+      width={BKYD_PROTO_W}
+      height={BKYD_PROTO_H}
+    />
+    <Composition
+      id="BanKhongYeuDuoiProtoS10"
+      component={ProtoS10}
+      durationInFrames={S10_DUR}
+      fps={30}
+      width={BKYD_PROTO_W}
+      height={BKYD_PROTO_H}
     />
   </>
 );

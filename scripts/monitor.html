@@ -225,16 +225,16 @@ dialog.studio-dialog::backdrop{background:rgba(2,6,15,.76);backdrop-filter:blur(
 .command-dock.command-dock-terminal>.term-foot{grid-column:1/-1;min-width:0}
 .command-dock.command-dock-terminal>.term-toolbar{border:1px solid rgba(148,163,184,.13);border-radius:12px 12px 0 0;margin-bottom:-12px}
 .command-dock.command-dock-terminal>.term-status{border-left:1px solid rgba(148,163,184,.13);border-right:1px solid rgba(148,163,184,.13);margin-bottom:-12px}
-.command-dock.command-dock-terminal>.term-screen{height:350px;border-left:1px solid rgba(148,163,184,.13);border-right:1px solid rgba(148,163,184,.13);margin-bottom:-12px}
+.command-dock.command-dock-terminal>.term-screen{height:460px;border-left:1px solid rgba(148,163,184,.13);border-right:1px solid rgba(148,163,184,.13);margin-bottom:-12px}
 .command-dock.command-dock-terminal>.term-foot{border:1px solid rgba(148,163,184,.13);border-radius:0 0 12px 12px}
-.command-dock.command-dock-terminal>.dock-legacy{grid-column:1;margin:0;min-width:0}
-.command-dock.command-dock-terminal>.run-panel{grid-column:2;min-width:0;padding-top:16px}
+.command-dock.command-dock-terminal>.dock-legacy{grid-column:1;margin:0;min-width:0;display:none}
+.command-dock.command-dock-terminal>.run-panel{grid-column:2;min-width:0;padding-top:16px;display:none}
 .command-dock.command-dock-terminal .term-toolbar select{max-width:100%}
 .command-dock.command-dock-terminal>.term-status>span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .command-dock.command-dock-terminal>.term-status>b{flex:none}
 
 .command-dock.command-dock-terminal .term-action:disabled{opacity:.45;cursor:not-allowed}
-@media(max-width:1100px){.command-dock.command-dock-terminal{grid-template-columns:minmax(0,1fr)}.command-dock.command-dock-terminal>.dock-legacy,.command-dock.command-dock-terminal>.run-panel{grid-column:1}.command-dock.command-dock-terminal>.run-panel{padding-top:0}.command-dock.command-dock-terminal>.term-screen{height:310px}}
+@media(max-width:1100px){.command-dock.command-dock-terminal{grid-template-columns:minmax(0,1fr)}.command-dock.command-dock-terminal>.dock-legacy,.command-dock.command-dock-terminal>.run-panel{grid-column:1;display:none}.command-dock.command-dock-terminal>.run-panel{padding-top:0}.command-dock.command-dock-terminal>.term-screen{height:420px}}
 </style>
 </head>
 <body>
@@ -562,8 +562,6 @@ $('dock-text').addEventListener('keydown',ev=>{
   if(!$('dock-send').disabled&&$('dock-text').value.trim())$('dock-send').click();
 });
 $('dock-chips').addEventListener('click',ev=>{const c=ev.target.closest('[data-cmd]');if(c){$('dock-text').value=c.dataset.cmd;$('dock-text').focus()}});
-const syncOptions=()=>loadOptions().then(()=>{renderDockRunner();$('dock-send').disabled=false;if($('dock-error').textContent===OLD_BACKEND)$('dock-error').textContent=''}).catch(showBackendError);
-syncOptions();pollRuns(true);setInterval(()=>{if(!options)syncOptions();pollRuns()},2000);
 })();
 </script>
 
@@ -576,7 +574,8 @@ const REVIEW_ORDER=['A','content','audio','D','motion','E','B','C'];
 const LANES=[['content','3a Content'],['audio','3b Audio'],['design','3c Design']];
 // Orchestration pods: phase groups around the director hub (left column, right column).
 const PODS=[[{title:'0–1 · Intake & Research',nodes:['intake','research']},{title:'2 · Brief & Script',nodes:['brief','script']},{title:'3 · Ba nhánh song song',nodes:['content','voice','audio','design'],lanes:true}],[{title:'4–5 · Join & Integration',nodes:['join','motion','integration']},{title:'6 · Task plan',nodes:['tasks']},{title:'7 · Build',nodes:['build']},{title:'8 · Render & gate C',nodes:['render']},{title:'9 · Final QA',nodes:['qa']}]];
-let meta=null,data=[],cur=null,sel=null,last='',busy=false,logFilter='all';
+let meta=null,data=[],cur=null,sel=null,busy=false,logFilter='all';
+let statusEtag='',refreshTimer=null,refreshing=false,listHtml='';
 const parts={};
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const fmt=t=>t?new Date(t).toLocaleString('vi-VN',{hour12:false}):'—';
@@ -634,7 +633,8 @@ function nodeState(v,n){
   if(n.id==='join'){if(v.flow>=4&&v.join_ready)return 'done';if(reviewOk(v,'E')||v.reviews?.E?.rounds)return 'done';const branches=v.flow>=3?['content','audio','D']:['D'];return branches.every(g=>reviewOk(v,g))?'in_progress':'pending'}
   if(n.id==='integration'){if(reviewOk(v,'E')||v.reviews?.E?.rounds)return 'done';return reviewOk(v,'motion')?'in_progress':'pending'}
   if(n.id==='tasks'){if(reviewOk(v,'B')||v.reviews?.B?.rounds)return 'done';return reviewOk(v,'E')?'in_progress':'pending'}
-  if(n.id==='delivery'){const s=summary(v);return s.done===s.total&&s.reviewOk===s.reviewTotal?'done':'pending'}
+  if(n.id==='delivery'){// not summary(v): it calls agentState -> nodeState and would recurse forever
+    const req=v.stages.filter(x=>x.state!=='skipped'),gates=Object.keys(v.reviews||{});return req.every(x=>x.state==='done')&&gates.every(g=>reviewOk(v,g))?'done':'pending'}
   return 'pending'}
 function agentState(v,name){
   // Completed reviews and stages are authoritative; historical agent activity isn't.
@@ -675,7 +675,7 @@ function summary(v){const req=v.stages.filter(x=>x.state!=='skipped'),done=req.f
     :done===req.length?'done':'pending');return{done,total:req.length,reviewOk:reviewOkN,reviewPassed:reviews.filter(x=>x.passed&&!x.stale).length,reviewTotal:reviews.length,hasMismatch:v.stages.some(x=>x.mismatch),running,active,percent:req.length?Math.round(done/req.length*100):0}}
 
 // ---- panels ----
-function renderList(){document.getElementById('list').innerHTML=`<div class="rail-label">Workspace</div><div class="rail-title">Video đang sản xuất <span>${data.length}</span></div><div class="project-list">${data.map(v=>{const s=summary(v),color=s.active==='done'?'#2dd4bf':s.active==='in_progress'?'#fbbf24':s.active==='gate'?'#a78bfa':'#64748b';return `<button type="button" class="project-card" aria-current="${v.folder===cur}" data-v="${esc(v.folder)}"><span class="project-head"><i class="project-dot ${s.active}"></i><span class="project-name">${esc(v.name)}</span>${s.running?`<span class="project-badge run">${s.running} agent</span>`:''}${s.hasMismatch?'<span class="project-badge">Lệch file</span>':''}</span><span class="project-subtitle"><span>${esc(v.comp)}</span><span>v${esc(v.flow)} · ${s.done}/${s.total}</span></span><span class="project-progress" role="progressbar" aria-label="Tiến độ ${esc(v.name)}" aria-valuemin="0" aria-valuemax="${s.total}" aria-valuenow="${s.done}" style="--project-color:${color}"><span style="width:${s.percent}%"></span></span></button>`}).join('')}</div>`}
+function renderList(){const html=`<div class="rail-label">Workspace</div><div class="rail-title">Video đang sản xuất <span>${data.length}</span></div><div class="project-list">${data.map(v=>{const s=summary(v),color=s.active==='done'?'#2dd4bf':s.active==='in_progress'?'#fbbf24':s.active==='gate'?'#a78bfa':'#64748b';return `<button type="button" class="project-card" aria-current="${v.folder===cur}" data-v="${esc(v.folder)}"><span class="project-head"><i class="project-dot ${s.active}"></i><span class="project-name">${esc(v.name)}</span>${s.running?`<span class="project-badge run">${s.running} agent</span>`:''}${s.hasMismatch?'<span class="project-badge">Lệch file</span>':''}</span><span class="project-subtitle"><span>${esc(v.comp)}</span><span>v${esc(v.flow)} · ${s.done}/${s.total}</span></span><span class="project-progress" role="progressbar" aria-label="Tiến độ ${esc(v.name)}" aria-valuemin="0" aria-valuemax="${s.total}" aria-valuenow="${s.done}" style="--project-color:${color}"><span style="width:${s.percent}%"></span></span></button>`}).join('')}</div>`;if(html===listHtml)return;listHtml=html;document.getElementById('list').innerHTML=html}
 function chip(v,name,role,small){const a=meta.agents.find(x=>x.name===name)||{color:'gray',description:''},st=agentState(v,name),c=AGENT_COLOR[a.color]||AGENT_COLOR.gray,label={running:'đang chạy',done:'✓',failed:'lỗi',idle:''}[st.state],initials=name.split('-').map(w=>w[0]).join('').slice(0,2).toUpperCase();return `<span class="agent-chip ${role} ${st.state}${st.inferred?' inferred':''}" style="--c:${c}" title="${esc(name+(role==='reviewer'?' (reviewer)':'')+'\n'+(a.description||'')+(st.note?'\n— '+st.note:''))}" data-agent="${esc(name)}"><span class="av">${initials}</span>${small?'':esc(name)}${st.count>1?`<span class="agent-count">×${st.count}</span>`:''}${label&&!small?`<span class="st">${label}</span>`:''}</span>`}
 function orchestration(v){const pod=p=>{const nodes=p.nodes.map(id=>flowNode(id,v)).filter(Boolean),agentsOf=ns=>{const prod=[...new Set(ns.flatMap(n=>n.agents))].filter(x=>x!=='video-director'),rev=[...new Set(ns.map(n=>n.reviewer).filter(Boolean))];return{prod,rev}};const rows=p.lanes?LANES.map(([lane,title])=>[title,nodes.filter(n=>n.lane===lane)]):[[null,nodes]];const all=agentsOf(nodes),states=[...all.prod,...all.rev].map(n=>agentState(v,n).state),active=states.includes('running')||nodes.some(n=>nodeState(v,n)==='in_progress'
     ||(n.gate&&reviewNodeState(v,n)==='in_progress')),done=states.length&&states.every(s=>s==='done');const gates=nodes.filter(n=>n.gate).map(n=>{const c=reviewChip(v,n.gate);return c?`<span class="stage-gate ${c.cls}">${esc(c.text)}</span>`:''}).join('');return `<div class="pod${active?' active':''}${done?' done':''}" data-pod><div class="pod-head"><span class="pod-title">${esc(p.title)}</span><span class="pod-gates">${gates}</span></div>${rows.map(([title,ns])=>{const g=agentsOf(ns);return `<div class="lane">${title?`<span class="lane-tag">${esc(title)}</span>`:''}${g.prod.map(n=>chip(v,n,'producer')).join('')}${g.rev.length?'<span class="lane-arrow">→</span>'+g.rev.map(n=>chip(v,n,'reviewer')).join(''):''}</div>`}).join('')}</div>`};
@@ -717,26 +717,38 @@ function setConnection(ok){const live=document.getElementById('live');live.class
 // Selected video survives F5: the URL hash is the source of truth, localStorage the fallback.
 function savedVideo(){const h=decodeURIComponent(location.hash.slice(1));if(h)return h;try{return localStorage.getItem('monitor.video')}catch{return null}}
 function selectVideo(folder){cur=folder;sel=null;history.replaceState(null,'','#'+encodeURIComponent(folder));try{localStorage.setItem('monitor.video',folder)}catch{}renderList();renderMain()}
-async function refresh(){if(busy)return;try{if(!meta){const m=await fetch('/api/meta',{cache:'no-store'});if(!m.ok)throw new Error('meta '+m.status);meta=await m.json()}const response=await fetch('/api/status',{cache:'no-store'});if(!response.ok)throw new Error(response.status);const text=await response.text();setConnection(true);if(text===last)return;last=text;data=JSON.parse(text);if(!cur||!data.some(v=>v.folder===cur)){const want=savedVideo();cur=data.some(v=>v.folder===want)?want:data[0]?.folder??null;if(cur&&!location.hash)history.replaceState(null,'','#'+encodeURIComponent(cur))}renderList();renderMain()}catch(e){console.warn('monitor refresh failed',e);setConnection(false)}}
-document.addEventListener('click',async event=>{const project=event.target.closest('[data-v]');if(project){selectVideo(project.dataset.v);return}const stage=event.target.closest('[data-s]');if(stage){sel=sel===stage.dataset.s?null:stage.dataset.s;renderMain();return}const lf=event.target.closest('[data-log]');if(lf){logFilter=lf.dataset.log;renderMain();return}const gate=event.target.closest('[data-g]');if(gate){busy=true;try{const response=await fetch('/api/gate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({video:cur,stage:gate.dataset.g,decision:gate.dataset.d,comment:document.getElementById('c-'+gate.dataset.g)?.value||''})});if(!response.ok)throw new Error(response.status);last=''}finally{busy=false;refresh()}}});
+const statusDelay=(hidden,running)=>hidden?15000:running?1000:3000;
+const hasLiveWork=()=>data.some(v=>v.stages.some(s=>s.state==='in_progress')||Object.values(v.agents||{}).some(a=>a.state==='running'));
+function scheduleRefresh(delay){clearTimeout(refreshTimer);refreshTimer=setTimeout(refresh,delay)}
+async function refresh(){if(refreshing)return;if(busy){scheduleRefresh(1000);return}refreshing=true;try{if(!meta){const m=await fetch('/api/meta',{cache:'no-store'});if(!m.ok)throw new Error('meta '+m.status);meta=await m.json()}const headers=statusEtag?{'If-None-Match':statusEtag}:{};const response=await fetch('/api/status',{cache:'no-store',headers});setConnection(true);if(response.status===304)return;if(!response.ok)throw new Error(response.status);statusEtag=response.headers.get('ETag')||'';const next=await response.json(),before=data.find(v=>v.folder===cur);data=next;if(!cur||!data.some(v=>v.folder===cur)){const want=savedVideo();cur=data.some(v=>v.folder===want)?want:data[0]?.folder??null;if(cur&&!location.hash)history.replaceState(null,'','#'+encodeURIComponent(cur))}const after=data.find(v=>v.folder===cur);renderList();if(!before||JSON.stringify(before)!==JSON.stringify(after))renderMain()}catch(e){console.warn('monitor refresh failed',e);setConnection(false)}finally{refreshing=false;scheduleRefresh(statusDelay(document.hidden,hasLiveWork()))}}
+document.addEventListener('click',async event=>{const project=event.target.closest('[data-v]');if(project){selectVideo(project.dataset.v);return}const stage=event.target.closest('[data-s]');if(stage){sel=sel===stage.dataset.s?null:stage.dataset.s;renderMain();return}const lf=event.target.closest('[data-log]');if(lf){logFilter=lf.dataset.log;renderMain();return}const gate=event.target.closest('[data-g]');if(gate){busy=true;try{const response=await fetch('/api/gate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({video:cur,stage:gate.dataset.g,decision:gate.dataset.d,comment:document.getElementById('c-'+gate.dataset.g)?.value||''})});if(!response.ok)throw new Error(response.status);statusEtag=''}finally{busy=false;refresh()}}});
 window.addEventListener('hashchange',()=>{const h=decodeURIComponent(location.hash.slice(1));if(h&&h!==cur&&data.some(v=>v.folder===h))selectVideo(h)});
 window.addEventListener('resize',()=>requestAnimationFrame(drawOrchLines));
-cur=savedVideo();refresh();setInterval(refresh,1000);
+document.addEventListener('visibilitychange',()=>{if(!document.hidden){clearTimeout(refreshTimer);refresh()}else scheduleRefresh(15000)});
+window.addEventListener('focus',()=>{clearTimeout(refreshTimer);refresh()});
+cur=savedVideo();refresh();
 </script>
-<script src="https://cdn.jsdelivr.net/npm/@xterm/xterm@5.5.0/lib/xterm.js"></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@xterm/xterm@5.5.0/css/xterm.css">
-<script src="https://cdn.jsdelivr.net/npm/@xterm/addon-fit@0.10.0/lib/addon-fit.js"></script>
 <script>
+let terminalAssets=null;
+function loadTerminalAssets(){
+  if(window.Terminal&&window.FitAddon)return Promise.resolve();
+  if(terminalAssets)return terminalAssets;
+  const addScript=src=>new Promise((resolve,reject)=>{const script=document.createElement('script');script.src=src;script.onload=resolve;script.onerror=()=>reject(Error('Không tải được '+src));document.head.append(script)});
+  if(!document.querySelector('link[data-xterm]')){const link=document.createElement('link');link.rel='stylesheet';link.href='https://cdn.jsdelivr.net/npm/@xterm/xterm@5.5.0/css/xterm.css';link.dataset.xterm='';document.head.append(link)}
+  terminalAssets=addScript('https://cdn.jsdelivr.net/npm/@xterm/xterm@5.5.0/lib/xterm.js').then(()=>addScript('https://cdn.jsdelivr.net/npm/@xterm/addon-fit@0.10.0/lib/addon-fit.js'));
+  return terminalAssets;
+}
 /* This panel is a true PTY: keystrokes go to the native interactive CLI.
    The original command-dock still supports one-shot jobs and queued notes. */
 (()=>{
  const $=id=>document.getElementById(id);
- let session=null,video=null,offset=0,term=null,fit=null,waiting=false,writeQueue='',sending=false;
+ let session=null,video=null,offset=0,term=null,fit=null,waiting=false,writeQueue='',sending=false,pollTimer=null,emptyPolls=0;
  let decoder=new TextDecoder();
  let terminalRunners=null;
  let backendReady=false,checkingBackend=null,terminalCapabilities=null,sessionRequest=0;
  const COMMON_VARIANTS=['low','medium','high','xhigh','max'];
  const EFFORT_LABELS={low:'Low',medium:'Medium',high:'High',xhigh:'Extra high',max:'Max'};
+ const terminalDelay=(hidden,hasMore,hadOutput,empty)=>hidden?null:hasMore?0:hadOutput?80:Math.min(500,80*2**Math.min(empty,3));
  const selector=(element,choices,placeholder)=>{
    const old=element.value;
    element.replaceChildren(new Option(placeholder,''));
@@ -850,7 +862,7 @@ cur=savedVideo();refresh();setInterval(refresh,1000);
    if(window.FitAddon){fit=new FitAddon.FitAddon();term.loadAddon(fit)}
    term.open($('term-render'));$('term-fallback').hidden=true;
    fit?.fit();
-   term.onData(data=>{if(!session||session.state!=='running')return;writeQueue+=data;flush()});
+   term.onData(data=>{if(!session||session.state!=='running')return;writeQueue+=data;flush();scheduleTerminalPoll(0)});
    term.onResize(({cols,rows})=>{if(session)api(base()+'/'+session.id+'/resize',{cols,rows}).catch(e=>feedback(e.message))});
  }
  async function flush(){
@@ -878,11 +890,17 @@ cur=savedVideo();refresh();setInterval(refresh,1000);
    lockChoices();
    prepare();
    if(term)term.reset();else $('term-fallback').textContent='';
+   fit?.fit();
+   if(term&&session.state==='running'){
+     try{await api(base()+'/'+session.id+'/resize',{cols:term.cols||100,rows:term.rows||28});}
+     catch(error){feedback('Resize: '+error.message)}
+   }
    badge(session.state==='running'?'● Live':'● Exited');
    $('term-notice').hidden=true;
    feedback('Session '+session.id.slice(0,8)+' · '+(session.model||'CLI default')+
      (session.effort?' · '+session.effort:''));
    term?.focus();
+   emptyPolls=0;scheduleTerminalPoll(0);
  }
  async function reconnect(){
    const request=++sessionRequest;
@@ -966,18 +984,23 @@ cur=savedVideo();refresh();setInterval(refresh,1000);
    session=null;offset=0;writeQueue='';video=next;sessionHeader();
    if(!document.getElementById('command-dock').hidden)reconnect();
  });
- setInterval(async()=>{
-   if(document.getElementById("command-dock").hidden||!session||waiting)return;
+ function scheduleTerminalPoll(delay=0){clearTimeout(pollTimer);if(delay==null||document.hidden||document.getElementById('command-dock').hidden||!session)return;pollTimer=setTimeout(pollTerminal,delay)}
+ async function pollTerminal(){
+   if(document.hidden||document.getElementById('command-dock').hidden||!session||waiting)return;
    waiting=true;
    const activeId=session.id,activeVideo=video;
+   let nextDelay=null;
    try{
      const result=await terminalGet(base()+'/'+activeId+'/output?offset='+offset);
      if(!session||activeId!==session.id||activeVideo!==video)return;
      offset=result.offset;
-     if(result.output){
+     const hadOutput=!!result.output;
+     if(hadOutput){
        const bytes=Uint8Array.from(atob(result.output),c=>c.charCodeAt(0));
        show(decoder.decode(bytes,{stream:true}));
      }
+     emptyPolls=hadOutput?0:emptyPolls+1;
+     nextDelay=terminalDelay(false,result.hasMore,hadOutput,emptyPolls);
      if(result.truncated)feedback('Scrollback đầy; đang hiển thị phần log mới nhất.');
      badge(result.state==='running'?'● Live':'● Exited');
      $('term-live').textContent=[result.state.toUpperCase(),result.provider,
@@ -985,7 +1008,7 @@ cur=savedVideo();refresh();setInterval(refresh,1000);
      if(session.state!==result.state){
        session.state=result.state;lockChoices();
      }
-     if(result.state!=='running')feedback('Exit code: '+result.exitCode);
+     if(result.state!=='running'){nextDelay=null;feedback('Exit code: '+result.exitCode)}
    }catch(error){
      if(activeId===session?.id){
        badge('● Disconnected');
@@ -993,11 +1016,19 @@ cur=savedVideo();refresh();setInterval(refresh,1000);
        lockChoices();
        notice('Mất kết nối tới phiên CLI',error.message+' — thử Reconnect để khôi phục.',true);
      }
-   }finally{waiting=false}
- },180);
- window.addEventListener('agent-terminal:open',()=>{
+   }finally{waiting=false;if(activeId===session?.id)scheduleTerminalPoll(nextDelay)}
+ }
+ document.addEventListener('visibilitychange',()=>{if(document.hidden)clearTimeout(pollTimer);else scheduleTerminalPoll(0)});
+ window.addEventListener('agent-terminal:close',()=>clearTimeout(pollTimer));
+ window.addEventListener('agent-terminal:open',async()=>{
    sessionHeader();
-   prepare();
+   try{await loadTerminalAssets();if($('command-dock').hidden)return;prepare()}
+   catch(error){
+     badge('● Unavailable');
+     notice('Thiếu thư viện terminal',error.message,true);
+     $('term-start').disabled=true;
+     return;
+   }
    if(!term){
      badge('● Unavailable');
      notice('Thiếu thư viện terminal','Không tải được xterm.js. Kiểm tra kết nối tới CDN rồi tải lại trang.',true);
@@ -1027,7 +1058,7 @@ cur=savedVideo();refresh();setInterval(refresh,1000);
     if(open){
       window.dispatchEvent(new Event('agent-terminal:open'));
       dock.scrollIntoView({behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'});
-    }
+    }else window.dispatchEvent(new Event('agent-terminal:close'));
   });
 })();
 </script>

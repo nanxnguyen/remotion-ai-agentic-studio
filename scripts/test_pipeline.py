@@ -1,6 +1,8 @@
 """Behavior checks for the reusable video production status CLI."""
 
+import argparse
 import json
+import http.client
 import importlib.util
 import os
 import shutil
@@ -11,6 +13,7 @@ import threading
 import unittest
 import urllib.error
 import urllib.request
+from unittest import mock
 from pathlib import Path
 
 
@@ -94,6 +97,72 @@ class PipelineCliTest(unittest.TestCase):
         self.assertIn("motion", module.review_prerequisites(self.status(), "E"))
         self.assertNotIn("motion", module.required_stages({"workflow_version": 3}))
         self.assertNotIn("motion", module.review_names({"workflow_version": 3}))
+
+    def test_file_sha256_cache_reuses_unchanged_files_and_invalidates_on_stat_change(self):
+        module = self.load_pipeline_module()
+        target = self.root / "out" / "qa" / "cache.png"
+        target.write_bytes(b"first")
+
+        with mock.patch.object(module.hashlib, "sha256", wraps=module.hashlib.sha256) as sha256:
+            first = module.file_sha256(target)
+            self.assertEqual(module.file_sha256(target), first)
+            self.assertEqual(sha256.call_count, 1)
+            target.write_bytes(b"second-version")
+            self.assertNotEqual(module.file_sha256(target), first)
+            self.assertEqual(sha256.call_count, 2)
+
+    def test_media_probe_cache_reuses_unchanged_file_and_invalidates_on_stat_change(self):
+        module = self.load_pipeline_module()
+        target = self.root / "out" / "qa" / "motion.mp4"
+        target.write_bytes(b"first")
+        completed = subprocess.CompletedProcess(
+            ["ffprobe"], 0, json.dumps({"streams": [{"codec_type": "video", "width": 1, "height": 1}]}), ""
+        )
+
+        with mock.patch.object(module.subprocess, "run", return_value=completed) as run:
+            first = module.probe_media(target)
+            self.assertEqual(module.probe_media(target), first)
+            self.assertEqual(run.call_count, 1)
+            target.write_bytes(b"second-version")
+            self.assertEqual(module.probe_media(target), first)
+            self.assertEqual(run.call_count, 2)
+
+    def test_status_endpoint_revalidates_with_etag_and_changes_with_evidence(self):
+        self.init()
+        module = self.load_pipeline_module()
+        server = module.ThreadingHTTPServer(("127.0.0.1", 0), module.Handler)
+        threading.Thread(target=server.serve_forever, daemon=True).start()
+        self.addCleanup(server.server_close)
+        self.addCleanup(server.shutdown)
+
+        connection = http.client.HTTPConnection("127.0.0.1", server.server_port)
+        connection.request("GET", "/api/status")
+        first = connection.getresponse()
+        first_body, etag = first.read(), first.getheader("ETag")
+        self.assertEqual(first.status, 200)
+        self.assertTrue(first_body)
+        self.assertTrue(etag)
+
+        connection.request("GET", "/api/status", headers={"If-None-Match": etag})
+        unchanged = connection.getresponse()
+        self.assertEqual(unchanged.status, 304)
+        self.assertEqual(unchanged.read(), b"")
+        self.assertEqual(unchanged.getheader("Content-Length"), "0")
+
+        (self.root / "docs" / "sample" / "brief.md").write_text("new evidence")
+        connection.request("GET", "/api/status", headers={"If-None-Match": etag})
+        changed = connection.getresponse()
+        self.assertEqual(changed.status, 200)
+        self.assertNotEqual(changed.getheader("ETag"), etag)
+        self.assertNotEqual(changed.read(), first_body)
+        connection.close()
+
+    def test_monitor_caches_do_not_change_all_views_json(self):
+        self.init()
+        module = self.load_pipeline_module()
+        warm = module.all_views()
+        module.clear_monitor_caches()
+        self.assertEqual(module.all_views(), warm)
 
     def test_v4_audio_review_tracks_voice_performance_inputs(self):
         self.init(version=4)
@@ -263,7 +332,7 @@ class PipelineCliTest(unittest.TestCase):
         self.assertEqual(self.cli("gate", "sample", "C").returncode, 0)
         invocation = json.loads((self.root / "out" / "publish-invocation.json").read_text())
         self.assertEqual(invocation, [
-            "sample", "--file", str(video), "--title", "Review title", "--description", "Review description",
+            "sample", "--file", str(video.resolve()), "--title", "Review title", "--description", "Review description",
             "--platform", "both", "--execute", "--auto-draft",
         ])
         self.assertEqual(self.status()["publishing"]["state"], "submitted")
@@ -829,6 +898,83 @@ class PipelineCliTest(unittest.TestCase):
         with urllib.request.urlopen(request) as response:
             self.assertTrue(json.loads(response.read())["listened"])
         self.assertEqual(self.status()["audio_listen"]["by"], "user")
+
+    def write_report(self, name="a-review.md"):
+        (self.root / "docs" / "sample" / name).write_text("Gate review\n" + "| criterion | score | evidence |\n" * 40)
+        return name
+
+    def test_advance_records_review_gate_and_reviewer_in_one_call(self):
+        self.init()
+        report = self.write_report()
+        result = self.cli("advance", "sample", "A", "9", "--reviewer", "script-reviewer", "--report", report, "--verdict", "pass")
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertIn("review A: pass", result.stdout)
+        self.assertIn("script-reviewer -> done", result.stdout)
+        self.assertEqual(self.status()["reviews"]["A"][-1]["verdict"], "pass")
+        self.assertEqual(self.status()["agents"]["script-reviewer"]["state"], "done")
+
+    def test_advance_uses_agent_override_and_skips_gate_on_revise(self):
+        self.init()
+        report = self.write_report()
+        result = self.cli("advance", "sample", "A", "5", "--reviewer", "bob", "--report", report,
+                          "--verdict", "revise", "--agent", "script-reviewer-2")
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertNotIn("review A: pass", result.stdout)
+        self.assertEqual(self.status()["agents"]["script-reviewer-2"]["state"], "done")
+
+    def test_advance_propagates_review_failure_without_touching_agent(self):
+        self.init()
+        report = self.write_report()
+        result = self.cli("advance", "sample", "A", "3", "--reviewer", "script-reviewer", "--report", report, "--verdict", "pass")
+        self.assertNotEqual(result.returncode, 0)
+        self.assertNotIn("script-reviewer", self.status().get("agents", {}))
+
+    def test_set_done_prints_audit_warning_and_strict_flag_fails(self):
+        self.init()
+        (self.root / "docs" / "sample" / "research.md").write_text("Research\n")
+        soft = self.cli("set", "sample", "research", "done")
+        self.assertEqual(soft.returncode, 0, soft.stderr)
+        self.assertIn("⚠ audit:", soft.stdout)
+        self.assertEqual(self.status()["stages"]["research"]["state"], "done")
+        (self.root / "docs" / "sample" / "brief.md").write_text("Brief\n")
+        strict = self.cli("set", "sample", "brief", "done", "--strict-audit")
+        self.assertEqual(strict.returncode, 1)
+        self.assertEqual(self.status()["stages"]["brief"]["state"], "done")
+
+    def test_audit_clip_vs_shot_reports_overflow_and_skips_without_data(self):
+        self.init()
+        module = self.load_pipeline_module()
+        self.assertFalse([e for e in module.audit("sample")["errors"] if "clip-vs-shot" in e])
+        videos = self.root / "src" / "videos" / "sample"
+        videos.mkdir(parents=True)
+        (videos / "voice-durations.ts").write_text("export const VOICE_SECONDS = {\n  s1: 2.0,\n  s2: 3.0,\n} as const;\n")
+        (videos / "timeline.ts").write_text(
+            "export const timeline = defineSequentialTimeline([\n  shot('scene01', VOICE_SECONDS.s1, 0.5),\n"
+            "  shot('scene02', VOICE_SECONDS.s2, 0.25),\n] as const);\n")
+        audio = self.root / "public" / "audio" / "sample"
+        audio.mkdir(parents=True)
+        for key in ("s1", "s2"):
+            (audio / f"{key}.mp3").write_bytes(b"x")
+        module.clip_seconds = lambda path: {"s1": 2.4, "s2": 3.5}[path.stem]
+        errors = [e for e in module.audit("sample")["errors"] if "clip-vs-shot" in e]
+        self.assertEqual(len(errors), 1)
+        self.assertIn("s2", errors[0])
+
+    def test_draft_render_builds_half_scale_command_and_leaves_final_alone(self):
+        self.init()
+        module = self.load_pipeline_module()
+        calls = []
+        ns = argparse.Namespace(folder="sample", scale=0.5)
+        out = module.render_draft(ns, runner=lambda cmd, **kw: calls.append(cmd))
+        self.assertEqual(out, self.root / "out" / "draft" / "sample-draft.mp4")
+        cmd = calls[0]
+        self.assertIn("--scale", cmd)
+        self.assertEqual(cmd[cmd.index("--scale") + 1], "0.5")
+        self.assertEqual(cmd[cmd.index("SampleReel") + 1], str(out))
+        data = self.status()
+        self.assertNotIn("render_check", data)
+        self.assertNotEqual(data["stages"]["render"].get("state"), "done")
+        self.assertFalse((self.root / "out" / "sample-anh-khoi-reel.mp4").exists())
 
 
 class MonitorStudioTest(unittest.TestCase):

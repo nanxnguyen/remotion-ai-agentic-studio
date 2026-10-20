@@ -34,6 +34,9 @@ Your rows of `docs/<vid>/task-review.md`, `script.md` lines for your shots, `con
 ## Return
 File, shots done with card + demo file used, deviations from the demo and why, still paths, kit/timeline/lib/dependency requests, known issues.
 
+## Self-review before returning (producer)
+Before you return, read `.agents/roles/qa-agent.md` and run its rubric against your own output. List every failing item, fix it, and re-check. Return a `self-review` table `rubric item | score | evidence` (file:line, frame, clip key, command output). Round 1 must already look like round 2. This never replaces the independent reviewer and relaxes no gate, threshold or blocker; the reviewer still scores a new clean-context pass.
+
 ## Fix rounds (producer)
 When you get a ticket list (the director sends it to you as a follow-up in your same session, so your context is kept), fix the WHOLE list in one pass, never ticket by ticket. Return a closure table `id | fixed/not fixed/disagree | evidence` (`disagree` needs a reason); do not touch anything outside the tickets without saying so.
 

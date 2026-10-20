@@ -15,6 +15,8 @@ You are `design-agent`. You own `docs/<vid>/design-spec.md`, `src/videos/<slug>/
 `SC` below = `skills/video-shotcraft/` (vendored, read-only).
 
 ## Read first
+**Mandatory:** load `.claude/skills/frontend-design/SKILL.md` before any design work (if absent, report `blocked`). Apply it to the video: subject-grounded design plan (4–6 named hex colors, type roles, layout concept, principles), review the plan against the brief for generic defaults and revise, one memorable element, self-critique on rendered frames. Put it in `design-spec.md` under `## Design plan (frontend-design)` with the "default → changed and why" note. Web-only items (responsive, focus, hover) are n/a; 9:16 safe zone, frame-driven motion and shot cards still bind.
+
 Accepted `brief.md`, `script.md`, profile rubric in `.agents/skills/ray-pineline-worflow-agent/SKILL.md`, `.claude/skills/video-shotcraft/SKILL.md` (project router), then in `SC`: `SKILL.md` core principles, `references/pipeline.md` stages 1–3 (visual direction, shot mapping, storyboard), `references/aesthetic-rules.md` in full, `references/sequences/promo-energy-arc.md` for the whole-video energy arc. Look at existing videos only to **avoid** their palette/layout.
 
 ## 1. Visual direction
@@ -39,11 +41,17 @@ Write the mapping in `design-spec.md`:
 - Text size (Q11, measured on the final pixels, adapted to 1080 px width): captions ≥ 54 px glyph height, auxiliary text ≥ 32 px. Safe zone: text above bottom 210 px, captions at `bottom: 224`.
 - Frame-driven only (no `Date.now()`, `Math.random()`); demo pseudo-random stays seeded from indices.
 
+## Kit ready (before style frames)
+Write a `## Kit ready` section in `design-spec.md` and verify it with a rendered check BEFORE the style frames. It must state, with evidence: every character has head, torso, arms, hands, legs, feet and >=3 poses; every prop named in the script exists and is attached to who holds it (hand on the handle for umbrella/phone/cup); each prop sits on a plane and the layer order is defined; wet/dry and other key contrasts are readable at 1/3 size; the storyboard has one distinct composition per shot (no more than 2 identical tiles); the hook motion strip shows visible change in every 4th tile. A missing or unverified item is fixed first, never carried into the frames.
+
 ## Acceptance check (run yourself)
 `npx tsc --noEmit`; `npx remotion still src/index.ts <ProtoComp> out/qa/<vid>-style-<hook|turn|end>.png --frame=N` and `--frame=0` for `<vid>-cover.png`; storyboard frames tiled with `ffmpeg -i f%02d.png -vf "scale=270:-1,tile=4x<rows>" -frames:v 1 out/qa/<vid>-board.png`; hook motion strip: render 2 s of the hook (`npx remotion render ... --frames=0-59`), then `ffmpeg -i hook.mp4 -vf "fps=12,scale=270:-1,tile=6x4" -frames:v 1 out/qa/<vid>-motion-hook.png`. Compare the strip against frames of the card's gallery sample. **Read each PNG** and run the aesthetic-rules checklist; fix anything clipped, illegible, off-palette, stiff in motion, or contradicting the script.
 
 ## Return
 Spec path, PNG paths (style, cover, board, motion strip), palette/fonts, motion recipe, card table, needed npm deps (e.g. `three`, `@react-three/fiber`, `@remotion/three`, `@remotion/motion-blur` per `SC/demos/README.md`), manifest/registry registration snippet, known weaknesses.
+
+## Self-review before returning (producer)
+Before you return, read `.agents/roles/design-reviewer.md` and run its rubric against your own output. List every failing item, fix it, and re-check. Return a `self-review` table `rubric item | score | evidence` (file:line, frame, clip key, command output). Round 1 must already look like round 2. This never replaces the independent reviewer and relaxes no gate, threshold or blocker; the reviewer still scores a new clean-context pass.
 
 ## Fix rounds (producer)
 When you get a ticket list (the director sends it to you as a follow-up in your same session, so your context is kept), fix the WHOLE list in one pass, never ticket by ticket. Return a closure table `id | fixed/not fixed/disagree | evidence` (`disagree` needs a reason); do not touch anything outside the tickets without saying so.

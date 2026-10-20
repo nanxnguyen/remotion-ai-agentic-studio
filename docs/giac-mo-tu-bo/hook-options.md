@@ -39,22 +39,32 @@ it reads at phone size on `out/qa/<vid>-cover.png` with the audio muted:
 > light touches this frame anywhere**. Dust motes drift through the cold light. Slow push-in 1.00→1.03.
 
 Three contract tests on that frame:
-- **An observable subject is present and something has just happened**: the dust streak is fresh, the lanyard has
-  just been pulled off, and the crossed-out line and the abandoned half-word are both visible. The notebook is not
-  a held pose — it is *found*, and the badge lying across it says the finding happened *today*.
+- **An observable subject is present and something has just happened**: the dust streak is fresh, **the lanyard is
+  already off a head and lying across the page with its strap still relaxing flat**, and the crossed-out line and the
+  abandoned half-word are both visible. The notebook is not a held pose — it is *found*, and the badge lying across it
+  dates the finding to now: the list outlived the promise.
 - **The thesis is visible at thumbnail scale without any text**: **an old handwriting list and a work badge occupy
   the same frame, and the badge is on top of the list.** That is the whole video in one image, and it reads as
-  value and overlap, not as a caption.
+  value and overlap, not as a caption. **Because the badge is in the cover at frame 0, the thesis is never deferred
+  to a later beat** — nothing drops, nothing lands: the plate is already there, and only the **strap** finishes
+  settling.
 - **The subject of the frame is the lost object, not a person**: no face, no age, no gender anywhere in the frame
   or in the video (`U1`). The viewer is the character, and the character is represented only by a hand, a torso and
   a lanyard.
 
+**Two readings carry this frame and neither is provable in prose (`B7`).** The cover collision at phone size is
+proved by **gate D** on `out/qa/<vid>-cover.png`; that the `s10` page is recognisably the `s2` page is proved by
+**gate E** (or the scene stills) with frames recorded side by side. Until those frames exist, both stay claims.
+
 Safe-zone headline (upper third, nothing in the bottom 210 px): **`Bạn từng nói sẽ học đàn.`** — 6 words, complete
-at **frame 0**. It is the **only** text on screen during `s1`: the caption layer stays empty for `s1`, so the cover
+at **frame 0**. It is the **only** text on screen during `s1`: the caption layer never draws in that key, and the
+second sentence `Rồi bạn đi làm.` is **never printed** (carried by the badge on the list and by `s4`), so the cover
 is never duplicated by a caption of the same sentence (same device as `docs/dung-bien-tuoi-30-thanh-ban-an/brief.md`:
 "HEADLINE thay caption" — the headline replaces the caption for that key, so no sentence is printed twice).
-It clears on the `s1`→`s2` boundary at
-**3.07 s (3.9 syl/s)**, the frame where the first caption appears.
+It clears on the `s1`→`s2` boundary at **`11 ÷ rate + 0.25`** = **2.75 / 2.87 / 3.07 / 3.22 / 3.31 s** at
+4.4 / 4.2 / 3.9 / 3.7 / 3.6 syl/s — the frame where the first caption appears. That formula is the rule, keyed to the
+**measured** `s1` clip end; **3.07 s is only its value at the planning rate and is never hard-coded**. The headline is
+removed one frame before the caption draws, so the headline and the caption never share a frame at any rate.
 
 **2. Spoken 0–3 s line, syllables, sound-off.**
 Spoken: `Bạn từng nói mình sẽ học đàn. Rồi bạn đi làm.` = **11 space-separated syllables**. Clip `s1` runs
@@ -63,9 +73,11 @@ Spoken: `Bạn từng nói mình sẽ học đàn. Rồi bạn đi làm.` = **11
 **Sound-off: yes, and independently of the speech.** The headline is complete at frame 0 and the image already
 carries the collision (list + badge). Nothing in the hook depends on hearing.
 **Honest edge:** the two clauses are the owner's own two sentences, so the line cannot be shortened without cutting
-the owner's words. The hook's last syllable is inside 3 s for **every measured rate ≥ 3.667 syl/s**; at the slowest
-end of the no-trim band (3.586 syl/s) it lands at **3.07 s — 0.07 s past**, and that is stated here rather than
-rounded away. The sound-off promise is unaffected, because the on-screen hook text is complete at frame 0.
+the owner's words. The spoken hook's last syllable is inside 3 s **only for a measured rate ≥ 3.667 syl/s**; at the
+slowest end of the no-trim band (3.586 syl/s) it lands at **3.07 s — 0.07 s past**, and at the lowest rate this same
+voice has produced in this repo (**3.17 syl/s**, `docs/chung-minh-de-lam-gi`) it lands at **3.47 s — 0.47 s past**.
+That is stated here rather than rounded away, so **the ≤ 3 s spoken claim is conditional on the measured rate**. The
+sound-off promise is **not** conditional: the on-screen hook text is complete at frame 0, at every rate.
 
 **3. Specific viewer tension held at 2.82 s — one sentence.**
 **"You made a promise about an instrument and then ordinary work swallowed it — so which of the two is still
@@ -189,7 +201,7 @@ is recorded so it is not re-proposed: `research.md` §5 #4 already flags `I3`; t
 
 | Candidate | 0–1 s subject / action | Hook complete by 3 s | 1–3 s gap the viewer holds | First payoff < 8 s | Sound-off | Resolved by | Clickbait risk | Verdict |
 |---|---|---|---|---|---|---|---|---|
-| **H1** direct address | **event in progress** — fresh dust streak, lanyard just pulled off, badge lying on an old handwriting list | **yes — 2.50 / 2.62 / 2.82 / 2.97 / 3.06 s** (2.50–2.97 s ≥ 3.667 syl/s) | **yes** — "you promised, then work swallowed it; which is still lying on the floor?" | **yes — 5.48 / 5.73 / 6.15 / 6.47 / 6.64 s (`s2`)** | **yes** | `s12`–`s16` + END card | low | **CHOSEN** → `s1` |
+| **H1** direct address | **event in progress** — fresh dust streak, lanyard **already off and lying on the page, its strap settling flat while the plate stays where it lies**, badge on an old handwriting list | **yes — 2.50 / 2.62 / 2.82 / 2.97 / 3.06 s** (2.50–2.97 s ≥ 3.667 syl/s) | **yes** — "you promised, then work swallowed it; which is still lying on the floor?" | **yes — 5.48 / 5.73 / 6.15 / 6.47 / 6.64 s (`s2`)** | **yes** | `s12`–`s16` + END card | low | **CHOSEN** → `s1` |
 | H2 viewer question | a phone on a palm; nothing has happened | **no** — 3.08–3.33 s at ≤ 3.9 syl/s | yes — strong recognition | partial (no new proof) | partial | — | low | rejected → **`s5b`**, the deferral |
 | H3 the found object | the notebook already in a hand, dust lifting | yes — 2.50–3.06 s | yes — "what is written in it?" | spends itself: the notebook *is* the payoff | yes | — | low | rejected → **`s7`**, the re-hook |
 | H4 abstract claim | an empty room, no object | **no** — 3.33–3.61 s at ≤ 3.9 syl/s | weak — no object supplied | **no** | no | END card wording only | low | rejected → END card |
@@ -216,7 +228,7 @@ timing one, where `H3` is exactly equal to `H1` at 11 syllables.
   no-trim band 3.586–4.510 (16.17 s at 4.510, 19.77 s at 3.586).
 - **Highlights** `s7` (H1) / `s10`–`s11` (H2) / `s15` (H3) — `script.md` §6.2.
 - **Contrast pairs** CP1–CP3 — `script.md` §6.1.
-- **Light plan** L0–L4 with exactly one arrival (L2 at `s7`) — `script.md` §2.1.
+- **Light plan** L0–L4 with exactly one arrival (L2 at `s7`), plus a held `L2-held` state for the post-turn shots — `script.md` §2.1.
 - **Post-word tail** = `s16`'s 0.55 s hold + END card 2.80 s = **3.35 s** of real silence after the last word at
   52.72 s (3.9 syl/s).
 - **Total** 50.97 / 52.87 / **56.07** / 58.50 / 59.81 s — inside the owner's 50–60 s for every rate between

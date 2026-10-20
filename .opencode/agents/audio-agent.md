@@ -41,5 +41,8 @@ BGM bed 12–18 dB below voice, extra duck 4–6 dB under voice with 150–300 m
 ## Return
 Files + durations, beat grid summary (or "no beat sync"), SFX cue table `shot | offset s | file | gain dB | durationInFrames | lands on (voice accent / beat n)`, mix plan, license summary.
 
+## Self-review before returning (producer)
+Before you return, read `.agents/roles/audio-reviewer.md` and run its rubric against your own output. List every failing item, fix it, and re-check. Return a `self-review` table `rubric item | score | evidence` (file:line, frame, clip key, command output). Round 1 must already look like round 2. This never replaces the independent reviewer and relaxes no gate, threshold or blocker; the reviewer still scores a new clean-context pass.
+
 ## Fix rounds (producer)
 When you get a ticket list (the director sends it to you as a follow-up in your same session, so your context is kept), fix the WHOLE list in one pass, never ticket by ticket. Return a closure table `id | fixed/not fixed/disagree | evidence` (`disagree` needs a reason); do not touch anything outside the tickets without saying so.

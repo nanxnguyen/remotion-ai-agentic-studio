@@ -1,6 +1,7 @@
 """Accessibility and shell regression checks for the pipeline monitor."""
 
 import re
+import importlib.util
 import subprocess
 import unittest
 from html.parser import HTMLParser
@@ -21,6 +22,56 @@ class LandmarkParser(HTMLParser):
 
 
 class MonitorUiTest(unittest.TestCase):
+    def test_monitor_uses_adaptive_non_overlapping_polling(self):
+        source = MONITOR.read_text(encoding="utf-8")
+        start = source.index("const statusDelay=")
+        end = source.index(";", start) + 1
+        js = source[start:end] + "\n"
+        js += "if(statusDelay(true,true)!==15000)throw Error('hidden');"
+        js += "if(statusDelay(false,true)!==1000)throw Error('active');"
+        js += "if(statusDelay(false,false)!==3000)throw Error('idle');"
+        result = subprocess.run(["node", "-e", js], capture_output=True, text=True)
+
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertIn("refreshing", source)
+        self.assertIn("If-None-Match", source)
+        self.assertNotIn("setInterval(refresh,1000)", source)
+
+    def test_terminal_polling_drains_backlog_and_backs_off(self):
+        source = MONITOR.read_text(encoding="utf-8")
+        start = source.index("const terminalDelay=")
+        end = source.index(";", start) + 1
+        js = source[start:end] + "\n"
+        js += "if(terminalDelay(true,false,false,0)!==null)throw Error('hidden');"
+        js += "if(terminalDelay(false,true,false,0)!==0)throw Error('backlog');"
+        js += "if(terminalDelay(false,false,true,0)!==80)throw Error('active');"
+        js += "if(terminalDelay(false,false,false,9)!==500)throw Error('idle');"
+        result = subprocess.run(["node", "-e", js], capture_output=True, text=True)
+
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertNotIn("setInterval(async()=>", source)
+        self.assertIn("result.hasMore", source)
+        self.assertIn("if(result.state!=='running'){nextDelay=null;", source)
+
+    def test_heavy_monitor_options_and_terminal_assets_are_lazy(self):
+        source = MONITOR.read_text(encoding="utf-8")
+
+        self.assertIn("function loadTerminalAssets()", source)
+        self.assertNotIn('<script src="https://cdn.jsdelivr.net/npm/@xterm/', source)
+        self.assertNotIn("syncOptions();pollRuns(true);setInterval", source)
+        self.assertIn("await loadOptions()", source[source.index("async function openCreate"):])
+        self.assertIn("await loadTerminalAssets();if($('command-dock').hidden)return;prepare()", source)
+
+    def test_opencode_terminal_uses_interactive_root_command(self):
+        spec = importlib.util.spec_from_file_location("pipeline_under_test", PIPELINE)
+        pipeline = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(pipeline)
+
+        self.assertEqual(
+            pipeline.terminal_command("opencode", "opencode/nemotron-3-ultra-free", "medium"),
+            [pipeline.shutil.which("opencode")],
+        )
+
     def test_join_does_not_complete_from_pending_motion_declaration(self):
         source = MONITOR.read_text(encoding="utf-8")
         node_state = source[source.index("function nodeState("):source.index("function agentState(")]
@@ -75,6 +126,16 @@ class MonitorUiTest(unittest.TestCase):
         self.assertIn('class="stage-robot"', source)
         self.assertIn('class="review-log-grid"', source)
         self.assertIn("grid-template-columns:288px", source)
+
+    def test_terminal_hides_one_shot_panels_and_has_more_vertical_space(self):
+        source = MONITOR.read_text(encoding="utf-8")
+
+        self.assertIn(".command-dock.command-dock-terminal>.dock-legacy{grid-column:1;margin:0;min-width:0;display:none}", source)
+        self.assertIn(".command-dock.command-dock-terminal>.run-panel{grid-column:2;min-width:0;padding-top:16px;display:none}", source)
+        self.assertIn(".command-dock.command-dock-terminal>.term-screen{height:460px", source)
+        self.assertIn(".command-dock.command-dock-terminal>.dock-legacy,.command-dock.command-dock-terminal>.run-panel{grid-column:1;display:none}", source)
+        self.assertIn(".command-dock.command-dock-terminal>.term-screen{height:420px}", source)
+        self.assertIn("await api(base()+'/'+session.id+'/resize',{cols:term.cols||100,rows:term.rows||28});", source)
 
     def test_monitor_shell_has_named_navigation_and_live_status(self):
         parser = LandmarkParser()

@@ -24,6 +24,9 @@ Every caption chunk set joins back to the exact `voice.json` text (diff = empty)
 ## Return
 Path, keys covered, cover/re-hook/CTA text, claims count with sources, open issues for `script-agent`. Short.
 
+## Self-review before returning (producer)
+Before you return, read `.agents/roles/content-reviewer.md` and run its rubric against your own output. List every failing item, fix it, and re-check. Return a `self-review` table `rubric item | score | evidence` (file:line, frame, clip key, command output). Round 1 must already look like round 2. This never replaces the independent reviewer and relaxes no gate, threshold or blocker; the reviewer still scores a new clean-context pass.
+
 ## Fix rounds (producer)
 When you get a ticket list (the director sends it to you as a follow-up in your same session, so your context is kept), fix the WHOLE list in one pass. Return a closure table `id | fixed/not fixed/disagree | evidence` (`disagree` needs a reason); do not touch anything outside the tickets without saying so.
 '''

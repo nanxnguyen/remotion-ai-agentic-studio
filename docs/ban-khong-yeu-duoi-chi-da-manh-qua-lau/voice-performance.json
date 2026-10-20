@@ -6,12 +6,28 @@
     "selectedReference": "docs/ban-khong-yeu-duoi-chi-da-manh-qua-lau/voice-ref/refThanhLong.wav",
     "runtime": "vieneu-v3-turbo-3.8.3 (local)",
     "externalUpload": false,
-    "supportedControls": ["referenceAudio", "seed", "denoise", "silencePadding"],
+    "supportedControls": [
+      "referenceAudio",
+      "seed",
+      "denoise",
+      "silencePadding"
+    ],
     "fixedControls": {
       "denoise": false
     },
-    "unsupportedControls": ["rate", "pitch", "volume", "speed", "atempo", "style", "directEmotion"],
-    "postProcessingRestrictions": ["no atempo", "no pitch shifting for expression"],
+    "unsupportedControls": [
+      "rate",
+      "pitch",
+      "volume",
+      "speed",
+      "atempo",
+      "style",
+      "directEmotion"
+    ],
+    "postProcessingRestrictions": [
+      "no atempo",
+      "no pitch shifting for expression"
+    ],
     "note": "Controls listed here are the declared baseline; any control not in supportedControls is an explicit limitation, never silently ignored."
   },
   "phraseJoin": " ",
@@ -23,7 +39,7 @@
     "ownerConfirmationEvidence": "owner-notes.md contains two 'hi' notes and no voice instruction; no owner confirmation of any voice exists or is claimed",
     "selectedReference": "docs/ban-khong-yeu-duoi-chi-da-manh-qua-lau/voice-ref/refThanhLong.wav",
     "resolvedReferencePath": "docs/ban-khong-yeu-duoi-chi-da-manh-qua-lau/voice-ref/refThanhLong.wav",
-    "referenceFileFacts": "exists; 8.20 s, 24 kHz, mono, pcm_s16le — director-verified. I could not run ffprobe: this runtime has no shell or process-execution tool.",
+    "referenceFileFacts": "exists; 7.741 s, 24 kHz, mono, pcm_s16le — ffprobe-measured by voice-agent (NEW-15; the earlier 8.20 s was incorrect). Used unmodified: no startSeconds/durationSeconds, reference not cropped.",
     "previewCatalogueAvailable": false,
     "previewCatalogueNote": "vietnamese-voice-samples/previews/ does not exist on this machine, so no preview slug is cited and scripts/test_voice_catalog could not be run.",
     "identity": "planningTotal(rate) = SUM(syl/rate) + SUM(pauseAfterSeconds) + SUM(postClipHold) + END hold = SUM(syl/rate) + 2.54 + 10.60 + 3.20 = SUM(syl/rate) + 16.34 s",
@@ -39,14 +55,55 @@
     "totalSecondsAt3_7": 50.66,
     "breakEvenFloorRateSyllablesPerSecond": 4.43,
     "breakEvenCeilingRateSyllablesPerSecond": 3.29,
-    "machineChecks": ["canonical text", "CER/ASR", "duration", "silence", "loudness", "clipping", "cross-phrase consistency"],
+    "machineChecks": [
+      "canonical text",
+      "CER/ASR",
+      "duration",
+      "silence",
+      "loudness",
+      "clipping",
+      "cross-phrase consistency"
+    ],
     "naturalnessEvidence": "not verified by listening"
   },
   "keyPlan": {
-    "order": ["s1", "s2a", "a1", "s2b", "s3", "a2", "s4", "s5", "s6", "s7", "s8", "s9", "s10"],
-    "ownerKeys": ["s1", "s2a", "s2b", "s3", "s4", "s5", "s6", "s7", "s8", "s9", "s10"],
-    "addedKeys": ["a1", "a2"],
-    "noVoiceKeyShots": ["img1 (the deletion, staged inside s5's 1.70 s post-clip hold)", "img2 (the umbrella tilt, staged inside s9's 1.30 s post-clip hold)", "END (silent title card)"],
+    "order": [
+      "s1",
+      "s2a",
+      "a1",
+      "s2b",
+      "s3",
+      "a2",
+      "s4",
+      "s5",
+      "s6",
+      "s7",
+      "s8",
+      "s9",
+      "s10"
+    ],
+    "ownerKeys": [
+      "s1",
+      "s2a",
+      "s2b",
+      "s3",
+      "s4",
+      "s5",
+      "s6",
+      "s7",
+      "s8",
+      "s9",
+      "s10"
+    ],
+    "addedKeys": [
+      "a1",
+      "a2"
+    ],
+    "noVoiceKeyShots": [
+      "img1 (the deletion, staged inside s5's 1.70 s post-clip hold)",
+      "img2 (the umbrella tilt, staged inside s9's 1.30 s post-clip hold)",
+      "END (silent title card)"
+    ],
     "ownerLineTwoSplit": "s2a + a1 + s2b; s2a and s2b are the two verbatim halves of owner line #2 and their join reproduces it byte-for-byte. a1 is an [ADD] connector placed between them so the payoff lands at 7.00 / 7.46 / 7.81 s instead of after second 8."
   },
   "ending": {
@@ -57,7 +114,10 @@
     "silentCardSeconds": 3.2,
     "audioTailSeconds": 5.0,
     "audioTailNote": "the post-word audio tail is postClipHoldSeconds + silentCardSeconds = 1.80 + 3.20 = 5.00 s; and lastWordEndsAtSeconds + postClipHoldSeconds + silentCardSeconds = 43.90 + 1.80 + 3.20 = 48.90 = benchmark.totalSecondsAt3_9",
-    "silentCardElasticRange": [2.2, 5.2],
+    "silentCardElasticRange": [
+      2.2,
+      5.2
+    ],
     "silentCardElasticRangeNote": "this range bounds silentCardSeconds only; stretching it lengthens audioTailSeconds, so script.md section 1 must be recomputed at the measured rate"
   },
   "candidatePolicy": {
@@ -74,11 +134,16 @@
   },
   "shots": {
     "s1": {
-      "reference": { "source": "docs/ban-khong-yeu-duoi-chi-da-manh-qua-lau/voice-ref/refThanhLong.wav" },
+      "reference": {
+        "source": "docs/ban-khong-yeu-duoi-chi-da-manh-qua-lau/voice-ref/refThanhLong.wav"
+      },
       "referenceSelectionStatus": "selected",
       "intent": "HOOK + frame-0 cover: name the viewer's role; the on-screen headline must carry the hook with the sound off",
       "emotion": "curious, warm, direct, slightly rueful recognition",
-      "accentWords": ["tìm đến bạn", "chuyện buồn"],
+      "accentWords": [
+        "tìm đến bạn",
+        "chuyện buồn"
+      ],
       "tempoIntent": "hook: brisk on the opening phrase, settle through the middle, hard stop at the end",
       "ending": "flat, level — a statement, not a question",
       "minimumPostClipHoldSeconds": 0.3,
@@ -87,91 +152,151 @@
         {
           "text": "Mọi người thường tìm đến bạn",
           "tempoIntent": "brisk",
-          "emphasis": ["tìm đến bạn"],
+          "emphasis": [
+            "tìm đến bạn"
+          ],
           "pauseBeforeSeconds": 0.0,
           "pauseAfterSeconds": 0.22,
-          "seed": null,
-          "controls": { "denoise": false }
+          "seed": 0,
+          "controls": {
+            "denoise": false
+          }
         },
         {
           "text": "mỗi khi có chuyện buồn.",
           "tempoIntent": "settle, land",
-          "emphasis": ["chuyện buồn"],
+          "emphasis": [
+            "chuyện buồn"
+          ],
           "pauseBeforeSeconds": 0.0,
           "pauseAfterSeconds": 0.0,
-          "seed": null,
-          "controls": { "denoise": false }
+          "seed": 0,
+          "controls": {
+            "denoise": false
+          }
         }
       ]
     },
     "s2a": {
-      "reference": { "source": "docs/ban-khong-yeu-duoi-chi-da-manh-qua-lau/voice-ref/refThanhLong.wav" },
+      "reference": {
+        "source": "docs/ban-khong-yeu-duoi-chi-da-manh-qua-lau/voice-ref/refThanhLong.wav"
+      },
       "referenceSelectionStatus": "selected",
       "intent": "Set up what the viewer already does; the payoff lands on the next key",
       "emotion": "reassuring, matter-of-fact",
-      "accentWords": ["an ủi", "nói gì"],
+      "accentWords": [
+        "an ủi",
+        "nói gì"
+      ],
       "tempoIntent": "two statements, each landing on its own; the second marginally quicker",
       "ending": "flat, waiting",
       "minimumPostClipHoldSeconds": 0.25,
       "postClipHoldPolicy": "the real split gap inside owner line #2 — the payoff a1 lands on this beat",
       "phrases": [
         {
-          "text": "Bạn biết cách an ủi.",
+          "text": "Bạn biết cách",
           "tempoIntent": "even",
-          "emphasis": ["an ủi"],
+          "emphasis": [],
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.09,
+          "seed": 0,
+          "controls": {
+            "denoise": false
+          }
+        },
+        {
+          "text": "an ủi.",
+          "tempoIntent": "even",
+          "emphasis": [
+            "an ủi"
+          ],
           "pauseBeforeSeconds": 0.0,
           "pauseAfterSeconds": 0.28,
-          "seed": null,
-          "controls": { "denoise": false }
+          "seed": 9,
+          "controls": {
+            "denoise": false
+          }
         },
         {
           "text": "Biết phải nói gì.",
           "tempoIntent": "list still running",
-          "emphasis": ["nói gì"],
+          "emphasis": [
+            "nói gì"
+          ],
           "pauseBeforeSeconds": 0.0,
           "pauseAfterSeconds": 0.0,
-          "seed": null,
-          "controls": { "denoise": false }
+          "seed": 0,
+          "controls": {
+            "denoise": false
+          }
         }
       ]
     },
     "a1": {
-      "reference": { "source": "docs/ban-khong-yeu-duoi-chi-da-manh-qua-lau/voice-ref/refThanhLong.wav" },
+      "reference": {
+        "source": "docs/ban-khong-yeu-duoi-chi-da-manh-qua-lau/voice-ref/refThanhLong.wav"
+      },
       "referenceSelectionStatus": "selected",
       "intent": "[ADD] THE PAYOFF — stage the effect the previous line only asserted, and plant CP1",
       "emotion": "observational, quiet",
-      "accentWords": ["chùng xuống", "đứng ngoài"],
+      "accentWords": [
+        "chùng xuống",
+        "đứng ngoài"
+      ],
       "tempoIntent": "even; the second sentence slightly lower",
       "ending": "falling, leaves the floor open for s2b",
       "minimumPostClipHoldSeconds": 0.3,
       "postClipHoldPolicy": "timeline silence after clip — the turn needs air",
       "phrases": [
         {
-          "text": "Vai người khác chùng xuống.",
+          "text": "Vai",
           "tempoIntent": "observational",
-          "emphasis": ["chùng xuống"],
+          "emphasis": [],
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.09,
+          "seed": 0,
+          "controls": {
+            "denoise": false
+          }
+        },
+        {
+          "text": "người khác chùng xuống.",
+          "tempoIntent": "observational",
+          "emphasis": [
+            "chùng xuống"
+          ],
           "pauseBeforeSeconds": 0.0,
           "pauseAfterSeconds": 0.24,
-          "seed": null,
-          "controls": { "denoise": false }
+          "seed": 8,
+          "controls": {
+            "denoise": false
+          }
         },
         {
           "text": "Còn bạn thì đứng ngoài.",
           "tempoIntent": "slightly lower, plain",
-          "emphasis": ["đứng ngoài"],
+          "emphasis": [
+            "đứng ngoài"
+          ],
           "pauseBeforeSeconds": 0.0,
           "pauseAfterSeconds": 0.0,
-          "seed": null,
-          "controls": { "denoise": false }
+          "seed": 0,
+          "controls": {
+            "denoise": false
+          }
         }
       ]
     },
     "s2b": {
-      "reference": { "source": "docs/ban-khong-yeu-duoi-chi-da-manh-qua-lau/voice-ref/refThanhLong.wav" },
+      "reference": {
+        "source": "docs/ban-khong-yeu-duoi-chi-da-manh-qua-lau/voice-ref/refThanhLong.wav"
+      },
       "referenceSelectionStatus": "selected",
       "intent": "Land the last clause of owner line #2",
       "emotion": "warm, quietly proud",
-      "accentWords": ["thấy ổn hơn"],
+      "accentWords": [
+        "thấy ổn hơn"
+      ],
       "tempoIntent": "even and unhurried — this clause settles after the payoff and must not compete with it",
       "ending": "full stop",
       "minimumPostClipHoldSeconds": 0.35,
@@ -180,20 +305,30 @@
         {
           "text": "Biết làm sao để người khác thấy ổn hơn.",
           "tempoIntent": "even, natural emphasis — no extra weight, no slowing",
-          "emphasis": ["thấy ổn hơn"],
+          "emphasis": [
+            "thấy ổn hơn"
+          ],
           "pauseBeforeSeconds": 0.0,
           "pauseAfterSeconds": 0.0,
-          "seed": null,
-          "controls": { "denoise": false }
+          "seed": 0,
+          "controls": {
+            "denoise": false
+          }
         }
       ]
     },
     "s3": {
-      "reference": { "source": "docs/ban-khong-yeu-duoi-chi-da-manh-qua-lau/voice-ref/refThanhLong.wav" },
+      "reference": {
+        "source": "docs/ban-khong-yeu-duoi-chi-da-manh-qua-lau/voice-ref/refThanhLong.wav"
+      },
       "referenceSelectionStatus": "selected",
       "intent": "The turn: alone with the phone",
       "emotion": "quiet tension, held under control",
-      "accentWords": ["một tối", "rất lâu", "trước màn hình điện thoại"],
+      "accentWords": [
+        "một tối",
+        "rất lâu",
+        "trước màn hình điện thoại"
+      ],
       "tempoIntent": "the hinge: plain opening, slow through the middle so the duration is audible, flat ending",
       "ending": "flat, no lift",
       "minimumPostClipHoldSeconds": 1.05,
@@ -202,29 +337,42 @@
         {
           "text": "Nhưng có một tối,",
           "tempoIntent": "plain, unhurried",
-          "emphasis": ["một tối"],
+          "emphasis": [
+            "một tối"
+          ],
           "pauseBeforeSeconds": 0.0,
           "pauseAfterSeconds": 0.26,
-          "seed": null,
-          "controls": { "denoise": false }
+          "seed": 1,
+          "controls": {
+            "denoise": false
+          }
         },
         {
           "text": "chính bạn lại ngồi rất lâu trước màn hình điện thoại.",
           "tempoIntent": "slow, deliberate, flat landing",
-          "emphasis": ["rất lâu", "trước màn hình điện thoại"],
+          "emphasis": [
+            "rất lâu",
+            "trước màn hình điện thoại"
+          ],
           "pauseBeforeSeconds": 0.0,
           "pauseAfterSeconds": 0.0,
-          "seed": null,
-          "controls": { "denoise": false }
+          "seed": 0,
+          "controls": {
+            "denoise": false
+          }
         }
       ]
     },
     "a2": {
-      "reference": { "source": "docs/ban-khong-yeu-duoi-chi-da-manh-qua-lau/voice-ref/refThanhLong.wav" },
+      "reference": {
+        "source": "docs/ban-khong-yeu-duoi-chi-da-manh-qua-lau/voice-ref/refThanhLong.wav"
+      },
       "referenceSelectionStatus": "selected",
       "intent": "[ADD] Put the room's sound into a story that otherwise has no audible environment",
       "emotion": "quiet, close — said as if the narrator had just noticed it, still to one listener",
-      "accentWords": ["mưa rơi đều"],
+      "accentWords": [
+        "mưa rơi đều"
+      ],
       "tempoIntent": "slow, even, no rubato",
       "ending": "level, trailing slightly",
       "minimumPostClipHoldSeconds": 0.25,
@@ -236,26 +384,37 @@
           "emphasis": [],
           "pauseBeforeSeconds": 0.0,
           "pauseAfterSeconds": 0.14,
-          "seed": null,
-          "controls": { "denoise": false }
+          "seed": 2,
+          "controls": {
+            "denoise": false
+          }
         },
         {
           "text": "mưa rơi đều.",
           "tempoIntent": "close, plain",
-          "emphasis": ["mưa rơi đều"],
+          "emphasis": [
+            "mưa rơi đều"
+          ],
           "pauseBeforeSeconds": 0.0,
           "pauseAfterSeconds": 0.0,
-          "seed": null,
-          "controls": { "denoise": false }
+          "seed": 0,
+          "controls": {
+            "denoise": false
+          }
         }
       ]
     },
     "s4": {
-      "reference": { "source": "docs/ban-khong-yeu-duoi-chi-da-manh-qua-lau/voice-ref/refThanhLong.wav" },
+      "reference": {
+        "source": "docs/ban-khong-yeu-duoi-chi-da-manh-qua-lau/voice-ref/refThanhLong.wav"
+      },
       "referenceSelectionStatus": "selected",
       "intent": "RE-HOOK — say the message she cannot send, in her own imagined voice",
       "emotion": "hesitant, intimate, tender",
-      "accentWords": ["mệt quá", "nhắn"],
+      "accentWords": [
+        "mệt quá",
+        "nhắn"
+      ],
       "tempoIntent": "slower than a2; the quoted message softer than the narration",
       "ending": "falling on the quoted words, no fade",
       "minimumPostClipHoldSeconds": 0.4,
@@ -264,29 +423,42 @@
         {
           "text": "Bạn muốn nhắn:",
           "tempoIntent": "unhurried",
-          "emphasis": ["nhắn"],
+          "emphasis": [
+            "nhắn"
+          ],
           "pauseBeforeSeconds": 0.0,
           "pauseAfterSeconds": 0.24,
-          "seed": null,
-          "controls": { "denoise": false }
+          "seed": 0,
+          "controls": {
+            "denoise": false
+          }
         },
         {
           "text": "'Hôm nay mình mệt quá.'",
           "tempoIntent": "soft, said once, trailing",
-          "emphasis": ["mệt quá"],
+          "emphasis": [
+            "mệt quá"
+          ],
           "pauseBeforeSeconds": 0.0,
           "pauseAfterSeconds": 0.0,
-          "seed": null,
-          "controls": { "denoise": false }
+          "seed": 0,
+          "controls": {
+            "denoise": false
+          }
         }
       ]
     },
     "s5": {
-      "reference": { "source": "docs/ban-khong-yeu-duoi-chi-da-manh-qua-lau/voice-ref/refThanhLong.wav" },
+      "reference": {
+        "source": "docs/ban-khong-yeu-duoi-chi-da-manh-qua-lau/voice-ref/refThanhLong.wav"
+      },
       "referenceSelectionStatus": "selected",
       "intent": "Give the verdict on her own small decision",
       "emotion": "rueful, close to a shrug, never self-pity",
-      "accentWords": ["nghĩ một lúc", "lại thôi"],
+      "accentWords": [
+        "nghĩ một lúc",
+        "lại thôi"
+      ],
       "tempoIntent": "light first half, settling downward on the second",
       "ending": "settles down, does not rise",
       "minimumPostClipHoldSeconds": 1.7,
@@ -295,29 +467,41 @@
         {
           "text": "Rồi nghĩ một lúc,",
           "tempoIntent": "light",
-          "emphasis": ["nghĩ một lúc"],
+          "emphasis": [
+            "nghĩ một lúc"
+          ],
           "pauseBeforeSeconds": 0.0,
           "pauseAfterSeconds": 0.18,
-          "seed": null,
-          "controls": { "denoise": false }
+          "seed": 0,
+          "controls": {
+            "denoise": false
+          }
         },
         {
           "text": "bạn lại thôi.",
           "tempoIntent": "settling down, gentle release",
-          "emphasis": ["lại thôi"],
+          "emphasis": [
+            "lại thôi"
+          ],
           "pauseBeforeSeconds": 0.0,
           "pauseAfterSeconds": 0.0,
-          "seed": null,
-          "controls": { "denoise": false }
+          "seed": 0,
+          "controls": {
+            "denoise": false
+          }
         }
       ]
     },
     "s6": {
-      "reference": { "source": "docs/ban-khong-yeu-duoi-chi-da-manh-qua-lau/voice-ref/refThanhLong.wav" },
+      "reference": {
+        "source": "docs/ban-khong-yeu-duoi-chi-da-manh-qua-lau/voice-ref/refThanhLong.wav"
+      },
       "referenceSelectionStatus": "selected",
       "intent": "Correct an assumption the viewer is already making; this call is the actor s10 pays",
       "emotion": "gentle, direct, looking at the viewer",
-      "accentWords": ["không có ai"],
+      "accentWords": [
+        "không có ai"
+      ],
       "tempoIntent": "level, then a small lowering on the last phrase",
       "ending": "falling, leaves the answer to s7",
       "minimumPostClipHoldSeconds": 0.5,
@@ -326,11 +510,15 @@
         {
           "text": "Không phải vì không có ai",
           "tempoIntent": "level, matter-of-fact",
-          "emphasis": ["không có ai"],
+          "emphasis": [
+            "không có ai"
+          ],
           "pauseBeforeSeconds": 0.0,
           "pauseAfterSeconds": 0.18,
-          "seed": null,
-          "controls": { "denoise": false }
+          "seed": 0,
+          "controls": {
+            "denoise": false
+          }
         },
         {
           "text": "để nhắn.",
@@ -338,17 +526,24 @@
           "emphasis": [],
           "pauseBeforeSeconds": 0.0,
           "pauseAfterSeconds": 0.0,
-          "seed": null,
-          "controls": { "denoise": false }
+          "seed": 0,
+          "controls": {
+            "denoise": false
+          }
         }
       ]
     },
     "s7": {
-      "reference": { "source": "docs/ban-khong-yeu-duoi-chi-da-manh-qua-lau/voice-ref/refThanhLong.wav" },
+      "reference": {
+        "source": "docs/ban-khong-yeu-duoi-chi-da-manh-qua-lau/voice-ref/refThanhLong.wav"
+      },
       "referenceSelectionStatus": "selected",
       "intent": "The gut punch — say the true reason she did not send it",
       "emotion": "the truest, quietest, least performed line in the video",
-      "accentWords": ["đã quen", "phải là người ổn"],
+      "accentWords": [
+        "đã quen",
+        "phải là người ổn"
+      ],
       "tempoIntent": "slowest real line; the first phrase almost offhand, the second slow with the last two words dropping in volume",
       "ending": "stops; the last two words drop in level but never fade to a whisper",
       "minimumPostClipHoldSeconds": 0.6,
@@ -357,29 +552,41 @@
         {
           "text": "Mà vì bạn đã quen",
           "tempoIntent": "almost offhand, unstressed",
-          "emphasis": ["đã quen"],
+          "emphasis": [
+            "đã quen"
+          ],
           "pauseBeforeSeconds": 0.0,
           "pauseAfterSeconds": 0.24,
-          "seed": null,
-          "controls": { "denoise": false }
+          "seed": 1,
+          "controls": {
+            "denoise": false
+          }
         },
         {
           "text": "với việc mình phải là người ổn.",
           "tempoIntent": "slow, quiet, weighted landing",
-          "emphasis": ["phải là người ổn"],
+          "emphasis": [
+            "phải là người ổn"
+          ],
           "pauseBeforeSeconds": 0.0,
           "pauseAfterSeconds": 0.0,
-          "seed": null,
-          "controls": { "denoise": false }
+          "seed": 0,
+          "controls": {
+            "denoise": false
+          }
         }
       ]
     },
     "s8": {
-      "reference": { "source": "docs/ban-khong-yeu-duoi-chi-da-manh-qua-lau/voice-ref/refThanhLong.wav" },
+      "reference": {
+        "source": "docs/ban-khong-yeu-duoi-chi-da-manh-qua-lau/voice-ref/refThanhLong.wav"
+      },
       "referenceSelectionStatus": "selected",
       "intent": "Ask whether anyone is still there — a breath-word, not a stage aside",
       "emotion": "natural, conversational",
-      "accentWords": ["không…"],
+      "accentWords": [
+        "không…"
+      ],
       "tempoIntent": "short, unhurried; the ellipsis is not performed",
       "ending": "unresolved, falls and waits",
       "minimumPostClipHoldSeconds": 1.8,
@@ -388,51 +595,98 @@
         {
           "text": "Bạn biết không…",
           "tempoIntent": "conversational, unresolved",
-          "emphasis": ["không…"],
+          "emphasis": [
+            "không…"
+          ],
           "pauseBeforeSeconds": 0.0,
           "pauseAfterSeconds": 0.0,
-          "seed": null,
-          "controls": { "denoise": false }
+          "seed": 0,
+          "controls": {
+            "denoise": false
+          }
         }
       ]
     },
     "s9": {
-      "reference": { "source": "docs/ban-khong-yeu-duoi-chi-da-manh-qua-lau/voice-ref/refThanhLong.wav" },
+      "reference": {
+        "source": "docs/ban-khong-yeu-duoi-chi-da-manh-qua-lau/voice-ref/refThanhLong.wav"
+      },
       "referenceSelectionStatus": "selected",
       "intent": "Deliver the umbrella metaphor honestly on the same street as frame 0",
       "emotion": "warm, not poeticising",
-      "accentWords": ["che ô", "cũng", "bị ướt"],
+      "accentWords": [
+        "che ô",
+        "cũng",
+        "bị ướt"
+      ],
       "tempoIntent": "conversational through the first clause, then slow on the reversal so it is audible rather than announced",
       "ending": "plain landing",
       "minimumPostClipHoldSeconds": 1.3,
       "postClipHoldPolicy": "this hold stages img2 — the umbrella's tilt completes with no voice; the owner has already said it in s9",
       "phrases": [
         {
-          "text": "Người thường xuyên che ô cho người khác",
+          "text": "Người thường xuyên",
           "tempoIntent": "conversational",
-          "emphasis": ["che ô"],
+          "emphasis": [],
           "pauseBeforeSeconds": 0.0,
-          "pauseAfterSeconds": 0.26,
-          "seed": null,
-          "controls": { "denoise": false }
+          "pauseAfterSeconds": 0.09,
+          "seed": 1,
+          "controls": {
+            "denoise": false
+          }
         },
         {
-          "text": "cũng có những ngày bị ướt.",
+          "text": "che ô cho người khác",
+          "tempoIntent": "conversational",
+          "emphasis": [
+            "che ô"
+          ],
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.26,
+          "seed": 3,
+          "controls": {
+            "denoise": false
+          }
+        },
+        {
+          "text": "cũng có những ngày",
           "tempoIntent": "slow, plain, no sadness",
-          "emphasis": ["cũng", "bị ướt"],
+          "emphasis": [
+            "cũng"
+          ],
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.09,
+          "seed": 0,
+          "controls": {
+            "denoise": false
+          }
+        },
+        {
+          "text": "bị ướt.",
+          "tempoIntent": "slow, plain, no sadness",
+          "emphasis": [
+            "bị ướt"
+          ],
           "pauseBeforeSeconds": 0.0,
           "pauseAfterSeconds": 0.0,
-          "seed": null,
-          "controls": { "denoise": false }
+          "seed": 1,
+          "controls": {
+            "denoise": false
+          }
         }
       ]
     },
     "s10": {
-      "reference": { "source": "docs/ban-khong-yeu-duoi-chi-da-manh-qua-lau/voice-ref/refThanhLong.wav" },
+      "reference": {
+        "source": "docs/ban-khong-yeu-duoi-chi-da-manh-qua-lau/voice-ref/refThanhLong.wav"
+      },
       "referenceSelectionStatus": "selected",
       "intent": "The climax — ask the viewer the question nobody asks them; last spoken shot of the video",
       "emotion": "warmest and most open, still not loud",
-      "accentWords": ["một người hỏi", "với bạn thế?"],
+      "accentWords": [
+        "một người hỏi",
+        "với bạn thế?"
+      ],
       "tempoIntent": "unhurried setup, then the quoted question as ONE clause, ONE breath, no internal pause, at normal volume with a real question contour",
       "ending": "rising then held open; the final word falls; no call to action",
       "minimumPostClipHoldSeconds": 1.8,
@@ -441,20 +695,28 @@
         {
           "text": "Và họ cũng cần một người hỏi:",
           "tempoIntent": "unhurried",
-          "emphasis": ["một người hỏi"],
+          "emphasis": [
+            "một người hỏi"
+          ],
           "pauseBeforeSeconds": 0.0,
           "pauseAfterSeconds": 0.3,
-          "seed": null,
-          "controls": { "denoise": false }
+          "seed": 0,
+          "controls": {
+            "denoise": false
+          }
         },
         {
           "text": "'Hôm nay có chuyện gì với bạn thế?'",
           "tempoIntent": "one clause, one breath, normal volume, question contour — no pause inside",
-          "emphasis": ["với bạn thế?"],
+          "emphasis": [
+            "với bạn thế?"
+          ],
           "pauseBeforeSeconds": 0.0,
           "pauseAfterSeconds": 0.0,
-          "seed": null,
-          "controls": { "denoise": false }
+          "seed": 0,
+          "controls": {
+            "denoise": false
+          }
         }
       ]
     }

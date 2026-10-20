@@ -120,6 +120,7 @@ class Session:
             return {"id": self.id, "video": self.video, "provider": self.provider,
                     "state": self.state, "model": self.model, "effort": self.effort,
                     "offset": self.output_start + end, "truncated": truncated,
+                    "hasMore": end < len(self.output),
                     "output": base64.b64encode(self.output[start:end]).decode("ascii"),
                     "exitCode": getattr(self, "exit_code", None)}
 

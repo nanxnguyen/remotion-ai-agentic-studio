@@ -43,6 +43,7 @@ import time
 import unicodedata
 from contextlib import contextmanager
 from datetime import datetime
+from functools import lru_cache
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path, PureWindowsPath
 
@@ -409,10 +410,7 @@ def motion_evidence(folder: str, data: dict) -> dict:
             path = (ROOT / name).resolve()
             if not path.is_relative_to(ROOT.resolve()) or not path.is_file():
                 raise ValueError(f"missing or unsafe evidence path: {name}")
-            result = subprocess.run(["ffprobe", "-v", "error", "-show_streams", "-show_format", "-of", "json", str(path)], capture_output=True, text=True)
-            if result.returncode:
-                raise ValueError(f"unreadable motion media: {name}")
-            probe = json.loads(result.stdout)
+            probe = probe_media(path)
             video = next((x for x in probe.get("streams", []) if x.get("codec_type") == "video"), None)
             if not video or video.get("width", 0) <= 0 or video.get("height", 0) <= 0:
                 raise ValueError(f"no visual stream: {name}")
@@ -526,13 +524,8 @@ def evidence(folder: str, data: dict) -> dict:
     ds = files("design-spec.md")
     ev["design"] = {"ok": bool(ds), "files": ds}
 
-    root_tsx = (ROOT / "src" / "Root.tsx").read_text(encoding="utf-8")
-    # Registry-first: comps are registered via videoRegistry (src/videos/**/index.ts), Root.tsx maps it.
-    catalog = ""
-    videos_dir = ROOT / "src" / "videos"
-    if videos_dir.is_dir():
-        catalog = "\n".join(p.read_text(encoding="utf-8") for p in sorted(videos_dir.glob("**/index.ts")))
-    ev["build"] = {"ok": bool(comp) and (f'id="{comp}"' in root_tsx
+    catalog = composition_catalog()
+    ev["build"] = {"ok": bool(comp) and (f'id="{comp}"' in catalog
                                          or f"id: '{comp}'" in catalog or f'id: "{comp}"' in catalog),
                    "files": ["src/Root.tsx"] if comp else [],
                    "detail": f"composition {comp or '?'}"}
@@ -557,12 +550,58 @@ def file_fingerprint(path: Path) -> str:
     return f"{stat.st_size}:{stat.st_mtime_ns}"
 
 
-def file_sha256(path: Path) -> str:
+def _cache_key(path: Path) -> tuple:
+    resolved = path.resolve()
+    stat = resolved.stat()
+    return str(resolved), stat.st_size, stat.st_mtime_ns
+
+
+@lru_cache(maxsize=4096)
+def _file_sha256_cached(path: str, size: int, mtime_ns: int) -> str:
     value = hashlib.sha256()
-    with path.open("rb") as stream:
+    with Path(path).open("rb") as stream:
         for block in iter(lambda: stream.read(1024 * 1024), b""):
             value.update(block)
     return value.hexdigest()
+
+
+def file_sha256(path: Path) -> str:
+    return _file_sha256_cached(*_cache_key(path))
+
+
+@lru_cache(maxsize=512)
+def _probe_media_cached(path: str, size: int, mtime_ns: int) -> dict:
+    result = subprocess.run(
+        ["ffprobe", "-v", "error", "-show_streams", "-show_format", "-of", "json", path],
+        capture_output=True, text=True,
+    )
+    if result.returncode:
+        raise ValueError(f"unreadable motion media: {Path(path).name}")
+    return json.loads(result.stdout)
+
+
+def probe_media(path: Path) -> dict:
+    return _probe_media_cached(*_cache_key(path))
+
+
+@lru_cache(maxsize=8)
+def _composition_catalog_cached(signature: tuple) -> str:
+    return "\n".join(Path(path).read_text(encoding="utf-8") for path, _, _ in signature)
+
+
+def composition_catalog() -> str:
+    paths = [ROOT / "src" / "Root.tsx"]
+    videos_dir = ROOT / "src" / "videos"
+    if videos_dir.is_dir():
+        paths += sorted(videos_dir.glob("**/index.ts"))
+    signature = tuple(_cache_key(path) for path in paths if path.is_file())
+    return _composition_catalog_cached(signature)
+
+
+def clear_monitor_caches() -> None:
+    _file_sha256_cached.cache_clear()
+    _probe_media_cached.cache_clear()
+    _composition_catalog_cached.cache_clear()
 
 
 def audio_fingerprint(folder: str, data: dict) -> str:
@@ -1645,6 +1684,7 @@ def _record_run(folder: str, run: dict, agent_state: str, msg: str) -> None:
 
 
 DETACHED: dict = {}  # run id -> {"folder", "stop_requested"}: runs adopted by pid after a monitor restart
+SUPERVISED: set = set()  # run ids whose _wait_run thread is still recording the outcome; pid-based paths must not race it
 
 
 def pid_alive(pid) -> bool:
@@ -1670,6 +1710,8 @@ def _kill_tree(pid: int) -> None:
 
 def _finish_detached(folder: str, run_id: str) -> None:
     with LIVE_LOCK:
+        if run_id in SUPERVISED:  # _wait_run owns the final state (it also knows if the stop was requested)
+            return
         info = DETACHED.pop(run_id, {})
     try:
         run = next((r for r in load(folder).get("runs", []) if r["id"] == run_id), None)
@@ -1696,6 +1738,9 @@ def adopt_run(folder: str, run: dict) -> bool:
         if run["id"] in DETACHED:
             return True
     if not pid_alive(run.get("pid")):
+        with LIVE_LOCK:
+            if run["id"] in SUPERVISED:  # process just ended; _wait_run is writing the result
+                return True
         _finish_detached(folder, run["id"])
         return False
     with LIVE_LOCK:
@@ -1801,6 +1846,14 @@ def maybe_fallback(folder: str, run: dict):
 
 
 def _wait_run(folder: str, run: dict, proc) -> None:
+    try:
+        _wait_run_inner(folder, run, proc)
+    finally:
+        with LIVE_LOCK:
+            SUPERVISED.discard(run["id"])
+
+
+def _wait_run_inner(folder: str, run: dict, proc) -> None:
     code = proc.wait()
     with LIVE_LOCK:
         LIVE_RUNS.pop(run["id"], None)
@@ -1989,6 +2042,8 @@ def launch_run(folder: str, runner_id: str, prompt: str, kind: str, run_id: str 
                **(extra or {})}
         LIVE_RUNS[run_id] = {"folder": folder, "proc": proc, "run": run}
     _record_run(folder, run, "running", f"monitor run {run_id} started via {run_label(run)} ({kind})")
+    with LIVE_LOCK:
+        SUPERVISED.add(run["id"])
     threading.Thread(target=_wait_run, args=(folder, run, proc), daemon=True).start()
     return run
 
@@ -2178,7 +2233,16 @@ def terminal_backend():
     if __package__:
         from . import interactive_terminal
     else:
-        import interactive_terminal
+        # python3 -I drops the script directory from sys.path, so load by file path.
+        import importlib.util
+        module = sys.modules.get("interactive_terminal")
+        if module is None:
+            spec = importlib.util.spec_from_file_location(
+                "interactive_terminal", Path(__file__).resolve().parent / "interactive_terminal.py")
+            module = importlib.util.module_from_spec(spec)
+            sys.modules["interactive_terminal"] = module
+            spec.loader.exec_module(module)
+        return module
     return interactive_terminal
 
 
@@ -2216,6 +2280,9 @@ def terminal_command(provider: str, model: str = "", effort: str = "") -> list:
     executable = shutil.which(INTERACTIVE_COMMANDS[provider][0])
     if not executable:
         raise LookupError(f"{provider} interactive CLI not installed")
+    # OpenCode accepts --model only on `run`; its interactive root command must stay bare.
+    if provider == "opencode":
+        return [executable]
     cmd = [executable]
     if model:
         selected = model + (f"#{effort}" if provider == "opencode" and effort else "")
@@ -2228,15 +2295,29 @@ def terminal_command(provider: str, model: str = "", effort: str = "") -> list:
 
 
 class Handler(BaseHTTPRequestHandler):
-    def _send(self, code: int, body: bytes, ctype: str) -> None:
+    def _send(self, code: int, body: bytes, ctype: str, *, cache_control="no-store", headers=None) -> None:
         self.send_response(code)
         self.send_header("Content-Type", ctype)
-        self.send_header("Cache-Control", "no-store")
+        self.send_header("Cache-Control", cache_control)
+        self.send_header("Content-Length", str(len(body)))
+        for name, value in (headers or {}).items():
+            self.send_header(name, value)
         self.end_headers()
-        self.wfile.write(body)
+        if body:
+            self.wfile.write(body)
 
     def _json(self, code: int, obj) -> None:
         self._send(code, json.dumps(obj, ensure_ascii=False).encode(), "application/json; charset=utf-8")
+
+    def _status(self) -> None:
+        body = json.dumps(all_views(), ensure_ascii=False).encode()
+        etag = '"' + hashlib.sha256(body).hexdigest() + '"'
+        headers = {"ETag": etag}
+        if self.headers.get("If-None-Match") == etag:
+            return self._send(304, b"", "application/json; charset=utf-8",
+                              cache_control="no-cache", headers=headers)
+        self._send(200, body, "application/json; charset=utf-8",
+                   cache_control="no-cache", headers=headers)
 
     def _load(self, folder: str):
         try:
@@ -2330,7 +2411,7 @@ class Handler(BaseHTTPRequestHandler):
         if self.path in ("/", "/index.html"):
             self._send(200, HTML.read_bytes(), "text/html; charset=utf-8")
         elif self.path == "/api/status":
-            self._json(200, all_views())
+            self._status()
         elif self.path == "/api/meta":
             self._json(200, {"flow": FLOW, "agents": roster(), "stages": dict(STAGES), "pass_score": PASS_SCORE})
         elif match := re.fullmatch(r"/media/([A-Za-z0-9_-]+)", self.path):
@@ -2524,6 +2605,12 @@ class Handler(BaseHTTPRequestHandler):
 class MonitorServer(ThreadingHTTPServer):
     # On Windows SO_REUSEADDR lets a second monitor bind the same port and silently split requests.
     allow_reuse_address = os.name != "nt"
+
+    def handle_error(self, request, client_address):
+        # A browser aborting a video range request is normal; do not dump a traceback.
+        if isinstance(sys.exc_info()[1], (BrokenPipeError, ConnectionResetError)):
+            return
+        super().handle_error(request, client_address)
 
 
 def cmd_serve(a) -> None:

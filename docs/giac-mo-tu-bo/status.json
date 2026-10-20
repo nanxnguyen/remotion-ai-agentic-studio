@@ -28,7 +28,8 @@
     },
     "script": {
       "state": "in_progress",
-      "at": "2026-10-18T23:56:07+07:00"
+      "at": "2026-10-21T00:09:24+07:00",
+      "note": "round-3 fix pass closed 10/10; director verified invariants + audit ok; Gate A round 4 (final) in flight"
     }
   },
   "reviews": {
@@ -40,11 +41,27 @@
         "verdict": "revise",
         "report": "docs/giac-mo-tu-bo/script-review.md",
         "note": "round 1: 3 clean-context lenses (fidelity 9.2, hook 9.0, craft 8.9); merged=8.9 revise; open Cao B1, open Trung B2/C-01/C-02"
+      },
+      {
+        "at": "2026-10-20T23:06:37+07:00",
+        "reviewer": "script-reviewer",
+        "score": 8.8,
+        "verdict": "revise",
+        "report": "docs/giac-mo-tu-bo/script-review.md",
+        "note": "round 2: lenses A 8.8 / B 9.0 / C 8.9; merged 8.8 revise; 22/24 round-1 tickets closed; open Trung: badge-vs-strap, s1 text ledger, false 0.00s join list, six-vs-three headlines, lanyard final state, s13 trim row, volume contradiction"
+      },
+      {
+        "at": "2026-10-20T23:41:33+07:00",
+        "reviewer": "script-reviewer",
+        "score": 8.8,
+        "verdict": "revise",
+        "report": "docs/giac-mo-tu-bo/script-review.md",
+        "note": "round 3: lenses A 8.9 / B 8.8 / C 8.9 -> merged 8.8 revise. Open Trung: C-R3-1 volume-wording residue in voice-performance/voice-direction/script; C-R3-2 L0 row mislabels post-turn shots, needs L2-held row; C-R3-3 lanyard lacks a y-range vs the reserved bottom 210 px; A N3-1 page-turn wording contradicts the corner-lift action. 7 Thap items. Last fix round before escalation."
       }
     ]
   },
   "review_valid": {
-    "A": true,
+    "A": false,
     "D": false,
     "E": false,
     "B": false,
@@ -53,7 +70,7 @@
     "audio": false,
     "motion": false
   },
-  "next": "video-director: Phase 2 script (script-agent)",
+  "next": "video-director: Gate A round 4 (final lens pass)",
   "log": [
     {
       "t": "2026-10-18T23:45:54+07:00",
@@ -180,9 +197,171 @@
       "stage": "script",
       "who": "script-agent",
       "msg": "script-agent running: gate A round 1 fix pass: B1(+option A), B2, C-01, C-02, A1-A5, B3-B8, C-03-C-11"
+    },
+    {
+      "t": "2026-10-20T22:08:30+07:00",
+      "stage": "script",
+      "who": "agent",
+      "msg": "script -> in_progress: INCIDENT 2026-10-20 22:01: docs/giac-mo-tu-bo wiped from working tree during fix pass; restored byte-for-byte from git HEAD (d6f1f0b), audit ok, tar snapshot taken; fix pass restarted"
+    },
+    {
+      "t": "2026-10-20T22:48:22+07:00",
+      "stage": "script",
+      "who": "script-agent",
+      "msg": "script-agent done: gate A round 1 fix pass: 24/24 tickets closed; 175 syl, 11.20 s silence, 17/17 keys, 33 phrases verified by director; audit ok"
+    },
+    {
+      "t": "2026-10-20T22:48:22+07:00",
+      "stage": "script",
+      "who": "agent",
+      "msg": "script -> in_progress: gate A round 2 review in flight (3 clean-context lenses)"
+    },
+    {
+      "t": "2026-10-20T22:48:22+07:00",
+      "stage": "script",
+      "who": "script-reviewer-1",
+      "msg": "script-reviewer-1 running: gate A round 2 lens 1"
+    },
+    {
+      "t": "2026-10-20T22:48:22+07:00",
+      "stage": "script",
+      "who": "script-reviewer-2",
+      "msg": "script-reviewer-2 running: gate A round 2 lens 2"
+    },
+    {
+      "t": "2026-10-20T22:48:22+07:00",
+      "stage": "script",
+      "who": "script-reviewer-3",
+      "msg": "script-reviewer-3 running: gate A round 2 lens 3"
+    },
+    {
+      "t": "2026-10-20T22:54:58+07:00",
+      "stage": "agent",
+      "who": "monitor",
+      "msg": "monitor run 20261018-234554-806 exited (tracked by pid after a monitor restart)"
+    },
+    {
+      "t": "2026-10-20T23:06:37+07:00",
+      "stage": "A",
+      "who": "script-reviewer",
+      "msg": "review 8.8/10 revise: script-review.md (round 2: lenses A 8.8 / B 9.0 / C 8.9; merged 8.8 revise; 22/24 round-1 tickets closed; open Trung: badge-vs-strap, s1 text ledger, false 0.00s join list, six-vs-three headlines, lanyard final state, s13 trim row, volume contradiction)"
+    },
+    {
+      "t": "2026-10-20T23:06:37+07:00",
+      "stage": "script",
+      "who": "script-reviewer-1",
+      "msg": "script-reviewer-1 done: gate A round 2 lens 1 done: r2 report written"
+    },
+    {
+      "t": "2026-10-20T23:06:37+07:00",
+      "stage": "script",
+      "who": "script-reviewer-2",
+      "msg": "script-reviewer-2 done: gate A round 2 lens 2 done: r2 report written"
+    },
+    {
+      "t": "2026-10-20T23:06:37+07:00",
+      "stage": "script",
+      "who": "script-reviewer-3",
+      "msg": "script-reviewer-3 done: gate A round 2 lens 3 done: r2 report written"
+    },
+    {
+      "t": "2026-10-20T23:07:28+07:00",
+      "stage": "script",
+      "who": "script-agent",
+      "msg": "script-agent running: gate A round 2 fix pass: R2-1..R2-13 (7 Trung, 6 Thap)"
+    },
+    {
+      "t": "2026-10-20T23:07:28+07:00",
+      "stage": "script",
+      "who": "agent",
+      "msg": "script -> in_progress: gate A round 2 revise 8.8: fix pass in flight (13 tickets)"
+    },
+    {
+      "t": "2026-10-20T23:30:36+07:00",
+      "stage": "script",
+      "who": "script-agent",
+      "msg": "script-agent done: gate A round 2 fix pass: 13/13 closed; 175/11.20/17-33 reverified; audit ok"
+    },
+    {
+      "t": "2026-10-20T23:30:36+07:00",
+      "stage": "script",
+      "who": "script-reviewer-1",
+      "msg": "script-reviewer-1 running: gate A round 3 lens 1"
+    },
+    {
+      "t": "2026-10-20T23:30:36+07:00",
+      "stage": "script",
+      "who": "script-reviewer-2",
+      "msg": "script-reviewer-2 running: gate A round 3 lens 2"
+    },
+    {
+      "t": "2026-10-20T23:30:36+07:00",
+      "stage": "script",
+      "who": "script-reviewer-3",
+      "msg": "script-reviewer-3 running: gate A round 3 lens 3"
+    },
+    {
+      "t": "2026-10-20T23:30:36+07:00",
+      "stage": "script",
+      "who": "agent",
+      "msg": "script -> in_progress: gate A round 3 review in flight (3 clean-context lenses)"
+    },
+    {
+      "t": "2026-10-20T23:41:33+07:00",
+      "stage": "A",
+      "who": "script-reviewer",
+      "msg": "review 8.8/10 revise: script-review.md (round 3: lenses A 8.9 / B 8.8 / C 8.9 -> merged 8.8 revise. Open Trung: C-R3-1 volume-wording residue in voice-performance/voice-direction/script; C-R3-2 L0 row mislabels post-turn shots, needs L2-held row; C-R3-3 lanyard lacks a y-range vs the reserved bottom 210 px; A N3-1 page-turn wording contradicts the corner-lift action. 7 Thap items. Last fix round before escalation.)"
+    },
+    {
+      "t": "2026-10-20T23:41:52+07:00",
+      "stage": "script",
+      "who": "script-reviewer-fidelity",
+      "msg": "script-reviewer-fidelity done: round 3 lens A: 8.9 revise; 4 tickets (A N3-1 Trung, N3-2..N3-4 Thap)"
+    },
+    {
+      "t": "2026-10-20T23:41:52+07:00",
+      "stage": "script",
+      "who": "script-reviewer-hook",
+      "msg": "script-reviewer-hook done: round 3 lens B: 8.8 revise; tickets B R3-1 Trung, R3-3 Thap"
+    },
+    {
+      "t": "2026-10-20T23:41:52+07:00",
+      "stage": "script",
+      "who": "script-reviewer-craft",
+      "msg": "script-reviewer-craft done: round 3 lens C: 8.9 revise; tickets C-R3-1/2/3 Trung, C-R3-4/5/6 Thap"
+    },
+    {
+      "t": "2026-10-20T23:42:26+07:00",
+      "stage": "script",
+      "who": "agent",
+      "msg": "script -> in_progress: Gate A round 3: A 8.9 / B 8.8 / C 8.9 -> 8.8 revise; 4 Trung + 7 Thap open; last fix round before escalation"
+    },
+    {
+      "t": "2026-10-20T23:44:21+07:00",
+      "stage": "script",
+      "who": "agent",
+      "msg": "script -> in_progress: Gate A round 3: A 8.9 / B 8.8 / C 8.9 -> 8.8 revise. Open Trung 5: R3-A volume wording (R2-7 residue), R3-B s2 page-turn wording, R3-C s5a/s5b gap prose (0.20s inside s5a, boundary 0.00), R3-D L0 lists post-turn shots + needs L2-held row, R3-E lanyard y-range. Thap 5: R3-F..R3-J. Third and last fix round."
+    },
+    {
+      "t": "2026-10-20T23:44:21+07:00",
+      "stage": "script",
+      "who": "script-agent",
+      "msg": "script-agent running: round-3 fix pass: R3-A..R3-J"
+    },
+    {
+      "t": "2026-10-21T00:09:24+07:00",
+      "stage": "script",
+      "who": "script-agent",
+      "msg": "script-agent done: round-3 fix pass: 10/10 tickets closed (R3-A..R3-J); director re-verified 175 syl, 11.20 s silence, 33 phrases, 17/17 keys, audit ok; director wording fix D-1 on the s3->s7 cut"
+    },
+    {
+      "t": "2026-10-21T00:09:24+07:00",
+      "stage": "script",
+      "who": "agent",
+      "msg": "script -> in_progress: round-3 fix pass closed 10/10; director verified invariants + audit ok; Gate A round 4 (final) in flight"
     }
   ],
-  "updated": "2026-10-19T00:43:37+07:00",
+  "updated": "2026-10-21T00:09:24+07:00",
   "runs": [
     {
       "id": "20261018-234554-806",
@@ -190,7 +369,7 @@
       "kind": "create",
       "runner": "opencode",
       "label": "OpenCode",
-      "state": "running",
+      "state": "exited",
       "started": "2026-10-18T23:45:54+07:00",
       "pid": 33290,
       "log": "out/agent-runs/giac-mo-tu-bo/20261018-234554-806.log",
@@ -198,13 +377,15 @@
       "summary": "create video",
       "model": "opencode/deepseek-v4.1-flash-free",
       "effort": "",
-      "fallback": true
+      "fallback": true,
+      "exit_code": null,
+      "ended": "2026-10-20T22:54:58+07:00"
     }
   ],
   "agents": {
     "video-director": {
-      "state": "running",
-      "at": "2026-10-18T23:45:54+07:00",
+      "state": "idle",
+      "at": "2026-10-20T22:54:58+07:00",
       "stage": "",
       "note": "monitor run 20261018-234554-806 via OpenCode"
     },
@@ -227,27 +408,45 @@
       "stage": ""
     },
     "script-agent": {
-      "state": "running",
-      "at": "2026-10-19T00:43:37+07:00",
-      "note": "gate A round 1 fix pass: B1(+option A), B2, C-01, C-02, A1-A5, B3-B8, C-03-C-11",
+      "state": "done",
+      "at": "2026-10-21T00:09:24+07:00",
+      "note": "round-3 fix pass: 10/10 tickets closed (R3-A..R3-J); director re-verified 175 syl, 11.20 s silence, 33 phrases, 17/17 keys, audit ok; director wording fix D-1 on the s3->s7 cut",
       "stage": "script"
     },
     "script-reviewer-1": {
       "state": "done",
-      "at": "2026-10-19T00:43:33+07:00",
-      "note": "gate A lens 1 round 1 done: report written",
+      "at": "2026-10-20T23:41:33+07:00",
+      "note": "review A -> revise",
       "stage": "script"
     },
     "script-reviewer-2": {
       "state": "done",
-      "at": "2026-10-19T00:43:33+07:00",
-      "note": "gate A lens 2 round 1 done: report written",
+      "at": "2026-10-20T23:41:33+07:00",
+      "note": "review A -> revise",
       "stage": "script"
     },
     "script-reviewer-3": {
       "state": "done",
-      "at": "2026-10-19T00:43:33+07:00",
-      "note": "gate A lens 3 round 1 done: report written",
+      "at": "2026-10-20T23:41:33+07:00",
+      "note": "review A -> revise",
+      "stage": "script"
+    },
+    "script-reviewer-fidelity": {
+      "state": "done",
+      "at": "2026-10-20T23:41:52+07:00",
+      "note": "round 3 lens A: 8.9 revise; 4 tickets (A N3-1 Trung, N3-2..N3-4 Thap)",
+      "stage": "script"
+    },
+    "script-reviewer-hook": {
+      "state": "done",
+      "at": "2026-10-20T23:41:52+07:00",
+      "note": "round 3 lens B: 8.8 revise; tickets B R3-1 Trung, R3-3 Thap",
+      "stage": "script"
+    },
+    "script-reviewer-craft": {
+      "state": "done",
+      "at": "2026-10-20T23:41:52+07:00",
+      "note": "round 3 lens C: 8.9 revise; tickets C-R3-1/2/3 Trung, C-R3-4/5/6 Thap",
       "stage": "script"
     }
   }

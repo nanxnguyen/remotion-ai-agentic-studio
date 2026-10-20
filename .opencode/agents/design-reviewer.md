@@ -18,7 +18,11 @@ You are `design-reviewer` (gate D). You look at the PNGs yourself (Read renders 
 ## Input
 `docs/<vid>/brief.md`, `script.md`, `design-spec.md`, `out/qa/<vid>-style-*.png`, `<vid>-cover.png`, `<vid>-board.png`, `<vid>-motion-hook.png`, the card table in `design-spec.md`, `skills/video-shotcraft/references/aesthetic-rules.md` (read in full), the gallery posters `skills/video-shotcraft/gallery/media/poster/<style-key>.jpg` of every chosen card, profile rubric (SKILL.md), user constraints, previous `design-review.md` round.
 
+Also read `.claude/skills/frontend-design/SKILL.md`. `design-spec.md` must hold a `## Design plan (frontend-design)` section (palette, type roles, layout, principles, "default → changed and why", one memorable element); missing section, or frames that read as its listed generic defaults, is a Cao ticket.
+
 ## Writable
+Also verify the `## Kit ready` section of `design-spec.md` (complete characters with >=3 poses, props attached to holders, plane/layer order, 1/3-size contrasts, distinct storyboard compositions, visible change in every 4th hook-strip tile); a missing or unverified item is a Cao ticket.
+
 Append `## Round N` to `docs/<vid>/design-review.md` only.
 
 ## Rubric (1–10 each, evidence = frame file + region)

@@ -1,106 +1,120 @@
-# Audio review — ban-khong-yeu-duoi-chi-da-manh-qua-lau (Phase 3b, round 1)
+# Audio review — ban-khong-yeu-duoi-chi-da-manh-qua-lau (Phase 3b, round 2 of fix loop)
 
-Reviewer: audio-reviewer (clean context, machine-only; no human listen)
-Inputs: voice.json (13 keys), voice-performance.json (accepted sidecar), voice-direction.md, voice-report.md, voice-clone-asr.md, mix-plan.md, assets-manifest.md, public/audio/<vid>/ (s1–s9, a1, bgm, 10× sfx), pipeline.py audit.
+Reviewer: audio-reviewer (fresh clean context; machine-only, no human listen; did not produce any input file).
+
+## Round-1 history (short)
+
+Round 1 scored **5.0/10, revise**: 3 of 13 voice keys had no clip (AR-01), `voice-report.md` covered only 8 keys (AR-02), suspected tone errors on s2a/a1/s9 and a meaning change on s7, `seed: null` everywhere (AR-07), and carried Thấp items AR-08…AR-14 + NEW-15. The producer then regenerated s2a, s6, s7, s9, a2, s10, rewrote `voice-report.md`, `voice-clone-asr.md` and `voice-performance.json`, and the round-2 reviewer verified every ticket by its acceptance check on current disk state. Two contested-pronunciation words were adjudicated with a two-model ASR panel (see §4); the director's ruling applies: AR-09/10/12/13 stay open as carried-forward Thấp closing at Phase 7/8 and do not block this gate.
+
+## Method and decode configuration (exact)
+
+- ffprobe durations; `ebur128` (peak=true) loudness/true peak; `silencedetect -30 dB, d>=0.1 s`.
+- ASR panel: `Systran/faster-whisper-small` **and** `Systran/faster-whisper-large-v3`, `language=vi`, `device=cpu`, `compute_type=int8`, `beam_size=5` (plus `beam_size=1` cross-check), `vad_filter=False`, `temperature=0.0`, `condition_on_previous_text=True`, `word_timestamps=False` (plus `True` cross-check). Audio decoded via ffmpeg to f32le mono 16 kHz numpy (`faster_whisper.audio.decode_audio` is broken with av 19.0.1).
+- CER = Levenshtein distance after lowercase + punctuation/ellipsis/quote stripping + whitespace collapse, per whole clip vs canonical `voice.json`.
+- Word adjudication adds isolated raw-phrase WAVs (`public/audio/<vid>/raw/`) through the same panel, and `librosa.pyin` F0 contours (fmin 65, fmax 300 Hz) on word-aligned segments.
 
 ## Scores
 
 | evidence group | score (1–10) |
 |---|---|
-| Technical fidelity | 4 |
-| Performance evidence | 6 |
-| Mix | 7 |
-| **Overall** | **5** |
+| Technical fidelity | 8 |
+| Performance evidence | 9 |
+| Mix | 9 |
+| **Overall** | **8** |
 
-**Verdict: revise** — overall < 9 and open Cao/Trung tickets exist (AR-01…AR-06). Pass requires ≥ 9 with zero open Cao/Trung.
+**Verdict: revise.** Overall 8 < 9 and two Cao tickets remain open (AR-03, AR-04) — both are **confirmed real pronunciation deviations**, and per the fix-loop rule the only allowed remedies are director decisions: (a) a different reference cut, (b) a director-granted new seed budget, or (c) reopening gate A for wording. In-cap regeneration is exhausted (s2a seeds 0–9; a1 seeds 0–20 across 4 splits, per `voice-report.md` §4) and must not be demanded. Round 1 was 5.0; no regressions were found this round.
 
-## 1 · Technical fidelity — 4/10
+## 1 · Technical fidelity — 8/10
 
-**Clip inventory vs voice.json (13 keys: s1 s2a a1 s2b s3 a2 s4 s5 s6 s7 s8 s9 s10).** Present: s1, s2a, a1, s2b, s3, s4, s5, s7, s8, s9 (48 kHz mono mp3, durations match mix-plan §2). **Absent: s6.mp3, s10.mp3, a2.mp3** — 3 of 13 canonical keys have no audio, so the timeline cannot be assembled and the 45–55 s budget (brief §1, planned 48.90 s) cannot be verified. voice-report.md and voice-clone-asr.md have no rows for s6, s10, a2.
+**Inventory: 13/13 keys have clips** (fix of AR-01/AR-02 verified). All 48 kHz mono mp3, no clipping (max true peak −2.20 dBFS), loudness spread −20.8…−19.8 = 1.0 LU ≤ 2 LU.
 
-**Measured loudness/true peak (10 present clips), ebur128 peak=true:**
+| clip | dur s | I LUFS | TP dBFS | CER small | CER large-v3 | internal silence vs plan |
+|---|---:|---:|---:|---:|---:|---|
+| s1 | 2.758 | −19.80 | −2.20 | 0.0000 | 0.0000 | 0.224 vs 0.22 ✓ |
+| s2a | 2.348 | −20.40 | −5.50 | 0.0278 | 0.0278 | 0.440 (2 gaps, documented §2) |
+| a1 | 2.886 | −20.80 | −3.60 | **0.0408** | **0.0408** | 0.370 (gaps documented §2) |
+| s2b | 1.958 | −20.00 | −4.60 | 0.0000 | 0.0000 | 0.102 engine-internal, documented |
+| s3 | 3.454 | −20.10 | −2.40 | 0.0000 | 0.0000 | 0.407 (gaps documented §2) |
+| a2 | 1.491 | −20.10 | −3.80 | 0.0000 | 0.0000 | 0.169 vs 0.14 ✓ |
+| s4 | 2.112 | −20.40 | −3.70 | 0.0000 | 0.0000 | 0.263 vs 0.24 ✓ |
+| s5 | 1.736 | −20.60 | −3.30 | 0.0000 | 0.0000 | 0.208 vs 0.18 ✓ |
+| s6 | 2.207 | −20.30 | −2.80 | 0.0303 | 0.0000 | 0.312 (gaps documented §2) |
+| s7 | 2.828 | −20.70 | −3.80 | 0.0000 | 0.0000 | 0.368 (gaps documented §2) |
+| s8 | 0.659 | −20.50 | −4.40 | 0.0000 | 0.0000 | none ✓ |
+| s9 | 3.491 | −20.50 | −3.00 | 0.0154 | 0.0000 | 0.485 (gaps documented §2) |
+| s10 | 3.489 | −20.40 | −3.50 | 0.0000 | 0.0000 | 0.312 vs 0.30 ✓ |
 
-| clip | dur s | I LUFS | TP dBFS |
+- **Gate ≤ 0.04:** 12/13 clips pass on both models except a1 (0.0408, fails by 0.0008 — tied to AR-04). s7 special gate (≤ 0.02, first word "Mà") passes: both models transcript "mà vì bạn đã quen…", CER 0.0000.
+- **Phrase concatenation:** `" ".join(phrases) == voice.json[key]` verified byte-exact for all 13 keys (AR-07 acceptance). Native raw WAVs exist for all 29 phrases (48 kHz pcm_s16le), `denoise: false` everywhere; `gen-voice-clone.py:436` confirms the chain is TRIM/concat/libmp3lame only — no atempo, pitch, EQ or loudnorm (s6 +0.5 dB, a2 −1.0 dB are static encode gains). Pinned seed is not exempt from any check above.
+- **Timeline budget:** 127 syllables over 31.418 s speech = **4.04 syl/s overall**, inside the brief's validated 3.29–4.43 syl/s band, so the 45–55 s budget (planned 48.90 s incl. pauses/transitions/5.00 s ending hold) holds on measured files; per-clip rate 3.46 (a1, deliberately slow) – 4.60 (s2b). Full-timeline verification belongs to Phase 7. The final-question silence hold (≥ 1.2 s after s10's last word, BGM near-silent) is timeline/render-level — carried under AR-13.
+- **TP ruling (requested by `voice-report.md` §5):** the task-template line "TP > −3 dBFS = fail" is stricter than the repository's binding no-clipping bar. Ruling: the repo bar governs — no clipping, max TP −2.20 dBFS — so s1 (−2.2), s3 (−2.4), s6 (−2.8) are **accepted**; the template line does not block.
+- **Stale provenance (NEW-16):** `.voice-input-manifest.json` predates the regeneration: s2a/s7/s9 sha256 mismatch the files on disk; a2/s6/s10 are absent from it. Non-blocking for audio quality, but reproducibility audits break.
+
+## 2 · Performance evidence — 9/10
+
+- **Direction → sidecar:** `voice-performance.json` complete — 28 phrases, each with `tempoIntent`, `emphasis`, pause fields, a concrete `seed` matching `voice-report.md` §4 (s2a p2 = 9, a1 p2 = 8, s9 p2 = 3 …), the single route-2 reference, `denoise: false`; `postProcessingRestrictions` present; unsupported controls (rate/pitch/volume/atempo/style/directEmotion) declared and demonstrably never sent. No silent control drops, no acting cues spoken aloud, no caption-chunk synthesis (phrases are script clauses), candidate cap 3/3 respected with pinned seeds recorded.
+- **Execution evidence:** measured silences match planned pauses or are documented in `voice-report.md` §2 (AR-08); durations fit conversational delivery; no clip time-compressed.
+- **Not machine-verifiable (non-blocking):** naturalness, intimacy, emotion, and whether emphasis/slow-fast contours were rendered — "not verified by listening".
+
+## 3 · Mix — 9/10
+
+- **BGM:** repo-synthesised (`gen-bgm-soft.py`), 60.430 s; played segment (3.5→47.4 s) −20.1 LUFS, TP −10.6 dBFS, LRA ~1.5. No beat sync (measured 0 BPM; cues pinned to voice timeline).
+- **Balance re-derived on the complete n=13 voice set (AR-09 evidence):** base gain −15.20 dB (0.1738) → bed −35.3 LUFS = **15.0 dB under** final voice mean −20.35 LUFS (inside 12–18 ✓); ducked −40.3 = 20.0 dB under; duck depth 5.0 dB (4–6 ✓), ramps 200 ms (150–300 ✓), 0.40 s duck hold absorbs all intra-clip pauses; bed cut at 43.900 s. Arithmetic holds on measured files; render-level confirmation stays with Phase 7/8 (AR-09/AR-13 carried per director ruling).
+- **SFX:** `check-cues.py` exit 0 — 11/11 cues inside silence windows, 0 word overlaps (AR-10 evidence); loudest post-gain SFX −12.4 dBFS ≈ 10 dB under voice peak; `check-licences.py` exit 0 — 10 URLs + 10 sources + BGM recorded, 0 gaps; substitutions declared openly.
+
+## 4 · Four-word pronunciation adjudication (decisive, two-model panel)
+
+Decode config as in Method; "4/4" = beam 5/1 × word_timestamps on/off; clip-level is primary, isolated raw phrase is corroboration (single-word TTS extracts are context-poor and weigh less); F0 is independent acoustic evidence.
+
+| word (phrase) | small, clip | large-v3, clip | isolated raw phrase | F0 evidence | verdict |
+|---|---|---|---|---|---|
+| **"an ủi"** (s2a p2) | "an ui" 4/4 | "an ui" 4/4 (word ts " ui,") | both models "An ui" 4/4 | "ủi" falls 155→117 Hz with **no hỏi rise-back**; "an" flat 127–133 (ngang ✓) | **real** — hỏi tone not realized; both models hear ngang "ui" in 16/16 decodes |
+| **"chùng xuống"** (a1 p2) | "trùng xuống" 4/4 | "trùng xuống" 4/4 | both models "Người khác trùng xuống." 4/4 | initial-consonant pair (ch/tr), F0 not discriminating; numeric gate fails: a1 CER 0.0408 > 0.04 | **real** — ch→tr initial deviation in 16/16 decodes (note: ch/tr merge is common in Northern speech; perceptual acceptability is a human/gate-A question) |
+| **"che ô"** (s9 p2) | "chè ô" 4/4 | **"che ô" 4/4** (s9 large-v3 CER 0.0000) | large-v3 splits by beam (5: "Chè", 1: "Che"); small outputs garbage ("Che Âu"/"Chạyâu") | word-aligned "che" F0 140/142/151 Hz — flat, high, ngang cluster; huyền controls in-clip fall to 82–85 Hz, "che" never below 128 | **asr-noise** — small-only confusion; ngang present per large-v3 + F0 |
+| **"nhắn"** (s6 p3) | "nhấn" 4/4 | **"nhắn" 4/4** (s6 large-v3 CER 0.0000) | both models unreliable (Nhấn/Nhanh/Nhân/Để) | "nhắn" F0 [102,94,85,80,73] **falling** — nhấn (sắc) would rise; fall consistent with hỏi | **asr-noise** — small-only tone confusion; falling contour contradicts sắc |
+
+Consequences: **AR-03 and AR-04 stay open Cao (real)**; **AR-05 and the s6 half of AR-11 close as asr-noise with the evidence above**. No in-cap regen may be demanded; the fix is a director choice among (a) different reference cut, (b) new seed budget, (c) reopen gate A for wording.
+
+## 5 · Closure table (all round-1 tickets + NEW-15)
+
+| id | sev | status | evidence (this round) |
 |---|---|---|---|
-| s1 | 2.758 | −19.8 | −2.2 |
-| s2a | 2.323 | −20.8 | −4.5 |
-| s2b | 1.958 | −20.0 | −4.6 |
-| s3 | 3.454 | −20.1 | −2.4 |
-| s4 | 2.112 | −20.4 | −3.7 |
-| s5 | 1.736 | −20.6 | −3.3 |
-| a1 | 2.556 | −20.2 | −2.6 |
-| s7 | 2.809 | −20.3 | −3.7 |
-| s8 | 0.659 | −20.5 | −4.4 |
-| s9 | 3.159 | −20.3 | −2.8 |
+| AR-01 | Cao | **fixed** | s6/a2/s10 exist; ffprobe 2.207/1.491/3.489 s; large-v3 CER 0.0000/0.0000/0.0000 (small 0.0303/0.0000/0.0000); loudness in band; voice-report §1 has 13 rows |
+| AR-02 | Cao | **fixed** | `voice-report.md` now 28 phrase rows + 13-key gate table; durations/LUFS/TP/silences match my fresh ffprobe/ebur128/silencedetect within rounding |
+| AR-03 | Cao | **not fixed — real, stays open** | "an ủi"→"an ui" in 16/16 decodes (2 models × clip + raw × 4 configs); F0: hỏi rise-back absent. Director options only: (a)/(b)/(c) |
+| AR-04 | Cao | **not fixed — real, stays open** | "chùng"→"trùng" in 16/16 decodes; a1 CER 0.0408 > 0.04 on both models. Director options only: (a)/(b)/(c) |
+| AR-05 | Cao | **fixed (asr-noise)** | s9 regenerated; large-v3 CER 0.0000 "che ô… bị ướt" correct 4/4; small "chè ô" contradicted by F0 ("che" high/flat, never < 128 Hz vs huyền floor 82–85) |
+| AR-06 | Trung | **fixed** | s7 regenerated; both models CER 0.0000, first word "Mà" (≤ 0.02 gate met) |
+| AR-07 | Trung | **fixed** | every phrase carries a concrete seed matching `voice-report.md` §4; join rule byte-exact for all 13 keys |
+| AR-08 | Thấp | **fixed** | `voice-report.md` §2 documents every internal silence ≥ 0.1 s with classification; matches my silencedetect; engine tails kept by stated policy |
+| AR-09 | Thấp | **open (carried, per director ruling)** | gain re-derived on n=13: bed 15.0 dB under voice (inside 12–18) — arithmetic holds; render-level confirmation at Phase 7/8 |
+| AR-10 | Thấp | **open (carried, per director ruling)** | `check-cues.py` exit 0 on current measured durations (11/11, 0 overlaps); final re-base confirmation at Phase 7/8 |
+| AR-11 | Thấp | **fixed** | `voice-clone-asr.md` one documented config, all 13 clips; my two-model panel corroborates deviations: s4 "nhắn" correct both models; s6/s9 deviations are asr-noise (§4) |
+| AR-12 | Thấp | **open (carried, per director ruling)** | prose-vs-check-cues alignment is Phase 7/8 work |
+| AR-13 | Thấp | **open (carried, per director ruling)** | ending silence hold/BGM cut verifiable only on the rendered MP4 (Phase 8) |
+| AR-14 | Thấp | **not fixed (partial)** | cluster stats added (median centroid ~1099 Hz, f0 p50 ~115 Hz) but acceptance asked for **per-clip** values; my independent pass: centroids 938.6–1395.2 Hz (median 1113.4), f0 p50 102–130 Hz, s9 only z>2 centroid outlier — content-explained (s9 is longest, fricative-heavy "che ô… ướt"), f0 in cluster; no timbre break. Add a 13-row centroid/f0 column to §3; non-blocking |
+| NEW-15 | Thấp | **fixed** | sidecar now documents `refThanhLong.wav` at 7.741 s = ffprobe (was 8.20 s) |
 
-Spread = 1.0 LU (≤ 2 LU ✓); no clipping (all TP ≤ −2.2 dBFS ✓); no dead air at clip start/end (silencedetect, noise −30 dB, d ≥ 0.1 s ✓). Internal clause silences match planned pauseAfterSeconds (s1 0.224 vs 0.22; s4 0.263 vs 0.24; s9 0.269 vs 0.26; a1 0.257 vs 0.24; s5 0.208 vs 0.18) ✓.
+Counts: **8 fixed, 7 open (2 Cao real + 5 Thấp carried/partial), 0 disagree.**
 
-**ASR re-check (faster-whisper small, Vietnamese, vs canonical voice.json; my own pass, independent of voice-clone-asr.md):**
+## 6 · NEW tickets (round 2)
 
-| clip | CER | WER | ASR vs canonical | gate ≤ 0.04 |
-|---|---|---|---|---|
-| s1 | 0.000 | 0.000 | exact | ✓ |
-| s2a | **0.056** | 0.222 | "an ủi" → "ăn ủy" (tone on accent word) | ✗ |
-| a1 | **0.061** | 0.200 | "chùng xuống" → "trùng xuống", "vai người" → "vài người" | ✗ |
-| s2b | 0.000 | 0.000 | exact | ✓ |
-| s3 | 0.000 | 0.000 | exact | ✓ |
-| s4 | 0.000 | 0.000 | exact — "nhắn" heard correctly | ✓ |
-| s5 | 0.000 | 0.000 | exact | ✓ |
-| s7 | 0.021 | 0.083 | "Mà" → "và" (opening word substituted) | ✓ (CER) / word-change risk |
-| s8 | 0.000 | 0.000 | exact | ✓ |
-| s9 | **0.062** | 0.143 | "che ô" → "trẻ ô", "bị ướt" → "bị ớt" | ✗ |
-| s6, a2, s10 | — | — | **no clip** | ✗ |
-
-Judgement on voice-clone-asr.md deviations: s4 "nhắn → nhấn" (CER 0.077 there) is **not confirmed** by my pass (CER 0.000) — the branch's own ASR check produced a false positive; no voice fix for s4, but the ASR gate configuration is unreliable (see AR-11). s7 "che ô/quen" deviations: "quen → quên" not confirmed ("quen" heard correctly); "Mà → và" confirmed at low CER. s2a "an ủi", a1 "chùng xuống/vai người", s9 "che ô/bị ướt" are confirmed by both passes → genuine tone/vowel errors on accent words → **Cao**.
-
-## 2 · Performance evidence — 6/10
-
-voice-direction.md → voice-performance.json mapping is complete: every phrase carries tempoIntent, emphasis array, pauseBeforeSeconds/pauseAfterSeconds, and all 13 `reference` fields point to the single local refThanhLong.wav (route 2, denoise false, seed unset). Engine declares rate/pitch/volume/atempo unsupported, so **no mechanical atempo/pitch manipulation is possible** — a genuine positive, not an assumption.
-
-Execution evidence: measured internal silences match the planned pauseAfterSeconds on every multi-phrase clip ✓; no clip is time-compressed (durations consistent with conversational delivery, not uniform cadence). What I **cannot** verify by machine: whether emphasis ("tìm đến bạn", "mệt quá", "phải là người ổn", "với bạn thế?…") and the slow/fast contours were actually rendered — no f0/centroid contour data exists in voice-report.md, and naturalness/emotion are not machine-verifiable (labelled below).
-
-Discrepancy: voice-performance.json has `"seed": null` on every phrase, while voice-report.md records seeds 0/1 in "actual controls" — the sidecar does not record what was actually used, so the candidate policy (initial 1, max 3 per phrase, pinned-seed check) cannot be audited from the sidecar.
-
-## 3 · Mix — 7/10
-
-**BGM bed (bgm.mp3):** original repo synthesis (scripts/gen-bgm-soft.py, no third-party licence); whole-file −20.3 LUFS / TP −10.1 dBFS; played 43.90 s segment (offset 3.500 s) −20.1 LUFS / TP −10.6 dBFS / LRA 1.5 LU (mix-plan §3). No beat sync — measured degenerate (0 beats), cues pinned to voice timeline ✓ (analysis/no-beat-sync.md, grid_drift.json).
-
-**Balance (mix-plan §3.1/§5):** file gain −15.20 dB (0.1738) → bed −35.3 LUFS integrated = **15.0 dB under voice** (−20.30 LUFS mean); ducked −40.3 LUFS = 20.0 dB under while speaking. Duck depth 5.0 dB (within 4–6 ✓), ramps 200 ms (within 150–300 ms ✓), duck hold 0.40 s after last clip so short intra-clip pauses (shortest 0.14 s in a2) are absorbed — no pumping by design ✓. Bed rises to 1.40× only in holds/closing (L3 swell), cut to zero at 43.900 s ✓ by plan.
-
-**SFX:** 10 cues, Mixkit SFX Free License, 0 licence gaps (check-licences.py exit 0; ATTRIBUTION.md URLs registered), all trims peak-aligned with 4–60 ms in / 25–150 ms out fades, no volume > 1 ✓ (assets-manifest §2). check-cues.py exit 0: 11/11 cues inside silence windows, 0 word overlaps; loudest post-gain SFX −12.4 dBFS vs voice peak −2.2 dBFS ≈ 10 dB under ✓.
-
-**Unverifiable / pending:** BGM_FILE_GAIN re-derivation at Phase 7 from the *complete* voice-report (anchored to n=10 today — mix-plan §7.1); cue re-base onto measured timeline (§7.2); OUTPUT_AUDIO_OFFSET_F measurement on first render (§6); closing silence (BGM = 0 from 43.900, no audio 43.90–48.90) can only be confirmed on the rendered MP4 (gate C/final-check).
-
-## 4 · Fix list (round 1 — exhaustive)
-
-| id | sev | where | evidence | change | owner | acceptance |
+| id | sev | where | evidence | concrete change | owner | acceptance check |
 |---|---|---|---|---|---|---|
-| AR-01 | Cao | public/audio/<vid>/s6.mp3, s10.mp3, a2.mp3 (absent); voice.json keys s6/s10/a2 | 3 of 13 keys have no audio; voice-report.md / voice-clone-asr.md lack rows; timeline unbuildable; SFX cues #7 (s6) and #11 (s10) unplaceable | Generate s6, a2, s10 via route 2 (refThanhLong.wav, denoise false), one candidate per phrase; then run CER/duration/loudness gate | voice-agent | Clips exist; ffprobe duration; ASR CER ≤ 0.04; loudness within −19.8…−20.8 LUFS; voice-report.md gains rows for s6, a2, s10 |
-| AR-02 | Cao | voice-report.md | Covers only s4–s9 (7/13 keys); missing s1, s2a, a1, s2b, s3, a2, s6, s10 | Complete the report with all 13 keys (CER, duration, silence, LUFS-I, true peak, actual controls) | voice-agent | 13 rows; values match fresh ffprobe/ebur128/ASR measurements |
-| AR-03 | Cao | s2a.mp3 ("Bạn biết cách an ủi.") | Independent ASR CER 0.056; "an ủi" heard as "ăn ủy" — tone error on accent word | Regenerate s2a phrase 1; verify "ủi" tone | voice-agent | Re-ASR CER ≤ 0.04; "an ủi" intact |
-| AR-04 | Cao | a1.mp3 ("Vai người khác chùng xuống.") | Independent ASR CER 0.061; "chùng" → "trùng", "vai" → "vài" | Regenerate a1 phrase 1 | voice-agent | Re-ASR CER ≤ 0.04; "chùng xuống" intact |
-| AR-05 | Cao | s9.mp3 (both phrases) | Independent ASR CER 0.062; "che ô" → "trẻ ô", "bị ướt" → "bị ớt"; corroborated by voice-clone-asr.md | Regenerate s9 phrases; check tones on "che ô" / "bị ướt" | voice-agent | Re-ASR CER ≤ 0.04 for s9 |
-| AR-06 | Trung | s7.mp3 ("Mà vì bạn đã quen") | Independent ASR CER 0.021; opening word "Mà" → "và" changes contrastive meaning | Regenerate s7 phrase 1 | voice-agent | Re-ASR CER ≤ 0.02; first word is "Mà" |
-| AR-07 | Trung | voice-performance.json (all phrases `"seed": null`) vs voice-report.md "actual controls" (seeds 0/1) | Actual seed/candidate per phrase not auditable; max-3-candidate and pinned-seed policy unverifiable | Record actual seed per phrase (or document null = engine default) in the sidecar | voice-agent | Every phrase has a seed value or documented null; consistent with voice-report.md |
-| AR-08 | Thấp | s2b, s3, s7, a1 | Unplanned ~0.10 s internal silences measured (silencedetect) not in pauseBefore/After plan | Confirm engine padding vs natural speech; document or remove | voice-agent | Internal silences match plan or are documented; no undocumented gaps |
-| AR-09 | Thấp | mix-plan.md §3.1/§7.1 | BGM_FILE_GAIN 0.1738 anchored to n=10 clips (mean −20.30 LUFS); s6/s10/a2 missing changes the mean | Re-derive bed gain from final voice-report.md via §3.1 formula at Phase 7 | audio-agent | Bed 12–18 dB under final measured voice LUFS (verified on render) |
-| AR-10 | Thấp | mix-plan.md §4 cue #11 (sfx-cup-down, s10 clause gap) | 0.015 s headroom; s10 missing so offset unverified; any re-base risks collision with speech | Re-base cues on measured timeline; re-run analysis/check-cues.py; keep ≥ 0.10 s headroom | audio-agent | check-cues.py exit 0 on measured durations; #11 clear of speech |
-| AR-11 | Thấp | voice-clone-asr.md s4 row (CER 0.077 "nhắn→nhấn") | My independent pass: s4 CER 0.000, "nhanne" correct — branch ASR check is unreliable and could mask real errors | Re-run ASR/CER gate with one documented configuration on all 13 clips; align voice-clone-asr.md with voice-report.md | voice-agent | One ASR table for all 13 clips; CER ≤ 0.04 everywhere; deviations corroborated before acting |
-| AR-12 | Thấp | mix-plan.md §4.1 prose vs check-cues table | Prose says cue #2 drops "as mưa rơi đều lands"; check-cues places it after a2's end | Align prose with check-cues output | audio-agent | mix-plan prose and check-cues.txt agree per cue |
-| AR-13 | Thấp | Ending behaviour (s10 last word 43.90, BGM cut at 43.900, 5.00 s silent tail) | Not measurable yet (no render; s10 missing) | Confirm on rendered MP4 in Phase 8 | audio-agent / render-agent | final-check.md closing row verified on render |
-| AR-14 | Thấp | voice-report.md | No spectral-centroid/pitch data; cross-clip timbre consistency unmeasured | Add centroid/pitch-range per clip | voice-agent | Report includes centroid/pitch per clip; no outlier vs cluster |
+| NEW-16 | Thấp | `public/audio/<vid>/.voice-input-manifest.json` | sha256 mismatch for s2a/s7/s9 (regenerated after manifest write); a2/s6/s10 absent | Regenerate the manifest for all 13 current clips | voice-agent | sha256 matches disk for all 13 keys; no missing entries |
 
-## 5 · What I could not verify (not blocking)
+No other genuinely new failures; regressions vs round 1: none (every changed clip re-measured clean).
 
-- Naturalness, intimacy, emotion, and whether emphasis contours were actually rendered — no listening possible; machine evidence covers timing, levels, CER only.
-- Cross-clip timbre consistency (spectral centroid/pitch) — no data in voice-report.md (AR-14).
-- BGM near-silent tail and last-word stop at 43.900 — requires the rendered MP4 (AR-13).
-- Actual seeds/candidates used per phrase — sidecar records null (AR-07).
+## 7 · What I could not verify by machine (non-blocking)
+
+- Naturalness, intimacy, emotional delivery, emphasis and slow-fast contours — "not verified by listening".
+- Whether a human ear accepts the "chùng/trùng" initial (Northern ch/tr merge) and the truncated hỏi on "ủi" — machine says real; perceptual acceptability is the director's gate-A call.
+- Ending silence hold ≥ 1.2 s after the last word with BGM near-silent — requires the rendered MP4 (AR-13).
+- Cross-clip speaker identity at perceptual level — whole-clip statistics only.
 
 ## Pipeline
 
 ```
-python3 -I scripts/pipeline.py review ban-khong-yeu-duoi-chi-da-manh-qua-lau audio 5 --reviewer audio-reviewer --report docs/ban-khong-yeu-duoi-chi-da-manh-qua-lau/audio-review.md --verdict revise
-python3 -I scripts/pipeline.py gate ban-khong-yeu-duoi-chi-da-manh-qua-lau audio   (expected: not passed — gate follows the revise verdict)
-python3 -I scripts/pipeline.py agent ban-khong-yeu-duoi-chi-da-manh-qua-lau audio-reviewer done --stage audio
+python3 -I scripts/pipeline.py review ban-khong-yeu-duoi-chi-da-manh-qua-lau audio 8 --reviewer audio-reviewer --report docs/ban-khong-yeu-duoi-chi-da-manh-qua-lau/audio-review.md --verdict revise
+python3 -I scripts/pipeline.py gate ban-khong-yeu-duoi-chi-da-manh-qua-lau audio   (expected: not passed — open Cao AR-03/AR-04; director decision needed on fix path (a)/(b)/(c))
 ```
