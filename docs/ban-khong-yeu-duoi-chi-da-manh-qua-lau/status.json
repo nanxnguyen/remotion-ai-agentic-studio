@@ -95,6 +95,14 @@
         "report": "docs/ban-khong-yeu-duoi-chi-da-manh-qua-lau/script-review.md",
         "note": "cap 3 rounds reached: accepting round-3 version. Score 8.8 < 9 but zero open Cao/Trung; hook 9.0 and specificity 9.0 met. Open Thap items closed in a producer micro-pass or carried as accepted-risk to content-agent / qa-agent / gate C.",
         "by": "video-director"
+      },
+      {
+        "at": "2026-10-21T00:15:23+07:00",
+        "reviewer": "script-reviewer",
+        "score": 9.2,
+        "verdict": "pass",
+        "report": "docs/ban-khong-yeu-duoi-chi-da-manh-qua-lau/script-review.md",
+        "note": ""
       }
     ],
     "audio": [
@@ -472,7 +480,7 @@
     ]
   },
   "review_valid": {
-    "A": false,
+    "A": true,
     "D": false,
     "E": false,
     "B": false,
@@ -1022,9 +1030,21 @@
       "stage": "script",
       "who": "script-agent",
       "msg": "script-agent done"
+    },
+    {
+      "t": "2026-10-21T00:15:23+07:00",
+      "stage": "A",
+      "who": "script-reviewer",
+      "msg": "review 9.2/10 pass: script-review.md"
+    },
+    {
+      "t": "2026-10-21T00:15:27+07:00",
+      "stage": "script",
+      "who": "script-reviewer",
+      "msg": "script-reviewer done"
     }
   ],
-  "updated": "2026-10-21T00:09:06+07:00",
+  "updated": "2026-10-21T00:15:27+07:00",
   "agents": {
     "video-director": {
       "state": "idle",
@@ -1058,7 +1078,7 @@
     },
     "script-reviewer": {
       "state": "done",
-      "at": "2026-10-18T23:50:23+07:00",
+      "at": "2026-10-21T00:15:27+07:00",
       "note": "",
       "stage": "script"
     },
