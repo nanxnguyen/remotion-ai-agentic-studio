@@ -9,9 +9,7 @@
 export const FPS = 30;
 
 // Script-estimated voice seconds (pending real measurement from voice:measure)
-export const ESTIMATED_SECONDS = [
-  5.4, 6.3, 4.9, 6.6, 3.9, 3.3, 7.3, 4.9, 5.9,
-] as const; // s1..s9 (s6a+s6b combined = 3.3s)
+export const ESTIMATED_SECONDS = [5.4, 6.3, 4.9, 6.6, 3.9, 3.3, 7.3, 4.9, 5.9] as const; // s1..s9 (s6a+s6b combined = 3.3s)
 
 // Semantic holds after each shot, in frames
 export const HOLDS = [30, 24, 36, 27, 30, 45, 30, 30, 60] as const;

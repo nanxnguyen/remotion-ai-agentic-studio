@@ -9,7 +9,7 @@ from pathlib import Path
 
 MANDATORY_REFERENCES = (
     "fast-lane.md", "hook-story.md", "visual-direction.md", "quality-rubric.md",
-    "remotion-playbook.md", "shotcraft.md", "eval-guidance.md",
+    "remotion-playbook.md", "shotcraft.md", "eval-guidance.md", "voice-character-sync.md",
 )
 MANDATORY_TEMPLATES = ("creative-brief.md", "eval.md")
 

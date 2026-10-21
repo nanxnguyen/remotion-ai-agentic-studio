@@ -12,13 +12,29 @@ import {Scene08} from './scenes/Scene08';
 
 export const BanKhongYeuDuoiReel = () => (
   <>
-    <Sequence from={timeline.shots.scene01.from} durationInFrames={timeline.shots.scene01.duration}><Scene01 /></Sequence>
-    <Sequence from={timeline.shots.scene02.from} durationInFrames={timeline.shots.scene02.duration}><Scene02 /></Sequence>
-    <Sequence from={timeline.shots.scene03.from} durationInFrames={timeline.shots.scene03.duration}><Scene03 /></Sequence>
-    <Sequence from={timeline.shots.scene04.from} durationInFrames={timeline.shots.scene04.duration}><Scene04 /></Sequence>
-    <Sequence from={timeline.shots.scene05.from} durationInFrames={timeline.shots.scene05.duration}><Scene05 /></Sequence>
-    <Sequence from={timeline.shots.scene06.from} durationInFrames={timeline.shots.scene06.duration}><Scene06 /></Sequence>
-    <Sequence from={timeline.shots.scene07.from} durationInFrames={timeline.shots.scene07.duration}><Scene07 /></Sequence>
-    <Sequence from={timeline.shots.scene08.from} durationInFrames={timeline.shots.scene08.duration}><Scene08 /></Sequence>
+    <Sequence from={timeline.shots.scene01.from} durationInFrames={timeline.shots.scene01.duration}>
+      <Scene01 />
+    </Sequence>
+    <Sequence from={timeline.shots.scene02.from} durationInFrames={timeline.shots.scene02.duration}>
+      <Scene02 />
+    </Sequence>
+    <Sequence from={timeline.shots.scene03.from} durationInFrames={timeline.shots.scene03.duration}>
+      <Scene03 />
+    </Sequence>
+    <Sequence from={timeline.shots.scene04.from} durationInFrames={timeline.shots.scene04.duration}>
+      <Scene04 />
+    </Sequence>
+    <Sequence from={timeline.shots.scene05.from} durationInFrames={timeline.shots.scene05.duration}>
+      <Scene05 />
+    </Sequence>
+    <Sequence from={timeline.shots.scene06.from} durationInFrames={timeline.shots.scene06.duration}>
+      <Scene06 />
+    </Sequence>
+    <Sequence from={timeline.shots.scene07.from} durationInFrames={timeline.shots.scene07.duration}>
+      <Scene07 />
+    </Sequence>
+    <Sequence from={timeline.shots.scene08.from} durationInFrames={timeline.shots.scene08.duration}>
+      <Scene08 />
+    </Sequence>
   </>
 );

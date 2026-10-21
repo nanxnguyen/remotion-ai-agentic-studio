@@ -1,17 +1,7 @@
 import React from 'react';
 import {AbsoluteFill, useCurrentFrame} from 'remotion';
 import {E_SINE, ramp} from '../motion';
-import {
-  CAP,
-  DBTFonts,
-  DbtLine,
-  Finish,
-  GridPaper,
-  INK,
-  MinhHoa,
-  PencilChar,
-  SCREEN,
-} from '../kit';
+import {CAP, DBTFonts, DbtLine, Finish, GridPaper, INK, MinhHoa, PencilChar, SCREEN} from '../kit';
 
 const FeedCard: React.FC<{top: number; kind: 'home' | 'car' | 'wedding'; enter: number}> = ({
   top,

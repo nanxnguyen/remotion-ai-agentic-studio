@@ -120,16 +120,16 @@ The seven existing video manifests preserve their original composition IDs, dura
 
 ## Agent matrix
 
-| Layer             | Canonical entry point                      | Purpose                                      |
-| ----------------- | ------------------------------------------ | -------------------------------------------- |
-| All agents        | `AGENTS.md`                                | architecture, safety, verification, language |
-| Portable workflow | `.agents/skills/ray-pineline-worflow-agent/SKILL.md` | phases, stages, gates, runtime mapping |
-| Agent roles       | `.agents/roles/*.md` → `python3 scripts/sync_agents.py` | one source for every runtime's subagents |
-| Claude Code       | `CLAUDE.md`, `.claude/agents/` (generated), `.claude/skills/` (symlink) | thin adapter |
-| OpenCode          | `.opencode/agents/` (generated + hand-written `video-director`) | thin adapter |
-| Codex             | `AGENTS.md`, `.codex/agents/*.toml` (generated) | thin adapter |
-| Gemini CLI        | `GEMINI.md`                                | thin adapter                                 |
-| Cursor            | `.cursor/rules/agent-guide.mdc`            | thin always-on adapter                       |
+| Layer             | Canonical entry point                                                   | Purpose                                      |
+| ----------------- | ----------------------------------------------------------------------- | -------------------------------------------- |
+| All agents        | `AGENTS.md`                                                             | architecture, safety, verification, language |
+| Portable workflow | `.agents/skills/ray-pineline-worflow-agent/SKILL.md`                    | phases, stages, gates, runtime mapping       |
+| Agent roles       | `.agents/roles/*.md` → `python3 scripts/sync_agents.py`                 | one source for every runtime's subagents     |
+| Claude Code       | `CLAUDE.md`, `.claude/agents/` (generated), `.claude/skills/` (symlink) | thin adapter                                 |
+| OpenCode          | `.opencode/agents/` (generated + hand-written `video-director`)         | thin adapter                                 |
+| Codex             | `AGENTS.md`, `.codex/agents/*.toml` (generated)                         | thin adapter                                 |
+| Gemini CLI        | `GEMINI.md`                                                             | thin adapter                                 |
+| Cursor            | `.cursor/rules/agent-guide.mdc`                                         | thin always-on adapter                       |
 
 ## Verification
 

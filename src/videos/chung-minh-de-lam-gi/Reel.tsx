@@ -14,9 +14,21 @@ import {S7bScene, S8Scene, S9aScene} from './scenes/ScenesE';
 import {S9bScene, S10Scene, S11Scene} from './scenes/ScenesF';
 
 const SCENES: Record<string, React.FC> = {
-  s1: S1Scene, s2a: S2aScene, s2b: S2bScene, s3: S3Scene, s4a: S4aScene, s4b: S4bScene,
-  s5: S5Scene, s6: S6Scene, s7a: S7aScene, s7b: S7bScene, s8: S8Scene, s9a: S9aScene,
-  s9b: S9bScene, s10: S10Scene, s11: S11Scene,
+  s1: S1Scene,
+  s2a: S2aScene,
+  s2b: S2bScene,
+  s3: S3Scene,
+  s4a: S4aScene,
+  s4b: S4bScene,
+  s5: S5Scene,
+  s6: S6Scene,
+  s7a: S7aScene,
+  s7b: S7bScene,
+  s8: S8Scene,
+  s9a: S9aScene,
+  s9b: S9bScene,
+  s10: S10Scene,
+  s11: S11Scene,
 };
 
 const bgmVolume = (f: number): number =>

@@ -1,16 +1,7 @@
 import React from 'react';
 import {AbsoluteFill, useCurrentFrame} from 'remotion';
 import {E_SINE, mix, ramp} from '../motion';
-import {
-  CAP,
-  DBTFonts,
-  DbtLine,
-  Finish,
-  GridPaper,
-  Handwrite,
-  PencilChar,
-  PhoneMock,
-} from '../kit';
+import {CAP, DBTFonts, DbtLine, Finish, GridPaper, Handwrite, PencilChar, PhoneMock} from '../kit';
 
 /** s7b — the feed dies, leaving the character alone with the question. */
 export const Scene12: React.FC = () => {

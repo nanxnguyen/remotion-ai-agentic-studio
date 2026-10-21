@@ -22,9 +22,27 @@ describe('videoRegistry', () => {
       {id: 'XayDoiMinhReel', durationInFrames: 1776, fps: 30, width: 1080, height: 1920},
       {id: 'ChungMinhDeLamGiReel', durationInFrames: 1728, fps: 30, width: 1080, height: 1920},
       {id: 'TiecNguoiHayNamThangReel', durationInFrames: 1422, fps: 30, width: 1080, height: 1920},
-      {id: 'DungBienTuoi30ThanhBanAnReel', durationInFrames: 1549, fps: 30, width: 1080, height: 1920},
-      {id: 'LamLaiKhongCoNghiaLaQuayVeSoKhongBanReel', durationInFrames: 875, fps: 30, width: 1080, height: 1920},
-      {id: 'BanKhongCanTroThanhAiKhacDeDuocYeuReel', durationInFrames: 1767, fps: 30, width: 1080, height: 1920},
+      {
+        id: 'DungBienTuoi30ThanhBanAnReel',
+        durationInFrames: 1549,
+        fps: 30,
+        width: 1080,
+        height: 1920,
+      },
+      {
+        id: 'LamLaiKhongCoNghiaLaQuayVeSoKhongBanReel',
+        durationInFrames: 875,
+        fps: 30,
+        width: 1080,
+        height: 1920,
+      },
+      {
+        id: 'BanKhongCanTroThanhAiKhacDeDuocYeuReel',
+        durationInFrames: 1767,
+        fps: 30,
+        width: 1080,
+        height: 1920,
+      },
       {id: 'BanKhongYeuDuoiReel', durationInFrames: 720, fps: 30, width: 1080, height: 1920},
     ]);
   });

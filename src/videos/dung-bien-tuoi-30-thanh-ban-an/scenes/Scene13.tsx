@@ -27,7 +27,8 @@ export const Scene13 = () => {
   const arrowIn = ramp(frame, 28, 20, E_SINE);
   const barWidth = mix(120, 700, barIn);
   const arrowSlide = mix(34, 0, arrowIn);
-  const captionIndex = frame < S8_CAPTION_BOUNDARIES.firstEnd ? 0 : frame < S8_CAPTION_BOUNDARIES.secondEnd ? 1 : 2;
+  const captionIndex =
+    frame < S8_CAPTION_BOUNDARIES.firstEnd ? 0 : frame < S8_CAPTION_BOUNDARIES.secondEnd ? 1 : 2;
   const captionAccent =
     captionIndex === 1 ? 'chưa kịp giữ' : captionIndex === 2 ? 'đã có nơi đi mất' : undefined;
   return (

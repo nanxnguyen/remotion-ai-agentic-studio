@@ -4,7 +4,9 @@ import {videoRegistry} from '../../src/videos/registry';
 
 describe('editorial quote starter', () => {
   it('registers the public demo', () => {
-    expect(videoRegistry.find((video) => video.id === 'EditorialQuoteReel')).toBe(editorialQuoteVideo);
+    expect(videoRegistry.find((video) => video.id === 'EditorialQuoteReel')).toBe(
+      editorialQuoteVideo,
+    );
   });
 
   it('has deterministic 9:16 metadata and valid golden test frames', () => {

@@ -45,14 +45,26 @@ jobs:
               page.wait_for_timeout(1200)
               assert page.locator('#terminal-toggle').count()==1
               assert page.locator('#command-dock').is_hidden()
-              original = {x:page.locator(x).inner_html() for x in ('#p-orch','#p-overview','#p-pipe','#p-review')}
+              # SVG connector coordinates respond to font loading and dock resizing.
+              # Compare content/topology, not responsive layout coordinates.
+              snapshot = """el => {
+                  const copy = el.cloneNode(true);
+                  const lines = copy.querySelector('#orch-lines');
+                  if (lines) {
+                      lines.removeAttribute('viewBox');
+                      lines.querySelectorAll('path').forEach(path => path.removeAttribute('d'));
+                  }
+                  return copy.innerHTML;
+              }"""
+              page.evaluate('document.fonts.ready')
+              original = {x:page.locator(x).evaluate(snapshot) for x in ('#p-orch','#p-overview','#p-pipe','#p-review')}
               page.screenshot(path=str(out/'monitor-full-closed.png'), full_page=True, animations='disabled')
               page.locator('#terminal-toggle').click()
               page.wait_for_timeout(1400)
               assert page.locator('#command-dock').is_visible()
               assert page.locator('#terminal-toggle').get_attribute('aria-expanded')=='true'
               for selector, html in original.items():
-                  assert page.locator(selector).inner_html()==html, f'Unrelated panel modified: {selector}'
+                  assert page.locator(selector).evaluate(snapshot)==html, f'Unrelated panel modified: {selector}'
               page.screenshot(path=str(out/'monitor-full-open.png'), full_page=True, animations='disabled')
               page.locator('#terminal-toggle').click()
               assert page.locator('#command-dock').is_hidden()

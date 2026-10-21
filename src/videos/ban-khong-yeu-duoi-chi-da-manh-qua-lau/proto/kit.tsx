@@ -155,7 +155,8 @@ const rot = (v: P, deg: number): P => {
   return {x: v.x * c - v.y * s, y: v.x * s + v.y * c};
 };
 const f2 = (n: number) => n.toFixed(1);
-const poly = (pts: readonly P[]) => pts.map((p, i) => `${i ? 'L' : 'M'}${f2(p.x)} ${f2(p.y)}`).join(' ') + ' Z';
+const poly = (pts: readonly P[]) =>
+  pts.map((p, i) => `${i ? 'L' : 'M'}${f2(p.x)} ${f2(p.y)}`).join(' ') + ' Z';
 const clamp01 = (x: number) => (x < 0 ? 0 : x > 1 ? 1 : x);
 
 /** Two-bone IK: elbow position for a shoulder `a`, target `t`, bone lengths, bend side ±1. */
@@ -228,7 +229,8 @@ export const CHILD: Body = {
 };
 
 /** Hip height above the ground for a straight standing pose (feet on `ground`). */
-export const standHipY = (ground: number, b: Body, s: number) => ground - (b.thigh + b.shin + 16) * s;
+export const standHipY = (ground: number, b: Body, s: number) =>
+  ground - (b.thigh + b.shin + 16) * s;
 
 export type Arm = Readonly<{
   /** absolute angles from straight down (upper arm, forearm). Ignored if `to` is set. */
@@ -296,10 +298,10 @@ export const solveRig = (hip: P, s: number, b: Body, pose: Pose): Rig => {
   // side view: near shoulder slightly toward the front, far shoulder toward the back
   const shL = add(add(shoulderBase, mul(across, side ? sw * fc : -sw)), {x: 0, y: dl});
   const shR = add(add(shoulderBase, mul(across, side ? -sw * fc : sw)), {x: 0, y: dr});
-  const headC = add(
-    add(neck, mul(rot(up, pose.headTilt ?? 0), (b.neck + b.headRy * 0.92) * s)),
-    {x: 0, y: (pose.headDrop ?? 0) * s},
-  );
+  const headC = add(add(neck, mul(rot(up, pose.headTilt ?? 0), (b.neck + b.headRy * 0.92) * s)), {
+    x: 0,
+    y: (pose.headDrop ?? 0) * s,
+  });
   const arm = (sh: P, a: Arm, defBend: 1 | -1) => {
     if (a.to) {
       const r = ik(sh, a.to, b.upper * s, b.fore * s, a.bend ?? defBend);
@@ -603,7 +605,14 @@ export const Person: React.FC<PersonProps> = (p) => {
               const y = o.y + 14 * s + t * t * 260 * s;
               return (
                 <g key={i}>
-                  <ellipse cx={o.x} cy={o.y + 14 * s} rx={5 * s} ry={6.5 * s} fill={PAL.spec} opacity={0.8 * wet} />
+                  <ellipse
+                    cx={o.x}
+                    cy={o.y + 14 * s}
+                    rx={5 * s}
+                    ry={6.5 * s}
+                    fill={PAL.spec}
+                    opacity={0.8 * wet}
+                  />
                   {t < 0.85 ? (
                     <ellipse
                       cx={o.x}
@@ -664,10 +673,13 @@ export const Person: React.FC<PersonProps> = (p) => {
   const rx = b.headRx * s;
   const ry = b.headRy * s;
   const tilt = pose.headTilt ?? 0;
-  const turn = side ? fc : pose.turn ?? 0;
+  const turn = side ? fc : (pose.turn ?? 0);
   const eyes = pose.eyes ?? 'open';
   const eyeY = H.y + ry * 0.1;
-  const eyeX = (k: number) => H.x + turn * rx * (side ? 0.62 : 0.32) + k * rx * (side ? 0 : 0.36 * (1 - 0.35 * Math.abs(turn)));
+  const eyeX = (k: number) =>
+    H.x +
+    turn * rx * (side ? 0.62 : 0.32) +
+    k * rx * (side ? 0 : 0.36 * (1 - 0.35 * Math.abs(turn)));
   const hairBack =
     look.hairStyle === 'bob'
       ? `M${f2(H.x - rx * 1.12 - turn * rx * 0.2)} ${f2(H.y - ry * 0.2)} C${f2(H.x - rx * 1.25)} ${f2(H.y + ry * 0.9)} ${f2(H.x - rx * 0.9)} ${f2(H.y + ry * 1.18)} ${f2(H.x - rx * 0.55)} ${f2(H.y + ry * 1.12)} L${f2(H.x + rx * 0.55)} ${f2(H.y + ry * 1.12)} C${f2(H.x + rx * 0.9)} ${f2(H.y + ry * 1.18)} ${f2(H.x + rx * 1.25)} ${f2(H.y + ry * 0.9)} ${f2(H.x + rx * 1.12 - turn * rx * 0.2)} ${f2(H.y - ry * 0.2)} Z`
@@ -693,10 +705,20 @@ export const Person: React.FC<PersonProps> = (p) => {
       </defs>
       {/* hood hanging behind (child) */}
       {look.hood && !side ? (
-        <ellipse cx={r.neck.x} cy={r.neck.y + 6 * s} rx={b.shoulder * 0.62 * s} ry={34 * s} fill={look.hood} stroke={look.coatLine} strokeWidth={lw} />
+        <ellipse
+          cx={r.neck.x}
+          cy={r.neck.y + 6 * s}
+          rx={b.shoulder * 0.62 * s}
+          ry={34 * s}
+          fill={look.hood}
+          stroke={look.coatLine}
+          strokeWidth={lw}
+        />
       ) : null}
       {/* long hair behind the shoulders */}
-      {hairBack && !side ? <path d={hairBack} fill={look.hair} transform={`rotate(${tilt} ${f2(H.x)} ${f2(H.y)})`} /> : null}
+      {hairBack && !side ? (
+        <path d={hairBack} fill={look.hair} transform={`rotate(${tilt} ${f2(H.x)} ${f2(H.y)})`} />
+      ) : null}
       {/* back arms */}
       {!front(pose.armR) ? armDraw('R', pose.armR) : null}
       {!front(pose.armL) ? armDraw('L', pose.armL) : null}
@@ -705,9 +727,23 @@ export const Person: React.FC<PersonProps> = (p) => {
       {side ? leg(r.hipL, r.knL, r.anL, 'll', true) : null}
       {!side ? leg(r.hipL, r.knL, r.anL, 'll', true) : null}
       {!side ? leg(r.hipR, r.knR, r.anR, 'lr', true) : null}
-      {skirt ? <path d={poly(skirt)} fill={look.coat} stroke={look.coatLine} strokeWidth={lw} strokeLinejoin="round" /> : null}
+      {skirt ? (
+        <path
+          d={poly(skirt)}
+          fill={look.coat}
+          stroke={look.coatLine}
+          strokeWidth={lw}
+          strokeLinejoin="round"
+        />
+      ) : null}
       {/* torso */}
-      <path d={poly(torsoPts)} fill={look.coat} stroke={look.coatLine} strokeWidth={lw} strokeLinejoin="round" />
+      <path
+        d={poly(torsoPts)}
+        fill={look.coat}
+        stroke={look.coatLine}
+        strokeWidth={lw}
+        strokeLinejoin="round"
+      />
       {/* seam / zip, and a darker side for volume */}
       {!side ? (
         <path
@@ -739,7 +775,11 @@ export const Person: React.FC<PersonProps> = (p) => {
         <path
           d={poly(
             side
-              ? [add(r.neck, mul(across, -20 * s * fc)), add(r.neck, {x: 20 * s * fc, y: -30 * s}), add(r.neck, {x: 26 * s * fc, y: 22 * s})]
+              ? [
+                  add(r.neck, mul(across, -20 * s * fc)),
+                  add(r.neck, {x: 20 * s * fc, y: -30 * s}),
+                  add(r.neck, {x: 26 * s * fc, y: 22 * s}),
+                ]
               : [
                   add(r.neck, mul(across, -44 * s)),
                   add(r.neck, add(mul(across, -18 * s), mul(up, 34 * s))),
@@ -769,7 +809,15 @@ export const Person: React.FC<PersonProps> = (p) => {
       {/* head */}
       <g transform={`rotate(${tilt} ${f2(H.x)} ${f2(H.y)})`}>
         {sideBack ? <path d={sideBack} fill={look.hair} /> : null}
-        <ellipse cx={H.x} cy={H.y} rx={rx} ry={ry} fill={look.skin} stroke={look.skinShade} strokeWidth={2.4 * s} />
+        <ellipse
+          cx={H.x}
+          cy={H.y}
+          rx={rx}
+          ry={ry}
+          fill={look.skin}
+          stroke={look.skinShade}
+          strokeWidth={2.4 * s}
+        />
         {/* shade on the side away from the key */}
         <path
           d={`M${f2(H.x + (side ? -fc : 1) * rx * 0.2)} ${f2(H.y - ry)} A${f2(rx)} ${f2(ry)} 0 0 ${side ? (fc > 0 ? 0 : 1) : 1} ${f2(H.x + (side ? -fc : 1) * rx * 0.2)} ${f2(H.y + ry)} Z`}
@@ -810,7 +858,14 @@ export const Person: React.FC<PersonProps> = (p) => {
           return (
             <g key={k}>
               {eyes === 'open' ? (
-                <ellipse cx={ex} cy={eyeY} rx={5.2 * s} ry={7 * s} fill={PAL.night0} opacity={0.88} />
+                <ellipse
+                  cx={ex}
+                  cy={eyeY}
+                  rx={5.2 * s}
+                  ry={7 * s}
+                  fill={PAL.night0}
+                  opacity={0.88}
+                />
               ) : (
                 <path
                   d={`M${f2(ex - 9 * s)} ${f2(eyeY + (eyes === 'down' ? 2 : 0) * s)} Q${f2(ex)} ${f2(eyeY + (eyes === 'down' ? 7 : 5) * s)} ${f2(ex + 9 * s)} ${f2(eyeY + (eyes === 'down' ? 2 : 0) * s)}`}
@@ -833,7 +888,14 @@ export const Person: React.FC<PersonProps> = (p) => {
         })}
         {/* mouth */}
         {pose.mouth === 'open' ? (
-          <ellipse cx={H.x + turn * rx * (side ? 0.7 : 0.3)} cy={H.y + ry * 0.55} rx={8 * s} ry={9 * s} fill={PAL.night0} opacity={0.8} />
+          <ellipse
+            cx={H.x + turn * rx * (side ? 0.7 : 0.3)}
+            cy={H.y + ry * 0.55}
+            rx={8 * s}
+            ry={9 * s}
+            fill={PAL.night0}
+            opacity={0.8}
+          />
         ) : (
           <path
             d={`M${f2(H.x + turn * rx * (side ? 0.62 : 0.3) - 10 * s)} ${f2(H.y + ry * 0.55)} L${f2(H.x + turn * rx * (side ? 0.62 : 0.3) + 10 * s)} ${f2(H.y + ry * 0.55 + (pose.mouth === 'tight' ? 2 : 0) * s)}`}
@@ -843,7 +905,15 @@ export const Person: React.FC<PersonProps> = (p) => {
           />
         )}
         {/* screen light on the face */}
-        {(p.screen ?? 0) > 0 ? <ellipse cx={H.x} cy={H.y + ry * 0.2} rx={rx * 1.3} ry={ry * 1.3} fill={`url(#scr-${uid})`} /> : null}
+        {(p.screen ?? 0) > 0 ? (
+          <ellipse
+            cx={H.x}
+            cy={H.y + ry * 0.2}
+            rx={rx * 1.3}
+            ry={ry * 1.3}
+            fill={`url(#scr-${uid})`}
+          />
+        ) : null}
         {/* cold rim (L0) on the lamp side of the hair */}
         {(p.rimCold ?? 0) > 0 ? (
           <path
@@ -895,9 +965,9 @@ export const Person: React.FC<PersonProps> = (p) => {
 };
 
 /** The child: `wet` and its relatives are not in the type — there is no code path to wet them. */
-export const Child: React.FC<Omit<PersonProps, 'wet' | 'wetShoulder' | 'body' | 'look' | 'rimWarm'>> = (p) => (
-  <Person {...p} body={CHILD} look={KID} wet={0} wetShoulder={0} />
-);
+export const Child: React.FC<
+  Omit<PersonProps, 'wet' | 'wetShoulder' | 'body' | 'look' | 'rimWarm'>
+> = (p) => <Person {...p} body={CHILD} look={KID} wet={0} wetShoulder={0} />;
 
 // ───────────────────────────── 5 · The umbrella ─────────────────────────────
 
@@ -962,19 +1032,43 @@ export const UmbrellaOpen: React.FC<
   return (
     <g>
       <defs>
-        <linearGradient id={`can-${uid}`} gradientUnits="userSpaceOnUse" x1={u.apex.x} y1={u.apex.y} x2={u.rimC.x} y2={u.rimC.y + 10}>
+        <linearGradient
+          id={`can-${uid}`}
+          gradientUnits="userSpaceOnUse"
+          x1={u.apex.x}
+          y1={u.apex.y}
+          x2={u.rimC.x}
+          y2={u.rimC.y + 10}
+        >
           <stop offset="0%" stopColor="#1C2A35" />
           <stop offset="100%" stopColor="#070C11" />
         </linearGradient>
-        <linearGradient id={`canW-${uid}`} gradientUnits="userSpaceOnUse" x1={u.L.x} y1={u.L.y} x2={u.R.x} y2={u.R.y}>
+        <linearGradient
+          id={`canW-${uid}`}
+          gradientUnits="userSpaceOnUse"
+          x1={u.L.x}
+          y1={u.L.y}
+          x2={u.R.x}
+          y2={u.R.y}
+        >
           <stop offset="0%" stopColor={PAL.amber} stopOpacity={0.05 * warm} />
           <stop offset="70%" stopColor={PAL.amber} stopOpacity={0.22 * warm} />
           <stop offset="100%" stopColor={PAL.amberHot} stopOpacity={0.55 * warm} />
         </linearGradient>
       </defs>
       {/* shaft: grip → apex → scuffed metal tip */}
-      <path d={`M${f2(hook0.x)} ${f2(hook0.y)} L${f2(tip.x)} ${f2(tip.y)}`} stroke="#3B4A55" strokeWidth={9 * s} strokeLinecap="round" />
-      <path d={`M${f2(hook0.x)} ${f2(hook0.y)} L${f2(u.apex.x)} ${f2(u.apex.y)}`} stroke="#8EA2B0" strokeWidth={2.2 * s} opacity={0.5} />
+      <path
+        d={`M${f2(hook0.x)} ${f2(hook0.y)} L${f2(tip.x)} ${f2(tip.y)}`}
+        stroke="#3B4A55"
+        strokeWidth={9 * s}
+        strokeLinecap="round"
+      />
+      <path
+        d={`M${f2(hook0.x)} ${f2(hook0.y)} L${f2(u.apex.x)} ${f2(u.apex.y)}`}
+        stroke="#8EA2B0"
+        strokeWidth={2.2 * s}
+        opacity={0.5}
+      />
       {/* J hook under the fist */}
       <path
         d={`M${f2(hook0.x)} ${f2(hook0.y)} Q${f2(hook1.x)} ${f2(hook1.y)} ${f2(hook2.x)} ${f2(hook2.y)}`}
@@ -984,7 +1078,13 @@ export const UmbrellaOpen: React.FC<
         strokeLinecap="round"
       />
       {/* canopy */}
-      <path d={poly(outline)} fill={`url(#can-${uid})`} stroke="#03070B" strokeWidth={2 * s} strokeLinejoin="round" />
+      <path
+        d={poly(outline)}
+        fill={`url(#can-${uid})`}
+        stroke="#03070B"
+        strokeWidth={2 * s}
+        strokeLinejoin="round"
+      />
       {warm > 0 ? <path d={poly(outline)} fill={`url(#canW-${uid})`} /> : null}
       {Array.from({length: ribs - 1}).map((_, k) => {
         const x0 = -g.r + (2 * g.r * (k + 1)) / ribs;
@@ -1021,7 +1121,14 @@ export const UmbrellaOpen: React.FC<
           const fall = t > 0.35 ? (t - 0.35) / 0.65 : -1;
           return (
             <g key={i}>
-              <ellipse cx={p.x} cy={p.y + 7 * s} rx={6 * s} ry={(6 + (t < 0.35 ? 6 * t : 0)) * s} fill={PAL.spec} opacity={0.85} />
+              <ellipse
+                cx={p.x}
+                cy={p.y + 7 * s}
+                rx={6 * s}
+                ry={(6 + (t < 0.35 ? 6 * t : 0)) * s}
+                fill={PAL.spec}
+                opacity={0.85}
+              />
               {fall >= 0 && drips > 0 ? (
                 <ellipse
                   cx={p.x}
@@ -1040,14 +1147,14 @@ export const UmbrellaOpen: React.FC<
 };
 
 /** The same umbrella, furled: tip → handle. Used s3 (by the door), s7/s8 (in her lap). */
-export const UmbrellaFurled: React.FC<{a: P; b: P; s: number; drip?: number; f?: number; warm?: number}> = ({
-  a,
-  b,
-  s,
-  drip = 0,
-  f = 0,
-  warm = 0,
-}) => {
+export const UmbrellaFurled: React.FC<{
+  a: P;
+  b: P;
+  s: number;
+  drip?: number;
+  f?: number;
+  warm?: number;
+}> = ({a, b, s, drip = 0, f = 0, warm = 0}) => {
   const d = sub(b, a);
   const L = len(d);
   const dn = {x: d.x / L, y: d.y / L};
@@ -1069,25 +1176,70 @@ export const UmbrellaFurled: React.FC<{a: P; b: P; s: number; drip?: number; f?:
   ];
   return (
     <g>
-      <path d={`M${f2(a.x)} ${f2(a.y)} L${f2(b.x)} ${f2(b.y)}`} stroke="#3B4A55" strokeWidth={9 * s} strokeLinecap="round" />
-      <path d={poly(pts)} fill="#0A1219" stroke="#03070B" strokeWidth={2 * s} strokeLinejoin="round" />
+      <path
+        d={`M${f2(a.x)} ${f2(a.y)} L${f2(b.x)} ${f2(b.y)}`}
+        stroke="#3B4A55"
+        strokeWidth={9 * s}
+        strokeLinecap="round"
+      />
+      <path
+        d={poly(pts)}
+        fill="#0A1219"
+        stroke="#03070B"
+        strokeWidth={2 * s}
+        strokeLinejoin="round"
+      />
       {/* fold lines + strap */}
       {[0.35, 0.55, 0.72].map((k) => {
         const c = add(a, mul(dn, L * k));
-        return <path key={k} d={`M${f2(c.x + n.x * -22 * s)} ${f2(c.y + n.y * -22 * s)} L${f2(c.x + n.x * 20 * s + dn.x * 30 * s)} ${f2(c.y + n.y * 20 * s + dn.y * 30 * s)}`} stroke="#1D2B35" strokeWidth={3 * s} />;
+        return (
+          <path
+            key={k}
+            d={`M${f2(c.x + n.x * -22 * s)} ${f2(c.y + n.y * -22 * s)} L${f2(c.x + n.x * 20 * s + dn.x * 30 * s)} ${f2(c.y + n.y * 20 * s + dn.y * 30 * s)}`}
+            stroke="#1D2B35"
+            strokeWidth={3 * s}
+          />
+        );
       })}
-      <path d={`M${f2(add(fat, mul(n, -30 * s)).x)} ${f2(add(fat, mul(n, -30 * s)).y)} L${f2(add(fat, mul(n, 30 * s)).x)} ${f2(add(fat, mul(n, 30 * s)).y)}`} stroke="#22313C" strokeWidth={10 * s} />
+      <path
+        d={`M${f2(add(fat, mul(n, -30 * s)).x)} ${f2(add(fat, mul(n, -30 * s)).y)} L${f2(add(fat, mul(n, 30 * s)).x)} ${f2(add(fat, mul(n, 30 * s)).y)}`}
+        stroke="#22313C"
+        strokeWidth={10 * s}
+      />
       {warm > 0 ? <path d={poly(pts)} fill={PAL.amber} opacity={0.18 * warm} /> : null}
       {/* scuffed metal tip */}
-      <path d={`M${f2(a.x)} ${f2(a.y)} L${f2(tipEnd.x)} ${f2(tipEnd.y)}`} stroke="#B9C7D1" strokeWidth={6 * s} strokeLinecap="round" />
-      <path d={`M${f2(a.x + n.x * 2 * s)} ${f2(a.y + n.y * 2 * s)} L${f2(add(a, mul(dn, 16 * s)).x)} ${f2(add(a, mul(dn, 16 * s)).y)}`} stroke="#6A7884" strokeWidth={2 * s} />
-      <path d={`M${f2(hook0.x)} ${f2(hook0.y)} Q${f2(hook1.x)} ${f2(hook1.y)} ${f2(hook2.x)} ${f2(hook2.y)}`} stroke="#2A3640" strokeWidth={15 * s} fill="none" strokeLinecap="round" />
+      <path
+        d={`M${f2(a.x)} ${f2(a.y)} L${f2(tipEnd.x)} ${f2(tipEnd.y)}`}
+        stroke="#B9C7D1"
+        strokeWidth={6 * s}
+        strokeLinecap="round"
+      />
+      <path
+        d={`M${f2(a.x + n.x * 2 * s)} ${f2(a.y + n.y * 2 * s)} L${f2(add(a, mul(dn, 16 * s)).x)} ${f2(add(a, mul(dn, 16 * s)).y)}`}
+        stroke="#6A7884"
+        strokeWidth={2 * s}
+      />
+      <path
+        d={`M${f2(hook0.x)} ${f2(hook0.y)} Q${f2(hook1.x)} ${f2(hook1.y)} ${f2(hook2.x)} ${f2(hook2.y)}`}
+        stroke="#2A3640"
+        strokeWidth={15 * s}
+        fill="none"
+        strokeLinecap="round"
+      />
       {drip > 0
         ? [0, 1].map((i) => {
             const period = 34 + i * 9;
             const t = ((f + hash(61, i) * period) % period) / period;
             return (
-              <ellipse key={i} cx={a.x + (i - 0.5) * 6 * s} cy={a.y + 8 * s + t * t * 120 * s} rx={4 * s} ry={(6 + 6 * t) * s} fill={PAL.spec} opacity={(0.9 - 0.7 * t) * drip} />
+              <ellipse
+                key={i}
+                cx={a.x + (i - 0.5) * 6 * s}
+                cy={a.y + 8 * s + t * t * 120 * s}
+                rx={4 * s}
+                ry={(6 + 6 * t) * s}
+                fill={PAL.spec}
+                opacity={(0.9 - 0.7 * t) * drip}
+              />
             );
           })
         : null}
@@ -1131,14 +1283,34 @@ export const Rain: React.FC<{
   width?: number;
   exclude?: readonly (readonly P[])[];
   color?: string;
-}> = ({f, count, seed, x0 = -40, x1 = 1120, y0 = -100, y1 = 1920, speed = 1, opacity = 0.4, width = 2, exclude, color = '#C9D6DE'}) => {
+}> = ({
+  f,
+  count,
+  seed,
+  x0 = -40,
+  x1 = 1120,
+  y0 = -100,
+  y1 = 1920,
+  speed = 1,
+  opacity = 0.4,
+  width = 2,
+  exclude,
+  color = '#C9D6DE',
+}) => {
   const uid = React.useId().replace(/[^a-zA-Z0-9]/g, '');
   const H = y1 - y0;
   return (
     <g>
       {exclude && exclude.length ? (
         <defs>
-          <mask id={`rm-${uid}`} maskUnits="userSpaceOnUse" x={-200} y={-200} width={1480} height={2400}>
+          <mask
+            id={`rm-${uid}`}
+            maskUnits="userSpaceOnUse"
+            x={-200}
+            y={-200}
+            width={1480}
+            height={2400}
+          >
             <rect x={-200} y={-200} width={1480} height={2400} fill="#fff" />
             {exclude.map((e, i) => (
               <path key={i} d={poly(e)} fill="#000" />
@@ -1169,13 +1341,13 @@ export const Rain: React.FC<{
 };
 
 /** The street lamp — ONE asset, one softness everywhere (D-A13). */
-export const Lamp: React.FC<{x: number; top: number; ground: number; pool?: number; glow?: number}> = ({
-  x,
-  top,
-  ground,
-  pool = 1,
-  glow = 1,
-}) => {
+export const Lamp: React.FC<{
+  x: number;
+  top: number;
+  ground: number;
+  pool?: number;
+  glow?: number;
+}> = ({x, top, ground, pool = 1, glow = 1}) => {
   const uid = React.useId().replace(/[^a-zA-Z0-9]/g, '');
   return (
     <g>
@@ -1192,24 +1364,39 @@ export const Lamp: React.FC<{x: number; top: number; ground: number; pool?: numb
       </defs>
       <ellipse cx={x + 60} cy={ground + 30} rx={300} ry={70} fill={`url(#lp-${uid})`} />
       <rect x={x - 7} y={top + 20} width={14} height={ground - top - 20} fill="#071016" />
-      <path d={`M${x} ${top + 24} Q${x + 10} ${top - 10} ${x + 60} ${top - 6}`} stroke="#071016" strokeWidth={10} fill="none" />
+      <path
+        d={`M${x} ${top + 24} Q${x + 10} ${top - 10} ${x + 60} ${top - 6}`}
+        stroke="#071016"
+        strokeWidth={10}
+        fill="none"
+      />
       <circle cx={x + 64} cy={top + 14} r={220} fill={`url(#lg-${uid})`} />
-      <path d={`M${x + 34} ${top - 6} L${x + 96} ${top - 6} L${x + 86} ${top + 16} L${x + 44} ${top + 16} Z`} fill="#0B151C" />
-      <ellipse cx={x + 65} cy={top + 18} rx={22} ry={7} fill={PAL.sodiumCore} opacity={0.95 * glow} />
+      <path
+        d={`M${x + 34} ${top - 6} L${x + 96} ${top - 6} L${x + 86} ${top + 16} L${x + 44} ${top + 16} Z`}
+        fill="#0B151C"
+      />
+      <ellipse
+        cx={x + 65}
+        cy={top + 18}
+        rx={22}
+        ry={7}
+        fill={PAL.sodiumCore}
+        opacity={0.95 * glow}
+      />
     </g>
   );
 };
 
 /** A lit window with bloom + mullions + a spill streak on the wet street. */
-export const LitWindow: React.FC<{x: number; y: number; w: number; h: number; on?: number; warm?: number; spillTo?: number}> = ({
-  x,
-  y,
-  w,
-  h,
-  on = 1,
-  warm = 0,
-  spillTo,
-}) => {
+export const LitWindow: React.FC<{
+  x: number;
+  y: number;
+  w: number;
+  h: number;
+  on?: number;
+  warm?: number;
+  spillTo?: number;
+}> = ({x, y, w, h, on = 1, warm = 0, spillTo}) => {
   const uid = React.useId().replace(/[^a-zA-Z0-9]/g, '');
   const col = warm > 0.5 ? PAL.amber : PAL.window;
   return (
@@ -1222,29 +1409,56 @@ export const LitWindow: React.FC<{x: number; y: number; w: number; h: number; on
       </defs>
       <ellipse cx={x + w / 2} cy={y + h / 2} rx={w * 1.6} ry={h * 1.3} fill={`url(#wb-${uid})`} />
       <rect x={x} y={y} width={w} height={h} fill={col} opacity={0.72 * on} />
-      <rect x={x + w * 0.08} y={y + h * 0.55} width={w * 0.84} height={h * 0.4} fill="#7E6248" opacity={0.35 * on} />
+      <rect
+        x={x + w * 0.08}
+        y={y + h * 0.55}
+        width={w * 0.84}
+        height={h * 0.4}
+        fill="#7E6248"
+        opacity={0.35 * on}
+      />
       <rect x={x + w / 2 - 3} y={y} width={6} height={h} fill={PAL.night1} />
       <rect x={x} y={y + h * 0.46 - 3} width={w} height={6} fill={PAL.night1} />
-      <rect x={x - 6} y={y - 6} width={w + 12} height={h + 12} fill="none" stroke={PAL.night1} strokeWidth={8} />
+      <rect
+        x={x - 6}
+        y={y - 6}
+        width={w + 12}
+        height={h + 12}
+        fill="none"
+        stroke={PAL.night1}
+        strokeWidth={8}
+      />
       {spillTo !== undefined ? (
-        <rect x={x + w * 0.2} y={spillTo} width={w * 0.6} height={260} fill={col} opacity={0.12 * on} rx={w * 0.3} />
+        <rect
+          x={x + w * 0.2}
+          y={spillTo}
+          width={w * 0.6}
+          height={260}
+          fill={col}
+          opacity={0.12 * on}
+          rx={w * 0.3}
+        />
       ) : null}
     </g>
   );
 };
 
 /** Drinking glass, side view; `water` 0..1. */
-export const Glass: React.FC<{x: number; base: number; w: number; h: number; water?: number; lit?: number}> = ({
-  x,
-  base,
-  w,
-  h,
-  water = 0,
-  lit = 0,
-}) => (
+export const Glass: React.FC<{
+  x: number;
+  base: number;
+  w: number;
+  h: number;
+  water?: number;
+  lit?: number;
+}> = ({x, base, w, h, water = 0, lit = 0}) => (
   <g>
     <ellipse cx={x} cy={base + 2} rx={w * 0.62} ry={w * 0.12} fill={PAL.night0} opacity={0.6} />
-    <path d={`M${x - w / 2} ${base - h} L${x - w * 0.42} ${base} L${x + w * 0.42} ${base} L${x + w / 2} ${base - h} Z`} fill="#9FB4C2" opacity={0.16 + 0.1 * lit} />
+    <path
+      d={`M${x - w / 2} ${base - h} L${x - w * 0.42} ${base} L${x + w * 0.42} ${base} L${x + w / 2} ${base - h} Z`}
+      fill="#9FB4C2"
+      opacity={0.16 + 0.1 * lit}
+    />
     {water > 0 ? (
       <path
         d={`M${x - w * 0.47} ${base - h * water * 0.85} L${x - w * 0.42} ${base - 4} L${x + w * 0.42} ${base - 4} L${x + w * 0.47} ${base - h * water * 0.85} Z`}
@@ -1252,22 +1466,80 @@ export const Glass: React.FC<{x: number; base: number; w: number; h: number; wat
         opacity={0.55}
       />
     ) : null}
-    <path d={`M${x - w / 2} ${base - h} L${x - w * 0.42} ${base} L${x + w * 0.42} ${base} L${x + w / 2} ${base - h}`} stroke="#D3E1EA" strokeWidth={4} fill="none" strokeLinejoin="round" />
-    <ellipse cx={x} cy={base - h} rx={w / 2} ry={w * 0.1} stroke="#D3E1EA" strokeWidth={3.5} fill="none" />
-    <path d={`M${x - w * 0.3} ${base - h * 0.85} L${x - w * 0.26} ${base - h * 0.2}`} stroke="#FFFFFF" strokeWidth={4} opacity={0.5} strokeLinecap="round" />
+    <path
+      d={`M${x - w / 2} ${base - h} L${x - w * 0.42} ${base} L${x + w * 0.42} ${base} L${x + w / 2} ${base - h}`}
+      stroke="#D3E1EA"
+      strokeWidth={4}
+      fill="none"
+      strokeLinejoin="round"
+    />
+    <ellipse
+      cx={x}
+      cy={base - h}
+      rx={w / 2}
+      ry={w * 0.1}
+      stroke="#D3E1EA"
+      strokeWidth={3.5}
+      fill="none"
+    />
+    <path
+      d={`M${x - w * 0.3} ${base - h * 0.85} L${x - w * 0.26} ${base - h * 0.2}`}
+      stroke="#FFFFFF"
+      strokeWidth={4}
+      opacity={0.5}
+      strokeLinecap="round"
+    />
   </g>
 );
 
 /** A cup (mug), side view, warm (L4) with steam. */
-export const Cup: React.FC<{x: number; base: number; w: number; h: number; f: number; warm?: number}> = ({x, base, w, h, f, warm = 1}) => (
+export const Cup: React.FC<{
+  x: number;
+  base: number;
+  w: number;
+  h: number;
+  f: number;
+  warm?: number;
+}> = ({x, base, w, h, f, warm = 1}) => (
   <g>
-    <ellipse cx={x + 6} cy={base + 4} rx={w * 0.72} ry={w * 0.16} fill={PAL.night0} opacity={0.75} />
-    <path d={`M${x + w * 0.45} ${base - h * 0.75} C${x + w * 0.95} ${base - h * 0.75} ${x + w * 0.95} ${base - h * 0.2} ${x + w * 0.42} ${base - h * 0.25}`} stroke="#C9B9A6" strokeWidth={w * 0.12} fill="none" />
-    <path d={`M${x - w / 2} ${base - h} L${x - w * 0.45} ${base - 6} Q${x} ${base + 6} ${x + w * 0.45} ${base - 6} L${x + w / 2} ${base - h} Z`} fill="#D8CBBB" />
-    <path d={`M${x + w * 0.1} ${base - h} L${x + w * 0.16} ${base - 8} Q${x + w * 0.36} ${base - 2} ${x + w * 0.45} ${base - 6} L${x + w / 2} ${base - h} Z`} fill="#A99B8C" />
+    <ellipse
+      cx={x + 6}
+      cy={base + 4}
+      rx={w * 0.72}
+      ry={w * 0.16}
+      fill={PAL.night0}
+      opacity={0.75}
+    />
+    <path
+      d={`M${x + w * 0.45} ${base - h * 0.75} C${x + w * 0.95} ${base - h * 0.75} ${x + w * 0.95} ${base - h * 0.2} ${x + w * 0.42} ${base - h * 0.25}`}
+      stroke="#C9B9A6"
+      strokeWidth={w * 0.12}
+      fill="none"
+    />
+    <path
+      d={`M${x - w / 2} ${base - h} L${x - w * 0.45} ${base - 6} Q${x} ${base + 6} ${x + w * 0.45} ${base - 6} L${x + w / 2} ${base - h} Z`}
+      fill="#D8CBBB"
+    />
+    <path
+      d={`M${x + w * 0.1} ${base - h} L${x + w * 0.16} ${base - 8} Q${x + w * 0.36} ${base - 2} ${x + w * 0.45} ${base - 6} L${x + w / 2} ${base - h} Z`}
+      fill="#A99B8C"
+    />
     <ellipse cx={x} cy={base - h} rx={w / 2} ry={w * 0.13} fill="#5C3E22" />
-    <ellipse cx={x} cy={base - h} rx={w / 2} ry={w * 0.13} fill="none" stroke="#EDE3D6" strokeWidth={3} />
-    <path d={`M${x - w / 2} ${base - h} L${x - w * 0.45} ${base - 6}`} stroke={PAL.amberHot} strokeWidth={5} opacity={0.7 * warm} />
+    <ellipse
+      cx={x}
+      cy={base - h}
+      rx={w / 2}
+      ry={w * 0.13}
+      fill="none"
+      stroke="#EDE3D6"
+      strokeWidth={3}
+    />
+    <path
+      d={`M${x - w / 2} ${base - h} L${x - w * 0.45} ${base - 6}`}
+      stroke={PAL.amberHot}
+      strokeWidth={5}
+      opacity={0.7 * warm}
+    />
     {[0, 1, 2].map((i) => {
       const t = ((f * 0.6 + i * 20) % 60) / 60;
       const sx = x - w * 0.2 + i * w * 0.2;
@@ -1279,7 +1551,7 @@ export const Cup: React.FC<{x: number; base: number; w: number; h: number; f: nu
           strokeWidth={5}
           fill="none"
           strokeLinecap="round"
-          opacity={(0.45 * Math.sin(t * Math.PI)) * warm}
+          opacity={0.45 * Math.sin(t * Math.PI) * warm}
         />
       );
     })}
@@ -1310,9 +1582,33 @@ export const Phone: React.FC<{
   if (state === 'facedown') {
     return (
       <g transform={`rotate(${r0} ${x + w / 2} ${y + h / 2})`}>
-        <rect x={x + 8} y={y + 12} width={w} height={h} rx={34 * k} fill={PAL.night0} opacity={0.7} />
-        <rect x={x} y={y} width={w} height={h} rx={34 * k} fill="#1A242C" stroke="#3A4852" strokeWidth={3} />
-        <rect x={x + w * 0.1} y={y + w * 0.1} width={w * 0.34} height={w * 0.34} rx={20 * k} fill="#10181E" />
+        <rect
+          x={x + 8}
+          y={y + 12}
+          width={w}
+          height={h}
+          rx={34 * k}
+          fill={PAL.night0}
+          opacity={0.7}
+        />
+        <rect
+          x={x}
+          y={y}
+          width={w}
+          height={h}
+          rx={34 * k}
+          fill="#1A242C"
+          stroke="#3A4852"
+          strokeWidth={3}
+        />
+        <rect
+          x={x + w * 0.1}
+          y={y + w * 0.1}
+          width={w * 0.34}
+          height={w * 0.34}
+          rx={20 * k}
+          fill="#10181E"
+        />
         <circle cx={x + w * 0.2} cy={y + w * 0.2} r={w * 0.06} fill="#05090C" />
         <circle cx={x + w * 0.34} cy={y + w * 0.34} r={w * 0.06} fill="#05090C" />
       </g>
@@ -1332,38 +1628,116 @@ export const Phone: React.FC<{
         </radialGradient>
       </defs>
       <ellipse cx={x + w / 2} cy={y + h / 2} rx={w * 1.25} ry={h * 0.8} fill={`url(#pg-${uid})`} />
-      <rect x={x + 10} y={y + 14} width={w} height={h} rx={36 * k} fill={PAL.night0} opacity={0.6} />
-      <rect x={x} y={y} width={w} height={h} rx={36 * k} fill="#05090C" stroke="#4A5A66" strokeWidth={3} />
-      <rect x={x + 12 * k} y={y + 12 * k} width={w - 24 * k} height={h - 24 * k} rx={26 * k} fill={state === 'dark' ? '#070C10' : `url(#ph-${uid})`} opacity={state === 'dark' ? 1 : 0.35 + 0.65 * lit} />
+      <rect
+        x={x + 10}
+        y={y + 14}
+        width={w}
+        height={h}
+        rx={36 * k}
+        fill={PAL.night0}
+        opacity={0.6}
+      />
+      <rect
+        x={x}
+        y={y}
+        width={w}
+        height={h}
+        rx={36 * k}
+        fill="#05090C"
+        stroke="#4A5A66"
+        strokeWidth={3}
+      />
+      <rect
+        x={x + 12 * k}
+        y={y + 12 * k}
+        width={w - 24 * k}
+        height={h - 24 * k}
+        rx={26 * k}
+        fill={state === 'dark' ? '#070C10' : `url(#ph-${uid})`}
+        opacity={state === 'dark' ? 1 : 0.35 + 0.65 * lit}
+      />
       {state === 'dark' ? (
         // the black screen reflects her head as a dark shape
         <ellipse cx={x + w * 0.5} cy={y + h * 0.42} rx={w * 0.22} ry={w * 0.26} fill="#121B22" />
       ) : null}
       {state === 'incoming' || state === 'missed' ? (
         <g opacity={0.4 + 0.6 * lit}>
-          <text x={x + w / 2} y={y + 120 * k} textAnchor="middle" fontFamily={FONT.sans} fontWeight={600} fontSize={26 * k} fill={PAL.grey1}>
+          <text
+            x={x + w / 2}
+            y={y + 120 * k}
+            textAnchor="middle"
+            fontFamily={FONT.sans}
+            fontWeight={600}
+            fontSize={26 * k}
+            fill={PAL.grey1}
+          >
             {state === 'incoming' ? 'Cuộc gọi đến' : 'Cuộc gọi nhỡ'}
           </text>
           {state === 'incoming' && ring > 0 ? (
-            <circle cx={x + w / 2} cy={y + 235 * k} r={(70 + 40 * ring) * k} fill="none" stroke={PAL.screenHi} strokeWidth={3 * k} opacity={0.5 * (1 - ring)} />
+            <circle
+              cx={x + w / 2}
+              cy={y + 235 * k}
+              r={(70 + 40 * ring) * k}
+              fill="none"
+              stroke={PAL.screenHi}
+              strokeWidth={3 * k}
+              opacity={0.5 * (1 - ring)}
+            />
           ) : null}
           <circle cx={x + w / 2} cy={y + 235 * k} r={62 * k} fill="#6E8597" />
           <circle cx={x + w / 2} cy={y + 218 * k} r={22 * k} fill="#B6C6D2" />
-          <path d={`M${x + w / 2 - 38 * k} ${y + 280 * k} Q${x + w / 2} ${y + 236 * k} ${x + w / 2 + 38 * k} ${y + 280 * k} Z`} fill="#B6C6D2" />
-          <text x={x + w / 2} y={y + 360 * k} textAnchor="middle" fontFamily={FONT.sans} fontWeight={600} fontSize={46 * k} fill={PAL.grey3}>
+          <path
+            d={`M${x + w / 2 - 38 * k} ${y + 280 * k} Q${x + w / 2} ${y + 236 * k} ${x + w / 2 + 38 * k} ${y + 280 * k} Z`}
+            fill="#B6C6D2"
+          />
+          <text
+            x={x + w / 2}
+            y={y + 360 * k}
+            textAnchor="middle"
+            fontFamily={FONT.sans}
+            fontWeight={600}
+            fontSize={46 * k}
+            fill={PAL.grey3}
+          >
             Người thân
           </text>
           {state === 'incoming' ? (
             <>
               <circle cx={x + w * 0.27} cy={y + h - 110 * k} r={36 * k} fill="#46586A" />
-              <path d={`M${x + w * 0.27 - 16 * k} ${y + h - 104 * k} q${16 * k} ${-14 * k} ${32 * k} 0`} stroke={PAL.grey3} strokeWidth={6 * k} fill="none" strokeLinecap="round" />
+              <path
+                d={`M${x + w * 0.27 - 16 * k} ${y + h - 104 * k} q${16 * k} ${-14 * k} ${32 * k} 0`}
+                stroke={PAL.grey3}
+                strokeWidth={6 * k}
+                fill="none"
+                strokeLinecap="round"
+              />
               <circle cx={x + w * 0.73} cy={y + h - 110 * k} r={36 * k} fill="#5E8FB0" />
-              <path d={`M${x + w * 0.73 - 16 * k} ${y + h - 114 * k} q${16 * k} ${14 * k} ${32 * k} 0`} stroke={PAL.grey3} strokeWidth={6 * k} fill="none" strokeLinecap="round" />
+              <path
+                d={`M${x + w * 0.73 - 16 * k} ${y + h - 114 * k} q${16 * k} ${14 * k} ${32 * k} 0`}
+                stroke={PAL.grey3}
+                strokeWidth={6 * k}
+                fill="none"
+                strokeLinecap="round"
+              />
             </>
           ) : (
             <g>
-              <path d={`M${x + w / 2 - 30 * k} ${y + 420 * k} l${22 * k} ${22 * k} l${30 * k} ${-30 * k}`} stroke={PAL.grey1} strokeWidth={6 * k} fill="none" strokeLinecap="round" />
-              <text x={x + w / 2} y={y + 488 * k} textAnchor="middle" fontFamily={FONT.sans} fontWeight={600} fontSize={26 * k} fill={PAL.grey1}>
+              <path
+                d={`M${x + w / 2 - 30 * k} ${y + 420 * k} l${22 * k} ${22 * k} l${30 * k} ${-30 * k}`}
+                stroke={PAL.grey1}
+                strokeWidth={6 * k}
+                fill="none"
+                strokeLinecap="round"
+              />
+              <text
+                x={x + w / 2}
+                y={y + 488 * k}
+                textAnchor="middle"
+                fontFamily={FONT.sans}
+                fontWeight={600}
+                fontSize={26 * k}
+                fill={PAL.grey1}
+              >
                 1 lần · chưa gọi lại
               </text>
             </g>
@@ -1372,13 +1746,43 @@ export const Phone: React.FC<{
       ) : null}
       {state === 'chat' ? (
         <g opacity={0.4 + 0.6 * lit}>
-          <rect x={x + 26 * k} y={y + h - 150 * k} width={w - 110 * k} height={70 * k} rx={35 * k} fill="#21384A" stroke="#7FA4BE" strokeWidth={2.5 * k} />
-          <text x={x + 48 * k} y={y + h - 105 * k} fontFamily={FONT.sans} fontWeight={600} fontSize={24 * k} fill={PAL.grey3}>
+          <rect
+            x={x + 26 * k}
+            y={y + h - 150 * k}
+            width={w - 110 * k}
+            height={70 * k}
+            rx={35 * k}
+            fill="#21384A"
+            stroke="#7FA4BE"
+            strokeWidth={2.5 * k}
+          />
+          <text
+            x={x + 48 * k}
+            y={y + h - 105 * k}
+            fontFamily={FONT.sans}
+            fontWeight={600}
+            fontSize={24 * k}
+            fill={PAL.grey3}
+          >
             {typed}
           </text>
-          {cursor ? <rect x={x + 50 * k + typed.length * 12.4 * k} y={y + h - 132 * k} width={3 * k} height={34 * k} fill={PAL.screenHi} /> : null}
+          {cursor ? (
+            <rect
+              x={x + 50 * k + typed.length * 12.4 * k}
+              y={y + h - 132 * k}
+              width={3 * k}
+              height={34 * k}
+              fill={PAL.screenHi}
+            />
+          ) : null}
           <circle cx={x + w - 50 * k} cy={y + h - 115 * k} r={30 * k} fill="#3E6684" />
-          <path d={`M${x + w - 62 * k} ${y + h - 115 * k} l${24 * k} 0 m${-10 * k} ${-10 * k} l${10 * k} ${10 * k} l${-10 * k} ${10 * k}`} stroke={PAL.grey3} strokeWidth={4 * k} fill="none" strokeLinecap="round" />
+          <path
+            d={`M${x + w - 62 * k} ${y + h - 115 * k} l${24 * k} 0 m${-10 * k} ${-10 * k} l${10 * k} ${10 * k} l${-10 * k} ${10 * k}`}
+            stroke={PAL.grey3}
+            strokeWidth={4 * k}
+            fill="none"
+            strokeLinecap="round"
+          />
         </g>
       ) : null}
     </g>
@@ -1392,7 +1796,11 @@ export type Line = readonly Span[];
 
 /** Accent tiers (content-pack §1): light = cold sheen (never amber, D-17);
  *  strong = amberHot only where the scene light is already warm (L2+), else bright white + sheen underline. */
-export const Caption: React.FC<{lines: readonly Line[]; warm?: boolean; opacity?: number}> = ({lines, warm = false, opacity = 1}) => (
+export const Caption: React.FC<{lines: readonly Line[]; warm?: boolean; opacity?: number}> = ({
+  lines,
+  warm = false,
+  opacity = 1,
+}) => (
   <>
     {/* local scrim: constant from f0, a soft band, never a box (D-A11, no f0→f1 pop) */}
     <div
@@ -1402,7 +1810,8 @@ export const Caption: React.FC<{lines: readonly Line[]; warm?: boolean; opacity?
         right: 0,
         top: 1440,
         height: 330,
-        background: 'linear-gradient(180deg, rgba(4,9,15,0) 0%, rgba(4,9,15,0.62) 34%, rgba(4,9,15,0.7) 70%, rgba(4,9,15,0) 100%)',
+        background:
+          'linear-gradient(180deg, rgba(4,9,15,0) 0%, rgba(4,9,15,0.62) 34%, rgba(4,9,15,0.7) 70%, rgba(4,9,15,0) 100%)',
         pointerEvents: 'none',
       }}
     />
@@ -1431,7 +1840,13 @@ export const Caption: React.FC<{lines: readonly Line[]; warm?: boolean; opacity?
                 sp.tier === 'strong'
                   ? warm
                     ? {color: PAL.amberHot}
-                    : {color: '#FFFFFF', textDecoration: 'underline', textDecorationColor: PAL.sheen, textDecorationThickness: 5, textUnderlineOffset: 10}
+                    : {
+                        color: '#FFFFFF',
+                        textDecoration: 'underline',
+                        textDecorationColor: PAL.sheen,
+                        textDecorationThickness: 5,
+                        textUnderlineOffset: 10,
+                      }
                   : sp.tier === 'light'
                     ? {color: '#A9D0E6'}
                     : undefined
@@ -1449,15 +1864,15 @@ export const Caption: React.FC<{lines: readonly Line[]; warm?: boolean; opacity?
 /** Headline layer, inside the pack's 300–620 band.
  *  `clearAt` — frame index at which it clears (a frame-accurate event, never a re-render);
  *  `from` — frame index at which it starts fading in (opacity ramps over `fade` frames). */
-export const Headline: React.FC<{text: string; top?: number; size?: number; opacity?: number; clearAt?: number; from?: number; fade?: number}> = ({
-  text,
-  top = 380,
-  size = 64,
-  opacity = 1,
-  clearAt,
-  from = 0,
-  fade = 1,
-}) => {
+export const Headline: React.FC<{
+  text: string;
+  top?: number;
+  size?: number;
+  opacity?: number;
+  clearAt?: number;
+  from?: number;
+  fade?: number;
+}> = ({text, top = 380, size = 64, opacity = 1, clearAt, from = 0, fade = 1}) => {
   const frame = useCurrentFrame();
   if (clearAt !== undefined && frame >= clearAt) return null;
   const fin = fade <= 0 ? 1 : Math.max(0, Math.min(1, (frame - from) / fade));
@@ -1483,7 +1898,11 @@ export const Headline: React.FC<{text: string; top?: number; size?: number; opac
   );
 };
 
-export const MinhHoa: React.FC<{x?: number; y: number; center?: boolean}> = ({x = 0, y, center}) => (
+export const MinhHoa: React.FC<{x?: number; y: number; center?: boolean}> = ({
+  x = 0,
+  y,
+  center,
+}) => (
   <div
     style={{
       position: 'absolute',
@@ -1527,21 +1946,44 @@ export const WetPavement: React.FC<{
   return (
     <g>
       <defs>
-        <linearGradient id={`wp-${uid}`} x1="0" y1={y} x2="0" y2={1920} gradientUnits="userSpaceOnUse">
+        <linearGradient
+          id={`wp-${uid}`}
+          x1="0"
+          y1={y}
+          x2="0"
+          y2={1920}
+          gradientUnits="userSpaceOnUse"
+        >
           <stop offset="0%" stopColor="#1B2E3C" />
           <stop offset="45%" stopColor="#101E29" />
           <stop offset="100%" stopColor="#050B11" />
         </linearGradient>
-        <linearGradient id={`ws-${uid}`} x1="0" y1={y} x2="0" y2={1920} gradientUnits="userSpaceOnUse">
+        <linearGradient
+          id={`ws-${uid}`}
+          x1="0"
+          y1={y}
+          x2="0"
+          y2={1920}
+          gradientUnits="userSpaceOnUse"
+        >
           <stop offset="0%" stopColor={warm > 0.5 ? PAL.amberHot : PAL.sodium} stopOpacity={0.34} />
           <stop offset="100%" stopColor={warm > 0.5 ? PAL.amber : PAL.sodium} stopOpacity={0} />
         </linearGradient>
       </defs>
       <rect x={-40} y={y} width={1160} height={1920 - y} fill={`url(#wp-${uid})`} />
       {smearX !== undefined ? (
-        <rect x={smearX - smearW / 2} y={y} width={smearW} height={260} rx={smearW / 2} fill={`url(#ws-${uid})`} />
+        <rect
+          x={smearX - smearW / 2}
+          y={y}
+          width={smearW}
+          height={260}
+          rx={smearW / 2}
+          fill={`url(#ws-${uid})`}
+        />
       ) : null}
-      {poolX !== undefined ? <ellipse cx={poolX} cy={y + 46} rx={poolW} ry={54} fill={PAL.sodium} opacity={0.16} /> : null}
+      {poolX !== undefined ? (
+        <ellipse cx={poolX} cy={y + 46} rx={poolW} ry={54} fill={PAL.sodium} opacity={0.16} />
+      ) : null}
       {kerb > 0 ? (
         <>
           <rect x={-40} y={y - 3} width={1160} height={3} fill="#2B4352" opacity={0.7 * kerb} />
@@ -1554,31 +1996,48 @@ export const WetPavement: React.FC<{
 
 /** A solid surface a prop can rest on: step, kerb, bench or table slab, with a lit top edge
  *  and a contact strip. Contact shadows for the objects on it are drawn by the scene. */
-export const Surface: React.FC<{x: number; y: number; w: number; h: number; warm?: number; tone?: number}> = ({
-  x,
-  y,
-  w,
-  h,
-  warm = 0,
-  tone = 1,
-}) => (
+export const Surface: React.FC<{
+  x: number;
+  y: number;
+  w: number;
+  h: number;
+  warm?: number;
+  tone?: number;
+}> = ({x, y, w, h, warm = 0, tone = 1}) => (
   <g>
     <rect x={x} y={y} width={w} height={h} fill="#152330" opacity={0.55 + 0.45 * tone} />
-    <rect x={x} y={y} width={w} height={10} rx={5} fill={warm > 0.5 ? '#8A7355' : '#3B5364'} opacity={0.9} />
+    <rect
+      x={x}
+      y={y}
+      width={w}
+      height={10}
+      rx={5}
+      fill={warm > 0.5 ? '#8A7355' : '#3B5364'}
+      opacity={0.9}
+    />
     <rect x={x} y={y + 10} width={w} height={5} fill="#0A141D" opacity={0.8} />
     <rect x={x} y={y + h - 14} width={w} height={14} fill="#04090F" opacity={0.75} />
   </g>
 );
 
 /** Small dark contact shadow under an object standing on a surface (D-02). */
-export const Contact: React.FC<{x: number; y: number; w: number; k?: number}> = ({x, y, w, k = 1}) => (
-  <ellipse cx={x} cy={y + 2 * k} rx={w / 2} ry={w * 0.1} fill="#020508" opacity={0.55} />
-);
+export const Contact: React.FC<{x: number; y: number; w: number; k?: number}> = ({
+  x,
+  y,
+  w,
+  k = 1,
+}) => <ellipse cx={x} cy={y + 2 * k} rx={w / 2} ry={w * 0.1} fill="#020508" opacity={0.55} />;
 
 /** The door-gap geometry (D-08/D-19): the warm wedge anchored to the door's left jamb.
  *  `open` 0..1 widens the gap; the polygon is what the light mask and the floor wedge share,
  *  so the sliver on her collar is continuous with the door gap — never a floating orb. */
-export const doorWedge = (jambX: number, top: number, bottom: number, open: number, reach = 520): P[] => {
+export const doorWedge = (
+  jambX: number,
+  top: number,
+  bottom: number,
+  open: number,
+  reach = 520,
+): P[] => {
   const w = open * reach;
   return [
     pt(jambX, top),
@@ -1596,7 +2055,13 @@ export const NightGrade: React.FC<{warm?: number; vignette?: number; grain?: num
   grain = 0.07,
 }) => (
   <>
-    <Vignette strength={vignette} inner={0.42} color={warm > 0.5 ? '#140D06' : '#04070C'} cx={0.5} cy={0.44} />
+    <Vignette
+      strength={vignette}
+      inner={0.42}
+      color={warm > 0.5 ? '#140D06' : '#04070C'}
+      cx={0.5}
+      cy={0.44}
+    />
     {warm > 0 ? (
       <div
         style={{

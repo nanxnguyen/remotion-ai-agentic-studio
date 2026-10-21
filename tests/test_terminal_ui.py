@@ -62,10 +62,33 @@ class TerminalUiTests(unittest.TestCase):
         for source in (
             'id="term-provider"', 'id="term-model"', 'id="term-effort"',
             "model,effort,", "window.addEventListener('agent-terminal:open'",
-            "if(document.getElementById(\"command-dock\").hidden||!session||waiting)return;",
         ):
             with self.subTest(source=source):
                 self.assertIn(source, self.text)
+
+    @unittest.skipUnless(shutil.which("node"), "Node.js needed for input behavior checks")
+    def test_terminal_only_queues_input_for_running_session(self):
+        start = self.text.index("term.onData(data=>{")
+        end = self.text.index("});", start) + 3
+        callback = self.text[start:end]
+        harness = """
+let handler, session = null, writeQueue = '', flushes = 0;
+const polls = [];
+const term = {onData(fn) { handler = fn; }};
+function flush() { flushes++; }
+function scheduleTerminalPoll(delay) { polls.push(delay); }
+"""
+        harness += callback
+        harness += """
+handler('ignored');
+session = {state: 'exited'}; handler('ignored');
+if(writeQueue || flushes || polls.length) throw Error('inactive input leaked');
+session = {state: 'running'}; handler('Xin chào\\r');
+if(writeQueue !== 'Xin chào\\r' || flushes !== 1 || polls[0] !== 0)
+  throw Error('running input must be preserved and flushed immediately');
+"""
+        result = subprocess.run(["node", "-e", harness], capture_output=True, text=True)
+        self.assertEqual(0, result.returncode, result.stderr)
 
     def test_sidebar_switch_does_not_leak_keyboard_or_output(self):
         self.assertIn("document.addEventListener('click',event=>", self.text)

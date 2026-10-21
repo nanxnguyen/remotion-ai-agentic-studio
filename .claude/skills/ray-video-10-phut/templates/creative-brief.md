@@ -44,3 +44,11 @@
 - Unknown claims or unresolved permissions:
 - Gate A review evidence path:
 - Expected SLA bottleneck:
+
+## Voice and character contract
+- Casting and audition evidence: `docs/<vid>/voice-sync.md`
+- Stable speaker IDs, selected voice/model/settings and listening verdict per role:
+- Utterance IDs mapped to exact text, speaker, take, shot and picture mode:
+- Measured audio hashes/durations and shared timeline/caption intervals:
+- Planned off-screen/reaction/J-cut/L-cut exceptions:
+- Final MP4 listening reviewer, fingerprint and per-utterance verdict:

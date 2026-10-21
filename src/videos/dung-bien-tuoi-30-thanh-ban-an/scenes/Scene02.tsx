@@ -2,17 +2,7 @@ import React from 'react';
 import {AbsoluteFill, useCurrentFrame} from 'remotion';
 import {FitText} from '../../../core/fit-text';
 import {E_SINE, ramp} from '../motion';
-import {
-  CAP,
-  DBTFonts,
-  Finish,
-  GridPaper,
-  HAND,
-  INK,
-  PencilChar,
-  RED,
-  RedPenLines,
-} from '../kit';
+import {CAP, DBTFonts, Finish, GridPaper, HAND, INK, PencilChar, RED, RedPenLines} from '../kit';
 
 const Caption: React.FC<{text: string; visible: boolean}> = ({text, visible}) => (
   <div
