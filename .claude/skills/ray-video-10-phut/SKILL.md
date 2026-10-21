@@ -52,6 +52,7 @@ If an optional skill does not exist, use the self-contained equivalent in this s
 Load task-specific references:
 
 - Always: `references/hook-story.md`, `references/visual-direction.md`, `references/quality-rubric.md`, `references/fast-lane.md`.
+- For every spoken video: `references/voice-character-sync.md` (mandatory casting, utterance timing and final listening evidence).
 - For Remotion build: `references/remotion-playbook.md`.
 - For video style and transition: `references/shotcraft.md`.
 - At retro/delivery: `references/eval-guidance.md` + `templates/eval.md`.
@@ -69,6 +70,12 @@ Collect only missing essentials; use sensible defaults when reasonable. Record i
 - Build no 60-second speech into a 30-second slot. Estimate Vietnamese spoken syllables as an initial heuristic only; actual `voice-durations.ts` controls timeline. Preserve breaths and ending holds; **never solve overflow by speeding voice unnaturally**.
 
 See `references/hook-story.md` and `templates/creative-brief.md`.
+
+### Voice casting and picture lock (mandatory)
+
+Before TTS, follow `references/voice-character-sync.md`. Assign stable speaker IDs and audition an actual sample for every speaking role. Generate separate utterance assets, measure the final files, then derive picture and caption timing from those measurements. A single generic narrator must not silently replace character dialogue. Record narrator, on-screen, off-screen and reaction-shot modes explicitly.
+
+At Join, require a complete utterance-to-speaker-to-shot map and verified audio durations. At Audio review, assess natural Vietnamese delivery and cast consistency. At Gate C/final QA, watch and listen to the actual final MP4, checking each line against its character, picture and captions. Wrong speaker, unexplained picture mismatch, cut speech or missing listening evidence blocks delivery; deadline pressure never waives this requirement. These are required reviewer checks within existing gates, not new machine-enforced transitions.
 
 ## 3. Fast execution plan (legal pipeline, parallel branches)
 
