@@ -2,7 +2,7 @@ import {defineVideo} from '../../core';
 import {BanKhongCanTroThanhAiKhacDeDuocYeuReel} from './Reel';
 import {TOTAL_FRAMES} from './timeline';
 export const banKhongCanTroThanhAiKhacDeDuocYeuVideo = defineVideo({
-  id: 'BanKhongCanTroThanhAiKhacDeDuocYeuReel',
+  id: '13-BanKhongCanTroThanhAiKhacDeDuocYeuReel',
   slug: 'ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu',
   component: BanKhongCanTroThanhAiKhacDeDuocYeuReel,
   durationInFrames: TOTAL_FRAMES,

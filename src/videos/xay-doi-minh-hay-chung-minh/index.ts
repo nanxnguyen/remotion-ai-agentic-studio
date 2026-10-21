@@ -3,7 +3,7 @@ import {XayDoiMinhReel} from './Reel';
 import {XDM_TOTAL} from './timeline';
 
 export const xayDoiMinhVideo = defineVideo({
-  id: 'XayDoiMinhReel',
+  id: '08-XayDoiMinhReel',
   slug: 'xay-doi-minh-hay-chung-minh',
   component: XayDoiMinhReel,
   durationInFrames: XDM_TOTAL,

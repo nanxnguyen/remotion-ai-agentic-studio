@@ -2,7 +2,7 @@ import {defineVideo} from '../../core';
 import {HelloWorldReel} from './Reel';
 
 export const helloWorldVideo = defineVideo({
-  id: 'HelloWorldReel',
+  id: '01-HelloWorldReel',
   slug: 'hello-world',
   component: HelloWorldReel,
   durationInFrames: 150,

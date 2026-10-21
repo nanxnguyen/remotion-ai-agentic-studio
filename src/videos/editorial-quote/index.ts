@@ -2,7 +2,7 @@ import {defineVideo} from '../../core';
 import {EditorialQuoteReel} from './Reel';
 
 export const editorialQuoteVideo = defineVideo({
-  id: 'EditorialQuoteReel',
+  id: '02-EditorialQuoteReel',
   slug: 'editorial-quote',
   component: EditorialQuoteReel,
   durationInFrames: 120,

@@ -1,6 +1,6 @@
 {
   "name": "Met khong (Lon roi)",
-  "comp": "MetkhongReel",
+  "comp": "04-MetkhongReel",
   "paths": {
     "audio": "metkhong",
     "out": "metkhong",

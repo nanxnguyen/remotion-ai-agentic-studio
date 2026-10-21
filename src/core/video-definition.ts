@@ -41,7 +41,7 @@ const assertPositiveInteger = (label: string, value: number): void => {
 export const defineVideo = <Props extends Record<string, unknown> = Record<string, never>>(
   definition: VideoDefinition<Props>,
 ): VideoDefinition<Props> => {
-  if (!/^[A-Z][A-Za-z0-9]*$/.test(definition.id)) {
+  if (!/^(\d{2,3}-)?[A-Z][A-Za-z0-9]*$/.test(definition.id)) {
     throw new Error(`Invalid composition id: ${definition.id}`);
   }
   if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(definition.slug)) {
@@ -93,5 +93,14 @@ export const validateVideoRegistry = (videos: readonly AnyVideoDefinition[]): vo
     if (slugs.has(video.slug)) throw new Error(`Duplicate video slug: ${video.slug}`);
     ids.add(video.id);
     slugs.add(video.slug);
+  }
+  // Numbered ids (`NN-Name`) show the production order in Remotion Studio: they must ascend in registry order.
+  let previous = 0;
+  for (const video of videos) {
+    const match = /^(\d{2,3})-/.exec(video.id);
+    if (!match) continue;
+    const number = Number(match[1]);
+    if (number <= previous) throw new Error(`Composition number out of order: ${video.id}`);
+    previous = number;
   }
 };

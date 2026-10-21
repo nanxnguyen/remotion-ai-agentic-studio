@@ -92,4 +92,23 @@ describe('validateVideoRegistry', () => {
 
     expect(() => validateVideoRegistry([video, video])).toThrow(/duplicate/i);
   });
+
+  it('accepts NN-Name ids and requires them to ascend in registry order', () => {
+    const make = (id: string, slug: string) =>
+      defineVideo({
+        id,
+        slug,
+        component: EmptyVideo,
+        durationInFrames: 300,
+        fps: 30,
+        width: 1080,
+        height: 1920,
+        testFrames: [0],
+      });
+    const one = make('01-FirstReel', 'first');
+    const two = make('02-SecondReel', 'second');
+    expect(() => validateVideoRegistry([one, two])).not.toThrow();
+    expect(() => validateVideoRegistry([two, one])).toThrow(/out of order/i);
+    expect(() => make('1-BadReel', 'bad')).toThrow(/invalid composition id/i);
+  });
 });

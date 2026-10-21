@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "videoId": "tiec-nguoi-hay-nam-thang",
-  "compositionId": "TiecNguoiHayNamThangReel",
+  "compositionId": "10-TiecNguoiHayNamThangReel",
   "sourceStage": "chatgpt-prebuild",
   "targetStage": "local-audio-and-final",
   "profile": "story",

@@ -2,7 +2,7 @@ import {defineVideo} from '../../core';
 import {TiecNguoiHayNamThangReel} from './Reel';
 import {TOTAL_FRAMES} from './timeline';
 export const tiecNguoiHayNamThangVideo = defineVideo({
-  id: 'TiecNguoiHayNamThangReel',
+  id: '10-TiecNguoiHayNamThangReel',
   slug: 'tiec-nguoi-hay-nam-thang',
   component: TiecNguoiHayNamThangReel,
   durationInFrames: TOTAL_FRAMES,

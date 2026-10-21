@@ -42,16 +42,26 @@ Select **relevant** skills. Do not bulk-load everything; read the minimum needed
 | Need | Skill to consult | Required output |
 |---|---|---|
 | Script, hooks, retention | `.claude/skills/viral-hooks/`, `viral-short-form/`, `video-script/`, `viral-tech-video-creator/` (if present) | Three hook candidates, one chosen, shot-by-shot script, re-hook, memorable ending |
-| Visual identity | `.claude/skills/frontend-design/` if present; else installed official `frontend-design` from Anthropic | Design thesis, palette, typography, hierarchy, compositional signature, art direction |
+| Visual identity (**mandatory**) | `.agents/skills/frontend-design/SKILL.md` (same file as `.claude/skills/frontend-design/`) | Design thesis, palette, typography, hierarchy, compositional signature, art direction, and the "frontend-design pass" section in `design-spec.md` (see below) |
 | Cinematic craft | `.claude/skills/video-shotcraft/` plus this skill's `references/shotcraft.md` | Shot grammar, visual rhythm, transitions, sound/motion recipes |
 | Remotion composition | Installed official `remotion-best-practices`, `remotion-markup`, `remotion-captions` as relevant | Deterministic frame-driven code, legible captions, reliable render |
 | Authoritative pipeline | `ray-pineline-worflow-agent` | Every required artifact, review/gate, QA, `eval.md`, verified final file |
 
 If an optional skill does not exist, use the self-contained equivalent in this skill's `references/`; **do not pretend it was read or executed**. Do not copy upstream licensed skill text into this repo; keep pointers and original guidance here.
 
+### Mandatory frontend-design pass (every video)
+
+`frontend-design` is required, not optional: a fast video still has to look designed. If `.agents/skills/frontend-design/SKILL.md` is missing, stop the design branch as `blocked` instead of continuing without it.
+
+- `video-director` puts the path `.agents/skills/frontend-design/SKILL.md` in every `design-agent` dispatch packet (and in `scene-agent` packets for on-screen type and layout), next to `references/visual-direction.md`.
+- `design-agent` reads it before writing `design-spec.md` and applies it to a 1080×1920 video frame rather than a web page: (1) **plan pass** — 4–6 named hex tokens, type roles with Vietnamese-capable fonts, layout concept with ASCII wireframes of the cover, one dialogue/story frame and the payoff frame, and 3–5 principles specific to this story; (2) **review pass** — compare the plan against the generic defaults that skill lists and against this repo's earlier videos, revise every part that would fit any similar video, and say what changed and why; (3) **restraint** — one memorable visual device carries the video, everything else stays quiet; motion only where it carries meaning; (4) **self-critique** — render the style frames, look at them at phone size, remove one decoration before submitting.
+- Precedence: the user's brief and any named template video win on palette, characters and fonts; `frontend-design` raises quality inside those limits and never introduces a new palette or style the brief excluded. Web-only advice (CSS selectors, keyboard focus, hover states, CTA button copy) does not apply.
+- `design-spec.md` must contain a section `## frontend-design pass` with: the token table, wireframes, the generic-default check (each default named, kept or rejected with a reason), the revisions made, and the one memorable device.
+- `design-reviewer` (Gate D) fails the round with a Cao ticket when that section is missing, when a revision list is empty without justification, or when style frames show a generic default the section claimed to reject.
+
 Load task-specific references:
 
-- Always: `references/hook-story.md`, `references/visual-direction.md`, `references/quality-rubric.md`, `references/fast-lane.md`.
+- Always: `references/hook-story.md`, `references/visual-direction.md`, `.agents/skills/frontend-design/SKILL.md`, `references/quality-rubric.md`, `references/fast-lane.md`.
 - For every spoken video: `references/voice-character-sync.md` (mandatory casting, utterance timing and final listening evidence).
 - For Remotion build: `references/remotion-playbook.md`.
 - For video style and transition: `references/shotcraft.md`.
@@ -70,6 +80,18 @@ Collect only missing essentials; use sensible defaults when reasonable. Record i
 - Build no 60-second speech into a 30-second slot. Estimate Vietnamese spoken syllables as an initial heuristic only; actual `voice-durations.ts` controls timeline. Preserve breaths and ending holds; **never solve overflow by speeding voice unnaturally**.
 
 See `references/hook-story.md` and `templates/creative-brief.md`.
+
+### Default narrator voice (Thanh Long Nâng Cao)
+
+Unless the user names another voice, the **narrator/default speaker is Thanh Long Nâng Cao**, cloned locally with VieNeu-TTS (base workflow Voice route 2), reference file:
+
+`docs/thuong-hay-so-bat-dau-lai/voice-ref/refThanhLong.wav` (8.2 s, 16-bit WAV; md5 `199de31c8281d895dd571e36fe464ed5`)
+
+- Init with `--voice thanh-long-nang-cao` (slug names the voice actually heard; final MP4 `out/<vid>-thanh-long-nang-cao-reel.mp4`). Record in `brief.md`: provider VieNeu-TTS, voice Thanh Long Nâng Cao, reference path above.
+- Copy the reference into the video once: `mkdir -p docs/<vid>/voice-ref && cp docs/thuong-hay-so-bat-dau-lai/voice-ref/refThanhLong.wav docs/<vid>/voice-ref/refThanhLong.wav`, and point `voice-performance.json` references at the copied path. Never edit or trim the source file; if its md5 differs from the one above, stop and report instead of silently using it (other videos hold different `refThanhLong.wav` takes).
+- Fast lane skips the 3-voice benchmark of the base workflow for this default. It still runs everything else: `scripts/tone-probe.py` before Gate A, per-key ASR/CER ≤0.04, the fallback ladder (re-split once → `gen-voice-vc.py` route 3 → accepted-risk + listen item), and the audio review. Naturalness is never claimed from ASR.
+- Casting below applies to **other** speakers only (character dialogue, a second voice, or an off-screen role). The default does not make a single narrator stand in for character dialogue; only add a second voice when the script needs one, and audition it.
+- Use another voice only on the user's explicit request; then follow the base workflow Voice priority and record why the default was not used.
 
 ### Voice casting and picture lock (mandatory)
 

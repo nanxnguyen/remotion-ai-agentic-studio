@@ -6,8 +6,8 @@ import path from 'node:path';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const demos = [
-  ['HelloWorldReel', 'hello-world'],
-  ['EditorialQuoteReel', 'editorial-quote'],
+  ['01-HelloWorldReel', 'hello-world'],
+  ['02-EditorialQuoteReel', 'editorial-quote'],
 ];
 
 function run(command, args) {

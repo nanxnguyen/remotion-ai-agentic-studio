@@ -1,7 +1,7 @@
 {
   "workflow_version": 3,
   "name": "dung-bien-tuoi-30-thanh-ban-an",
-  "comp": "DungBienTuoi30ThanhBanAnReel",
+  "comp": "11-DungBienTuoi30ThanhBanAnReel",
   "voice": "trung-kien-nang-cao",
   "profile": "story",
   "paths": {

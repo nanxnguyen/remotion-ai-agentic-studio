@@ -3,13 +3,13 @@ import {Easing, interpolate, staticFile, useCurrentFrame} from 'remotion';
 import {KTT_VOICE_OFFSET} from './timeline';
 
 // khoang-trong-trong-buc-tranh shared kit (main agent owns).
-// Palette (design-spec): night cold NIGHT_BG #1A1A2E / NIGHT_DEEP #0F0F1A /
-// COLD #2E5C8A / COLD_DARK #1B3A5C / INK #1A1A2E /
+// Palette (design-spec): night cold NIGHT_BG #1E1E32 / NIGHT_DEEP #121222 /
+// COLD #2E5C8A / COLD_DARK #1B3A5C / INK #1E1E32 /
 // AMBER #F2A65A / AMBER_WARM #E89442 / CREAM #FAF3E8 / WOOD #4A3728
 // MUTED #6B7A8A / MISS #E5484D (only for s1 notification)
 // People: realistic-minimal busts, curved eyes (D fix), NOT stick figures.
-export const NIGHT_BG = '#1A1A2E';
-export const NIGHT_DEEP = '#0F0F1A';
+export const NIGHT_BG = '#1E1E32';
+export const NIGHT_DEEP = '#121222';
 export const COLD = '#2E5C8A';
 export const COLD_DARK = '#1B3A5C';
 export const INK = '#1A1A2E';

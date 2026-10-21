@@ -1,7 +1,7 @@
 {
   "workflow_version": 3,
   "name": "chung-minh-de-lam-gi",
-  "comp": "ChungMinhDeLamGiReel",
+  "comp": "09-ChungMinhDeLamGiReel",
   "voice": "thanh-long-nang-cao",
   "profile": "story",
   "paths": {

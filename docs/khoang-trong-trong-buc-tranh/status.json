@@ -1,7 +1,7 @@
 {
   "workflow_version": 4,
   "name": "khoang-trong-trong-buc-tranh",
-  "comp": "KhoangTrongTrongBucTranhReel",
+  "comp": "15-KhoangTrongTrongBucTranhReel",
   "voice": "th-long",
   "profile": "story",
   "paths": {

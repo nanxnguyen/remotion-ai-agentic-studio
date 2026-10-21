@@ -4,7 +4,7 @@ import {videoRegistry} from '../../src/videos/registry';
 
 describe('zero-key demo', () => {
   it('is registered as a public sample composition', () => {
-    expect(videoRegistry.find((video) => video.id === 'HelloWorldReel')).toBe(helloWorldVideo);
+    expect(videoRegistry.find((video) => video.id === '01-HelloWorldReel')).toBe(helloWorldVideo);
   });
 
   it('is a deterministic 9:16 video with valid test frames', () => {

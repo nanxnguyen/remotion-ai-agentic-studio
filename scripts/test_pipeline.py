@@ -53,6 +53,18 @@ class PipelineCliTest(unittest.TestCase):
     def status(self):
         return json.loads((self.root / "docs" / "sample" / "status.json").read_text())
 
+    def test_resolve_comp_maps_bare_name_to_numbered_registry_id(self):
+        video = self.root / "src" / "videos" / "sample"
+        video.mkdir(parents=True)
+        (video / "index.ts").write_text("defineVideo({\n  id: '07-SampleReel',\n})")
+        module = self.load_pipeline_module()
+        self.assertEqual(module.resolve_comp("SampleReel"), "SampleReel")  # Root.tsx still has the bare id
+        (self.root / "src" / "Root.tsx").write_text("<Composition />")
+        module.clear_monitor_caches()
+        self.assertEqual(module.resolve_comp("SampleReel"), "07-SampleReel")
+        self.assertEqual(module.resolve_comp("07-SampleReel"), "07-SampleReel")
+        self.assertEqual(module.resolve_comp("OtherReel"), "OtherReel")
+
     def load_pipeline_module(self):
         path = self.root / "scripts" / "pipeline.py"
         spec = importlib.util.spec_from_file_location("pipeline_under_test", path)
@@ -83,7 +95,7 @@ class PipelineCliTest(unittest.TestCase):
 
     def make_video(self, path):
         subprocess.run([
-            "ffmpeg", "-v", "error", "-y", "-f", "lavfi", "-i", "color=c=black:s=1080x1920:r=30",
+            "ffmpeg", "-v", "error", "-y", "-f", "lavfi", "-i", "testsrc2=s=1080x1920:r=30",
             "-f", "lavfi", "-i", "sine=frequency=440:sample_rate=48000", "-t", "0.5", "-c:v", "libx264",
             "-preset", "ultrafast", "-pix_fmt", "yuv420p", "-c:a", "aac", str(path),
         ], check=True)
@@ -715,7 +727,7 @@ class PipelineCliTest(unittest.TestCase):
         self.assertNotEqual(refused.returncode, 0)
         self.assertIn("1/2 clips", refused.stderr)
         self.assertNotEqual(self.status()["stages"].get("voice", {}).get("state"), "done")
-        (audio / "s2.mp3").write_bytes(b"voice")
+        (audio / "s2.mp3").write_bytes(b"voice 2")
         self.assertEqual(self.cli("set", "sample", "voice", "done", "--next", "audio-reviewer").returncode, 0)
         for stage in ("research", "qa", "render"):
             self.assertNotEqual(self.cli("set", "sample", stage, "done").returncode, 0, stage)
@@ -960,13 +972,77 @@ class PipelineCliTest(unittest.TestCase):
         self.assertEqual(len(errors), 1)
         self.assertIn("s2", errors[0])
 
+    def test_verify_refuses_a_mostly_black_render(self):
+        self.init()
+        video = self.root / "out" / "sample-anh-khoi-reel.mp4"
+        subprocess.run([
+            "ffmpeg", "-v", "error", "-y", "-f", "lavfi", "-i", "color=c=black:s=1080x1920:r=30",
+            "-f", "lavfi", "-i", "sine=frequency=440:sample_rate=48000", "-t", "0.5", "-c:v", "libx264",
+            "-preset", "ultrafast", "-pix_fmt", "yuv420p", "-c:a", "aac", str(video),
+        ], check=True)
+        result = self.cli("verify", "sample", "--min-seconds", "0.1")
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("black frames", result.stderr)
+        self.assertNotIn("render_check", self.status())
+        subprocess.run([  # minimal white-on-black art is content, not a black frame
+            "ffmpeg", "-v", "error", "-y", "-f", "lavfi", "-i",
+            "color=c=black:s=1080x1920:r=30,drawbox=x=490:y=860:w=100:h=200:color=white:t=fill",
+            "-f", "lavfi", "-i", "sine=frequency=440:sample_rate=48000", "-t", "0.5", "-c:v", "libx264",
+            "-preset", "ultrafast", "-pix_fmt", "yuv420p", "-c:a", "aac", str(video),
+        ], check=True)
+        self.assertEqual(self.cli("verify", "sample", "--min-seconds", "0.1").returncode, 0)
+
+    def test_identical_audio_files_block_voice_audio_review_and_audit(self):
+        self.init(version=4)
+        self.pass_gates("A")
+        docs = self.root / "docs" / "sample"
+        audio = self.root / "public" / "audio" / "sample"
+        audio.mkdir(parents=True)
+        (docs / "voice.json").write_text('{"s1": "mot", "s2": "hai"}', encoding="utf-8")
+        for key in ("s1", "s2"):
+            (audio / f"{key}.mp3").write_bytes(b"same placeholder tone")
+        module = self.load_pipeline_module()
+        voice = module.evidence("sample", self.status())["voice"]
+        self.assertFalse(voice["ok"])
+        self.assertIn("s1.mp3, s2.mp3", voice["detail"])
+        self.assertTrue(any("identical audio" in e for e in module.audit("sample")["errors"]))
+        (docs / "audio-review.md").write_text("Audio review\n" + "| row | 10 | ok |\n" * 40)
+        refused = self.cli("review", "sample", "audio", "10", "--reviewer", "audio-reviewer", "--report", "audio-review.md")
+        self.assertNotEqual(refused.returncode, 0)
+        self.assertIn("identical audio", refused.stderr)
+        (audio / "s2.mp3").write_bytes(b"a different take")
+        self.assertTrue(module.evidence("sample", self.status())["voice"]["ok"])
+
+    def test_voice_durations_must_be_the_measured_clip_lengths(self):
+        self.init()
+        docs = self.root / "docs" / "sample"
+        (docs / "voice.json").write_text('{"s1": "mot"}', encoding="utf-8")
+        audio = self.root / "public" / "audio" / "sample"
+        audio.mkdir(parents=True)
+        (audio / "s1.mp3").write_bytes(b"clip")
+        video = self.root / "src" / "videos" / "sample"
+        video.mkdir(parents=True)
+        durations = video / "voice-durations.ts"
+        module = self.load_pipeline_module()
+        module.media_seconds = lambda path: 2.0
+        durations.write_text("export const voiceDurations = {\n  s1: 2.25,\n} as const;\n")
+        self.assertIn("no VOICE_SECONDS", module.voice_duration_problems("sample", self.status())[0])
+        durations.write_text("export const VOICE_SECONDS = {\n  s1: 2.25,\n} as const;\n"
+                             "export const voiceFrames = {\n  s1: 68,\n} as const;\n")
+        self.assertEqual(module.measured_voice_seconds(durations), {"s1": 2.25})
+        problems = module.voice_duration_problems("sample", self.status())
+        self.assertEqual(len(problems), 1)
+        self.assertIn("2.000s", problems[0])
+        durations.write_text("export const VOICE_SECONDS = {\n  s1: 2.01,\n} as const;\n")
+        self.assertEqual(module.voice_duration_problems("sample", self.status()), [])
+
     def test_draft_render_builds_half_scale_command_and_leaves_final_alone(self):
         self.init()
         module = self.load_pipeline_module()
         calls = []
         ns = argparse.Namespace(folder="sample", scale=0.5)
         out = module.render_draft(ns, runner=lambda cmd, **kw: calls.append(cmd))
-        self.assertEqual(out, self.root / "out" / "draft" / "sample-draft.mp4")
+        self.assertEqual(Path(out).resolve(), (self.root / "out" / "draft" / "sample-draft.mp4").resolve())
         cmd = calls[0]
         self.assertIn("--scale", cmd)
         self.assertEqual(cmd[cmd.index("--scale") + 1], "0.5")

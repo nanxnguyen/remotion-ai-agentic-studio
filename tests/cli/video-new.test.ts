@@ -34,6 +34,16 @@ describe('video:new', () => {
     ).toContain('Scene03');
   });
 
+  it('numbers composition ids in production order', async () => {
+    const root = await fixture();
+    await scaffoldVideo({root, slug: 'first', id: 'FirstReel', scenes: 1});
+    await scaffoldVideo({root, slug: 'second', id: 'SecondReel', scenes: 1});
+    const index = (slug: string) =>
+      readFile(path.join(root, 'src', 'videos', slug, 'index.ts'), 'utf8');
+    expect(await index('first')).toContain("id: '01-FirstReel'");
+    expect(await index('second')).toContain("id: '02-SecondReel'");
+  });
+
   it('rejects invalid input without creating a directory', async () => {
     const root = await fixture();
     await expect(scaffoldVideo({root, slug: '../bad', id: 'bad', scenes: 0})).rejects.toThrow();

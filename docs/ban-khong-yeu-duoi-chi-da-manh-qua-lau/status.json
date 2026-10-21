@@ -1,7 +1,7 @@
 {
   "workflow_version": 4,
   "name": "ban-khong-yeu-duoi-chi-da-manh-qua-lau",
-  "comp": "BanKhongYeuDuoiReel",
+  "comp": "14-BanKhongYeuDuoiReel",
   "voice": "thanh-long-nang-cao",
   "profile": "story",
   "paths": {

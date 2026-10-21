@@ -3,7 +3,7 @@ import {parseRenderArgs} from '../../scripts/video-render.mjs';
 
 describe('video render CLI', () => {
   it('preserves the existing default composition', () => {
-    expect(parseRenderArgs([]).id).toBe('UnderstandAnythingReel');
+    expect(parseRenderArgs([]).id).toBe('06-UnderstandAnythingReel');
   });
 
   it.each([

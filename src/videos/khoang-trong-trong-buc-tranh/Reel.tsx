@@ -20,7 +20,7 @@ const SCENES: Record<string, React.FC> = {
 
 // khoang-trong-trong-buc-tranh: one comp, BGM on (single BGM version per workflow).
 export const KhoangTrongTrongBucTranhReel: React.FC = () => (
-  <AbsoluteFill style={{background: '#1A1A2E', overflow: 'hidden'}}>
+  <AbsoluteFill style={{background: '#1E1E32', overflow: 'hidden'}}>
     <Fonts />
     {Object.entries(KTT_SHOTS).map(([k, s]) => {
       const S = SCENES[k];

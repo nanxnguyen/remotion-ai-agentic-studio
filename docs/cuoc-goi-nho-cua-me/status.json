@@ -1,7 +1,7 @@
 {
   "workflow_version": 2,
   "name": "cuoc-goi-nho-cua-me",
-  "comp": "CuocGoiNhoReel",
+  "comp": "05-CuocGoiNhoReel",
   "voice": "thanh-long-nang-cao",
   "profile": "story",
   "paths": {

@@ -5,7 +5,7 @@ import {VOICE_SECONDS} from './voice-durations';
 
 export const WORKBENCH = {
   slug: 'dung-bien-tuoi-30-thanh-ban-an',
-  compId: 'DungBienTuoi30ThanhBanAnReel',
+  compId: '11-DungBienTuoi30ThanhBanAnReel',
   fps: 30,
   width: 1080,
   height: 1920,

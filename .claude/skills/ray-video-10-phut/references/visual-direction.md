@@ -1,6 +1,6 @@
 # Video visual direction — adapted from distinctive frontend design principles
 
-This is original video-specific guidance, **informed by** the idea of subject-led visual identity in Anthropic's `frontend-design`. If the official skill is installed locally, read it directly and honor its license; this file does not reproduce it.
+This is original video-specific guidance, **informed by** the idea of subject-led visual identity in Anthropic's `frontend-design`. Reading `.agents/skills/frontend-design/SKILL.md` is **mandatory** for every video made with this skill (see "Mandatory frontend-design pass" in `SKILL.md`); honor its license; this file does not reproduce it.
 
 ## Art direction card (one page)
 

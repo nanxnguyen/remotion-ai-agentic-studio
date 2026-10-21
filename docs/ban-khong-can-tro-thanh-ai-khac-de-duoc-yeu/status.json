@@ -1,7 +1,7 @@
 {
   "workflow_version": 4,
   "name": "ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu",
-  "comp": "BanKhongCanTroThanhAiKhacDeDuocYeuReel",
+  "comp": "13-BanKhongCanTroThanhAiKhacDeDuocYeuReel",
   "voice": "thanh-long-nang-cao",
   "profile": "story",
   "paths": {

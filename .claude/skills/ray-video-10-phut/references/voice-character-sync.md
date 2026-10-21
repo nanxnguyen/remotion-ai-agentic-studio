@@ -6,6 +6,8 @@ Apply to every spoken video. Use existing canonical voice/timeline contracts; re
 
 ## 1. Cast before generating full dialogue
 
+**Default narrator.** The narrator speaker is Thanh Long Nâng Cao (VieNeu-TTS clone) using `docs/thuong-hay-so-bat-dau-lai/voice-ref/refThanhLong.wav` (md5 `199de31c8281d895dd571e36fe464ed5`) unless the user names another voice. The narrator needs no new casting audition; record it in `voice-sync.md` with that hash. Casting and auditions below apply to every *other* speaker.
+
 - Give each role a stable speaker ID, including a separate narrator. Record perceived age, vocal presentation, dialect, timbre, pace, emotional range, provider/model/version, voice ID and generation settings. Preserve identity across every utterance.
 - For the family story: daughter = believable young girl; father = adult man; mother = adult woman. Do not use one adult narrator voice for all dialogue or pitch-shift an adult voice and assume it sounds like a child.
 - Generate a short actual audition for each role using its hook or most emotionally demanding line. Listen for pronunciation, Vietnamese rhythm, breathing, stress, natural pauses and fit with the character. Record asset hash, listener, findings and selected take. A provider label or ASR transcript does not prove suitability.

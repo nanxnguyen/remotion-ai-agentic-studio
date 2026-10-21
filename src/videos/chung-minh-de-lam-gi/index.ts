@@ -4,7 +4,7 @@ import {ChungMinhDeLamGiReel} from './Reel';
 import {CMD_TOTAL} from './timeline';
 
 export const chungMinhDeLamGiVideo = defineVideo({
-  id: 'ChungMinhDeLamGiReel',
+  id: '09-ChungMinhDeLamGiReel',
   slug: 'chung-minh-de-lam-gi',
   component: ChungMinhDeLamGiReel,
   durationInFrames: CMD_TOTAL,

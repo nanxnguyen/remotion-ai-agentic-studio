@@ -3,7 +3,7 @@ import {CuocGoiNhoReel} from './Reel';
 import {CGN_TOTAL} from './timeline';
 
 export const cuocGoiNhoVideo = defineVideo({
-  id: 'CuocGoiNhoReel',
+  id: '05-CuocGoiNhoReel',
   slug: 'cuoc-goi-nho',
   component: CuocGoiNhoReel,
   durationInFrames: CGN_TOTAL,

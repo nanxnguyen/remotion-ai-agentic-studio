@@ -1,7 +1,7 @@
 {
   "workflow_version": 2,
   "name": "thuong-hay-so-bat-dau-lai",
-  "comp": "ThuongHaySoReel",
+  "comp": "07-ThuongHaySoReel",
   "voice": "thanh-long-nang-cao",
   "profile": "story",
   "paths": {

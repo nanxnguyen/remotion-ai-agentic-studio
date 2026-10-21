@@ -3,7 +3,7 @@ import {KhoangTrongTrongBucTranhReel} from './Reel';
 import {KTT_TOTAL} from './timeline';
 
 export const khoangTrongTrongBucTranhVideo = defineVideo({
-  id: 'KhoangTrongTrongBucTranhReel',
+  id: '15-KhoangTrongTrongBucTranhReel',
   slug: 'khoang-trong-trong-buc-tranh',
   component: KhoangTrongTrongBucTranhReel,
   durationInFrames: KTT_TOTAL,

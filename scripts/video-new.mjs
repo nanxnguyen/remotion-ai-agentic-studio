@@ -1,10 +1,27 @@
 #!/usr/bin/env node
-import {mkdir, readFile, rm, writeFile} from 'node:fs/promises';
+import {mkdir, readdir, readFile, rm, writeFile} from 'node:fs/promises';
 import path from 'node:path';
 import {pathToFileURL} from 'node:url';
 
 const slugPattern = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const idPattern = /^[A-Z][A-Za-z0-9]*$/;
+
+// Composition ids are `NN-Name` so Remotion Studio shows production order; NN = highest existing number + 1.
+const nextNumber = async (root) => {
+  const dir = path.join(root, 'src', 'videos');
+  let highest = 0;
+  for (const entry of await readdir(dir, {withFileTypes: true})) {
+    if (!entry.isDirectory()) continue;
+    try {
+      const index = await readFile(path.join(dir, entry.name, 'index.ts'), 'utf8');
+      const match = /id:\s*'(\d{2,3})-/.exec(index);
+      if (match) highest = Math.max(highest, Number(match[1]));
+    } catch {
+      // not a video folder
+    }
+  }
+  return String(highest + 1).padStart(2, '0');
+};
 
 const variableName = (id) => `${id[0].toLowerCase()}${id.slice(1)}Video`;
 
@@ -40,6 +57,7 @@ export async function scaffoldVideo({root, slug, id, scenes}) {
 
   const sceneNames = Array.from({length: scenes}, (_, index) => String(index + 1).padStart(2, '0'));
   const variable = variableName(id);
+  const compositionId = `${await nextNumber(root)}-${id}`;
   try {
     await mkdir(path.join(target, 'scenes'), {recursive: true});
     await Promise.all(
@@ -59,7 +77,7 @@ export async function scaffoldVideo({root, slug, id, scenes}) {
     );
     await writeFile(
       path.join(target, 'index.ts'),
-      `import {defineVideo} from '../../core';\nimport {${id}} from './Reel';\nimport {timeline} from './timeline';\n\nexport const ${variable} = defineVideo({\n  id: '${id}',\n  slug: '${slug}',\n  component: ${id},\n  durationInFrames: timeline.totalDurationInFrames,\n  fps: 30,\n  width: 1080,\n  height: 1920,\n  testFrames: [0, Math.floor(timeline.totalDurationInFrames / 2), timeline.totalDurationInFrames - 1],\n});\n`,
+      `import {defineVideo} from '../../core';\nimport {${id}} from './Reel';\nimport {timeline} from './timeline';\n\nexport const ${variable} = defineVideo({\n  id: '${compositionId}',\n  slug: '${slug}',\n  component: ${id},\n  durationInFrames: timeline.totalDurationInFrames,\n  fps: 30,\n  width: 1080,\n  height: 1920,\n  testFrames: [0, Math.floor(timeline.totalDurationInFrames / 2), timeline.totalDurationInFrames - 1],\n});\n`,
       'utf8',
     );
     const nextRegistry = registry

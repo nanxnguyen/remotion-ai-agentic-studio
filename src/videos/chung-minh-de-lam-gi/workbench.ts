@@ -4,7 +4,7 @@ import {CMD_SHOTS, CMD_TOTAL} from './timeline';
 
 export const WORKBENCH = {
   slug: 'chung-minh-de-lam-gi',
-  compId: 'ChungMinhDeLamGiReel',
+  compId: '09-ChungMinhDeLamGiReel',
   totalFrames: CMD_TOTAL,
   fps: 30,
   width: 1080,

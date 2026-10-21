@@ -3,7 +3,7 @@ import {CamonReel} from './Reel';
 import {CAMON_TOTAL} from './timeline';
 
 export const camOnVideo = defineVideo({
-  id: 'CamonReel',
+  id: '03-CamonReel',
   slug: 'cam-on',
   component: CamonReel,
   durationInFrames: CAMON_TOTAL,

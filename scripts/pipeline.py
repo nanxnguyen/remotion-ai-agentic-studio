@@ -512,8 +512,9 @@ def evidence(folder: str, data: dict) -> dict:
         keys = list(json.loads(vj.read_text(encoding="utf-8")))
         clips = [audio / f"{k}.mp3" for k in keys]
         have = [rel(c) for c in clips if c.exists()]
-        ev["voice"] = {"ok": len(have) == len(keys) > 0, "files": [rel(vj)] + have,
-                       "detail": f"{len(have)}/{len(keys)} clips"}
+        dupes = duplicate_audio_problems(folder, data)
+        ev["voice"] = {"ok": len(have) == len(keys) > 0 and not dupes, "files": [rel(vj)] + have,
+                       "detail": "; ".join(dupes) or f"{len(have)}/{len(keys)} clips"}
     else:
         ev["voice"] = {"ok": False, "files": [], "detail": "no voice.json"}
 
@@ -526,8 +527,9 @@ def evidence(folder: str, data: dict) -> dict:
     ev["design"] = {"ok": bool(ds), "files": ds}
 
     catalog = composition_catalog()
-    ev["build"] = {"ok": bool(comp) and (f'id="{comp}"' in catalog
-                                         or f"id: '{comp}'" in catalog or f'id: "{comp}"' in catalog),
+    resolved = resolve_comp(comp)
+    ev["build"] = {"ok": bool(comp) and (f'id="{resolved}"' in catalog
+                                         or f"id: '{resolved}'" in catalog or f'id: "{resolved}"' in catalog),
                    "files": ["src/Root.tsx"] if comp else [],
                    "detail": f"composition {comp or '?'}"}
 
@@ -597,6 +599,16 @@ def composition_catalog() -> str:
         paths += sorted(videos_dir.glob("**/index.ts"))
     signature = tuple(_cache_key(path) for path in paths if path.is_file())
     return _composition_catalog_cached(signature)
+
+
+def resolve_comp(comp: str) -> str:
+    """Registered composition id for a status `comp`: ids are `NN-Name` (production order in Studio),
+    while a status written before numbering, or by `init`, may hold the bare `Name`."""
+    catalog = composition_catalog()
+    if not comp or any(f"id{sep}{q}{comp}{q}" in catalog for sep in (": ", "=") for q in ("'", '"')):
+        return comp
+    found = re.findall(r"""id(?:: |=)['"](\d{2,3}-""" + re.escape(comp) + r""")['"]""", catalog)
+    return found[0] if found else comp
 
 
 def clear_monitor_caches() -> None:
@@ -783,6 +795,7 @@ def missing_prerequisites(folder: str, data: dict, stage: str) -> list:
     if stage == "build":
         missing += [f"gate {g} has not passed" for g in ("E", "B") if not review_satisfied(data, g)]
         missing += scene_problems(folder)
+        missing += duplicate_audio_problems(folder, data) + voice_duration_problems(folder, data)
     if stage == "design":
         missing += demo_problems(folder)
     if stage == "qa":
@@ -964,6 +977,9 @@ def cmd_review(a) -> None:
                     raise SystemExit("motion report requires open high/medium: 0")
         if a.gate == "E" and flow_version(data) >= 4 and data.get("stages", {}).get("motion", {}).get("state") != "done":
             raise SystemExit("motion stage must be done before E")
+        if a.gate == "audio" and a.verdict == "pass" and (
+                problems := duplicate_audio_problems(a.folder, data) + voice_duration_problems(a.folder, data)):
+            raise SystemExit("audio cannot pass: " + "; ".join(problems))
         # Audio needs no user confirmation (automatic workflow); `audio-listen` stays as an optional record.
         if a.gate == "C" and not verified_render(data):
             raise SystemExit("verify the current MP4 before video review")
@@ -1143,7 +1159,24 @@ def validate_media(path: Path, min_seconds: float, max_seconds: float) -> float:
         raise SystemExit("expected AAC audio")
     if not min_seconds <= duration <= max_seconds:
         raise SystemExit(f"duration {duration:.2f}s outside {min_seconds}..{max_seconds}s")
+    black = black_seconds(path)
+    if black > duration * MAX_BLACK_RATIO:
+        raise SystemExit(f"{black:.2f}s of {duration:.2f}s is black frames (limit {MAX_BLACK_RATIO:.0%}): "
+                         "a scene renders nothing")
     return duration
+
+
+MAX_BLACK_RATIO = 0.10  # room for a planned fade or dip to black, never for empty scenes
+
+
+def black_seconds(path: Path) -> float:
+    result = subprocess.run(["ffmpeg", "-hide_banner", "-nostats", "-i", str(path), "-an",
+                             # pic_th=0.999: minimal white-on-black frames (stick figures, small type) are not "black"
+                             "-vf", "blackdetect=d=0.1:pic_th=0.999:pix_th=0.10", "-f", "null", "-"],
+                            capture_output=True, text=True)
+    if result.returncode:
+        raise SystemExit(f"blackdetect failed: {result.stderr.strip()[-300:]}")
+    return sum(float(x) for x in re.findall(r"black_duration:\s*([0-9.]+)", result.stderr))
 
 
 def render_draft(a, runner=None) -> Path:
@@ -1155,7 +1188,7 @@ def render_draft(a, runner=None) -> Path:
     output = ROOT / "out" / "draft" / f"{a.folder}-draft.mp4"
     output.parent.mkdir(parents=True, exist_ok=True)
     npx = shutil.which("npx") or "npx"
-    (runner or subprocess.run)([npx, "remotion", "render", "src/index.ts", data["comp"], str(output),
+    (runner or subprocess.run)([npx, "remotion", "render", "src/index.ts", resolve_comp(data["comp"]), str(output),
                                "--scale", str(scale), "--codec", "h264", "--crf", "18",
                                "--pixel-format", "yuv420p"], cwd=ROOT, check=True)
     return output
@@ -1182,7 +1215,7 @@ def cmd_render(a) -> None:
                 if not a.raw:
                     # Windows: npx is npx.cmd; CreateProcess can't resolve it without a shell.
                     npx = shutil.which("npx") or "npx"
-                    subprocess.run([npx, "remotion", "render", "src/index.ts", data["comp"], str(raw),
+                    subprocess.run([npx, "remotion", "render", "src/index.ts", resolve_comp(data["comp"]), str(raw),
                                     "--codec", "h264", "--crf", "18", "--pixel-format", "yuv420p"], cwd=ROOT, check=True)
                 final = work / "final.mp4"
                 subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", str(raw), "-c:v", "copy",
@@ -1301,6 +1334,63 @@ def clip_seconds(path: Path) -> float:
     return value
 
 
+VOICE_SECONDS_RE = re.compile(r"export\s+const\s+VOICE_SECONDS\s*=\s*\{(.*?)\}", re.S)
+AUDIO_SUFFIXES = {".mp3", ".wav", ".m4a", ".aac", ".ogg", ".flac"}
+
+
+def measured_voice_seconds(path: Path) -> dict | None:
+    """The VOICE_SECONDS map written by scripts/measure-voice.mjs; None when the file is not in that format."""
+    m = VOICE_SECONDS_RE.search(path.read_text(encoding="utf-8"))
+    if not m:
+        return None
+    return {k: float(v) for k, v in re.findall(r"^\s*([A-Za-z0-9_]+)\s*:\s*([0-9]+(?:\.[0-9]+)?)\s*,?\s*$",
+                                               m.group(1), re.M)}
+
+
+def media_seconds(path: Path) -> float:
+    return float(probe_media(path).get("format", {}).get("duration", 0))
+
+
+def duplicate_audio_problems(folder: str, data: dict) -> list[str]:
+    """Distinct audio files with identical bytes are placeholders, never real voice, BGM or SFX."""
+    audio = ROOT / "public" / "audio" / data.get("paths", {}).get("audio", folder)
+    groups: dict[str, list[str]] = {}
+    for p in sorted(audio.rglob("*")) if audio.is_dir() else []:
+        if p.is_file() and p.suffix.lower() in AUDIO_SUFFIXES:
+            groups.setdefault(file_sha256(p), []).append(p.relative_to(audio).as_posix())
+    return [f"identical audio content (placeholder?): {', '.join(names)}"
+            for names in groups.values() if len(names) > 1]
+
+
+def voice_duration_problems(folder: str, data: dict) -> list[str]:
+    """voice-durations.ts must be the ffprobe measurement of every voice.json clip (±1 frame), not typed by hand."""
+    measured = ROOT / "src" / "videos" / folder / "voice-durations.ts"
+    vj = DOCS / folder / "voice.json"
+    if not measured.is_file() or not vj.is_file():
+        return []
+    values = measured_voice_seconds(measured)
+    if values is None:
+        return [f"{rel(measured)} has no VOICE_SECONDS map (run `npm run voice:measure -- {folder}`)"]
+    audio = ROOT / "public" / "audio" / data.get("paths", {}).get("audio", folder)
+    problems = []
+    for key in json.loads(vj.read_text(encoding="utf-8")):
+        clip = audio / f"{key}.mp3"
+        if key not in values:
+            problems.append(f"voice-durations.ts has no measurement for {key}")
+            continue
+        if not clip.is_file():
+            problems.append(f"voice {key}: {rel(clip)} is missing")
+            continue
+        try:
+            actual = media_seconds(clip)
+        except (OSError, ValueError) as exc:
+            problems.append(f"voice {key}: cannot measure {rel(clip)} ({exc})")
+            continue
+        if abs(actual - values[key]) > 1 / 30:
+            problems.append(f"voice {key}: clip is {actual:.3f}s but voice-durations.ts says {values[key]:.3f}s")
+    return problems
+
+
 def clip_shot_problems(folder: str, data: dict) -> list[str]:
     """Check literal shot(id, VOICE_SECONDS.key, hold) timelines at canonical 30fps.
 
@@ -1311,8 +1401,7 @@ def clip_shot_problems(folder: str, data: dict) -> list[str]:
     measured, timeline = video / "voice-durations.ts", video / "timeline.ts"
     if not measured.is_file() or not timeline.is_file():
         return []
-    values = dict(re.findall(r"^\s*([A-Za-z0-9_]+)\s*:\s*([0-9]+(?:\.[0-9]+)?)\s*,?\s*$",
-                             measured.read_text(encoding="utf-8"), re.M))
+    values = measured_voice_seconds(measured) or {}
     shots = re.findall(r"shot\(\s*['\"]([^'\"]+)['\"]\s*,\s*VOICE_SECONDS\.([A-Za-z0-9_]+)\s*,\s*([0-9]+(?:\.[0-9]+)?)\s*\)",
                        timeline.read_text(encoding="utf-8"))
     audio = ROOT / "public" / "audio" / data.get("paths", {}).get("audio", folder)
@@ -1384,6 +1473,13 @@ def audit(folder: str) -> dict:
     started = any(s["state"] not in {"pending", "skipped"} for s in v["stages"]) or data.get("reviews")
     delivered = review_passed(data, "C") and (docs / "eval.md").is_file()
     errors += clip_shot_problems(folder, data)
+    errors += duplicate_audio_problems(folder, data) + voice_duration_problems(folder, data)
+    for gate in review_names(data):
+        entries = data.get("reviews", {}).get(gate, [])
+        reviewer = GATE_REVIEWERS.get(gate, "")
+        if entries and entries[-1].get("verdict") == "pass" and reviewer and not any(
+                re.fullmatch(re.escape(reviewer) + r"(?:-\d+)?", name) for name in data.get("agents", {})):
+            warnings.append(f"review {gate} passed with no {reviewer} agent record (was an independent reviewer dispatched?)")
     if started and not delivered and not data.get("next"):
         errors.append("status has no `next` step (set it with `set ... --next`)")
     if review_passed(data, "C") and not (docs / "eval.md").is_file():

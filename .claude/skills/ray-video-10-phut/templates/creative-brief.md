@@ -11,6 +11,11 @@
 - Fast-lane eligible? Yes / No; preflight evidence:
 - Source/claim policy and media rights:
 
+## Voice (default: Thanh Long Nâng Cao)
+- Narrator: Thanh Long Nâng Cao, VieNeu-TTS local clone (route 2), slug `thanh-long-nang-cao`
+- Reference: `docs/<vid>/voice-ref/refThanhLong.wav` copied from `docs/thuong-hay-so-bat-dau-lai/voice-ref/refThanhLong.wav` (md5 `199de31c8281d895dd571e36fe464ed5`)
+- Other speakers (character dialogue), if any, and why the default is replaced:
+
 ## Hook selection (choose ONE)
 | Candidate | Mechanism | First-frame visual | Verifiable promise | Decision |
 |---|---|---|---|---|

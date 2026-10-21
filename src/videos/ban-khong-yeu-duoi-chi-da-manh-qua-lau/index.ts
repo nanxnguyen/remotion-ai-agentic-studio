@@ -3,7 +3,7 @@ import {BanKhongYeuDuoiReel} from './Reel';
 import {timeline} from './timeline';
 
 export const banKhongYeuDuoiReelVideo = defineVideo({
-  id: 'BanKhongYeuDuoiReel',
+  id: '14-BanKhongYeuDuoiReel',
   slug: 'ban-khong-yeu-duoi-chi-da-manh-qua-lau',
   component: BanKhongYeuDuoiReel,
   durationInFrames: timeline.totalDurationInFrames,
