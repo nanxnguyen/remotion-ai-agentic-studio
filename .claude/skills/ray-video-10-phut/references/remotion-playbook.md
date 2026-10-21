@@ -62,6 +62,8 @@ This is a fragment for creative direction, **not** a complete scene. It has no a
 
 ## Audio/captions
 
+Read `voice-character-sync.md` before generating speech. Derive speaker audio, shot coverage and caption intervals from the same measured utterance timeline; explicitly plan cross-shot dialogue. Review cast identity and synchronization in the final MP4, not only source audio.
+
 - Canonical spoken words: `docs/<vid>/voice.json`. Review/ASR must compare full mix vs canonical source per shot; ASR cannot verify human expressiveness.
 - Audio targets from source skill: integrated around −14 LUFS, true peak ≤−1.5 dBTP; BGM typically 12–18 dB below voice. Measure from rendered MP4; don't confuse gain settings with measured output.
 - Captions require Vietnamese tone marks, exact spoken wording as appropriate, no bottom 210px, no cramped or clipped FitText. Clear type with controlled emphasis beats; don't karaoke animate every word unless it improves comprehension.
