@@ -44,6 +44,7 @@ describe('videoRegistry', () => {
         height: 1920,
       },
       {id: 'BanKhongYeuDuoiReel', durationInFrames: 720, fps: 30, width: 1080, height: 1920},
+      {id: 'KhoangTrongTrongBucTranhReel', durationInFrames: 1542, fps: 30, width: 1080, height: 1920},
     ]);
   });
 

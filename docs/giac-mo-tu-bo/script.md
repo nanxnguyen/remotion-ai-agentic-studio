@@ -135,7 +135,7 @@ reference these ids; they never re-describe or re-claim an arrival.
 | **L2** — **the one arrival** | `s7` | **The first warm light in the video.** The same window, later in the day: the bar of light has **moved across the boards and has gone warm** `#F0D9A6`, and for the first time it **lands on the closed cover in the hand and on the wrist** (the notebook is shut here; it opens at `s9`). Small, natural, unexplained by anyone on screen. |
 | **L3** | `s10` → `s11` | The same warm rectangle, **wider**: now on the forearm, the knee and the far edge of the page. Still the same window; nothing new is lit. |
 | **L4** — warmest | `s15` | Warmest and steadiest in the video, the same window at its fullest, plus one low warm bounce off the near strings. |
-| **L2-held** — no new arrival | `s8`, `s9`, `s12`, `s13`, `s14`, `s16` | The same window, warm, **unchanged from `L2`/`L3`** — no arrival, no new light in these shots; the bar simply continues across the boards. |
+| **L2-held** — no new arrival | `s8`, `s9`, `s12`, `s13`, `s14`, `s16`, `END` | The same window, warm, **unchanged from `L2`/`L3`** — no arrival, no new light in these shots; the bar simply continues across the boards. |
 
 `s1`–`s6` are the only cold frames; the palette turns at `s7` and never returns. **No amber bulb, no candle, no
 red, no neon** anywhere, at any point (§Visual identity, `brief.md`).
@@ -450,7 +450,7 @@ re-read slower or faster to fit, and audio is never sped up.
 Every shot row in §3 names its pair by id only. **The turn is carried by `CP1`** — the same handwriting, the same
 page, the same ink, framed once as a young person's plan and once under a finger that slows where the letters lean
 forward. `CP2`'s polarity is fixed and never inverted: **the button is live in `s6` and the finger never lands on
-it, and the screen goes dark for 2.32 s before the notebook returns.** `CP3` is resolved without an achievement:
+it, and the screen goes dark for **1.27 s at 3.9 syl/s** (from the `tắt` press to `s7` at 18.35 s) before the notebook returns.** `CP3` is resolved without an achievement:
 `s12` explicitly lets the musician go, and `s15`'s chord is **buzzing and badly fretted**, which is the point.
 
 ### 6.2 Highlight beats — exactly three (`S-02`)

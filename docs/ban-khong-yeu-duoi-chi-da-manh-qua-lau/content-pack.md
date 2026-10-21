@@ -62,7 +62,7 @@ Highest assigned y anywhere in the pack: **1710** (outer pixel bound of the capt
 |---|---|---|---|---|---|---|---|---|
 | `s1` | `Ai che ô cho bạn?` | 5 w · 17 ch | holds from frame 0; **clears on the `s1`→`s2a` clip boundary** (3.34 s → planning frame 100) | **C1** L1 `Mọi người thường tìm đến bạn` (28) · L2 `mỗi khi có chuyện buồn.` (23) | `tìm đến bạn` · `chuyện buồn` | light `chuyện buồn` | — | — |
 | `s2a` | `Ly của bạn vẫn trống` | 5 w · 20 ch | **clears on the `s2a`→`a1` clip boundary** (6.18 s → planning frame 185) | **C1** L1 `Bạn biết cách an ủi.` (20) · L2 `Biết phải nói gì.` (17) | `an ủi` · `nói gì` | light `an ủi` | — | — |
-| `a1` | **— caption-layer-only** | — | — | **C1** L1 `Vai người khác chùng xuống.` (27) · L2 `Còn bạn thì đứng ngoài.` (23) | `chùng xuống` · `đứng ngoài` | light `đứng ngoài` | — | — |
+| `a1` | **— caption-layer-only** | — | — | **C1** L1 `Vai người khác nhẹ xuống.` (26) · L2 `Còn bạn thì đứng ngoài.` (23) | `nhẹ xuống` · `đứng ngoài` | light `đứng ngoài` | — | — |
 | `s2b` | **— caption-layer-only** | — | — | **C1** L1 `Biết làm sao để người khác` (26) · L2 `thấy ổn hơn.` (12) | `thấy ổn hơn` | light `ổn hơn` (not the whole line) | — | — |
 | `s3` | **— caption-layer-only** (CR-08) | — | — | **C1** L1 `Nhưng có một tối,` (17) · **C2** L1 `chính bạn lại ngồi rất lâu` (26) · L2 `trước màn hình điện thoại.` (26) | `một tối` · `rất lâu` · `trước màn hình điện thoại` | **strong `rất lâu`** (H1); no light span | — | — |
 | `a2` | **— caption-layer-only** | — | — | **C1** L1 `Ngoài cửa sổ, mưa rơi đều.` (26) | `mưa rơi đều` | light `mưa rơi đều` | — | — |
@@ -96,7 +96,7 @@ Highest assigned y anywhere in the pack: **1710** (outer pixel bound of the capt
 |---|---|---|
 | `s1` | `Mọi người thường tìm đến bạn mỗi khi có chuyện buồn.` | ✅ |
 | `s2a` | `Bạn biết cách an ủi. Biết phải nói gì.` | ✅ |
-| `a1` | `Vai người khác chùng xuống. Còn bạn thì đứng ngoài.` | ✅ |
+| `a1` | `Vai người khác nhẹ xuống. Còn bạn thì đứng ngoài.` | ✅ |
 | `s2b` | `Biết làm sao để người khác thấy ổn hơn.` | ✅ |
 | `s3` | `Nhưng có một tối, chính bạn lại ngồi rất lâu trước màn hình điện thoại.` | ✅ |
 | `a2` | `Ngoài cửa sổ, mưa rơi đều.` | ✅ |

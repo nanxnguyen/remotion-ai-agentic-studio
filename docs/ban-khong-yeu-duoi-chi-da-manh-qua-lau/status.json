@@ -28,9 +28,9 @@
       "note": "research.md written: user-supplied account as primary source, 5 hook candidates"
     },
     "script": {
-      "state": "in_progress",
-      "at": "2026-10-20T23:42:25+07:00",
-      "note": "voice.json+voice.proposed.json a1: 'chùng xuống'→'nhẹ xuống' to fix AR-04 (engine cannot render 'chùng' tone); Gate A re-review required"
+      "state": "done",
+      "at": "2026-10-21T00:16:01+07:00",
+      "note": "Gate A pass 9.2/10; a1 'chùng xuống'→'nhẹ xuống' aligns canonical spoken text; AR-04 resolved by wording change"
     },
     "voice": {
       "state": "done",
@@ -45,8 +45,9 @@
       "note": "audio-agent: bgm.mp3 (60.43s, -20.1 LUFS on the played 43.90s segment), 10 foley cues (11 cue slots), beat-grid verdict = no beat sync (measured), mix-plan.md + assets-manifest.md + analysis/{grid_drift.json,no-beat-sync.md,check-cues.py,check-licences.py}; 11/11 cues inside silence windows (exit 0), 0 licence gaps (exit 0). Gate 'audio' still unrecorded - audio-reviewer has not run."
     },
     "content": {
-      "state": "done",
-      "at": "2026-10-20T22:16:21+07:00"
+      "state": "in_progress",
+      "at": "2026-10-21T00:17:34+07:00",
+      "note": "content-pack.md exists but gate content never passed; re-open for content-reviewer round 1"
     },
     "design": {
       "state": "in_progress",
@@ -1042,9 +1043,27 @@
       "stage": "script",
       "who": "script-reviewer",
       "msg": "script-reviewer done"
+    },
+    {
+      "t": "2026-10-21T00:16:01+07:00",
+      "stage": "script",
+      "who": "agent",
+      "msg": "script -> done: Gate A pass 9.2/10; a1 'chùng xuống'→'nhẹ xuống' aligns canonical spoken text; AR-04 resolved by wording change (evidence: 5 file(s): docs/ban-khong-yeu-duoi-chi-da-manh-qua-lau/script.md; gate A: pass 9.2/10)"
+    },
+    {
+      "t": "2026-10-21T00:17:34+07:00",
+      "stage": "content",
+      "who": "agent",
+      "msg": "content -> in_progress: content-pack.md exists but gate content never passed; re-open for content-reviewer round 1"
+    },
+    {
+      "t": "2026-10-21T00:17:34+07:00",
+      "stage": "content",
+      "who": "content-agent",
+      "msg": "content-agent running: Content-pack.md exists; verifying against voice.json/script.md before content-reviewer round 1"
     }
   ],
-  "updated": "2026-10-21T00:15:27+07:00",
+  "updated": "2026-10-21T00:17:34+07:00",
   "agents": {
     "video-director": {
       "state": "idle",
@@ -1101,9 +1120,9 @@
       "stage": ""
     },
     "content-agent": {
-      "state": "done",
-      "at": "2026-10-20T22:14:07+07:00",
-      "note": "",
+      "state": "running",
+      "at": "2026-10-21T00:17:34+07:00",
+      "note": "Content-pack.md exists; verifying against voice.json/script.md before content-reviewer round 1",
       "stage": "content"
     },
     "voice-agent": {
