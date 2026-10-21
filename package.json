@@ -12,7 +12,7 @@
     "video:new": "node scripts/video-new.mjs",
     "voice:measure": "node scripts/measure-voice.mjs",
     "typecheck": "tsc --noEmit",
-    "test": "vitest run",
+    "test": "node --test tests/monitor_status_parity.test.cjs && vitest run --exclude tests/monitor_status_parity.test.cjs",
     "test:python": "python3 -m unittest scripts.test_pipeline scripts.test_monitor_ui scripts.test_voice_catalog",
     "test:visual": "node tests/visual/compare-golden.mjs",
     "assets:validate": "node scripts/validate-assets.mjs",

@@ -1,8 +1,8 @@
 // Proto Entry: preview composition for ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu design prototype
 import React from 'react';
-import { Composition, Sequence } from 'remotion';
-import { ProtoScene } from './scenes';
-import { SHOTS } from './scenes';
+import {Composition, Sequence} from 'remotion';
+import {ProtoScene} from './scenes';
+import {SHOTS} from './scenes';
 
 type ShotData = {
   id: string;

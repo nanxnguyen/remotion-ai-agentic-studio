@@ -4,6 +4,7 @@ import re
 import importlib.util
 import subprocess
 import unittest
+from unittest.mock import patch
 from html.parser import HTMLParser
 from pathlib import Path
 
@@ -67,10 +68,11 @@ class MonitorUiTest(unittest.TestCase):
         pipeline = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(pipeline)
 
-        self.assertEqual(
-            pipeline.terminal_command("opencode", "opencode/nemotron-3-ultra-free", "medium"),
-            [pipeline.shutil.which("opencode")],
-        )
+        with patch.object(pipeline.shutil, "which", return_value="/test/bin/opencode"):
+            self.assertEqual(
+                pipeline.terminal_command("opencode", "opencode/nemotron-3-ultra-free", "medium"),
+                ["/test/bin/opencode"],
+            )
 
     def test_join_does_not_complete_from_pending_motion_declaration(self):
         source = MONITOR.read_text(encoding="utf-8")

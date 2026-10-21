@@ -32,6 +32,7 @@ States: pending, in_progress, done, blocked, failed.
 import argparse
 import hashlib
 import json
+import math
 import os
 import re
 import shutil
@@ -853,6 +854,12 @@ def cmd_set(a) -> None:
     print(msg)
     if stop:
         print(f"STOP: gate '{a.stage}' needs approval in the monitor (python3 -I scripts/pipeline.py serve).")
+    if a.state == "done":
+        result = audit(a.folder)
+        for issue in result["errors"] + result["warnings"]:
+            print(f"⚠ audit: {issue}")
+        if result["errors"] and getattr(a, "strict_audit", False):
+            raise SystemExit(1)
 
 
 def cmd_upgrade(a) -> None:
@@ -992,6 +999,22 @@ def cmd_review(a) -> None:
         publish_after_gate_c(a.folder)
 
 
+def cmd_advance(a) -> None:
+    """Compose existing review/gate/agent commands without weakening validation."""
+    agent = a.agent or a.reviewer
+    if not re.fullmatch(r"[a-z0-9]+(?:-[a-z0-9]+)*(?:-\d+)?", agent):
+        raise SystemExit("agent must be a kebab-case name; use --agent for a display-name reviewer")
+    cmd_review(a)
+    if a.verdict == "pass":
+        try:
+            cmd_gate(argparse.Namespace(folder=a.folder, stage=a.gate))
+        except SystemExit as exc:
+            if exc.code != 0:
+                raise
+    cmd_agent(argparse.Namespace(folder=a.folder, agent=agent, state="done", stage=None,
+                                 note=f"review {a.gate} -> {a.verdict}"))
+
+
 def publish_after_gate_c(folder: str) -> None:
     """Upload the exact Gate-C artifact as private/draft when this video opts in."""
     config_path = DOCS / folder / "publishing.json"
@@ -1123,7 +1146,27 @@ def validate_media(path: Path, min_seconds: float, max_seconds: float) -> float:
     return duration
 
 
+def render_draft(a, runner=None) -> Path:
+    """Render a preview only; leave final artifacts, status and gates untouched."""
+    scale = float(a.scale)
+    if not math.isfinite(scale) or not 0 < scale <= 1:
+        raise SystemExit("draft scale must be > 0 and <= 1")
+    data = load(a.folder)
+    output = ROOT / "out" / "draft" / f"{a.folder}-draft.mp4"
+    output.parent.mkdir(parents=True, exist_ok=True)
+    npx = shutil.which("npx") or "npx"
+    (runner or subprocess.run)([npx, "remotion", "render", "src/index.ts", data["comp"], str(output),
+                               "--scale", str(scale), "--codec", "h264", "--crf", "18",
+                               "--pixel-format", "yuv420p"], cwd=ROOT, check=True)
+    return output
+
+
 def cmd_render(a) -> None:
+    if getattr(a, "draft", False):
+        if a.raw:
+            raise SystemExit("--draft cannot be combined with --raw")
+        print(f"draft preview: {render_draft(a)}")
+        return
     data = load(a.folder)
     out_dir = ROOT / "out"
     out_dir.mkdir(parents=True, exist_ok=True)
@@ -1249,6 +1292,46 @@ def review_report_size(folder: str, report: str) -> int:
     return 0
 
 
+def clip_seconds(path: Path) -> float:
+    result = subprocess.run(["ffprobe", "-v", "error", "-show_entries", "format=duration",
+                             "-of", "csv=p=0", str(path)], capture_output=True, text=True, check=True)
+    value = float(result.stdout.strip())
+    if not math.isfinite(value) or value <= 0:
+        raise ValueError("invalid measured audio duration")
+    return value
+
+
+def clip_shot_problems(folder: str, data: dict) -> list[str]:
+    """Check literal shot(id, VOICE_SECONDS.key, hold) timelines at canonical 30fps.
+
+    This intentionally does not evaluate TypeScript or infer dynamic layouts.
+    Other timeline forms retain their existing runtime/typed checks.
+    """
+    video = ROOT / "src" / "videos" / folder
+    measured, timeline = video / "voice-durations.ts", video / "timeline.ts"
+    if not measured.is_file() or not timeline.is_file():
+        return []
+    values = dict(re.findall(r"^\s*([A-Za-z0-9_]+)\s*:\s*([0-9]+(?:\.[0-9]+)?)\s*,?\s*$",
+                             measured.read_text(encoding="utf-8"), re.M))
+    shots = re.findall(r"shot\(\s*['\"]([^'\"]+)['\"]\s*,\s*VOICE_SECONDS\.([A-Za-z0-9_]+)\s*,\s*([0-9]+(?:\.[0-9]+)?)\s*\)",
+                       timeline.read_text(encoding="utf-8"))
+    audio = ROOT / "public" / "audio" / data.get("paths", {}).get("audio", folder)
+    problems = []
+    for scene, key, hold in shots:
+        clip = audio / f"{key}.mp3"
+        if key not in values or not clip.is_file():
+            continue
+        try:
+            actual = clip_seconds(clip)
+        except (OSError, ValueError, subprocess.CalledProcessError) as exc:
+            problems.append(f"clip-vs-shot {key}: cannot measure audio ({exc})")
+            continue
+        budget = float(values[key]) + float(hold)
+        if actual > budget + 1 / 30:
+            problems.append(f"clip-vs-shot {key}: {actual:.3f}s exceeds {scene} budget {budget:.3f}s")
+    return problems
+
+
 def audit(folder: str) -> dict:
     """Is status.json telling the truth? errors = must fix now, warnings = check by hand."""
     data = load(folder)
@@ -1300,6 +1383,7 @@ def audit(folder: str) -> dict:
                 warnings.append(f"stage {s['id']} in_progress for {int(age // 3600)}h with no running agent")
     started = any(s["state"] not in {"pending", "skipped"} for s in v["stages"]) or data.get("reviews")
     delivered = review_passed(data, "C") and (docs / "eval.md").is_file()
+    errors += clip_shot_problems(folder, data)
     if started and not delivered and not data.get("next"):
         errors.append("status has no `next` step (set it with `set ... --next`)")
     if review_passed(data, "C") and not (docs / "eval.md").is_file():
@@ -2636,7 +2720,8 @@ def main() -> None:
     p.add_argument("--voice"); p.add_argument("--profile", choices=("story", "product", "knowledge", "news"), default="story")
     p.set_defaults(fn=cmd_init)
     p = sub.add_parser("set"); p.add_argument("folder"); p.add_argument("stage"); p.add_argument("state")
-    p.add_argument("--note"); p.add_argument("--next"); p.set_defaults(fn=cmd_set)
+    p.add_argument("--note"); p.add_argument("--next"); p.add_argument("--strict-audit", action="store_true")
+    p.set_defaults(fn=cmd_set)
     p = sub.add_parser("voice"); p.add_argument("folder"); p.add_argument("voice"); p.set_defaults(fn=cmd_voice)
     p = sub.add_parser("gate"); p.add_argument("folder"); p.add_argument("stage"); p.set_defaults(fn=cmd_gate)
     p = sub.add_parser("upgrade"); p.add_argument("folder"); p.set_defaults(fn=cmd_upgrade)
@@ -2648,11 +2733,16 @@ def main() -> None:
     p.add_argument("--verdict", choices=("pass", "revise"), default="pass"); p.add_argument("--note")
     p.add_argument("--full-listen", action="store_true", help="gate C: optional note that the reviewer also heard the audio")
     p.set_defaults(fn=cmd_review)
+    p = sub.add_parser("advance"); p.add_argument("folder"); p.add_argument("gate", choices=ALL_REVIEWS); p.add_argument("score", type=float)
+    p.add_argument("--reviewer", required=True); p.add_argument("--report", required=True); p.add_argument("--agent")
+    p.add_argument("--verdict", choices=("pass", "revise"), default="pass"); p.add_argument("--note")
+    p.add_argument("--full-listen", action="store_true"); p.set_defaults(fn=cmd_advance)
     p = sub.add_parser("override"); p.add_argument("folder"); p.add_argument("gate", choices=ALL_REVIEWS)
     p.add_argument("--by", required=True); p.add_argument("--note"); p.set_defaults(fn=cmd_override)
     p = sub.add_parser("verify"); p.add_argument("folder"); p.add_argument("--min-seconds", type=float, default=None)
     p.add_argument("--max-seconds", type=float, default=None); p.set_defaults(fn=cmd_verify)
     p = sub.add_parser("render"); p.add_argument("folder"); p.add_argument("--raw")
+    p.add_argument("--draft", action="store_true"); p.add_argument("--scale", type=float, default=0.5)
     p.add_argument("--min-seconds", type=float, default=None); p.add_argument("--max-seconds", type=float, default=None)
     p.set_defaults(fn=cmd_render)
     p = sub.add_parser("listen"); p.add_argument("folder"); p.add_argument("--by", required=True); p.add_argument("--note")

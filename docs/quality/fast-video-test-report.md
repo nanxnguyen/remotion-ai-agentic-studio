@@ -51,22 +51,21 @@ New negative coverage includes 300 deterministic malformed nested inputs, numeri
 
 These measurements exclude network TTS, ASR/model loading, real status artifact scanning, Remotion rendering and final media QA. They cannot establish ten-minute video production throughput or provider uptime.
 
-## Repository-wide checks remain red
+## Repository-wide blockers resolved
 
-`npm ci --ignore-scripts` completed. `npm run verify` now reaches formatting and stops on 46 existing files. It is not blocked by missing ESLint anymore. No unrelated source formatting was changed.
+After the follow-up fixes, `npm run verify` exits 0: ESLint, Prettier, TypeScript, asset validation, 13 Node status tests, 96 Vitest tests, 124 pipeline/monitor/catalog tests and 12 publisher tests pass. The expanded pipeline/monitor/voice run passes all 141 tests. The full `tests/` discovery passes 60 tests, including HTTP, terminal, cloud monitor, runtime orchestration, publisher and isolated handoff contracts.
 
-`npm test` runs 96 passing Vitest tests but reports `No test suite found` for `tests/monitor_status_parity.test.cjs`, a Node test-runner file. Running that file with `node --test` passes all 13 tests. Running Vitest with that file excluded passes all 96 tests. The default runner configuration remains unresolved.
+- Restore `advance` as a wrapper around the existing validated review, gate query and agent completion commands. Invalid reviewer-agent IDs and failed reviews do not mark an agent complete.
+- Restore isolated `render --draft --scale` previews. They neither overwrite the final MP4 nor change stage/review state. Invalid scales and renderer failure have explicit regression tests.
+- Run an audit after `set ... done`; `--strict-audit` returns failure on audit errors after preserving the truthful stage update.
+- Add clip-vs-shot overflow checks for the supported literal `shot(id, VOICE_SECONDS.key, hold)` 30fps timeline form. Dynamic TypeScript is not evaluated or certified by this check.
+- Mock executable discovery in the OpenCode command-construction test, while retaining separate tests that reject unavailable CLIs.
+- Launch the Node-only monitor tests with `node --test`, then run Vitest with that file excluded. No suite is silently dropped.
+- Apply Prettier to the 46 previously failing files; changes to video source are formatting only.
+- Isolate pending-handoff tests from a completed production video using a temporary fixture; retain explicit rejection tests for generated voice, enabled publishing and reordered shots. Production video status is unchanged.
+- Align stale terminal tests with the existing bare OpenCode interactive launcher. Replace the obsolete input-guard string expectation with a Node execution test: inactive sessions reject input, running sessions preserve Vietnamese input and flush immediately.
 
-A combined Python pipeline/monitor/voice run executed 138 tests: 132 passed, four failures and two errors. All six failing cases were reproduced in an isolated worktree at commit `1725ac1`, before this change:
-
-| Test | Existing issue |
-|---|---|
-| `scripts.test_pipeline.PipelineCliTest.test_advance_records_review_gate_and_reviewer_in_one_call` | CLI `advance` missing |
-| `scripts.test_pipeline.PipelineCliTest.test_advance_uses_agent_override_and_skips_gate_on_revise` | CLI `advance` missing |
-| `scripts.test_pipeline.PipelineCliTest.test_audit_clip_vs_shot_reports_overflow_and_skips_without_data` | Expected overflow not reported |
-| `scripts.test_pipeline.PipelineCliTest.test_set_done_prints_audit_warning_and_strict_flag_fails` | Expected audit warning absent |
-| `scripts.test_pipeline.PipelineCliTest.test_draft_render_builds_half_scale_command_and_leaves_final_alone` | `render_draft` missing |
-| `scripts.test_monitor_ui.MonitorUiTest.test_opencode_terminal_uses_interactive_root_command` | OpenCode CLI unavailable in this environment |
+The original six pipeline failures were first reproduced in an isolated pre-change worktree. Their tests now pass, along with three added CLI edge cases. No gate thresholds were lowered and no failing tests were skipped.
 
 ## Quality limits
 

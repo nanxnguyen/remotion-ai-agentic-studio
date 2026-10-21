@@ -973,8 +973,39 @@ class PipelineCliTest(unittest.TestCase):
         self.assertEqual(cmd[cmd.index("SampleReel") + 1], str(out))
         data = self.status()
         self.assertNotIn("render_check", data)
-        self.assertNotEqual(data["stages"]["render"].get("state"), "done")
+        self.assertNotEqual(data["stages"].get("render", {}).get("state"), "done")
         self.assertFalse((self.root / "out" / "sample-anh-khoi-reel.mp4").exists())
+
+    def test_advance_rejects_invalid_agent_before_recording_review(self):
+        self.init()
+        report = self.write_report()
+        result = self.cli("advance", "sample", "A", "9", "--reviewer", "script-reviewer",
+                          "--report", report, "--agent", "not a valid id")
+        self.assertNotEqual(result.returncode, 0)
+        self.assertFalse(self.status().get("reviews", {}).get("A"))
+
+    def test_draft_rejects_invalid_scale_without_running_renderer(self):
+        self.init()
+        module = self.load_pipeline_module()
+        for scale in (0, -1, 1.1, float("nan"), float("inf")):
+            calls = []
+            with self.subTest(scale=scale), self.assertRaises(SystemExit):
+                module.render_draft(argparse.Namespace(folder="sample", scale=scale),
+                                    runner=lambda *args, **kwargs: calls.append(args))
+            self.assertEqual([], calls)
+
+    def test_draft_renderer_failure_preserves_pipeline_state_and_final(self):
+        self.init()
+        module = self.load_pipeline_module()
+        final = self.root / "out/sample-anh-khoi-reel.mp4"
+        final.write_bytes(b"previous final")
+        before = self.status()
+        def failed(*args, **kwargs):
+            raise subprocess.CalledProcessError(1, args[0])
+        with self.assertRaises(subprocess.CalledProcessError):
+            module.render_draft(argparse.Namespace(folder="sample", scale=0.5), runner=failed)
+        self.assertEqual(before, self.status())
+        self.assertEqual(b"previous final", final.read_bytes())
 
 
 class MonitorStudioTest(unittest.TestCase):

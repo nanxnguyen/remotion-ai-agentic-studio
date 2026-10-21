@@ -11,7 +11,8 @@ export const WORKBENCH = {
   height: 1920,
   totalFrames: timeline.totalDurationInFrames,
   shots: KEYS.map((key, index) => {
-    const shot = timeline.shots[`scene${String(index + 1).padStart(2, '0')}` as keyof typeof timeline.shots];
+    const shot =
+      timeline.shots[`scene${String(index + 1).padStart(2, '0')}` as keyof typeof timeline.shots];
     return {id: key, from: shot.from, duration: shot.duration, voiceSeconds: VOICE_SECONDS[key]};
   }),
   audioDir: 'dung-bien-tuoi-30-thanh-ban-an',

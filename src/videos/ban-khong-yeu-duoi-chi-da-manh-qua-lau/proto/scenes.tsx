@@ -121,12 +121,26 @@ export const StreetScene: React.FC<StreetOpts> = ({
       {show('far') ? (
         <g>
           <defs>
-            <linearGradient id="st-sky" x1="0" y1="0" x2="0" y2={GROUND} gradientUnits="userSpaceOnUse">
+            <linearGradient
+              id="st-sky"
+              x1="0"
+              y1="0"
+              x2="0"
+              y2={GROUND}
+              gradientUnits="userSpaceOnUse"
+            >
               <stop offset="0%" stopColor={PAL.night0} />
               <stop offset="55%" stopColor="#0B1620" />
               <stop offset="100%" stopColor={PAL.night3} />
             </linearGradient>
-            <linearGradient id="st-fog" x1="0" y1="520" x2="0" y2="900" gradientUnits="userSpaceOnUse">
+            <linearGradient
+              id="st-fog"
+              x1="0"
+              y1="520"
+              x2="0"
+              y2="900"
+              gradientUnits="userSpaceOnUse"
+            >
               <stop offset="0%" stopColor={PAL.night3} stopOpacity="0" />
               <stop offset="55%" stopColor={PAL.mist} stopOpacity="0.5" />
               <stop offset="100%" stopColor={PAL.night3} stopOpacity="0" />
@@ -143,7 +157,15 @@ export const StreetScene: React.FC<StreetOpts> = ({
             <rect x={150} y={860} width={120} height={200} fill="#13222E" opacity={0.8} />
             <rect x={560} y={760} width={110} height={180} fill="#13222E" opacity={0.6} />
             {/* one lit apartment window across the street — a warmth she is not under */}
-            <LitWindow x={828} y={700} w={150} h={190} on={1} warm={warm > 0.5 ? 1 : 0} spillTo={1400} />
+            <LitWindow
+              x={828}
+              y={700}
+              w={150}
+              h={190}
+              on={1}
+              warm={warm > 0.5 ? 1 : 0}
+              spillTo={1400}
+            />
             {/* the ONE sodium lamp, behind her (single asset, one softness — D-A13) */}
             <SodiumLamp x={950} top={620} ground={GROUND} pool={1} glow={1} />
           </g>
@@ -152,7 +174,15 @@ export const StreetScene: React.FC<StreetOpts> = ({
               {/* her own lit doorway behind her, frame left (script §3 s9) */}
               <rect x={40} y={950} width={210} height={610} fill="#241A10" />
               <rect x={64} y={974} width={162} height={562} fill={PAL.window} opacity={0.5} />
-              <rect x={40} y={950} width={210} height={610} fill="none" stroke={PAL.night1} strokeWidth={16} />
+              <rect
+                x={40}
+                y={950}
+                width={210}
+                height={610}
+                fill="none"
+                stroke={PAL.night1}
+                strokeWidth={16}
+              />
               <ellipse cx={145} cy={1255} rx={230} ry={330} fill={PAL.window} opacity={0.12} />
             </g>
           ) : null}
@@ -166,7 +196,14 @@ export const StreetScene: React.FC<StreetOpts> = ({
           <Contact x={KID_X} y={GROUND} w={190} />
           {/* the rim's shadow cone: falls across the CHILD and the pavement, never across her */}
           <defs>
-            <linearGradient id="st-cone" x1="0" y1="700" x2="0" y2="1700" gradientUnits="userSpaceOnUse">
+            <linearGradient
+              id="st-cone"
+              x1="0"
+              y1="700"
+              x2="0"
+              y2="1700"
+              gradientUnits="userSpaceOnUse"
+            >
               <stop offset="0%" stopColor="#02050A" stopOpacity="0.5" />
               <stop offset="70%" stopColor="#02050A" stopOpacity="0.2" />
               <stop offset="100%" stopColor="#02050A" stopOpacity="0" />
@@ -210,9 +247,10 @@ export const StreetScene: React.FC<StreetOpts> = ({
   );
 };
 
-const RainLayer: React.FC<{f: number; exclude: readonly (readonly {x: number; y: number}[])[]}> = ({f, exclude}) => (
-  <RainComp f={f} count={110} seed={7} opacity={0.5} width={2.5} exclude={exclude} />
-);
+const RainLayer: React.FC<{f: number; exclude: readonly (readonly {x: number; y: number}[])[]}> = ({
+  f,
+  exclude,
+}) => <RainComp f={f} count={110} seed={7} opacity={0.5} width={2.5} exclude={exclude} />;
 
 // ─────────────────────────── ProtoHook (s1, the cover) ───────────────────────────
 
@@ -233,7 +271,12 @@ export const ProtoHook: React.FC = () => {
     <AbsoluteFill style={{backgroundColor: PAL.night0}}>
       <BKYDFonts />
       <AbsoluteFill style={{transform: `scale(${scale})`}}>
-        <svg width={1080} height={1920} viewBox="0 0 1080 1920" style={{position: 'absolute', inset: 0}}>
+        <svg
+          width={1080}
+          height={1920}
+          viewBox="0 0 1080 1920"
+          style={{position: 'absolute', inset: 0}}
+        >
           <g transform={`translate(0 ${f2(-RAIL_Y * 0.35 * drive)})`}>
             <StreetScene f={f} layer="far" />
           </g>
@@ -288,7 +331,10 @@ const KitchenScene: React.FC<KitchenOpts> = ({f, open, drop, headUp}) => {
     mouth: 'closed',
     // head in hands: both arms fold up to the head; at s2b the right hand drops to the glass
     armL: {to: pt(766, 1046), bend: 1, hand: 'open'},
-    armR: headUp > 0.55 ? {to: pt(896, 1216), bend: -1, hand: 'open'} : {to: pt(874, 1050), bend: -1, hand: 'open'},
+    armR:
+      headUp > 0.55
+        ? {to: pt(896, 1216), bend: -1, hand: 'open'}
+        : {to: pt(874, 1050), bend: -1, hand: 'open'},
     // seated: thighs forward, shins down — the table panel hides the legs
     legL: {a1: 76, a2: 8},
     legR: {a1: 70, a2: 10},
@@ -301,7 +347,14 @@ const KitchenScene: React.FC<KitchenOpts> = ({f, open, drop, headUp}) => {
           <stop offset="0%" stopColor={PAL.amberHot} stopOpacity={0.4} />
           <stop offset="100%" stopColor={PAL.amber} stopOpacity={0} />
         </radialGradient>
-        <linearGradient id="kt-wedge" x1={DOOR_L} y1="0" x2={DOOR_L - 560} y2="0" gradientUnits="userSpaceOnUse">
+        <linearGradient
+          id="kt-wedge"
+          x1={DOOR_L}
+          y1="0"
+          x2={DOOR_L - 560}
+          y2="0"
+          gradientUnits="userSpaceOnUse"
+        >
           <stop offset="0%" stopColor={PAL.amber} stopOpacity="0.34" />
           <stop offset="100%" stopColor={PAL.amber} stopOpacity="0" />
         </linearGradient>
@@ -313,11 +366,26 @@ const KitchenScene: React.FC<KitchenOpts> = ({f, open, drop, headUp}) => {
       {/* hallway + interior back wall */}
       <rect x={0} y={0} width={1080} height={1920} fill="#04080D" />
       <rect x={0} y={THRESH} width={1080} height={1920 - THRESH} fill="#0A141D" />
-      <rect x={DOOR_L} y={DOOR_TOP} width={DOOR_R - DOOR_L} height={THRESH - DOOR_TOP} fill="#1C140C" />
+      <rect
+        x={DOOR_L}
+        y={DOOR_TOP}
+        width={DOOR_R - DOOR_L}
+        height={THRESH - DOOR_TOP}
+        fill="#1C140C"
+      />
       <g opacity={0.55 + 0.45 * open}>
         <ellipse cx={815} cy={860} rx={330} ry={420} fill="url(#kt-glow)" />
         {/* the table with the OTHER adult behind it */}
-        <Person hip={pt(820, 1430)} s={0.95} body={ADULT} look={OTHER} pose={otherPose} f={f} screen={0} rimWarm={open} />
+        <Person
+          hip={pt(820, 1430)}
+          s={0.95}
+          body={ADULT}
+          look={OTHER}
+          pose={otherPose}
+          f={f}
+          screen={0}
+          rimWarm={open}
+        />
       </g>
       {/* table slab + front panel (drawn after the figure so the legs are occluded) */}
       <g opacity={0.75 + 0.25 * open}>
@@ -328,14 +396,39 @@ const KitchenScene: React.FC<KitchenOpts> = ({f, open, drop, headUp}) => {
       <Glass x={886} base={TABLE_Y} w={78} h={124} water={0.75} lit={open} />
       <Glass x={694} base={TABLE_Y} w={78} h={124} water={0} lit={open * 0.6} />
       {/* doorway frame */}
-      <rect x={DOOR_L - 34} y={DOOR_TOP - 34} width={34} height={THRESH - DOOR_TOP + 34} fill="#0B141C" />
-      <rect x={DOOR_R} y={DOOR_TOP - 34} width={34} height={THRESH - DOOR_TOP + 34} fill="#0B141C" />
-      <rect x={DOOR_L - 34} y={DOOR_TOP - 34} width={DOOR_R - DOOR_L + 68} height={34} fill="#0B141C" />
+      <rect
+        x={DOOR_L - 34}
+        y={DOOR_TOP - 34}
+        width={34}
+        height={THRESH - DOOR_TOP + 34}
+        fill="#0B141C"
+      />
+      <rect
+        x={DOOR_R}
+        y={DOOR_TOP - 34}
+        width={34}
+        height={THRESH - DOOR_TOP + 34}
+        fill="#0B141C"
+      />
+      <rect
+        x={DOOR_L - 34}
+        y={DOOR_TOP - 34}
+        width={DOOR_R - DOOR_L + 68}
+        height={34}
+        fill="#0B141C"
+      />
       {/* THE sliver: the wedge starts at the jamb and crosses the floor toward her feet */}
       {open > 0.001 ? (
         <g>
           <path d={polyPath(wedge)} fill="url(#kt-wedge)" />
-          <rect x={DOOR_L - 16 * open} y={DOOR_TOP + 120} width={16 * open} height={THRESH - DOOR_TOP - 120} fill={PAL.amber} opacity={0.2 * open} />
+          <rect
+            x={DOOR_L - 16 * open}
+            y={DOOR_TOP + 120}
+            width={16 * open}
+            height={THRESH - DOOR_TOP - 120}
+            fill={PAL.amber}
+            opacity={0.2 * open}
+          />
         </g>
       ) : null}
       {/* she stands in the dark hallway — outside the warm room, door frame between */}
@@ -372,7 +465,12 @@ export const ProtoTurn: React.FC = () => {
     <AbsoluteFill style={{backgroundColor: PAL.night0}}>
       <BKYDFonts />
       <AbsoluteFill>
-        <svg width={1080} height={1920} viewBox="0 0 1080 1920" style={{position: 'absolute', inset: 0}}>
+        <svg
+          width={1080}
+          height={1920}
+          viewBox="0 0 1080 1920"
+          style={{position: 'absolute', inset: 0}}
+        >
           <KitchenScene f={f} open={open * cone} drop={drop} headUp={headUp} />
         </svg>
         <NightGrade warm={cone > 0.4 ? 0.5 : 0} vignette={0.55} />
@@ -393,13 +491,13 @@ export const ProtoTurn: React.FC = () => {
 type RoomKind = 's3' | 'a2' | 's4' | 's5' | 'img1' | 's6' | 's7' | 's8';
 
 /** One dark room, eight staging states. Props and posture carry the difference. */
-const RoomScene: React.FC<{f: number; kind: RoomKind; sliver?: number; sheen?: number; typed?: string}> = ({
-  f,
-  kind,
-  sliver = 0,
-  sheen = 0,
-  typed = '',
-}) => {
+const RoomScene: React.FC<{
+  f: number;
+  kind: RoomKind;
+  sliver?: number;
+  sheen?: number;
+  typed?: string;
+}> = ({f, kind, sliver = 0, sheen = 0, typed = ''}) => {
   const seatedHip = pt(430, 1400);
   const headDown = kind === 's5' || kind === 'img1';
   const seated: Pose = {
@@ -435,7 +533,14 @@ const RoomScene: React.FC<{f: number; kind: RoomKind; sliver?: number; sheen?: n
           <stop offset="0%" stopColor={PAL.screen} stopOpacity="0.3" />
           <stop offset="100%" stopColor={PAL.screen} stopOpacity="0" />
         </radialGradient>
-        <linearGradient id="rm-sliver" x1={1080} y1="0" x2={620} y2="0" gradientUnits="userSpaceOnUse">
+        <linearGradient
+          id="rm-sliver"
+          x1={1080}
+          y1="0"
+          x2={620}
+          y2="0"
+          gradientUnits="userSpaceOnUse"
+        >
           <stop offset="0%" stopColor={PAL.amber} stopOpacity="0.3" />
           <stop offset="100%" stopColor={PAL.amber} stopOpacity="0" />
         </linearGradient>
@@ -456,14 +561,34 @@ const RoomScene: React.FC<{f: number; kind: RoomKind; sliver?: number; sheen?: n
         <g>
           <rect x={120} y={420} width={840} height={1000} fill="#0B1620" />
           <rect x={148} y={448} width={784} height={944} fill="#13222E" opacity={0.7} />
-          <rect x={148} y={448} width={784} height={944} fill="none" stroke="#050B11" strokeWidth={26} />
+          <rect
+            x={148}
+            y={448}
+            width={784}
+            height={944}
+            fill="none"
+            stroke="#050B11"
+            strokeWidth={26}
+          />
           <rect x={526} y={448} width={18} height={944} fill="#050B11" />
           <rect x={148} y={900} width={784} height={18} fill="#050B11" />
-          <RainComp f={f} count={70} seed={23} opacity={0.55} x0={150} x1={930} y0={450} y1={1390} width={3} />
+          <RainComp
+            f={f}
+            count={70}
+            seed={23}
+            opacity={0.55}
+            x0={150}
+            x1={930}
+            y0={450}
+            y1={1390}
+            width={3}
+          />
           {Array.from({length: 12}).map((_, i) => {
             const cx = 200 + ((i * 137) % 700) + Math.sin((f + i * 21) / (18 + i)) * 14;
             const cy = 620 + ((i * 211) % 640) + Math.cos((f + i * 17) / (22 + i)) * 10;
-            return <ellipse key={i} cx={cx} cy={cy} rx={9} ry={13} fill={PAL.sodiumCore} opacity={0.5} />;
+            return (
+              <ellipse key={i} cx={cx} cy={cy} rx={9} ry={13} fill={PAL.sodiumCore} opacity={0.5} />
+            );
           })}
           {/* her head as a dark shape at the edge of frame */}
           <ellipse cx={70} cy={1310} rx={150} ry={190} fill="#04080D" />
@@ -540,7 +665,9 @@ const RoomScene: React.FC<{f: number; kind: RoomKind; sliver?: number; sheen?: n
       ) : null}
 
       {/* the doorway L2 sliver, entering from the right */}
-      {sliver > 0 ? <rect x={780} y={360} width={300} height={1300} fill="url(#rm-sliver)" opacity={sliver} /> : null}
+      {sliver > 0 ? (
+        <rect x={780} y={360} width={300} height={1300} fill="url(#rm-sliver)" opacity={sliver} />
+      ) : null}
 
       {/* img1 — the phone face-down on the table + her hand */}
       {kind === 'img1' ? (
@@ -565,8 +692,25 @@ const RoomScene: React.FC<{f: number; kind: RoomKind; sliver?: number; sheen?: n
             dim={0.95}
           />
           {/* the send key, never pressed: the state tag sits beside it */}
-          <rect x={584} y={1218} width={190} height={64} rx={20} fill="#21384A" stroke="#7FA4BE" strokeWidth={3} />
-          <text x={679} y={1262} textAnchor="middle" fontFamily="'Be Vietnam Pro', sans-serif" fontWeight={600} fontSize={40} fill={PAL.grey2}>
+          <rect
+            x={584}
+            y={1218}
+            width={190}
+            height={64}
+            rx={20}
+            fill="#21384A"
+            stroke="#7FA4BE"
+            strokeWidth={3}
+          />
+          <text
+            x={679}
+            y={1262}
+            textAnchor="middle"
+            fontFamily="'Be Vietnam Pro', sans-serif"
+            fontWeight={600}
+            fontSize={40}
+            fill={PAL.grey2}
+          >
             Chưa gửi
           </text>
         </g>
@@ -579,7 +723,13 @@ const RoomScene: React.FC<{f: number; kind: RoomKind; sliver?: number; sheen?: n
 
       {/* cold screen glow pooling in the room (s3/s4/s6) */}
       {kind === 's3' || kind === 's4' || kind === 's6' ? (
-        <ellipse cx={kind === 's3' ? 560 : 700} cy={kind === 's3' ? 1240 : 1000} rx={420} ry={420} fill="url(#rm-scr)" />
+        <ellipse
+          cx={kind === 's3' ? 560 : 700}
+          cy={kind === 's3' ? 1240 : 1000}
+          rx={420}
+          ry={420}
+          fill="url(#rm-scr)"
+        />
       ) : null}
     </g>
   );
@@ -589,17 +739,39 @@ const RoomScene: React.FC<{f: number; kind: RoomKind; sliver?: number; sheen?: n
 
 const KY = 1330; // kerb top
 
-const ThirdHand: React.FC<{wrist: {x: number; y: number}; elbow: {x: number; y: number}; s: number}> = ({wrist, elbow, s}) => {
+const ThirdHand: React.FC<{
+  wrist: {x: number; y: number};
+  elbow: {x: number; y: number};
+  s: number;
+}> = ({wrist, elbow, s}) => {
   const dir = {x: wrist.x - elbow.x, y: wrist.y - elbow.y};
   const L = Math.hypot(dir.x, dir.y) || 1;
   const d = {x: dir.x / L, y: dir.y / L};
   return (
     <g>
-      <path d={`M${P2(elbow)} L${P2(wrist)}`} stroke="#6F6763" strokeWidth={62 * s} strokeLinecap="round" />
-      <path d={`M${P2(elbow)} L${P2(wrist)}`} stroke="#9A8E88" strokeWidth={52 * s} strokeLinecap="round" />
+      <path
+        d={`M${P2(elbow)} L${P2(wrist)}`}
+        stroke="#6F6763"
+        strokeWidth={62 * s}
+        strokeLinecap="round"
+      />
+      <path
+        d={`M${P2(elbow)} L${P2(wrist)}`}
+        stroke="#9A8E88"
+        strokeWidth={52 * s}
+        strokeLinecap="round"
+      />
       <g>
         {/* a simplified fist plate on the handle */}
-        <ellipse cx={wrist.x + d.x * 14 * s} cy={wrist.y + d.y * 14 * s} rx={26 * s} ry={24 * s} fill="#9A8E88" stroke="#6F6763" strokeWidth={2.4 * s} />
+        <ellipse
+          cx={wrist.x + d.x * 14 * s}
+          cy={wrist.y + d.y * 14 * s}
+          rx={26 * s}
+          ry={24 * s}
+          fill="#9A8E88"
+          stroke="#6F6763"
+          strokeWidth={2.4 * s}
+        />
       </g>
     </g>
   );
@@ -642,9 +814,29 @@ const KerbScene: React.FC<KerbOpts> = ({f, warm, end = false}) => {
       <rect x={0} y={0} width={1080} height={1920} fill="url(#kb-sky)" />
       {/* her own lit doorway, warm, behind her (L4: two sources) */}
       <g style={{filter: 'blur(4px)'}}>
-        <rect x={end ? 660 : 700} y={end ? 420 : 400} width={340} height={end ? 1080 : 930} fill="#2A1D10" />
-        <rect x={end ? 690 : 730} y={end ? 450 : 430} width={280} height={end ? 1020 : 870} fill={PAL.amber} opacity={0.34} />
-        <ellipse cx={end ? 830 : 870} cy={end ? 900 : 830} rx={360} ry={480} fill={PAL.amber} opacity={0.13} />
+        <rect
+          x={end ? 660 : 700}
+          y={end ? 420 : 400}
+          width={340}
+          height={end ? 1080 : 930}
+          fill="#2A1D10"
+        />
+        <rect
+          x={end ? 690 : 730}
+          y={end ? 450 : 430}
+          width={280}
+          height={end ? 1020 : 870}
+          fill={PAL.amber}
+          opacity={0.34}
+        />
+        <ellipse
+          cx={end ? 830 : 870}
+          cy={end ? 900 : 830}
+          rx={360}
+          ry={480}
+          fill={PAL.amber}
+          opacity={0.13}
+        />
       </g>
       <LitWindow x={70} y={end ? 520 : 460} w={150} h={190} on={0.8} warm={1} />
       <WetPavement y={end ? 1700 : KY} warm={warm} kerb={0} />
@@ -671,7 +863,11 @@ const KerbScene: React.FC<KerbOpts> = ({f, warm, end = false}) => {
       <Phone x={phoneX} y={phoneY} w={300} state="missed" dim={1} rot={end ? -10 : -3} />
       <Cup x={end ? 470 : 980} base={end ? 1700 : KY} w={94} h={116} f={f} warm={1} />
       {/* the saved name's hand, entering from off-frame, on the umbrella handle */}
-      <ThirdHand wrist={end ? pt(900, 1795) : pt(806, 1452)} elbow={end ? pt(1120, 1880) : pt(1096, 1540)} s={SHE_S} />
+      <ThirdHand
+        wrist={end ? pt(900, 1795) : pt(806, 1452)}
+        elbow={end ? pt(1120, 1880) : pt(1096, 1540)}
+        s={SHE_S}
+      />
       <RainComp f={f} count={end ? 34 : 60} seed={31} opacity={end ? 0.22 : 0.4} />
     </g>
   );
@@ -681,12 +877,12 @@ const KerbScene: React.FC<KerbOpts> = ({f, warm, end = false}) => {
 
 const TITLE_L1 = ['Bạn', 'không', 'yếu', 'đuối,'];
 
-const WordsSlide: React.FC<{words: string[]; startIndex: number; f: number; strongFrom?: number}> = ({
-  words,
-  startIndex,
-  f,
-  strongFrom,
-}) => (
+const WordsSlide: React.FC<{
+  words: string[];
+  startIndex: number;
+  f: number;
+  strongFrom?: number;
+}> = ({words, startIndex, f, strongFrom}) => (
   <div style={{display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '0 22px'}}>
     {words.map((w, i) => {
       const p = ramp(f, 8 + (startIndex + i) * 3, 18, EASE.out);
@@ -721,7 +917,12 @@ export const ProtoEnd: React.FC = () => {
     <AbsoluteFill style={{backgroundColor: PAL.night0}}>
       <BKYDFonts />
       <AbsoluteFill style={{transform: `scale(${scale})`}}>
-        <svg width={1080} height={1920} viewBox="0 0 1080 1920" style={{position: 'absolute', inset: 0}}>
+        <svg
+          width={1080}
+          height={1920}
+          viewBox="0 0 1080 1920"
+          style={{position: 'absolute', inset: 0}}
+        >
           <KerbScene f={f} warm={1} end />
         </svg>
         {/* local scrim so both title lines hold their contrast over the scene (D-08/D-10) */}
@@ -732,14 +933,20 @@ export const ProtoEnd: React.FC = () => {
             right: 0,
             top: 700,
             height: 480,
-            background: 'linear-gradient(180deg, rgba(4,9,15,0) 0%, rgba(4,9,15,0.72) 30%, rgba(4,9,15,0.72) 70%, rgba(4,9,15,0) 100%)',
+            background:
+              'linear-gradient(180deg, rgba(4,9,15,0) 0%, rgba(4,9,15,0.72) 30%, rgba(4,9,15,0.72) 70%, rgba(4,9,15,0) 100%)',
           }}
         />
         <NightGrade warm={1} vignette={0.5} />
         <div style={{position: 'absolute', left: 60, right: 60, top: 776}}>
           <WordsSlide words={TITLE_L1} startIndex={0} f={f} />
           <div style={{height: 14}} />
-          <WordsSlide words={['bạn', 'chỉ', 'đã', 'mạnh', 'mẽ', 'quá', 'lâu']} startIndex={4} f={f} strongFrom={3} />
+          <WordsSlide
+            words={['bạn', 'chỉ', 'đã', 'mạnh', 'mẽ', 'quá', 'lâu']}
+            startIndex={4}
+            f={f}
+            strongFrom={3}
+          />
         </div>
       </AbsoluteFill>
     </AbsoluteFill>
@@ -756,7 +963,12 @@ export const ProtoS7: React.FC = () => {
     <AbsoluteFill style={{backgroundColor: PAL.night0}}>
       <BKYDFonts />
       <AbsoluteFill>
-        <svg width={1080} height={1920} viewBox="0 0 1080 1920" style={{position: 'absolute', inset: 0}}>
+        <svg
+          width={1080}
+          height={1920}
+          viewBox="0 0 1080 1920"
+          style={{position: 'absolute', inset: 0}}
+        >
           <RoomScene f={f} kind="s7" sliver={sliver} sheen={sheen} />
         </svg>
         <NightGrade warm={0.35} vignette={0.55} />
@@ -776,17 +988,17 @@ export const ProtoS9: React.FC = () => {
   const f = useCurrentFrame();
   const t = ramp(f, 10, 60, EASE.smooth);
   const bx = mix(-320, 1420, t);
-  const bound = [
-    pt(bx + 280, -160),
-    pt(bx + 620, -160),
-    pt(bx - 380, 2080),
-    pt(bx - 740, 2080),
-  ];
+  const bound = [pt(bx + 280, -160), pt(bx + 620, -160), pt(bx - 380, 2080), pt(bx - 740, 2080)];
   return (
     <AbsoluteFill style={{backgroundColor: PAL.night0}}>
       <BKYDFonts />
       <AbsoluteFill>
-        <svg width={1080} height={1920} viewBox="0 0 1080 1920" style={{position: 'absolute', inset: 0}}>
+        <svg
+          width={1080}
+          height={1920}
+          viewBox="0 0 1080 1920"
+          style={{position: 'absolute', inset: 0}}
+        >
           <defs>
             <clipPath id="s9-warm">
               <path d={polyPath(bound)} />
@@ -818,10 +1030,7 @@ export const ProtoS9: React.FC = () => {
         </svg>
         <NightGrade warm={t > 0.5 ? 0.7 : 0.2} vignette={0.5} />
         <Caption
-          lines={[
-            [{t: 'Người thường xuyên'}],
-            [{t: 'che ô cho người khác'}],
-          ]}
+          lines={[[{t: 'Người thường xuyên'}], [{t: 'che ô cho người khác'}]]}
           warm={t > 0.5}
           opacity={ramp(f, 4, 12, EASE.out)}
         />
@@ -839,7 +1048,12 @@ export const ProtoS10: React.FC = () => {
     <AbsoluteFill style={{backgroundColor: PAL.night0}}>
       <BKYDFonts />
       <AbsoluteFill style={{transform: `scale(${push})`}}>
-        <svg width={1080} height={1920} viewBox="0 0 1080 1920" style={{position: 'absolute', inset: 0}}>
+        <svg
+          width={1080}
+          height={1920}
+          viewBox="0 0 1080 1920"
+          style={{position: 'absolute', inset: 0}}
+        >
           <KerbScene f={f} warm={1} />
         </svg>
         <NightGrade warm={1} vignette={0.45} />
@@ -856,9 +1070,42 @@ export const ProtoS10: React.FC = () => {
 
 // ─────────────────────────── storyboard board (16 tiles) ───────────────────────────
 
-export type ShotId = 's1' | 's2a' | 'a1' | 's2b' | 's3' | 'a2' | 's4' | 's5' | 'img1' | 's6' | 's7' | 's8' | 's9' | 'img2' | 's10' | 'END';
+export type ShotId =
+  | 's1'
+  | 's2a'
+  | 'a1'
+  | 's2b'
+  | 's3'
+  | 'a2'
+  | 's4'
+  | 's5'
+  | 'img1'
+  | 's6'
+  | 's7'
+  | 's8'
+  | 's9'
+  | 'img2'
+  | 's10'
+  | 'END';
 
-export const ORDER: readonly ShotId[] = ['s1', 's2a', 'a1', 's2b', 's3', 'a2', 's4', 's5', 'img1', 's6', 's7', 's8', 's9', 'img2', 's10', 'END'];
+export const ORDER: readonly ShotId[] = [
+  's1',
+  's2a',
+  'a1',
+  's2b',
+  's3',
+  'a2',
+  's4',
+  's5',
+  'img1',
+  's6',
+  's7',
+  's8',
+  's9',
+  'img2',
+  's10',
+  'END',
+];
 export const BOARD_IDS = ORDER;
 
 const CARDS: Record<ShotId, string> = {
@@ -931,7 +1178,9 @@ const Tile: React.FC<{shot: ShotId}> = ({shot}) => {
       );
       break;
     case 'img2':
-      scene = <StreetScene f={f} warm={1} wet={1} wetShoulder={1} rimWarm={1} tilt={14} doorOn={1} />;
+      scene = (
+        <StreetScene f={f} warm={1} wet={1} wetShoulder={1} rimWarm={1} tilt={14} doorOn={1} />
+      );
       break;
     case 's10':
       scene = <KerbScene f={f} warm={1} />;
@@ -940,19 +1189,61 @@ const Tile: React.FC<{shot: ShotId}> = ({shot}) => {
       scene = <KerbScene f={f} warm={1} end />;
       break;
     default:
-      scene = <RoomScene f={f} kind={shot as RoomKind} sliver={shot === 's7' || shot === 's8' ? 0.55 : 0} sheen={shot === 's7' ? 0.5 : 1} typed="" />;
+      scene = (
+        <RoomScene
+          f={f}
+          kind={shot as RoomKind}
+          sliver={shot === 's7' || shot === 's8' ? 0.55 : 0}
+          sheen={shot === 's7' ? 0.5 : 1}
+          typed=""
+        />
+      );
   }
   return (
     <AbsoluteFill style={{backgroundColor: PAL.night0}}>
       <BKYDFonts />
-      <svg width={1080} height={1920} viewBox="0 0 1080 1920" style={{position: 'absolute', inset: 0}}>
+      <svg
+        width={1080}
+        height={1920}
+        viewBox="0 0 1080 1920"
+        style={{position: 'absolute', inset: 0}}
+      >
         {scene}
       </svg>
-      <NightGrade warm={shot === 's10' || shot === 'END' || shot === 's9' || shot === 'img2' ? 0.6 : 0} vignette={0.4} />
+      <NightGrade
+        warm={shot === 's10' || shot === 'END' || shot === 's9' || shot === 'img2' ? 0.6 : 0}
+        vignette={0.4}
+      />
       {/* label: shot id + card name. 76 px / 60 px in tile coords → ≥ 18 px on the 1080-wide sheet */}
-      <div style={{position: 'absolute', left: 36, top: 30, fontFamily: "'Be Vietnam Pro', sans-serif"}}>
-        <div style={{fontSize: 76, fontWeight: 600, color: '#F2F6F9', textShadow: '0 2px 10px rgba(4,9,15,0.95)', lineHeight: 1.05}}>{shot}</div>
-        <div style={{fontSize: 58, fontWeight: 600, color: '#A7B4BE', textShadow: '0 2px 10px rgba(4,9,15,0.95)'}}>{CARDS[shot]}</div>
+      <div
+        style={{
+          position: 'absolute',
+          left: 36,
+          top: 30,
+          fontFamily: "'Be Vietnam Pro', sans-serif",
+        }}
+      >
+        <div
+          style={{
+            fontSize: 76,
+            fontWeight: 600,
+            color: '#F2F6F9',
+            textShadow: '0 2px 10px rgba(4,9,15,0.95)',
+            lineHeight: 1.05,
+          }}
+        >
+          {shot}
+        </div>
+        <div
+          style={{
+            fontSize: 58,
+            fontWeight: 600,
+            color: '#A7B4BE',
+            textShadow: '0 2px 10px rgba(4,9,15,0.95)',
+          }}
+        >
+          {CARDS[shot]}
+        </div>
       </div>
     </AbsoluteFill>
   );

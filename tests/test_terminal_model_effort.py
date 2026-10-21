@@ -26,10 +26,10 @@ class TerminalModelEffortTests(unittest.TestCase):
              "-c", 'model_reasoning_effort="xhigh"'],
         )
 
-    def test_opencode_model_variant(self):
+    def test_opencode_interactive_launcher_stays_bare(self):
         self.assertEqual(
             self.invoke("opencode", "opencode/test-model", "high"),
-            ["/usr/local/bin/opencode", "--model", "opencode/test-model#high"],
+            ["/usr/local/bin/opencode"],
         )
 
     def test_default_cli_behavior(self):

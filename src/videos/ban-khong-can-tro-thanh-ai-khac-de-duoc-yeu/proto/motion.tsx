@@ -1,6 +1,6 @@
 // Proto Motion: reusable motion hooks for ban-khong-can-tro-thanh-ai-khac-de-duoc-yeu
-import { useCurrentFrame, interpolate } from 'remotion';
-import { MOTION } from './kit';
+import {useCurrentFrame, interpolate} from 'remotion';
+import {MOTION} from './kit';
 
 /**
  * Text entrance: translateY from 24px to 0 over 20 frames
@@ -30,7 +30,10 @@ export const useArtEntrance = (offset = 0) => {
  * Micro-breathe: subtle scale oscillation
  * 1 + sin(f/24) * 0.008
  */
-export const useBreathe = (period = MOTION.breathe.period, amplitude = MOTION.breathe.amplitude) => {
+export const useBreathe = (
+  period = MOTION.breathe.period,
+  amplitude = MOTION.breathe.amplitude,
+) => {
   const f = useCurrentFrame();
   return 1 + Math.sin(f / period) * amplitude;
 };
@@ -51,14 +54,17 @@ export const useCrossDissolve = (offset = 0) => {
  * Accent word highlight: scale + color shift
  * Triggered at specific frame, lasts 8 frames
  */
-export const useAccentHighlight = (triggerFrame: number, duration = MOTION.accentHighlight.duration) => {
+export const useAccentHighlight = (
+  triggerFrame: number,
+  duration = MOTION.accentHighlight.duration,
+) => {
   const f = useCurrentFrame();
   const progress = interpolate(f - triggerFrame, [0, duration], [0, 1], {
     extrapolateLeft: 'clamp',
     extrapolateRight: 'clamp',
   });
   const scale = 1 + progress * (MOTION.accentHighlight.scale - 1);
-  return { scale, progress };
+  return {scale, progress};
 };
 
 /**
