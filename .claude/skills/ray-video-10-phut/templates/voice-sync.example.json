@@ -1,0 +1,45 @@
+{
+  "fps": 30,
+  "duration_frames": 90,
+  "mp4_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "speakers": {
+    "daughter": {
+      "voice_id": "girl-v1"
+    }
+  },
+  "shots": {
+    "s1": {
+      "start_frame": 0,
+      "end_frame": 90,
+      "visible_speakers": [
+        "daughter"
+      ]
+    }
+  },
+  "utterances": [
+    {
+      "id": "u1",
+      "text": "Ba ơi, con hỏi ba nhé?",
+      "speaker": "daughter",
+      "voice_id": "girl-v1",
+      "shot": "s1",
+      "mode": "on-screen",
+      "start_frame": 0,
+      "end_frame": 60,
+      "audio_seconds": 2.0,
+      "audio_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "caption_start_frame": 0,
+      "caption_end_frame": 60
+    }
+  ],
+  "review": {
+    "mp4_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "listener": "reviewer-1",
+    "listened": true,
+    "naturalness": "pass",
+    "emotion": "pass",
+    "character_fit": "pass",
+    "smooth_joins": "pass",
+    "issues": []
+  }
+}

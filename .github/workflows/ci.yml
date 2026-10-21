@@ -38,6 +38,10 @@ jobs:
       - run: python3 -m unittest discover -s tests -p 'test_interactive_terminal.py'
       - run: python3 -m unittest discover -s tests -p 'test_terminal_model_effort.py'
       - run: python3 -m unittest discover -s tests -p 'test_terminal_ui.py'
+      - name: Validate fast video skill and voice evidence regressions
+        run: |
+          python3 .claude/skills/ray-video-10-phut/scripts/validate_skill.py
+          python3 -m unittest discover -s .claude/skills/ray-video-10-phut/scripts -p 'test_*.py'
       - run: npm run verify
 
   render:

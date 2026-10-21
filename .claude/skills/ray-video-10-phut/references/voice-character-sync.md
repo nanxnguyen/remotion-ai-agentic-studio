@@ -56,3 +56,15 @@ Gate C/final QA: watch and listen to the actual final MP4 from beginning to end,
 Record reviewer identity, method/tool, timestamp, MP4 hash, evidence and unresolved findings in voice-sync.md and reference it from existing review records. If nobody can actually listen, retain pending status and do not deliver as verified. Never fabricate human approval.
 
 Block delivery for wrong/unidentified speaker, silent fallback to narrator, unexplained picture mismatch, missing/repeated/cut dialogue, unplanned overlap, failed caption timing or unverified listening. Repair the affected take/map/shot; remeasure, rebuild dependent captions/timeline, invalidate stale evidence through the existing pipeline, rerender and repeat final QA on the new fingerprint. Keep unaffected valid assets cached. Exceed the ten-minute target rather than waive these checks.
+
+## Executable evidence checks
+
+Create `docs/<vid>/voice-sync.json` alongside the listening notes and run:
+
+```bash
+python3 .claude/skills/ray-video-10-phut/scripts/validate_voice_sync.py docs/<vid>/voice-sync.json
+```
+
+Use `templates/voice-sync.example.json` as a schema example only. Replace every sample value with real measured data and actual review results; never treat the example as evidence. All frame intervals are global and half-open. `audio_seconds` means playable duration after trims. The initial checker accepts one covering shot per utterance and rejects dialogue overlap. Split a planned cross-shot line into measured segments or report unsupported mapping rather than bypassing validation.
+
+The checker rejects wrong speaker/voice mappings, missing picture coverage, measurement drift, caption drift, overlapping dialogue, stale review fingerprints and pending/failed listening dimensions. It validates declarations only: hashes are not recomputed, file existence and waveform contents are not inspected, and it cannot prove reviewer honesty, natural acting or that all script lines are represented. Existing pipeline checks, canonical-script comparison and real listening remain mandatory. Pass this checker before requesting final reviews; it does not itself set a pipeline gate to pass.
