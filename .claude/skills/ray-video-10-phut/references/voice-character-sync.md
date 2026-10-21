@@ -11,6 +11,20 @@ Apply to every spoken video. Use existing canonical voice/timeline contracts; re
 - Generate a short actual audition for each role using its hook or most emotionally demanding line. Listen for pronunciation, Vietnamese rhythm, breathing, stress, natural pauses and fit with the character. Record asset hash, listener, findings and selected take. A provider label or ASR transcript does not prove suitability.
 - If suitable voices or listening capability are unavailable, mark blocked/pending. Offer an explicitly labeled narrator adaptation only with user agreement. Never claim an unheard take is natural or approved.
 
+## Natural Vietnamese performance (mandatory)
+
+Aim for smooth, believable speech with emotion appropriate to the scene. Do not promise that every TTS engine can achieve human-level acting.
+
+1. Rewrite spoken lines for conversation before synthesis: short thought groups, familiar Vietnamese wording and pronounceable names/numbers. Preserve meaning and keep canonical text/captions in sync. Avoid literary sentences, repeated ellipses and punctuation used as an uncontrolled emotion hack.
+2. Direct each line with intention, addressee, emotional intensity, one or two stress words, pace and motivated pauses. Keep instructions separate from spoken text. Use only controls actually supported by the selected engine; never invent SSML or emotion parameters.
+3. Build an emotional arc: hesitation, restrained hurt, shock or resolve according to context. Vary pace and emphasis across meaningful phrases; avoid uniform syllable timing, identical sentence endings, announcer delivery and constant dramatic crying. A child's line must sound age-appropriate rather than an adult performing exaggerated baby talk.
+4. Generate at least two short candidate takes for the hook and emotional climax; audition them in picture and select by actual listening. Keep voice identity and dialect stable. Regenerate only weak lines, then listen across both neighboring joins to catch changes in timbre, room tone, pace or intensity.
+5. Preserve natural breaths, consonant attacks, quiet pauses and phrase endings. Trim only accidental silence/noise. Use fades only at safe audio boundaries; never crossfade speech in a way that doubles syllables. Avoid aggressive denoising, compression, pitch shifting or speed changes that create metallic, watery or robotic artifacts. Music must not hide weak pronunciation or acting.
+6. Listen to isolated dialogue first, then the final mix at normal playback speed. Evaluate natural phrasing, Vietnamese pronunciation, character fit, emotional credibility and smooth joins separately. Record concrete defects and take IDs; ASR and loudness meters cannot certify these perceptual qualities.
+7. Require every dimension to be acceptable, with no unresolved robotic cadence, unnatural stress, slurred/clipped words, metallic artifacts or emotional mismatch. Mark unheard output pending. If retries cannot produce an acceptable take, change to a tested suitable voice/provider or report blocked; do not quietly deliver a lower-quality voice to meet ten minutes.
+
+Example direction (metadata, never spoken): daughter asks her father privately, seeking reassurance; soft and hesitant, a brief breath after “Ba ơi”, emphasize “mẹ”, finish as an uncertain question. Do not force a sob on every word.
+
 ## 2. Lock utterance ownership
 
 Before TTS, create one row per utterance:
