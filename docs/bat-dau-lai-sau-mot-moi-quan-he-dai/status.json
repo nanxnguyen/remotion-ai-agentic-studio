@@ -1,0 +1,146 @@
+{
+  "workflow_version": 4,
+  "name": "bat-dau-lai-sau-mot-moi-quan-he-dai",
+  "comp": "BatDauLaiSauMoiQuanHeDaiReel",
+  "voice": "thanh-long-nang-cao",
+  "profile": "story",
+  "paths": {
+    "audio": "bat-dau-lai-sau-mot-moi-quan-he-dai",
+    "out": "bat-dau-lai-sau-mot-moi-quan-he-dai-thanh-long-nang-cao",
+    "qa": "bat-dau-lai-sau-mot-moi-quan-he-dai"
+  },
+  "gates": [],
+  "stages": {
+    "research": {
+      "state": "in_progress",
+      "at": "2026-10-22T00:08:05+07:00",
+      "note": "research-agent dispatched in parallel"
+    },
+    "motion": {
+      "state": "pending"
+    },
+    "qa": {
+      "state": "pending"
+    },
+    "brief": {
+      "state": "in_progress",
+      "at": "2026-10-22T00:08:05+07:00",
+      "note": "director header written"
+    },
+    "script": {
+      "state": "in_progress",
+      "at": "2026-10-22T00:42:31+07:00",
+      "note": "Gate A round 1: three independent lens reviewers dispatched"
+    }
+  },
+  "reviews": {},
+  "review_valid": {},
+  "next": "merge lowest lens score, tickets to script-agent",
+  "log": [
+    {
+      "t": "2026-10-22T00:07:34+07:00",
+      "stage": "-",
+      "who": "agent",
+      "msg": "status initialised"
+    },
+    {
+      "t": "2026-10-22T00:08:05+07:00",
+      "stage": "research",
+      "who": "research-agent",
+      "msg": "research-agent running: Phase 1: sourced safety check + Vietnamese audience wording + 5 hooks"
+    },
+    {
+      "t": "2026-10-22T00:08:05+07:00",
+      "stage": "script",
+      "who": "script-agent",
+      "msg": "script-agent running: Phase 2a/2b: brief, script, hooks, voice proposals (30-40s, 5-7 shots)"
+    },
+    {
+      "t": "2026-10-22T00:08:05+07:00",
+      "stage": "research",
+      "who": "agent",
+      "msg": "research -> in_progress: research-agent dispatched in parallel"
+    },
+    {
+      "t": "2026-10-22T00:08:05+07:00",
+      "stage": "brief",
+      "who": "agent",
+      "msg": "brief -> in_progress: director header written"
+    },
+    {
+      "t": "2026-10-22T00:08:05+07:00",
+      "stage": "script",
+      "who": "agent",
+      "msg": "script -> in_progress: script-agent dispatched in parallel with research"
+    },
+    {
+      "t": "2026-10-22T00:42:00+07:00",
+      "stage": "research",
+      "who": "research-agent",
+      "msg": "research-agent done: research.md: 10 sources; producer runtime had no shell so audit was run by director"
+    },
+    {
+      "t": "2026-10-22T00:42:01+07:00",
+      "stage": "script",
+      "who": "script-agent",
+      "msg": "script-agent done: brief/script/hooks/voice proposals written; producer runtime had no shell (audit run by director)"
+    },
+    {
+      "t": "2026-10-22T00:42:31+07:00",
+      "stage": "script",
+      "who": "script-reviewer-1",
+      "msg": "script-reviewer-1 running: Gate A lens review (fresh clean context)"
+    },
+    {
+      "t": "2026-10-22T00:42:31+07:00",
+      "stage": "script",
+      "who": "script-reviewer-2",
+      "msg": "script-reviewer-2 running: Gate A lens review (fresh clean context)"
+    },
+    {
+      "t": "2026-10-22T00:42:31+07:00",
+      "stage": "script",
+      "who": "script-reviewer-3",
+      "msg": "script-reviewer-3 running: Gate A lens review (fresh clean context)"
+    },
+    {
+      "t": "2026-10-22T00:42:31+07:00",
+      "stage": "script",
+      "who": "agent",
+      "msg": "script -> in_progress: Gate A round 1: three independent lens reviewers dispatched"
+    }
+  ],
+  "updated": "2026-10-22T00:42:31+07:00",
+  "agents": {
+    "research-agent": {
+      "state": "done",
+      "at": "2026-10-22T00:42:00+07:00",
+      "note": "research.md: 10 sources; producer runtime had no shell so audit was run by director",
+      "stage": "research"
+    },
+    "script-agent": {
+      "state": "done",
+      "at": "2026-10-22T00:42:01+07:00",
+      "note": "brief/script/hooks/voice proposals written; producer runtime had no shell (audit run by director)",
+      "stage": "script"
+    },
+    "script-reviewer-1": {
+      "state": "running",
+      "at": "2026-10-22T00:42:31+07:00",
+      "note": "Gate A lens review (fresh clean context)",
+      "stage": "script"
+    },
+    "script-reviewer-2": {
+      "state": "running",
+      "at": "2026-10-22T00:42:31+07:00",
+      "note": "Gate A lens review (fresh clean context)",
+      "stage": "script"
+    },
+    "script-reviewer-3": {
+      "state": "running",
+      "at": "2026-10-22T00:42:31+07:00",
+      "note": "Gate A lens review (fresh clean context)",
+      "stage": "script"
+    }
+  }
+}

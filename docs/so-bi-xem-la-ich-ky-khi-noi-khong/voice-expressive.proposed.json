@@ -1,0 +1,32 @@
+{
+  "s1": [
+    { "t": "Tôi nhận thêm việc dù đã kiệt sức,", "pause_after": 0.25 },
+    { "t": "chỉ vì sợ một câu: 'Có thế cũng không giúp được à?'", "pause_after": 0 }
+  ],
+  "s2": [
+    { "t": "Tin nhắn chỉ viết: “Nhờ chút nhé?”", "pause_after": 0.25 },
+    { "t": "Ngón tay tôi sắp chạm vào chữ Ok.", "pause_after": 0 }
+  ],
+  "s3": [
+    { "t": "Danh sách bên cạnh dài thêm.", "pause_after": 0.12 },
+    { "t": "Đèn văn phòng tắt dần.", "pause_after": 0.12 },
+    { "t": "Ly cà phê thứ ba đã lạnh.", "pause_after": 0 }
+  ],
+  "s4": [
+    { "t": "Rồi tôi hiểu: tôi không sợ thêm một việc.", "pause_after": 0.24 },
+    { "t": "Tôi sợ bị xem là ích kỷ.", "pause_after": 0 }
+  ],
+  "s5": [
+    { "t": "Một chữ Ok nhìn rất nhỏ.", "pause_after": 0.25 },
+    { "t": "Nhưng nó giữ tôi lại trước màn hình thêm tối nay.", "pause_after": 0 }
+  ],
+  "s6": [
+    { "t": "Lần này, tôi gõ: “Tối nay tôi không nhận thêm được.", "pause_after": 0.24 },
+    { "t": "Mai tôi xem lại nhé.”", "pause_after": 0 }
+  ],
+  "s7": [
+    { "t": "Tôi đóng máy.", "pause_after": 0.14 },
+    { "t": "Ngoài cửa vẫn còn đèn ấm.", "pause_after": 0.14 },
+    { "t": "Tối nay, tôi không phải kiệt sức để được xem là người tốt.", "pause_after": 0 }
+  ]
+}

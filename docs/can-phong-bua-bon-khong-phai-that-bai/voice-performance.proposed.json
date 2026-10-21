@@ -1,0 +1,432 @@
+{
+  "version": 3,
+  "canonicalText": "docs/can-phong-bua-bon-khong-phai-that-bai/voice.proposed.json",
+  "engine": {
+    "name": "route 2 — local VieNeu clone (~/.venvs/vieneu) with a local WAV reference",
+    "selectedReference": "docs/can-phong-bua-bon-khong-phai-that-bai/voice-ref/refThanhLong.wav",
+    "runtime": "vieneu-v3-turbo-3.8.3 (local)",
+    "externalUpload": false,
+    "supportedControls": ["referenceAudio", "seed", "denoise"],
+    "fixedControls": {
+      "denoise": false
+    },
+    "unsupportedControls": ["rate", "pitch", "volume", "speed", "atempo", "style", "directEmotion", "actingCue"],
+    "postProcessingRestrictions": ["no atempo", "no pitch shifting for expression", "no loudnorm inside the clip"],
+    "note": "Only controls read by scripts/gen-voice-clone.py are declared. Every control not in supportedControls is an explicit limitation, never silently ignored. No SSML, no emotion tag, no speed parameter is used anywhere in this packet."
+  },
+  "phraseJoin": " ",
+  "phraseJoinRule": "\" \".join(phrase.text) must equal voice.proposed.json[key] byte-for-byte; every phrase boundary below falls on a canonical single space. Verified before generation.",
+  "benchmark": {
+    "status": "route fixed by the owner/director — nothing pending in this packet",
+    "selectionAuthority": "director-owned decision recorded in brief.md §Identity (voice route 2, slug thanh-long-nang-cao); the owner fixed this voice, no benchmark of other voices was run or is claimed.",
+    "ownerConfirmed": true,
+    "ownerConfirmationEvidence": "brief.md §Identity, written by video-director at Phase 0: 'Voice is fixed by the user — no benchmark of other voices, no change.'",
+    "selectedReference": "docs/can-phong-bua-bon-khong-phai-that-bai/voice-ref/refThanhLong.wav",
+    "resolvedReferencePath": "docs/can-phong-bua-bon-khong-phai-that-bai/voice-ref/refThanhLong.wav",
+    "referenceFileFacts": "exists; md5 199de31c8281d895dd571e36fe464ed5, 8.20 s — director-verified in brief.md §Phase 0. This runtime has no shell tool, so the file was not re-probed by script-agent; the director's verification is quoted, not re-claimed.",
+    "identity": "planningTotal(rate) = SUM(syl/rate) + SUM(in-clip phrase pauses) + SUM(post-clip timeline holds) = SUM(syl/rate) + 1.40 s + 7.20 s = SUM(syl/rate) + 8.60 s",
+    "planningSyllables": 127,
+    "planningRateSyllablesPerSecond": 4.3,
+    "planningRateProvenance": "brief.md §Identity: the owner asked for a brisk-but-natural read, target +4 %…+8 % over the engine's natural 4.1 syl/s, which is 4.26–4.43. 4.3 is the middle of that mandated band; it is a planning figure, not a measurement.",
+    "sumInClipPauseSeconds": 1.4,
+    "sumPostClipHoldSeconds": 7.2,
+    "fixedSilenceSeconds": 8.6,
+    "totalSecondsAt4_3": 38.13,
+    "totalSecondsAt4_1": 39.58,
+    "totalSecondsAt3_9": 41.16,
+    "totalSecondsAt3_7": 42.92,
+    "totalSecondsAt3_5": 44.89,
+    "breakEvenCeilingRateSyllablesPerSecond": 3.489,
+    "machineChecks": ["canonical text", "CER/ASR", "duration", "silence", "loudness", "clipping", "cross-phrase consistency"],
+    "naturalnessEvidence": "not verified by listening"
+  },
+  "keyPlan": {
+    "order": ["s1", "s2", "s3a", "s3b", "s4", "s5", "s6", "s7a", "s7b", "s8a", "s8b"],
+    "shots": 8,
+    "splitKeys": [
+      "s3a / s3b — one shot, two keys: the self-blame lands, then the room's silence; the gap between them is a real timeline gap, not punctuation.",
+      "s7a / s7b — one shot, two keys: 'Xong rồi.' is its own beat before the celebration; the 0.30 s gap after s7a is the beat.",
+      "s8a / s8b — one shot, two keys: the comma in the closing line becomes a real breath, so the gentle instruction is never rushed."
+    ],
+    "noVoiceKeyShots": [],
+    "ending": "s8b is the last spoken key. Its 3.20 s post-clip hold is the silent ending: no voice, no CTA, only the image and one room sound."
+  },
+  "candidatePolicy": {
+    "initialCandidatesPerPhrase": 1,
+    "maximumCandidatesPerPhrase": 3,
+    "regenerateOnlyFailedPhraseOrKeyword": true,
+    "pinnedSeedMustPassCanonicalTextCheck": true,
+    "note": "Seed is left null in every phrase so gen-voice-clone.py may try up to --tries candidates for that phrase only. Pin a seed only after a phrase passes ASR/CER, and record it in voice-report.md."
+  },
+  "pauseImplementation": "Two declared mechanisms, never punctuation. (1) In-clip phrase pauses: pauseBeforeSeconds / pauseAfterSeconds are real audio gaps written by gen-voice-clone.py (adelay / apad) inside the key's own clip — total 1.40 s across the packet. (2) Post-clip timeline holds: minimumPostClipHoldSeconds is a hold the Reel/timeline layer places after the clip — total 7.85 s, of which 3.20 s is the silent ending. Ellipsis, commas and full stops are never treated as pauses anywhere in this packet.",
+  "experimentalCues": {
+    "enabled": false,
+    "values": [],
+    "note": "[cười], [thở dài], [hắng giọng] and similar non-spoken cues stay disabled: no local benchmark proves the installed engine renders them as intended, and gen-voice-clone.py rejects them outright (ACTING_CUE check). They never appear in spoken text or captions."
+  },
+  "shots": {
+    "s1": {
+      "reference": { "source": "docs/can-phong-bua-bon-khong-phai-that-bai/voice-ref/refThanhLong.wav" },
+      "referenceSelectionStatus": "selected",
+      "intent": "HOOK + frame-0 cover: name the viewer's room and remove the accusation in one breath. The on-screen text must carry the whole hook with the sound off.",
+      "emotion": "gentle relief, close, like a friend letting you off — never pity, never a verdict",
+      "accentWords": ["Ba ngày", "chưa dọn phòng", "Không phải vì bạn lười"],
+      "tempoIntent": "brisk on the opening three words, then settle; the second sentence lands slower and stops dead",
+      "ending": "flat, level — a statement that lands, not a question",
+      "minimumPostClipHoldSeconds": 0.3,
+      "postClipHoldPolicy": "timeline silence after the clip: the dust keeps turning in the light blade; the figure's shoulder shifts once. Never punctuation.",
+      "phrases": [
+        {
+          "text": "Ba ngày rồi bạn chưa dọn phòng.",
+          "intent": "state a fact the viewer recognises without explaining it",
+          "emotion": "matter-of-fact, warm",
+          "emphasis": ["Ba ngày", "chưa dọn phòng"],
+          "tempoIntent": "brisk, plain",
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.0,
+          "seed": null,
+          "controls": { "denoise": false }
+        },
+        {
+          "text": "Không phải vì bạn lười.",
+          "intent": "take the accusation away, gently, before the viewer can supply it",
+          "emotion": "quiet relief, no celebration",
+          "emphasis": ["Không phải vì bạn lười"],
+          "tempoIntent": "settle and land; no lift on the final word",
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.0,
+          "seed": null,
+          "controls": { "denoise": false }
+        }
+      ]
+    },
+    "s2": {
+      "reference": { "source": "docs/can-phong-bua-bon-khong-phai-that-bai/voice-ref/refThanhLong.wav" },
+      "referenceSelectionStatus": "selected",
+      "intent": "FIRST PAYOFF: prove the video has seen the viewer's actual room, then name the room's objects in one breath. Nothing more is explained here.",
+      "emotion": "observational, close, unsurprised — the tone of someone looking around a room with you",
+      "accentWords": ["cái gì cũng nặng", "cà phê nguội", "chưa được gấp"],
+      "tempoIntent": "the first sentence is a plain fact and lands at once; the three objects then come one at a time, each slightly lighter than the last",
+      "ending": "falling — the last object settles the camera and the room",
+      "minimumPostClipHoldSeconds": 0.35,
+      "postClipHoldPolicy": "timeline silence after the clip: the lateral move finishes on the unmade bed and the duvet edge sags.",
+      "phrases": [
+        {
+          "text": "Mệt thì cái gì cũng nặng.",
+          "intent": "name the reason in the plainest possible words — this is the first payoff and it must be understood, not interpreted",
+          "emotion": "plain, assured, unemphatic",
+          "emphasis": ["cái gì cũng nặng"],
+          "tempoIntent": "even, lands once and stops",
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.2,
+          "seed": null,
+          "controls": { "denoise": false }
+        },
+        {
+          "text": "Cốc cà phê nguội trên bàn, quần áo trên ghế,",
+          "intent": "inventory the room, in the order the camera shows it",
+          "emotion": "observational",
+          "emphasis": ["cà phê nguội"],
+          "tempoIntent": "steady, one beat per object",
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.18,
+          "seed": null,
+          "controls": { "denoise": false }
+        },
+        {
+          "text": "giường chưa được gấp.",
+          "intent": "end on the third object, quietly",
+          "emotion": "observational, trailing",
+          "emphasis": ["chưa được gấp"],
+          "tempoIntent": "slightly slower, settles down",
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.0,
+          "seed": null,
+          "controls": { "denoise": false }
+        }
+      ]
+    },
+    "s3a": {
+      "reference": { "source": "docs/can-phong-bua-bon-khong-phai-that-bai/voice-ref/refThanhLong.wav" },
+      "referenceSelectionStatus": "selected",
+      "intent": "show the loop: the room is turned into a verdict on the person. The quoted self-accusation is spoken as the viewer's own inner voice, not as the narrator's opinion.",
+      "emotion": "quiet, slightly embarrassed — the tone of repeating something you say to yourself and are ashamed of",
+      "accentWords": ["mình lười thật"],
+      "tempoIntent": "the setup clause is quick; the quoted words slow down a little because they are being heard for the first time out loud",
+      "ending": "flat — the accusation does not want an answer yet",
+      "minimumPostClipHoldSeconds": 0.35,
+      "postClipHoldPolicy": "timeline silence after the clip: she looks away from the room; the face-down phone's screen edge glows a thin line.",
+      "phrases": [
+        {
+          "text": "Nhìn cả căn phòng,",
+          "intent": "put the viewer physically in the room, looking",
+          "emotion": "observational",
+          "emphasis": [],
+          "tempoIntent": "quick setup",
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.0,
+          "seed": null,
+          "controls": { "denoise": false }
+        },
+        {
+          "text": "bạn tự nói trong đầu: mình lười thật.",
+          "intent": "speak the viewer's own accusation in the viewer's own words",
+          "emotion": "embarrassed, small, not performed",
+          "emphasis": ["mình lười thật"],
+          "tempoIntent": "slows slightly on the quoted clause; level, no rising",
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.0,
+          "seed": null,
+          "controls": { "denoise": false }
+        }
+      ]
+    },
+    "s3b": {
+      "reference": { "source": "docs/can-phong-bua-bon-khong-phai-that-bai/voice-ref/refThanhLong.wav" },
+      "referenceSelectionStatus": "selected",
+      "intent": "land the depleted state in plain physical words — tired, not lazy. No diagnosis, no clinical term, no statistic.",
+      "emotion": "flat, resigned, unbothered — a fact, not a confession",
+      "accentWords": ["nằm xuống thôi", "chẳng muốn động gì"],
+      "tempoIntent": "first clause plain and low; second clause slightly slower, with the fatigue audible in the pace rather than in the words",
+      "ending": "trailing, no lift — nothing is being promised",
+      "minimumPostClipHoldSeconds": 0.45,
+      "postClipHoldPolicy": "timeline silence after the clip: the face-down phone buzzes once against the sheet — a muffled vibration — and its screen line flickers once.",
+      "phrases": [
+        {
+          "text": "Rồi bạn cũng chỉ nằm xuống thôi.",
+          "intent": "say what actually happened, without judging it",
+          "emotion": "resigned, unsurprised",
+          "emphasis": ["nằm xuống thôi"],
+          "tempoIntent": "plain, slightly low",
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.22,
+          "seed": null,
+          "controls": { "denoise": false }
+        },
+        {
+          "text": "Cả ngày mệt, tối chẳng muốn động gì.",
+          "intent": "name the cause in the plainest possible words",
+          "emotion": "tired, factual",
+          "emphasis": ["chẳng muốn động gì"],
+          "tempoIntent": "slower, even, trailing",
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.0,
+          "seed": null,
+          "controls": { "denoise": false }
+        }
+      ]
+    },
+    "s4": {
+      "reference": { "source": "docs/can-phong-bua-bon-khong-phai-that-bai/voice-ref/refThanhLong.wav" },
+      "referenceSelectionStatus": "selected",
+      "intent": "RE-HOOK: turn the room from judge into witness. The 'đâu' at the end is the whole point — a gentle contradiction, said like someone who knows the viewer well.",
+      "emotion": "warm, assured, slightly playful at the edge — never smug",
+      "accentWords": ["không nói gì về bạn"],
+      "tempoIntent": "one clause, unhurried; the final 'đâu' lifts slightly and falls back",
+      "ending": "falling on 'đâu', leaves the room's answer open for the next key",
+      "minimumPostClipHoldSeconds": 0.4,
+      "postClipHoldPolicy": "timeline silence after the clip: the pull-back settles and the whole room sits still for a beat.",
+      "phrases": [
+        {
+          "text": "Căn phòng này không nói gì về bạn đâu.",
+          "intent": "the re-hook — the room stops judging you",
+          "emotion": "warm, gently contradicting",
+          "emphasis": ["không nói gì về bạn"],
+          "tempoIntent": "unhurried, one clause, gentle rise on 'đâu' then fall",
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.0,
+          "seed": null,
+          "controls": { "denoise": false }
+        }
+      ]
+    },
+    "s5": {
+      "reference": { "source": "docs/can-phong-bua-bon-khong-phai-that-bai/voice-ref/refThanhLong.wav" },
+      "referenceSelectionStatus": "selected",
+      "intent": "answer the re-hook and state the thesis in plain words. The hedge 'Có lẽ' is mandatory: research.md §8.1 requires the link between a depleted state and a messy room to be spoken as the narrator's reading, never as a finding (no study measures it).",
+      "emotion": "plain, factual, almost tender underneath — an explanation offered, not a verdict",
+      "accentWords": ["Có lẽ", "không còn sức làm một việc nhỏ nữa", "hôm nay thôi"],
+      "tempoIntent": "'Có lẽ nó nói:' is a quiet turn, not a certainty; the middle clause is level; the last clause slows and lands with the emphasis on 'thôi'",
+      "ending": "flat and settled on 'thôi' — the promise the whole video has been making",
+      "minimumPostClipHoldSeconds": 0.4,
+      "postClipHoldPolicy": "timeline silence after the clip: her shoulders drop half a centimetre; the lamp switch is under her fingertip but not pressed yet.",
+      "phrases": [
+        {
+          "text": "Có lẽ nó nói:",
+          "intent": "open the answer as the narrator's own reading — the hedge is the honesty, not a weakness",
+          "emotion": "quiet turn, careful",
+          "emphasis": ["Có lẽ"],
+          "tempoIntent": "brief, a breath with a turn in it; 'Có lẽ' must not be rushed",
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.18,
+          "seed": null,
+          "controls": { "denoise": false }
+        },
+        {
+          "text": "hôm nay bạn không còn sức làm một việc nhỏ nữa.",
+          "intent": "say the depleted state in plain words, without any clinical word",
+          "emotion": "factual, level",
+          "emphasis": ["không còn sức làm một việc nhỏ nữa"],
+          "tempoIntent": "level and unhurried",
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.22,
+          "seed": null,
+          "controls": { "denoise": false }
+        },
+        {
+          "text": "Nó nói về hôm nay thôi.",
+          "intent": "the thesis in six syllables: today, not your life",
+          "emotion": "assured, warm, definitive",
+          "emphasis": ["hôm nay thôi"],
+          "tempoIntent": "slows, lands on 'thôi'",
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.0,
+          "seed": null,
+          "controls": { "denoise": false }
+        }
+      ]
+    },
+    "s6": {
+      "reference": { "source": "docs/can-phong-bua-bon-khong-phai-that-bai/voice-ref/refThanhLong.wav" },
+      "referenceSelectionStatus": "selected",
+      "intent": "THE PAYOFF: name the one small act exactly, so the viewer can see it and check it. 'chỉ' carries the whole promise.",
+      "emotion": "light, easy, almost casual — the smallness is the point, so the voice must not make it sound like a mission",
+      "accentWords": ["chỉ gấp một cái áo lên", "lưng ghế"],
+      "tempoIntent": "brisk and practical through the first clause; the destination slows a touch so the eye can follow it",
+      "ending": "settles — the act is done, the sentence is done",
+      "minimumPostClipHoldSeconds": 0.45,
+      "postClipHoldPolicy": "timeline silence after the clip: the desk lamp has clicked on and its warm pool blooms over the desk, the cold cup and the newly flat shirt.",
+      "phrases": [
+        {
+          "text": "Hôm nay, chỉ gấp một cái áo lên,",
+          "intent": "name the single small act",
+          "emotion": "light, practical",
+          "emphasis": ["chỉ gấp một cái áo lên"],
+          "tempoIntent": "brisk, practical",
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.14,
+          "seed": null,
+          "controls": { "denoise": false }
+        },
+        {
+          "text": "đặt lên lưng ghế.",
+          "intent": "say where it goes, so the viewer can watch it land",
+          "emotion": "quiet, satisfied",
+          "emphasis": ["lưng ghế"],
+          "tempoIntent": "slightly slower, settles",
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.0,
+          "seed": null,
+          "controls": { "denoise": false }
+        }
+      ]
+    },
+    "s7a": {
+      "reference": { "source": "docs/can-phong-bua-bon-khong-phai-that-bai/voice-ref/refThanhLong.wav" },
+      "referenceSelectionStatus": "selected",
+      "intent": "a single satisfied syllable after the act — the beat the split key exists to create.",
+      "emotion": "quiet satisfaction, almost a small exhale",
+      "accentWords": ["Xong rồi"],
+      "tempoIntent": "short, unhurried, with the natural drop at the end of a finished action",
+      "ending": "falls away — it must leave room for the celebration that follows",
+      "minimumPostClipHoldSeconds": 0.3,
+      "postClipHoldPolicy": "timeline silence after the clip: the folded shirt lies flat on the chair back and the lamp light moves across it as she straightens.",
+      "phrases": [
+        {
+          "text": "Xong rồi.",
+          "intent": "mark the finished act",
+          "emotion": "satisfied, small",
+          "emphasis": ["Xong rồi"],
+          "tempoIntent": "short, natural drop",
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.0,
+          "seed": null,
+          "controls": { "denoise": false }
+        }
+      ]
+    },
+    "s7b": {
+      "reference": { "source": "docs/can-phong-bua-bon-khong-phai-that-bai/voice-ref/refThanhLong.wav" },
+      "referenceSelectionStatus": "selected",
+      "intent": "THE CLIMAX: celebrate the small thing without teaching it. The celebration is stated, not suggested, because the user's own theme is 'mừng từng việc nhỏ'.",
+      "emotion": "warm — the warmest read in the video, and still not loud",
+      "accentWords": ["Một việc nhỏ thôi", "đáng mừng"],
+      "tempoIntent": "first clause light and quick; 'Nhưng' opens the turn; the last clause slows a little so the celebration lands rather than snaps",
+      "ending": "settles and holds — the voice does not fall away into a fade",
+      "minimumPostClipHoldSeconds": 0.6,
+      "postClipHoldPolicy": "timeline silence after the clip: the camera drifts back; the room with the lamp pool and the folded shirt is held.",
+      "phrases": [
+        {
+          "text": "Một việc nhỏ thôi.",
+          "intent": "keep it small on purpose — do not inflate the act",
+          "emotion": "light, warm",
+          "emphasis": ["Một việc nhỏ thôi"],
+          "tempoIntent": "light, quick",
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.26,
+          "seed": null,
+          "controls": { "denoise": false }
+        },
+        {
+          "text": "Nhưng hôm nay, việc đó đáng mừng.",
+          "intent": "celebrate it out loud — this is the payoff of the whole video",
+          "emotion": "warm, open, the warmest moment",
+          "emphasis": ["đáng mừng"],
+          "tempoIntent": "slows on the last clause and lands",
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.0,
+          "seed": null,
+          "controls": { "denoise": false }
+        }
+      ]
+    },
+    "s8a": {
+      "reference": { "source": "docs/can-phong-bua-bon-khong-phai-that-bai/voice-ref/refThanhLong.wav" },
+      "referenceSelectionStatus": "selected",
+      "intent": "open the one light closing line the brief allows. It must sound like an aside from a friend, not like advice.",
+      "emotion": "quiet, practical, unemphatic — it is the softest line in the video",
+      "accentWords": ["mấy tuần"],
+      "tempoIntent": "unhurried; the clause is set up and left open, because the gap after it is real silence",
+      "ending": "rests on the comma — the sentence is not finished and does not pretend to be",
+      "minimumPostClipHoldSeconds": 0.4,
+      "postClipHoldPolicy": "timeline silence after the clip: she is still at the window, her hand on the curtain edge; the room is quiet.",
+      "phrases": [
+        {
+          "text": "Nếu mệt kéo dài mấy tuần,",
+          "intent": "open the condition, without dramatising it",
+          "emotion": "quiet, practical",
+          "emphasis": ["mấy tuần"],
+          "tempoIntent": "unhurried, rests open",
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.0,
+          "seed": null,
+          "controls": { "denoise": false }
+        }
+      ]
+    },
+    "s8b": {
+      "reference": { "source": "docs/can-phong-bua-bon-khong-phai-that-bai/voice-ref/refThanhLong.wav" },
+      "referenceSelectionStatus": "selected",
+      "intent": "the last words of the video: say it to one person, then stop. No hotline, no number, no follow, no comment — the brief allows this one line and nothing else.",
+      "emotion": "gentle, direct, close",
+      "accentWords": ["một người bạn tin"],
+      "tempoIntent": "one calm clause, no lift on the final word — the instruction must not sound like a call to action",
+      "ending": "level, and simply stops. The 3.20 s hold after it is the real ending.",
+      "minimumPostClipHoldSeconds": 3.2,
+      "postClipHoldPolicy": "SILENT ENDING — no voice, no CTA, no music swell. In this hold the curtain is drawn fully open and the late-afternoon light floods the room; the folded shirt on the chair back catches it. Only room sound (fabric on the rail); BGM has already cut on the last word.",
+      "phrases": [
+        {
+          "text": "hãy nói với một người bạn tin.",
+          "intent": "the one light closing line — say it and stop",
+          "emotion": "gentle, direct",
+          "emphasis": ["một người bạn tin"],
+          "tempoIntent": "one calm clause, level, stops",
+          "pauseBeforeSeconds": 0.0,
+          "pauseAfterSeconds": 0.0,
+          "seed": null,
+          "controls": { "denoise": false }
+        }
+      ]
+    }
+  }
+}

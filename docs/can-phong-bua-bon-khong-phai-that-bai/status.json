@@ -1,0 +1,122 @@
+{
+  "workflow_version": 4,
+  "name": "can-phong-bua-bon-khong-phai-that-bai",
+  "comp": "CanPhongBuaBonReel",
+  "voice": "thanh-long-nang-cao",
+  "profile": "story",
+  "paths": {
+    "audio": "can-phong-bua-bon-khong-phai-that-bai",
+    "out": "can-phong-bua-bon-khong-phai-that-bai-thanh-long-nang-cao",
+    "qa": "can-phong-bua-bon-khong-phai-that-bai"
+  },
+  "gates": [],
+  "stages": {
+    "research": {
+      "state": "blocked",
+      "at": "2026-10-22T00:07:26+07:00",
+      "note": "On hold: owner replaced the task in the same session with a new video brief (bat-dau-lai-sau-mot-moi-quan-he-dai). No delivery requested."
+    },
+    "motion": {
+      "state": "pending"
+    },
+    "qa": {
+      "state": "pending"
+    },
+    "brief": {
+      "state": "blocked",
+      "at": "2026-10-22T00:07:26+07:00",
+      "note": "On hold: brief superseded by the owner's new task"
+    },
+    "script": {
+      "state": "blocked",
+      "at": "2026-10-22T00:07:26+07:00",
+      "note": "On hold: script proposals exist but were never reviewed or accepted"
+    }
+  },
+  "reviews": {},
+  "review_valid": {},
+  "next": "Owner decides",
+  "log": [
+    {
+      "t": "2026-10-21T23:26:31+07:00",
+      "stage": "-",
+      "who": "agent",
+      "msg": "status initialised"
+    },
+    {
+      "t": "2026-10-21T23:27:17+07:00",
+      "stage": "research",
+      "who": "research-agent",
+      "msg": "research-agent running: Phase 1 research: source psychological framing, audience language, hook candidates"
+    },
+    {
+      "t": "2026-10-21T23:27:17+07:00",
+      "stage": "script",
+      "who": "script-agent",
+      "msg": "script-agent running: Phase 2a/2b: brief completion, script, hook-options, voice proposals"
+    },
+    {
+      "t": "2026-10-21T23:27:17+07:00",
+      "stage": "research",
+      "who": "agent",
+      "msg": "research -> in_progress: research-agent dispatched"
+    },
+    {
+      "t": "2026-10-21T23:27:17+07:00",
+      "stage": "brief",
+      "who": "agent",
+      "msg": "brief -> in_progress: director header written; script-agent completing creative sections"
+    },
+    {
+      "t": "2026-10-21T23:27:17+07:00",
+      "stage": "script",
+      "who": "agent",
+      "msg": "script -> in_progress: script-agent dispatched"
+    },
+    {
+      "t": "2026-10-22T00:07:26+07:00",
+      "stage": "research",
+      "who": "research-agent",
+      "msg": "research-agent done: research.md written (287 lines, 15 sources); video put on hold when owner replaced the brief"
+    },
+    {
+      "t": "2026-10-22T00:07:26+07:00",
+      "stage": "script",
+      "who": "script-agent",
+      "msg": "script-agent failed: dispatch interrupted; proposals written but not accepted; video on hold"
+    },
+    {
+      "t": "2026-10-22T00:07:26+07:00",
+      "stage": "research",
+      "who": "agent",
+      "msg": "research -> blocked: On hold: owner replaced the task in the same session with a new video brief (bat-dau-lai-sau-mot-moi-quan-he-dai). No delivery requested."
+    },
+    {
+      "t": "2026-10-22T00:07:26+07:00",
+      "stage": "brief",
+      "who": "agent",
+      "msg": "brief -> blocked: On hold: brief superseded by the owner's new task"
+    },
+    {
+      "t": "2026-10-22T00:07:26+07:00",
+      "stage": "script",
+      "who": "agent",
+      "msg": "script -> blocked: On hold: script proposals exist but were never reviewed or accepted"
+    }
+  ],
+  "updated": "2026-10-22T00:07:26+07:00",
+  "agents": {
+    "research-agent": {
+      "state": "done",
+      "at": "2026-10-22T00:07:26+07:00",
+      "note": "research.md written (287 lines, 15 sources); video put on hold when owner replaced the brief",
+      "stage": "research"
+    },
+    "script-agent": {
+      "state": "failed",
+      "at": "2026-10-22T00:07:26+07:00",
+      "note": "dispatch interrupted; proposals written but not accepted; video on hold",
+      "stage": "script"
+    }
+  }
+}

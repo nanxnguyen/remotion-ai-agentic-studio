@@ -1,0 +1,109 @@
+{
+  "version": 3,
+  "canonicalText": "docs/so-bi-xem-la-ich-ky-khi-noi-khong/voice.proposed.json",
+  "engine": {
+    "name": "route 2 — local VieNeu clone",
+    "selectedReference": "docs/so-bi-xem-la-ich-ky-khi-noi-khong/voice-ref/refThanhLong.wav",
+    "runtime": "local VieNeu; exact installed version to be recorded by voice-agent",
+    "externalUpload": false,
+    "supportedControls": ["referenceAudio", "seed", "denoise", "silencePadding"],
+    "fixedControls": { "denoise": false },
+    "unsupportedControls": ["rate", "pitch", "volume", "speed", "atempo", "style", "directEmotion", "actingCue"],
+    "limitations": "VieNeu does not accept emotion or pace as waveform controls. Intent, emotion, and tempoIntent are direction metadata; only silencePadding and the documented phrase breaks create planned gaps. No post-generation speed or pitch manipulation is permitted."
+  },
+  "shots": {
+    "s1": {
+      "reference": { "source": "docs/so-bi-xem-la-ich-ky-khi-noi-khong/voice-ref/refThanhLong.wav" },
+      "intent": "Admit the automatic yes without blaming the requester.",
+      "emotion": "contained exhaustion; remembered judgement, not panic",
+      "accentWords": ["kiệt sức", "sợ", "không giúp được à?"],
+      "tempoIntent": "quickly conversational until 'kiệt sức'; lower and slower for the remembered quote",
+      "minimumPostClipHoldSeconds": 0.0,
+      "limitations": "No second speaker and no acted quotation voice; the visual typography, not a voice change, marks memory.",
+      "phrases": [
+        { "text": "Tôi nhận thêm việc dù đã kiệt sức,", "intent": "admit the reflex", "emotion": "contained exhaustion", "emphasis": ["kiệt sức"], "tempoIntent": "quick but natural", "pauseBeforeSeconds": 0, "pauseAfterSeconds": 0.25, "seed": null, "controls": { "denoise": false } },
+        { "text": "chỉ vì sợ một câu: 'Có thế cũng không giúp được à?'", "intent": "recall the feared judgement", "emotion": "quiet apprehension", "emphasis": ["sợ", "không giúp được à?"], "tempoIntent": "lower, plain, no character voice", "pauseBeforeSeconds": 0, "pauseAfterSeconds": 0, "seed": null, "controls": { "denoise": false } }
+      ]
+    },
+    "s2": {
+      "reference": { "source": "docs/so-bi-xem-la-ich-ky-khi-noi-khong/voice-ref/refThanhLong.wav" },
+      "intent": "Make the request feel ordinary before showing the reflex.",
+      "emotion": "matter-of-fact tension",
+      "accentWords": ["Nhờ chút nhé?", "sắp chạm", "Ok"],
+      "tempoIntent": "even opening; slow only on the unsent reply",
+      "minimumPostClipHoldSeconds": 0.0,
+      "limitations": "The 0.25-second phrase gap is inserted silence, not an engine-controlled emotional pause.",
+      "phrases": [
+        { "text": "Tin nhắn chỉ viết: “Nhờ chút nhé?”", "intent": "show the ordinary ask", "emotion": "neutral", "emphasis": ["Nhờ chút nhé?"], "tempoIntent": "plain", "pauseBeforeSeconds": 0, "pauseAfterSeconds": 0.25, "seed": null, "controls": { "denoise": false } },
+        { "text": "Ngón tay tôi sắp chạm vào chữ Ok.", "intent": "reveal the reflex", "emotion": "held tension", "emphasis": ["sắp chạm", "Ok"], "tempoIntent": "settle slightly", "pauseBeforeSeconds": 0, "pauseAfterSeconds": 0, "seed": null, "controls": { "denoise": false } }
+      ]
+    },
+    "s3": {
+      "reference": { "source": "docs/so-bi-xem-la-ich-ky-khi-noi-khong/voice-ref/refThanhLong.wav" },
+      "intent": "Let objects show the cost.",
+      "emotion": "tired observation, not sadness",
+      "accentWords": ["dài thêm", "tắt dần", "thứ ba", "lạnh"],
+      "tempoIntent": "three calm observations; last image settles",
+      "minimumPostClipHoldSeconds": 0.0,
+      "limitations": "No sigh or environmental non-spoken cue is requested from the engine.",
+      "phrases": [
+        { "text": "Danh sách bên cạnh dài thêm.", "intent": "show accumulation", "emotion": "observant", "emphasis": ["dài thêm"], "tempoIntent": "even", "pauseBeforeSeconds": 0, "pauseAfterSeconds": 0.12, "seed": null, "controls": { "denoise": false } },
+        { "text": "Đèn văn phòng tắt dần.", "intent": "isolate the desk", "emotion": "quiet", "emphasis": ["tắt dần"], "tempoIntent": "even", "pauseBeforeSeconds": 0, "pauseAfterSeconds": 0.12, "seed": null, "controls": { "denoise": false } },
+        { "text": "Ly cà phê thứ ba đã lạnh.", "intent": "land the sensory cost", "emotion": "plain fatigue", "emphasis": ["thứ ba", "lạnh"], "tempoIntent": "slightly slower at the end", "pauseBeforeSeconds": 0, "pauseAfterSeconds": 0, "seed": null, "controls": { "denoise": false } }
+      ]
+    },
+    "s4": {
+      "reference": { "source": "docs/so-bi-xem-la-ich-ky-khi-noi-khong/voice-ref/refThanhLong.wav" },
+      "intent": "RE-HOOK: name the fear rather than the extra task.",
+      "emotion": "recognition, restrained",
+      "accentWords": ["không sợ", "bị xem", "ích kỷ"],
+      "tempoIntent": "plain discovery, then slower direct admission",
+      "minimumPostClipHoldSeconds": 0.0,
+      "limitations": "This is first-person reflection, not a diagnosis or a claim about another person.",
+      "phrases": [
+        { "text": "Rồi tôi hiểu: tôi không sợ thêm một việc.", "intent": "turn the question", "emotion": "recognition", "emphasis": ["không sợ"], "tempoIntent": "restrained", "pauseBeforeSeconds": 0, "pauseAfterSeconds": 0.24, "seed": null, "controls": { "denoise": false } },
+        { "text": "Tôi sợ bị xem là ích kỷ.", "intent": "name the actual fear", "emotion": "honest, quiet", "emphasis": ["bị xem", "ích kỷ"], "tempoIntent": "slower but not whispered", "pauseBeforeSeconds": 0, "pauseAfterSeconds": 0, "seed": null, "controls": { "denoise": false } }
+      ]
+    },
+    "s5": {
+      "reference": { "source": "docs/so-bi-xem-la-ich-ky-khi-noi-khong/voice-ref/refThanhLong.wav" },
+      "intent": "Make the waiting physically advance before the send.",
+      "emotion": "recognition without self-pity",
+      "accentWords": ["rất nhỏ", "giữ tôi lại", "tối nay"],
+      "tempoIntent": "observational opening; the waiting lands quietly",
+      "minimumPostClipHoldSeconds": 0.0,
+      "limitations": "The one phrase gap is assembly padding; no vowel is stretched to create the beat.",
+      "phrases": [
+        { "text": "Một chữ Ok nhìn rất nhỏ.", "intent": "make the reply physically small", "emotion": "observant", "emphasis": ["rất nhỏ"], "tempoIntent": "brief", "pauseBeforeSeconds": 0, "pauseAfterSeconds": 0.25, "seed": null, "controls": { "denoise": false } },
+        { "text": "Nhưng nó giữ tôi lại trước màn hình thêm tối nay.", "intent": "make the waiting physical", "emotion": "quiet recognition", "emphasis": ["giữ tôi lại", "tối nay"], "tempoIntent": "settled", "pauseBeforeSeconds": 0, "pauseAfterSeconds": 0, "seed": null, "controls": { "denoise": false } }
+      ]
+    },
+    "s6": {
+      "reference": { "source": "docs/so-bi-xem-la-ich-ky-khi-noi-khong/voice-ref/refThanhLong.wav" },
+      "intent": "CLIMAX: send one neutral capacity-based refusal.",
+      "emotion": "calm resolve, no victory lap",
+      "accentWords": ["Lần này", "không nhận thêm được", "Mai"],
+      "tempoIntent": "clear at ordinary volume; second refusal sentence warm but not appeasing",
+      "minimumPostClipHoldSeconds": 0.0,
+      "limitations": "No guarantee about the recipient's reaction is implied; the send click belongs to post-production, not the voice engine.",
+      "phrases": [
+        { "text": "Lần này, tôi gõ: “Tối nay tôi không nhận thêm được.", "intent": "state current capacity", "emotion": "calm resolve", "emphasis": ["Lần này", "không nhận thêm được"], "tempoIntent": "clear, ordinary volume", "pauseBeforeSeconds": 0, "pauseAfterSeconds": 0.24, "seed": null, "controls": { "denoise": false } },
+        { "text": "Mai tôi xem lại nhé.”", "intent": "leave a gentle next step", "emotion": "warm, firm", "emphasis": ["Mai"], "tempoIntent": "settled", "pauseBeforeSeconds": 0, "pauseAfterSeconds": 0, "seed": null, "controls": { "denoise": false } }
+      ]
+    },
+    "s7": {
+      "reference": { "source": "docs/so-bi-xem-la-ich-ky-khi-noi-khong/voice-ref/refThanhLong.wav" },
+      "intent": "Close the laptop and keep the narrator's worth separate from exhaustion.",
+      "emotion": "warm, settled, quietly firm",
+      "accentWords": ["đóng máy", "đèn ấm", "không phải kiệt sức", "người tốt"],
+      "tempoIntent": "two sensory facts, then an unhurried closing truth",
+      "minimumPostClipHoldSeconds": 1.8,
+      "limitations": "The mandatory post-line silence is a timeline hold. No fade, breath, or engine cue produces it.",
+      "phrases": [
+        { "text": "Tôi đóng máy.", "intent": "make the action final", "emotion": "settled", "emphasis": ["đóng máy"], "tempoIntent": "plain", "pauseBeforeSeconds": 0, "pauseAfterSeconds": 0.14, "seed": null, "controls": { "denoise": false } },
+        { "text": "Ngoài cửa vẫn còn đèn ấm.", "intent": "open the room outward", "emotion": "gentle relief", "emphasis": ["đèn ấm"], "tempoIntent": "unhurried", "pauseBeforeSeconds": 0, "pauseAfterSeconds": 0.14, "seed": null, "controls": { "denoise": false } },
+        { "text": "Tối nay, tôi không phải kiệt sức để được xem là người tốt.", "intent": "separate worth from exhaustion", "emotion": "quiet certainty", "emphasis": ["không phải kiệt sức", "người tốt"], "tempoIntent": "warm, firm, no CTA lift", "pauseBeforeSeconds": 0, "pauseAfterSeconds": 0, "seed": null, "controls": { "denoise": false } }
+      ]
+    }
+  }
+}

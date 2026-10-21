@@ -1,0 +1,45 @@
+{
+  "workflow_version": 4,
+  "name": "so-noi-khong",
+  "comp": "SoNoiKhongReel",
+  "voice": "thanh-long-nang-cao",
+  "profile": "story",
+  "paths": {
+    "audio": "so-noi-khong",
+    "out": "so-noi-khong-thanh-long-nang-cao",
+    "qa": "so-noi-khong"
+  },
+  "gates": [],
+  "stages": {
+    "research": {
+      "state": "failed",
+      "at": "2026-10-22T00:29:09+07:00",
+      "note": "Duplicate of so-bi-xem-la-ich-ky-khi-noi-khong (same topic, composition ID, brief already exists and in progress)"
+    },
+    "motion": {
+      "state": "pending"
+    },
+    "qa": {
+      "state": "pending"
+    }
+  },
+  "reviews": {},
+  "review_valid": {},
+  "next": "",
+  "log": [
+    {
+      "t": "2026-10-22T00:27:06+07:00",
+      "stage": "-",
+      "who": "agent",
+      "msg": "status initialised"
+    },
+    {
+      "t": "2026-10-22T00:29:09+07:00",
+      "stage": "research",
+      "who": "agent",
+      "msg": "research -> failed: Duplicate of so-bi-xem-la-ich-ky-khi-noi-khong (same topic, composition ID, brief already exists and in progress)"
+    }
+  ],
+  "updated": "2026-10-22T00:29:09+07:00",
+  "agents": {}
+}

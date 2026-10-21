@@ -1,0 +1,362 @@
+{
+  "workflow_version": 4,
+  "name": "so-bi-xem-la-ich-ky-khi-noi-khong",
+  "comp": "SoNoiKhongReel",
+  "voice": "thanh-long-nang-cao",
+  "profile": "story",
+  "paths": {
+    "audio": "so-bi-xem-la-ich-ky-khi-noi-khong",
+    "out": "so-bi-xem-la-ich-ky-khi-noi-khong-thanh-long-nang-cao",
+    "qa": "so-bi-xem-la-ich-ky-khi-noi-khong"
+  },
+  "gates": [],
+  "stages": {
+    "research": {
+      "state": "done",
+      "at": "2026-10-22T00:27:19+07:00",
+      "note": "research.md: sourced claims boundary, audience language, 5 hooks"
+    },
+    "motion": {
+      "state": "pending"
+    },
+    "qa": {
+      "state": "pending"
+    },
+    "brief": {
+      "state": "done",
+      "at": "2026-10-22T00:34:45+07:00",
+      "note": "creative brief completed with selected H1 and visual direction"
+    },
+    "script": {
+      "state": "done",
+      "at": "2026-10-22T00:51:57+07:00",
+      "note": "Gate A passed 9.4 with no open high/medium tickets"
+    },
+    "content": {
+      "state": "in_progress",
+      "at": "2026-10-22T00:51:58+07:00",
+      "note": "content-agent dispatched"
+    },
+    "voice": {
+      "state": "in_progress",
+      "at": "2026-10-22T00:51:58+07:00",
+      "note": "voice-agent dispatched"
+    },
+    "audio": {
+      "state": "in_progress",
+      "at": "2026-10-22T00:57:53+07:00",
+      "note": "audio-agent dispatched (BGM/SFX licensed from video-shotcraft library)"
+    },
+    "design": {
+      "state": "in_progress",
+      "at": "2026-10-22T00:51:58+07:00",
+      "note": "design-agent dispatched"
+    }
+  },
+  "reviews": {
+    "A": [
+      {
+        "at": "2026-10-22T00:40:26+07:00",
+        "reviewer": "script-reviewer",
+        "score": 8.8,
+        "verdict": "revise",
+        "report": "docs/so-bi-xem-la-ich-ky-khi-noi-khong/script-review.md",
+        "note": ""
+      },
+      {
+        "at": "2026-10-22T00:51:57+07:00",
+        "reviewer": "script-reviewer-r2",
+        "score": 9.4,
+        "verdict": "pass",
+        "report": "docs/so-bi-xem-la-ich-ky-khi-noi-khong/script-review.md",
+        "note": ""
+      }
+    ]
+  },
+  "review_valid": {
+    "A": true,
+    "D": false,
+    "E": false,
+    "B": false,
+    "C": false,
+    "content": false,
+    "audio": false,
+    "motion": false
+  },
+  "next": "audio-agent writes assets-manifest.md + mix-plan.md",
+  "log": [
+    {
+      "t": "2026-10-22T00:22:19+07:00",
+      "stage": "-",
+      "who": "agent",
+      "msg": "status initialised"
+    },
+    {
+      "t": "2026-10-22T00:23:09+07:00",
+      "stage": "research",
+      "who": "research-agent",
+      "msg": "research-agent running: Phase 1: audience language, claims boundary, sourced context, five hooks"
+    },
+    {
+      "t": "2026-10-22T00:23:09+07:00",
+      "stage": "script",
+      "who": "script-agent",
+      "msg": "script-agent running: Phase 2: brief/script/voice proposals for 30-40s story"
+    },
+    {
+      "t": "2026-10-22T00:23:09+07:00",
+      "stage": "research",
+      "who": "agent",
+      "msg": "research -> in_progress: research-agent dispatched"
+    },
+    {
+      "t": "2026-10-22T00:23:09+07:00",
+      "stage": "brief",
+      "who": "agent",
+      "msg": "brief -> in_progress: director intake complete; script-agent owns creative brief"
+    },
+    {
+      "t": "2026-10-22T00:23:09+07:00",
+      "stage": "script",
+      "who": "agent",
+      "msg": "script -> in_progress: script-agent dispatched after Phase 0"
+    },
+    {
+      "t": "2026-10-22T00:27:19+07:00",
+      "stage": "agent",
+      "who": "research-agent",
+      "msg": "research-agent done"
+    },
+    {
+      "t": "2026-10-22T00:27:19+07:00",
+      "stage": "research",
+      "who": "agent",
+      "msg": "research -> done: research.md: sourced claims boundary, audience language, 5 hooks (evidence: 1 file(s): docs/so-bi-xem-la-ich-ky-khi-noi-khong/research.md)"
+    },
+    {
+      "t": "2026-10-22T00:34:44+07:00",
+      "stage": "agent",
+      "who": "script-agent",
+      "msg": "script-agent done"
+    },
+    {
+      "t": "2026-10-22T00:34:45+07:00",
+      "stage": "brief",
+      "who": "agent",
+      "msg": "brief -> done: creative brief completed with selected H1 and visual direction (evidence: 1 file(s): docs/so-bi-xem-la-ich-ky-khi-noi-khong/brief.md)"
+    },
+    {
+      "t": "2026-10-22T00:34:45+07:00",
+      "stage": "script",
+      "who": "script-reviewer",
+      "msg": "script-reviewer running: Gate A independent review of script and voice proposal"
+    },
+    {
+      "t": "2026-10-22T00:40:13+07:00",
+      "stage": "script",
+      "who": "script-agent",
+      "msg": "script-agent running: Gate A round 1 fixes A-R1-01 through A-R1-03"
+    },
+    {
+      "t": "2026-10-22T00:40:26+07:00",
+      "stage": "A",
+      "who": "script-reviewer",
+      "msg": "review 8.8/10 revise: script-review.md"
+    },
+    {
+      "t": "2026-10-22T00:40:26+07:00",
+      "stage": "agent",
+      "who": "script-reviewer",
+      "msg": "script-reviewer done: review A -> revise"
+    },
+    {
+      "t": "2026-10-22T00:47:56+07:00",
+      "stage": "agent",
+      "who": "script-agent",
+      "msg": "script-agent done"
+    },
+    {
+      "t": "2026-10-22T00:47:56+07:00",
+      "stage": "script",
+      "who": "script-reviewer-r2",
+      "msg": "script-reviewer-r2 running: Fresh Gate A round 2 closure and regression review"
+    },
+    {
+      "t": "2026-10-22T00:51:57+07:00",
+      "stage": "A",
+      "who": "script-reviewer-r2",
+      "msg": "review 9.4/10 pass: script-review.md"
+    },
+    {
+      "t": "2026-10-22T00:51:57+07:00",
+      "stage": "agent",
+      "who": "script-reviewer-r2",
+      "msg": "script-reviewer-r2 done: review A -> pass"
+    },
+    {
+      "t": "2026-10-22T00:51:57+07:00",
+      "stage": "script",
+      "who": "agent",
+      "msg": "script -> done: Gate A passed 9.4 with no open high/medium tickets (evidence: 2 file(s): docs/so-bi-xem-la-ich-ky-khi-noi-khong/script.md; gate A: pass 9.4/10)"
+    },
+    {
+      "t": "2026-10-22T00:51:57+07:00",
+      "stage": "content",
+      "who": "content-agent",
+      "msg": "content-agent running: Lock text layer from accepted script"
+    },
+    {
+      "t": "2026-10-22T00:51:57+07:00",
+      "stage": "voice",
+      "who": "voice-agent",
+      "msg": "voice-agent running: Generate real Thanh Long clips with ASR/CER"
+    },
+    {
+      "t": "2026-10-22T00:51:58+07:00",
+      "stage": "audio",
+      "who": "audio-agent",
+      "msg": "audio-agent running: Select licensed BGM/SFX and mix plan"
+    },
+    {
+      "t": "2026-10-22T00:51:58+07:00",
+      "stage": "design",
+      "who": "design-agent",
+      "msg": "design-agent running: Create art direction and required style evidence"
+    },
+    {
+      "t": "2026-10-22T00:51:58+07:00",
+      "stage": "content",
+      "who": "agent",
+      "msg": "content -> in_progress: content-agent dispatched"
+    },
+    {
+      "t": "2026-10-22T00:51:58+07:00",
+      "stage": "voice",
+      "who": "agent",
+      "msg": "voice -> in_progress: voice-agent dispatched"
+    },
+    {
+      "t": "2026-10-22T00:51:58+07:00",
+      "stage": "audio",
+      "who": "agent",
+      "msg": "audio -> in_progress: audio-agent dispatched"
+    },
+    {
+      "t": "2026-10-22T00:51:58+07:00",
+      "stage": "design",
+      "who": "agent",
+      "msg": "design -> in_progress: design-agent dispatched"
+    },
+    {
+      "t": "2026-10-22T00:52:28+07:00",
+      "stage": "audio",
+      "who": "audio-agent",
+      "msg": "audio-agent idle: Awaiting an available concurrency slot; not dispatched yet"
+    },
+    {
+      "t": "2026-10-22T00:52:29+07:00",
+      "stage": "audio",
+      "who": "agent",
+      "msg": "audio -> pending: Queued behind voice/content/design due to three available worker slots"
+    },
+    {
+      "t": "2026-10-22T00:56:52+07:00",
+      "stage": "content",
+      "who": "content-agent",
+      "msg": "content-agent failed: stale after interrupted session; no content-pack.md; re-dispatching"
+    },
+    {
+      "t": "2026-10-22T00:56:52+07:00",
+      "stage": "voice",
+      "who": "voice-agent",
+      "msg": "voice-agent failed: stale after interrupted session; no clips; re-dispatching"
+    },
+    {
+      "t": "2026-10-22T00:56:52+07:00",
+      "stage": "design",
+      "who": "design-agent",
+      "msg": "design-agent failed: stale after interrupted session; no design artifacts; re-dispatching"
+    },
+    {
+      "t": "2026-10-22T00:57:53+07:00",
+      "stage": "audio",
+      "who": "agent",
+      "msg": "audio -> in_progress: audio-agent dispatched (BGM/SFX licensed from video-shotcraft library)"
+    },
+    {
+      "t": "2026-10-22T00:57:53+07:00",
+      "stage": "content",
+      "who": "content-agent",
+      "msg": "content-agent running: Round 2 after stale session: lock text layer from accepted Gate A script"
+    },
+    {
+      "t": "2026-10-22T00:57:53+07:00",
+      "stage": "voice",
+      "who": "voice-agent",
+      "msg": "voice-agent running: Generate Thanh Long clips with gen-voice-clone.py --performance, ASR/CER <=0.04"
+    },
+    {
+      "t": "2026-10-22T00:57:53+07:00",
+      "stage": "design",
+      "who": "design-agent",
+      "msg": "design-agent running: Black/white/orange stick-figure design system per mandated template"
+    },
+    {
+      "t": "2026-10-22T00:57:53+07:00",
+      "stage": "audio",
+      "who": "audio-agent",
+      "msg": "audio-agent running: Select licensed BGM/SFX, write mix plan and manifest"
+    }
+  ],
+  "updated": "2026-10-22T00:57:53+07:00",
+  "agents": {
+    "research-agent": {
+      "state": "done",
+      "at": "2026-10-22T00:27:19+07:00",
+      "note": "",
+      "stage": ""
+    },
+    "script-agent": {
+      "state": "done",
+      "at": "2026-10-22T00:47:56+07:00",
+      "note": "",
+      "stage": ""
+    },
+    "script-reviewer": {
+      "state": "done",
+      "at": "2026-10-22T00:40:26+07:00",
+      "note": "review A -> revise",
+      "stage": ""
+    },
+    "script-reviewer-r2": {
+      "state": "done",
+      "at": "2026-10-22T00:51:57+07:00",
+      "note": "review A -> pass",
+      "stage": ""
+    },
+    "content-agent": {
+      "state": "running",
+      "at": "2026-10-22T00:57:53+07:00",
+      "note": "Round 2 after stale session: lock text layer from accepted Gate A script",
+      "stage": "content"
+    },
+    "voice-agent": {
+      "state": "running",
+      "at": "2026-10-22T00:57:53+07:00",
+      "note": "Generate Thanh Long clips with gen-voice-clone.py --performance, ASR/CER <=0.04",
+      "stage": "voice"
+    },
+    "audio-agent": {
+      "state": "running",
+      "at": "2026-10-22T00:57:53+07:00",
+      "note": "Select licensed BGM/SFX, write mix plan and manifest",
+      "stage": "audio"
+    },
+    "design-agent": {
+      "state": "running",
+      "at": "2026-10-22T00:57:53+07:00",
+      "note": "Black/white/orange stick-figure design system per mandated template",
+      "stage": "design"
+    }
+  }
+}
