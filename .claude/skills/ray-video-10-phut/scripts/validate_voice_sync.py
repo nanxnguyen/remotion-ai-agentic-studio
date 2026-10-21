@@ -5,6 +5,7 @@ All intervals are global, half-open frame ranges. audio_seconds is the measured
 playable duration after trims. This supplements, never replaces, pipeline gates.
 """
 import argparse
+import hashlib
 import json
 import math
 import re
@@ -19,10 +20,14 @@ def validate(data):
             errors.append(message)
 
     def number(value):
-        return type(value) in (int, float) and math.isfinite(value)
+        return (type(value) in (int, float) and abs(value) <= 2**53 - 1
+                and math.isfinite(value))
 
     def frame(value):
-        return type(value) is int and value >= 0
+        return type(value) is int and 0 <= value <= 2**53 - 1
+
+    def identifier(value):
+        return isinstance(value, str) and bool(value.strip())
 
     def digest(value):
         return isinstance(value, str) and re.fullmatch(r'[0-9a-f]{64}', value)
@@ -40,14 +45,18 @@ def validate(data):
     if not isinstance(utterances, list) or not utterances or not isinstance(review, dict):
         return errors + ['Nonempty utterances and review required']
     for sid, speaker in speakers.items():
-        require(isinstance(speaker, dict) and bool(speaker.get('voice_id')), f'{sid}: voice_id required')
+        require(identifier(sid) and isinstance(speaker, dict) and identifier(speaker.get('voice_id')),
+                f'{sid}: nonempty string speaker/voice_id required')
     for sid, shot in shots.items():
+        require(identifier(sid), 'Nonempty string shot ID required')
         if not isinstance(shot, dict):
             errors.append(f'{sid}: invalid shot')
             continue
         a, b = shot.get('start_frame'), shot.get('end_frame')
         require(frame(a) and frame(b) and a < b <= duration, f'{sid}: invalid shot interval')
-        require(isinstance(shot.get('visible_speakers'), list), f'{sid}: visible_speakers required')
+        visible = shot.get('visible_speakers')
+        require(isinstance(visible, list) and all(isinstance(s, str) and s in speakers for s in visible),
+                f'{sid}: visible_speakers must reference known speakers')
     seen, intervals = set(), []
     for u in utterances:
         if not isinstance(u, dict):
@@ -98,12 +107,19 @@ def validate(data):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('evidence', type=Path)
+    parser.add_argument('--mp4', type=Path, help='Verify actual output bytes against the reviewed fingerprint')
     args = parser.parse_args()
     try:
-        errors = validate(json.loads(args.evidence.read_text(encoding='utf-8')))
+        data = json.loads(args.evidence.read_text(encoding='utf-8'))
+        errors = validate(data)
+        if args.mp4 is not None and not errors:
+            with args.mp4.open('rb') as source:
+                actual = hashlib.file_digest(source, 'sha256').hexdigest()
+            if args.mp4.stat().st_size == 0 or actual != data['mp4_sha256']:
+                errors.append('Actual MP4 fingerprint differs from reviewed output')
     except (OSError, ValueError) as exc:
         errors = [str(exc)]
-    print('\n'.join(errors) if errors else 'PASS: declared voice evidence (audio perception not verified)')
+    print('\n'.join(errors) if errors else 'PASS: voice evidence checks (audio perception and media decoding not verified)')
     return 1 if errors else 0
 
 

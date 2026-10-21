@@ -62,9 +62,9 @@ Block delivery for wrong/unidentified speaker, silent fallback to narrator, unex
 Create `docs/<vid>/voice-sync.json` alongside the listening notes and run:
 
 ```bash
-python3 .claude/skills/ray-video-10-phut/scripts/validate_voice_sync.py docs/<vid>/voice-sync.json
+python3 .claude/skills/ray-video-10-phut/scripts/validate_voice_sync.py docs/<vid>/voice-sync.json --mp4 <final.mp4>
 ```
 
 Use `templates/voice-sync.example.json` as a schema example only. Replace every sample value with real measured data and actual review results; never treat the example as evidence. All frame intervals are global and half-open. `audio_seconds` means playable duration after trims. The initial checker accepts one covering shot per utterance and rejects dialogue overlap. Split a planned cross-shot line into measured segments or report unsupported mapping rather than bypassing validation.
 
-The checker rejects wrong speaker/voice mappings, missing picture coverage, measurement drift, caption drift, overlapping dialogue, stale review fingerprints and pending/failed listening dimensions. It validates declarations only: hashes are not recomputed, file existence and waveform contents are not inspected, and it cannot prove reviewer honesty, natural acting or that all script lines are represented. Existing pipeline checks, canonical-script comparison and real listening remain mandatory. Pass this checker before requesting final reviews; it does not itself set a pipeline gate to pass.
+The checker rejects wrong speaker/voice mappings, missing picture coverage, measurement drift, caption drift, overlapping dialogue, stale review fingerprints and pending/failed listening dimensions. It validates declarations only: with `--mp4` the actual output fingerprint and file existence are checked; source audio hashes, waveform contents and media decoding are not inspected, and it cannot prove reviewer honesty, natural acting or that all script lines are represented. Existing pipeline checks, canonical-script comparison and real listening remain mandatory. Pass this checker before requesting final reviews; it does not itself set a pipeline gate to pass.

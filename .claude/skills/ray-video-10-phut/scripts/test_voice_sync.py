@@ -1,6 +1,9 @@
 """Behavioral checks for the skill's supplemental voice evidence contract."""
 import copy
 import json
+import hashlib
+import random
+import time
 import subprocess
 import sys
 import tempfile
@@ -81,6 +84,126 @@ class VoiceSyncTest(unittest.TestCase):
         for d in [None, [], {}, {'fps': True}, {'utterances': 'wrong'}]:
             with self.subTest(data=d):
                 self.assertTrue(self.check(d))
+
+    def test_schema_rejects_non_string_voice_ids(self):
+        for voice in [True, 12, ['girl'], {'id': 'girl'}, '   ']:
+            with self.subTest(voice=voice):
+                d = evidence()
+                d['speakers']['daughter']['voice_id'] = voice
+                d['utterances'][0]['voice_id'] = voice
+                self.assertTrue(self.check(d))
+
+    def test_numeric_boundaries_fail_without_crashing(self):
+        for field in ['fps', 'duration_frames']:
+            for value in [True, False, 0, -1, None, '30', [], {}, float('inf'), float('nan'), 10**1000]:
+                with self.subTest(field=field, value_type=type(value).__name__):
+                    d = evidence()
+                    d[field] = value
+                    self.assertTrue(self.check(d))
+
+    def test_caption_tolerance_boundary(self):
+        d = evidence()
+        d['utterances'][0]['caption_start_frame'] = 3  # 100ms at 30fps
+        self.assertEqual([], self.check(d))
+        d['utterances'][0]['caption_start_frame'] = 4
+        self.assertTrue(self.check(d))
+
+    def test_fractional_fps_is_supported(self):
+        d = evidence()
+        d['fps'] = 29.97
+        self.assertEqual([], self.check(d))
+
+    def test_speaker_reference_in_picture_must_exist(self):
+        d = evidence()
+        d['shots']['s1']['visible_speakers'].append('unknown-role')
+        self.assertTrue(self.check(d))
+
+    def test_invalid_nested_values_never_raise(self):
+        randomizer = random.Random(1701)
+        replacements = [None, True, -1, '', [], {}, float('nan'), 10**1000]
+        # Deterministic malformed-input campaign; checks robustness, not artistic quality.
+        paths = [('fps',), ('speakers', 'daughter'), ('shots', 's1'),
+                 ('utterances', 0, 'speaker'), ('utterances', 0, 'mode'),
+                 ('utterances', 0, 'audio_seconds'), ('review', 'listener')]
+        for index in range(300):
+            d = evidence()
+            path = randomizer.choice(paths)
+            parent = d
+            for key in path[:-1]:
+                parent = parent[key]
+            parent[path[-1]] = randomizer.choice(replacements)
+            with self.subTest(case=index, path=path):
+                self.assertIsInstance(self.check(d), list)
+
+    def test_bulk_validation_is_deterministic_and_responsive(self):
+        d = evidence()
+        d['duration_frames'] = 60000
+        d['shots']['s1']['end_frame'] = 60000
+        line = d['utterances'][0]
+        d['utterances'] = [dict(line, id=f'u{i}', start_frame=i*60, end_frame=(i+1)*60,
+                                caption_start_frame=i*60, caption_end_frame=(i+1)*60)
+                            for i in range(1000)]
+        snapshot = copy.deepcopy(d)
+        start = time.perf_counter()
+        for _ in range(5):
+            self.assertEqual([], self.check(d))
+        elapsed = time.perf_counter() - start
+        self.assertEqual(snapshot, d, 'Validation must not mutate caller data')
+        self.assertLess(elapsed, 5, 'Local validation smoke budget, not TTS/render SLA')
+        print(f'Voice evidence: 5 x 1000 utterances in {elapsed:.4f}s')
+
+    def test_adjacent_lines_and_deliberate_silence_are_valid(self):
+        for start in [60, 65]:
+            d = evidence()
+            d['duration_frames'] = 150
+            d['shots']['s1']['end_frame'] = 150
+            second = dict(d['utterances'][0], id='u2', start_frame=start, end_frame=start+60,
+                          caption_start_frame=start, caption_end_frame=start+60)
+            d['utterances'].append(second)
+            self.assertEqual([], self.check(d))
+
+    def test_picture_coverage_cannot_end_before_speech(self):
+        d = evidence()
+        d['shots']['s1']['end_frame'] = 59
+        self.assertTrue(self.check(d))
+
+    def test_each_listening_dimension_blocks_delivery(self):
+        for dimension in ['naturalness', 'emotion', 'character_fit', 'smooth_joins']:
+            for verdict in ['fail', 'pending', None, True]:
+                d = evidence()
+                d['review'][dimension] = verdict
+                with self.subTest(dimension=dimension, verdict=verdict):
+                    self.assertTrue(self.check(d))
+
+    def test_review_requires_actual_boolean_and_listener(self):
+        for value in ['true', 1, None]:
+            d = evidence()
+            d['review']['listened'] = value
+            self.assertTrue(self.check(d))
+        d = evidence()
+        d['review']['listener'] = '  '
+        self.assertTrue(self.check(d))
+
+    def test_cli_checks_actual_mp4_bytes_and_missing_files(self):
+        script = Path(__file__).with_name('validate_voice_sync.py')
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            video = root / 'final.mp4'
+            video.write_bytes(b'fixture-only-not-a-decodable-mp4')
+            d = evidence()
+            digest = hashlib.sha256(video.read_bytes()).hexdigest()
+            d['mp4_sha256'] = d['review']['mp4_sha256'] = digest
+            path = root / 'evidence.json'
+            path.write_text(json.dumps(d), encoding='utf-8')
+            cmd = [sys.executable, str(script), str(path), '--mp4', str(video)]
+            result = subprocess.run(cmd, capture_output=True)
+            self.assertEqual(0, result.returncode, result.stderr.decode())
+            video.write_bytes(b'rerendered')
+            result = subprocess.run(cmd, capture_output=True)
+            self.assertEqual(1, result.returncode)
+            self.assertIn(b'fingerprint', result.stdout)
+            video.unlink()
+            self.assertEqual(1, subprocess.run(cmd, capture_output=True).returncode)
 
     def test_cli_success_and_failure(self):
         script = Path(__file__).with_name('validate_voice_sync.py')

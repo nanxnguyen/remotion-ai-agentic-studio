@@ -2572,7 +2572,8 @@ class Handler(BaseHTTPRequestHandler):
         except (ValueError, KeyError, TypeError):
             return self._json(400, {"error": "bad request"})
         known = {p.parent.name for p in DOCS.glob("*/status.json")}
-        if folder not in known or stage not in STAGE_IDS or decision not in DECISIONS:
+        if (not all(isinstance(value, str) for value in (folder, stage, decision))
+                or folder not in known or stage not in STAGE_IDS or decision not in DECISIONS):
             return self._json(400, {"error": "unknown video, stage or decision"})
         with status_lock(folder):
             data = load(folder)

@@ -29,6 +29,8 @@ jobs:
       - run: node --test tests/monitor_status_parity.test.cjs
       - run: npm ci
       - run: python3 -m unittest discover -s tests -p 'test_runtime_orchestrator.py'
+      - run: python3 -m unittest discover -s tests -p 'test_fast_video_api.py'
+      - run: python3 -m unittest discover -s tests -p 'test_terminal_api.py'
       - run: python3 -m unittest discover -s tests -p 'test_voice_performance_handoff.py'
       - run: python3 -m unittest discover -s tests -p 'test_agent_status_sync.py'
       - run: python3 .agents/skills/ray-pineline-worflow-agent/scripts/quick_validate.py
