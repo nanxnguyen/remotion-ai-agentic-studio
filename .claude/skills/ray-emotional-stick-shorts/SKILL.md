@@ -5,7 +5,7 @@ description: Produce emotionally expressive Vietnamese stick-figure Shorts with 
 
 # Ray Emotional Stick Shorts
 
-Specialization of [ray-video-10-phut](../ray-video-10-phut/SKILL.md). Preserve canonical `ray-pineline-worflow-agent` and repo gates; do not invent approvals or bypass pipeline. This skill specializes **35–50s, 9:16** films with approximately **12–20 purposefully distinct shots**. Reference aesthetic: approved V5 "Hai phần ăn, một người": white expressive stick figures, nearly black background, restrained amber accents, deeply emotional narration and piano.
+Specialization of [ray-video-10-phut](../ray-video-10-phut/SKILL.md). Preserve canonical `ray-pineline-worflow-agent` and repo gates; do not invent approvals or bypass pipeline. This skill specializes **30–45s, 9:16** films with approximately **12–20 purposefully distinct shots**. Reference aesthetic: approved V5 "Hai phần ăn, một người": white expressive stick figures, nearly black background, restrained amber accents, deeply emotional narration and piano.
 
 ## Rules
 
@@ -46,3 +46,7 @@ Modes:
 Voice direction: warm, intimate, restrained melancholy with a hopeful turn; slow conversational cadence near 0.93–0.97x where supported, authentic Vietnamese pronunciation, breath and purposeful pauses (especially at hook and final sentence). Prefer testing HN – Thanh Long first, SG – Minh Hoàng as second male candidate where available. Always audition; voice identity/quality cannot be asserted before listening. Vbee studio voice may differ from API voice.
 
 Gate: verify input audio exists and is Vbee-originated; measure duration and align 12–20 shots, captions and music; listen to FULL final MP4 and verify original piano behind narration. Publish none automatically. After completion upload the verified FULL MP4 to vidIQ, return current downloadable media link plus stable upload ID, and commit approved MP4/source manifests on the active GitHub branch automatically. If Vbee audio is unavailable, provide previews only with an explicit `BLOCKED_VBEE_VOICE` status.
+
+## Hard duration gate: YouTube Shorts
+
+All new Shorts must have a final, measured duration between **30.00 and 45.00 seconds** inclusive unless the user explicitly overrides it. Aim **37–41s** with a complete emotional arc, not stretched silence or arbitrary slow-motion; write enough authentic narration and distinct intentional acting beats to justify the duration. Validate with `ffprobe` on the exact final MP4 and block release if out of range. This applies to Vbee, piano, vidIQ delivery and GitHub archiving. YouTube has no guarantee of view count or mandatory optimal length: this is the creator's production requirement.
