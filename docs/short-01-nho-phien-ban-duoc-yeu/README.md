@@ -29,3 +29,12 @@ Prefer verified FULL MP4 attached from this branch and imported into vidIQ. Use 
 - FULL MP4 binary verified in this branch: `final/short01-full-voice-piano.mp4` (800,627 bytes; GitHub blob `ec0ab1c32bfd865f285678cc46ff9f22febfe5c4`), plus SHA256SUMS.
 - vidIQ FULL upload successfully imported: `0f7049fc-7d67-4ac9-9367-6a32f6079df1`; refresh the signed playback URL using `vidiq_video_upload({uploadId})` rather than saving it to GitHub.
 - Technical voice/audio stream checks passed in GitHub Actions. Human listening, independent gate checks and publication remain pending.
+
+## Vbee Thanh Long re-render — 2026-10-23
+
+- New verified rendered MP4: `final/short01-full-vbee-thanhlong-piano.mp4` (782,922 bytes; GitHub blob SHA `812411cfecc9bda05b2dd45b412db9e64b524bf3`).
+- Vbee male voice: `hn_male_thanhlong_talk_48k-fhg`, four short user-approved narration beats generated through Vbee Batch API (no manual Studio export). Shared Supabase HTTPS callback is acknowledgement-only; authenticated GitHub Actions polls the request results.
+- New video creation workflow: `.github/workflows/short01-vbee-full.yml`; successful run https://github.com/nanxnguyen/remotion-ai-agentic-studio/actions/runs/39829604091 . FFmpeg and ffprobe technical validation passed; video auto-committed with SHA256 in `final/VBEE-SHA256SUMS`.
+- Imported as video MP4 into vidIQ; durable vidIQ upload ID: `825da39e-4b01-47dd-8bec-6b7e8d5211ff`. Do not store signed media URLs in repository. Refresh via `vidiq_video_upload({uploadId})`.
+- Duration intended ~26.42 seconds. The exact user hook and ending are retained. Music is original piano and voice is genuine Vbee; independent human listening / subjective emotion grading and YouTube posting have **not** occurred.
+- SEO/discovery: truthful emotional title, first-sentence hook from frame one, 17 meaningful shots and hopeful resolution. YouTube ranking/reach is not guaranteed.
