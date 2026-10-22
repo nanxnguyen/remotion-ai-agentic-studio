@@ -1,0 +1,96 @@
+name: Archive Short 01 - Remember the Self
+on:
+  push:
+    branches: [feat/short-01-nho-chinh-minh]
+    paths:
+      - '.github/workflows/archive-short01.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  archive-full-video:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feat/short-01-nho-chinh-minh
+          persist-credentials: true
+      - name: Install FFmpeg and audio dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg
+          python3 -m pip install --user --quiet numpy
+      - name: Retrieve reviewed original animation and Paul narration
+        run: |
+          set -euo pipefail
+          mkdir -p docs/short-01-nho-phien-ban-duoc-yeu/final
+          curl --fail --location --retry 3 --max-time 120 --output /tmp/visual-with-piano.mp4 'https://resource2.heygen.ai/video/df4918c0b5464fe28fb8e28dc8ef2c6f/original.mp4'
+          curl --fail --location --retry 3 --max-time 120 --output /tmp/voice-original.wav 'https://resource2.heygen.ai/text_to_speech/89dd25c8c7cc43a7b96830a575b9e7df/046dacc3502347eea0c796f97399632e/id=93f3c68e-30b1-40d7-ac75-bcb898535a55.wav'
+          ffmpeg -y -hide_banner -loglevel error -i /tmp/voice-original.wav -ac 1 -ar 24000 -c:a pcm_s16le /tmp/voice-mono.wav
+          ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1 /tmp/visual-with-piano.mp4
+          ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1 /tmp/voice-mono.wav
+      - name: Time expressive narration to four story beats
+        run: |
+          python3 - <<'PY'
+          import wave, numpy as np
+          src='/tmp/voice-mono.wav'
+          with wave.open(src,'rb') as f:
+            sr=f.getframerate()
+            assert f.getnchannels()==1 and f.getsampwidth()==2 and sr==24000
+            a=np.frombuffer(f.readframes(f.getnframes()), dtype='<i2').astype(np.float64)/32768
+          length=len(a)/sr
+          # Choose quietest 40ms neighborhood nearest expected sentence breaks, avoiding hard-coded word chops.
+          target_cuts=[5.0,8.1,10.1]
+          cuts=[]
+          for target in target_cuts:
+            candidates=np.arange(int((target-.55)*sr),int((target+.55)*sr),int(.025*sr))
+            candidates=[c for c in candidates if c>int(.4*sr) and c+int(.05*sr)<len(a) and (not cuts or c>cuts[-1]+int(.9*sr))]
+            best=min(candidates,key=lambda c:float(np.mean(a[c-int(.025*sr):c+int(.025*sr)]**2)))
+            cuts.append(best)
+          bounds=[0]+cuts+[len(a)]
+          # First line opens immediately; intermediate thoughts arrive at emotional turning points.
+          starts=[0,8.0,16.0,21.4]
+          dest=np.zeros(round(26.42*sr),dtype=np.float64)
+          for i,(l,r) in enumerate(zip(bounds,bounds[1:])):
+            seg=a[l:r].copy()
+            ramp=min(int(.025*sr), len(seg)//2)
+            if ramp>0:
+              seg[:ramp]*=np.linspace(0,1,ramp)
+              seg[-ramp:]*=np.linspace(1,0,ramp)
+            at=round(starts[i]*sr)
+            stop=min(len(dest),at+len(seg))
+            dest[at:stop]+=seg[:stop-at]
+          dest=np.clip(dest,-.98,.98)
+          with wave.open('/tmp/voice-paced.wav','wb') as g:
+            g.setnchannels(1);g.setsampwidth(2);g.setframerate(sr)
+            g.writeframes((dest*32767).astype('<i2').tobytes())
+          print('voice length',length,'sentence cuts',[round(x/sr,2) for x in cuts],'starts',starts)
+          assert length>10 and len(dest)/sr>26
+          assert np.sqrt(np.mean(dest**2))>.01, 'voiced narration absent'
+          PY
+      - name: Mix original piano below narration and validate MP4
+        run: |
+          set -euo pipefail
+          file='docs/short-01-nho-phien-ban-duoc-yeu/final/short01-full-voice-piano.mp4'
+          ffmpeg -y -hide_banner -loglevel error -i /tmp/visual-with-piano.mp4 -i /tmp/voice-paced.wav \
+            -filter_complex '[0:a]volume=0.72[m];[1:a]volume=1.35[v];[m][v]amix=inputs=2:duration=first:normalize=0,alimiter=limit=0.93[a]' \
+            -map 0:v:0 -map '[a]' -c:v copy -c:a aac -b:a 192k -t 26.42 -movflags +faststart "$file"
+          ffprobe -v error -show_entries stream=codec_type -show_entries format=duration,size -of json "$file"
+          test "$(stat -c %s "$file")" -gt 250000
+          ffmpeg -y -hide_banner -loglevel error -i "$file" -vn -ac 1 -ar 24000 /tmp/final-audio.wav
+          python3 - <<'PY'
+          import wave, numpy as np
+          with wave.open('/tmp/final-audio.wav','rb') as f:
+            a=np.frombuffer(f.readframes(f.getnframes()),dtype='<i2') / 32768.0;sr=f.getframerate()
+          for st in (1.5,8.8,16.4,22.0):
+            c=a[round(st*sr):round((st+.8)*sr)]
+            assert len(c)>100 and np.sqrt(np.mean(c*c))>.006, 'speech or music missing at key beat'
+          PY
+          sha256sum "$file" > docs/short-01-nho-phien-ban-duoc-yeu/final/SHA256SUMS
+      - name: Commit final FULL MP4 after technical QA
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add docs/short-01-nho-phien-ban-duoc-yeu/final/
+          git diff --cached --quiet || (git commit -m 'assets(short01): archive full stick-figure video with voiced narration' && git push)
