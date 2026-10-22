@@ -1,0 +1,70 @@
+{
+  "shots": {
+    "s1": {
+      "phrases": [
+        {
+          "text": "Tôi vẫn mua hai phần ăn theo thói quen.",
+          "pauseAfterSeconds": 0,
+          "intent": "first-person reflection",
+          "emotion": "quiet and restrained",
+          "tempoIntent": "natural"
+        }
+      ]
+    },
+    "s2": {
+      "phrases": [
+        {
+          "text": "Đến lúc tính tiền mới nhớ, giờ chỉ còn mình.",
+          "pauseAfterSeconds": 0,
+          "intent": "first-person reflection",
+          "emotion": "quiet and restrained",
+          "tempoIntent": "natural"
+        }
+      ]
+    },
+    "s3": {
+      "phrases": [
+        {
+          "text": "Tờ hóa đơn ghi hai phần. Nhưng giờ, ai sẽ ăn phần còn lại?",
+          "pauseAfterSeconds": 0,
+          "intent": "first-person reflection",
+          "emotion": "quiet and restrained",
+          "tempoIntent": "natural"
+        }
+      ]
+    },
+    "s4": {
+      "phrases": [
+        {
+          "text": "Tối đó, tôi ngồi đối diện chiếc ghế trống rất lâu.",
+          "pauseAfterSeconds": 0,
+          "intent": "first-person reflection",
+          "emotion": "quiet and restrained",
+          "tempoIntent": "natural"
+        }
+      ]
+    },
+    "s5": {
+      "phrases": [
+        {
+          "text": "Rồi tôi cất phần còn lại vào tủ lạnh. Chỉ thế thôi.",
+          "pauseAfterSeconds": 0,
+          "intent": "first-person reflection",
+          "emotion": "quiet and restrained",
+          "tempoIntent": "natural"
+        }
+      ]
+    },
+    "s6": {
+      "phrases": [
+        {
+          "text": "Có lẽ bắt đầu lại, là học gọi một phần ăn mà không thấy mình thiếu đi một nửa.",
+          "pauseAfterSeconds": 0,
+          "intent": "first-person reflection",
+          "emotion": "quiet and restrained",
+          "tempoIntent": "natural"
+        }
+      ]
+    }
+  }
+}
