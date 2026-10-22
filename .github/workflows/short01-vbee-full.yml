@@ -16,7 +16,7 @@ jobs:
           persist-credentials: true
       - name: Install audio/video tools
         run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
-      - name: Generate four Vbee Thanh Long voice beats (poll API, no manual export)
+      - name: Generate seven Vbee Thanh Long voice beats (poll API, no manual export)
         env:
           VBEE_APP_ID: ${{ secrets.VBEE_APP_ID }}
           VBEE_ACCESS_TOKEN: ${{ secrets.VBEE_ACCESS_TOKEN }}
@@ -29,14 +29,17 @@ jobs:
           from pathlib import Path
           lines=[
             "Có thể người bạn nhớ nhất không phải là họ, mà là chính mình của những ngày còn được yêu.",
-            "Bạn không muốn quay lại… bạn chỉ nhớ nụ cười ngày ấy.",
-            "Nhưng nụ cười đó vốn là của bạn.",
+            "Bạn không muốn quay lại. Nhưng có những buổi chiều, ký ức vẫn tự tìm về.",
+            "Bạn nhớ một tin nhắn. Nhớ mình từng cười nhiều đến thế.",
+            "Rồi bạn tự hỏi… phải chăng chỉ khi có họ, mình mới hạnh phúc?",
+            "Nhưng người biết yêu chân thành, biết vui vì điều nhỏ bé… vẫn là bạn.",
+            "Hôm nay, hãy tự mua một bó hoa. Đi tới nơi mình thích, và mỉm cười.",
             "Bạn không cần họ quay lại để tìm lại phiên bản từng rạng rỡ ấy."
           ]
           for i, line in enumerate(lines):
             Path(f"/tmp/vbee-shots/part{i}.txt").write_text(line,encoding="utf-8")
           PY
-          for i in 0 1 2 3; do
+          for i in 0 1 2 3 4 5 6; do
             python3 docs/short-01-nho-phien-ban-duoc-yeu/voice/vbee_batch_tts.py \
               --text-file "/tmp/vbee-shots/part$i.txt" \
               --voice-code hn_male_thanhlong_talk_48k-fhg \
@@ -53,11 +56,19 @@ jobs:
           set -euo pipefail
           mkdir -p docs/short-01-nho-phien-ban-duoc-yeu/final
           file=docs/short-01-nho-phien-ban-duoc-yeu/final/short01-full-vbee-thanhlong-piano.mp4
-          ffmpeg -y -hide_banner -loglevel error -i /tmp/visual-with-piano.mp4 \
+          # Extend the 17-shot film from 26.42 s to 40.4 s with a retimed
+          # visual sequence; loop the original piano score while narration tells
+          # a richer seven-beat story. Keep the original hook and ending verbatim.
+          ffmpeg -y -hide_banner -loglevel error -stream_loop -1 -i /tmp/visual-with-piano.mp4 \
             -i /tmp/vbee-shots/part0.mp3 -i /tmp/vbee-shots/part1.mp3 \
             -i /tmp/vbee-shots/part2.mp3 -i /tmp/vbee-shots/part3.mp3 \
-            -filter_complex '[0:a]volume=0.54[p];[1:a]adelay=0:all=1,volume=1.12[v0];[2:a]adelay=8000:all=1,volume=1.12[v1];[3:a]adelay=16000:all=1,volume=1.12[v2];[4:a]adelay=21100:all=1,volume=1.12[v3];[p][v0][v1][v2][v3]amix=inputs=5:duration=first:normalize=0,alimiter=limit=0.92[a]' \
-            -map 0:v:0 -map '[a]' -c:v copy -c:a aac -b:a 192k -t 26.42 -movflags +faststart "$file"
+            -i /tmp/vbee-shots/part4.mp3 -i /tmp/vbee-shots/part5.mp3 \
+            -i /tmp/vbee-shots/part6.mp3 \
+            -filter_complex '[0:v]setpts=1.529*(PTS-STARTPTS)[v];[0:a]volume=0.47[p];[1:a]adelay=0:all=1,volume=1.18[v0];[2:a]adelay=6200:all=1,volume=1.18[v1];[3:a]adelay=11400:all=1,volume=1.18[v2];[4:a]adelay=16500:all=1,volume=1.18[v3];[5:a]adelay=22500:all=1,volume=1.18[v4];[6:a]adelay=28000:all=1,volume=1.18[v5];[7:a]adelay=33500:all=1,volume=1.18[v6];[p][v0][v1][v2][v3][v4][v5][v6]amix=inputs=8:duration=first:normalize=0,alimiter=limit=0.92[a]' \
+            -map '[v]' -map '[a]' -c:v libx264 -preset fast -crf 20 -pix_fmt yuv420p \
+            -c:a aac -b:a 192k -t 40.4 -movflags +faststart "$file"
+          duration=$(ffprobe -v error -show_entries format=duration -of default=nokey=1:noprint_wrappers=1 "$file")
+          python3 -c 'import sys; d=float(sys.argv[1]); assert 30 <= d <= 45, d' "$duration"
           ffprobe -v error -show_entries format=duration,size -show_entries stream=codec_type -of json "$file"
           test "$(stat -c %s "$file")" -gt 250000
           sha256sum "$file" > docs/short-01-nho-phien-ban-duoc-yeu/final/VBEE-SHA256SUMS
