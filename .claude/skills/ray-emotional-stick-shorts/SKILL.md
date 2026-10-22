@@ -25,3 +25,11 @@ Read [integrations](references/integrations.md), [creative direction](references
 ## Standard output
 
 `docs/<vid>/brief.md`, `script.md`, `shot-list.csv`, `character-bible.md`, `design-spec.md`, `voice-sync.md`, `music-cues.md`, `motion-spec.md`, `transition-QA.md`, `asset-manifest.md`, `eval.md`; genuinely verified `out/<vid>-reel.mp4` when rendered. No channel name in narration unless user explicitly requests it.
+
+
+## Mandatory vidIQ delivery contract (after every successful video)
+
+Once final MP4 passes visual, spoken-voice and sound QA, upload **the complete AV file** into the user's vidIQ media library via `vidiq_video_upload`. Store its durable `uploadId` in `docs/<vid>/asset-manifest.md`. Call `vidiq_video_upload({uploadId})` to retrieve a fresh video URL whenever the user requests the result; never share an expiring S3 compose URL in preference to the vidIQ-hosted asset. In the final reply always provide a clickable **"Xem / tải video trên vidIQ"** link (the actual media URL returned by the upload action) and the upload ID so the signed link can be refreshed. Be transparent: the media URL is not a vidIQ dashboard URL and remains expiring; do not invent a permanent dashboard URL. If vidIQ import or QA fails, declare that the full deliverable is blocked and do not substitute piano-only/preview footage. Do not publish to YouTube unless separately authorized.
+
+### Binary video archive
+Store the final, reviewed MP4 at `docs/<vid>/final/<vid>-full-voice-piano.mp4` in the repository (or Git LFS / release asset when Git's size limits apply), with measured metadata + SHA-256 in the manifest. Do not assert the video is archived in GitHub based only on a README, screenshot, external URL, video job, or local MP4. Verify via repository file listing (or release asset) and perform playback verification from the archived artifact.
