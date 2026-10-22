@@ -1,0 +1,73 @@
+name: Full Short 01 — Vbee Thanh Long + piano
+on:
+  push:
+    branches: [feat/short-01-nho-chinh-minh]
+    paths: ['.github/workflows/short01-vbee-full.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feat/short-01-nho-chinh-minh
+          persist-credentials: true
+      - name: Install audio/video tools
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+      - name: Generate four Vbee Thanh Long voice beats (poll API, no manual export)
+        env:
+          VBEE_APP_ID: ${{ secrets.VBEE_APP_ID }}
+          VBEE_ACCESS_TOKEN: ${{ secrets.VBEE_ACCESS_TOKEN }}
+          VBEE_WEBHOOK_URL: https://iehmucsshklgjmxqyggp.supabase.co/functions/v1/vbee-batch-callback
+        run: |
+          set -euo pipefail
+          test -n "$VBEE_APP_ID" && test -n "$VBEE_ACCESS_TOKEN"
+          mkdir -p /tmp/vbee-shots
+          python3 - <<'PY'
+          from pathlib import Path
+          lines=[
+            "Có thể người bạn nhớ nhất không phải là họ, mà là chính mình của những ngày còn được yêu.",
+            "Bạn không muốn quay lại… bạn chỉ nhớ nụ cười ngày ấy.",
+            "Nhưng nụ cười đó vốn là của bạn.",
+            "Bạn không cần họ quay lại để tìm lại phiên bản từng rạng rỡ ấy."
+          ]
+          for i, line in enumerate(lines):
+            Path(f"/tmp/vbee-shots/part{i}.txt").write_text(line,encoding="utf-8")
+          PY
+          for i in 0 1 2 3; do
+            python3 docs/short-01-nho-phien-ban-duoc-yeu/voice/vbee_batch_tts.py \
+              --text-file "/tmp/vbee-shots/part$i.txt" \
+              --voice-code hn_male_thanhlong_talk_48k-fhg \
+              --speed 0.95 \
+              --output "/tmp/vbee-shots/part$i.mp3"
+            ffprobe -v error -show_entries format=duration -of default=nw=1 "/tmp/vbee-shots/part$i.mp3"
+          done
+      - name: Retrieve reviewed 17-scene animation with original piano
+        run: |
+          curl --fail --location --retry 3 --max-time 120 --output /tmp/visual-with-piano.mp4 'https://resource2.heygen.ai/video/df4918c0b5464fe28fb8e28dc8ef2c6f/original.mp4'
+          ffprobe -v error -show_entries format=duration -show_entries stream=codec_type -of json /tmp/visual-with-piano.mp4
+      - name: Align emotional narration and render finished MP4
+        run: |
+          set -euo pipefail
+          mkdir -p docs/short-01-nho-phien-ban-duoc-yeu/final
+          file=docs/short-01-nho-phien-ban-duoc-yeu/final/short01-full-vbee-thanhlong-piano.mp4
+          ffmpeg -y -hide_banner -loglevel error -i /tmp/visual-with-piano.mp4 \
+            -i /tmp/vbee-shots/part0.mp3 -i /tmp/vbee-shots/part1.mp3 \
+            -i /tmp/vbee-shots/part2.mp3 -i /tmp/vbee-shots/part3.mp3 \
+            -filter_complex '[0:a]volume=0.54[p];[1:a]adelay=0:all=1,volume=1.12[v0];[2:a]adelay=8000:all=1,volume=1.12[v1];[3:a]adelay=16000:all=1,volume=1.12[v2];[4:a]adelay=21100:all=1,volume=1.12[v3];[p][v0][v1][v2][v3]amix=inputs=5:duration=first:normalize=0,alimiter=limit=0.92[a]' \
+            -map 0:v:0 -map '[a]' -c:v copy -c:a aac -b:a 192k -t 26.42 -movflags +faststart "$file"
+          ffprobe -v error -show_entries format=duration,size -show_entries stream=codec_type -of json "$file"
+          test "$(stat -c %s "$file")" -gt 250000
+          sha256sum "$file" > docs/short-01-nho-phien-ban-duoc-yeu/final/VBEE-SHA256SUMS
+      - name: Commit fully voiced Vbee render and hash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add docs/short-01-nho-phien-ban-duoc-yeu/final/short01-full-vbee-thanhlong-piano.mp4 docs/short-01-nho-phien-ban-duoc-yeu/final/VBEE-SHA256SUMS
+          git diff --cached --quiet || git commit -m 'assets(short01): archive full Vbee Thanh Long voice and piano'
+          git fetch origin feat/short-01-nho-chinh-minh
+          git rebase origin/feat/short-01-nho-chinh-minh
+          git push origin HEAD:feat/short-01-nho-chinh-minh
