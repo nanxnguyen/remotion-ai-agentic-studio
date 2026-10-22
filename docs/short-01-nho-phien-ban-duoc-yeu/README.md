@@ -24,3 +24,8 @@ Có thể người bạn nhớ nhất không phải là họ, mà là chính mì
 
 ## Delivery
 Prefer verified FULL MP4 attached from this branch and imported into vidIQ. Use `vidiq_video_upload` and store durable `uploadId`; refresh expiring vidIQ media URLs via `vidiq_video_upload({uploadId})` when requested.
+
+## Final delivery status
+- FULL MP4 binary verified in this branch: `final/short01-full-voice-piano.mp4` (800,627 bytes; GitHub blob `ec0ab1c32bfd865f285678cc46ff9f22febfe5c4`), plus SHA256SUMS.
+- vidIQ FULL upload successfully imported: `0f7049fc-7d67-4ac9-9367-6a32f6079df1`; refresh the signed playback URL using `vidiq_video_upload({uploadId})` rather than saving it to GitHub.
+- Technical voice/audio stream checks passed in GitHub Actions. Human listening, independent gate checks and publication remain pending.
