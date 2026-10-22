@@ -7,6 +7,9 @@ on:
   workflow_dispatch:
 permissions:
   contents: write
+concurrency:
+  group: short01-archive
+  cancel-in-progress: true
 jobs:
   archive-full-video:
     runs-on: ubuntu-latest
@@ -17,8 +20,7 @@ jobs:
           persist-credentials: true
       - name: Install FFmpeg and audio dependencies
         run: |
-          sudo apt-get update -qq
-          sudo apt-get install -y -qq ffmpeg
+          command -v ffmpeg
           python3 -m pip install --user --quiet numpy
       - name: Retrieve reviewed original animation and Paul narration
         run: |
