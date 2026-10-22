@@ -33,3 +33,7 @@ Once final MP4 passes visual, spoken-voice and sound QA, upload **the complete A
 
 ### Binary video archive
 Store the final, reviewed MP4 at `docs/<vid>/final/<vid>-full-voice-piano.mp4` in the repository (or Git LFS / release asset when Git's size limits apply), with measured metadata + SHA-256 in the manifest. Do not assert the video is archived in GitHub based only on a README, screenshot, external URL, video job, or local MP4. Verify via repository file listing (or release asset) and perform playback verification from the archived artifact.
+
+## Vbee narration provider (alternative to HeyGen)
+
+When the user requests Vbee, read `references/vbee-provider.md`. Use `scripts/vbee_tts.py` and a male Batch/async voice (HN – Thanh Long recommended for audition). Requires `VBEE_APP_ID`, `VBEE_ACCESS_TOKEN`, `VBEE_WEBHOOK_URL` configured **privately** in the execution environment; current ChatGPT connector catalog has no direct Vbee connection. Never request that the user paste a bearer token into chat, never commit credentials. This workflow is **blocked** without authentication. Compare actual audio quality with prior voice, measure duration, render FULL MP4, listen to final mix, import verified video to vidIQ and commit approved artifacts. Do not claim voice was made with Vbee until Vbee produced an audio file.
