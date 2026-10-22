@@ -38,3 +38,13 @@ Prefer verified FULL MP4 attached from this branch and imported into vidIQ. Use 
 - Imported as video MP4 into vidIQ; durable vidIQ upload ID: `825da39e-4b01-47dd-8bec-6b7e8d5211ff`. Do not store signed media URLs in repository. Refresh via `vidiq_video_upload({uploadId})`.
 - Duration intended ~26.42 seconds. The exact user hook and ending are retained. Music is original piano and voice is genuine Vbee; independent human listening / subjective emotion grading and YouTube posting have **not** occurred.
 - SEO/discovery: truthful emotional title, first-sentence hook from frame one, 17 meaningful shots and hopeful resolution. YouTube ranking/reach is not guaranteed.
+
+## Corrected 30–45s deliverable (2026-10-23)
+
+- User-mandated Shorts runtime is **30–45 seconds**. Previous Vbee upload `825da39e-4b01-47dd-8bec-6b7e8d5211ff` was only 26.42 seconds and is superseded.
+- Updated film with seven expressive Vbee Thanh Long narration beats and expanded emotional contrast: **40.400000 seconds**, measured from final MP4 in GitHub Actions.
+- Original user hook and last sentence preserved verbatim. Original 17-scene visual composition was retimed across 40.4 seconds, with looped original piano; no claim of extra newly drawn scenes.
+- Archive path: `final/short01-full-vbee-thanhlong-piano.mp4` (1,194,068 bytes; Git blob `cfdb965997243dc8b419c5e0f6636058d0e05f85`).
+- Verified successful GitHub Actions workflow: https://github.com/nanxnguyen/remotion-ai-agentic-studio/actions/runs/39832303586 .
+- **Current vidIQ upload ID**: `e8331b1d-a952-40de-a64a-2921736e0553`. Refresh via `vidiq_video_upload({uploadId})`. Any previous upload ID points to the shorter cut.
+- Audio/visual FFmpeg and duration checks passed; independent human listening and YouTube publishing not completed.
