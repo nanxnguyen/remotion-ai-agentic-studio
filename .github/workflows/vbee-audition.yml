@@ -1,54 +1,27 @@
-name: Vbee emotional voice audition
+name: Vbee voice provider capabilities (safe check)
 on:
   push:
     branches: [feat/vbee-voice-stick-shorts]
-    paths:
-      - '.github/workflows/vbee-audition.yml'
+    paths: ['.github/workflows/vbee-audition.yml']
+  workflow_dispatch:
 permissions:
-  contents: write
+  contents: read
 jobs:
-  synthesize-audition:
+  document-availability:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          persist-credentials: true
-      - name: Validate Vbee secret configuration
+      - name: Check Vbee secrets exist (never print values)
         env:
           VBEE_APP_ID: ${{ secrets.VBEE_APP_ID }}
           VBEE_ACCESS_TOKEN: ${{ secrets.VBEE_ACCESS_TOKEN }}
-          VBEE_WEBHOOK_URL: ${{ secrets.VBEE_WEBHOOK_URL }}
+        shell: bash
         run: |
-          set -eu
-          if [ -z "$VBEE_APP_ID" ] || [ -z "$VBEE_ACCESS_TOKEN" ] || [ -z "$VBEE_WEBHOOK_URL" ]; then
-            echo "::error::Missing one or more VBEE_APP_ID / VBEE_ACCESS_TOKEN / VBEE_WEBHOOK_URL secrets."
-            exit 1
+          if [[ -z "$VBEE_APP_ID" || -z "$VBEE_ACCESS_TOKEN" ]]; then
+            echo "::warning::Vbee API secrets missing; Studio export route remains available."
+          else
+            echo "App ID and token secrets configured."
           fi
-          case "$VBEE_WEBHOOK_URL" in
-            https://*) echo "Vbee secrets present and callback URL uses HTTPS" ;;
-            *) echo "::error::VBEE_WEBHOOK_URL must be HTTPS"; exit 1 ;;
-          esac
-      - name: Create a short emotional narration (HN Thanh Long)
-        env:
-          VBEE_APP_ID: ${{ secrets.VBEE_APP_ID }}
-          VBEE_ACCESS_TOKEN: ${{ secrets.VBEE_ACCESS_TOKEN }}
-          VBEE_WEBHOOK_URL: ${{ secrets.VBEE_WEBHOOK_URL }}
-        run: |
-          set -eu
-          python3 .claude/skills/ray-emotional-stick-shorts/scripts/vbee_tts.py \
-            --text-file docs/short-01-nho-phien-ban-duoc-yeu/voice/vbee-audition-script.txt \
-            --voice-code hn_male_thanhlong_talk_48k-fhg \
-            --speed 0.93 \
-            --output docs/short-01-nho-phien-ban-duoc-yeu/voice/vbee-thanhlong-audition.mp3
-          ffprobe -v error -show_entries stream=codec_name,duration -of json \
-            docs/short-01-nho-phien-ban-duoc-yeu/voice/vbee-thanhlong-audition.mp3
-          sha256sum docs/short-01-nho-phien-ban-duoc-yeu/voice/vbee-thanhlong-audition.mp3 > \
-            docs/short-01-nho-phien-ban-duoc-yeu/voice/vbee-thanhlong-audition.sha256
-      - name: Commit audio for listening review (not final)
-        run: |
-          set -eu
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add docs/short-01-nho-phien-ban-duoc-yeu/voice/vbee-thanhlong-audition.mp3
-          git add docs/short-01-nho-phien-ban-duoc-yeu/voice/vbee-thanhlong-audition.sha256
-          git diff --cached --quiet || (git commit -m 'assets(vbee): save emotional narration audition for QA' && git push)
+          echo "Vbee real-time unsupported by connected plan as of 2026-10-23 (HTTP 400)."
+          echo "Male Batch API requires webhookUrl. User chose not to configure one."
+          echo "Use Vbee Studio manual MP3/WAV export; do not synthesize/retry paid API automatically."
