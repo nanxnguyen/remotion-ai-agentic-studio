@@ -1,0 +1,93 @@
+name: Re-render Short 01 with Vbee voice (no webhook)
+on:
+  push:
+    branches: [feat/short-01-nho-chinh-minh]
+    paths: ['.github/workflows/render-short01-vbee.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  vbee-voice-mix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feat/short-01-nho-chinh-minh
+      - name: Validate secrets and dependencies
+        env:
+          VBEE_APP_ID: ${{ secrets.VBEE_APP_ID }}
+          VBEE_ACCESS_TOKEN: ${{ secrets.VBEE_ACCESS_TOKEN }}
+        run: |
+          set -eu
+          if [ -z "$VBEE_APP_ID" ] || [ -z "$VBEE_ACCESS_TOKEN" ]; then
+            echo "::error::Missing Vbee API secrets"; exit 1
+          fi
+          sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+      - name: Synthesize emotional Vietnamese voice using Vbee realtime API (no webhook)
+        env:
+          VBEE_APP_ID: ${{ secrets.VBEE_APP_ID }}
+          VBEE_ACCESS_TOKEN: ${{ secrets.VBEE_ACCESS_TOKEN }}
+        run: |
+          python3 - <<'PY'
+          import os,json,subprocess,urllib.request,urllib.error
+          from pathlib import Path
+          parts=[
+            "Có thể người bạn nhớ nhất không phải là họ, mà là chính mình của những ngày còn được yêu.",
+            "Bạn không muốn quay lại… bạn chỉ nhớ nụ cười ngày ấy.",
+            "Nhưng nụ cười đó vốn là của bạn.",
+            "Bạn không cần họ quay lại để tìm lại phiên bản từng rạng rỡ ấy."
+          ]
+          out=Path("/tmp/vbee-voice")
+          out.mkdir(exist_ok=True)
+          h={"Content-Type":"application/json","Authorization":"Bearer "+os.environ["VBEE_ACCESS_TOKEN"],"App-Id":os.environ["VBEE_APP_ID"]}
+          chosen="hn_female_maiphuong_vdts_48k-fhg"
+          # According to current Vbee docs, realtime supports selected female voices only.
+          # Use expressive pacing via segment placement, not mislabelled synthesized male voice.
+          for i,part in enumerate(parts):
+            body={"text":part,"mode":"sync","voiceCode":chosen,"outputFormat":"mp3","bitrate":128,"speed":0.95}
+            req=urllib.request.Request("https://api.vbee.vn/v1/tts",data=json.dumps(body,ensure_ascii=False).encode(),headers=h,method="POST")
+            try:
+              with urllib.request.urlopen(req,timeout=100) as response:
+                audio=response.read()
+                ct=response.headers.get("Content-Type","")
+            except urllib.error.HTTPError as e:
+              print("Vbee HTTP error",e.code, e.read().decode(errors="replace")[:400])
+              raise
+            if len(audio)<1000 or audio.lstrip().startswith(b"{"):
+              raise RuntimeError("Vbee returned no valid audio for part "+str(i))
+            (out/f"segment_{i}.mp3").write_bytes(audio)
+            p=subprocess.run(["ffprobe","-v","error","-show_entries","format=duration","-of","default=nokey=1:noprint_wrappers=1",str(out/f"segment_{i}.mp3")],capture_output=True,text=True,check=True)
+            length=float(p.stdout.strip())
+            print("Vbee audio segment",i,"duration",length,"bytes",len(audio),"content-type",ct)
+            assert 1<length<10
+          print("Verified four Vbee MP3 segments")
+          PY
+      - name: Prepare original film with piano
+        run: |
+          set -euo pipefail
+          curl --fail --location --retry 3 --max-time 120 --output /tmp/visual-with-piano.mp4 'https://resource2.heygen.ai/video/df4918c0b5464fe28fb8e28dc8ef2c6f/original.mp4'
+          ffprobe -v error -show_entries stream=codec_type -of compact /tmp/visual-with-piano.mp4
+      - name: Mix Vbee narration into 17-scene film
+        run: |
+          set -euo pipefail
+          mkdir -p docs/short-01-nho-phien-ban-duoc-yeu/final
+          ffmpeg -y -hide_banner -loglevel error -i /tmp/visual-with-piano.mp4 \
+            -i /tmp/vbee-voice/segment_0.mp3 -i /tmp/vbee-voice/segment_1.mp3 \
+            -i /tmp/vbee-voice/segment_2.mp3 -i /tmp/vbee-voice/segment_3.mp3 \
+            -filter_complex "[0:a]volume=0.60[p];[1:a]adelay=0:all=1,volume=1.15[a1];[2:a]adelay=8000:all=1,volume=1.15[a2];[3:a]adelay=16000:all=1,volume=1.15[a3];[4:a]adelay=21300:all=1,volume=1.15[a4];[p][a1][a2][a3][a4]amix=inputs=5:duration=first:normalize=0,alimiter=limit=0.93[a]" \
+            -map 0:v -map "[a]" -c:v copy -c:a aac -b:a 192k -t 26.42 -movflags +faststart \
+            docs/short-01-nho-phien-ban-duoc-yeu/final/short01-full-vbee-voice-piano.mp4
+          file=docs/short-01-nho-phien-ban-duoc-yeu/final/short01-full-vbee-voice-piano.mp4
+          ffprobe -v error -show_entries format=duration,size -show_entries stream=codec_type -of json "$file"
+          test "$(stat -c %s "$file")" -gt 300000
+          sha256sum "$file" > docs/short-01-nho-phien-ban-duoc-yeu/final/VBEE-SHA256SUMS
+      - name: Commit Vbee rendered MP4 to GitHub
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add docs/short-01-nho-phien-ban-duoc-yeu/final/short01-full-vbee-voice-piano.mp4 docs/short-01-nho-phien-ban-duoc-yeu/final/VBEE-SHA256SUMS
+          git diff --cached --quiet || git commit -m 'assets(short01): render Vbee narration plus piano MP4'
+          git fetch origin feat/short-01-nho-chinh-minh
+          git rebase origin/feat/short-01-nho-chinh-minh
+          git push origin HEAD:feat/short-01-nho-chinh-minh
