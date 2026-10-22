@@ -1,0 +1,125 @@
+name: Test OpenCode reads emotional video skill
+on:
+  push:
+    branches: [test/opencode-skill-video]
+    paths: ['.github/workflows/test-opencode-emotional-skill.yml']
+  workflow_dispatch:
+    inputs:
+      topic:
+        description: "Shorts story topic"
+        required: false
+        default: "Bạn nhớ họ, hay nhớ phiên bản mình khi được họ yêu?"
+      model:
+        description: "OpenCode model identifier (provider/model)"
+        required: false
+        default: "anthropic/claude-sonnet-4-5"
+permissions:
+  contents: read
+concurrency:
+  group: opencode-emotional-video-trial
+  cancel-in-progress: false
+jobs:
+  opencode-skill-trial:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    env:
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      VBEE_APP_ID: ${{ secrets.VBEE_APP_ID }}
+      VBEE_ACCESS_TOKEN: ${{ secrets.VBEE_ACCESS_TOKEN }}
+      VBEE_WEBHOOK_URL: https://iehmucsshklgjmxqyggp.supabase.co/functions/v1/vbee-batch-callback
+      TOPIC: ${{ inputs.topic || 'Bạn nhớ họ, hay nhớ phiên bản mình khi được họ yêu?' }}
+      REQUESTED_MODEL: ${{ inputs.model || '' }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate canonical skill and planned duration
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -s .claude/skills/ray-emotional-stick-shorts/SKILL.md
+          test -s .agents/skills/ray-pineline-worflow-agent/SKILL.md
+          grep -q 'Vbee' .claude/skills/ray-emotional-stick-shorts/SKILL.md
+          echo "Validated skill exists and Vbee provider is documented."
+          echo "Intended duration gate: 30–45 seconds, target 38–40."
+      - name: Install OpenCode v2 CLI
+        run: |
+          npm install --global @opencode/cli
+          opencode --version
+          opencode run --help | head -65
+      - name: Require an AI provider API key
+        shell: bash
+        run: |
+          if [[ -z "${ANTHROPIC_API_KEY:-}" && -z "${OPENAI_API_KEY:-}" ]]; then
+            echo "::error::OpenCode CLI is installed, but ANTHROPIC_API_KEY or OPENAI_API_KEY is not configured in GitHub Actions Secrets. GitHub's GITHUB_TOKEN does not pay for or authorize an LLM."
+            exit 2
+          fi
+          if [[ -n "${ANTHROPIC_API_KEY:-}" ]]; then
+            echo "MODEL=${REQUESTED_MODEL:-anthropic/claude-sonnet-4-5}" >> "$GITHUB_ENV"
+          else
+            echo "MODEL=openai/gpt-5.2" >> "$GITHUB_ENV"
+          fi
+      - name: OpenCode reads skill and drafts a NEW video implementation
+        shell: bash
+        timeout-minutes: 23
+        run: |
+          set -euo pipefail
+          cat > /tmp/video-skill-trial-prompt.md <<'PROMPT'
+          Read AGENTS.md, CLAUDE.md, .agents/skills/ray-pineline-worflow-agent/SKILL.md,
+          .claude/skills/ray-video-10-phut/SKILL.md, and
+          .claude/skills/ray-emotional-stick-shorts/SKILL.md.
+          Follow the canonical gates as far as the CI environment genuinely permits.
+          Create a NEW 9:16 Remotion Shorts proof-of-concept in src/videos/
+          and matching docs/ evidence for:
+          "Bạn nhớ họ, hay nhớ phiên bản mình khi được họ yêu?"
+          Exact immutable hook:
+          "Có thể người bạn nhớ nhất không phải là họ, mà là chính mình của những ngày còn được yêu."
+          Exact immutable ending:
+          "Bạn không cần họ quay lại để tìm lại phiên bản từng rạng rỡ ấy."
+          Conflict: no desire to reunite, but nostalgia for one's own happiness.
+          Duration must be 30–45 seconds (aim ~39 seconds), 15–20 meaningful animated white stick-figure
+          shots on near-black with restrained amber and emotional piano.
+          Vbee HN Thanh Long is mandatory; use only the private environment credentials and
+          the already deployed HTTPS callback, polling Vbee Batch responses.
+          Never echo tokens or publish to YouTube.
+          Implement new source/Remotion scenes; do not just stretch old video to 39 seconds.
+          If human review, API capabilities, or assets block a stage, write honest blockers to
+          docs/opencode-trial/HANDOFF.md. Produce a real MP4 only when the final video
+          passes measured duration and audible voice+music checks.
+          In your final output explain what you actually changed and which gates remain incomplete.
+          PROMPT
+          echo "Topic: $TOPIC"
+          opencode run --standalone --model "$MODEL" --agent build "$(cat /tmp/video-skill-trial-prompt.md)" 2>&1 | tee /tmp/opencode-trial.log
+      - name: Assess generated changes and handoff
+        if: always()
+        shell: bash
+        run: |
+          {
+            echo '## OpenCode emotional video skill trial'
+            echo
+            echo '### Working tree changes'
+            git status --short | head -100
+            echo
+            echo '### MP4 candidates'
+            find out docs -type f -name '*.mp4' -mmin -35 -print | head -30
+            echo
+            echo '### Handoff'
+            if [[ -f docs/opencode-trial/HANDOFF.md ]]; then
+              head -80 docs/opencode-trial/HANDOFF.md
+            else
+              echo 'No handoff created.'
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: opencode-emotional-skill-trial
+          path: |
+            docs/opencode-trial/
+            out/**/*.mp4
+          if-no-files-found: ignore
+          retention-days: 7
