@@ -93,4 +93,7 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add docs/short-01-nho-phien-ban-duoc-yeu/final/
-          git diff --cached --quiet || (git commit -m 'assets(short01): archive full stick-figure video with voiced narration' && git push)
+          git diff --cached --quiet || git commit -m 'assets(short01): archive full stick-figure video with voiced narration'
+          git fetch origin feat/short-01-nho-chinh-minh
+          git rebase origin/feat/short-01-nho-chinh-minh
+          git push origin HEAD:feat/short-01-nho-chinh-minh
