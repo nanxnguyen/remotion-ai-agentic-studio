@@ -20,7 +20,7 @@ jobs:
           persist-credentials: true
       - name: Install FFmpeg and audio dependencies
         run: |
-          command -v ffmpeg
+          sudo apt-get install -y -qq ffmpeg
           python3 -m pip install --user --quiet numpy
       - name: Retrieve reviewed original animation and Paul narration
         run: |
