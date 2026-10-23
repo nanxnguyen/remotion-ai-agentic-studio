@@ -1,0 +1,317 @@
+{
+  "title": "17 Tin Nhắn, Không Một Lời Chúc",
+  "skill": "ray-emotional-stick-shorts",
+  "durationTargetSeconds": 40.416667,
+  "resolution": [
+    1080,
+    1920
+  ],
+  "fps": 60,
+  "voice": {
+    "provider": "Vbee Batch",
+    "voiceCode": "hn_male_thanhlong_talk_48k-fhg",
+    "beats": [
+      {
+        "text": "Mười bảy tin nhắn. Không một lời chúc sinh nhật. Tất cả... chỉ nhờ An giúp.",
+        "speed": 0.98,
+        "start": 0.08
+      },
+      {
+        "text": "An luôn nói được... dù nhiều đêm cô đã kiệt sức.",
+        "speed": 0.96,
+        "start": 5.1
+      },
+      {
+        "text": "Cô sợ mọi người buồn... nhưng chưa từng hỏi bản thân có ổn không.",
+        "speed": 0.97,
+        "start": 10.1
+      },
+      {
+        "text": "Gần nửa đêm. Chiếc bánh sinh nhật vẫn chưa thắp nến.",
+        "speed": 0.96,
+        "start": 15.3
+      },
+      {
+        "text": "Lại một tin nhắn... Giúp chị nốt việc này nhé?",
+        "speed": 0.98,
+        "start": 20
+      },
+      {
+        "text": "An gõ chữ vâng... rồi dừng lại. Người bị bỏ quên... là chính mình.",
+        "speed": 0.96,
+        "start": 24.6
+      },
+      {
+        "text": "Lần đầu, An nhắn... Hôm nay em cần nghỉ. Rồi cô tự thắp nến.",
+        "speed": 0.98,
+        "start": 30.2
+      },
+      {
+        "text": "Thương bản thân không ích kỷ. Đừng để trái tim mình... phải chờ đến lượt.",
+        "speed": 0.96,
+        "start": 35.2
+      }
+    ]
+  },
+  "shots": [
+    {
+      "id": 1,
+      "headline": "17 TIN NHẮN",
+      "baseProp": "phone",
+      "mood": "alone",
+      "subline": "Điện thoại sáng liên tục",
+      "motif": "pulse",
+      "weight": 34
+    },
+    {
+      "id": 2,
+      "headline": "KHÔNG MỘT LỜI CHÚC",
+      "baseProp": "clock",
+      "mood": "alone",
+      "subline": "Đúng đêm sinh nhật của An",
+      "motif": "clock",
+      "weight": 31
+    },
+    {
+      "id": 3,
+      "headline": "TIN NHẮN THỨ NHẤT",
+      "baseProp": "message",
+      "mood": "alone",
+      "subline": "Giúp chị việc này nhé",
+      "motif": "message",
+      "weight": 31
+    },
+    {
+      "id": 4,
+      "headline": "RỒI TIN THỨ MƯỜI BẢY",
+      "baseProp": "phone",
+      "mood": "alone",
+      "subline": "Vẫn chỉ là lời nhờ vả",
+      "motif": "pulse",
+      "weight": 29
+    },
+    {
+      "id": 5,
+      "headline": "AI CŨNG NHỜ AN",
+      "baseProp": "table",
+      "mood": "alone",
+      "subline": "Việc của người khác",
+      "motif": "cups",
+      "weight": 33
+    },
+    {
+      "id": 6,
+      "headline": "CÔ ĐỀU NÓI ĐƯỢC",
+      "baseProp": "hands",
+      "mood": "alone",
+      "subline": "Dù mình đã rất mệt",
+      "motif": "thread",
+      "weight": 34
+    },
+    {
+      "id": 7,
+      "headline": "MỘT MÌNH Ở LẠI",
+      "baseProp": "window",
+      "mood": "loss",
+      "subline": "Văn phòng đã tắt đèn",
+      "motif": "shadow",
+      "weight": 33
+    },
+    {
+      "id": 8,
+      "headline": "ĐÈN VẪN SÁNG",
+      "baseProp": "stars",
+      "mood": "loss",
+      "subline": "An vẫn cố làm cho xong",
+      "motif": "halo",
+      "weight": 31
+    },
+    {
+      "id": 9,
+      "headline": "BẠN BÈ CẦN AN",
+      "baseProp": "reach",
+      "mood": "memory",
+      "subline": "Cô luôn có mặt",
+      "motif": "thread",
+      "weight": 31
+    },
+    {
+      "id": 10,
+      "headline": "NHƯNG AI CẦN AN?",
+      "baseProp": "mirror",
+      "mood": "loss",
+      "subline": "Không ai hỏi cô ổn không",
+      "motif": "reflect",
+      "weight": 35
+    },
+    {
+      "id": 11,
+      "headline": "CÔ CƯỜI THẬT KHẼ",
+      "baseProp": "smile",
+      "mood": "loss",
+      "subline": "Mình không sao đâu",
+      "motif": "crack",
+      "weight": 32
+    },
+    {
+      "id": 12,
+      "headline": "ĐÔI TAY ĐANG RUN",
+      "baseProp": "hands",
+      "mood": "loss",
+      "subline": "Không che được mỏi mệt",
+      "motif": "heartbeat",
+      "weight": 33
+    },
+    {
+      "id": 13,
+      "headline": "23 GIỜ 59 PHÚT",
+      "baseProp": "clock",
+      "mood": "loss",
+      "subline": "Ngày sinh nhật sắp qua",
+      "motif": "clock",
+      "weight": 32
+    },
+    {
+      "id": 14,
+      "headline": "CHIẾC BÁNH CHƯA THẮP",
+      "baseProp": "table",
+      "mood": "loss",
+      "subline": "Nến vẫn nằm im",
+      "motif": "cups",
+      "weight": 31
+    },
+    {
+      "id": 15,
+      "headline": "LẠI MỘT LỜI NHỜ",
+      "baseProp": "phone",
+      "mood": "loss",
+      "subline": "Giúp chị nốt nhé",
+      "motif": "pulse",
+      "weight": 33
+    },
+    {
+      "id": 16,
+      "headline": "CÔ GÕ: VÂNG",
+      "baseProp": "message",
+      "mood": "loss",
+      "subline": "Nhưng chưa nhấn gửi",
+      "motif": "message",
+      "weight": 37
+    },
+    {
+      "id": 17,
+      "headline": "AN BỖNG DỪNG LẠI",
+      "baseProp": "mirror",
+      "mood": "loss",
+      "subline": "Ai cũng được cô quan tâm",
+      "motif": "reflect",
+      "weight": 31
+    },
+    {
+      "id": 18,
+      "headline": "CÒN CHÍNH MÌNH?",
+      "baseProp": "heart",
+      "mood": "loss",
+      "subline": "Cô đã bỏ quên bản thân",
+      "motif": "heartbeat",
+      "weight": 33
+    },
+    {
+      "id": 19,
+      "headline": "SỢ AI ĐÓ THẤT VỌNG",
+      "baseProp": "rain",
+      "mood": "loss",
+      "subline": "Nên chưa từng nói không",
+      "motif": "rain",
+      "weight": 32
+    },
+    {
+      "id": 20,
+      "headline": "ĐẾN KHI KIỆT SỨC",
+      "baseProp": "empty",
+      "mood": "loss",
+      "subline": "An thôi cố gắng gượng",
+      "motif": "shadow",
+      "weight": 33
+    },
+    {
+      "id": 21,
+      "headline": "MỘT HƠI THỞ SÂU",
+      "baseProp": "hands",
+      "mood": "shift",
+      "subline": "Đủ can đảm đặt ranh giới",
+      "motif": "warmth",
+      "weight": 32
+    },
+    {
+      "id": 22,
+      "headline": "AN XÓA CHỮ VÂNG",
+      "baseProp": "message",
+      "mood": "shift",
+      "subline": "Hôm nay em cần nghỉ",
+      "motif": "message",
+      "weight": 34
+    },
+    {
+      "id": 23,
+      "headline": "ĐẶT ĐIỆN THOẠI XUỐNG",
+      "baseProp": "phone",
+      "mood": "healing",
+      "subline": "Lần đầu chọn chính mình",
+      "motif": "pulse",
+      "weight": 31
+    },
+    {
+      "id": 24,
+      "headline": "THẮP NẾN CHO MÌNH",
+      "baseProp": "sunrise",
+      "mood": "healing",
+      "subline": "Chúc mừng sinh nhật An",
+      "motif": "sun",
+      "weight": 32
+    },
+    {
+      "id": 25,
+      "headline": "KHÔNG CẦN TIẾNG VỖ TAY",
+      "baseProp": "stars",
+      "mood": "healing",
+      "subline": "Chỉ cần được bình yên",
+      "motif": "halo",
+      "weight": 29
+    },
+    {
+      "id": 26,
+      "headline": "AN ĐÃ MỈM CƯỜI",
+      "baseProp": "smile",
+      "mood": "hope",
+      "subline": "Lần này là thật lòng",
+      "motif": "warmth",
+      "weight": 31
+    },
+    {
+      "id": 27,
+      "headline": "ĐƯỢC NGHỈ KHÔNG ÍCH KỶ",
+      "baseProp": "flowers",
+      "mood": "hope",
+      "subline": "Bạn cũng đáng được thương",
+      "motif": "bloom",
+      "weight": 38
+    },
+    {
+      "id": 28,
+      "headline": "THƯƠNG LẤY CHÍNH MÌNH",
+      "baseProp": "bloom",
+      "mood": "hope",
+      "subline": "Đừng để trái tim chờ đến lượt",
+      "motif": "bloom",
+      "weight": 51
+    }
+  ],
+  "qa": {
+    "minSeconds": 30,
+    "maxSeconds": 45,
+    "requiredShots": 28,
+    "hookSeconds": 2,
+    "publishYoutube": false
+  }
+}
