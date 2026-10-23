@@ -46,6 +46,7 @@ jobs:
             echo "::error::Vbee token or App ID secret mapping is missing. Check repo Action Secrets names."
             exit 1
           fi
+      # Validate against Vbee response while keeping credentials masked.
       - name: Generate 10 genuine Vbee narration MP3 files
         shell: bash
         run: |
