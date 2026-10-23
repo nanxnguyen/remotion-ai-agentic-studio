@@ -26,12 +26,13 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
-      - name: Check FFmpeg and install yt-dlp
+      - name: Install standalone FFmpeg tools and yt-dlp
         run: |
           set -euo pipefail
-          command -v ffmpeg
-          command -v ffprobe
-          ffmpeg -version | head -n 1
+          npm install --prefix "$RUNNER_TEMP/ffmpeg-tools" --no-audit --no-fund \
+            @ffmpeg-installer/linux-x64 @ffprobe-installer/linux-x64
+          echo "$RUNNER_TEMP/ffmpeg-tools/node_modules/@ffmpeg-installer/linux-x64" >> "$GITHUB_PATH"
+          echo "$RUNNER_TEMP/ffmpeg-tools/node_modules/@ffprobe-installer/linux-x64" >> "$GITHUB_PATH"
           python -m pip install --user --upgrade yt-dlp
           ~/.local/bin/yt-dlp --version
 
