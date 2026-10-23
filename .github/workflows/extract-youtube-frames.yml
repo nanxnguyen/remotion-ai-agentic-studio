@@ -1,6 +1,9 @@
 name: Extract YouTube Shorts Frames
 
 on:
+  push:
+    branches: [feat/youtube-frame-extractor]
+    paths: ['.github/workflows/extract-youtube-frames.yml']
   workflow_dispatch:
     inputs:
       video_url:
@@ -23,11 +26,14 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
-      - name: Install ffmpeg and yt-dlp
+      - name: Check FFmpeg and install yt-dlp
         run: |
-          sudo apt-get update
-          sudo apt-get install -y ffmpeg
+          set -euo pipefail
+          command -v ffmpeg
+          command -v ffprobe
+          ffmpeg -version | head -n 1
           python -m pip install --user --upgrade yt-dlp
+          ~/.local/bin/yt-dlp --version
 
       - name: Set up Deno for YouTube JS challenges
         uses: denoland/setup-deno@v2
