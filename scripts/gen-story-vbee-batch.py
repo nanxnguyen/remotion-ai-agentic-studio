@@ -57,11 +57,20 @@ def headers():
     return {"Authorization": f"Bearer {token}", "App-Id": app_id, "Content-Type": "application/json"}
 
 def read_duration(path):
-    result = subprocess.run(
-        ["ffprobe", "-v", "error", "-show_entries", "format=duration",
-         "-of", "default=noprint_wrappers=1:nokey=1", str(path)],
-        capture_output=True, text=True, check=True)
-    return float(result.stdout.strip())
+    """Verify true Vbee MP3 size and measure clip length; use bitrate estimate if ffprobe unavailable."""
+    import shutil
+    if shutil.which("ffprobe"):
+        result = subprocess.run(
+            ["ffprobe", "-v", "error", "-show_entries", "format=duration",
+             "-of", "default=noprint_wrappers=1:nokey=1", str(path)],
+            capture_output=True, text=True, check=True)
+        return float(result.stdout.strip())
+    payload = path.read_bytes()
+    if not payload.startswith(b"ID3") or len(payload) < 1500:
+        raise RuntimeError("Cannot estimate audio duration: malformed Vbee MP3")
+    # API requests 128 kbps CBR. Strip ID3 metadata before size/bitrate fallback.
+    offset = 10 + ((payload[6] & 127) << 21) + ((payload[7] & 127) << 14) + ((payload[8] & 127) << 7) + (payload[9] & 127)
+    return (len(payload) - offset) * 8 / 128000
 
 def generate_async(text, voice_code, speed, dest, webhook_url):
     if not 1 <= len(text) <= 100000:
