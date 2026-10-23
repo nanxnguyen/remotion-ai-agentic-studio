@@ -4,7 +4,9 @@ on:
     branches: [feat/short02-17-messages-healing]
     paths:
       - '.github/workflows/short02-17-tin-nhan.yml'
-      - 'docs/short-02-17-tin-nhan/**'
+      - 'docs/short-02-17-tin-nhan/story.json'
+      - 'docs/short-02-17-tin-nhan/render_smooth.py'
+      - 'docs/short-02-17-tin-nhan/mix_and_qa.py'
   workflow_dispatch:
 permissions:
   contents: write
