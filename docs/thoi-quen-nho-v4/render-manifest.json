@@ -1,0 +1,37 @@
+{
+  "slug": "thoi-quen-nho-v4",
+  "title": "Thành Công Là Điều Nhỏ Bé — Cinematic V4",
+  "filename": "Thanh_Cong_La_Dieu_Nho_Be_V4_Cinematic_1080x1920.mp4",
+  "duration_seconds": 34,
+  "frames": 1020,
+  "fps": 30,
+  "resolution": "1080x1920",
+  "center_square": {
+    "width": 640,
+    "height": 640,
+    "x": 220,
+    "y": 640
+  },
+  "matte": "#030405",
+  "video_codec": "h264",
+  "audio_codec": "aac",
+  "sha256": "9d84521b8eef9dfa783009fa788d474ae36a38a26a23d69330eb81e115d4701d",
+  "bytes": 3229863,
+  "voice": "Vbee Ngọc Huyền",
+  "voice_run": 40020181085,
+  "rendered_by": "OpenCV/Pillow/FFmpeg",
+  "qa": {
+    "decoding": true,
+    "video_spec": true,
+    "voice_stream": true,
+    "photo_contact": true,
+    "musical_mix": true,
+    "remotion_verify": false,
+    "pipeline_audit": false
+  },
+  "github_archive": {
+    "status": "pending",
+    "video_url": null,
+    "release_url": null
+  }
+}
