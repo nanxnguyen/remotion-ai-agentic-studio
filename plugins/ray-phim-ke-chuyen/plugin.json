@@ -1,0 +1,35 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "ray-phim-ke-chuyen",
+  "version": "0.1.1",
+  "description": "Sản xuất phim kể chuyện ngắn tiếng Việt: kịch bản hấp dẫn, khung hình cinematic, Remotion 9:16, giọng kể Vbee thật và kiểm định video hoàn chỉnh; có chế độ chỉ thay voice cho MP4 có sẵn.",
+  "author": {
+    "name": "Ray"
+  },
+  "keywords": [
+    "Vietnamese",
+    "storytelling",
+    "YouTube Shorts",
+    "Remotion",
+    "Vbee",
+    "cinematic",
+    "video-production"
+  ],
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Ray Phim Kể Chuyện",
+        "shortDescription": "Làm phim kể chuyện có voice",
+        "longDescription": "Trợ lý sản xuất Shorts kể chuyện tiếng Việt từ ý tưởng hoặc video tham chiếu. Viết kịch bản, tạo storyboard hình điện ảnh 9:16, dựng Remotion, tạo và đồng bộ giọng Vbee chính hãng bằng GitHub Actions Secrets, kiểm tra và giao MP4. Hỗ trợ sửa lời thoại hoặc thay voice mà không thay đổi hình ảnh video gốc.",
+        "developerName": "Ray",
+        "category": "Productivity",
+        "capabilities": [],
+        "defaultPrompt": [
+          "Dùng ray-phim-ke-chuyen tạo phim Shorts mới 55 giây, hình cinematic tối màu, voice Vbee Anh Khôi và phụ đề trắng-vàng-đỏ.",
+          "Dùng ray-phim-ke-chuyen giữ nguyên hình ảnh của MP4 này, chỉ thay giọng kể bằng Vbee và đồng bộ kịch bản.",
+          "Phân tích phong cách video tham chiếu này rồi dựng một phim kể chuyện nguyên bản bằng Remotion."
+        ]
+      }
+    }
+  }
+}
