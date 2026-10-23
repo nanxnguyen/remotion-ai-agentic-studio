@@ -1,0 +1,82 @@
+[
+  {
+    "id": 1,
+    "narration": "Xe buýt không có tài xế. Vé Linh ghi: Hai giờ mười tám... tử vong.",
+    "duration": 5,
+    "visual_start_seconds": 0,
+    "phase": "HOOK",
+    "headline": "VÉ XE BÁO TỬ"
+  },
+  {
+    "id": 2,
+    "narration": "Bây giờ là hai giờ mười bảy. Linh vừa bước lên... cửa đã khóa chặt.",
+    "duration": 6,
+    "visual_start_seconds": 5,
+    "phase": "BODY",
+    "headline": "CỬA ĐÃ KHÓA"
+  },
+  {
+    "id": 3,
+    "narration": "Các hành khách cúi đầu bất động. Ai cũng ôm tấm vé đỏ.",
+    "duration": 5,
+    "visual_start_seconds": 11,
+    "phase": "BODY",
+    "headline": "NHỮNG TẤM VÉ ĐỎ"
+  },
+  {
+    "id": 4,
+    "narration": "Bà cụ cuối xe nhìn Linh, rồi thì thầm:",
+    "duration": 6,
+    "visual_start_seconds": 16,
+    "phase": "BODY",
+    "headline": "HÃY NHÌN RA CỬA SỔ"
+  },
+  {
+    "id": 5,
+    "narration": "Qua cửa kính, Linh thấy chính mình đang ngủ. Ổ điện bùng lửa, khói đen đã tràn vào phòng.",
+    "duration": 8,
+    "visual_start_seconds": 22,
+    "phase": "BODY",
+    "headline": "CÔ ẤY SẮP CHẾT"
+  },
+  {
+    "id": 6,
+    "narration": "Hồi chuông đầu tiên vang lên. Bà cụ cảnh báo:",
+    "duration": 8,
+    "visual_start_seconds": 30,
+    "phase": "CLIMAX",
+    "headline": "HỒI CHUÔNG THỨ BA"
+  },
+  {
+    "id": 7,
+    "narration": "Chuông thứ hai. Linh đập cửa tuyệt vọng. Bà cụ hét lớn:",
+    "duration": 7,
+    "visual_start_seconds": 38,
+    "phase": "CLIMAX",
+    "headline": "XÉ VÉ ĐI!"
+  },
+  {
+    "id": 8,
+    "narration": "Chuông cuối vang lên. Linh xé toạc tấm vé!",
+    "duration": 4,
+    "visual_start_seconds": 45,
+    "phase": "CLIMAX",
+    "headline": "XÉ VÉ TRƯỚC KHI QUÁ MUỘN"
+  },
+  {
+    "id": 9,
+    "narration": "Linh bật dậy, bò khỏi căn phòng ngập khói!",
+    "duration": 5,
+    "visual_start_seconds": 49,
+    "phase": "ENDING",
+    "headline": "CÔ ẤY ĐÃ SỐNG"
+  },
+  {
+    "id": 10,
+    "narration": "Xe số không lướt qua. Bà cụ đang cầm lái. Mảnh vé ghi: Lượt về còn lại... không!",
+    "duration": 6,
+    "visual_start_seconds": 54,
+    "phase": "ENDING",
+    "headline": "LƯỢT VỀ CÒN LẠI: 0"
+  }
+]
