@@ -1,0 +1,356 @@
+{
+  "id": "short-03-buc-anh-khong-co-me",
+  "title": "Bức Ảnh Duy Nhất Không Có Mẹ",
+  "displayTitle": "Hơn 100 Bức Ảnh Gia Đình... Không Một Tấm Có Mẹ",
+  "skill": "ray-emotional-stick-shorts",
+  "durationTargetSeconds": 44.2,
+  "fps": 60,
+  "resolution": [
+    1080,
+    1920
+  ],
+  "chapters": [
+    {
+      "type": "album",
+      "title": "HƠN 100 TẤM ẢNH...",
+      "sub": "NHƯNG KHÔNG THẤY MẸ",
+      "weight": 5.3,
+      "mood": "surprise",
+      "description": "Linh scrolls a family's photo album and freezes as she searches for her mother"
+    },
+    {
+      "type": "birthday",
+      "title": "MẸ LUÔN CẦM MÁY",
+      "sub": "SINH NHẬT NÀO CŨNG VẬY",
+      "weight": 5.2,
+      "mood": "memory",
+      "description": "A younger Linh blows candles; mother stands behind smartphone smiling"
+    },
+    {
+      "type": "graduation",
+      "title": "NGÀY CON TỐT NGHIỆP",
+      "sub": "MẸ VẪN Ở PHÍA SAU",
+      "weight": 5.2,
+      "mood": "memory",
+      "description": "Adult Linh graduates; mother photographs from edge of crowd"
+    },
+    {
+      "type": "dinner",
+      "title": "CẢ NHÀ CƯỜI LÊN!",
+      "sub": "MẸ LÙI KHỎI KHUNG HÌNH",
+      "weight": 4.5,
+      "mood": "memory",
+      "description": "Family sits at dinner; mother walks backwards and captures everyone"
+    },
+    {
+      "type": "browse",
+      "title": "AI CŨNG RẠNG RỠ",
+      "sub": "CHỈ THIẾU MẸ...",
+      "weight": 5.4,
+      "mood": "sad",
+      "description": "Linh swipes one memory after another and recognizes her mother's absence"
+    },
+    {
+      "type": "reflection",
+      "title": "RỒI LINH PHÓNG TO...",
+      "sub": "BÓNG MẸ TRÊN Ô KÍNH",
+      "weight": 5.3,
+      "mood": "reveal",
+      "description": "Grad photo zoom moves toward window where smiling mom appears as tiny reflection"
+    },
+    {
+      "type": "kitchen",
+      "title": "MẸ ĐÃ Ở ĐÓ",
+      "sub": "SAU MỖI KỶ NIỆM",
+      "weight": 5.3,
+      "mood": "ache",
+      "description": "Match cut photo-holding hand to mother's hand clearing bowls in kitchen"
+    },
+    {
+      "type": "invite",
+      "title": "MẸ ĐỨNG GIỮA NHÉ!",
+      "sub": "LẦN ĐẦU LINH CẦM MÁY",
+      "weight": 4,
+      "mood": "hope",
+      "description": "Linh enters, holds mother's hand, moves her toward family and sets timer"
+    },
+    {
+      "type": "portrait",
+      "title": "BỨC ẢNH ĐỦ ĐẦY",
+      "sub": "CUỐI CÙNG CŨNG CÓ MẸ",
+      "weight": 4,
+      "mood": "healing",
+      "description": "Camera timer, mom joins central group, family smile, shutter, final captured portrait"
+    }
+  ],
+  "shots": [
+    {
+      "id": 1,
+      "chapter": 0,
+      "variation": 0,
+      "type": "album",
+      "mood": "surprise",
+      "headline": "HƠN 100 TẤM ẢNH...",
+      "subline": "NHƯNG KHÔNG THẤY MẸ",
+      "description": "Linh scrolls a family's photo album and freezes as she searches for her mother",
+      "weight": 2.65
+    },
+    {
+      "id": 2,
+      "chapter": 0,
+      "variation": 1,
+      "type": "album",
+      "mood": "surprise",
+      "headline": "HƠN 100 TẤM ẢNH...",
+      "subline": "NHƯNG KHÔNG THẤY MẸ",
+      "description": "Linh scrolls a family's photo album and freezes as she searches for her mother",
+      "weight": 2.65
+    },
+    {
+      "id": 3,
+      "chapter": 1,
+      "variation": 0,
+      "type": "birthday",
+      "mood": "memory",
+      "headline": "MẸ LUÔN CẦM MÁY",
+      "subline": "SINH NHẬT NÀO CŨNG VẬY",
+      "description": "A younger Linh blows candles; mother stands behind smartphone smiling",
+      "weight": 2.6
+    },
+    {
+      "id": 4,
+      "chapter": 1,
+      "variation": 1,
+      "type": "birthday",
+      "mood": "memory",
+      "headline": "MẸ LUÔN CẦM MÁY",
+      "subline": "SINH NHẬT NÀO CŨNG VẬY",
+      "description": "A younger Linh blows candles; mother stands behind smartphone smiling",
+      "weight": 2.6
+    },
+    {
+      "id": 5,
+      "chapter": 2,
+      "variation": 0,
+      "type": "graduation",
+      "mood": "memory",
+      "headline": "NGÀY CON TỐT NGHIỆP",
+      "subline": "MẸ VẪN Ở PHÍA SAU",
+      "description": "Adult Linh graduates; mother photographs from edge of crowd",
+      "weight": 2.6
+    },
+    {
+      "id": 6,
+      "chapter": 2,
+      "variation": 1,
+      "type": "graduation",
+      "mood": "memory",
+      "headline": "NGÀY CON TỐT NGHIỆP",
+      "subline": "MẸ VẪN Ở PHÍA SAU",
+      "description": "Adult Linh graduates; mother photographs from edge of crowd",
+      "weight": 2.6
+    },
+    {
+      "id": 7,
+      "chapter": 3,
+      "variation": 0,
+      "type": "dinner",
+      "mood": "memory",
+      "headline": "CẢ NHÀ CƯỜI LÊN!",
+      "subline": "MẸ LÙI KHỎI KHUNG HÌNH",
+      "description": "Family sits at dinner; mother walks backwards and captures everyone",
+      "weight": 2.25
+    },
+    {
+      "id": 8,
+      "chapter": 3,
+      "variation": 1,
+      "type": "dinner",
+      "mood": "memory",
+      "headline": "CẢ NHÀ CƯỜI LÊN!",
+      "subline": "MẸ LÙI KHỎI KHUNG HÌNH",
+      "description": "Family sits at dinner; mother walks backwards and captures everyone",
+      "weight": 2.25
+    },
+    {
+      "id": 9,
+      "chapter": 4,
+      "variation": 0,
+      "type": "browse",
+      "mood": "sad",
+      "headline": "AI CŨNG RẠNG RỠ",
+      "subline": "CHỈ THIẾU MẸ...",
+      "description": "Linh swipes one memory after another and recognizes her mother's absence",
+      "weight": 2.7
+    },
+    {
+      "id": 10,
+      "chapter": 4,
+      "variation": 1,
+      "type": "browse",
+      "mood": "sad",
+      "headline": "AI CŨNG RẠNG RỠ",
+      "subline": "CHỈ THIẾU MẸ...",
+      "description": "Linh swipes one memory after another and recognizes her mother's absence",
+      "weight": 2.7
+    },
+    {
+      "id": 11,
+      "chapter": 5,
+      "variation": 0,
+      "type": "reflection",
+      "mood": "reveal",
+      "headline": "RỒI LINH PHÓNG TO...",
+      "subline": "BÓNG MẸ TRÊN Ô KÍNH",
+      "description": "Grad photo zoom moves toward window where smiling mom appears as tiny reflection",
+      "weight": 2.65
+    },
+    {
+      "id": 12,
+      "chapter": 5,
+      "variation": 1,
+      "type": "reflection",
+      "mood": "reveal",
+      "headline": "RỒI LINH PHÓNG TO...",
+      "subline": "BÓNG MẸ TRÊN Ô KÍNH",
+      "description": "Grad photo zoom moves toward window where smiling mom appears as tiny reflection",
+      "weight": 2.65
+    },
+    {
+      "id": 13,
+      "chapter": 6,
+      "variation": 0,
+      "type": "kitchen",
+      "mood": "ache",
+      "headline": "MẸ ĐÃ Ở ĐÓ",
+      "subline": "SAU MỖI KỶ NIỆM",
+      "description": "Match cut photo-holding hand to mother's hand clearing bowls in kitchen",
+      "weight": 2.65
+    },
+    {
+      "id": 14,
+      "chapter": 6,
+      "variation": 1,
+      "type": "kitchen",
+      "mood": "ache",
+      "headline": "MẸ ĐÃ Ở ĐÓ",
+      "subline": "SAU MỖI KỶ NIỆM",
+      "description": "Match cut photo-holding hand to mother's hand clearing bowls in kitchen",
+      "weight": 2.65
+    },
+    {
+      "id": 15,
+      "chapter": 7,
+      "variation": 0,
+      "type": "invite",
+      "mood": "hope",
+      "headline": "MẸ ĐỨNG GIỮA NHÉ!",
+      "subline": "LẦN ĐẦU LINH CẦM MÁY",
+      "description": "Linh enters, holds mother's hand, moves her toward family and sets timer",
+      "weight": 2
+    },
+    {
+      "id": 16,
+      "chapter": 7,
+      "variation": 1,
+      "type": "invite",
+      "mood": "hope",
+      "headline": "MẸ ĐỨNG GIỮA NHÉ!",
+      "subline": "LẦN ĐẦU LINH CẦM MÁY",
+      "description": "Linh enters, holds mother's hand, moves her toward family and sets timer",
+      "weight": 2
+    },
+    {
+      "id": 17,
+      "chapter": 8,
+      "variation": 0,
+      "type": "portrait",
+      "mood": "healing",
+      "headline": "BỨC ẢNH ĐỦ ĐẦY",
+      "subline": "CUỐI CÙNG CŨNG CÓ MẸ",
+      "description": "Camera timer, mom joins central group, family smile, shutter, final captured portrait",
+      "weight": 2
+    },
+    {
+      "id": 18,
+      "chapter": 8,
+      "variation": 1,
+      "type": "portrait",
+      "mood": "healing",
+      "headline": "BỨC ẢNH ĐỦ ĐẦY",
+      "subline": "CUỐI CÙNG CŨNG CÓ MẸ",
+      "description": "Camera timer, mom joins central group, family smile, shutter, final captured portrait",
+      "weight": 2
+    }
+  ],
+  "voice": {
+    "provider": "Vbee",
+    "voiceCode": "hn_male_thanhlong_talk_48k-fhg",
+    "beats": [
+      {
+        "text": "Linh lật album ảnh gia đình... rồi sững lại. Hơn trăm bức ảnh, mà chẳng thấy mẹ.",
+        "start": 0.1,
+        "speed": 0.98,
+        "emotion": "whisper of surprise"
+      },
+      {
+        "text": "Ngày sinh nhật, mẹ chụp. Ngày tốt nghiệp... mẹ cũng là người chụp.",
+        "start": 5.3,
+        "speed": 0.96,
+        "emotion": "warm memory"
+      },
+      {
+        "text": "Đến những bữa cơm đông đủ... mẹ lại lùi ra sau, bảo cả nhà cười lên.",
+        "start": 10.5,
+        "speed": 0.97,
+        "emotion": "affectionate recollection"
+      },
+      {
+        "text": "Trong ảnh ai cũng rạng rỡ. Chỉ có một người... luôn vắng mặt.",
+        "start": 15.7,
+        "speed": 0.95,
+        "emotion": "slow poignant hesitation"
+      },
+      {
+        "text": "Rồi Linh phóng to một tấm ảnh cũ. Trên ô kính... có bóng mẹ.",
+        "start": 20.2,
+        "speed": 0.96,
+        "emotion": "quiet suspense and discovery"
+      },
+      {
+        "text": "Mẹ vẫn cầm máy, mỉm cười tự hào. Linh bỗng thấy lòng nghẹn lại.",
+        "start": 25.6,
+        "speed": 0.96,
+        "emotion": "gentle ache"
+      },
+      {
+        "text": "Cô quay vào bếp. Mẹ vẫn đang lặng lẽ dọn dẹp... như mọi ngày.",
+        "start": 30.9,
+        "speed": 0.97,
+        "emotion": "hushed realization"
+      },
+      {
+        "text": "Linh nắm tay mẹ: Mẹ ơi... lần này mẹ đứng giữa nhé!",
+        "start": 36,
+        "speed": 0.96,
+        "emotion": "bright tenderness"
+      },
+      {
+        "text": "Tách! Cuối cùng... bức ảnh gia đình cũng thật sự đủ đầy.",
+        "start": 40.2,
+        "speed": 0.96,
+        "emotion": "uplifting, soft landing"
+      }
+    ]
+  },
+  "qa": {
+    "requiredShots": 18,
+    "hookEndSeconds": 5.3,
+    "minSeconds": 30,
+    "maxSeconds": 45,
+    "noYouTubePublish": true,
+    "requiresRealVbee": true,
+    "requiresPiano": true,
+    "requiresTransitionSeamCheck": true
+  }
+}
