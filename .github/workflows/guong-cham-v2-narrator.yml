@@ -1,0 +1,36 @@
+name: Guong Cham V2 - Revised narrator
+on:
+  push:
+    branches: [feat/guong-cham-v2-acting-sync]
+    paths: [.github/workflows/guong-cham-v2-narrator.yml]
+permissions:
+  contents: read
+jobs:
+  narration:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      VBEE_ACCESS_TOKEN: ${{ secrets.VBEE_ACCESS_TOKEN || secrets.VBEE_TOKEN || secrets.VBEE_API_KEY || secrets.VBEE_API_TOKEN }}
+      VBEE_APP_ID: ${{ secrets.VBEE_APP_ID || secrets.VBEE_APPID || secrets.VBEE_APPLICATION_ID }}
+      VBEE_VOICE_CODE: hn_male_phuthang_stor_24k-stl
+      VBEE_WEBHOOK_URL: ${{ vars.VBEE_WEBHOOK_URL || 'https://example.com/story-tts-webhook' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Regenerate genuine Vbee Anh Khoi voice for revised dialogue split
+        run: |
+          test -n "$VBEE_ACCESS_TOKEN" && test -n "$VBEE_APP_ID"
+          python3 scripts/gen-story-vbee-batch.py \
+            --timeline docs/guong-cham-ba-giay/narrator-v2.json \
+            --out-dir public/audio/guong-cham-ba-giay-narrator-v2 \
+            --voice-code "$VBEE_VOICE_CODE" \
+            --speed 1.08 \
+            --webhook-url "$VBEE_WEBHOOK_URL"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: guong-cham-v2-narrator-revision
+          path: public/audio/guong-cham-ba-giay-narrator-v2/
+          retention-days: 14
+          if-no-files-found: error
