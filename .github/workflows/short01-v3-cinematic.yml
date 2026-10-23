@@ -1,0 +1,113 @@
+name: Short 01 V3 - Cinematic 28-shot emotional retention
+on:
+  push:
+    branches: [feat/short01-v3-retention-cinematic]
+    paths: ['.github/workflows/short01-v3-cinematic.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: short01-v3-final
+  cancel-in-progress: false
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    env:
+      VBEE_APP_ID: ${{ secrets.VBEE_APP_ID }}
+      VBEE_ACCESS_TOKEN: ${{ secrets.VBEE_ACCESS_TOKEN }}
+      VBEE_WEBHOOK_URL: https://iehmucsshklgjmxqyggp.supabase.co/functions/v1/vbee-batch-callback
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: feat/short01-v3-retention-cinematic
+          persist-credentials: true
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+      - name: Install cinema render dependencies
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -qq -y ffmpeg fonts-dejavu-core
+          python3 -m pip install --disable-pip-version-check numpy pillow
+      - name: Assert creative plan is 28 unique beats and 30-45s
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('docs/short-01-nho-phien-ban-duoc-yeu/v3/story.json')
+          d=json.loads(p.read_text())
+          assert len(d['shots'])==28
+          assert len(d['voice']['beats'])==8
+          assert len({s['headline'] for s in d['shots']})==28
+          assert d['qa']['maxSeconds']==45
+          assert d['qa']['publishYoutube'] is False
+          assert d['voice']['beats'][-1]['text']=='Bạn không cần họ quay lại để tìm lại phiên bản từng rạng rỡ ấy.'
+          print('Storyboard: 28 distinct titles, 8 voice beats, exact closing sentence')
+          PY
+      - name: Render all cinematic motion frames and original adaptive score
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/short01-v3
+          python3 docs/short-01-nho-phien-ban-duoc-yeu/v3/render_cinematic.py inspect --out /tmp/short01-v3/inspect.json
+          python3 docs/short-01-nho-phien-ban-duoc-yeu/v3/render_cinematic.py score --out /tmp/short01-v3/piano.wav
+          python3 docs/short-01-nho-phien-ban-duoc-yeu/v3/render_cinematic.py render --out /tmp/short01-v3/visual.mp4 --sheet docs/short-01-nho-phien-ban-duoc-yeu/v3/contact-sheet.jpg
+          ffprobe -v error -show_entries format=duration -of default=nw=1 /tmp/short01-v3/visual.mp4
+      - name: Smoke-test complete video+audio filter graph before Vbee requests
+        run: |
+          set -euo pipefail
+          python3 docs/short-01-nho-phien-ban-duoc-yeu/v3/mix_and_qa.py --workdir /tmp/short01-v3 --out /tmp/short01-v3/smoke.mp4 --smoke
+          rm /tmp/short01-v3/voice*.mp3 /tmp/short01-v3/smoke.mp4
+      - name: Generate 8 expressive Vbee Thanh Long speech beats
+        run: |
+          set -euo pipefail
+          test -n "$VBEE_APP_ID" && test -n "$VBEE_ACCESS_TOKEN"
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          d=json.loads(Path('docs/short-01-nho-phien-ban-duoc-yeu/v3/story.json').read_text(encoding='utf-8'))
+          p=Path('/tmp/short01-v3')
+          for i,b in enumerate(d['voice']['beats']):
+              (p/f'beat{i}.txt').write_text(b['text'],encoding='utf-8')
+              (p/f'speed{i}.txt').write_text(str(b['speed']))
+          PY
+          for i in 0 1 2 3 4 5 6 7; do
+            python3 docs/short-01-nho-phien-ban-duoc-yeu/voice/vbee_batch_tts.py \
+              --text-file "/tmp/short01-v3/beat$i.txt" \
+              --voice-code hn_male_thanhlong_talk_48k-fhg \
+              --speed "$(cat /tmp/short01-v3/speed$i.txt)" \
+              --output "/tmp/short01-v3/voice$i.mp3"
+          done
+      - name: Cinematic soundtrack mix, emotional voice timing and technical QA
+        run: |
+          set -euo pipefail
+          python3 docs/short-01-nho-phien-ban-duoc-yeu/v3/mix_and_qa.py \
+            --workdir /tmp/short01-v3 \
+            --out docs/short-01-nho-phien-ban-duoc-yeu/final/short01-v3-28-scenes-cinematic-vbee.mp4
+          ffprobe -v error -show_entries format=duration,size:stream=codec_type,width,height \
+            -of json docs/short-01-nho-phien-ban-duoc-yeu/final/short01-v3-28-scenes-cinematic-vbee.mp4
+      - name: Commit archive MP4, QA evidence and contact-sheet
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add \
+            docs/short-01-nho-phien-ban-duoc-yeu/v3/contact-sheet.jpg \
+            docs/short-01-nho-phien-ban-duoc-yeu/final/short01-v3-28-scenes-cinematic-vbee.mp4 \
+            docs/short-01-nho-phien-ban-duoc-yeu/final/V3-28-SCENES-SHA256SUMS \
+            docs/short-01-nho-phien-ban-duoc-yeu/final/V3-QA.json
+          git diff --cached --quiet || git commit -m 'assets(short01): archive original 28-scene cinematic v3 and QA'
+          git fetch origin feat/short01-v3-retention-cinematic
+          git rebase origin/feat/short01-v3-retention-cinematic
+          git push origin HEAD:feat/short01-v3-retention-cinematic
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: short01-v3-28-scenes-cinematic
+          path: |
+            docs/short-01-nho-phien-ban-duoc-yeu/v3/contact-sheet.jpg
+            docs/short-01-nho-phien-ban-duoc-yeu/final/short01-v3-28-scenes-cinematic-vbee.mp4
+            docs/short-01-nho-phien-ban-duoc-yeu/final/V3-QA.json
+          if-no-files-found: ignore
+          retention-days: 7
