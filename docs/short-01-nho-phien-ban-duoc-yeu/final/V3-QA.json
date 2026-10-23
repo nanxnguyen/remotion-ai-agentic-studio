@@ -1,0 +1,79 @@
+{
+  "video": "short01-v3-28-scenes-cinematic-vbee.mp4",
+  "durationSeconds": 40.416667,
+  "resolution": "1080x1920",
+  "fps": 24,
+  "distinctShots": 28,
+  "voiceBeats": 8,
+  "speechPeakChecks": [
+    {
+      "beat": 1,
+      "start": 0.12,
+      "sourceDuration": 6.01,
+      "tempo": 1.14,
+      "maxVolumeDb": -1.5,
+      "direction": "móc câu, trầm và gần, ngắt sau chữ 'họ'"
+    },
+    {
+      "beat": 2,
+      "start": 5.5,
+      "sourceDuration": 6.3,
+      "tempo": 1.19,
+      "maxVolumeDb": -1.4,
+      "direction": "ấm dần, hồi ức có nụ cười"
+    },
+    {
+      "beat": 3,
+      "start": 10.9,
+      "sourceDuration": 5.2,
+      "tempo": 1.0,
+      "maxVolumeDb": -2.1,
+      "direction": "rơi đột ngột rồi chậm lại"
+    },
+    {
+      "beat": 4,
+      "start": 16.25,
+      "sourceDuration": 5.17,
+      "tempo": 1.0,
+      "maxVolumeDb": -2.1,
+      "direction": "nội tâm, khoảng lặng trước sự thật"
+    },
+    {
+      "beat": 5,
+      "start": 21.65,
+      "sourceDuration": 6.32,
+      "tempo": 1.121,
+      "maxVolumeDb": -1.1,
+      "direction": "cao trào nhấn vào 'bạn cũng quên mất'"
+    },
+    {
+      "beat": 6,
+      "start": 27.4,
+      "sourceDuration": 5.02,
+      "tempo": 1.0,
+      "maxVolumeDb": -0.9,
+      "direction": "nâng đỡ dịu nhưng chắc"
+    },
+    {
+      "beat": 7,
+      "start": 32.65,
+      "sourceDuration": 4.23,
+      "tempo": 1.213,
+      "maxVolumeDb": -1.4,
+      "direction": "ấm áp, quyết định đi tiếp"
+    },
+    {
+      "beat": 8,
+      "start": 36.25,
+      "sourceDuration": 3.84,
+      "tempo": 1.0,
+      "maxVolumeDb": -1.5,
+      "direction": "lắng đọng, khẳng định, giữ dư âm sau câu cuối"
+    }
+  ],
+  "technicalAVCheck": "pass",
+  "subjectiveListening": "not independently verified",
+  "retentionAnalytics": "unavailable until published and measured",
+  "youtubePublished": false,
+  "sha256": "a1ec7922dfec38d79a47090a2f14b653810e9b5406d6f8cd6dac9de8c82b85f7"
+}
