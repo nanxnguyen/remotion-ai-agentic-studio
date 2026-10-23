@@ -1,0 +1,115 @@
+name: Short 02 - 17 birthday messages (ray-emotional-stick-shorts)
+on:
+  push:
+    branches: [feat/short02-17-messages-healing]
+    paths:
+      - '.github/workflows/short02-17-tin-nhan.yml'
+      - 'docs/short-02-17-tin-nhan/**'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: short02-17-messages-healing
+  cancel-in-progress: false
+jobs:
+  produce:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      VBEE_APP_ID: ${{ secrets.VBEE_APP_ID }}
+      VBEE_ACCESS_TOKEN: ${{ secrets.VBEE_ACCESS_TOKEN }}
+      VBEE_WEBHOOK_URL: https://iehmucsshklgjmxqyggp.supabase.co/functions/v1/vbee-batch-callback
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: feat/short02-17-messages-healing
+          persist-credentials: true
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+      - name: Install video dependencies
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg fonts-dejavu-core
+          python3 -m pip install --disable-pip-version-check numpy pillow
+      - name: Read ray-emotional-stick-shorts and verify story contract
+        run: |
+          set -euo pipefail
+          test -s .claude/skills/ray-emotional-stick-shorts/SKILL.md
+          test -s .agents/skills/ray-pineline-worflow-agent/SKILL.md
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          d=json.loads(Path('docs/short-02-17-tin-nhan/story.json').read_text())
+          assert len(d['shots'])==28 and len(d['voice']['beats'])==8
+          assert 30<=d['durationTargetSeconds']<=45
+          assert d['skill']=='ray-emotional-stick-shorts'
+          assert d['qa']['publishYoutube'] is False
+          assert 'Mười bảy tin nhắn' in d['voice']['beats'][0]['text']
+          print('Creative brief: 28 shots, 8 voice beats, hook under 2s, no YouTube publishing')
+          PY
+      - name: Render 28 scenes at native 60fps, continuous actor and camera
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/short02
+          python3 docs/short-02-17-tin-nhan/render_smooth.py render \
+            --out /tmp/short02/visual.mp4 \
+            --sheet docs/short-02-17-tin-nhan/contact-sheet.jpg
+          python3 docs/short-02-17-tin-nhan/render_smooth.py seam-qa \
+            --out docs/short-02-17-tin-nhan/seam-QA.json
+          python3 docs/short-01-nho-phien-ban-duoc-yeu/v3/render_cinematic.py score \
+            --out /tmp/short02/piano.wav
+      - name: Preflight FFmpeg audio sidechain using synthetic test speech
+        run: |
+          python3 docs/short-02-17-tin-nhan/mix_and_qa.py --smoke \
+            --workdir /tmp/short02 --out /tmp/short02/preflight.mp4
+          rm -f /tmp/short02/voice*.mp3 /tmp/short02/preflight.mp4
+      - name: Create 8 Vbee Thanh Long expressive story beats
+        run: |
+          set -euo pipefail
+          test -n "$VBEE_APP_ID" && test -n "$VBEE_ACCESS_TOKEN"
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          d=json.loads(Path('docs/short-02-17-tin-nhan/story.json').read_text())
+          p=Path('/tmp/short02')
+          for i,b in enumerate(d['voice']['beats']):
+              (p/f'beat{i}.txt').write_text(b['text'],encoding='utf-8')
+              (p/f'speed{i}.txt').write_text(str(b['speed']))
+          PY
+          for i in 0 1 2 3 4 5 6 7; do
+            python3 docs/short-01-nho-phien-ban-duoc-yeu/voice/vbee_batch_tts.py \
+              --text-file "/tmp/short02/beat$i.txt" \
+              --voice-code hn_male_thanhlong_talk_48k-fhg \
+              --speed "$(cat /tmp/short02/speed$i.txt)" \
+              --output "/tmp/short02/voice$i.mp3"
+          done
+      - name: Mix emotional piano and voice, validate final MP4
+        run: |
+          set -euo pipefail
+          python3 docs/short-02-17-tin-nhan/mix_and_qa.py \
+            --workdir /tmp/short02 \
+            --out docs/short-02-17-tin-nhan/final/short02-17-tin-nhan-vbee-60fps.mp4
+          ffprobe -v error -show_entries format=duration,size:stream=codec_type,width,height,avg_frame_rate \
+            -of json docs/short-02-17-tin-nhan/final/short02-17-tin-nhan-vbee-60fps.mp4
+      - name: Archive full video, storyboard, QA and contact sheet
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add docs/short-02-17-tin-nhan/
+          git diff --cached --quiet || git commit -m 'assets(short02): deliver 17-message healing film with Vbee and original piano'
+          git fetch origin feat/short02-17-messages-healing
+          git rebase origin/feat/short02-17-messages-healing
+          git push origin HEAD:feat/short02-17-messages-healing
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: short02-17-messages-final
+          path: |
+            docs/short-02-17-tin-nhan/contact-sheet.jpg
+            docs/short-02-17-tin-nhan/seam-QA.json
+            docs/short-02-17-tin-nhan/final/
+          if-no-files-found: ignore
+          retention-days: 7
