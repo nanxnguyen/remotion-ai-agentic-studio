@@ -1,0 +1,36 @@
+{
+  "title": "Chuyến Xe Buýt Số 0",
+  "version": "V3 cinematic 60s",
+  "duration_seconds": 60,
+  "aspect_ratio": "9:16",
+  "video": {
+    "filename": "chuyen_xe_buyt_so_0_VBEE_cinematic_60s.mp4",
+    "codec": "h264",
+    "resolution": "720x1280",
+    "fps": 24,
+    "frames": 1440,
+    "bytes": 5558724,
+    "sha256": "ab9d9d80c7052a2355b0571a184959b2989d551207fea6982eb94a4c69416095"
+  },
+  "audio": {
+    "codec": "aac",
+    "sample_rate": 48000,
+    "narrator": "Vbee Anh Khôi",
+    "narrator_voice_code": "hn_male_phuthang_stor_24k-stl",
+    "grandmother": "Vbee Ngọc Huyền",
+    "grandmother_voice_code": "hn_female_ngochuyen_full_48k-fhg",
+    "verified_voice_run": 40015690840
+  },
+  "story": {
+    "scenes": 10,
+    "chapters": [
+      "HOOK 0–5",
+      "BODY 5–30",
+      "CLIMAX 30–49",
+      "ENDING 49–60"
+    ]
+  },
+  "render_method": "10 AI still storyboard shots with 2D Ken Burns, transitions, caption animation, bell pulses, ticket overlay; not independent full character video motion",
+  "github_release_uploaded": false,
+  "github_video_url": null
+}

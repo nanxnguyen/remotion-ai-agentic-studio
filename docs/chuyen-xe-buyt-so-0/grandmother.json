@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "narration": "Cháu hãy nhìn ra cửa sổ!",
+    "scene": 4,
+    "visual_start_seconds": 18.3
+  },
+  {
+    "id": 2,
+    "narration": "Hồi chuông thứ ba vang lên, cháu sẽ không bao giờ tỉnh nữa!",
+    "scene": 6,
+    "visual_start_seconds": 32.4
+  },
+  {
+    "id": 3,
+    "narration": "Xé vé đi!",
+    "scene": 7,
+    "visual_start_seconds": 42
+  }
+]
