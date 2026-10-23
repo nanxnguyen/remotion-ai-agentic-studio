@@ -1,0 +1,22 @@
+{
+  "title": "Gương Chậm Ba Giây V2",
+  "filename": "guong_cham_ba_giay_V2_acted_synced_60s.mp4",
+  "duration_seconds": 60,
+  "frame_count": 1440,
+  "resolution": "720x1280",
+  "fps": 24,
+  "video_codec": "h264",
+  "audio_codec": "aac",
+  "narrator_voice": "hn_male_phuthang_stor_24k-stl",
+  "female_dialogue_voice": "hn_female_ngochuyen_full_48k-fhg",
+  "vbee_runs": [
+    39997419999,
+    40000965096,
+    40002029066
+  ],
+  "sha256": "c1a7dc63d79d84948feacc646393f7c70cbdf0b87acf1cc9d54b15ad22941407",
+  "bytes": 8927545,
+  "motion_technique": "2D keyframe pose and local face warps; not phoneme-perfect full character animation",
+  "github_release_uploaded": false,
+  "github_video_url": null
+}

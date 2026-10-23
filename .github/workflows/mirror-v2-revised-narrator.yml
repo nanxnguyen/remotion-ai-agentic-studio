@@ -1,0 +1,30 @@
+name: Mirror V2 revised narration
+on:
+  push:
+    branches: [feat/guong-cham-v2-acting-sync]
+    paths: [.github/workflows/mirror-v2-revised-narrator.yml]
+permissions:
+  contents: read
+jobs:
+  tts:
+    runs-on: ubuntu-latest
+    env:
+      VBEE_ACCESS_TOKEN: ${{ secrets.VBEE_ACCESS_TOKEN || secrets.VBEE_TOKEN || secrets.VBEE_API_KEY || secrets.VBEE_API_TOKEN }}
+      VBEE_APP_ID: ${{ secrets.VBEE_APP_ID || secrets.VBEE_APPID || secrets.VBEE_APPLICATION_ID }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Generate 2 Vbee Anh Khoi revised scene lines
+        run: |
+          python3 scripts/gen-story-vbee-batch.py \
+            --timeline docs/guong-cham-ba-giay/narrator-v2.json \
+            --out-dir public/audio/guong-cham-v2-revised-narrator \
+            --voice-code hn_male_phuthang_stor_24k-stl \
+            --speed 1.08
+      - uses: actions/upload-artifact@v4
+        with:
+          name: guong-cham-v2-revised-narrator
+          path: public/audio/guong-cham-v2-revised-narrator/
+          if-no-files-found: error

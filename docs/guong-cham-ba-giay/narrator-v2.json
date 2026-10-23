@@ -1,0 +1,14 @@
+[
+  {
+    "id": 1,
+    "narration": "Ngay lúc đó, chuông cửa vang lên. Mẹ cô đã đến.",
+    "visual_start_seconds": 44,
+    "duration": 6
+  },
+  {
+    "id": 2,
+    "narration": "Cánh cửa chậm rãi mở ra.",
+    "visual_start_seconds": 55,
+    "duration": 5
+  }
+]

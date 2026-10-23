@@ -1,0 +1,16 @@
+[
+  {
+    "id": 1,
+    "narration": "Mai ơi, mở cửa cho mẹ!",
+    "type": "mother",
+    "visual_start_seconds": 46.2,
+    "duration": 2.5
+  },
+  {
+    "id": 2,
+    "narration": "Mẹ tới rồi à?",
+    "type": "replica",
+    "visual_start_seconds": 55,
+    "duration": 2.5
+  }
+]
