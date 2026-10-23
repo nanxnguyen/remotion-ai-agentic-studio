@@ -1,0 +1,136 @@
+name: Short 02 V2 — story-specific world and character
+on:
+  push:
+    branches: [feat/short02-v2-story-world]
+    paths:
+      - '.github/workflows/short02-v2-story-world.yml'
+      - 'docs/short-02-17-tin-nhan/v2/story_world_art.py'
+      - 'docs/short-02-17-tin-nhan/v2/render_story_world.py'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: short02-v2-storyworld-film
+  cancel-in-progress: false
+jobs:
+  storyworld:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: feat/short02-v2-story-world
+          persist-credentials: true
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+      - name: Install graphics and FFmpeg dependencies
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg fonts-dejavu-core
+          python3 -m pip install --disable-pip-version-check numpy pillow
+      - name: Validate ray-emotional-stick-shorts contract and original Vbee source
+        run: |
+          set -euo pipefail
+          test -s .claude/skills/ray-emotional-stick-shorts/SKILL.md
+          python3 -m py_compile docs/short-02-17-tin-nhan/v2/story_world_art.py docs/short-02-17-tin-nhan/v2/render_story_world.py
+          python3 - <<'PY'
+          import importlib.util,sys,json
+          from pathlib import Path
+          p=Path('docs/short-02-17-tin-nhan/v2/story_world_art.py')
+          spec=importlib.util.spec_from_file_location('world',p)
+          mod=importlib.util.module_from_spec(spec)
+          spec.loader.exec_module(mod)
+          a=mod.actor_signature()
+          assert a['name']=='An' and a['poses']==14 and a['locations']==14,a
+          story=json.loads(Path('docs/short-02-17-tin-nhan/story.json').read_text())
+          assert story['skill']=='ray-emotional-stick-shorts'
+          assert 30<=story['durationTargetSeconds']<=45 and len(story['shots'])==28
+          assert story['qa']['publishYoutube'] is False
+          print('ACTOR CONTRACT',json.dumps(a,ensure_ascii=False))
+          PY
+          src=docs/short-02-17-tin-nhan/final/short02-17-tin-nhan-vbee-60fps.mp4
+          test -s "$src"
+          ffprobe -v error -show_entries format=duration:stream=codec_type -of json "$src"
+      - name: Render 28 dramatically specific shots at native 60fps
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/short02-v2
+          python3 docs/short-02-17-tin-nhan/v2/render_story_world.py render \
+            --out /tmp/short02-v2/visual.mp4 \
+            --sheet docs/short-02-17-tin-nhan/v2/storyboard.jpg
+          python3 docs/short-02-17-tin-nhan/v2/render_story_world.py seam-qa \
+            --out docs/short-02-17-tin-nhan/v2/seam-QA.json
+      - name: Retain original Vbee Thanh Long and piano packets unchanged
+        run: |
+          set -euo pipefail
+          src=docs/short-02-17-tin-nhan/final/short02-17-tin-nhan-vbee-60fps.mp4
+          out=docs/short-02-17-tin-nhan/v2/final/short02-v2-an-story-world-vbee-60fps.mp4
+          mkdir -p "$(dirname "$out")"
+          ffmpeg -y -hide_banner -loglevel error -i /tmp/short02-v2/visual.mp4 -i "$src" \
+            -map 0:v:0 -map 1:a:0 -c:v copy -c:a copy \
+            -t 40.416667 -movflags +faststart "$out"
+          python3 - <<'PY'
+          import hashlib,json,subprocess
+          from pathlib import Path
+          base=Path('docs/short-02-17-tin-nhan')
+          src=base/'final/short02-17-tin-nhan-vbee-60fps.mp4'
+          out=base/'v2/final/short02-v2-an-story-world-vbee-60fps.mp4'
+          def probe(p):
+              return json.loads(subprocess.check_output(['ffprobe','-v','error','-show_entries',
+               'format=duration,size:stream=codec_type,width,height,avg_frame_rate',
+               '-of','json',str(p)],text=True))
+          v=probe(out)
+          streams=v['streams']
+          vids=[s for s in streams if s['codec_type']=='video']
+          auds=[s for s in streams if s['codec_type']=='audio']
+          assert len(vids)==1 and len(auds)==1
+          assert (vids[0]['width'],vids[0]['height'])==(1080,1920)
+          assert vids[0]['avg_frame_rate']=='60/1'
+          duration=float(v['format']['duration'])
+          assert 30<=duration<=45 and abs(duration-40.416667)<.16
+          assert out.stat().st_size>500000
+          def packet_hash(p):
+              return subprocess.check_output(['ffmpeg','-v','error','-i',str(p),
+                  '-map','0:a:0','-c:a','copy','-f','md5','-'],text=True).strip()
+          prior=packet_hash(src)
+          finished=packet_hash(out)
+          assert prior==finished,(prior,finished)
+          seams=json.loads((base/'v2/seam-QA.json').read_text())
+          assert seams['maxBoundaryMeanAbsoluteDelta']<23
+          assert seams['shots']==28 and seams['fps']==60
+          result={'status':'pass','durationSeconds':duration,'fps':60,'resolution':'1080x1920',
+            'shots':28,'sceneBoundaries':27,'storyWorldSets':14,'actor':'An, consistent hairstyle and amber clip',
+            'originalVoiceAndPianoPacketsIdentical':True,'sourceAudioMD5':prior,
+            'maxBoundaryMeanAbsoluteDelta':seams['maxBoundaryMeanAbsoluteDelta'],
+            'bytes':out.stat().st_size,'sha256':hashlib.sha256(out.read_bytes()).hexdigest(),
+            'narration':'Vbee Thanh Long (reused without synthetic regeneration)',
+            'technicalAVCheck':'pass',
+            'subjectiveListeningAndPlayback':'pending human review',
+            'canonicalRemotionPipelineGates':'not certified by this workflow',
+            'youtubePublished':False}
+          (base/'v2/final-QA.json').write_text(json.dumps(result,indent=2,ensure_ascii=False)+'\n',encoding='utf8')
+          print(json.dumps(result,indent=2,ensure_ascii=False))
+          PY
+      - name: Archive complete full-speech MP4 and art evidence on feature branch
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add docs/short-02-17-tin-nhan/v2/
+          git diff --cached --quiet || git commit -m 'assets(short02-v2): storyworld film with preserved Vbee narration and piano'
+          git fetch origin feat/short02-v2-story-world
+          git rebase origin/feat/short02-v2-story-world
+          git push origin HEAD:feat/short02-v2-story-world
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: short02-v2-storyworld-final
+          path: |
+            docs/short-02-17-tin-nhan/v2/storyboard.jpg
+            docs/short-02-17-tin-nhan/v2/seam-QA.json
+            docs/short-02-17-tin-nhan/v2/final-QA.json
+            docs/short-02-17-tin-nhan/v2/final/
+          if-no-files-found: ignore
+          retention-days: 14
