@@ -70,7 +70,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          opencode models ollama
+          opencode models | grep -F 'ollama/qwen2.5-coder:1.5b'
       - name: Smoke-test local free model response
         shell: bash
         timeout-minutes: 3
