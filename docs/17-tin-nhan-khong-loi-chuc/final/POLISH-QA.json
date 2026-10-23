@@ -1,0 +1,17 @@
+{
+  "status": "technical-pass",
+  "durationSeconds": 42.5,
+  "fps": 60,
+  "resolution": "1080x1920",
+  "sceneCount": 16,
+  "audioMD5MatchesVbeeOriginal": true,
+  "headlineWrapping": "enabled",
+  "headlineCrossfadeOverlap": "prevented",
+  "voice": "Vbee Thanh Long from verified prior Batch synthesis",
+  "piano": "original three-act score preserved",
+  "subjectiveAudioListening": "not independently verified",
+  "canonicalPipelineGates": "not self-approved",
+  "youtubePublished": false,
+  "sha256": "ab050f9427de3032ef91ed897940a94186cc57db6d7ce460fa6af3788a73aaf1",
+  "bytes": 5672568
+}
