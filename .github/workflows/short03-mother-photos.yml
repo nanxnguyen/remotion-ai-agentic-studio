@@ -1,0 +1,127 @@
+name: Short 03 - Mother missing from family photos (ray-emotional-stick-shorts)
+on:
+  push:
+    branches: [feat/short03-buc-anh-khong-co-me]
+    paths:
+      - '.github/workflows/short03-mother-photos.yml'
+      - 'docs/short-03-buc-anh-khong-co-me/story.json'
+      - 'docs/short-03-buc-anh-khong-co-me/art.py'
+      - 'docs/short-03-buc-anh-khong-co-me/render_film.py'
+      - 'docs/short-03-buc-anh-khong-co-me/mix_and_qa.py'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: short03-mother-photo-production
+  cancel-in-progress: false
+jobs:
+  produce:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      VBEE_APP_ID: ${{ secrets.VBEE_APP_ID }}
+      VBEE_ACCESS_TOKEN: ${{ secrets.VBEE_ACCESS_TOKEN }}
+      VBEE_WEBHOOK_URL: https://iehmucsshklgjmxqyggp.supabase.co/functions/v1/vbee-batch-callback
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: feat/short03-buc-anh-khong-co-me
+          persist-credentials: true
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+      - name: Install video dependencies
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg fonts-dejavu-core
+          python3 -m pip install --disable-pip-version-check numpy pillow
+      - name: Read ray-emotional-stick-shorts and verify story contract
+        run: |
+          set -euo pipefail
+          test -s .claude/skills/ray-emotional-stick-shorts/SKILL.md
+          test -s .agents/skills/ray-pineline-worflow-agent/SKILL.md
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          d=json.loads(Path('docs/short-03-buc-anh-khong-co-me/story.json').read_text())
+          assert len(d['shots'])==18 and len(d['voice']['beats'])==9
+          assert 30<=d['durationTargetSeconds']<=45
+          assert d['skill']=='ray-emotional-stick-shorts'
+          assert d['qa']['noYouTubePublish'] is True
+          assert 'album' in d['voice']['beats'][0]['text']
+          print('Creative brief: 18 story-action shots, 9 voice beats, 5s hook, no YouTube publishing')
+          PY
+      - name: Render 18 original story-specific shots at native 60fps with mother and daughter
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/short03
+          python3 docs/short-03-buc-anh-khong-co-me/render_film.py render \
+            --out /tmp/short03/visual.mp4 \
+            --sheet docs/short-03-buc-anh-khong-co-me/contact-sheet.jpg
+          python3 docs/short-03-buc-anh-khong-co-me/render_film.py seams \
+            --out docs/short-03-buc-anh-khong-co-me/transition-QA.json
+          python3 docs/short-03-buc-anh-khong-co-me/render_film.py score \
+            --out /tmp/short03/piano.wav
+      - name: Preflight FFmpeg audio sidechain using synthetic test speech
+        run: |
+          python3 docs/short-03-buc-anh-khong-co-me/mix_and_qa.py --smoke \
+            --workdir /tmp/short03 --out /tmp/short03/preflight.mp4
+          rm -f /tmp/short03/voice*.mp3 /tmp/short03/preflight.mp4
+      - name: Create 9 Vbee Thanh Long emotional narration beats
+        run: |
+          set -euo pipefail
+          test -n "$VBEE_APP_ID" && test -n "$VBEE_ACCESS_TOKEN"
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          d=json.loads(Path('docs/short-03-buc-anh-khong-co-me/story.json').read_text())
+          p=Path('/tmp/short03')
+          for i,b in enumerate(d['voice']['beats']):
+              (p/f'beat{i}.txt').write_text(b['text'],encoding='utf-8')
+              (p/f'speed{i}.txt').write_text(str(b['speed']))
+          PY
+          for i in 0 1 2 3 4 5 6 7 8; do
+            python3 docs/short-01-nho-phien-ban-duoc-yeu/voice/vbee_batch_tts.py \
+              --text-file "/tmp/short03/beat$i.txt" \
+              --voice-code hn_male_thanhlong_talk_48k-fhg \
+              --speed "$(cat /tmp/short03/speed$i.txt)" \
+              --output "/tmp/short03/voice$i.mp3"
+          done
+      - name: Mix emotional piano and voice, validate final MP4
+        run: |
+          set -euo pipefail
+          python3 docs/short-03-buc-anh-khong-co-me/mix_and_qa.py \
+            --workdir /tmp/short03 \
+            --out docs/short-03-buc-anh-khong-co-me/final/short03-buc-anh-khong-co-me-vbee-60fps.mp4
+          ffprobe -v error -show_entries format=duration,size:stream=codec_type,width,height,avg_frame_rate \
+            -of json docs/short-03-buc-anh-khong-co-me/final/short03-buc-anh-khong-co-me-vbee-60fps.mp4
+      - name: Record pipeline audit truth and handoff blockers
+        if: always()
+        run: |
+          mkdir -p docs/short-03-buc-anh-khong-co-me
+          if python3 -I scripts/pipeline.py audit short-03-buc-anh-khong-co-me > docs/short-03-buc-anh-khong-co-me/pipeline-audit.txt 2>&1; then
+            echo 'Canonical pipeline audit passed'
+          else
+            printf '%s\n' '# HANDOFF - incomplete canonical pipeline certification' '' 'Video rendering and FFmpeg QA are separate from Remotion/pipeline.py gates. See pipeline-audit.txt; do not self-approve A, D, E, B or C.' > docs/short-03-buc-anh-khong-co-me/HANDOFF.md
+          fi
+      - name: Archive full video, storyboard, transition and audio QA
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add docs/short-03-buc-anh-khong-co-me/
+          git diff --cached --quiet || git commit -m 'assets(short03): deliver mother-photo healing film with Vbee and original piano'
+          git fetch origin feat/short03-buc-anh-khong-co-me
+          git rebase origin/feat/short03-buc-anh-khong-co-me
+          git push origin HEAD:feat/short03-buc-anh-khong-co-me
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: short03-mother-photo-final
+          path: |
+            docs/short-03-buc-anh-khong-co-me/contact-sheet.jpg
+            docs/short-03-buc-anh-khong-co-me/transition-QA.json
+            docs/short-03-buc-anh-khong-co-me/final/
+          if-no-files-found: ignore
+          retention-days: 7
