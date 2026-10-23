@@ -1,0 +1,28 @@
+{
+  "video_slug": "buc-anh-thu-tu",
+  "revision": "cinematic-typography-v4",
+  "title": "Bức Ảnh Thứ Tư — Cinematic Typography",
+  "narration_source": "Vbee Batch API Anh Khôi",
+  "voice_action_run": 39942453039,
+  "voice_code": "hn_male_phuthang_stor_24k-stl",
+  "resolution": "720x1280",
+  "fps": 24,
+  "duration_seconds": 55,
+  "video_codec": "h264",
+  "audio_codec": "aac",
+  "transition_count": 9,
+  "chapter_structure": [
+    "HOOK",
+    "BODY",
+    "CLIMAX",
+    "ENDING"
+  ],
+  "cinematic_headlines": 10,
+  "caption_beats": 20,
+  "sha256": "b06d4361c34db09fcea10971ba222bc73688619ce2c1372997c72f59bad0b8d1",
+  "local_output_name": "buc_anh_thu_tu_VBEE_cinematic_typography_55s.mp4",
+  "github_release_uploaded": false,
+  "github_video_url": null,
+  "status": "local-render-verified; GitHub binary upload pending",
+  "archive_instructions": "Use scripts/archive-local-final-video.sh with a GitHub-authenticated environment, then record actual verified MP4 asset link"
+}
