@@ -1,0 +1,128 @@
+name: Archive finished story video
+
+on:
+  workflow_dispatch:
+    inputs:
+      video_slug:
+        description: Lowercase video slug (e.g. room404-vbee)
+        required: true
+        type: string
+      source_run_id:
+        description: GitHub Actions run ID containing the approved final MP4 artifact
+        required: true
+        type: string
+      artifact_name:
+        description: Name of the artifact containing exactly one final MP4
+        required: true
+        default: final-video
+        type: string
+      qa_approved:
+        description: Confirm final MP4 has passed visual, voice, music and caption QA
+        required: true
+        default: false
+        type: boolean
+  workflow_call:
+    inputs:
+      video_slug:
+        required: true
+        type: string
+      source_run_id:
+        required: false
+        type: string
+        default: ""
+      artifact_name:
+        required: false
+        type: string
+        default: final-video
+      qa_approved:
+        required: true
+        type: boolean
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  archive:
+    if: ${{ inputs.qa_approved }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      VIDEO_SLUG: ${{ inputs.video_slug }}
+      SOURCE_RUN_ID: ${{ inputs.source_run_id || github.run_id }}
+      ARTIFACT_NAME: ${{ inputs.artifact_name }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Install FFprobe
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+      - name: Verify IDs and download approved artifact
+        shell: bash
+        run: |
+          set -euo pipefail
+          [[ "$VIDEO_SLUG" =~ ^[a-z0-9][a-z0-9-]{0,62}$ ]] || { echo "::error::Invalid video_slug"; exit 1; }
+          [[ "$SOURCE_RUN_ID" =~ ^[0-9]+$ ]] || { echo "::error::Invalid source_run_id"; exit 1; }
+          [[ "$ARTIFACT_NAME" =~ ^[a-zA-Z0-9_.-]+$ ]] || { echo "::error::Invalid artifact_name"; exit 1; }
+          mkdir -p "$RUNNER_TEMP/video-archive"
+          gh run download "$SOURCE_RUN_ID" --repo "$GITHUB_REPOSITORY" --name "$ARTIFACT_NAME" \
+            --dir "$RUNNER_TEMP/video-archive"
+          mapfile -d '' -t mp4s < <(find "$RUNNER_TEMP/video-archive" -type f -iname '*.mp4' -print0)
+          if (( ${#mp4s[@]} != 1 )); then
+            echo "::error::Artifact must contain exactly one final MP4"
+            exit 1
+          fi
+          cp -- "${mp4s[0]}" "$RUNNER_TEMP/$VIDEO_SLUG-final.mp4"
+          ffprobe -v error -show_format -show_streams -of json "$RUNNER_TEMP/$VIDEO_SLUG-final.mp4" > "$RUNNER_TEMP/probe.json"
+          python3 - "$RUNNER_TEMP/probe.json" "$RUNNER_TEMP/$VIDEO_SLUG-final.mp4" <<'PY'
+          import json, sys, os
+          meta=json.load(open(sys.argv[1],encoding="utf-8"))
+          streams=meta.get("streams",[])
+          video=[x for x in streams if x.get("codec_type")=="video"]
+          audio=[x for x in streams if x.get("codec_type")=="audio"]
+          if not video or not audio: raise SystemExit("Final MP4 must contain both video and narration audio")
+          if video[0].get("codec_name")!="h264" or audio[0].get("codec_name")!="aac":
+              raise SystemExit("Final MP4 must use H.264 video and AAC audio")
+          v=video[0]; w=int(v.get("width",0)); h=int(v.get("height",0))
+          if not (h>w>0): raise SystemExit("Expected vertical video")
+          duration=float(meta.get("format",{}).get("duration",0))
+          if duration<=0 or os.path.getsize(sys.argv[2])<100000:
+              raise SystemExit("Empty, corrupt, or zero-duration MP4")
+          print(f"Validated final MP4: {w}x{h}, {duration:.2f}s, video+audio")
+          PY
+      - name: Store final binary in a draft GitHub Release
+        shell: bash
+        run: |
+          set -euo pipefail
+          MP4="$RUNNER_TEMP/$VIDEO_SLUG-final.mp4"
+          META="$RUNNER_TEMP/$VIDEO_SLUG-metadata.json"
+          TAG="video-$VIDEO_SLUG-run-$SOURCE_RUN_ID"
+          HASH="$(sha256sum "$MP4" | cut -d' ' -f1)"
+          export MP4 META TAG HASH
+          python3 - <<'PY'
+          import json, os
+          from pathlib import Path
+          probe=json.loads(Path(os.environ["RUNNER_TEMP"],"probe.json").read_text())
+          vs=next(x for x in probe["streams"] if x.get("codec_type")=="video")
+          a=next(x for x in probe["streams"] if x.get("codec_type")=="audio")
+          data={
+              "video_slug":os.environ["VIDEO_SLUG"],
+              "source_run_id":os.environ["SOURCE_RUN_ID"],
+              "source_artifact":os.environ["ARTIFACT_NAME"],
+              "release_tag":os.environ["TAG"],
+              "sha256":os.environ["HASH"],
+              "duration_seconds":float(probe["format"]["duration"]),
+              "width":int(vs["width"]),"height":int(vs["height"]),
+              "video_codec":vs["codec_name"],"audio_codec":a["codec_name"],
+              "status":"archived-draft-release","qa_approved_in_workflow":True,
+          }
+          Path(os.environ["META"]).write_text(json.dumps(data,indent=2)+"\n")
+          PY
+          if ! gh release view "$TAG" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            gh release create "$TAG" --repo "$GITHUB_REPOSITORY" --draft \
+              --title "Finished story video: $VIDEO_SLUG" \
+              --target "$GITHUB_SHA" \
+              --notes "QA-approved original final video from Actions run $SOURCE_RUN_ID. SHA-256: $HASH. Draft archive, not publication."
+          fi
+          gh release upload "$TAG" "$MP4" "$META" --repo "$GITHUB_REPOSITORY" --clobber
+          gh release view "$TAG" --repo "$GITHUB_REPOSITORY" --json tagName,assets,url

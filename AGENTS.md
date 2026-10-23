@@ -57,3 +57,7 @@ Communicate with the project owner in Vietnamese. Keep code, public documentatio
 ## Responsibility split
 
 See `.claude/skills/ray-pineline-worflow-agent/references/architecture-contract.md` (also available via the `.agents` symlink). The skill defines phases; `scripts/pipeline.py` enforces state transitions; `.agents/roles/` owns agent responsibilities; `schemas/review-gates.json` defines scoring; `scripts/runtime_orchestrator.py` records execution/retry/resume intent. Motion phase 4b remains part of the canonical workflow.
+
+## Durable skill and finished-video storage
+
+Store newly created video skills both under `.claude/skills/<name>/` (agent runtime) and `plugins/<name>/` (reinstallable package). They must be committed to this repository, with sensitive values excluded. Once a fully reviewed video is final, archive its actual MP4 in a **draft GitHub Release** using `.github/workflows/archive-finished-video.yml` after the final MP4 is uploaded to an Actions artifact; store a SHA-256 manifest and verify the Release asset. Keep MP4 binaries out of normal Git history and do not publish releases or YouTube content without separate authorization. See `docs/production-archive-policy.md`. An unuploaded local/chat MP4 is not a GitHub archive.

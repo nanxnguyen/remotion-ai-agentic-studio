@@ -1,0 +1,76 @@
+# Copy this file to <repo>/.github/workflows/ray-vbee-voice.yml.
+# Copy generate_vbee_batch.py to <repo>/scripts/generate_vbee_batch.py.
+# Requires a storyboard.json in docs/<slug>/storyboard.json with start_sec/duration_sec.
+# Set repository variable VBEE_WEBHOOK_URL to an authorized HTTPS callback endpoint.
+name: Ray - Vbee Storytelling Voice
+
+on:
+  workflow_dispatch:
+    inputs:
+      slug:
+        description: Video slug (docs/<slug>/storyboard.json)
+        type: string
+        required: true
+      voice_code:
+        description: Official Vbee batch voice code
+        type: string
+        required: true
+        default: hn_male_phuthang_stor_24k-stl
+      only_scene:
+        description: Only regenerate this one scene ID; 0 = all scenes
+        type: number
+        default: 0
+        required: true
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ray-vbee-${{ github.ref }}-${{ inputs.slug }}
+  cancel-in-progress: false
+
+jobs:
+  voice:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    env:
+      VBEE_ACCESS_TOKEN: ${{ secrets.VBEE_ACCESS_TOKEN || secrets.VBEE_TOKEN || secrets.VBEE_API_KEY || secrets.VBEE_API_TOKEN }}
+      VBEE_APP_ID: ${{ secrets.VBEE_APP_ID || secrets.VBEE_APPID || secrets.VBEE_APPLICATION_ID }}
+      VBEE_WEBHOOK_URL: ${{ vars.VBEE_WEBHOOK_URL }}
+      VIDEO_SLUG: ${{ inputs.slug }}
+      VOICE_CODE: ${{ inputs.voice_code }}
+      ONLY_SCENE: ${{ inputs.only_scene }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install FFprobe
+        run: sudo apt-get update && sudo apt-get install -y ffmpeg
+      - name: Validate safe video slug and runtime configuration
+        shell: bash
+        run: |
+          if ! [[ "$VIDEO_SLUG" =~ ^[a-z0-9]+(-[a-z0-9]+)*$ ]]; then
+            echo '::error::Invalid video slug format'
+            exit 1
+          fi
+          if [[ -z "$VBEE_ACCESS_TOKEN" || -z "$VBEE_APP_ID" || -z "$VBEE_WEBHOOK_URL" ]]; then
+            echo '::error::Vbee token, App ID or VBEE_WEBHOOK_URL configuration missing'
+            exit 1
+          fi
+          test -s "docs/$VIDEO_SLUG/storyboard.json" || (echo '::error::Missing storyboard.json' && exit 1)
+      - name: Create real Vbee narration (batch)
+        shell: bash
+        run: |
+          python3 scripts/generate_vbee_batch.py \
+            --manifest "docs/$VIDEO_SLUG/storyboard.json" \
+            --out-dir "public/audio/$VIDEO_SLUG" \
+            --voice-code "$VOICE_CODE" \
+            --only-scene "$ONLY_SCENE"
+      - name: Export measured Vbee clips
+        uses: actions/upload-artifact@v4
+        with:
+          name: vbee-${{ inputs.slug }}-${{ github.run_id }}
+          path: public/audio/${{ inputs.slug }}/
+          if-no-files-found: error
+          retention-days: 14

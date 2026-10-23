@@ -1,0 +1,24 @@
+[
+  {
+    "id": 1,
+    "start_sec": 0,
+    "duration_sec": 5.5,
+    "speaker": "narrator",
+    "narration": "Khách sạn này có một quy tắc kỳ lạ: đừng bấm tầng bốn sau nửa đêm.",
+    "caption": "ĐỪNG BẤM TẦNG BỐN",
+    "visual": "Woman worried outside old hotel in the rain",
+    "motion": "slow push in",
+    "sfx": "thunder"
+  },
+  {
+    "id": 2,
+    "start_sec": 5.5,
+    "duration_sec": 5.5,
+    "speaker": "narrator",
+    "narration": "Nhưng không ai giải thích vì sao tầng đó lại bị cấm.",
+    "caption": "KHÔNG AI GIẢI THÍCH",
+    "visual": "Dark hotel entrance and red-lit elevator",
+    "motion": "slow lateral drift",
+    "sfx": "elevator bell"
+  }
+]

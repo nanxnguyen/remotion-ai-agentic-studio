@@ -1,0 +1,23 @@
+{
+  "interface": {
+    "capabilities": [],
+    "category": "Productivity",
+    "defaultPrompt": [
+      "Phân tích video Shorts từ Google Drive và đề xuất cách tái tạo bằng Remotion.",
+      "Dựa trên video tham chiếu này, tạo kịch bản chủ đề mới 55 giây và storyboard 9:16.",
+      "Tạo video Shorts mới bằng Remotion dựa trên phong cách của video mẫu."
+    ],
+    "developerName": "NGUYEN ANH NHUT",
+    "displayName": "Shorts to Remotion Studio",
+    "longDescription": "Phân tích video Shorts từ Google Drive hoặc MP4, trích frame qua GitHub Actions, nghiên cứu phong cách và sản xuất kịch bản, storyboard, video dọc 9:16 cùng mã Remotion tái sử dụng.",
+    "shortDescription": "Phân tích Shorts, dựng video"
+  },
+  "name": "shorts-to-remotion",
+  "version": "0.1.0",
+  "description": "Reusable Vietnamese workflow to analyze video references from Google Drive or MP4, extract frames using GitHub Actions, and produce scripts, storyboards, assets and Remotion-ready short videos.",
+  "author": {
+    "name": "NGUYEN ANH NHUT"
+  },
+  "keywords": [],
+  "skills": "./skills"
+}
