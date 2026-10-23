@@ -1,0 +1,18 @@
+{
+  "title": "Có Những Nỗ Lực Không Ai Nhìn Thấy",
+  "slug": "hat-mam-moi-ngay-v2",
+  "duration_seconds": 31.4,
+  "resolution": "1080x1920",
+  "frame_rate": 30,
+  "video_codec": "h264",
+  "audio_codec": "aac",
+  "voice": "Vbee Ngọc Huyền",
+  "voice_code": "hn_female_ngochuyen_full_48k-fhg",
+  "voice_run_id": 40013897899,
+  "scene_count": 6,
+  "transition_count": 5,
+  "sha256": "48b2588ee42369fb1589f48c7463aef76d332f012051041ee068d328df7c5ef6",
+  "size_bytes": 16915507,
+  "github_release_uploaded": false,
+  "github_video_url": null
+}
