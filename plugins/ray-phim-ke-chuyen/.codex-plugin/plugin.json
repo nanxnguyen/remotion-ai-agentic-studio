@@ -1,20 +1,20 @@
 {
   "interface": {
-    "displayName": "Ray Phim Kể Chuyện",
-    "shortDescription": "Làm phim kể chuyện có voice",
-    "longDescription": "Trợ lý sản xuất Shorts kể chuyện tiếng Việt từ ý tưởng hoặc video tham chiếu. Viết kịch bản, tạo storyboard hình điện ảnh 9:16, dựng Remotion, tạo và đồng bộ giọng Vbee chính hãng bằng GitHub Actions Secrets, kiểm tra và giao MP4. Hỗ trợ sửa lời thoại hoặc thay voice mà không thay đổi hình ảnh video gốc.",
+    "displayName": "Ray Phim K\u1ec3 Chuy\u1ec7n",
+    "shortDescription": "Video k\u1ec3 chuy\u1ec7n chu\u1ea9n cinematic",
+    "longDescription": "Tr\u1ee3 l\u00fd d\u1ef1ng Shorts kinh d\u1ecb ti\u1ebfng Vi\u1ec7t 9:16, gi\u1edbi h\u1ea1n 60 gi\u00e2y, b\u1eaft bu\u1ed9c ki\u1ec3m \u0111\u1ecbnh Hook\u2013Th\u00e2n\u2013Cao tr\u00e0o\u2013Payoff, kh\u1edbp gi\u1ecdng Vbee th\u1eadt v\u1edbi di\u1ec5n xu\u1ea5t v\u00e0 t\u1eebng micro-beat, ch\u1eef \u0111i\u1ec7n \u1ea3nh, chuy\u1ec3n c\u1ea3nh c\u00f3 m\u1ee5c \u0111\u00edch, QA tr\u01b0\u1edbc MP4. H\u1ed7 tr\u1ee3 ch\u1ec9 \u0111\u1ed5i voice m\u00e0 gi\u1eef nguy\u00ean h\u00ecnh g\u1ed1c.",
     "developerName": "Ray",
     "category": "Productivity",
     "capabilities": [],
     "defaultPrompt": [
-      "Dùng ray-phim-ke-chuyen tạo phim Shorts mới 55 giây, hình cinematic tối màu, voice Vbee Anh Khôi và phụ đề trắng-vàng-đỏ.",
-      "Dùng ray-phim-ke-chuyen giữ nguyên hình ảnh của MP4 này, chỉ thay giọng kể bằng Vbee và đồng bộ kịch bản.",
-      "Phân tích phong cách video tham chiếu này rồi dựng một phim kể chuyện nguyên bản bằng Remotion."
+      "D\u00f9ng Ray Phim K\u1ec3 Chuy\u1ec7n l\u00e0m phim kinh d\u1ecb Shorts 60s theo checklist di\u1ec5n xu\u1ea5t, Vbee kh\u1edbp h\u00ecnh v\u00e0 ch\u1eef cinematic.",
+      "Ki\u1ec3m tra preflight script, acting, voice map, typography v\u00e0 chuy\u1ec3n c\u1ea3nh tr\u01b0\u1edbc khi xu\u1ea5t MP4.",
+      "Ch\u1ec9 thay voice Vbee cho MP4 n\u00e0y v\u00e0 kh\u00f4ng \u0111\u1ee5ng t\u1edbi h\u00ecnh."
     ]
   },
   "name": "ray-phim-ke-chuyen",
-  "version": "0.1.2",
-  "description": "Sản xuất phim kể chuyện ngắn tiếng Việt: kịch bản hấp dẫn, khung hình cinematic, Remotion 9:16, giọng kể Vbee thật và kiểm định video hoàn chỉnh; có chế độ chỉ thay voice cho MP4 có sẵn.",
+  "version": "0.2.0",
+  "description": "S\u1ea3n xu\u1ea5t YouTube Shorts kinh d\u1ecb 9:16 <=60s c\u00f3 Hook\u2013Th\u00e2n\u2013Cao tr\u00e0o\u2013K\u1ebft, storyboard di\u1ec5n xu\u1ea5t, gi\u1ecdng Vbee th\u1eadt, typography \u0111i\u1ec7n \u1ea3nh, motion m\u01b0\u1ee3t v\u00e0 QA b\u1eaft bu\u1ed9c tr\u01b0\u1edbc khi render.",
   "author": {
     "name": "Ray"
   },
@@ -25,7 +25,9 @@
     "Remotion",
     "Vbee",
     "cinematic",
-    "video-production"
+    "video-production",
+    "acting-sync",
+    "preflight-qa"
   ],
   "skills": "./skills"
 }

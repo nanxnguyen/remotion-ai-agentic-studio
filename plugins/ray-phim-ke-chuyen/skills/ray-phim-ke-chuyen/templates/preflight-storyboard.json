@@ -1,0 +1,442 @@
+[
+  {
+    "id": 1,
+    "phase": "HOOK",
+    "start_sec": 0,
+    "duration_sec": 5,
+    "narration": "Linh phát hiện điều đáng sợ ở cảnh thứ 1. Fatal ticket.",
+    "speaker": "narrator:Vbee-Anh-Khoi",
+    "visual": "Vertical cinematic shot showing fatal ticket; Linh visible with consistent costume and realistic reaction",
+    "emotion": "Linh: disbelief, widened eyes and trembling fingers",
+    "action": "Fatal ticket with visible action and consequence",
+    "camera": "Fast cut to ticket insert, push on Linh reaction",
+    "motion": "Animated steering wheel and hands separately, no still-only claim",
+    "caption_beats": [
+      {
+        "start": 0.2,
+        "end": 2.5,
+        "text": "CHUYẾN XE SỐ 0"
+      },
+      {
+        "start": 2.75,
+        "end": 4.8,
+        "text": "ĐIỀM BÁO KINH HOÀNG"
+      }
+    ],
+    "action_beats": [
+      {
+        "start": 0,
+        "end": 2.5,
+        "voice_cue": "phát hiện",
+        "action": "Linh reacts with hands and eyes",
+        "emotion": "fear"
+      },
+      {
+        "start": 2.5,
+        "end": 5,
+        "voice_cue": "đáng sợ",
+        "action": "Fatal ticket occurs visibly",
+        "emotion": "dread"
+      }
+    ],
+    "sfx": "tire brake sting and heartbeat",
+    "transition_out": "dissolve-0.35s",
+    "image_path": "assets/scene-01.png"
+  },
+  {
+    "id": 2,
+    "phase": "BODY",
+    "start_sec": 5,
+    "duration_sec": 6,
+    "narration": "Linh phát hiện điều đáng sợ ở cảnh thứ 2. The bus locks.",
+    "speaker": "narrator:Vbee-Anh-Khoi",
+    "visual": "Vertical cinematic shot showing the bus locks; Linh visible with consistent costume and realistic reaction",
+    "emotion": "Linh: disbelief, widened eyes and trembling fingers",
+    "action": "The bus locks with visible action and consequence",
+    "camera": "Fast cut to ticket insert, push on Linh reaction",
+    "motion": "Animated steering wheel and hands separately, no still-only claim",
+    "caption_beats": [
+      {
+        "start": 0.2,
+        "end": 3.0,
+        "text": "CHUYẾN XE SỐ 0"
+      },
+      {
+        "start": 3.3,
+        "end": 5.8,
+        "text": "ĐIỀM BÁO KINH HOÀNG"
+      }
+    ],
+    "action_beats": [
+      {
+        "start": 0,
+        "end": 3.0,
+        "voice_cue": "phát hiện",
+        "action": "Linh reacts with hands and eyes",
+        "emotion": "fear"
+      },
+      {
+        "start": 3.0,
+        "end": 6,
+        "voice_cue": "đáng sợ",
+        "action": "The bus locks occurs visibly",
+        "emotion": "dread"
+      }
+    ],
+    "sfx": "tire brake sting and heartbeat",
+    "transition_out": "match-cut",
+    "image_path": "assets/scene-01.png"
+  },
+  {
+    "id": 3,
+    "phase": "BODY",
+    "start_sec": 11,
+    "duration_sec": 6,
+    "narration": "Linh phát hiện điều đáng sợ ở cảnh thứ 3. Strange passengers.",
+    "speaker": "narrator:Vbee-Anh-Khoi",
+    "visual": "Vertical cinematic shot showing strange passengers; Linh visible with consistent costume and realistic reaction",
+    "emotion": "Linh: disbelief, widened eyes and trembling fingers",
+    "action": "Strange passengers with visible action and consequence",
+    "camera": "Fast cut to ticket insert, push on Linh reaction",
+    "motion": "Animated steering wheel and hands separately, no still-only claim",
+    "caption_beats": [
+      {
+        "start": 0.2,
+        "end": 3.0,
+        "text": "CHUYẾN XE SỐ 0"
+      },
+      {
+        "start": 3.3,
+        "end": 5.8,
+        "text": "ĐIỀM BÁO KINH HOÀNG"
+      }
+    ],
+    "action_beats": [
+      {
+        "start": 0,
+        "end": 3.0,
+        "voice_cue": "phát hiện",
+        "action": "Linh reacts with hands and eyes",
+        "emotion": "fear"
+      },
+      {
+        "start": 3.0,
+        "end": 6,
+        "voice_cue": "đáng sợ",
+        "action": "Strange passengers occurs visibly",
+        "emotion": "dread"
+      }
+    ],
+    "sfx": "tire brake sting and heartbeat",
+    "transition_out": "dissolve-0.35s",
+    "image_path": "assets/scene-01.png"
+  },
+  {
+    "id": 4,
+    "phase": "BODY",
+    "start_sec": 17,
+    "duration_sec": 6,
+    "narration": "Linh phát hiện điều đáng sợ ở cảnh thứ 4. Old woman warns.",
+    "speaker": "narrator:Vbee-Anh-Khoi",
+    "visual": "Vertical cinematic shot showing old woman warns; Linh visible with consistent costume and realistic reaction",
+    "emotion": "Linh: disbelief, widened eyes and trembling fingers",
+    "action": "Old woman warns with visible action and consequence",
+    "camera": "Fast cut to ticket insert, push on Linh reaction",
+    "motion": "Animated steering wheel and hands separately, no still-only claim",
+    "caption_beats": [
+      {
+        "start": 0.2,
+        "end": 3.0,
+        "text": "CHUYẾN XE SỐ 0"
+      },
+      {
+        "start": 3.3,
+        "end": 5.8,
+        "text": "ĐIỀM BÁO KINH HOÀNG"
+      }
+    ],
+    "action_beats": [
+      {
+        "start": 0,
+        "end": 3.0,
+        "voice_cue": "phát hiện",
+        "action": "Linh reacts with hands and eyes",
+        "emotion": "fear"
+      },
+      {
+        "start": 3.0,
+        "end": 6,
+        "voice_cue": "đáng sợ",
+        "action": "Old woman warns occurs visibly",
+        "emotion": "dread"
+      }
+    ],
+    "sfx": "tire brake sting and heartbeat",
+    "transition_out": "match-cut",
+    "image_path": "assets/scene-01.png"
+  },
+  {
+    "id": 5,
+    "phase": "BODY",
+    "start_sec": 23,
+    "duration_sec": 7,
+    "narration": "Linh phát hiện điều đáng sợ ở cảnh thứ 5. Bedroom in glass.",
+    "speaker": "narrator:Vbee-Anh-Khoi",
+    "visual": "Vertical cinematic shot showing bedroom in glass; Linh visible with consistent costume and realistic reaction",
+    "emotion": "Linh: disbelief, widened eyes and trembling fingers",
+    "action": "Bedroom in glass with visible action and consequence",
+    "camera": "Fast cut to ticket insert, push on Linh reaction",
+    "motion": "Animated steering wheel and hands separately, no still-only claim",
+    "caption_beats": [
+      {
+        "start": 0.2,
+        "end": 3.5,
+        "text": "CHUYẾN XE SỐ 0"
+      },
+      {
+        "start": 3.85,
+        "end": 6.8,
+        "text": "ĐIỀM BÁO KINH HOÀNG"
+      }
+    ],
+    "action_beats": [
+      {
+        "start": 0,
+        "end": 3.5,
+        "voice_cue": "phát hiện",
+        "action": "Linh reacts with hands and eyes",
+        "emotion": "fear"
+      },
+      {
+        "start": 3.5,
+        "end": 7,
+        "voice_cue": "đáng sợ",
+        "action": "Bedroom in glass occurs visibly",
+        "emotion": "dread"
+      }
+    ],
+    "sfx": "tire brake sting and heartbeat",
+    "transition_out": "dissolve-0.35s",
+    "image_path": "assets/scene-01.png"
+  },
+  {
+    "id": 6,
+    "phase": "CLIMAX",
+    "start_sec": 30,
+    "duration_sec": 6,
+    "narration": "Linh phát hiện điều đáng sợ ở cảnh thứ 6. First death bell.",
+    "speaker": "narrator:Vbee-Anh-Khoi",
+    "visual": "Vertical cinematic shot showing first death bell; Linh visible with consistent costume and realistic reaction",
+    "emotion": "Linh: disbelief, widened eyes and trembling fingers",
+    "action": "First death bell with visible action and consequence",
+    "camera": "Fast cut to ticket insert, push on Linh reaction",
+    "motion": "Animated steering wheel and hands separately, no still-only claim",
+    "caption_beats": [
+      {
+        "start": 0.2,
+        "end": 3.0,
+        "text": "CHUYẾN XE SỐ 0"
+      },
+      {
+        "start": 3.3,
+        "end": 5.8,
+        "text": "ĐIỀM BÁO KINH HOÀNG"
+      }
+    ],
+    "action_beats": [
+      {
+        "start": 0,
+        "end": 3.0,
+        "voice_cue": "phát hiện",
+        "action": "Linh reacts with hands and eyes",
+        "emotion": "fear"
+      },
+      {
+        "start": 3.0,
+        "end": 6,
+        "voice_cue": "đáng sợ",
+        "action": "First death bell occurs visibly",
+        "emotion": "dread"
+      }
+    ],
+    "sfx": "tire brake sting and heartbeat",
+    "transition_out": "match-cut",
+    "image_path": "assets/scene-01.png"
+  },
+  {
+    "id": 7,
+    "phase": "CLIMAX",
+    "start_sec": 36,
+    "duration_sec": 6,
+    "narration": "Linh phát hiện điều đáng sợ ở cảnh thứ 7. Second death bell.",
+    "speaker": "narrator:Vbee-Anh-Khoi",
+    "visual": "Vertical cinematic shot showing second death bell; Linh visible with consistent costume and realistic reaction",
+    "emotion": "Linh: disbelief, widened eyes and trembling fingers",
+    "action": "Second death bell with visible action and consequence",
+    "camera": "Fast cut to ticket insert, push on Linh reaction",
+    "motion": "Animated steering wheel and hands separately, no still-only claim",
+    "caption_beats": [
+      {
+        "start": 0.2,
+        "end": 3.0,
+        "text": "CHUYẾN XE SỐ 0"
+      },
+      {
+        "start": 3.3,
+        "end": 5.8,
+        "text": "ĐIỀM BÁO KINH HOÀNG"
+      }
+    ],
+    "action_beats": [
+      {
+        "start": 0,
+        "end": 3.0,
+        "voice_cue": "phát hiện",
+        "action": "Linh reacts with hands and eyes",
+        "emotion": "fear"
+      },
+      {
+        "start": 3.0,
+        "end": 6,
+        "voice_cue": "đáng sợ",
+        "action": "Second death bell occurs visibly",
+        "emotion": "dread"
+      }
+    ],
+    "sfx": "tire brake sting and heartbeat",
+    "transition_out": "dissolve-0.35s",
+    "image_path": "assets/scene-01.png"
+  },
+  {
+    "id": 8,
+    "phase": "CLIMAX",
+    "start_sec": 42,
+    "duration_sec": 6,
+    "narration": "Linh phát hiện điều đáng sợ ở cảnh thứ 8. Tear the red ticket.",
+    "speaker": "narrator:Vbee-Anh-Khoi",
+    "visual": "Vertical cinematic shot showing tear the red ticket; Linh visible with consistent costume and realistic reaction",
+    "emotion": "Linh: disbelief, widened eyes and trembling fingers",
+    "action": "Tear the red ticket with visible action and consequence",
+    "camera": "Fast cut to ticket insert, push on Linh reaction",
+    "motion": "Animated steering wheel and hands separately, no still-only claim",
+    "caption_beats": [
+      {
+        "start": 0.2,
+        "end": 3.0,
+        "text": "CHUYẾN XE SỐ 0"
+      },
+      {
+        "start": 3.3,
+        "end": 5.8,
+        "text": "ĐIỀM BÁO KINH HOÀNG"
+      }
+    ],
+    "action_beats": [
+      {
+        "start": 0,
+        "end": 3.0,
+        "voice_cue": "phát hiện",
+        "action": "Linh reacts with hands and eyes",
+        "emotion": "fear"
+      },
+      {
+        "start": 3.0,
+        "end": 6,
+        "voice_cue": "đáng sợ",
+        "action": "Tear the red ticket occurs visibly",
+        "emotion": "dread"
+      }
+    ],
+    "sfx": "tire brake sting and heartbeat",
+    "transition_out": "match-cut",
+    "image_path": "assets/scene-01.png"
+  },
+  {
+    "id": 9,
+    "phase": "ENDING",
+    "start_sec": 48,
+    "duration_sec": 6,
+    "narration": "Linh phát hiện điều đáng sợ ở cảnh thứ 9. Escape from smoke.",
+    "speaker": "narrator:Vbee-Anh-Khoi",
+    "visual": "Vertical cinematic shot showing escape from smoke; Linh visible with consistent costume and realistic reaction",
+    "emotion": "Linh: disbelief, widened eyes and trembling fingers",
+    "action": "Escape from smoke with visible action and consequence",
+    "camera": "Fast cut to ticket insert, push on Linh reaction",
+    "motion": "Animated steering wheel and hands separately, no still-only claim",
+    "caption_beats": [
+      {
+        "start": 0.2,
+        "end": 3.0,
+        "text": "CHUYẾN XE SỐ 0"
+      },
+      {
+        "start": 3.3,
+        "end": 5.8,
+        "text": "ĐIỀM BÁO KINH HOÀNG"
+      }
+    ],
+    "action_beats": [
+      {
+        "start": 0,
+        "end": 3.0,
+        "voice_cue": "phát hiện",
+        "action": "Linh reacts with hands and eyes",
+        "emotion": "fear"
+      },
+      {
+        "start": 3.0,
+        "end": 6,
+        "voice_cue": "đáng sợ",
+        "action": "Escape from smoke occurs visibly",
+        "emotion": "dread"
+      }
+    ],
+    "sfx": "tire brake sting and heartbeat",
+    "transition_out": "dissolve-0.35s",
+    "image_path": "assets/scene-01.png"
+  },
+  {
+    "id": 10,
+    "phase": "ENDING",
+    "start_sec": 54,
+    "duration_sec": 6,
+    "narration": "Linh phát hiện điều đáng sợ ở cảnh thứ 10. Ticket says zero returns.",
+    "speaker": "narrator:Vbee-Anh-Khoi",
+    "visual": "Vertical cinematic shot showing ticket says zero returns; Linh visible with consistent costume and realistic reaction",
+    "emotion": "Linh: disbelief, widened eyes and trembling fingers",
+    "action": "Ticket says zero returns with visible action and consequence",
+    "camera": "Fast cut to ticket insert, push on Linh reaction",
+    "motion": "Animated steering wheel and hands separately, no still-only claim",
+    "caption_beats": [
+      {
+        "start": 0.2,
+        "end": 3.0,
+        "text": "CHUYẾN XE SỐ 0"
+      },
+      {
+        "start": 3.3,
+        "end": 5.8,
+        "text": "ĐIỀM BÁO KINH HOÀNG"
+      }
+    ],
+    "action_beats": [
+      {
+        "start": 0,
+        "end": 3.0,
+        "voice_cue": "phát hiện",
+        "action": "Linh reacts with hands and eyes",
+        "emotion": "fear"
+      },
+      {
+        "start": 3.0,
+        "end": 6,
+        "voice_cue": "đáng sợ",
+        "action": "Ticket says zero returns occurs visibly",
+        "emotion": "dread"
+      }
+    ],
+    "sfx": "tire brake sting and heartbeat",
+    "transition_out": "cut-to-black",
+    "image_path": "assets/scene-01.png"
+  }
+]
