@@ -1,0 +1,125 @@
+name: Ray Emotional - polish 17 Messages typography and 60fps continuity
+on:
+  push:
+    branches: [feat/17-tin-nhan-ray-emotional-shorts]
+    paths:
+      - '.github/workflows/17-tin-nhan-visual-polish.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: ray-emotional-17-messages-polish
+  cancel-in-progress: false
+jobs:
+  polish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: feat/17-tin-nhan-ray-emotional-shorts
+          persist-credentials: true
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '22'
+          cache: npm
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+      - name: Install and verify Remotion / skill
+        run: |
+          set -euo pipefail
+          npm ci
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg fonts-dejavu-core
+          python3 -m pip install --disable-pip-version-check numpy pillow
+          test -s .claude/skills/ray-emotional-stick-shorts/SKILL.md
+          grep -q 'Vbee' .claude/skills/ray-emotional-stick-shorts/SKILL.md
+          npm run typecheck
+          npx vitest run tests/core/seventeen-messages.test.ts
+      - name: Render polished motion, safe Vietnamese typography and 16 original shots
+        timeout-minutes: 20
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/17-messages-polish
+          npx remotion render src/index.ts 17-MuoiBayTinNhanReel \
+            /tmp/17-messages-polish/picture60.mp4 \
+            --codec h264 --crf 18 --pixel-format yuv420p --concurrency 2
+      - name: Preserve original Vbee Thanh Long voice and three-act piano
+        run: |
+          set -euo pipefail
+          original=docs/17-tin-nhan-khong-loi-chuc/final/17-tin-nhan-khong-loi-chuc-full-voice-piano.mp4
+          output=docs/17-tin-nhan-khong-loi-chuc/final/17-tin-nhan-khong-loi-chuc-polished60-vbee-piano.mp4
+          test -s "$original"
+          ffmpeg -y -hide_banner -loglevel error \
+            -i /tmp/17-messages-polish/picture60.mp4 -i "$original" \
+            -map 0:v:0 -map 1:a:0 -c:v copy -c:a copy -t 42.5 -movflags +faststart "$output"
+          python3 - <<'PY'
+          import hashlib,json,subprocess
+          from pathlib import Path
+          base=Path('docs/17-tin-nhan-khong-loi-chuc')
+          old=base/'final/17-tin-nhan-khong-loi-chuc-full-voice-piano.mp4'
+          new=base/'final/17-tin-nhan-khong-loi-chuc-polished60-vbee-piano.mp4'
+          def meta(p):
+              return json.loads(subprocess.check_output(
+                  ['ffprobe','-v','error','-show_streams','-show_format','-of','json',str(p)],text=True))
+          m=meta(new)
+          v=[s for s in m['streams'] if s['codec_type']=='video']
+          a=[s for s in m['streams'] if s['codec_type']=='audio']
+          assert len(v)==1 and len(a)==1, m
+          assert v[0]['width']==1080 and v[0]['height']==1920 and v[0]['avg_frame_rate']=='60/1'
+          seconds=float(m['format']['duration'])
+          assert 30<=seconds<=45 and abs(seconds-42.5)<.1,seconds
+          def soundhash(p):
+              return subprocess.check_output(['ffmpeg','-v','error','-i',str(p),
+                      '-map','0:a:0','-c:a','copy','-f','md5','-'],text=True).strip()
+          assert soundhash(old)==soundhash(new), 'Voice/piano stream changed during visual polish'
+          result={'status':'technical-pass','durationSeconds':seconds,
+              'fps':60,'resolution':'1080x1920','sceneCount':16,
+              'audioMD5MatchesVbeeOriginal':True,
+              'headlineWrapping':'enabled','headlineCrossfadeOverlap':'prevented',
+              'voice':'Vbee Thanh Long from verified prior Batch synthesis',
+              'piano':'original three-act score preserved',
+              'subjectiveAudioListening':'not independently verified',
+              'canonicalPipelineGates':'not self-approved',
+              'youtubePublished':False,
+              'sha256':hashlib.sha256(new.read_bytes()).hexdigest(),
+              'bytes':new.stat().st_size}
+          (base/'final/POLISH-QA.json').write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n')
+          print(json.dumps(result,indent=2))
+          PY
+      - name: Check scene joins and capture visual evidence
+        run: |
+          set -euo pipefail
+          base=docs/17-tin-nhan-khong-loi-chuc
+          python3 "$base/seam_qa.py" \
+            --video /tmp/17-messages-polish/picture60.mp4 \
+            --out "$base/final/POLISH-SEAM-QA.json"
+          mkdir -p "$base/stills-polished"
+          video="$base/final/17-tin-nhan-khong-loi-chuc-polished60-vbee-piano.mp4"
+          ffmpeg -y -hide_banner -loglevel error -ss 0.0 -i "$video" -frames:v 1 "$base/stills-polished/hook.png"
+          ffmpeg -y -hide_banner -loglevel error -ss 24.8 -i "$video" -frames:v 1 "$base/stills-polished/reveal.png"
+          ffmpeg -y -hide_banner -loglevel error -ss 39.3 -i "$video" -frames:v 1 "$base/stills-polished/ending.png"
+      - name: Archive final technical candidate to GitHub (no YouTube publishing)
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add docs/17-tin-nhan-khong-loi-chuc/final/17-tin-nhan-khong-loi-chuc-polished60-vbee-piano.mp4 \
+                  docs/17-tin-nhan-khong-loi-chuc/final/POLISH-QA.json \
+                  docs/17-tin-nhan-khong-loi-chuc/final/POLISH-SEAM-QA.json \
+                  docs/17-tin-nhan-khong-loi-chuc/stills-polished/
+          git diff --cached --quiet || git commit -m 'assets(17-messages): smooth final type, remux verified Vbee piano and archive QA'
+          git fetch origin feat/17-tin-nhan-ray-emotional-shorts
+          git rebase origin/feat/17-tin-nhan-ray-emotional-shorts
+          git push origin HEAD:feat/17-tin-nhan-ray-emotional-shorts
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: ray-emotional-17-messages-polished60
+          path: |
+            docs/17-tin-nhan-khong-loi-chuc/final/17-tin-nhan-khong-loi-chuc-polished60-vbee-piano.mp4
+            docs/17-tin-nhan-khong-loi-chuc/final/POLISH-QA.json
+            docs/17-tin-nhan-khong-loi-chuc/stills-polished/
+          if-no-files-found: ignore
+          retention-days: 7
