@@ -12,7 +12,7 @@ on:
       model:
         description: "OpenCode model identifier (provider/model)"
         required: false
-        default: "opencode/mimo-v2.5-free"
+        default: "opencode/space-bunny-free"
 permissions:
   contents: read
 concurrency:
@@ -23,6 +23,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 35
     env:
+      OPENCODE_API_KEY: ${{ secrets.OPENCODE_API_KEY }}
       ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
       OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
       VBEE_APP_ID: ${{ secrets.VBEE_APP_ID }}
@@ -54,8 +55,12 @@ jobs:
       - name: Select built-in free OpenCode model
         shell: bash
         run: |
-          echo "MODEL=opencode/mimo-v2.5-free" >> "$GITHUB_ENV"
-          echo "Attempting free model without any provider API key."
+          if [[ -z "${OPENCODE_API_KEY:-}" ]]; then
+            echo "::error::GitHub-hosted runner is signed out of OpenCode. Configure OPENCODE_API_KEY (OpenCode Console credentials; a free model can still be selected), or use a self-hosted runner already authenticated to OpenCode."
+            exit 2
+          fi
+          echo "MODEL=${REQUESTED_MODEL:-opencode/space-bunny-free}" >> "$GITHUB_ENV"
+          echo "Using authenticated OpenCode account with free model."
       - name: Smoke-test anonymous free model response
         shell: bash
         timeout-minutes: 3
