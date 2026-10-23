@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "narration": "Có khi nào bạn cố gắng mỗi ngày... nhưng vẫn thấy mình đứng yên?",
+    "visual": "Mầm hạt trong bóng tối, tia sáng nhỏ đầu tiên",
+    "phase": "HOOK"
+  },
+  {
+    "id": 2,
+    "narration": "Hãy nhìn hạt mầm. Trong bóng tối, nó vẫn đang âm thầm mọc rễ.",
+    "visual": "Rễ xuyên qua tầng đất, tia nắng từ bên trên",
+    "phase": "BODY"
+  },
+  {
+    "id": 3,
+    "narration": "Không ai nhìn thấy. Không có lời khen. Chỉ có thời gian và kiên trì.",
+    "visual": "Dấu thời gian, bầu trời chuyển màu, giọt sương",
+    "phase": "BODY"
+  },
+  {
+    "id": 4,
+    "narration": "Bạn cũng vậy. Một trang sách. Mười phút vận động. Một lần không bỏ cuộc.",
+    "visual": "Đọc sách, bước chạy, những việc nhỏ trong ánh bình minh",
+    "phase": "BODY"
+  },
+  {
+    "id": 5,
+    "narration": "Hôm nay chưa thấy kết quả... không có nghĩa là bạn chưa thay đổi.",
+    "visual": "Mầm cây mọc lên đầy sức sống, bầu trời thay đổi",
+    "phase": "CLIMAX"
+  },
+  {
+    "id": 6,
+    "narration": "Rồi một ngày, điều bạn kiên trì sẽ nở hoa. Cứ lớn lên... mỗi ngày một chút.",
+    "visual": "Mặt trời mọc trên khu rừng, hạt mầm thành cây, nở hoa",
+    "phase": "PAYOFF"
+  }
+]
