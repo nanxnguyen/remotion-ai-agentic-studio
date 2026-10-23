@@ -1,0 +1,112 @@
+[
+  {
+    "id": 1,
+    "duration": 6,
+    "phase": "HOOK",
+    "narration": "Ba giờ sáng, Mai đứng trước gương. Cô không hề cười... nhưng người trong gương lại nở một nụ cười.",
+    "headline": "CÔ KHÔNG HỀ CƯỜI",
+    "subtitle": "NHƯNG TRONG GƯƠNG THÌ CÓ",
+    "visual": "Mai nhìn nghiêm nghị vào gương; bản sao phản chiếu lại cười",
+    "sfx": "low impact, pulse",
+    "visual_start_seconds": 0
+  },
+  {
+    "id": 2,
+    "duration": 6,
+    "phase": "BODY",
+    "narration": "Mai giơ tay lên. Phải ba giây sau... bóng phản chiếu mới làm theo.",
+    "headline": "CHẬM ĐÚNG 3 GIÂY",
+    "subtitle": "KHÔNG CÒN LÀ PHẢN CHIẾU",
+    "visual": "Mai nâng bàn tay trong khi phản chiếu đứng yên ba giây rồi mới nhấc tay",
+    "sfx": "glass fingernail soft tap",
+    "visual_start_seconds": 6
+  },
+  {
+    "id": 3,
+    "duration": 6,
+    "phase": "BODY",
+    "narration": "Rồi nó bất ngờ đập vào kính, viết trên lớp sương mờ: XEM CAMERA!",
+    "headline": "XEM CAMERA!",
+    "subtitle": "BÀN TAY PHÍA BÊN KIA",
+    "visual": "Bàn tay sau gương đập, chữ XEM CAMERA hiện trên mặt kính",
+    "sfx": "three taps",
+    "visual_start_seconds": 12
+  },
+  {
+    "id": 4,
+    "duration": 6,
+    "phase": "BODY",
+    "narration": "Mai run rẩy mở camera hành lang, tua lại đoạn ghi hình đêm qua.",
+    "headline": "03:00 — ĐÊM HÔM QUA",
+    "subtitle": "CAMERA AN NINH",
+    "visual": "Điện thoại phát camera đen trắng ghi lại gương hành lang",
+    "sfx": "tape rewind",
+    "visual_start_seconds": 18
+  },
+  {
+    "id": 5,
+    "duration": 7,
+    "phase": "BODY",
+    "narration": "Một bàn tay từ trong gương kéo Mai biến mất. Ba giây sau... một cô gái giống hệt cô bước ra.",
+    "headline": "AI ĐÃ BƯỚC RA?",
+    "subtitle": "CHỈ SAU 3 GIÂY",
+    "visual": "CCTV ghi Mai bị kéo vào kính; bản sao bước ra sau ba giây",
+    "sfx": "static glitch",
+    "visual_start_seconds": 24
+  },
+  {
+    "id": 6,
+    "duration": 7,
+    "phase": "CLIMAX",
+    "narration": "Mai chết lặng. Người vừa bước ra trong video... chính là cô đang đứng đây.",
+    "headline": "CÔ KHÔNG PHẢI MAI",
+    "subtitle": "KẺ GIẢ MẠO VẪN Ở NGOÀI",
+    "visual": "So sánh một nửa mặt trong video và nửa mặt của Mai hiện tại",
+    "sfx": "bass swell",
+    "visual_start_seconds": 31
+  },
+  {
+    "id": 7,
+    "duration": 6,
+    "phase": "CLIMAX",
+    "narration": "Phía sau lớp kính, Mai thật tuyệt vọng mấp máy: ĐỪNG MỞ CỬA!",
+    "headline": "ĐỪNG MỞ CỬA!",
+    "subtitle": "MAI THẬT ĐANG BỊ NHỐT",
+    "visual": "Mai thật áp hai bàn tay khóc sau gương",
+    "sfx": "muffled impact glass",
+    "visual_start_seconds": 38
+  },
+  {
+    "id": 8,
+    "duration": 6,
+    "phase": "ENDING",
+    "narration": "Ngay lúc đó, chuông cửa vang lên. Giọng mẹ cô cất tiếng: Mai ơi, mở cửa cho mẹ!",
+    "headline": "MẸ ĐÃ ĐẾN",
+    "subtitle": "MAI ƠI, MỞ CỬA CHO MẸ",
+    "visual": "Mẹ Mai ở phía ngoài cửa, giọng gọi từ hành lang",
+    "sfx": "doorbell",
+    "visual_start_seconds": 44
+  },
+  {
+    "id": 9,
+    "duration": 5,
+    "phase": "ENDING",
+    "narration": "Bản sao chậm rãi đặt tay lên ổ khóa. Và rồi... nó mỉm cười.",
+    "headline": "NÓ ĐÃ NHỚ RA",
+    "subtitle": "AI SẼ LÀ NGƯỜI TIẾP THEO?",
+    "visual": "Cận cảnh bản sao Mai cười, gương phía sau nhốt Mai thật",
+    "sfx": "heartbeat",
+    "visual_start_seconds": 50
+  },
+  {
+    "id": 10,
+    "duration": 5,
+    "phase": "ENDING",
+    "narration": "Mẹ tới rồi à? Cạch.",
+    "headline": "CỬA ĐÃ MỞ",
+    "subtitle": "",
+    "visual": "Tay bản sao Mai từ từ mở khóa, bóng mẹ hiện qua khe cửa; cắt đen",
+    "sfx": "door latch",
+    "visual_start_seconds": 55
+  }
+]
