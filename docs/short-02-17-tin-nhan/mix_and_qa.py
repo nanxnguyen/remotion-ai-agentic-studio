@@ -78,7 +78,7 @@ def mix(workdir,out,smoke=False):
             f"[{i+2}:a]aresample=48000,atempo={speed:.6f},"
             f"adelay={round(start*1000)}:all=1,volume={gains[i]:.3f}[v{i}]")
         report.append({"beat":i+1,"start":start,"sourceDuration":round(actual,2),
-                       "tempo":round(speed,3),"maxVolumeDb":maxdb,"direction":beat["emotion"]})
+                       "tempo":round(speed,3),"maxVolumeDb":maxdb,"direction":beat.get("emotion","restrained, warm, expressive")})
     filters.append("".join(f"[v{i}]" for i in range(len(beats)))+
                    f"amix=inputs={len(beats)}:duration=longest:normalize=0[voice]")
     filters.append("[1:a]aresample=48000,volume=0.53[music]")
