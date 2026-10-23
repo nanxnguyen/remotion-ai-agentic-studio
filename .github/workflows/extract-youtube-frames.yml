@@ -1,6 +1,9 @@
 name: Extract YouTube Shorts Frames
 
 on:
+  push:
+    branches: [feat/youtube-frame-extractor]
+    paths: ['.github/workflows/extract-youtube-frames.yml']
   workflow_dispatch:
     inputs:
       video_url:
@@ -31,7 +34,7 @@ jobs:
 
       - name: Download video and metadata
         env:
-          VIDEO_URL: ${{ inputs.video_url }}
+          VIDEO_URL: ${{ inputs.video_url || 'https://youtube.com/shorts/k9JB4RDDpsw' }}
         run: |
           set -euo pipefail
           mkdir -p output/frames
@@ -49,7 +52,7 @@ jobs:
 
       - name: Extract frames and contact sheet
         env:
-          FPS: ${{ inputs.fps }}
+          FPS: ${{ inputs.fps || '1' }}
         run: |
           set -euo pipefail
           ffmpeg -hide_banner -loglevel error -i "$VIDEO" \
