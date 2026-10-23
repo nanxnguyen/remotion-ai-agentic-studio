@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
-"""Generate genuine Vbee TTS MP3 per Room 404 scene.
+"""Generate actual Vbee audio for Room 404 and measure it; never use fallback voices.
 
-Uses GitHub Actions secrets at runtime; never persists or logs credentials.
-Speech duration is measured using ffprobe; no silent TTS fallback.
+The Vbee realtime (sync) endpoint requires a plan feature this account does not have.
+The documented batch (async) API is used, with polling of request status.
+Secrets are supplied by GitHub Actions environment at runtime, not stored in Git.
 """
 import argparse
 import hashlib
@@ -11,116 +12,132 @@ import math
 import os
 from pathlib import Path
 import subprocess
+import time
 import urllib.error
+import urllib.parse
 import urllib.request
 
-API_URL = "https://api.vbee.vn/v1/tts"
-DEFAULT_VOICE = "hn_female_ngochuyen_full_48k-fhg"
+API = "https://api.vbee.vn/v1/tts"
+DEFAULT_VOICE = "hn_male_phuthang_stor_24k-stl"  # Vbee Anh Khoi storytelling
+WEBHOOK = "https://example.com/room404-vbee-callback"  # required by API; result is polled, not awaited via webhook
 
-def secret(*names):
-    return next((os.environ[name] for name in names if os.environ.get(name)), None)
+def env_secret(*names):
+    return next((os.environ[k] for k in names if os.environ.get(k)), None)
 
-def seconds(path):
+def credentials():
+    token = env_secret("VBEE_ACCESS_TOKEN", "VBEE_TOKEN", "VBEE_API_KEY", "VBEE_API_TOKEN")
+    app_id = env_secret("VBEE_APP_ID", "VBEE_APPID", "VBEE_APPLICATION_ID")
+    if not token or not app_id:
+        raise RuntimeError("Vbee token/App ID missing from GitHub Actions runtime")
+    return token, app_id
+
+def request_json(request):
+    try:
+        with urllib.request.urlopen(request, timeout=90) as response:
+            body = response.read(32768)
+    except urllib.error.HTTPError as exc:
+        errcode, msg = "UNKNOWN", ""
+        try:
+            payload = json.loads(exc.read(2048).decode("utf-8", errors="replace"))
+            err = payload.get("error") or {}
+            errcode = str(err.get("code", payload.get("error_code", "UNKNOWN")))[:60]
+            msg = str(err.get("message", payload.get("error_message", "")))[:220]
+            token, app_id = credentials()
+            msg = msg.replace(token, "[REDACTED]").replace(app_id, "[REDACTED]")
+        except (ValueError, TypeError, AttributeError):
+            pass
+        raise RuntimeError(f"Vbee HTTP {exc.code}: {errcode}: {msg}") from None
+    try:
+        return json.loads(body)
+    except ValueError:
+        raise RuntimeError("Vbee returned a non-JSON batch response") from None
+
+def headers():
+    token, app_id = credentials()
+    return {"Authorization": f"Bearer {token}", "App-Id": app_id, "Content-Type": "application/json"}
+
+def read_duration(path):
     result = subprocess.run(
         ["ffprobe", "-v", "error", "-show_entries", "format=duration",
          "-of", "default=noprint_wrappers=1:nokey=1", str(path)],
-        capture_output=True, text=True, check=True,
-    )
+        capture_output=True, text=True, check=True)
     return float(result.stdout.strip())
 
-def vbee_tts(text, voice_code, speed, destination):
-    token = secret("VBEE_ACCESS_TOKEN", "VBEE_TOKEN", "VBEE_API_KEY", "VBEE_API_TOKEN")
-    app_id = secret("VBEE_APP_ID", "VBEE_APPID", "VBEE_APPLICATION_ID")
-    if not token or not app_id:
-        raise RuntimeError(
-            "Vbee credentials missing in Actions runtime. Required: Vbee bearer token "
-            "and Vbee App ID. Check workflow's secret-name mapping (not token values)."
-        )
-    if not (1 <= len(text) <= 300):
-        raise ValueError("Vbee realtime TTS requires 1–300 characters per request")
-    payload = json.dumps({
-        "text": text,
-        "voiceCode": voice_code,
-        "outputFormat": "mp3",
-        "bitrate": 128,
-        "speed": speed,
-        "mode": "sync",
+def generate_async(text, voice_code, speed, dest, webhook_url):
+    if not 1 <= len(text) <= 100000:
+        raise ValueError("Vbee batch TTS requires nonempty text <= 100000 chars")
+    data = json.dumps({
+        "text": text, "voiceCode": voice_code,
+        "mode": "async", "webhookUrl": webhook_url,
+        "outputFormat": "mp3", "bitrate": 128, "speed": speed
     }, ensure_ascii=False).encode("utf-8")
-    request = urllib.request.Request(
-        API_URL,
-        data=payload,
-        headers={
-            "Authorization": f"Bearer {token}",
-            "App-Id": app_id,
-            "Content-Type": "application/json",
-            "Accept": "audio/mpeg",
-        },
-        method="POST",
-    )
-    try:
-        with urllib.request.urlopen(request, timeout=120) as response:
-            content_type = response.headers.get("Content-Type", "").lower()
-            audio = response.read()
-    except urllib.error.HTTPError as exc:
-        # Read only the documented error fields; never print headers, tokens or payload.
-        error_code, error_message = "UNKNOWN", ""
-        try:
-            obj = json.loads(exc.read(2048).decode("utf-8", errors="replace"))
-            problem = obj.get("error") or {}
-            error_code = str(problem.get("code", "UNKNOWN"))[:60]
-            error_message = str(problem.get("message", ""))[:220]
-            for confidential in (token, app_id):
-                if confidential:
-                    error_message = error_message.replace(confidential, "[REDACTED]")
-        except (ValueError, AttributeError, TypeError):
-            pass
-        raise RuntimeError(
-            f"Vbee TTS HTTP {exc.code}: {error_code}: {error_message}"
-        ) from None
-    if ("json" in content_type or len(audio) < 200 or
-        not (audio.startswith(b"ID3") or
-             (audio[0] == 255 and audio[1] & 224 == 224))):
-        raise RuntimeError("Vbee did not return a valid MP3 audio payload")
-    temp = destination.with_suffix(".tmp")
-    temp.write_bytes(audio)
-    temp.replace(destination)
+    req = urllib.request.Request(API, data=data, headers=headers(), method="POST")
+    status = request_json(req)
+    if not isinstance(status, dict):
+        raise RuntimeError("Unexpected Vbee batch submit response")
+    rid = status.get("requestId") or (status.get("result") or {}).get("request_id")
+    if not rid or not isinstance(rid, str):
+        raise RuntimeError(f"Vbee batch response lacked request ID; status={status.get('status','UNKNOWN')}")
+    print("Submitted Vbee async request; polling completion...", flush=True)
+
+    url = f"{API}/requests/{urllib.parse.quote(rid, safe='')}"
+    for n in range(75):  # max 5 minutes per shot
+        time.sleep(4)
+        result = request_json(urllib.request.Request(url, headers=headers()))
+        state = str(result.get("status", "")).upper()
+        if state in ("FAILED", "ERROR", "FAILURE"):
+            raise RuntimeError(f"Vbee job failed, status={state}; check voice/credits")
+        audio_url = result.get("audioLink") or result.get("audio_link")
+        if state == "COMPLETED" and audio_url:
+            parsed = urllib.parse.urlparse(audio_url)
+            if parsed.scheme != "https":
+                raise RuntimeError("Vbee audioLink requires HTTPS")
+            with urllib.request.urlopen(audio_url, timeout=90) as response:
+                mp3 = response.read(15_000_000)
+            if len(mp3) < 200 or not (
+                mp3.startswith(b"ID3") or
+                (mp3[0] == 255 and (mp3[1] & 224) == 224)
+            ):
+                raise RuntimeError("Vbee audioLink did not contain MP3 binary")
+            temp = dest.with_suffix(".tmp")
+            temp.write_bytes(mp3)
+            temp.replace(dest)
+            return
+    raise RuntimeError("Vbee request still pending after 5 minutes")
 
 def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--timeline", type=Path, default=Path("docs/room404-vbee/timeline.json"))
-    parser.add_argument("--out-dir", type=Path, default=Path("public/audio/room404-vbee"))
-    parser.add_argument("--voice-code", default=os.environ.get("VBEE_VOICE_CODE", DEFAULT_VOICE))
-    parser.add_argument("--speed", type=float, default=0.96)
-    args = parser.parse_args()
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--timeline", type=Path, default=Path("docs/room404-vbee/timeline.json"))
+    ap.add_argument("--out-dir", type=Path, default=Path("public/audio/room404-vbee"))
+    ap.add_argument("--voice-code", default=os.environ.get("VBEE_VOICE_CODE", DEFAULT_VOICE))
+    ap.add_argument("--speed", type=float, default=0.98)
+    ap.add_argument("--webhook-url", default=os.environ.get("VBEE_WEBHOOK_URL", WEBHOOK))
+    ap.add_argument("--limit", type=int, default=0, help="Generate only first N scenes for a non-destructive capability test")
+    args = ap.parse_args()
     if not (0.25 <= args.speed <= 1.9):
-        parser.error("--speed must be in [0.25, 1.9]")
-    scenes = json.loads(args.timeline.read_text(encoding="utf-8"))
+        ap.error("Speed must be between 0.25 and 1.9")
+    if not args.webhook_url.startswith("https://"):
+        ap.error("webhook URL must be HTTPS")
+    all_scenes = json.loads(args.timeline.read_text(encoding="utf-8"))
+    scenes = all_scenes[:args.limit] if args.limit else all_scenes
     args.out_dir.mkdir(parents=True, exist_ok=True)
     timeline = []
-    frame_cursor = 0
     for i, scene in enumerate(scenes, 1):
-        destination = args.out_dir / f"s{i}.mp3"
-        vbee_tts(scene["narration"], args.voice_code, args.speed, destination)
-        voice_seconds = seconds(destination)
-        if not math.isfinite(voice_seconds) or voice_seconds <= 0.2:
-            raise RuntimeError(f"Invalid Vbee MP3 duration for scene {i}")
-        duration_frames = max(int(scene.get("duration", 132)), math.ceil((voice_seconds + 0.5) * 24))
+        dest = args.out_dir / f"s{i}.mp3"
+        generate_async(scene["narration"], args.voice_code, args.speed, dest, args.webhook_url)
+        duration = read_duration(dest)
+        if not math.isfinite(duration) or duration < 0.3:
+            raise RuntimeError(f"Scene {i}: invalid duration")
         timeline.append({
-            "id": i,
-            "audio_file": destination.name,
-            "text": scene["narration"],
-            "voice_code": args.voice_code,
-            "audio_seconds": round(voice_seconds, 3),
-            "from_frame": frame_cursor,
-            "duration_frames": duration_frames,
-            "sha256": hashlib.sha256(destination.read_bytes()).hexdigest(),
+            "id": i, "audio_file": dest.name, "text": scene["narration"],
+            "voice_code": args.voice_code, "audio_seconds": round(duration, 3),
+            "visual_start_seconds": round((i-1)*5.5, 3),
+            "sha256": hashlib.sha256(dest.read_bytes()).hexdigest()
         })
-        frame_cursor += duration_frames
-        print(f"Scene {i:02}: {voice_seconds:.2f}s voice, {duration_frames / 24:.2f}s picture")
-    report = args.out_dir / "measured-timeline.json"
-    report.write_text(json.dumps(timeline, ensure_ascii=False, indent=2), encoding="utf-8")
-    print(f"Vbee narration generated: {len(timeline)} scenes, {frame_cursor/24:.2f}s total.")
-    print("Voice provider: Vbee realtime API; no fallback voice.")
+        print(f"Vbee clip s{i}.mp3: {duration:.2f}s", flush=True)
+    (args.out_dir/"measured-timeline.json").write_text(
+        json.dumps(timeline, ensure_ascii=False, indent=2), encoding="utf-8")
+    print(f"PRODUCED: {len(timeline)} actual Vbee audio clips.", flush=True)
 
 if __name__ == "__main__":
     main()
