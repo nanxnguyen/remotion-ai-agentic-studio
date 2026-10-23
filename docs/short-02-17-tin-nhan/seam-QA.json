@@ -1,0 +1,178 @@
+{
+  "fps": 60,
+  "frames": 2425,
+  "seconds": 40.416666666666664,
+  "shots": 28,
+  "transitionFrames": 44,
+  "singleProtagonistAnchor": [
+    208,
+    578
+  ],
+  "subpixelCamera": true,
+  "pairedReadableHeadlines": 14,
+  "maxBoundaryMeanAbsoluteDelta": 0.365,
+  "boundaries": [
+    {
+      "boundary": 1,
+      "frame": 89,
+      "timeSeconds": 1.483,
+      "meanAbsFrameDelta": 0.118
+    },
+    {
+      "boundary": 2,
+      "frame": 170,
+      "timeSeconds": 2.833,
+      "meanAbsFrameDelta": 0.32
+    },
+    {
+      "boundary": 3,
+      "frame": 251,
+      "timeSeconds": 4.183,
+      "meanAbsFrameDelta": 0.106
+    },
+    {
+      "boundary": 4,
+      "frame": 327,
+      "timeSeconds": 5.45,
+      "meanAbsFrameDelta": 0.206
+    },
+    {
+      "boundary": 5,
+      "frame": 413,
+      "timeSeconds": 6.883,
+      "meanAbsFrameDelta": 0.117
+    },
+    {
+      "boundary": 6,
+      "frame": 502,
+      "timeSeconds": 8.367,
+      "meanAbsFrameDelta": 0.276
+    },
+    {
+      "boundary": 7,
+      "frame": 588,
+      "timeSeconds": 9.8,
+      "meanAbsFrameDelta": 0.309
+    },
+    {
+      "boundary": 8,
+      "frame": 669,
+      "timeSeconds": 11.15,
+      "meanAbsFrameDelta": 0.175
+    },
+    {
+      "boundary": 9,
+      "frame": 750,
+      "timeSeconds": 12.5,
+      "meanAbsFrameDelta": 0.132
+    },
+    {
+      "boundary": 10,
+      "frame": 842,
+      "timeSeconds": 14.033,
+      "meanAbsFrameDelta": 0.188
+    },
+    {
+      "boundary": 11,
+      "frame": 926,
+      "timeSeconds": 15.433,
+      "meanAbsFrameDelta": 0.117
+    },
+    {
+      "boundary": 12,
+      "frame": 1012,
+      "timeSeconds": 16.867,
+      "meanAbsFrameDelta": 0.317
+    },
+    {
+      "boundary": 13,
+      "frame": 1096,
+      "timeSeconds": 18.267,
+      "meanAbsFrameDelta": 0.1
+    },
+    {
+      "boundary": 14,
+      "frame": 1177,
+      "timeSeconds": 19.617,
+      "meanAbsFrameDelta": 0.188
+    },
+    {
+      "boundary": 15,
+      "frame": 1263,
+      "timeSeconds": 21.05,
+      "meanAbsFrameDelta": 0.102
+    },
+    {
+      "boundary": 16,
+      "frame": 1360,
+      "timeSeconds": 22.667,
+      "meanAbsFrameDelta": 0.165
+    },
+    {
+      "boundary": 17,
+      "frame": 1441,
+      "timeSeconds": 24.017,
+      "meanAbsFrameDelta": 0.239
+    },
+    {
+      "boundary": 18,
+      "frame": 1527,
+      "timeSeconds": 25.45,
+      "meanAbsFrameDelta": 0.365
+    },
+    {
+      "boundary": 19,
+      "frame": 1611,
+      "timeSeconds": 26.85,
+      "meanAbsFrameDelta": 0.09
+    },
+    {
+      "boundary": 20,
+      "frame": 1697,
+      "timeSeconds": 28.283,
+      "meanAbsFrameDelta": 0.263
+    },
+    {
+      "boundary": 21,
+      "frame": 1781,
+      "timeSeconds": 29.683,
+      "meanAbsFrameDelta": 0.111
+    },
+    {
+      "boundary": 22,
+      "frame": 1870,
+      "timeSeconds": 31.167,
+      "meanAbsFrameDelta": 0.192
+    },
+    {
+      "boundary": 23,
+      "frame": 1951,
+      "timeSeconds": 32.517,
+      "meanAbsFrameDelta": 0.116
+    },
+    {
+      "boundary": 24,
+      "frame": 2035,
+      "timeSeconds": 33.917,
+      "meanAbsFrameDelta": 0.163
+    },
+    {
+      "boundary": 25,
+      "frame": 2111,
+      "timeSeconds": 35.183,
+      "meanAbsFrameDelta": 0.092
+    },
+    {
+      "boundary": 26,
+      "frame": 2192,
+      "timeSeconds": 36.533,
+      "meanAbsFrameDelta": 0.241
+    },
+    {
+      "boundary": 27,
+      "frame": 2291,
+      "timeSeconds": 38.183,
+      "meanAbsFrameDelta": 0.143
+    }
+  ]
+}
