@@ -1,6 +1,9 @@
 name: Extract YouTube Shorts Frames
 
 on:
+  push:
+    branches: [feat/youtube-frame-extractor]
+    paths: ['.github/workflows/extract-youtube-frames.yml']
   workflow_dispatch:
     inputs:
       video_url:
@@ -44,7 +47,8 @@ jobs:
             https://youtube.com/*|https://www.youtube.com/*|https://youtu.be/*|https://m.youtube.com/*) ;;
             *) echo "::error::Only HTTPS YouTube URLs are accepted"; exit 1 ;;
           esac
-          ~/.local/bin/yt-dlp --js-runtimes deno --no-playlist --max-filesize 150M \
+          ~/.local/bin/yt-dlp --js-runtimes deno -4 \
+            --extractor-args 'youtube:player_client=tv,web_safari' --no-playlist --max-filesize 150M \
             --write-info-json --write-description \
             -f 'bv*+ba/b' --merge-output-format mp4 \
             -o 'output/source.%(ext)s' "$VIDEO_URL"
