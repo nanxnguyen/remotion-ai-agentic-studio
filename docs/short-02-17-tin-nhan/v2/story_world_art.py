@@ -149,7 +149,7 @@ def friend_scene(d,sec):
     ln(d,[(378,548),(355,576)],WHITE,3)
     ln(d,[(396,544),(433,574)],WHITE,3)
     d.ellipse((402,502+3*math.sin(sec*2),406,512+3*math.sin(sec*2)),fill=AMBER)
-    text(d,(329,290),""An ơi..."",16,GRAY)
+    text(d,(329,290),"An ơi...",16,GRAY)
 
 def mirror_scene(d,sec):
     rr(d,(310,270,487,658),outline=mix(EDGE,AMBER,.3),fill=(17,25,34),radius=35,width=5)
