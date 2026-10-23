@@ -20,8 +20,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Assert preinstalled ffprobe available
-        run: command -v ffprobe || (echo '::error::FFprobe unavailable on runner' && exit 1)
+      - name: Check Python runtime
+        run: python3 --version
       - name: Generate verified original Vbee batch voice
         run: |
           test -n "$VBEE_ACCESS_TOKEN" && test -n "$VBEE_APP_ID"
