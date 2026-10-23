@@ -43,12 +43,11 @@ Accept any one input: attached MP4, exact connected Google Drive file, user-supp
 
 Consult [Storyboard and rendering playbook](references/storyboard-and-rendering.md) for the reusable scene skeleton, export criteria and tests.
 
-## Durable storage — required for this repository
+## Bắt buộc: lưu skill và video hoàn chỉnh vào GitHub
 
-- **Canonical source:** Save any new/updated skill under `.claude/skills/<skill-name>/` in `nanxnguyen/remotion-ai-agentic-studio`. Keep re-installable ChatGPT packages under `plugins/<plugin-name>/`; synchronize both copies and use a PR, following repo rules.
-- **Finished video archive:** Once the **real final MP4 passes the repo's render, voice, caption and QA gates**, store it as a **draft GitHub Release asset in the same repository**, via `.github/workflows/archive-finished-video.yml` (production workflows may call it as a reusable workflow after uploading the verified final MP4 as an Actions artifact). Also upload a metadata JSON with SHA-256 and record the Release tag and source run in `docs/<vid>/asset-manifest.md`. Keep the MP4 out of Git history and `out/` ignored.
-- **Video delivery is incomplete until archival is verified** when the user requested repository storage. If the available tools cannot upload a binary, say plainly that the GitHub archive is pending; never substitute a README/link for the actual MP4.
-- Draft Release is **storage, not publication**. Do not make the release public, publish to YouTube, or broaden media sharing without separate authorization. Before any public release, verify source licensing and privacy.
-- For a **VOICE_ONLY** edit: archive the corrected final MP4 as a new revision; keep original and old tags intact, cite their SHA-256. Never claim a text change updated the archived video unless its binary was re-uploaded.
-- Follow `docs/production-archive-policy.md` for the archive contract, workflow inputs, and recovery procedure.
+- Repo nguồn chính: `nanxnguyen/remotion-ai-agentic-studio`.
+- Khi tạo hoặc sửa skill/plugin, lưu mã nguồn tại `.claude/skills/<skill-name>/` và bản plugin tái sử dụng tại `plugins/<plugin-name>/`; không coi plugin chỉ lưu trên ChatGPT là đã hoàn tất việc lưu mã nguồn.
+- Sau khi MP4 cuối đã kiểm tra đầy đủ kịch bản, lời đọc, hình ảnh, âm nhạc, captions và render gates, **tự động chuyển MP4 thật đến draft GitHub Release của chính repo đó**. Nếu xuất từ GitHub Actions, upload final MP4 thành artifact rồi gọi `.github/workflows/archive-finished-video.yml` với `qa_approved=true`, `video_slug`, `source_run_id`, `artifact_name`. Lưu thêm metadata SHA-256/codec/thời lượng và release tag trong `docs/<vid>/asset-manifest.md`.
+- Tránh đưa MP4 vào Git commits. Draft Release là lưu trữ, không phải công bố video; không công khai release hay đăng YouTube nếu chưa có yêu cầu riêng. Khi không có khả năng truyền MP4 sang GitHub, báo rõ GitHub archival **chưa hoàn tất**, không gắn nhãn archived.
+- Đọc `docs/production-archive-policy.md` và repo `AGENTS.md` ở phiên bản mới nhất trước khi thao tác.
 
