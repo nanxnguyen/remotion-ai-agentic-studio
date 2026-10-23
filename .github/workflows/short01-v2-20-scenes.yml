@@ -15,11 +15,11 @@ jobs:
       VBEE_ACCESS_TOKEN: ${{ secrets.VBEE_ACCESS_TOKEN }}
       VBEE_WEBHOOK_URL: https://iehmucsshklgjmxqyggp.supabase.co/functions/v1/vbee-batch-callback
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           ref: feat/short01-20-scenes-emotional
           persist-credentials: true
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v7
         with:
           python-version: '3.12'
       - name: Install render tools
@@ -118,7 +118,7 @@ jobs:
           git fetch origin feat/short01-20-scenes-emotional
           git rebase origin/feat/short01-20-scenes-emotional
           git push origin HEAD:feat/short01-20-scenes-emotional
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: always()
         with:
           name: short01-v2-20-scenes
