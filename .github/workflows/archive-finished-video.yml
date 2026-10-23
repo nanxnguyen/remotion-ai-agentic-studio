@@ -38,6 +38,17 @@ on:
         required: true
         type: boolean
 
+    outputs:
+      release_url:
+        description: Verified GitHub draft Release URL (requires repository access)
+        value: ${{ jobs.archive.outputs.release_url }}
+      video_url:
+        description: Verified MP4 asset URL in GitHub Release (may require login)
+        value: ${{ jobs.archive.outputs.video_url }}
+      sha256:
+        description: SHA-256 of the archived final MP4
+        value: ${{ jobs.archive.outputs.sha256 }}
+
 permissions:
   contents: write
   actions: read
@@ -45,6 +56,10 @@ permissions:
 jobs:
   archive:
     if: ${{ inputs.qa_approved }}
+    outputs:
+      release_url: ${{ steps.verify_archive.outputs.release_url }}
+      video_url: ${{ steps.verify_archive.outputs.video_url }}
+      sha256: ${{ steps.verify_archive.outputs.sha256 }}
     runs-on: ubuntu-latest
     timeout-minutes: 20
     env:
@@ -126,3 +141,56 @@ jobs:
           fi
           gh release upload "$TAG" "$MP4" "$META" --repo "$GITHUB_REPOSITORY" --clobber
           gh release view "$TAG" --repo "$GITHUB_REPOSITORY" --json tagName,assets,url
+
+      - name: Verify release asset and record real GitHub download link
+        id: verify_archive
+        shell: bash
+        run: |
+          set -euo pipefail
+          TAG="video-$VIDEO_SLUG-run-$SOURCE_RUN_ID"
+          gh api "repos/$GITHUB_REPOSITORY/releases/tags/$TAG" > "$RUNNER_TEMP/release.json"
+          python3 - <<'PY'
+          import hashlib, json, os
+          from pathlib import Path
+          root=Path(os.environ["RUNNER_TEMP"])
+          info=json.loads((root/"release.json").read_text(encoding="utf-8"))
+          slug=os.environ["VIDEO_SLUG"]
+          mp4=root/f"{slug}-final.mp4"
+          sha=hashlib.sha256(mp4.read_bytes()).hexdigest()
+          name=f"{slug}-final.mp4"
+          matches=[a for a in info.get("assets",[]) if a.get("name")==name]
+          if len(matches)!=1:
+              raise SystemExit("Archive failed: the real MP4 release asset was not found")
+          asset=matches[0]
+          if int(asset.get("size",-1))!=mp4.stat().st_size:
+              raise SystemExit("Archive failed: GitHub MP4 asset byte size mismatch")
+          digest=asset.get("digest")
+          if digest and digest != "sha256:"+sha:
+              raise SystemExit("Archive failed: release asset SHA-256 mismatch")
+          video_url=asset.get("browser_download_url","")
+          release_url=info.get("html_url","")
+          if not (video_url.startswith("https://github.com/") and release_url.startswith("https://github.com/")):
+              raise SystemExit("Archive failed: GitHub did not return verified video URLs")
+          with open(os.environ["GITHUB_OUTPUT"],"a",encoding="utf-8") as fp:
+              fp.write(f"release_url={release_url}\nvideo_url={video_url}\nsha256={sha}\n")
+          with open(os.environ["GITHUB_STEP_SUMMARY"],"a",encoding="utf-8") as fp:
+              fp.write(f"## Final video archived on GitHub\n\n")
+              fp.write(f"- **[Download/view MP4 on GitHub]({video_url})**\n")
+              fp.write(f"- [Release page]({release_url}) (draft — repository access required)\n")
+              fp.write(f"- SHA-256: \`{sha}\`\n\n")
+              fp.write("This confirms the MP4 asset exists; the draft Release is not publicly published.\n")
+          (root/"github-video-links.json").write_text(
+              json.dumps({"video_slug":slug,"video_url":video_url,
+                          "release_url":release_url,"sha256":sha,
+                          "release_tag":info["tag_name"],"draft":bool(info.get("draft",False))},indent=2)+"\n",
+              encoding="utf-8"
+          )
+          print(f"Verified GitHub archive: {release_url}")
+          PY
+      - name: Preserve verified GitHub links as Actions artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: github-video-links-${{ inputs.video_slug }}
+          path: ${{ runner.temp }}/github-video-links.json
+          if-no-files-found: error
+          retention-days: 90
