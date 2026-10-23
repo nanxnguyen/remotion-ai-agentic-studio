@@ -88,8 +88,11 @@ jobs:
               print(f"Vbee beat {i}: source {dur:.2f}s, atempo {speed:.3f}, start {start:.2f}s")
           filters.append("".join(f"[v{i}]" for i in range(7))+"amix=inputs=7:duration=longest:normalize=0[voice]")
           filters.append("[1:a]aresample=48000,volume=0.55[music]")
-          filters.append("[music][voice]sidechaincompress=threshold=0.025:ratio=5:attack=25:release=480[duck]")
-          filters.append("[duck][voice]amix=inputs=2:duration=first:normalize=0,alimiter=limit=0.93[a]")
+          # FFmpeg filter outputs can only be consumed once; split narration
+          # into the sidechain control signal and the audible narration signal.
+          filters.append("[voice]asplit=2[side][narr]")
+          filters.append("[music][side]sidechaincompress=threshold=0.025:ratio=5:attack=25:release=480[duck]")
+          filters.append("[duck][narr]amix=inputs=2:duration=first:normalize=0,alimiter=limit=0.93[a]")
           cmd=["ffmpeg","-y","-hide_banner","-loglevel","error"]+inputs+["-filter_complex",";".join(filters),
               "-map","0:v:0","-map","[a]","-c:v","copy","-c:a","aac","-b:a","192k",
               "-t","40.4167","-movflags","+faststart",str(out)]
