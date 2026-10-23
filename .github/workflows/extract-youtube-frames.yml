@@ -1,14 +1,18 @@
 name: Extract YouTube Shorts Frames
 
 on:
+  # Temporary push trigger to validate downloading the user-provided Drive file.
+  push:
+    branches: [feat/youtube-frame-extractor]
+    paths: ['.github/workflows/extract-youtube-frames.yml']
   workflow_dispatch:
     inputs:
       source_mode:
-        description: 'Source: YouTube, direct MP4, or a generated test video'
+        description: 'Source: Google Drive, YouTube, direct MP4, or synthetic test'
         type: choice
         required: true
         default: youtube
-        options: [youtube, mp4_url, demo]
+        options: [google_drive, youtube, mp4_url, demo]
       runner:
         description: 'Use self-hosted Linux x64 for YouTube (GitHub IP is rate-limited)'
         type: choice
@@ -20,6 +24,11 @@ on:
         type: string
         required: false
         default: 'https://youtube.com/shorts/k9JB4RDDpsw'
+      drive_file_id:
+        description: 'Google Drive file ID (requires Anyone with the link: Viewer)'
+        type: string
+        required: false
+        default: ''
       mp4_url:
         description: 'Public direct HTTPS MP4 URL (only used in mp4_url mode)'
         type: string
@@ -46,9 +55,10 @@ jobs:
     runs-on: ${{ fromJSON(inputs.runner == 'self-hosted' && '["self-hosted","linux","x64"]' || '"ubuntu-latest"') }}
     timeout-minutes: 15
     env:
-      SOURCE_MODE: ${{ github.event_name == 'push' && 'demo' || inputs.source_mode }}
+      SOURCE_MODE: ${{ github.event_name == 'push' && 'google_drive' || inputs.source_mode }}
       FPS: ${{ inputs.fps || '1' }}
       VIDEO_URL: ${{ inputs.video_url || 'https://youtube.com/shorts/k9JB4RDDpsw' }}
+      DRIVE_FILE_ID: ${{ github.event_name == 'push' && '1QHfdJO232rm7jKpvewZuw2nn3MfiXK6G' || inputs.drive_file_id }}
       MP4_URL: ${{ inputs.mp4_url || '' }}
       RUNNER_KIND: ${{ inputs.runner || 'github-hosted' }}
     steps:
@@ -59,6 +69,12 @@ jobs:
           mkdir -p output/frames
           case "$FPS" in 1|2|5) ;; *) echo "::error::Unsupported FPS"; exit 1 ;; esac
           case "$SOURCE_MODE" in
+            google_drive)
+              if [[ ! "$DRIVE_FILE_ID" =~ ^[a-zA-Z0-9_-]{15,100}$ ]]; then
+                echo "::error::Google Drive file ID required (not a URL)"
+                exit 1
+              fi
+              ;;
             demo) ;;
             mp4_url)
               if [[ ! "$MP4_URL" =~ ^https:// ]]; then
@@ -105,6 +121,15 @@ jobs:
           fi
           echo "$RUNNER_TEMP/frame-ytdlp-venv/bin" >> "$GITHUB_PATH"
 
+      - name: Install gdown for Google Drive mode
+        if: env.SOURCE_MODE == 'google_drive'
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m venv "$RUNNER_TEMP/frame-gdown-venv"
+          "$RUNNER_TEMP/frame-gdown-venv/bin/pip" install --upgrade gdown
+          echo "$RUNNER_TEMP/frame-gdown-venv/bin" >> "$GITHUB_PATH"
+
       - name: Set up Deno for YouTube mode
         if: env.SOURCE_MODE == 'youtube'
         uses: denoland/setup-deno@v2
@@ -132,6 +157,10 @@ jobs:
         run: |
           set -euo pipefail
           case "$SOURCE_MODE" in
+            google_drive)
+              gdown --id "$DRIVE_FILE_ID" -O output/source.mp4
+              VIDEO=output/source.mp4
+              ;;
             demo)
               ffmpeg -hide_banner -loglevel error -y \
                 -f lavfi -i 'testsrc2=duration=4:size=360x640:rate=10' \
@@ -176,7 +205,7 @@ jobs:
             echo "Source mode: $SOURCE_MODE"
             echo "Frames per second: $FPS"
             echo "Extracted frames: $count"
-            echo "Video URL: $VIDEO_URL"
+            echo "Source reference: $([[ "$SOURCE_MODE" == "youtube" ]] && echo "$VIDEO_URL" || echo "$SOURCE_MODE")"
           } > output/README.txt
           rm -f "$VIDEO"
           echo "Successfully extracted $count frames" >> "$GITHUB_STEP_SUMMARY"
