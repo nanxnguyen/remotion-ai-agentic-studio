@@ -1,15 +1,17 @@
 name: Extract YouTube Shorts Frames
 
 on:
-  push:
-    branches: [feat/youtube-frame-extractor]
-    paths: ['.github/workflows/extract-youtube-frames.yml']
   workflow_dispatch:
     inputs:
       video_url:
         description: 'Public YouTube video URL'
         required: true
         default: 'https://youtube.com/shorts/k9JB4RDDpsw'
+        type: string
+      mp4_url:
+        description: 'Optional public HTTPS direct MP4 URL (bypasses YouTube rate limits)'
+        required: false
+        default: ''
         type: string
       fps:
         description: 'Frames per second (1-5)'
@@ -44,20 +46,35 @@ jobs:
       - name: Download video and metadata
         env:
           VIDEO_URL: ${{ inputs.video_url || 'https://youtube.com/shorts/k9JB4RDDpsw' }}
+          MP4_URL: ${{ inputs.mp4_url || '' }}
         run: |
           set -euo pipefail
           mkdir -p output/frames
-          case "$VIDEO_URL" in
-            https://youtube.com/*|https://www.youtube.com/*|https://youtu.be/*|https://m.youtube.com/*) ;;
-            *) echo "::error::Only HTTPS YouTube URLs are accepted"; exit 1 ;;
-          esac
-          ~/.local/bin/yt-dlp --js-runtimes deno -4 \
-            --extractor-args 'youtube:player_client=tv,web_safari' --no-playlist --max-filesize 150M \
-            --write-info-json --write-description \
-            -f 'bv*+ba/b' --merge-output-format mp4 \
-            -o 'output/source.%(ext)s' "$VIDEO_URL"
-          VIDEO=$(find output -maxdepth 1 -type f -name 'source.*' ! -name '*.json' ! -name '*.description' | head -1)
-          test -n "$VIDEO"
+          if [[ -n "$MP4_URL" ]]; then
+            case "$MP4_URL" in
+              https://*) ;;
+              *) echo "::error::Direct MP4 URL must use HTTPS"; exit 1 ;;
+            esac
+            curl --fail --location --retry 3 --max-time 180 \
+              --output output/source.mp4 "$MP4_URL"
+            VIDEO=output/source.mp4
+          else
+            case "$VIDEO_URL" in
+              https://youtube.com/*|https://www.youtube.com/*|https://youtu.be/*|https://m.youtube.com/*) ;;
+              *) echo "::error::Only HTTPS YouTube URLs are accepted"; exit 1 ;;
+            esac
+            ~/.local/bin/yt-dlp --js-runtimes deno -4 \
+              --extractor-args 'youtube:player_client=tv,web_safari' --no-playlist --max-filesize 150M \
+              --write-info-json --write-description \
+              -f 'bv*+ba/b' --merge-output-format mp4 \
+              -o 'output/source.%(ext)s' "$VIDEO_URL" || {
+                echo "::error::YouTube blocked the hosted runner. Supply a public direct MP4 link via mp4_url or use a self-hosted runner."
+                exit 1
+              }
+            VIDEO=$(find output -maxdepth 1 -type f \( -name 'source.mp4' -o -name 'source.webm' -o -name 'source.mkv' \) | head -1)
+          fi
+          test -n "$VIDEO" && test -s "$VIDEO"
+          ffprobe -v error "$VIDEO" > /dev/null
           echo "VIDEO=$VIDEO" >> "$GITHUB_ENV"
 
       - name: Extract frames and contact sheet
