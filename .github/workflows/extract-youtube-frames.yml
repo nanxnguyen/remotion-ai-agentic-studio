@@ -158,7 +158,7 @@ jobs:
           set -euo pipefail
           case "$SOURCE_MODE" in
             google_drive)
-              gdown --id "$DRIVE_FILE_ID" -O output/source.mp4
+              gdown "$DRIVE_FILE_ID" -O output/source.mp4
               VIDEO=output/source.mp4
               ;;
             demo)
