@@ -1,0 +1,19 @@
+{
+  "title": "Bức Ảnh Thứ Tư",
+  "version": "v2-motion-expressive",
+  "duration_seconds": 55,
+  "resolution": "720x1280",
+  "fps": 24,
+  "voice": "Vbee Anh Khôi, existing authentic recordings remixed for expressive pacing",
+  "changes": [
+    "10 animated cinematic camera shots",
+    "9 seamless crossfades and shadow transitions",
+    "voice dramatic pauses, phrase dynamics and ambience ducking"
+  ],
+  "sha256": "39e1636e81bb1fab4aa6670188ee21db8f6dc51a9f038b00f831ca2a143677f1",
+  "release_status": "pending_binary_upload",
+  "release_url": null,
+  "video_url": null,
+  "qa": "ffprobe H.264/AAC and 10-scene frame contact sheet verified",
+  "note": "Source MP4 exists in ChatGPT workspace. Do not claim GitHub Release archival until actual binary is uploaded and verified."
+}
