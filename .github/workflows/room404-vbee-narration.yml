@@ -24,7 +24,7 @@ concurrency:
 jobs:
   vbee-narration:
     runs-on: ubuntu-latest
-    timeout-minutes: 24
+    timeout-minutes: 45
     env:
       # Secret values are passed only to the runner (never logged or committed).
       VBEE_ACCESS_TOKEN: ${{ secrets.VBEE_ACCESS_TOKEN || secrets.VBEE_TOKEN || secrets.VBEE_API_KEY || secrets.VBEE_API_TOKEN }}
@@ -48,7 +48,7 @@ jobs:
             exit 1
           fi
       # Validate against Vbee response while keeping credentials masked.
-      - name: Test Vbee batch narration for first scene
+      - name: Generate all 10 genuine Vbee narration clips
         shell: bash
         run: |
           python3 -m py_compile scripts/gen-room404-vbee.py
@@ -56,13 +56,12 @@ jobs:
             --timeline docs/room404-vbee/timeline.json \
             --out-dir public/audio/room404-vbee \
             --voice-code "$VBEE_VOICE_CODE" \
-            --webhook-url "$VBEE_WEBHOOK_URL" \
-            --limit 1
+            --webhook-url "$VBEE_WEBHOOK_URL"
       - name: Upload Vbee narration artifact
         if: success()
         uses: actions/upload-artifact@v4
         with:
-          name: room404-vbee-narration-test
+          name: room404-vbee-narration
           path: public/audio/room404-vbee/
           if-no-files-found: error
           retention-days: 14
