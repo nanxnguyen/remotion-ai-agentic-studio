@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "from": 0,
+    "duration": 132,
+    "narration": "Khách sạn này có một quy tắc kỳ lạ: đừng bấm tầng bốn sau nửa đêm."
+  },
+  {
+    "id": 2,
+    "from": 132,
+    "duration": 132,
+    "narration": "Một đêm mưa, Linh nhận chìa khóa phòng bốn không bốn từ người lễ tân."
+  },
+  {
+    "id": 3,
+    "from": 264,
+    "duration": 132,
+    "narration": "Nhưng nhân viên tái mặt. Anh ta nói khách sạn chưa từng có phòng đó."
+  },
+  {
+    "id": 4,
+    "from": 396,
+    "duration": 132,
+    "narration": "Lạ thay, thang máy vẫn đưa Linh lên tầng bốn. Cửa mở giữa bóng tối."
+  },
+  {
+    "id": 5,
+    "from": 528,
+    "duration": 132,
+    "narration": "Cuối hành lang, một chiếc đồng hồ đã ngừng chạy đúng ba giờ mười ba."
+  },
+  {
+    "id": 6,
+    "from": 660,
+    "duration": 132,
+    "narration": "Trên bàn có tấm ảnh của Linh. Ngày chụp là mười năm về trước."
+  },
+  {
+    "id": 7,
+    "from": 792,
+    "duration": 132,
+    "narration": "Điện thoại bỗng reo. Một giọng giống hệt cô thì thầm: đừng quay lại."
+  },
+  {
+    "id": 8,
+    "from": 924,
+    "duration": 132,
+    "narration": "Linh nhìn vào gương. Trong gương không có ai. Nhưng phía sau có tiếng thở."
+  },
+  {
+    "id": 9,
+    "from": 1056,
+    "duration": 132,
+    "narration": "Sáng hôm sau, lễ tân thấy chìa khóa bốn không bốn nằm trên quầy, cùng một tấm ảnh mới."
+  },
+  {
+    "id": 10,
+    "from": 1188,
+    "duration": 132,
+    "narration": "Nếu là bạn, bạn có mở cánh cửa đó không? Câu chuyện này hoàn toàn hư cấu."
+  }
+]
