@@ -1,0 +1,92 @@
+[
+  {
+    "id": 1,
+    "narration": "Mỗi sáng, máy ảnh của An lại có một bức hình anh chưa từng chụp.",
+    "caption": "MÁY ẢNH TỰ CHỤP",
+    "visual": "Một tấm hình lạ xuất hiện lúc nửa đêm.",
+    "duration": 132,
+    "start_seconds": 0,
+    "image_panel": 1
+  },
+  {
+    "id": 2,
+    "narration": "Tấm đầu tiên là chiếc cốc vỡ. Chiều đó, chiếc cốc vỡ thật.",
+    "caption": "BỨC ẢNH ĐẦU TIÊN",
+    "visual": "Điềm báo bắt đầu trở thành sự thật.",
+    "duration": 132,
+    "start_seconds": 5.5,
+    "image_panel": 2
+  },
+  {
+    "id": 3,
+    "narration": "Tấm thứ hai báo trước tai nạn. An kịp cứu một đứa bé.",
+    "caption": "TAI NẠN CHƯA XẢY RA",
+    "visual": "Trong mưa, An kéo đứa trẻ khỏi chiếc xe.",
+    "duration": 132,
+    "start_seconds": 11,
+    "image_panel": 3
+  },
+  {
+    "id": 4,
+    "narration": "Anh tưởng đã nhìn thấy tương lai. Cho đến bức ảnh thứ ba.",
+    "caption": "BỨC ẢNH THỨ BA",
+    "visual": "Bàn tay An run khi nhìn màn hình.",
+    "duration": 132,
+    "start_seconds": 16.5,
+    "image_panel": 4
+  },
+  {
+    "id": 5,
+    "narration": "Trong ảnh, An đang ngủ. Sau lưng anh... là một phụ nữ không có khuôn mặt.",
+    "caption": "AI ĐANG Ở SAU LƯNG?",
+    "visual": "Bóng đen đứng sát giường.",
+    "duration": 132,
+    "start_seconds": 22,
+    "image_panel": 5
+  },
+  {
+    "id": 6,
+    "narration": "Đêm đó, anh khóa cửa, kéo rèm và đặt máy ảnh hướng vào giường.",
+    "caption": "KHÓA CHẶT CỬA",
+    "visual": "Căn phòng yên tĩnh đến đáng sợ.",
+    "duration": 132,
+    "start_seconds": 27.5,
+    "image_panel": 6
+  },
+  {
+    "id": 7,
+    "narration": "Đúng ba giờ sáng... máy ảnh tự bật. Tách.",
+    "caption": "03:00 SÁNG",
+    "visual": "Đèn báo đỏ nhấp nháy; máy tự chụp.",
+    "duration": 132,
+    "start_seconds": 33,
+    "image_panel": 7
+  },
+  {
+    "id": 8,
+    "narration": "Bức thứ tư hiện lên: An đứng ngoài cửa sổ, giữa cơn mưa.",
+    "caption": "BỨC ẢNH THỨ TƯ",
+    "visual": "Trong ảnh có một An khác bên ngoài.",
+    "duration": 132,
+    "start_seconds": 38.5,
+    "image_panel": 8
+  },
+  {
+    "id": 9,
+    "narration": "Nhưng An vẫn ở trong phòng. Căn hộ của anh ở tầng mười ba.",
+    "caption": "TẦNG MƯỜI BA",
+    "visual": "Bên dưới là khoảng không sâu hun hút.",
+    "duration": 132,
+    "start_seconds": 44,
+    "image_panel": 9
+  },
+  {
+    "id": 10,
+    "narration": "An quay về phía giường. Một An khác đang ngủ ở đó. Tách.",
+    "caption": "AI MỚI LÀ AN?",
+    "visual": "Bản sao nằm ngủ, máy ảnh chụp lần nữa.",
+    "duration": 132,
+    "start_seconds": 49.5,
+    "image_panel": 10
+  }
+]
