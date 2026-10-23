@@ -1,0 +1,28 @@
+{
+  "slug": "hat-mam-moi-ngay-v3",
+  "title": "Có Những Nỗ Lực Không Ai Nhìn Thấy — Cinematic V3",
+  "filename": "Hat_Mam_V3_Dien_Anh_Cam_Xuc_1080x1920.mp4",
+  "sha256": "7a4381f2799f970775b5f135a525f9b57171e1390a418629f953860d1dbb96b3",
+  "file_size_bytes": 13378917,
+  "duration_seconds": 35.8,
+  "resolution": "1080x1920",
+  "fps": 30,
+  "video_codec": "h264",
+  "audio_codec": "aac",
+  "source_voice": "Six existing genuine Vbee Ngọc Huyền MP3s",
+  "voice_processing": "Pitch-preserving atempo variable pacing",
+  "scenes": 18,
+  "caption_beats": 16,
+  "archive": {
+    "status": "pending",
+    "github_release_uploaded": false,
+    "github_video_url": null
+  },
+  "qa": {
+    "ffprobe": true,
+    "full_decoding": true,
+    "contact_sheet": true,
+    "repository_pipeline_audit": false,
+    "remotion_render_verified": false
+  }
+}
