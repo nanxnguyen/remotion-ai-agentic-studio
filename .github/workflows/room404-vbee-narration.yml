@@ -48,7 +48,7 @@ jobs:
             exit 1
           fi
       # Validate against Vbee response while keeping credentials masked.
-      - name: Generate all 10 genuine Vbee narration clips
+      - name: Regenerate only revised Vbee closing line
         shell: bash
         run: |
           python3 -m py_compile scripts/gen-room404-vbee.py
@@ -56,12 +56,13 @@ jobs:
             --timeline docs/room404-vbee/timeline.json \
             --out-dir public/audio/room404-vbee \
             --voice-code "$VBEE_VOICE_CODE" \
-            --webhook-url "$VBEE_WEBHOOK_URL"
+            --webhook-url "$VBEE_WEBHOOK_URL" \
+            --only-scene 10
       - name: Upload Vbee narration artifact
         if: success()
         uses: actions/upload-artifact@v4
         with:
-          name: room404-vbee-narration
+          name: room404-vbee-updated-ending
           path: public/audio/room404-vbee/
           if-no-files-found: error
           retention-days: 14
