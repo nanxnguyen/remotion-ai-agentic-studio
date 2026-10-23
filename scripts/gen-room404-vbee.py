@@ -62,8 +62,20 @@ def vbee_tts(text, voice_code, speed, destination):
             content_type = response.headers.get("Content-Type", "").lower()
             audio = response.read()
     except urllib.error.HTTPError as exc:
+        # Read only the documented error fields; never print headers, tokens or payload.
+        error_code, error_message = "UNKNOWN", ""
+        try:
+            obj = json.loads(exc.read(2048).decode("utf-8", errors="replace"))
+            problem = obj.get("error") or {}
+            error_code = str(problem.get("code", "UNKNOWN"))[:60]
+            error_message = str(problem.get("message", ""))[:220]
+            for confidential in (token, app_id):
+                if confidential:
+                    error_message = error_message.replace(confidential, "[REDACTED]")
+        except (ValueError, AttributeError, TypeError):
+            pass
         raise RuntimeError(
-            f"Vbee TTS HTTP {exc.code}: check token/App ID, credits and realtime voice compatibility"
+            f"Vbee TTS HTTP {exc.code}: {error_code}: {error_message}"
         ) from None
     if ("json" in content_type or len(audio) < 200 or
         not (audio.startswith(b"ID3") or
