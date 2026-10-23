@@ -1,0 +1,22 @@
+# Short 02 — V2 narrative world / character production
+
+- Headline: **Bạn làm vừa lòng tất cả… nhưng ai thương bạn?**
+- Story: **17 Tin Nhắn, Không Một Lời Chúc**
+- Skill specialization: `ray-emotional-stick-shorts`
+- Branch: `feat/short02-v2-story-world`
+- Successful GitHub run: https://github.com/nanxnguyen/remotion-ai-agentic-studio/actions/runs/40019382228
+- Final complete MP4: `docs/short-02-17-tin-nhan/v2/final/short02-v2-an-story-world-vbee-60fps.mp4`
+- SHA-256: `3ca23cca21400d21382d9badb1c2b8f71db4d9423f07231e32d6ed9f332d3cea`
+- MP4 length: 40.416667 seconds; 1080×1920; native 60fps; 2425 frames; 10,341,731 bytes
+- Visuals: 28 shots in 14 paired beats; birthday apartment, phone chat, office, friend, mirror, rain, candle, dawn; consistently dressed female protagonist An with amber hair clip and interpolated joints
+- 27 boundary checks / 44-frame transitions / max adjacent mean pixel delta: `0.626`
+- Vbee Thanh Long narration and piano **unchanged from V1**; encoded audio packet MD5: `MD5=86556f3874c2417d426de985eb421fb9`; confirmed source/output equality
+- Technical audio/video metadata + seam QA: **passed**
+- vidIQ media-library import: `ready`
+- vidIQ durable `uploadId`: `b91e0944-d4d5-49b3-b700-4d73232f0dc7`
+- vidIQ playback URL: signed and expiring; refresh with `vidiq_video_upload({uploadId})`; never commit a signed URL
+- Original production / V1 video archived at `docs/short-02-17-tin-nhan/final/short02-17-tin-nhan-vbee-60fps.mp4` without replacement
+- User-facing subjective audio/acting evaluation: **pending actual listening and playback** (not automatically verified)
+- Canonical Remotion/pipeline.py approval gates: **not certified** by this bespoke 60fps FFmpeg/Pillow workflow; do not present this as a completed gate-A–C audit
+- YouTube posting: **not performed**
+- Evidence: `storyboard.jpg`, `seam-QA.json`, `final-QA.json`, `character-bible.md`, `shot-list.csv`
