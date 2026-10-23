@@ -1,0 +1,44 @@
+name: V5 - Retrieve Pexels Free Nature Footage
+on:
+  push:
+    branches: [feat/thoi-quen-nho-v5-original-style]
+    paths: [.github/workflows/v5-pexels-nature.yml]
+permissions:
+  contents: read
+jobs:
+  footage:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Get free Pexels footage through public media CDN
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p v5-pexels
+          urls=(
+           "https://videos.pexels.com/video-files/6368121/6368121-hd_1080_1920_30fps.mp4"
+           "https://videos.pexels.com/video-files/3849645/3849645-hd_1920_1080_30fps.mp4"
+           "https://videos.pexels.com/video-files/32799770/32799770-hd_1920_1080_30fps.mp4"
+           "https://videos.pexels.com/video-files/30039034/30039034-hd_1920_1080_60fps.mp4"
+           "https://videos.pexels.com/video-files/34710690/34710690-hd_1080_1920_30fps.mp4"
+           "https://videos.pexels.com/video-files/37558281/37558281-hd_1080_1920_24fps.mp4"
+           "https://videos.pexels.com/video-files/6368121/6368121-sd_540_960_30fps.mp4"
+           "https://videos.pexels.com/video-files/3849645/3849645-sd_640_360_30fps.mp4"
+          )
+          good=0
+          for i in "${!urls[@]}"; do
+            name=$(printf "s%02d" "$i")
+            echo "Trying ${urls[$i]}"
+            if curl -LfsS --max-time 55 --retry 1 "${urls[$i]}" -o "v5-pexels/${name}.mp4"; then
+              if ffprobe -v error -show_entries format=duration -of csv=p=0 "v5-pexels/${name}.mp4" >/dev/null 2>&1; then good=$((good+1)); else rm -f "v5-pexels/${name}.mp4";fi
+            fi
+          done
+          echo "Valid clips: $good"
+          if [ "$good" -lt 3 ]; then exit 1; fi
+      - uses: actions/upload-artifact@v4
+        with:
+          name: v5-free-pexels-moving-nature
+          path: v5-pexels/
+          retention-days: 14
+          if-no-files-found: error

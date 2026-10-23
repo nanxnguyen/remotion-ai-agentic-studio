@@ -1,0 +1,68 @@
+[
+  {
+    "id": 1,
+    "narration": "Bạn nghĩ thành công đến từ một khoảnh khắc lớn?",
+    "visual_start_seconds": 0,
+    "phase": "HOOK"
+  },
+  {
+    "id": 2,
+    "narration": "Không.",
+    "visual_start_seconds": 0,
+    "phase": "BODY"
+  },
+  {
+    "id": 3,
+    "narration": "Nó bắt đầu từ những việc rất nhỏ.",
+    "visual_start_seconds": 0,
+    "phase": "BODY"
+  },
+  {
+    "id": 4,
+    "narration": "Một trang sách.",
+    "visual_start_seconds": 0,
+    "phase": "BODY"
+  },
+  {
+    "id": 5,
+    "narration": "Mười phút luyện tập.",
+    "visual_start_seconds": 0,
+    "phase": "BODY"
+  },
+  {
+    "id": 6,
+    "narration": "Một lần không bỏ cuộc.",
+    "visual_start_seconds": 0,
+    "phase": "BODY"
+  },
+  {
+    "id": 7,
+    "narration": "Ngày đầu tiên, chẳng ai nhận ra.",
+    "visual_start_seconds": 0,
+    "phase": "DOUBT"
+  },
+  {
+    "id": 8,
+    "narration": "Ngày thứ hai, vẫn vậy.",
+    "visual_start_seconds": 0,
+    "phase": "DOUBT"
+  },
+  {
+    "id": 9,
+    "narration": "Nhưng từng lần lặp lại... bạn đang tiến lên.",
+    "visual_start_seconds": 0,
+    "phase": "PAYOFF"
+  },
+  {
+    "id": 10,
+    "narration": "Rồi một ngày, bạn thấy mình đã đi rất xa.",
+    "visual_start_seconds": 0,
+    "phase": "PAYOFF"
+  },
+  {
+    "id": 11,
+    "narration": "Thành công... là điều nhỏ bé được lặp lại đủ lâu.",
+    "visual_start_seconds": 0,
+    "phase": "PAYOFF"
+  }
+]
