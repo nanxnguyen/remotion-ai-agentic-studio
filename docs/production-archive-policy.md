@@ -46,3 +46,21 @@ The user requires the **actual GitHub MP4 link** in the completion message every
 6. If video archive is blocked, mark the GitHub link **pending**, explain the exact missing binary/upload/permission/QA, and do **not** claim GitHub delivery completed. An Actions run ID or text manifest does not substitute for the binary.
 7. Voice-only edits create a new revision/release; retain earlier versions. Do not overwrite the only copy of a successful older MP4.
 
+### Archiving a locally rendered video
+
+For a final MP4 rendered outside GitHub Actions, the repository now provides a CLI uploader with **real media verification**:
+
+```bash
+# Requires GitHub CLI login (gh auth login), ffprobe and Python 3
+scripts/archive-local-final-video.sh /path/to/verified-final.mp4 my-video-slug
+```
+
+It creates a **draft** GitHub Release, uploads the binary and metadata, then confirms the real MP4 asset's byte size and SHA-256 before printing `video_url` and `release_url`. Use the returned URLs in the completion message. Do not attempt it without actual repository authorization; this chat's GitHub connector cannot itself send raw MP4 bytes to GitHub Releases.
+
+For the previously rendered **Room 404** video (available in the conversation workspace), the intended invocation is:
+
+```bash
+scripts/archive-local-final-video.sh room404_cinematic_VBEE_voice_revised.mp4 room404-vbee
+```
+
+Do not report Room 404 as archived until this upload actually succeeds.
