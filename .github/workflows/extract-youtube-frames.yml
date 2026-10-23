@@ -1,6 +1,9 @@
 name: Extract YouTube Shorts Frames
 
 on:
+  push:
+    branches: [feat/youtube-frame-extractor]
+    paths: ['.github/workflows/extract-youtube-frames.yml']
   workflow_dispatch:
     inputs:
       video_url:
@@ -35,13 +38,30 @@ jobs:
             @ffmpeg-installer/linux-x64 @ffprobe-installer/linux-x64
           echo "$RUNNER_TEMP/ffmpeg-tools/node_modules/@ffmpeg-installer/linux-x64" >> "$GITHUB_PATH"
           echo "$RUNNER_TEMP/ffmpeg-tools/node_modules/@ffprobe-installer/linux-x64" >> "$GITHUB_PATH"
-          python -m pip install --user --upgrade yt-dlp
+          python -m pip install --user --upgrade yt-dlp bgutil-ytdlp-pot-provider
           ~/.local/bin/yt-dlp --version
 
       - name: Set up Deno for YouTube JS challenges
         uses: denoland/setup-deno@v2
         with:
           deno-version: v2.x
+
+      - name: Start BgUtils PO token server
+        run: |
+          set -euo pipefail
+          docker run --name bgutil-provider -d --init \
+            -p 127.0.0.1:4416:4416 brainicism/bgutil-ytdlp-pot-provider:2.0.2
+          for attempt in $(seq 1 30); do
+            if curl -fsS --max-time 2 http://127.0.0.1:4416/ >/dev/null 2>&1; then
+              break
+            fi
+            if ! docker inspect -f '{{.State.Running}}' bgutil-provider | grep -qx true; then
+              docker logs bgutil-provider
+              exit 1
+            fi
+            sleep 2
+          done
+          docker ps --filter name=bgutil-provider
 
       - name: Download video and metadata
         env:
@@ -63,8 +83,8 @@ jobs:
               https://youtube.com/*|https://www.youtube.com/*|https://youtu.be/*|https://m.youtube.com/*) ;;
               *) echo "::error::Only HTTPS YouTube URLs are accepted"; exit 1 ;;
             esac
-            ~/.local/bin/yt-dlp --js-runtimes deno -4 \
-              --extractor-args 'youtube:player_client=tv,web_safari' --no-playlist --max-filesize 150M \
+            ~/.local/bin/yt-dlp --verbose --js-runtimes deno -4 \
+              --extractor-args 'youtube:player_client=mweb,tv,web_safari' --no-playlist --max-filesize 150M \
               --write-info-json --write-description \
               -f 'bv*+ba/b' --merge-output-format mp4 \
               -o 'output/source.%(ext)s' "$VIDEO_URL" || {
@@ -76,6 +96,10 @@ jobs:
           test -n "$VIDEO" && test -s "$VIDEO"
           ffprobe -v error "$VIDEO" > /dev/null
           echo "VIDEO=$VIDEO" >> "$GITHUB_ENV"
+
+      - name: Print BgUtils diagnostics
+        if: failure()
+        run: docker logs --tail 100 bgutil-provider || true
 
       - name: Extract frames and contact sheet
         env:
