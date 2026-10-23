@@ -1,0 +1,20 @@
+{
+  "status": "pass",
+  "durationSeconds": 40.416667,
+  "fps": 60,
+  "resolution": "1080x1920",
+  "shots": 28,
+  "sceneBoundaries": 27,
+  "storyWorldSets": 14,
+  "actor": "An, consistent hairstyle and amber clip",
+  "originalVoiceAndPianoPacketsIdentical": true,
+  "sourceAudioMD5": "MD5=86556f3874c2417d426de985eb421fb9",
+  "maxBoundaryMeanAbsoluteDelta": 0.626,
+  "bytes": 10341731,
+  "sha256": "3ca23cca21400d21382d9badb1c2b8f71db4d9423f07231e32d6ed9f332d3cea",
+  "narration": "Vbee Thanh Long (reused without synthetic regeneration)",
+  "technicalAVCheck": "pass",
+  "subjectiveListeningAndPlayback": "pending human review",
+  "canonicalRemotionPipelineGates": "not certified by this workflow",
+  "youtubePublished": false
+}
