@@ -72,3 +72,6 @@ Các tiện ích đóng gói (không tự chạy khi cài plugin): `scripts/gene
 - Draft Release là lưu trữ cho người có quyền truy cập repo (liên kết có thể yêu cầu đăng nhập), **không** tự công khai/phát hành release hoặc đăng YouTube.
 - Nếu không truyền được MP4 nhị phân từ môi trường hiện tại sang GitHub Actions/GitHub Release, báo rõ **chưa có link video GitHub**, nêu điều kiện còn thiếu và không tự nhận đã lưu thành công. Không phát hành URL được ghép thủ công.
 
+## YouTube retention + cinematic typography (mandatory)
+
+For NEW_FILM and script revisions, apply the [retention + cinematic type framework](references/youtube-retention-cinematic-type.md): **HOOK → BUILD → CLIMAX → PAYOFF**, an immediate visual promise, evidence, escalating stakes, an earned resolution, and a readable cinematic type hierarchy. Build a truthful title/cover/pinned-comment package and a measurement plan; do not claim guaranteed views. When a revised script changes narration, regenerate the corresponding real Vbee audio and verify lip/shot timing; do not retain mismatched old voice. Keep finished MP4 GitHub link delivery requirements unchanged.
