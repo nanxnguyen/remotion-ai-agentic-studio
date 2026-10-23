@@ -2,7 +2,11 @@ name: Short 01 V3 - Cinematic 28-shot emotional retention
 on:
   push:
     branches: [feat/short01-v3-retention-cinematic]
-    paths: ['.github/workflows/short01-v3-cinematic.yml']
+    paths:
+      - '.github/workflows/short01-v3-cinematic.yml'
+      - 'docs/short-01-nho-phien-ban-duoc-yeu/v3/story.json'
+      - 'docs/short-01-nho-phien-ban-duoc-yeu/v3/render_cinematic.py'
+      - 'docs/short-01-nho-phien-ban-duoc-yeu/v3/mix_and_qa.py'
   workflow_dispatch:
 permissions:
   contents: write
