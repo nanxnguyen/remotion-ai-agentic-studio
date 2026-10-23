@@ -3,9 +3,9 @@
 - Story: **17 Tin Nhắn, Không Một Lời Chúc**
 - Production specialization: `ray-emotional-stick-shorts`
 - Branch: `feat/short02-17-messages-healing`
-- Successful production run: https://github.com/nanxnguyen/remotion-ai-agentic-studio/actions/runs/40016793584
+- Successful production runs (both success): https://github.com/nanxnguyen/remotion-ai-agentic-studio/actions/runs/40016793584 and https://github.com/nanxnguyen/remotion-ai-agentic-studio/actions/runs/40016933731
 - Final full AV: `docs/short-02-17-tin-nhan/final/short02-17-tin-nhan-vbee-60fps.mp4`
-- Verified SHA-256 (initial successful render): `cae40120405d8e9b27adb8d2853b250033420dbc3c9167fe8d0fec28731dd966`
+- Verified SHA-256 (both successful renders): `cae40120405d8e9b27adb8d2853b250033420dbc3c9167fe8d0fec28731dd966`
 - Resolution: 1080 × 1920; 60 native FPS; 2,425 frames; duration: 40.416667 seconds
 - Scene count: 28; tested transitions: 27; 44-frame scene handoffs
 - Sound: 8 actual Vbee Thanh Long Vietnamese narration beats and original piano soundtrack mixed into complete MP4
