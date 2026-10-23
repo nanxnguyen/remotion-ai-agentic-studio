@@ -1,0 +1,70 @@
+name: Extract YouTube Shorts Frames
+
+on:
+  workflow_dispatch:
+    inputs:
+      video_url:
+        description: 'Public YouTube video URL'
+        required: true
+        default: 'https://youtube.com/shorts/k9JB4RDDpsw'
+        type: string
+      fps:
+        description: 'Frames per second (1-5)'
+        required: true
+        default: '1'
+        type: choice
+        options: ['1', '2', '5']
+
+permissions:
+  contents: read
+
+jobs:
+  extract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Install ffmpeg and yt-dlp
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg
+          python -m pip install --user --upgrade yt-dlp
+
+      - name: Download video and metadata
+        env:
+          VIDEO_URL: ${{ inputs.video_url }}
+        run: |
+          set -euo pipefail
+          mkdir -p output/frames
+          case "$VIDEO_URL" in
+            https://youtube.com/*|https://www.youtube.com/*|https://youtu.be/*|https://m.youtube.com/*) ;;
+            *) echo "::error::Only HTTPS YouTube URLs are accepted"; exit 1 ;;
+          esac
+          ~/.local/bin/yt-dlp --no-playlist --max-filesize 150M \
+            --write-info-json --write-description \
+            -f 'bv*+ba/b' --merge-output-format mp4 \
+            -o 'output/source.%(ext)s' "$VIDEO_URL"
+          VIDEO=$(find output -maxdepth 1 -type f -name 'source.*' ! -name '*.json' ! -name '*.description' | head -1)
+          test -n "$VIDEO"
+          echo "VIDEO=$VIDEO" >> "$GITHUB_ENV"
+
+      - name: Extract frames and contact sheet
+        env:
+          FPS: ${{ inputs.fps }}
+        run: |
+          set -euo pipefail
+          ffmpeg -hide_banner -loglevel error -i "$VIDEO" \
+            -vf "fps=$FPS,scale=540:-2" -q:v 3 output/frames/frame_%04d.jpg
+          ffmpeg -hide_banner -loglevel error -i "$VIDEO" \
+            -vf "fps=1/3,scale=270:-2,tile=4x5" -frames:v 1 output/contact-sheet.jpg || true
+          ffprobe -v error -show_format -show_streams -of json "$VIDEO" > output/ffprobe.json
+          printf '%s\n' "Video: ${{ inputs.video_url }}" "Frames per second: $FPS" > output/README.txt
+          rm -f "$VIDEO"
+          test "$(find output/frames -name '*.jpg' | wc -l)" -gt 0
+
+      - name: Upload frames and metadata
+        uses: actions/upload-artifact@v4
+        with:
+          name: youtube-short-frames
+          path: output/
+          retention-days: 7
+          if-no-files-found: error
