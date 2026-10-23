@@ -12,7 +12,7 @@ on:
 permissions:
   contents: write
 concurrency:
-  group: short03-mother-photo-production
+  group: short03-mother-photo-production-fast-retry
   cancel-in-progress: true
 jobs:
   produce:
