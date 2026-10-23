@@ -1,0 +1,121 @@
+name: Short 01 V4 - Seamless 60fps transitions
+on:
+  push:
+    branches: [feat/short01-v4-smooth-motion]
+    paths:
+      - '.github/workflows/short01-v4-smooth.yml'
+      - 'docs/short-01-nho-phien-ban-duoc-yeu/v4/render_smooth.py'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: short01-v4-smooth-production
+  cancel-in-progress: false
+jobs:
+  render-smooth:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: feat/short01-v4-smooth-motion
+          persist-credentials: true
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+      - name: Install rendering and QA dependencies
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -qq -y ffmpeg fonts-dejavu-core
+          python3 -m pip install --disable-pip-version-check numpy pillow
+      - name: Verify original Vbee Thanh Long soundtrack exists
+        run: |
+          set -euo pipefail
+          src=docs/short-01-nho-phien-ban-duoc-yeu/final/short01-v3-28-scenes-cinematic-vbee.mp4
+          test -s "$src"
+          ffprobe -v error -show_entries format=duration -show_entries stream=codec_type -of json "$src"
+      - name: Render continuous 60fps camera, one protagonist and 28 smooth scene handoffs
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/short01-v4
+          python3 docs/short-01-nho-phien-ban-duoc-yeu/v4/render_smooth.py render \
+            --out /tmp/short01-v4/visual-only.mp4 \
+            --sheet docs/short-01-nho-phien-ban-duoc-yeu/v4/contact-sheet.jpg
+      - name: Validate all 27 scene-boundary frames for visible motion jumps
+        run: |
+          set -euo pipefail
+          python3 docs/short-01-nho-phien-ban-duoc-yeu/v4/render_smooth.py seam-qa \
+            --out docs/short-01-nho-phien-ban-duoc-yeu/v4/seam-QA.json
+      - name: Remux original verified Vbee voice and original adaptive piano without resynthesis
+        run: |
+          set -euo pipefail
+          src=docs/short-01-nho-phien-ban-duoc-yeu/final/short01-v3-28-scenes-cinematic-vbee.mp4
+          out=docs/short-01-nho-phien-ban-duoc-yeu/final/short01-v4-28-scenes-smooth60.mp4
+          ffmpeg -y -hide_banner -loglevel error \
+            -i /tmp/short01-v4/visual-only.mp4 -i "$src" \
+            -map 0:v:0 -map 1:a:0 -c:v copy -c:a copy \
+            -t 40.416667 -movflags +faststart "$out"
+          python3 - <<'PY'
+          import hashlib,json,subprocess
+          from pathlib import Path
+          folder=Path("docs/short-01-nho-phien-ban-duoc-yeu")
+          src=folder/"final/short01-v3-28-scenes-cinematic-vbee.mp4"
+          out=folder/"final/short01-v4-28-scenes-smooth60.mp4"
+          def inspect(path):
+              return json.loads(subprocess.check_output([
+                 "ffprobe","-v","error","-show_entries",
+                 "format=duration,size:stream=codec_type,width,height,avg_frame_rate",
+                 "-of","json",str(path)],text=True))
+          old=inspect(src);new=inspect(out)
+          vid=[x for x in new["streams"] if x["codec_type"]=="video"]
+          aud=[x for x in new["streams"] if x["codec_type"]=="audio"]
+          assert len(vid)==1 and len(aud)==1,new
+          assert vid[0]["width"]==1080 and vid[0]["height"]==1920,vid
+          assert vid[0]["avg_frame_rate"]=="60/1",vid
+          duration=float(new["format"]["duration"])
+          assert 30<=duration<=45 and abs(duration-40.416667)<.2,duration
+          assert out.stat().st_size>500000
+          # FFmpeg's MD5 muxer hashes copied encoded audio payloads. This
+          # checks no Vbee narration/piano packets were changed during remux.
+          def soundhash(path):
+              return subprocess.check_output(["ffmpeg","-v","error","-i",str(path),
+                 "-map","0:a:0","-c:a","copy","-f","md5","-"],text=True).strip()
+          oldhash=soundhash(src);newhash=soundhash(out)
+          assert oldhash==newhash, (oldhash,newhash)
+          data={"status":"pass","duration":duration,"fps":60,"resolution":"1080x1920",
+                "sceneCount":28,"sceneBoundaries":27,
+                "videoBytes":out.stat().st_size,
+                "audioPacketHashMatchesV3":True,
+                "VbeeVoiceUnchanged":True,"originalPianoUnchanged":True,
+                "sha256":hashlib.sha256(out.read_bytes()).hexdigest(),
+                "subjectiveHumanPlayback":"pending user review",
+                "youtubePublished":False}
+          qa=folder/"v4"/"final-QA.json"
+          qa.write_text(json.dumps(data,indent=2,ensure_ascii=False)+"\n",encoding="utf8")
+          print(json.dumps(data,indent=2))
+          PY
+      - name: Commit verified V4 MP4, visual contact sheet and boundary QA
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add docs/short-01-nho-phien-ban-duoc-yeu/v4/contact-sheet.jpg \
+                  docs/short-01-nho-phien-ban-duoc-yeu/v4/seam-QA.json \
+                  docs/short-01-nho-phien-ban-duoc-yeu/v4/final-QA.json \
+                  docs/short-01-nho-phien-ban-duoc-yeu/final/short01-v4-28-scenes-smooth60.mp4
+          git diff --cached --quiet || git commit -m 'assets(short01): deliver smooth 60fps video with original Vbee audio'
+          git fetch origin feat/short01-v4-smooth-motion
+          git rebase origin/feat/short01-v4-smooth-motion
+          git push origin HEAD:feat/short01-v4-smooth-motion
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: short01-v4-smooth60-preview
+          path: |
+            docs/short-01-nho-phien-ban-duoc-yeu/v4/contact-sheet.jpg
+            docs/short-01-nho-phien-ban-duoc-yeu/v4/seam-QA.json
+            docs/short-01-nho-phien-ban-duoc-yeu/v4/final-QA.json
+            docs/short-01-nho-phien-ban-duoc-yeu/final/short01-v4-28-scenes-smooth60.mp4
+          if-no-files-found: ignore
+          retention-days: 7
