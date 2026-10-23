@@ -12,7 +12,7 @@ on:
       model:
         description: "OpenCode model identifier (provider/model)"
         required: false
-        default: "anthropic/claude-sonnet-4-5"
+        default: "opencode/mimo-v2.5-free"
 permissions:
   contents: read
 concurrency:
@@ -51,18 +51,33 @@ jobs:
           npm install --global @opencode/cli
           opencode --version
           opencode run --help | head -65
-      - name: Require an AI provider API key
+      - name: Select OpenCode free model (no API key)
         shell: bash
         run: |
-          if [[ -z "${ANTHROPIC_API_KEY:-}" && -z "${OPENAI_API_KEY:-}" ]]; then
-            echo "::error::OpenCode CLI is installed, but ANTHROPIC_API_KEY or OPENAI_API_KEY is not configured in GitHub Actions Secrets. GitHub's GITHUB_TOKEN does not pay for or authorize an LLM."
+          set -euo pipefail
+          opencode models opencode | tee /tmp/opencode-models.txt
+          MODEL=""
+          for candidate in "${REQUESTED_MODEL:-opencode/mimo-v2.5-free}" "opencode/mimo-v2.5-free" "opencode/ling-3.0-flash-fin-free" "opencode/nemotron-3-ultra-free"; do
+            if grep -Fxq "$candidate" /tmp/opencode-models.txt; then
+              MODEL="$candidate"
+              break
+            fi
+          done
+          if [[ -z "$MODEL" ]]; then
+            MODEL="$(grep -E '^opencode/[^ ]*free$' /tmp/opencode-models.txt | head -1 || true)"
+          fi
+          if [[ -z "$MODEL" ]]; then
+            echo "::error::No anonymous free OpenCode model available to this runner."
             exit 2
           fi
-          if [[ -n "${ANTHROPIC_API_KEY:-}" ]]; then
-            echo "MODEL=${REQUESTED_MODEL:-anthropic/claude-sonnet-4-5}" >> "$GITHUB_ENV"
-          else
-            echo "MODEL=openai/gpt-5.2" >> "$GITHUB_ENV"
-          fi
+          echo "MODEL=$MODEL" >> "$GITHUB_ENV"
+          echo "Selected model: $MODEL"
+      - name: Smoke-test anonymous free model response
+        shell: bash
+        timeout-minutes: 3
+        run: |
+          set -euo pipefail
+          timeout 120 opencode run --standalone --model "$MODEL" "Reply in Vietnamese in one sentence: xác nhận đã nhận nhiệm vụ làm video." | tee /tmp/opencode-smoke.log
       - name: OpenCode reads skill and drafts a NEW video implementation
         shell: bash
         timeout-minutes: 23
