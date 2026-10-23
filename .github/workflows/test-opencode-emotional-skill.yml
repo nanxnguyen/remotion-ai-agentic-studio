@@ -12,7 +12,7 @@ on:
       model:
         description: "OpenCode model identifier (provider/model)"
         required: false
-        default: "opencode/space-bunny-free"
+        default: "ollama/qwen2.5-coder:1.5b"
 permissions:
   contents: read
 concurrency:
@@ -52,16 +52,26 @@ jobs:
           npm install --global @opencode/cli
           opencode --version
           opencode run --help | head -65
-      - name: Select built-in free OpenCode model
+      - name: Install local Ollama (free, no account, no API key)
+        shell: bash
+        timeout-minutes: 10
+        run: |
+          set -euo pipefail
+          curl -fsSL https://ollama.com/install.sh | sh
+          ollama serve > /tmp/ollama-server.log 2>&1 &
+          for i in $(seq 1 40); do
+            curl -fsS http://127.0.0.1:11434/api/version && break
+            sleep 2
+          done
+          ollama pull qwen2.5-coder:1.5b
+          ollama list
+          echo "MODEL=ollama/qwen2.5-coder:1.5b" >> "$GITHUB_ENV"
+      - name: Confirm OpenCode discovers Ollama model
         shell: bash
         run: |
-          if [[ -z "${OPENCODE_API_KEY:-}" ]]; then
-            echo "::error::GitHub-hosted runner is signed out of OpenCode. Configure OPENCODE_API_KEY (OpenCode Console credentials; a free model can still be selected), or use a self-hosted runner already authenticated to OpenCode."
-            exit 2
-          fi
-          echo "MODEL=${REQUESTED_MODEL:-opencode/space-bunny-free}" >> "$GITHUB_ENV"
-          echo "Using authenticated OpenCode account with free model."
-      - name: Smoke-test anonymous free model response
+          set -euo pipefail
+          opencode models ollama
+      - name: Smoke-test local free model response
         shell: bash
         timeout-minutes: 3
         run: |
