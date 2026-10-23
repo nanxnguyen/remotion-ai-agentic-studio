@@ -1,0 +1,82 @@
+{
+  "status": "technical-pass",
+  "durationSeconds": 42.5,
+  "width": 1080,
+  "height": 1920,
+  "fps": 60,
+  "scenes": 16,
+  "voice": "Vbee Thanh Long Batch",
+  "voiceBeats": [
+    {
+      "beat": 1,
+      "start": 0.12,
+      "sourceSeconds": 4.18,
+      "atempo": 1,
+      "peakDb": -1.0,
+      "direction": "hook chậm, nhấn 17 và 0",
+      "source": "Vbee Batch Thanh Long"
+    },
+    {
+      "beat": 2,
+      "start": 4.78,
+      "sourceSeconds": 3.971,
+      "atempo": 1,
+      "peakDb": -1.6,
+      "direction": "nhẹ giọng hụt hẫng, tự sự",
+      "source": "Vbee Batch Thanh Long"
+    },
+    {
+      "beat": 3,
+      "start": 10.12,
+      "sourceSeconds": 4.754,
+      "atempo": 1,
+      "peakDb": -0.7,
+      "direction": "mệt mỏi sâu, không bi lụy",
+      "source": "Vbee Batch Thanh Long"
+    },
+    {
+      "beat": 4,
+      "start": 15.55,
+      "sourceSeconds": 5.851,
+      "atempo": 1,
+      "peakDb": -1.5,
+      "direction": "căng nhẹ, tăng áp lực ở tin nhắn",
+      "source": "Vbee Batch Thanh Long"
+    },
+    {
+      "beat": 5,
+      "start": 22.21,
+      "sourceSeconds": 6.269,
+      "atempo": 1,
+      "peakDb": -0.9,
+      "direction": "cao trào, ngắt sau 'Vâng', nén cảm xúc",
+      "source": "Vbee Batch Thanh Long"
+    },
+    {
+      "beat": 6,
+      "start": 29.65,
+      "sourceSeconds": 5.094,
+      "atempo": 1,
+      "peakDb": -1.0,
+      "direction": "quyết định dứt khoát rồi ấm",
+      "source": "Vbee Batch Thanh Long"
+    },
+    {
+      "beat": 7,
+      "start": 35.76,
+      "sourceSeconds": 3.866,
+      "atempo": 1,
+      "peakDb": -0.9,
+      "direction": "ấm và lắng, giữ dư âm",
+      "source": "Vbee Batch Thanh Long"
+    }
+  ],
+  "music": "original generated three-act piano",
+  "audioPeakValid": true,
+  "visualContinuity": "checked separately",
+  "subjectiveListening": "pending independent listener",
+  "canonicalIndependentReviewGates": "not fabricated; see HANDOFF.md",
+  "publishedToYoutube": false,
+  "sha256": "bc04b1c7daa9e0e4923be3d4b48d5bacbad80ce3e246fa69dbf9a983cf293919",
+  "bytes": 5727554
+}
