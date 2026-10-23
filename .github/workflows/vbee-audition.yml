@@ -1,0 +1,37 @@
+name: Vbee Batch voice audition — automated callback and polling
+on:
+  push:
+    branches: [feat/vbee-voice-stick-shorts]
+    paths: ['.github/workflows/vbee-audition.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  synthesize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install FFmpeg probe utility
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+      - name: Create Vbee emotional voice (HN Thanh Long)
+        env:
+          VBEE_APP_ID: ${{ secrets.VBEE_APP_ID }}
+          VBEE_ACCESS_TOKEN: ${{ secrets.VBEE_ACCESS_TOKEN }}
+          VBEE_WEBHOOK_URL: https://iehmucsshklgjmxqyggp.supabase.co/functions/v1/vbee-batch-callback
+        run: |
+          set -eu
+          [ -n "$VBEE_APP_ID" ] && [ -n "$VBEE_ACCESS_TOKEN" ] || { echo "::error::Vbee credentials not configured"; exit 1; }
+          python3 .claude/skills/ray-emotional-stick-shorts/scripts/vbee_tts.py \
+            --text-file docs/short-01-nho-phien-ban-duoc-yeu/voice/vbee-audition-script.txt \
+            --voice-code hn_male_thanhlong_talk_48k-fhg \
+            --speed 0.93 \
+            --output docs/short-01-nho-phien-ban-duoc-yeu/voice/vbee-thanhlong-audition.mp3
+          ffprobe -v error -show_entries stream=codec_name -show_entries format=duration -of json docs/short-01-nho-phien-ban-duoc-yeu/voice/vbee-thanhlong-audition.mp3
+          sha256sum docs/short-01-nho-phien-ban-duoc-yeu/voice/vbee-thanhlong-audition.mp3 > docs/short-01-nho-phien-ban-duoc-yeu/voice/vbee-thanhlong-audition.sha256
+      - name: Archive Vbee audio after technical check
+        run: |
+          set -eu
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add docs/short-01-nho-phien-ban-duoc-yeu/voice/vbee-thanhlong-audition.mp3 docs/short-01-nho-phien-ban-duoc-yeu/voice/vbee-thanhlong-audition.sha256
+          git diff --cached --quiet || (git commit -m 'assets(vbee): archive Thanh Long audition voice' && git push)
