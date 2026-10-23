@@ -1,9 +1,6 @@
 name: Extract YouTube Shorts Frames
 
 on:
-  push:
-    branches: [feat/youtube-frame-extractor]
-    paths: ['.github/workflows/extract-youtube-frames.yml']
   workflow_dispatch:
     inputs:
       video_url:
