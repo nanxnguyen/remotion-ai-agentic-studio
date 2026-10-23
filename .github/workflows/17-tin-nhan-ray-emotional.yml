@@ -1,0 +1,150 @@
+name: Ray Emotional Stick Shorts - 17 Tin Nhan
+on:
+  push:
+    branches: [feat/17-tin-nhan-ray-emotional-shorts]
+    paths:
+      - '.github/workflows/17-tin-nhan-ray-emotional.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: ray-emotional-17-messages
+  cancel-in-progress: false
+jobs:
+  produce:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      VID: 17-tin-nhan-khong-loi-chuc
+      VBEE_APP_ID: ${{ secrets.VBEE_APP_ID }}
+      VBEE_ACCESS_TOKEN: ${{ secrets.VBEE_ACCESS_TOKEN }}
+      VBEE_WEBHOOK_URL: https://iehmucsshklgjmxqyggp.supabase.co/functions/v1/vbee-batch-callback
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: feat/17-tin-nhan-ray-emotional-shorts
+          persist-credentials: true
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '22'
+          cache: npm
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+      - name: Install Remotion, ffmpeg, fonts, and Python tools
+        run: |
+          set -euo pipefail
+          npm ci
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg fonts-dejavu-core
+          python3 -m pip install --disable-pip-version-check numpy pillow
+      - name: Read ray-emotional-stick-shorts and validate story contract
+        run: |
+          set -euo pipefail
+          test -s .claude/skills/ray-emotional-stick-shorts/SKILL.md
+          test -s .claude/skills/ray-pineline-worflow-agent/SKILL.md
+          grep -q 'Vbee' .claude/skills/ray-emotional-stick-shorts/SKILL.md
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          d=json.loads(Path('docs/17-tin-nhan-khong-loi-chuc/story.json').read_text(encoding='utf8'))
+          assert d['style']=='ray-emotional-stick-shorts'
+          assert d['fps']==60
+          assert d['durationSeconds']==42.5
+          assert len(d['beats'])==7
+          assert d['publishYoutube'] is False
+          print('Contract: ray emotional skill, original 42.5s film, Vbee Thanh Long, YouTube publishing off.')
+          PY
+      - name: Typecheck and test new composition timeline
+        run: |
+          set -euo pipefail
+          npm run typecheck
+          npx vitest run tests/core/seventeen-messages.test.ts
+      - name: Render original animated Remotion film at real 60 FPS
+        timeout-minutes: 20
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/17-tin-nhan
+          npx remotion render src/index.ts 17-MuoiBayTinNhanReel /tmp/17-tin-nhan/picture.mp4 \
+            --codec h264 --crf 20 --pixel-format yuv420p --concurrency 2
+          ffprobe -v error -show_entries format=duration,size:stream=codec_type,width,height,avg_frame_rate \
+            -of json /tmp/17-tin-nhan/picture.mp4
+      - name: Build original three-act emotional piano score
+        run: |
+          set -euo pipefail
+          python3 docs/17-tin-nhan-khong-loi-chuc/produce_audio.py prepare --workdir /tmp/17-tin-nhan
+          python3 docs/17-tin-nhan-khong-loi-chuc/produce_audio.py score --workdir /tmp/17-tin-nhan
+      - name: Generate seven Vbee Thanh Long voice performances (Batch API)
+        timeout-minutes: 12
+        run: |
+          set -euo pipefail
+          test -n "${VBEE_APP_ID:-}" && test -n "${VBEE_ACCESS_TOKEN:-}"
+          for i in 0 1 2 3 4 5 6; do
+            python3 docs/short-01-nho-phien-ban-duoc-yeu/voice/vbee_batch_tts.py \
+              --text-file "/tmp/17-tin-nhan/beat$i.txt" \
+              --voice-code hn_male_thanhlong_talk_48k-fhg \
+              --speed "$(cat /tmp/17-tin-nhan/speed$i.txt)" \
+              --output "/tmp/17-tin-nhan/voice$i.mp3"
+          done
+      - name: Mix natural Vbee speech and adaptive piano; run duration/AV QA
+        run: |
+          set -euo pipefail
+          python3 docs/17-tin-nhan-khong-loi-chuc/produce_audio.py mix \
+            --workdir /tmp/17-tin-nhan \
+            --out docs/17-tin-nhan-khong-loi-chuc/final/17-tin-nhan-khong-loi-chuc-full-voice-piano.mp4
+      - name: Seam analysis and at least three cinematic frame stills
+        run: |
+          set -euo pipefail
+          mkdir -p docs/17-tin-nhan-khong-loi-chuc/stills
+          python3 docs/17-tin-nhan-khong-loi-chuc/seam_qa.py \
+            --video /tmp/17-tin-nhan/picture.mp4 \
+            --out docs/17-tin-nhan-khong-loi-chuc/final/SEAM-QA.json
+          file=docs/17-tin-nhan-khong-loi-chuc/final/17-tin-nhan-khong-loi-chuc-full-voice-piano.mp4
+          ffmpeg -hide_banner -loglevel error -y -ss 0 -i "$file" -frames:v 1 docs/17-tin-nhan-khong-loi-chuc/stills/hook.png
+          ffmpeg -hide_banner -loglevel error -y -ss 24.8 -i "$file" -frames:v 1 docs/17-tin-nhan-khong-loi-chuc/stills/reveal.png
+          ffmpeg -hide_banner -loglevel error -y -ss 39.3 -i "$file" -frames:v 1 docs/17-tin-nhan-khong-loi-chuc/stills/ending.png
+      - name: Record canonical pipeline audit honestly (no fake gate approvals)
+        if: always()
+        run: |
+          set +e
+          python3 -I scripts/pipeline.py audit 17-tin-nhan-khong-loi-chuc > /tmp/ray-canonical-audit.txt 2>&1
+          result=$?
+          {
+            echo
+            echo "## Latest canonical pipeline audit (GitHub Actions)"
+            echo
+            echo "Audit exit status: $result"
+            echo
+            echo '~~~text'
+            head -100 /tmp/ray-canonical-audit.txt
+            echo '~~~'
+            echo
+            echo 'The presence of a technical MP4 is not a self-approved Gate C or independent creative review.'
+          } >> docs/17-tin-nhan-khong-loi-chuc/HANDOFF.md
+          {
+            echo '### Canonical Ray skill audit'
+            echo "Audit exit status: $result"
+            head -80 /tmp/ray-canonical-audit.txt
+          } >> "$GITHUB_STEP_SUMMARY"
+      - name: Archive candidate MP4 and technical QA evidence (no YouTube publish)
+        if: success()
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add docs/17-tin-nhan-khong-loi-chuc/HANDOFF.md \
+            docs/17-tin-nhan-khong-loi-chuc/final/ \
+            docs/17-tin-nhan-khong-loi-chuc/stills/
+          git diff --cached --quiet || git commit -m 'assets(17-messages): archive Remotion+Vbee technical render and truthfully scoped QA'
+          git fetch origin feat/17-tin-nhan-ray-emotional-shorts
+          git rebase origin/feat/17-tin-nhan-ray-emotional-shorts
+          git push origin HEAD:feat/17-tin-nhan-ray-emotional-shorts
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: ray-emotional-17-tin-nhan-review
+          path: |
+            docs/17-tin-nhan-khong-loi-chuc/stills/
+            docs/17-tin-nhan-khong-loi-chuc/final/
+          if-no-files-found: ignore
+          retention-days: 7
