@@ -1,0 +1,126 @@
+name: Short 01 v2 — 20 expressive scenes + emotional Vbee + adaptive piano
+on:
+  push:
+    branches: [feat/short01-20-scenes-emotional]
+    paths: ['.github/workflows/short01-v2-20-scenes.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    env:
+      VBEE_APP_ID: ${{ secrets.VBEE_APP_ID }}
+      VBEE_ACCESS_TOKEN: ${{ secrets.VBEE_ACCESS_TOKEN }}
+      VBEE_WEBHOOK_URL: https://iehmucsshklgjmxqyggp.supabase.co/functions/v1/vbee-batch-callback
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feat/short01-20-scenes-emotional
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install render tools
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg fonts-dejavu-core
+          python3 -m pip install --disable-pip-version-check pillow numpy
+      - name: Generate original twenty-scene animation and adaptive piano
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/short01-v2
+          python3 docs/short-01-nho-phien-ban-duoc-yeu/v2/render_20_scenes.py preview --shot 15 --out /tmp/short01-v2/preview.png
+          python3 docs/short-01-nho-phien-ban-duoc-yeu/v2/render_20_scenes.py piano --out /tmp/short01-v2/piano.wav
+          python3 docs/short-01-nho-phien-ban-duoc-yeu/v2/render_20_scenes.py render --out /tmp/short01-v2/visual.mp4
+          ffprobe -v error -show_entries format=duration -of default=nw=1 /tmp/short01-v2/visual.mp4
+      - name: Generate expressive Vbee Thanh Long story narration
+        run: |
+          set -euo pipefail
+          test -n "$VBEE_APP_ID" && test -n "$VBEE_ACCESS_TOKEN"
+          python3 - <<'PY'
+          from pathlib import Path
+          p=Path("/tmp/short01-v2")
+          beats=[
+            ("Có thể người bạn nhớ nhất không phải là họ, mà là chính mình của những ngày còn được yêu.",0.91),
+            ("Bạn không muốn quay lại... Chỉ là, có những buổi chiều... ký ức tự tìm về.",0.88),
+            ("Một tin nhắn nhỏ. Một nụ cười... Bạn nhớ mình đã từng hạnh phúc đến thế.",0.92),
+            ("Rồi bạn tự hỏi... Không có họ, liệu mình còn rạng rỡ được không?",0.88),
+            ("Nhưng trái tim biết yêu chân thành... và vui vì điều nhỏ bé... vẫn là bạn.",0.90),
+            ("Hôm nay... tự mua một bó hoa. Uống ly cà phê ấm... và bước tiếp.",0.93),
+            ("Bạn không cần họ quay lại để tìm lại phiên bản từng rạng rỡ ấy.",0.87),
+          ]
+          for i,(line,speed) in enumerate(beats):
+              (p/f"voice{i}.txt").write_text(line,encoding="utf-8")
+              (p/f"speed{i}.txt").write_text(str(speed))
+          PY
+          for i in 0 1 2 3 4 5 6; do
+            python3 docs/short-01-nho-phien-ban-duoc-yeu/voice/vbee_batch_tts.py \
+              --text-file "/tmp/short01-v2/voice$i.txt" \
+              --voice-code hn_male_thanhlong_talk_48k-fhg \
+              --speed "$(cat /tmp/short01-v2/speed$i.txt)" \
+              --output "/tmp/short01-v2/voice$i.mp3"
+          done
+      - name: Align narration, dynamically duck piano, mix and QA
+        run: |
+          set -euo pipefail
+          mkdir -p docs/short-01-nho-phien-ban-duoc-yeu/final
+          python3 - <<'PY'
+          import json, subprocess, hashlib
+          from pathlib import Path
+          p=Path("/tmp/short01-v2")
+          out=Path("docs/short-01-nho-phien-ban-duoc-yeu/final/short01-v2-20-scenes-vbee-emotional.mp4")
+          starts=[0.12,6.45,11.85,17.25,22.70,28.30,34.35]
+          ends=starts[1:]+[40.35]
+          def probe(path):
+              result=subprocess.check_output(["ffprobe","-v","error","-show_entries","format=duration",
+                  "-of","default=noprint_wrappers=1:nokey=1",str(path)],text=True)
+              return float(result.strip())
+          filters=[];inputs=["-i",str(p/"visual.mp4"),"-i",str(p/"piano.wav")]
+          for i in range(7):inputs+=["-i",str(p/f"voice{i}.mp3")]
+          for i,(start,end) in enumerate(zip(starts,ends)):
+              dur=probe(p/f"voice{i}.mp3")
+              budget=end-start-.10
+              speed=max(1,dur/budget)
+              if speed>1.25: raise RuntimeError(f"Voice beat {i} too long ({dur:.2f}s vs {budget:.2f}s); revise script")
+              filters.append(f"[{i+2}:a]aresample=48000,atempo={speed:.5f},adelay={int(start*1000)}:all=1,volume=1.12[v{i}]")
+              print(f"Vbee beat {i}: source {dur:.2f}s, atempo {speed:.3f}, start {start:.2f}s")
+          filters.append("".join(f"[v{i}]" for i in range(7))+"amix=inputs=7:duration=longest:normalize=0[voice]")
+          filters.append("[1:a]aresample=48000,volume=0.55[music]")
+          filters.append("[music][voice]sidechaincompress=threshold=0.025:ratio=5:attack=25:release=480[duck]")
+          filters.append("[duck][voice]amix=inputs=2:duration=first:normalize=0,alimiter=limit=0.93[a]")
+          cmd=["ffmpeg","-y","-hide_banner","-loglevel","error"]+inputs+["-filter_complex",";".join(filters),
+              "-map","0:v:0","-map","[a]","-c:v","copy","-c:a","aac","-b:a","192k",
+              "-t","40.4167","-movflags","+faststart",str(out)]
+          subprocess.run(cmd,check=True)
+          duration=probe(out)
+          if not 30<=duration<=45: raise RuntimeError(f"Bad duration: {duration}")
+          streams=json.loads(subprocess.check_output(["ffprobe","-v","error","-show_streams",
+               "-of","json",str(out)],text=True))["streams"]
+          if not {"video","audio"}.issubset({s["codec_type"] for s in streams}):
+              raise RuntimeError("Missing audio/video stream")
+          if out.stat().st_size<350000: raise RuntimeError("Unexpectedly small output")
+          digest=hashlib.sha256(out.read_bytes()).hexdigest()
+          (out.parent/"V2-20-SCENES-SHA256SUMS").write_text(f"{digest}  {out.name}\n")
+          print(json.dumps({"duration":duration,"size":out.stat().st_size,"sha256":digest,"scene_count":20},indent=2))
+          PY
+      - name: Archive final video and source evidence on branch
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add docs/short-01-nho-phien-ban-duoc-yeu/final/short01-v2-20-scenes-vbee-emotional.mp4 docs/short-01-nho-phien-ban-duoc-yeu/final/V2-20-SCENES-SHA256SUMS
+          git diff --cached --quiet || git commit -m 'assets(short01): archive original 20-scene Vbee emotional v2'
+          git fetch origin feat/short01-20-scenes-emotional
+          git rebase origin/feat/short01-20-scenes-emotional
+          git push origin HEAD:feat/short01-20-scenes-emotional
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: short01-v2-20-scenes
+          path: |
+            /tmp/short01-v2/preview.png
+            docs/short-01-nho-phien-ban-duoc-yeu/final/short01-v2-20-scenes-vbee-emotional.mp4
+          if-no-files-found: ignore
+          retention-days: 7
