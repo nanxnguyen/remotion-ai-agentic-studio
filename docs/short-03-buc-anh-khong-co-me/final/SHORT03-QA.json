@@ -1,0 +1,89 @@
+{
+  "video": "short03-buc-anh-khong-co-me-vbee-60fps.mp4",
+  "durationSeconds": 44.2,
+  "resolution": "1080x1920",
+  "fps": 60,
+  "distinctShots": 18,
+  "voiceBeats": 9,
+  "voiceSource": "Vbee Thanh Long; actual TTS audio decoded",
+  "backgroundMusic": "Original synthesized piano recorded separately",
+  "speechPeakChecks": [
+    {
+      "beat": 1,
+      "start": 0.1,
+      "sourceDuration": 6.22,
+      "tempo": 1.221,
+      "maxVolumeDb": -1.5,
+      "direction": "whisper of surprise"
+    },
+    {
+      "beat": 2,
+      "start": 5.3,
+      "sourceDuration": 5.09,
+      "tempo": 1.001,
+      "maxVolumeDb": -1.8,
+      "direction": "warm memory"
+    },
+    {
+      "beat": 3,
+      "start": 10.5,
+      "sourceDuration": 4.96,
+      "tempo": 1.0,
+      "maxVolumeDb": -0.9,
+      "direction": "affectionate recollection"
+    },
+    {
+      "beat": 4,
+      "start": 15.7,
+      "sourceDuration": 5.12,
+      "tempo": 1.166,
+      "maxVolumeDb": -2.0,
+      "direction": "slow poignant hesitation"
+    },
+    {
+      "beat": 5,
+      "start": 20.2,
+      "sourceDuration": 5.15,
+      "tempo": 1.0,
+      "maxVolumeDb": -1.0,
+      "direction": "quiet suspense and discovery"
+    },
+    {
+      "beat": 6,
+      "start": 25.6,
+      "sourceDuration": 5.12,
+      "tempo": 1.0,
+      "maxVolumeDb": -0.9,
+      "direction": "gentle ache"
+    },
+    {
+      "beat": 7,
+      "start": 30.9,
+      "sourceDuration": 4.78,
+      "tempo": 1.0,
+      "maxVolumeDb": -1.5,
+      "direction": "hushed realization"
+    },
+    {
+      "beat": 8,
+      "start": 36.0,
+      "sourceDuration": 3.97,
+      "tempo": 1.0,
+      "maxVolumeDb": -1.4,
+      "direction": "bright tenderness"
+    },
+    {
+      "beat": 9,
+      "start": 40.2,
+      "sourceDuration": 4.49,
+      "tempo": 1.179,
+      "maxVolumeDb": -0.9,
+      "direction": "uplifting, soft landing"
+    }
+  ],
+  "technicalAVCheck": "pass",
+  "subjectiveListening": "not independently verified",
+  "retentionAnalytics": "unavailable until published and measured",
+  "youtubePublished": false,
+  "sha256": "d1637a1c4d3dcb4838c56c116bfd95b1533da1435132cc7f0ced9f17a9858386"
+}

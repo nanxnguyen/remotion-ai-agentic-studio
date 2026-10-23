@@ -1,0 +1,102 @@
+{
+  "fps": 60,
+  "frames": 2652,
+  "duration": 44.2,
+  "shots": 18,
+  "chapters": 9,
+  "testedSceneBoundaries": 17,
+  "transitionFrames": 40,
+  "maximumBoundaryMeanAbsDelta": 0.522,
+  "subpixelGlobalCamera": true,
+  "characterIdentityLock": [
+    "Linh",
+    "Mom"
+  ],
+  "boundaries": [
+    {
+      "sceneBoundary": 1,
+      "timeSeconds": 2.65,
+      "maxAdjacentFrameMeanAbsDelta": 0.085
+    },
+    {
+      "sceneBoundary": 2,
+      "timeSeconds": 5.3,
+      "maxAdjacentFrameMeanAbsDelta": 0.522
+    },
+    {
+      "sceneBoundary": 3,
+      "timeSeconds": 7.9,
+      "maxAdjacentFrameMeanAbsDelta": 0.105
+    },
+    {
+      "sceneBoundary": 4,
+      "timeSeconds": 10.5,
+      "maxAdjacentFrameMeanAbsDelta": 0.384
+    },
+    {
+      "sceneBoundary": 5,
+      "timeSeconds": 13.1,
+      "maxAdjacentFrameMeanAbsDelta": 0.132
+    },
+    {
+      "sceneBoundary": 6,
+      "timeSeconds": 15.7,
+      "maxAdjacentFrameMeanAbsDelta": 0.428
+    },
+    {
+      "sceneBoundary": 7,
+      "timeSeconds": 17.95,
+      "maxAdjacentFrameMeanAbsDelta": 0.103
+    },
+    {
+      "sceneBoundary": 8,
+      "timeSeconds": 20.2,
+      "maxAdjacentFrameMeanAbsDelta": 0.496
+    },
+    {
+      "sceneBoundary": 9,
+      "timeSeconds": 22.9,
+      "maxAdjacentFrameMeanAbsDelta": 0.057
+    },
+    {
+      "sceneBoundary": 10,
+      "timeSeconds": 25.6,
+      "maxAdjacentFrameMeanAbsDelta": 0.432
+    },
+    {
+      "sceneBoundary": 11,
+      "timeSeconds": 28.25,
+      "maxAdjacentFrameMeanAbsDelta": 0.506
+    },
+    {
+      "sceneBoundary": 12,
+      "timeSeconds": 30.9,
+      "maxAdjacentFrameMeanAbsDelta": 0.521
+    },
+    {
+      "sceneBoundary": 13,
+      "timeSeconds": 33.55,
+      "maxAdjacentFrameMeanAbsDelta": 0.078
+    },
+    {
+      "sceneBoundary": 14,
+      "timeSeconds": 36.2,
+      "maxAdjacentFrameMeanAbsDelta": 0.49
+    },
+    {
+      "sceneBoundary": 15,
+      "timeSeconds": 38.2,
+      "maxAdjacentFrameMeanAbsDelta": 0.082
+    },
+    {
+      "sceneBoundary": 16,
+      "timeSeconds": 40.2,
+      "maxAdjacentFrameMeanAbsDelta": 0.437
+    },
+    {
+      "sceneBoundary": 17,
+      "timeSeconds": 42.2,
+      "maxAdjacentFrameMeanAbsDelta": 0.343
+    }
+  ]
+}
