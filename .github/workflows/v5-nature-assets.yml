@@ -1,0 +1,46 @@
+name: V5 - Retrieve Licensed Nature Footage
+on:
+  push:
+    branches: [feat/thoi-quen-nho-v5-original-style]
+    paths: [.github/workflows/v5-nature-assets.yml]
+permissions:
+  contents: read
+jobs:
+  assets:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download 6 Mixkit Free nature videos
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p v5-nature
+          declare -A srcs
+          srcs[01]="green-little-grass-plants-and-leaves-1867"
+          srcs[02]="sunlight-passing-through-the-leaves-of-a-tree-34371"
+          srcs[03]="green-leaves-being-moved-by-the-wind-1876"
+          srcs[04]="forest-illuminated-by-the-suns-rays-3006"
+          srcs[05]="sunlight-crossing-the-branches-of-trees-1709"
+          srcs[06]="sunlight-through-the-branches-being-moved-by-the-wind-3969"
+          good=0
+          for n in 01 02 03 04 05 06; do
+            name="${srcs[$n]}"
+            url="https://assets.mixkit.co/videos/preview/mixkit-${name}-large.mp4"
+            echo "Downloading shot $n: $url"
+            if curl --fail --location --silent --show-error --retry 2 --max-time 80 -A "Mozilla/5.0" "$url" -o "v5-nature/shot_${n}.mp4"; then
+              if ffprobe -v error -show_entries format=duration -of csv=p=0 "v5-nature/shot_${n}.mp4" >/dev/null 2>&1; then
+                good=$((good+1))
+              else
+                rm -f "v5-nature/shot_${n}.mp4"
+              fi
+            fi
+          done
+          echo "valid_source_clips=$good"
+          if [ "$good" -lt 3 ]; then echo "::error::Only $good downloaded. Need >=3 valid independent nature clips."; exit 1; fi
+      - uses: actions/upload-artifact@v4
+        with:
+          name: v5-mixkit-free-nature-footage
+          path: v5-nature/
+          if-no-files-found: error
+          retention-days: 14
