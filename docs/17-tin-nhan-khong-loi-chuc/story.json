@@ -1,0 +1,62 @@
+{
+  "title": "17 TIN NHẮN, KHÔNG MỘT LỜI CHÚC",
+  "durationSeconds": 42.5,
+  "fps": 60,
+  "frames": 2550,
+  "hookCandidates": [
+    "17 tin nhắn... Không một lời chúc sinh nhật.",
+    "Sinh nhật, An có 17 tin nhắn. Nhưng tất cả đều nhờ cô giúp.",
+    "Một đêm sinh nhật, An nhận ra người mình bỏ quên lâu nhất..."
+  ],
+  "selectedHook": "17 tin nhắn. Không một lời chúc sinh nhật.",
+  "question": "An đã sống vì mọi người, vậy ai thương An?",
+  "resolution": "Một lần tử tế với bản thân bắt đầu từ quyền được nghỉ.",
+  "style": "ray-emotional-stick-shorts",
+  "voiceCode": "hn_male_thanhlong_talk_48k-fhg",
+  "beats": [
+    {
+      "start": 0.12,
+      "speed": 0.96,
+      "emotion": "hook chậm, nhấn 17 và 0",
+      "text": "Sinh nhật An. Mười bảy tin nhắn... không một lời chúc."
+    },
+    {
+      "start": 4.78,
+      "speed": 0.95,
+      "emotion": "nhẹ giọng hụt hẫng, tự sự",
+      "text": "Tất cả đều nhờ cô giúp. Vì An chưa từng biết nói không."
+    },
+    {
+      "start": 10.12,
+      "speed": 0.97,
+      "emotion": "mệt mỏi sâu, không bi lụy",
+      "text": "Ai buồn, cô lắng nghe. Ai mệt, cô nhận phần khó."
+    },
+    {
+      "start": 15.55,
+      "speed": 0.96,
+      "emotion": "căng nhẹ, tăng áp lực ở tin nhắn",
+      "text": "Gần nửa đêm, bánh vẫn chưa thắp nến. Điện thoại lại sáng: Giúp chị nhé?"
+    },
+    {
+      "start": 22.21,
+      "speed": 0.93,
+      "emotion": "cao trào, ngắt sau 'Vâng', nén cảm xúc",
+      "text": "An gõ chữ Vâng... rồi khựng lại. Trong màn hình tối... cô thấy chính mình đang khóc."
+    },
+    {
+      "start": 29.65,
+      "speed": 0.96,
+      "emotion": "quyết định dứt khoát rồi ấm",
+      "text": "Cô xóa đi, viết: Hôm nay em cần nghỉ. Rồi tự thắp nến cho mình."
+    },
+    {
+      "start": 35.76,
+      "speed": 0.94,
+      "emotion": "ấm và lắng, giữ dư âm",
+      "text": "Đừng đợi đến lúc kiệt sức... mới cho phép bản thân được thương."
+    }
+  ],
+  "videoFile": "17-tin-nhan-khong-loi-chuc-full-voice-piano.mp4",
+  "publishYoutube": false
+}
