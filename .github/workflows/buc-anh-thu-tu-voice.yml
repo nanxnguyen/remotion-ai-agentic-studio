@@ -1,4 +1,4 @@
-name: Buc Anh Thu Tu - Vbee narration
+name: Buc Anh Thu Tu - Vbee revised cinematic narration
 
 on:
   workflow_dispatch:
@@ -9,10 +9,9 @@ on:
         required: true
         type: string
   push:
-    branches: [feat/buc-anh-thu-tu-video, feat/buc-anh-thu-tu-retention-cinematic-typography]
+    branches: [feat/buc-anh-thu-tu-cinematic-type-final]
     paths:
       - .github/workflows/buc-anh-thu-tu-voice.yml
-      - docs/buc-anh-thu-tu/timeline.json
 
 permissions:
   contents: read
@@ -52,7 +51,7 @@ jobs:
             --timeline docs/buc-anh-thu-tu/timeline.json \
             --out-dir public/audio/buc-anh-thu-tu \
             --voice-code "$VBEE_VOICE_CODE" \
-            --speed 1.08 \
+            --speed 1.10 \
             --webhook-url "$VBEE_WEBHOOK_URL"
       - name: Store final voice tracks
         uses: actions/upload-artifact@v4
