@@ -1,0 +1,15 @@
+{
+  "status": "pass",
+  "duration": 40.416667,
+  "fps": 60,
+  "resolution": "1080x1920",
+  "sceneCount": 28,
+  "sceneBoundaries": 27,
+  "videoBytes": 9831541,
+  "audioPacketHashMatchesV3": true,
+  "VbeeVoiceUnchanged": true,
+  "originalPianoUnchanged": true,
+  "sha256": "c3a136ec86f2b0298e4b8f3ed0542e0c1b329512e2c4a7b1d0669c0204effe86",
+  "subjectiveHumanPlayback": "pending user review",
+  "youtubePublished": false
+}
