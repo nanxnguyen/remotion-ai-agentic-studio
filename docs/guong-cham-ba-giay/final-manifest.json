@@ -1,0 +1,25 @@
+{
+  "title": "Gương Chậm Ba Giây",
+  "filename": "guong_cham_ba_giay_VBEE_cinematic_60s.mp4",
+  "duration_seconds": 60,
+  "resolution": "720x1280",
+  "frame_rate": 24,
+  "video_codec": "h264",
+  "audio_codec": "aac",
+  "vbee_voice_code": "hn_male_phuthang_stor_24k-stl",
+  "vbee_workflow_run": 39997419999,
+  "story_structure": [
+    "HOOK",
+    "BODY",
+    "CLIMAX",
+    "ENDING"
+  ],
+  "scene_count": 10,
+  "transition_count": 9,
+  "caption_beats": 20,
+  "sha256": "f75c78631a03cb94d58935fedf8bcf9e034897988622fe2d7b3afb1d89e292b4",
+  "bytes": 6252076,
+  "qa_passed": true,
+  "github_release_uploaded": false,
+  "github_video_url": null
+}

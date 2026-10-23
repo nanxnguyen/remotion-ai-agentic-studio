@@ -1,0 +1,48 @@
+name: Guong Cham Ba Giay - Vbee narration
+on:
+  push:
+    branches: [feat/guong-cham-ba-giay-film]
+    paths:
+      - .github/workflows/guong-cham-ba-giay-voice.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: guong-cham-ba-giay-vbee-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  voice:
+    runs-on: ubuntu-latest
+    timeout-minutes: 50
+    env:
+      VBEE_ACCESS_TOKEN: ${{ secrets.VBEE_ACCESS_TOKEN || secrets.VBEE_TOKEN || secrets.VBEE_API_KEY || secrets.VBEE_API_TOKEN }}
+      VBEE_APP_ID: ${{ secrets.VBEE_APP_ID || secrets.VBEE_APPID || secrets.VBEE_APPLICATION_ID }}
+      VBEE_VOICE_CODE: hn_male_phuthang_stor_24k-stl
+      VBEE_WEBHOOK_URL: ${{ vars.VBEE_WEBHOOK_URL || 'https://example.com/story-tts-webhook' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install ffmpeg
+        run: sudo apt-get update -qq && sudo apt-get install -qq -y ffmpeg
+      - name: Verify Vbee credentials
+        run: |
+          if [[ -z "$VBEE_ACCESS_TOKEN" || -z "$VBEE_APP_ID" ]]; then
+            echo "::error::Vbee credentials unavailable"
+            exit 1
+          fi
+      - name: Narrate with genuine Vbee batch API
+        run: |
+          python3 scripts/gen-story-vbee-batch.py \
+            --timeline docs/guong-cham-ba-giay/timeline.json \
+            --out-dir public/audio/guong-cham-ba-giay \
+            --voice-code "$VBEE_VOICE_CODE" \
+            --speed 1.12 \
+            --webhook-url "$VBEE_WEBHOOK_URL"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: guong-cham-ba-giay-anh-khoi-voice
+          path: public/audio/guong-cham-ba-giay/
+          retention-days: 14
+          if-no-files-found: error

@@ -1,0 +1,39 @@
+name: Mirror Three Seconds - Vbee fast track
+on:
+  push:
+    branches: [feat/guong-cham-ba-giay-film]
+    paths:
+      - .github/workflows/guong-cham-ba-giay-voice-fast.yml
+permissions:
+  contents: read
+jobs:
+  voice:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    env:
+      VBEE_ACCESS_TOKEN: ${{ secrets.VBEE_ACCESS_TOKEN || secrets.VBEE_TOKEN || secrets.VBEE_API_KEY || secrets.VBEE_API_TOKEN }}
+      VBEE_APP_ID: ${{ secrets.VBEE_APP_ID || secrets.VBEE_APPID || secrets.VBEE_APPLICATION_ID }}
+      VBEE_VOICE_CODE: hn_male_phuthang_stor_24k-stl
+      VBEE_WEBHOOK_URL: ${{ vars.VBEE_WEBHOOK_URL || 'https://example.com/story-tts-webhook' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Check Python runtime
+        run: python3 --version
+      - name: Generate verified original Vbee batch voice
+        run: |
+          test -n "$VBEE_ACCESS_TOKEN" && test -n "$VBEE_APP_ID"
+          python3 scripts/gen-story-vbee-batch.py \
+            --timeline docs/guong-cham-ba-giay/timeline.json \
+            --out-dir public/audio/guong-cham-ba-giay \
+            --voice-code "$VBEE_VOICE_CODE" \
+            --speed 1.12 \
+            --webhook-url "$VBEE_WEBHOOK_URL"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: guong-cham-ba-giay-original-vbee-voice
+          path: public/audio/guong-cham-ba-giay/
+          retention-days: 14
+          if-no-files-found: error
