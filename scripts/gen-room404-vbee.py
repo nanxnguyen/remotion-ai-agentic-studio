@@ -113,6 +113,7 @@ def main():
     ap.add_argument("--speed", type=float, default=0.98)
     ap.add_argument("--webhook-url", default=os.environ.get("VBEE_WEBHOOK_URL", WEBHOOK))
     ap.add_argument("--limit", type=int, default=0, help="Generate only first N scenes for a non-destructive capability test")
+    ap.add_argument("--only-scene", type=int, default=0, help="Regenerate one scene (1-indexed), leaving other audio untouched")
     args = ap.parse_args()
     if not (0.25 <= args.speed <= 1.9):
         ap.error("Speed must be between 0.25 and 1.9")
@@ -120,9 +121,14 @@ def main():
         ap.error("webhook URL must be HTTPS")
     all_scenes = json.loads(args.timeline.read_text(encoding="utf-8"))
     scenes = all_scenes[:args.limit] if args.limit else all_scenes
+    if args.only_scene:
+        scenes = [s for s in all_scenes if int(s.get("id", 0)) == args.only_scene]
+        if len(scenes) != 1:
+            ap.error("Invalid --only-scene; no matching scene")
     args.out_dir.mkdir(parents=True, exist_ok=True)
     timeline = []
-    for i, scene in enumerate(scenes, 1):
+    for scene in scenes:
+        i = int(scene["id"])
         dest = args.out_dir / f"s{i}.mp3"
         generate_async(scene["narration"], args.voice_code, args.speed, dest, args.webhook_url)
         duration = read_duration(dest)
