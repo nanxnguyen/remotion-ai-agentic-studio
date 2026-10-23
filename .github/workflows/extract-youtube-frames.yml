@@ -1,10 +1,6 @@
 name: Extract YouTube Shorts Frames
 
 on:
-  # Temporary smoke-test trigger; remove after validation.
-  push:
-    branches: [feat/youtube-frame-extractor]
-    paths: ['.github/workflows/extract-youtube-frames.yml']
   workflow_dispatch:
     inputs:
       source_mode:
