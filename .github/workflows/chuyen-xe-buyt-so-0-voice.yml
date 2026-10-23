@@ -1,0 +1,62 @@
+name: Chuyen Xe Buyt So 0 - Genuine Vbee voice
+on:
+  push:
+    branches: [feat/chuyen-xe-buyt-so-0-60s]
+    paths:
+      - .github/workflows/chuyen-xe-buyt-so-0-voice.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  narrator:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    env:
+      VBEE_ACCESS_TOKEN: ${{ secrets.VBEE_ACCESS_TOKEN || secrets.VBEE_TOKEN || secrets.VBEE_API_KEY || secrets.VBEE_API_TOKEN }}
+      VBEE_APP_ID: ${{ secrets.VBEE_APP_ID || secrets.VBEE_APPID || secrets.VBEE_APPLICATION_ID }}
+      VBEE_WEBHOOK_URL: ${{ vars.VBEE_WEBHOOK_URL || 'https://example.com/story-tts-webhook' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Generate authentic Vbee Anh Khoi narrator
+        run: |
+          test -n "$VBEE_ACCESS_TOKEN" && test -n "$VBEE_APP_ID"
+          python3 scripts/gen-story-vbee-batch.py \
+            --timeline docs/chuyen-xe-buyt-so-0/narrator.json \
+            --out-dir public/audio/chuyen-xe-buyt-so-0/narrator \
+            --voice-code hn_male_phuthang_stor_24k-stl \
+            --speed 1.12
+      - uses: actions/upload-artifact@v4
+        with:
+          name: chuyen-xe-buyt-so-0-vbee-anh-khoi
+          path: public/audio/chuyen-xe-buyt-so-0/narrator/
+          retention-days: 14
+          if-no-files-found: error
+  dialogue:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      VBEE_ACCESS_TOKEN: ${{ secrets.VBEE_ACCESS_TOKEN || secrets.VBEE_TOKEN || secrets.VBEE_API_KEY || secrets.VBEE_API_TOKEN }}
+      VBEE_APP_ID: ${{ secrets.VBEE_APP_ID || secrets.VBEE_APPID || secrets.VBEE_APPLICATION_ID }}
+      VBEE_WEBHOOK_URL: ${{ vars.VBEE_WEBHOOK_URL || 'https://example.com/story-tts-webhook' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Generate authentic Vbee female dialogue
+        run: |
+          test -n "$VBEE_ACCESS_TOKEN" && test -n "$VBEE_APP_ID"
+          python3 scripts/gen-story-vbee-batch.py \
+            --timeline docs/chuyen-xe-buyt-so-0/grandmother.json \
+            --out-dir public/audio/chuyen-xe-buyt-so-0/grandmother \
+            --voice-code hn_female_ngochuyen_full_48k-fhg \
+            --speed 0.94
+      - uses: actions/upload-artifact@v4
+        with:
+          name: chuyen-xe-buyt-so-0-vbee-grandmother
+          path: public/audio/chuyen-xe-buyt-so-0/grandmother/
+          retention-days: 14
+          if-no-files-found: error
