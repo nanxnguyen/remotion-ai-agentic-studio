@@ -1,10 +1,6 @@
 name: Extract YouTube Shorts Frames
 
 on:
-  # Temporary push trigger to validate downloading the user-provided Drive file.
-  push:
-    branches: [feat/youtube-frame-extractor]
-    paths: ['.github/workflows/extract-youtube-frames.yml']
   workflow_dispatch:
     inputs:
       source_mode:
@@ -55,10 +51,10 @@ jobs:
     runs-on: ${{ fromJSON(inputs.runner == 'self-hosted' && '["self-hosted","linux","x64"]' || '"ubuntu-latest"') }}
     timeout-minutes: 15
     env:
-      SOURCE_MODE: ${{ github.event_name == 'push' && 'google_drive' || inputs.source_mode }}
+      SOURCE_MODE: ${{ inputs.source_mode || 'demo' }}
       FPS: ${{ inputs.fps || '1' }}
       VIDEO_URL: ${{ inputs.video_url || 'https://youtube.com/shorts/k9JB4RDDpsw' }}
-      DRIVE_FILE_ID: ${{ github.event_name == 'push' && '1QHfdJO232rm7jKpvewZuw2nn3MfiXK6G' || inputs.drive_file_id }}
+      DRIVE_FILE_ID: ${{ inputs.drive_file_id || '' }}
       MP4_URL: ${{ inputs.mp4_url || '' }}
       RUNNER_KIND: ${{ inputs.runner || 'github-hosted' }}
     steps:
