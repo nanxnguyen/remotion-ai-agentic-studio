@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "narration": "Bạn đang đợi một ngày thật nhiều động lực để thay đổi cuộc đời? Đừng đợi.",
+    "label": "ĐỪNG ĐỢI ĐỘNG LỰC"
+  },
+  {
+    "id": 2,
+    "narration": "Không ai giỏi lên chỉ sau một đêm.",
+    "label": "KHÔNG CÓ PHÉP MÀU"
+  },
+  {
+    "id": 3,
+    "narration": "Một trang sách. Mười phút vận động. Một việc khó hoàn thành.",
+    "label": "MỘT VIỆC NHỎ"
+  },
+  {
+    "id": 4,
+    "narration": "Hôm nay, có thể chẳng ai nhận ra. Ngày mai, bạn vẫn thấy mình như cũ.",
+    "label": "NHƯNG ĐỪNG DỪNG"
+  },
+  {
+    "id": 5,
+    "narration": "Nhưng sau một trăm ngày, chính những điều nhỏ ấy tạo nên một con người khác.",
+    "label": "100 NGÀY TÍCH LŨY"
+  },
+  {
+    "id": 6,
+    "narration": "Đừng cố thay đổi tất cả. Hãy tốt hơn hôm qua một chút. Rồi lặp lại.",
+    "label": "HƠN HÔM QUA 1%"
+  }
+]
