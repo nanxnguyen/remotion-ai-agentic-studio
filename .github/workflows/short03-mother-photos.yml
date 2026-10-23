@@ -13,7 +13,7 @@ permissions:
   contents: write
 concurrency:
   group: short03-mother-photo-production
-  cancel-in-progress: false
+  cancel-in-progress: true
 jobs:
   produce:
     runs-on: ubuntu-latest
@@ -30,12 +30,16 @@ jobs:
       - uses: actions/setup-python@v7
         with:
           python-version: '3.12'
-      - name: Install video dependencies
+      - name: Install media dependencies from preinstalled runner image
         run: |
           set -euo pipefail
-          sudo apt-get update -qq
-          sudo apt-get install -y -qq ffmpeg fonts-dejavu-core
           python3 -m pip install --disable-pip-version-check numpy pillow
+          if ! command -v ffmpeg >/dev/null || ! test -s /usr/share/fonts/truetype/dejavu/DejaVuSans.ttf; then
+            timeout 120s sudo apt-get update -qq
+            timeout 120s sudo apt-get install -y -qq ffmpeg fonts-dejavu-core
+          fi
+          command -v ffmpeg
+          test -s /usr/share/fonts/truetype/dejavu/DejaVuSans.ttf
       - name: Read ray-emotional-stick-shorts and verify story contract
         run: |
           set -euo pipefail
