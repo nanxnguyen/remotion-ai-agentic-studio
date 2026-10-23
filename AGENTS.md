@@ -61,3 +61,9 @@ See `.claude/skills/ray-pineline-worflow-agent/references/architecture-contract.
 ## Durable skill and finished-video storage
 
 Store newly created video skills both under `.claude/skills/<name>/` (agent runtime) and `plugins/<name>/` (reinstallable package). They must be committed to this repository, with sensitive values excluded. Once a fully reviewed video is final, archive its actual MP4 in a **draft GitHub Release** using `.github/workflows/archive-finished-video.yml` after the final MP4 is uploaded to an Actions artifact; store a SHA-256 manifest and verify the Release asset. Keep MP4 binaries out of normal Git history and do not publish releases or YouTube content without separate authorization. See `docs/production-archive-policy.md`. An unuploaded local/chat MP4 is not a GitHub archive.
+
+
+### Required output link for every completed video
+
+For every successful new video or audio-only revision, archive the **actual verified final MP4** as a draft GitHub Release asset and include its verified **GitHub video download link** plus **Release page link** in the user-facing delivery. \`.github/workflows/archive-finished-video.yml\` now exports \`video_url\`, \`release_url\`, and \`sha256\`, and writes a readable Actions job summary and \`github-video-links-<slug>\` artifact. If upload or QA is blocked, report GitHub archive as pending; never manufacture links or imply that a chat attachment is already on GitHub.
+

@@ -33,3 +33,16 @@ If the video was rendered only in a local/chat container and not in Actions, use
 ## Previously produced example
 
 The verified Room 404 Vbee video is `room404_cinematic_VBEE_voice_revised.mp4`, 55 seconds, 720×1280, H.264/AAC, with the shorter closing line. Its source media currently exists in the conversation workspace, and **must not be marked as archived to GitHub until its actual MP4 is uploaded** through the approved media route. Associated Vbee narration script/workflow are on `feat/room404-vbee-narration` until integrated into the main codebase.
+
+## Mandatory GitHub video link delivery after every successful production
+
+The user requires the **actual GitHub MP4 link** in the completion message every time a video is produced or a voice-only revision is exported successfully.
+
+1. Produce and independently QA the **real final H.264/AAC MP4**; upload to a producing GitHub Actions run artifact \`final-video\`. Gate evidence is mandatory; a proposed QA pass does not count.
+2. In the production workflow, follow the upload-artifact step with a job that calls \`./.github/workflows/archive-finished-video.yml\` via \`workflow_call\`: set \`video_slug\`, \`source_run_id: \${{ github.run_id }}\`, \`artifact_name: final-video\`, \`qa_approved: true\` only after verified QA. The reusable workflow exposes \`needs.<job>.outputs.video_url\`, \`release_url\`, \`sha256\`.
+3. The archive workflow checks the final GitHub Release asset **byte size and SHA-256 where supported by GitHub**, retrieves its real \`browser_download_url\` and \`html_url\`, and writes them in the **Actions Job Summary** and a downloadable \`github-video-links-<slug>\` JSON artifact. Never generate a plausible URL without verifying the release actually contains the MP4.
+4. On completion, send **[Xem / tải video trên GitHub]** (verified video_url) **and** **[GitHub Release]** (verified release_url). Local/sandbox video links are optional supplements only.
+5. Draft Releases are private-to-repository collaborators until published; authenticated GitHub access can be necessary. Do not publish a draft or change repository visibility without separate approval.
+6. If video archive is blocked, mark the GitHub link **pending**, explain the exact missing binary/upload/permission/QA, and do **not** claim GitHub delivery completed. An Actions run ID or text manifest does not substitute for the binary.
+7. Voice-only edits create a new revision/release; retain earlier versions. Do not overwrite the only copy of a successful older MP4.
+
