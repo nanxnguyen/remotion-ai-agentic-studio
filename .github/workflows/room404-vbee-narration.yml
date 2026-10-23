@@ -1,0 +1,64 @@
+name: Room 404 - Genuine Vbee narration
+
+on:
+  workflow_dispatch:
+    inputs:
+      voice_code:
+        description: Official Vbee realtime voice code
+        required: true
+        type: string
+        default: hn_female_ngochuyen_full_48k-fhg
+  push:
+    branches:
+      - feat/room404-vbee-narration
+    paths:
+      - .github/workflows/room404-vbee-narration.yml
+
+permissions:
+  contents: read
+
+concurrency:
+  group: room404-vbee-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  vbee-narration:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      # Secret values are passed only to the runner (never logged or committed).
+      VBEE_ACCESS_TOKEN: ${{ secrets.VBEE_ACCESS_TOKEN || secrets.VBEE_TOKEN || secrets.VBEE_API_KEY || secrets.VBEE_API_TOKEN }}
+      VBEE_APP_ID: ${{ secrets.VBEE_APP_ID || secrets.VBEE_APPID || secrets.VBEE_APPLICATION_ID }}
+      VBEE_VOICE_CODE: ${{ inputs.voice_code || vars.VBEE_VOICE_CODE || 'hn_female_ngochuyen_full_48k-fhg' }}
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v4
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install ffprobe
+        run: sudo apt-get update && sudo apt-get install -y ffmpeg
+      - name: Check runtime Vbee credential mappings
+        shell: bash
+        run: |
+          if [[ -z "$VBEE_ACCESS_TOKEN" || -z "$VBEE_APP_ID" ]]; then
+            echo "::error::Vbee token or App ID secret mapping is missing. Check repo Action Secrets names."
+            exit 1
+          fi
+      - name: Generate 10 genuine Vbee narration MP3 files
+        shell: bash
+        run: |
+          python3 -m py_compile scripts/gen-room404-vbee.py
+          python3 scripts/gen-room404-vbee.py \
+            --timeline docs/room404-vbee/timeline.json \
+            --out-dir public/audio/room404-vbee \
+            --voice-code "$VBEE_VOICE_CODE"
+      - name: Upload Vbee narration artifact
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: room404-vbee-narration
+          path: public/audio/room404-vbee/
+          if-no-files-found: error
+          retention-days: 14
