@@ -4,10 +4,10 @@ on:
   workflow_dispatch:
     inputs:
       voice_code:
-        description: Official Vbee realtime voice code
+        description: Official Vbee batch voice code
         required: true
         type: string
-        default: hn_female_ngochuyen_full_48k-fhg
+        default: hn_male_phuthang_stor_24k-stl
   push:
     branches:
       - feat/room404-vbee-narration
@@ -24,12 +24,13 @@ concurrency:
 jobs:
   vbee-narration:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 24
     env:
       # Secret values are passed only to the runner (never logged or committed).
       VBEE_ACCESS_TOKEN: ${{ secrets.VBEE_ACCESS_TOKEN || secrets.VBEE_TOKEN || secrets.VBEE_API_KEY || secrets.VBEE_API_TOKEN }}
       VBEE_APP_ID: ${{ secrets.VBEE_APP_ID || secrets.VBEE_APPID || secrets.VBEE_APPLICATION_ID }}
-      VBEE_VOICE_CODE: ${{ inputs.voice_code || vars.VBEE_VOICE_CODE || 'hn_female_ngochuyen_full_48k-fhg' }}
+      VBEE_WEBHOOK_URL: ${{ vars.VBEE_WEBHOOK_URL || 'https://example.com/room404-vbee-callback' }}
+      VBEE_VOICE_CODE: ${{ inputs.voice_code || vars.VBEE_VOICE_CODE || 'hn_male_phuthang_stor_24k-stl' }}
     steps:
       - name: Checkout sources
         uses: actions/checkout@v4
@@ -47,19 +48,21 @@ jobs:
             exit 1
           fi
       # Validate against Vbee response while keeping credentials masked.
-      - name: Generate 10 genuine Vbee narration MP3 files
+      - name: Test Vbee batch narration for first scene
         shell: bash
         run: |
           python3 -m py_compile scripts/gen-room404-vbee.py
           python3 scripts/gen-room404-vbee.py \
             --timeline docs/room404-vbee/timeline.json \
             --out-dir public/audio/room404-vbee \
-            --voice-code "$VBEE_VOICE_CODE"
+            --voice-code "$VBEE_VOICE_CODE" \
+            --webhook-url "$VBEE_WEBHOOK_URL" \
+            --limit 1
       - name: Upload Vbee narration artifact
         if: success()
         uses: actions/upload-artifact@v4
         with:
-          name: room404-vbee-narration
+          name: room404-vbee-narration-test
           path: public/audio/room404-vbee/
           if-no-files-found: error
           retention-days: 14
