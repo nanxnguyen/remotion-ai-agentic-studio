@@ -34,3 +34,13 @@
 - Uploading a video to vidIQ media library, where connector is enabled, does not publish it to YouTube.
 - Do not publish expiring signed URLs or TTS API credentials.
 - Final speech audibility/stream presence and duration checks are technical only; independent human listening and aesthetic judgement have not been completed.
+
+
+## V3 verified delivery — 2026-10-24
+- GitHub Actions successful run: https://github.com/nanxnguyen/remotion-ai-agentic-studio/actions/runs/39995548979
+- MP4: `docs/short-01-nho-phien-ban-duoc-yeu/final/short01-v3-28-scenes-cinematic-vbee.mp4`
+- 40.416667 seconds, 1080×1920, 24fps, 28 visually planned scenes, 8 genuine Vbee Thanh Long voice segments, original adaptive piano, FFmpeg ducking.
+- Checksum: `a1ec7922dfec38d79a47090a2f14b653810e9b5406d6f8cd6dac9de8c82b85f7` (SHA256).
+- QA: `docs/short-01-nho-phien-ban-duoc-yeu/final/V3-QA.json`; technically verified streams/beat peaks/duration, not independently listened to.
+- Full video imported into vidIQ media library, durable upload ID: `c32e7dd2-7f0a-4554-a1af-2fc1271092ed`. Refresh via vidIQ upload lookup by ID when needed; signed video links expire.
+- YouTube publishing remains unapproved and was not performed.
