@@ -1,0 +1,346 @@
+{
+  "title": "Bạn nhớ họ, hay nhớ phiên bản mình khi được họ yêu?",
+  "version": "v3-retention",
+  "durationTargetSeconds": 40.416667,
+  "resolution": [
+    1080,
+    1920
+  ],
+  "fps": 24,
+  "voice": {
+    "provider": "Vbee Batch",
+    "voiceCode": "hn_male_thanhlong_talk_48k-fhg",
+    "beats": [
+      {
+        "start": 0.12,
+        "emotion": "móc câu, trầm và gần, ngắt sau chữ 'họ'",
+        "speed": 0.97,
+        "text": "Bạn tưởng mình còn yêu họ... Nhưng có khi, người bạn nhớ nhất... lại là chính mình."
+      },
+      {
+        "start": 5.5,
+        "emotion": "ấm dần, hồi ức có nụ cười",
+        "speed": 0.98,
+        "text": "Ngày ấy... chỉ một tin nhắn, bạn đã cười cả buổi chiều. Mọi thứ đều dịu dàng đến lạ."
+      },
+      {
+        "start": 10.9,
+        "emotion": "rơi đột ngột rồi chậm lại",
+        "speed": 0.97,
+        "text": "Rồi họ rời đi. Điện thoại vẫn sáng... chỉ không còn tên họ. Căn phòng bỗng rộng đến đau lòng."
+      },
+      {
+        "start": 16.25,
+        "emotion": "nội tâm, khoảng lặng trước sự thật",
+        "speed": 0.98,
+        "text": "Bạn nghĩ mình đánh mất một người... Đến khi soi gương, lại chẳng còn nhận ra nụ cười của chính mình."
+      },
+      {
+        "start": 21.65,
+        "emotion": "cao trào nhấn vào 'bạn cũng quên mất'",
+        "speed": 0.97,
+        "text": "Đau nhất không phải vì họ quên bạn... Mà vì bạn cũng quên mất... mình từng rạng rỡ đến thế."
+      },
+      {
+        "start": 27.4,
+        "emotion": "nâng đỡ dịu nhưng chắc",
+        "speed": 0.98,
+        "text": "Nhưng nghe này... người từng yêu chân thành, từng vui vì những điều nhỏ bé... vẫn là bạn."
+      },
+      {
+        "start": 32.65,
+        "emotion": "ấm áp, quyết định đi tiếp",
+        "speed": 1.01,
+        "text": "Hôm nay... tự mua một bó hoa. Và bước ra nắng."
+      },
+      {
+        "start": 36.25,
+        "emotion": "lắng đọng, khẳng định, giữ dư âm sau câu cuối",
+        "speed": 0.99,
+        "text": "Bạn không cần họ quay lại để tìm lại phiên bản từng rạng rỡ ấy."
+      }
+    ]
+  },
+  "music": {
+    "original": true,
+    "arcs": [
+      {
+        "start": 0,
+        "end": 11,
+        "mood": "ấm áp hồi ức"
+      },
+      {
+        "start": 11,
+        "end": 26,
+        "mood": "trống trải và nghẹn ngào"
+      },
+      {
+        "start": 26,
+        "end": 40.42,
+        "mood": "tỏa sáng và dịu lại"
+      }
+    ]
+  },
+  "shots": [
+    {
+      "id": 1,
+      "headline": "BẠN TƯỞNG MÌNH...",
+      "baseProp": "mirror",
+      "mood": "alone",
+      "subline": "Mọi thứ bắt đầu từ một câu hỏi",
+      "motif": "reflect",
+      "weight": 36
+    },
+    {
+      "id": 2,
+      "headline": "CÒN YÊU HỌ?",
+      "baseProp": "phone",
+      "mood": "alone",
+      "subline": "Có thật là như thế không?",
+      "motif": "pulse",
+      "weight": 30
+    },
+    {
+      "id": 3,
+      "headline": "NHƯNG CÓ KHI...",
+      "baseProp": "reach",
+      "mood": "alone",
+      "subline": "Bạn đang tìm một người khác",
+      "motif": "thread",
+      "weight": 33
+    },
+    {
+      "id": 4,
+      "headline": "LÀ CHÍNH MÌNH",
+      "baseProp": "smile",
+      "mood": "memory",
+      "subline": "Chính bạn của ngày xưa",
+      "motif": "halo",
+      "weight": 36
+    },
+    {
+      "id": 5,
+      "headline": "CHỈ MỘT TIN NHẮN",
+      "baseProp": "message",
+      "mood": "memory",
+      "subline": "Mà cả ngày đã khác",
+      "motif": "message",
+      "weight": 33
+    },
+    {
+      "id": 6,
+      "headline": "MỘT NỤ CƯỜI",
+      "baseProp": "smile",
+      "mood": "memory",
+      "subline": "Bỗng sáng lên thật khẽ",
+      "motif": "halo",
+      "weight": 36
+    },
+    {
+      "id": 7,
+      "headline": "MỘT BUỔI CHIỀU",
+      "baseProp": "window",
+      "mood": "memory",
+      "subline": "Nắng cũng dịu dàng hơn",
+      "motif": "sun",
+      "weight": 32
+    },
+    {
+      "id": 8,
+      "headline": "HAI CHIẾC GHẾ",
+      "baseProp": "table",
+      "mood": "memory",
+      "subline": "Tưởng sẽ mãi có đôi",
+      "motif": "cups",
+      "weight": 39
+    },
+    {
+      "id": 9,
+      "headline": "RỒI HỌ RỜI ĐI",
+      "baseProp": "empty",
+      "mood": "loss",
+      "subline": "Một người đứng lại",
+      "motif": "fade",
+      "weight": 32
+    },
+    {
+      "id": 10,
+      "headline": "MÀN HÌNH VẪN SÁNG",
+      "baseProp": "phone",
+      "mood": "loss",
+      "subline": "Nhưng thiếu một cái tên",
+      "motif": "pulse",
+      "weight": 33
+    },
+    {
+      "id": 11,
+      "headline": "NHỮNG NGÀY KHÔNG TIN",
+      "baseProp": "clock",
+      "mood": "loss",
+      "subline": "Thời gian vẫn trôi",
+      "motif": "clock",
+      "weight": 30
+    },
+    {
+      "id": 12,
+      "headline": "CĂN PHÒNG RỘNG QUÁ",
+      "baseProp": "sofa",
+      "mood": "loss",
+      "subline": "Khoảng trống nói hộ lòng mình",
+      "motif": "shadow",
+      "weight": 38
+    },
+    {
+      "id": 13,
+      "headline": "TƯỞNG MẤT MỘT NGƯỜI",
+      "baseProp": "reach",
+      "mood": "loss",
+      "subline": "Bạn đưa tay về quá khứ",
+      "motif": "thread",
+      "weight": 33
+    },
+    {
+      "id": 14,
+      "headline": "NHÌN VÀO GƯƠNG",
+      "baseProp": "mirror",
+      "mood": "loss",
+      "subline": "Bạn bất chợt đứng lặng",
+      "motif": "reflect",
+      "weight": 33
+    },
+    {
+      "id": 15,
+      "headline": "ĐÂU RỒI NỤ CƯỜI?",
+      "baseProp": "smile",
+      "mood": "loss",
+      "subline": "Nụ cười mình từng có",
+      "motif": "crack",
+      "weight": 37
+    },
+    {
+      "id": 16,
+      "headline": "ĐÔI VAI THẬT MỎI",
+      "baseProp": "rain",
+      "mood": "loss",
+      "subline": "Một ngày nữa đi qua",
+      "motif": "rain",
+      "weight": 30
+    },
+    {
+      "id": 17,
+      "headline": "ĐAU NHẤT...",
+      "baseProp": "heart",
+      "mood": "loss",
+      "subline": "Không phải vì họ quên",
+      "motif": "heartbeat",
+      "weight": 35
+    },
+    {
+      "id": 18,
+      "headline": "LÀ BẠN QUÊN MẤT",
+      "baseProp": "mirror",
+      "mood": "loss",
+      "subline": "Người từng rạng rỡ ấy",
+      "motif": "fragment",
+      "weight": 35
+    },
+    {
+      "id": 19,
+      "headline": "MÌNH ĐÁNG YÊU",
+      "baseProp": "stars",
+      "mood": "shift",
+      "subline": "Ngay cả khi ở một mình",
+      "motif": "halo",
+      "weight": 33
+    },
+    {
+      "id": 20,
+      "headline": "ĐẾN THẾ CƠ MÀ",
+      "baseProp": "hands",
+      "mood": "shift",
+      "subline": "Điều đó vẫn là sự thật",
+      "motif": "warmth",
+      "weight": 36
+    },
+    {
+      "id": 21,
+      "headline": "NHƯNG NGHE NÀY...",
+      "baseProp": "heart",
+      "mood": "shift",
+      "subline": "Hãy nghe trái tim thật gần",
+      "motif": "heartbeat",
+      "weight": 33
+    },
+    {
+      "id": 22,
+      "headline": "BẠN VẪN Ở ĐÂY",
+      "baseProp": "mirror",
+      "mood": "shift",
+      "subline": "Không ai lấy mất bạn cả",
+      "motif": "reflect",
+      "weight": 38
+    },
+    {
+      "id": 23,
+      "headline": "MỘT ĐIỀU NHỎ BÉ",
+      "baseProp": "flowers",
+      "mood": "healing",
+      "subline": "Một cành hoa cho chính mình",
+      "motif": "bloom",
+      "weight": 34
+    },
+    {
+      "id": 24,
+      "headline": "MỘT LY CÀ PHÊ",
+      "baseProp": "coffee",
+      "mood": "healing",
+      "subline": "Một chiều không vội nữa",
+      "motif": "steam",
+      "weight": 36
+    },
+    {
+      "id": 25,
+      "headline": "BƯỚC RA ĐƯỜNG",
+      "baseProp": "street",
+      "mood": "healing",
+      "subline": "Chậm thôi... vẫn là tiến lên",
+      "motif": "steps",
+      "weight": 31
+    },
+    {
+      "id": 26,
+      "headline": "ÁNH SÁNG TRỞ LẠI",
+      "baseProp": "sunrise",
+      "mood": "hope",
+      "subline": "Ánh sáng bắt đầu từ bạn",
+      "motif": "sun",
+      "weight": 34
+    },
+    {
+      "id": 27,
+      "headline": "HỌ KHÔNG CẦN QUAY LẠI",
+      "baseProp": "bloom",
+      "mood": "hope",
+      "subline": "Để bạn lại mỉm cười",
+      "motif": "bloom",
+      "weight": 40
+    },
+    {
+      "id": 28,
+      "headline": "BẠN VẪN RẠNG RỠ",
+      "baseProp": "stars",
+      "mood": "hope",
+      "subline": "Điều đẹp đẽ ấy luôn ở đây",
+      "motif": "halo",
+      "weight": 60
+    }
+  ],
+  "qa": {
+    "minSeconds": 30,
+    "maxSeconds": 45,
+    "requiredShots": 28,
+    "hookSeconds": 2,
+    "output": "short01-v3-28-scenes-cinematic-vbee.mp4",
+    "publishYoutube": false
+  }
+}
