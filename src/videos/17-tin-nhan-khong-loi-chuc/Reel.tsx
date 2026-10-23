@@ -35,7 +35,7 @@ function getSceneBlend(frame:number):Blend {
 function wrapHeadline(lines: readonly string[]): string[] {
   const wrapped:string[] = [];
   for(const source of lines.filter(Boolean)) {
-    const words=source.split(/\\s+/);
+    const words=source.split(/\s+/);
     let current='';
     for(const word of words) {
       const trial=current ? current+' '+word : word;
