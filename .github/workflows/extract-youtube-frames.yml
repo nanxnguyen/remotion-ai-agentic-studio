@@ -1,121 +1,204 @@
 name: Extract YouTube Shorts Frames
 
 on:
+  # Temporary smoke-test trigger; remove after validation.
+  push:
+    branches: [feat/youtube-frame-extractor]
+    paths: ['.github/workflows/extract-youtube-frames.yml']
   workflow_dispatch:
     inputs:
-      video_url:
-        description: 'Public YouTube video URL'
+      source_mode:
+        description: 'Source: YouTube, direct MP4, or a generated test video'
+        type: choice
         required: true
-        default: 'https://youtube.com/shorts/k9JB4RDDpsw'
+        default: youtube
+        options: [youtube, mp4_url, demo]
+      runner:
+        description: 'Use self-hosted Linux x64 for YouTube (GitHub IP is rate-limited)'
+        type: choice
+        required: true
+        default: github-hosted
+        options: [github-hosted, self-hosted]
+      video_url:
+        description: 'YouTube Shorts URL (only used in youtube mode)'
         type: string
+        required: false
+        default: 'https://youtube.com/shorts/k9JB4RDDpsw'
       mp4_url:
-        description: 'Optional public HTTPS direct MP4 URL (bypasses YouTube rate limits)'
+        description: 'Public direct HTTPS MP4 URL (only used in mp4_url mode)'
+        type: string
         required: false
         default: ''
-        type: string
       fps:
-        description: 'Frames per second (1-5)'
+        description: 'Frames per second'
+        type: choice
         required: true
         default: '1'
-        type: choice
         options: ['1', '2', '5']
+      use_bgutils:
+        description: 'Enable BgUtils PO Token provider (Docker required)'
+        type: boolean
+        required: false
+        default: false
 
 permissions:
   contents: read
 
 jobs:
   extract:
-    runs-on: ubuntu-latest
+    # Self-hosted runner needs default labels: self-hosted, linux, x64.
+    runs-on: ${{ fromJSON(inputs.runner == 'self-hosted' && '["self-hosted","linux","x64"]' || '"ubuntu-latest"') }}
     timeout-minutes: 15
+    env:
+      SOURCE_MODE: ${{ github.event_name == 'push' && 'demo' || inputs.source_mode }}
+      FPS: ${{ inputs.fps || '1' }}
+      VIDEO_URL: ${{ inputs.video_url || 'https://youtube.com/shorts/k9JB4RDDpsw' }}
+      MP4_URL: ${{ inputs.mp4_url || '' }}
+      RUNNER_KIND: ${{ inputs.runner || 'github-hosted' }}
     steps:
-      - name: Install standalone FFmpeg tools and yt-dlp
+      - name: Validate inputs
+        shell: bash
         run: |
           set -euo pipefail
-          npm install --prefix "$RUNNER_TEMP/ffmpeg-tools" --no-audit --no-fund \
-            @ffmpeg-installer/linux-x64 @ffprobe-installer/linux-x64
-          echo "$RUNNER_TEMP/ffmpeg-tools/node_modules/@ffmpeg-installer/linux-x64" >> "$GITHUB_PATH"
-          echo "$RUNNER_TEMP/ffmpeg-tools/node_modules/@ffprobe-installer/linux-x64" >> "$GITHUB_PATH"
-          python -m pip install --user --upgrade yt-dlp bgutil-ytdlp-pot-provider
-          ~/.local/bin/yt-dlp --version
+          mkdir -p output/frames
+          case "$FPS" in 1|2|5) ;; *) echo "::error::Unsupported FPS"; exit 1 ;; esac
+          case "$SOURCE_MODE" in
+            demo) ;;
+            mp4_url)
+              if [[ ! "$MP4_URL" =~ ^https:// ]]; then
+                echo "::error::mp4_url mode requires a direct HTTPS MP4 URL"
+                exit 1
+              fi
+              ;;
+            youtube)
+              case "$VIDEO_URL" in
+                https://youtube.com/*|https://www.youtube.com/*|https://youtu.be/*|https://m.youtube.com/*) ;;
+                *) echo "::error::Only HTTPS YouTube URLs are accepted"; exit 1 ;;
+              esac
+              if [[ "$RUNNER_KIND" == "github-hosted" ]]; then
+                echo "::warning::YouTube previously returned HTTP 429 on GitHub-hosted IPs. Prefer self-hosted runner."
+              fi
+              ;;
+            *) echo "::error::Unsupported source mode"; exit 1 ;;
+          esac
 
-      - name: Set up Deno for YouTube JS challenges
+      - name: Prepare FFmpeg and FFprobe
+        shell: bash
+        run: |
+          set -euo pipefail
+          if ! command -v ffmpeg >/dev/null || ! command -v ffprobe >/dev/null; then
+            command -v npm >/dev/null || {
+              echo "::error::Install Node.js/npm or FFmpeg+FFprobe on this runner"
+              exit 1
+            }
+            npm install --prefix "$RUNNER_TEMP/frame-tools" --no-audit --no-fund \
+              @ffmpeg-installer/linux-x64 @ffprobe-installer/linux-x64
+            echo "$RUNNER_TEMP/frame-tools/node_modules/@ffmpeg-installer/linux-x64" >> "$GITHUB_PATH"
+            echo "$RUNNER_TEMP/frame-tools/node_modules/@ffprobe-installer/linux-x64" >> "$GITHUB_PATH"
+          fi
+
+      - name: Install yt-dlp for YouTube mode
+        if: env.SOURCE_MODE == 'youtube'
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m venv "$RUNNER_TEMP/frame-ytdlp-venv"
+          "$RUNNER_TEMP/frame-ytdlp-venv/bin/pip" install --upgrade yt-dlp
+          if [[ "${{ inputs.use_bgutils }}" == "true" ]]; then
+            "$RUNNER_TEMP/frame-ytdlp-venv/bin/pip" install bgutil-ytdlp-pot-provider
+          fi
+          echo "$RUNNER_TEMP/frame-ytdlp-venv/bin" >> "$GITHUB_PATH"
+
+      - name: Set up Deno for YouTube mode
+        if: env.SOURCE_MODE == 'youtube'
         uses: denoland/setup-deno@v2
         with:
           deno-version: v2.x
 
-      - name: Start BgUtils PO token server
+      - name: Start optional BgUtils PO token server
+        if: env.SOURCE_MODE == 'youtube' && inputs.use_bgutils == true
+        shell: bash
         run: |
           set -euo pipefail
-          docker run --name bgutil-provider -d --init \
+          command -v docker >/dev/null || {
+            echo "::error::Install Docker to use BgUtils"
+            exit 1
+          }
+          name="bgutil-frame-${GITHUB_RUN_ID}"
+          docker run --name "$name" -d --init \
             -p 127.0.0.1:4416:4416 brainicism/bgutil-ytdlp-pot-provider:2.0.2
-          for attempt in $(seq 1 30); do
-            if curl -fsS --max-time 2 http://127.0.0.1:4416/ >/dev/null 2>&1; then
-              break
-            fi
-            if ! docker inspect -f '{{.State.Running}}' bgutil-provider | grep -qx true; then
-              docker logs bgutil-provider
-              exit 1
-            fi
-            sleep 2
-          done
-          docker ps --filter name=bgutil-provider
+          echo "BGUTIL_CONTAINER=$name" >> "$GITHUB_ENV"
+          sleep 3
+          test "$(docker inspect -f '{{.State.Running}}' "$name")" = true
 
-      - name: Download video and metadata
-        env:
-          VIDEO_URL: ${{ inputs.video_url || 'https://youtube.com/shorts/k9JB4RDDpsw' }}
-          MP4_URL: ${{ inputs.mp4_url || '' }}
+      - name: Acquire video
+        shell: bash
         run: |
           set -euo pipefail
-          mkdir -p output/frames
-          if [[ -n "$MP4_URL" ]]; then
-            case "$MP4_URL" in
-              https://*) ;;
-              *) echo "::error::Direct MP4 URL must use HTTPS"; exit 1 ;;
-            esac
-            curl --fail --location --retry 3 --max-time 180 \
-              --output output/source.mp4 "$MP4_URL"
-            VIDEO=output/source.mp4
-          else
-            case "$VIDEO_URL" in
-              https://youtube.com/*|https://www.youtube.com/*|https://youtu.be/*|https://m.youtube.com/*) ;;
-              *) echo "::error::Only HTTPS YouTube URLs are accepted"; exit 1 ;;
-            esac
-            ~/.local/bin/yt-dlp --verbose --js-runtimes deno -4 \
-              --extractor-args 'youtube:player_client=mweb,tv,web_safari' --no-playlist --max-filesize 150M \
-              --write-info-json --write-description \
-              -f 'bv*+ba/b' --merge-output-format mp4 \
-              -o 'output/source.%(ext)s' "$VIDEO_URL" || {
-                echo "::error::YouTube blocked the hosted runner. Supply a public direct MP4 link via mp4_url or use a self-hosted runner."
-                exit 1
-              }
-            VIDEO=$(find output -maxdepth 1 -type f \( -name 'source.mp4' -o -name 'source.webm' -o -name 'source.mkv' \) | head -1)
-          fi
+          case "$SOURCE_MODE" in
+            demo)
+              ffmpeg -hide_banner -loglevel error -y \
+                -f lavfi -i 'testsrc2=duration=4:size=360x640:rate=10' \
+                -an -c:v mpeg4 -q:v 5 output/source.mp4
+              VIDEO=output/source.mp4
+              ;;
+            mp4_url)
+              curl --fail --location --retry 2 --connect-timeout 15 \
+                --max-time 240 --max-filesize 157286400 \
+                --output output/source.mp4 "$MP4_URL"
+              VIDEO=output/source.mp4
+              ;;
+            youtube)
+              yt-dlp --js-runtimes deno -4 --no-playlist \
+                --extractor-args 'youtube:player_client=mweb,tv,web_safari' \
+                --max-filesize 150M --write-info-json \
+                -f 'bv*+ba/b' --merge-output-format mp4 \
+                -o 'output/source.%(ext)s' "$VIDEO_URL" || {
+                  echo "::error::YouTube blocked this runner. Try a self-hosted Linux runner or direct MP4."
+                  exit 1
+                }
+              VIDEO=$(find output -maxdepth 1 -type f \
+                \( -name 'source.mp4' -o -name 'source.webm' -o -name 'source.mkv' \) | head -n 1)
+              ;;
+          esac
           test -n "$VIDEO" && test -s "$VIDEO"
-          ffprobe -v error "$VIDEO" > /dev/null
+          ffprobe -v error "$VIDEO" >/dev/null
           echo "VIDEO=$VIDEO" >> "$GITHUB_ENV"
 
-      - name: Print BgUtils diagnostics
-        if: failure()
-        run: docker logs --tail 100 bgutil-provider || true
-
-      - name: Extract frames and contact sheet
-        env:
-          FPS: ${{ inputs.fps || '1' }}
+      - name: Extract frames, contact sheet and metadata
+        shell: bash
         run: |
           set -euo pipefail
-          ffmpeg -hide_banner -loglevel error -i "$VIDEO" \
+          ffmpeg -hide_banner -loglevel error -y -i "$VIDEO" \
             -vf "fps=$FPS,scale=540:-2" -q:v 3 output/frames/frame_%04d.jpg
-          ffmpeg -hide_banner -loglevel error -i "$VIDEO" \
-            -vf "fps=1/3,scale=270:-2,tile=4x5" -frames:v 1 output/contact-sheet.jpg || true
+          ffmpeg -hide_banner -loglevel error -y -i "$VIDEO" \
+            -vf "fps=1/3,scale=270:-2,tile=4x5" -frames:v 1 output/contact-sheet.jpg
           ffprobe -v error -show_format -show_streams -of json "$VIDEO" > output/ffprobe.json
-          printf '%s\n' "Video: ${{ inputs.video_url || 'https://youtube.com/shorts/k9JB4RDDpsw' }}" "Frames per second: $FPS" > output/README.txt
+          count=$(find output/frames -maxdepth 1 -name '*.jpg' | wc -l)
+          test "$count" -gt 0
+          {
+            echo "Source mode: $SOURCE_MODE"
+            echo "Frames per second: $FPS"
+            echo "Extracted frames: $count"
+            echo "Video URL: $VIDEO_URL"
+          } > output/README.txt
           rm -f "$VIDEO"
-          test "$(find output/frames -name '*.jpg' | wc -l)" -gt 0
+          echo "Successfully extracted $count frames" >> "$GITHUB_STEP_SUMMARY"
 
-      - name: Upload frames and metadata
+      - name: Upload frame artifact
         uses: actions/upload-artifact@v4
         with:
-          name: youtube-short-frames
+          name: youtube-reference-frames
           path: output/
           retention-days: 7
           if-no-files-found: error
+
+      - name: Diagnose BgUtils failure
+        if: failure() && env.BGUTIL_CONTAINER != ''
+        shell: bash
+        run: docker logs --tail 80 "$BGUTIL_CONTAINER" || true
+
+      - name: Stop BgUtils container
+        if: always() && env.BGUTIL_CONTAINER != ''
+        shell: bash
+        run: docker rm -f "$BGUTIL_CONTAINER" || true
