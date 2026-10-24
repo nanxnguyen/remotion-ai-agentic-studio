@@ -3,6 +3,8 @@
 > Canonical project instruction for **Ray Emotional Stick Shorts** production and every future chat/agent working on the series.
 > Established by project owner on **2026-10-24**. This document supplements, and does not bypass, mandatory Remotion/Vbee/QA/GitHub delivery gates.
 
+For the owner-wide **all-video and long-form** requirements, follow [Google Drive Video Archive Contract](GOOGLE_DRIVE_VIDEO_ARCHIVE.md) as well. This Shorts-specific policy uses the same folder ID, numbering, and filenames, and must not override 16:9 artwork for long-form uploads.
+
 ## Destination (FIXED)
 
 **Root folder:** `Videos-shorts`
