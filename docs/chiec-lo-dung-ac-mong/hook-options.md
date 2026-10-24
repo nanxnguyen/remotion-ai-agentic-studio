@@ -1,6 +1,6 @@
 # Hook candidates — Chiếc Lọ Đựng Ác Mộng
 
-**H1 (selected, visible anomaly):** “Ba giờ sáng. Có thứ gì đó dưới gầm giường Nam.” Begin at frame 0 with a claw and warm glowing eyes; the 3–6s reveal is that the creature does NOT touch him. First payoff at 6–10s: extracting nightmare smoke. Fits 0–6s.
+**H1 (selected, visible anomaly):** “Ba giờ sáng... Có gì dưới gầm giường?” Begin at frame 0 with a claw and warm glowing eyes; the 3–6s reveal is that the creature does NOT touch him. First payoff at 6–10s: extracting nightmare smoke. Fits 0–6s.
 
 **H2 (direct inversion):** “Nam tưởng con quái vật đến để bắt mình. Nó chỉ đến để lấy những giấc mơ xấu.” Early twist too explicit; reduces curiosity by 6s. Rejected.
 
