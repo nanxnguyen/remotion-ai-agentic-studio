@@ -6,7 +6,7 @@
 
 ## Current factual state
 
-- Source 12-shot draft preserved, 3 hook options produced, editorial producer review written and script revised to 120 syllables.
+- Source 12-shot draft preserved, 3 hook options produced, editorial producer review written and script revised to 115 syllables.
 - Character/environment bible, detailed 12-scene storyboard.json, shot-synchronized script, proposed Vbee lines and performance directions prepared.
 - A concept art storyboard contact sheet was generated in this ChatGPT conversation; it is not an approved source image pack, not committed to GitHub, and not evidence of motion performance.
 - **Independent agent was NOT successfully dispatched**. GitHub API rejected `copilot` issue assignee and `copilot-pull-request-reviewer` PR reviewer; issue #56 remains unassigned. Do not claim Gate A passed. The producer's preflight is NOT an independent verdict.
