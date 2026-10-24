@@ -1,0 +1,106 @@
+name: Short04 - Father sends a heart cinematic
+on:
+  push:
+    branches: [feat/short04-bo-gui-mot-trai-tim]
+    paths:
+      - '.github/workflows/short04-father-heart-cinematic.yml'
+      - 'docs/short-04-bo-gui-trai-tim/story.json'
+      - 'docs/short-04-bo-gui-trai-tim/cinematic_render.py'
+      - 'docs/short-04-bo-gui-trai-tim/mix_and_qa.py'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: short04-father-heart
+  cancel-in-progress: false
+jobs:
+  cinematic:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      VBEE_APP_ID: ${{ secrets.VBEE_APP_ID }}
+      VBEE_ACCESS_TOKEN: ${{ secrets.VBEE_ACCESS_TOKEN }}
+      VBEE_WEBHOOK_URL: https://iehmucsshklgjmxqyggp.supabase.co/functions/v1/vbee-batch-callback
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: feat/short04-bo-gui-mot-trai-tim
+          persist-credentials: true
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+      - name: Install video and graphics tools
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg curl fonts-dejavu-core
+          python3 -m pip install --disable-pip-version-check pillow numpy
+      - name: Validate creative contract and scripts
+        run: |
+          set -euo pipefail
+          test -s .claude/skills/ray-emotional-stick-shorts/SKILL.md
+          python3 -m py_compile docs/short-04-bo-gui-trai-tim/cinematic_render.py docs/short-04-bo-gui-trai-tim/mix_and_qa.py
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('docs/short-04-bo-gui-trai-tim/story.json')
+          o=json.loads(p.read_text(encoding='utf8'))
+          assert len(o['scenes'])==16 and len(o['voice']['beats'])==8
+          assert o['lengthSeconds']==41.6 and o['noYoutubePublish']
+          PY
+      - name: Render live-action film and original piano soundtrack
+        run: |
+          set -euo pipefail
+          root=docs/short-04-bo-gui-trai-tim
+          mkdir -p /tmp/short04
+          python3 "$root/cinematic_render.py" piano /tmp/short04/piano.wav
+          python3 "$root/cinematic_render.py" video /tmp/short04/picture.mp4
+          python3 "$root/cinematic_render.py" sheet "$root/contact-sheet.jpg"
+      - name: Generate verified Vbee Thanh Long Vietnamese voice clips
+        run: |
+          set -euo pipefail
+          test -n "$VBEE_APP_ID" && test -n "$VBEE_ACCESS_TOKEN"
+          python3 - <<'PY'
+          from pathlib import Path
+          import json
+          d=json.loads(Path("docs/short-04-bo-gui-trai-tim/story.json").read_text(encoding="utf8"))
+          for i,b in enumerate(d["voice"]["beats"]):
+              Path(f"/tmp/short04/beat{i}.txt").write_text(b["text"],encoding="utf8")
+              Path(f"/tmp/short04/speed{i}.txt").write_text(str(b["speed"]))
+          PY
+          for i in 0 1 2 3 4 5 6 7; do
+            python3 docs/short-01-nho-phien-ban-duoc-yeu/voice/vbee_batch_tts.py \
+              --text-file "/tmp/short04/beat$i.txt" \
+              --voice-code hn_male_thanhlong_talk_48k-fhg \
+              --speed "$(cat /tmp/short04/speed$i.txt)" \
+              --output "/tmp/short04/voice$i.mp3"
+          done
+      - name: Mix actual speech and original piano and QA final MP4
+        run: |
+          set -euo pipefail
+          python3 docs/short-04-bo-gui-trai-tim/mix_and_qa.py
+          ffprobe -v error -show_entries format=duration,size:stream=codec_type,avg_frame_rate,width,height \
+            -of json docs/short-04-bo-gui-trai-tim/final/short04-bo-gui-trai-tim-cinematic-vbee.mp4
+      - name: Persist full video and technical QA on feature branch
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add docs/short-04-bo-gui-trai-tim/final \
+            docs/short-04-bo-gui-trai-tim/contact-sheet.jpg \
+            docs/short-04-bo-gui-trai-tim/final-QA.json \
+            docs/short-04-bo-gui-trai-tim/final-SHA256SUMS
+          git diff --cached --quiet || git commit -m 'assets(short04): archive father-heart cinematic film with Vbee narration'
+          git fetch origin feat/short04-bo-gui-mot-trai-tim
+          git rebase origin/feat/short04-bo-gui-mot-trai-tim
+          git push origin HEAD:feat/short04-bo-gui-mot-trai-tim
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: short04-father-heart-cinematic-full
+          path: |
+            docs/short-04-bo-gui-trai-tim/final/
+            docs/short-04-bo-gui-trai-tim/final-QA.json
+            docs/short-04-bo-gui-trai-tim/contact-sheet.jpg
+          retention-days: 7
+          if-no-files-found: ignore
