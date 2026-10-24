@@ -1,0 +1,73 @@
+{
+  "status": "technical-pass",
+  "format": "Memory Film + POV (stock live-action photographs and memories)",
+  "file": "short03-memory-film-pov-vbee.mp4",
+  "duration": 40.433333,
+  "resolution": [
+    540,
+    960
+  ],
+  "fps": 30,
+  "shots": 15,
+  "softCrossfadeSeconds": 0.42,
+  "voice": "Original Vbee Thanh Long / original piano reused unchanged",
+  "audioPacketMD5Preserved": true,
+  "hasVideoAndAudio": true,
+  "sha256": "fd3c38c8dfb2b1cf44456b64995e13d493612c0a117ee68d4c90f7240b9eac5e",
+  "bytes": 4878017,
+  "sourceCredits": [
+    {
+      "id": "5493991",
+      "credit": "cottonbro studio",
+      "title": "A Mother Looking at Photo Album with Her Daughter",
+      "url": "https://www.pexels.com/video/5493991/"
+    },
+    {
+      "id": "5493995",
+      "credit": "cottonbro studio",
+      "title": "A Woman Taking Photos of Her Mother",
+      "url": "https://www.pexels.com/video/5493995/"
+    },
+    {
+      "id": "5494001",
+      "credit": "cottonbro studio",
+      "title": "A Person Taking Photos of an Elderly Woman",
+      "url": "https://www.pexels.com/video/5494001/"
+    },
+    {
+      "id": "9885561",
+      "credit": "Ron Lach",
+      "title": "A Person Holding a Family Picture",
+      "url": "https://www.pexels.com/video/9885561/"
+    },
+    {
+      "id": "7119985",
+      "credit": "Pavel Danilyuk",
+      "title": "A Family Eating a Birthday Cake",
+      "url": "https://www.pexels.com/video/7119985/"
+    },
+    {
+      "id": "6305117",
+      "credit": "Kampus Production",
+      "title": "Mother and Daughter Taking Picture after Family Dinner",
+      "url": "https://www.pexels.com/video/6305117/"
+    },
+    {
+      "id": "7712993",
+      "credit": "Pavel Danilyuk / stock video",
+      "title": "Graduation montage",
+      "url": "https://www.pexels.com/video/7712993/"
+    },
+    {
+      "id": "7174589",
+      "credit": "Anastasia Shuraeva",
+      "title": "Mother and Daughter Leaning Against Each Other",
+      "url": "https://www.pexels.com/video/7174589/"
+    }
+  ],
+  "actorConsistency": "representational stock footage, NOT the same cast in every life event",
+  "reflectionReveal": "symbolic crafted-photo reveal; not a literal naturally captured glass reflection",
+  "subjectiveViewing": "pending",
+  "youtubePublished": false,
+  "limitations": "Not a photoreal film production with continuous actors; photo-memory demo with real people stock."
+}
