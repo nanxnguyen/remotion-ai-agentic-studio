@@ -1,0 +1,29 @@
+{
+  "status": "technical-pass",
+  "story": "Mẹ Không Cần Tiền, Mẹ Chỉ Muốn Con Về",
+  "cut": "V4 EDITORIAL CINEMA / storyboard 16-shot locked",
+  "durationSeconds": 44.0,
+  "resolution": [
+    1080,
+    1920
+  ],
+  "fps": 30,
+  "scenes": 16,
+  "softCrossfadesSeconds": 0.34,
+  "vbeeThanhLongAndPianoPreserved": true,
+  "originalAudioPacketMD5": "MD5=3a8cab127d929b709ffd6591650c8a59",
+  "sameStoryboardOrder": true,
+  "visualEnhancements": [
+    "film-window composition",
+    "warm/blue contrast",
+    "kinetic captions",
+    "readable calendar and note",
+    "per-scene camera interpolation"
+  ],
+  "motionLimitation": "2.5D animated stills from storyboard; actors do not perform new body movements",
+  "source": "/mnt/data/short05v4_input/me-khong-can-tien-v3-storyboard-co-giong-vbee-44s.mp4",
+  "sha256": "337fd4a51276e63ba48a604155965cd294d4c58ea8df5f4c21944ed3fc55a4d2",
+  "fileBytes": 6057049,
+  "humanAestheticReview": "not independently certified",
+  "youtubePublished": false
+}
