@@ -1,0 +1,28 @@
+{
+  "slug": "ca-truc-cuoi-cung",
+  "version": "V4",
+  "story": "Những Ma-nơ-canh Biết Đi",
+  "character_main": "Chú Minh — 60-year-old guard",
+  "source": "user approved storyboard 4x4",
+  "duration_seconds": 60,
+  "width": 1080,
+  "height": 1920,
+  "fps": 30,
+  "frame_count": 1800,
+  "voice": "genuine Vbee Batch Anh Khôi",
+  "caption": "original native Vietnamese, no storyboard timecode/borders",
+  "source_motion": "2D motion-comic, not natural acting",
+  "sha256": "b38adc8f57937320321a7b69a15951ff34f8f852b8d3f7721b1a710f8a57f60e",
+  "size_bytes": 8934102,
+  "google_drive_folder": "16a28I0BmY_fKfmjwcDQmia0Ar8BTUtPb",
+  "google_drive_video": "1hNK9lP7MLLkNLSTQdthswDpeiojuopXn",
+  "google_drive_thumbnail": "1DL4silRNK6gMbk-i3_M7WieUhRIQP9xk",
+  "google_drive_youtube_copy": "1Ur7Gp2fBk0yQxnN9sHNWky5AXeAFUxYf",
+  "github_release_asset_url": null,
+  "final_qa_approved": false,
+  "missing": [
+    "independent natural actor-motion video clips",
+    "canonical Remotion audit",
+    "GitHub binary Release archive"
+  ]
+}
