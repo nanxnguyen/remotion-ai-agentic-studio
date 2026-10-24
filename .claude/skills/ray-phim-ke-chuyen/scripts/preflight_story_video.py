@@ -2,7 +2,7 @@
 """Fail-closed structural preflight for new Vietnamese 9:16 storytelling Shorts.
 
 This tests machine-checkable storyboard and real-voice metadata ONLY; cinematic
-acting, lip-sync, emotional delivery, audio listening and visual QA need review.
+smoothness, truthful acting labels, emotional delivery, audio listening and visual QA need review.
 """
 from __future__ import annotations
 
@@ -114,7 +114,7 @@ def validate(scenes: list, *, max_seconds: float, voice=None,
                     errors.append(f'{label}: local caption time must fit scene duration')
         beats = scene.get('action_beats')
         if not isinstance(beats, list) or not beats:
-            errors.append(f'{name}: action_beats required (voice/action/emotion sync)')
+            errors.append(f'{name}: action_beats required (voice/visual-story/emotion sync)')
         else:
             for k, beat in enumerate(beats, 1):
                 label = f'{name}.action_beats[{k}]'
@@ -158,7 +158,7 @@ def validate(scenes: list, *, max_seconds: float, voice=None,
     if total < 30:
         warnings.append(f'Total {total:.2f}s; confirm intentionally short')
     if final_checklist is not None:
-        required_gates = ['story', 'actor_emotion', 'voice_to_action', 'typography',
+        required_gates = ['story', 'motion_smoothness', 'voice_to_action', 'typography',
                           'transitions', 'sound_mix', 'video_playback']
         for gate in required_gates:
             if final_checklist.get(gate) is not True:
@@ -193,7 +193,7 @@ def main(argv=None):
     print(f'PREFLIGHT {"BLOCKED" if errors else "STRUCTURE OK"}: {len(scenes)} scenes, '
           f'{runtime:.3f}s, {len(errors)} errors, {len(warnings)} warnings')
     if not errors:
-        print('NOTE: manual acting, voice listening, subtitle, transitions, and render QA still required')
+        print('NOTE: manual video motion smoothness, voice listening, subtitle, transitions, and render QA still required')
     return 1 if errors else 0
 
 

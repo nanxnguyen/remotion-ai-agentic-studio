@@ -2,19 +2,15 @@
   "interface": {
     "displayName": "Ray Phim Kể Chuyện",
     "shortDescription": "Video kể chuyện chuẩn cinematic",
-    "longDescription": "Trợ lý dựng Shorts kinh dị tiếng Việt 9:16, giới hạn 60 giây, bắt buộc kiểm định Hook–Thân–Cao trào–Payoff, khớp giọng Vbee thật với diễn xuất và từng micro-beat, chữ điện ảnh, chuyển cảnh có mục đích, QA trước MP4. Hỗ trợ chỉ đổi voice mà giữ nguyên hình gốc.",
+    "longDescription": "Trợ lý dựng Shorts kinh dị tiếng Việt 9:16, HOOK 0–6s, chuyển động video điện ảnh 2D/2.5D mượt, không đơ/giật; không bắt buộc diễn xuất nhân vật người thật. Vbee và QA.",
     "developerName": "Ray",
     "category": "Productivity",
     "capabilities": [],
-    "defaultPrompt": [
-      "Dùng Ray Phim Kể Chuyện làm phim kinh dị Shorts 60s theo checklist diễn xuất, Vbee khớp hình và chữ cinematic.",
-      "Kiểm tra preflight script, acting, voice map, typography và chuyển cảnh trước khi xuất MP4.",
-      "Chỉ thay voice Vbee cho MP4 này và không đụng tới hình."
-    ]
+    "defaultPrompt": "Dùng Ray Phim Kể Chuyện làm phim kinh dị Shorts <=60s HOOK 0–6s, motion 2D/2.5D mượt, không đơ/giật; giọng Vbee, chữ điện ảnh, QA và lưu cả Google Drive/GitHub."
   },
   "name": "ray-phim-ke-chuyen",
-  "version": "0.2.3",
-  "description": "Sản xuất YouTube Shorts kinh dị 9:16 <=60s có Hook–Thân–Cao trào–Kết, storyboard diễn xuất, giọng Vbee thật, typography điện ảnh, motion mượt và QA bắt buộc trước khi render.",
+  "version": "0.2.5",
+  "description": "Ray Phim Kể Chuyện: smooth cinematic 2D/2.5D motion, no freeze/jitter, actor realism optional; genuine Vbee, Remotion, Drive+GitHub archive.",
   "author": {
     "name": "Ray"
   },
@@ -26,8 +22,11 @@
     "Vbee",
     "cinematic",
     "video-production",
-    "acting-sync",
-    "preflight-qa"
+    "preflight-qa",
+    "smooth cinematic motion",
+    "2.5D parallax",
+    "no freeze",
+    "no jitter"
   ],
   "skills": "./skills"
 }
