@@ -102,7 +102,7 @@ def shot_reel(sources):
         start=item['sourceOffset']
         if m['duration'] < .6:raise RuntimeError('Invalid stock source')
         # Source may be looped for artful repeat. We intentionally avoid synthetic character motion.
-        condition='minterpolate=fps=60:mi_mode=mci:mc_mode=obmc:me_mode=bidir:vsbmc=1' if interp else 'fps=60'
+        condition='framerate=fps=60:interp_start=0:interp_end=255:scene=8.2' if interp else 'fps=60'
         color='eq=contrast=1.09:brightness=-0.04:saturation=0.78,colorbalance=bs=0.042:rs=-0.025' if i<12 else 'eq=contrast=1.04:brightness=0.018:saturation=1.06,colorbalance=rs=0.042:bs=-0.04'
         vf=f'scale=1280:720:force_original_aspect_ratio=increase:flags=lanczos,crop=1280:720,{condition},scale=1920:1080:flags=lanczos,{color},format=yuv420p,setsar=1'
         out=SHOTS/f'shot{i+1:02d}.mp4'
@@ -195,7 +195,7 @@ def qa(file,sources,voice):
             'height':vid['height'],'fps':60,'totalFrames':5520,
             'originalFootage':True,'realPersonMontage':True,'samePerformerAllShots':False,
             'sources':len(sources),'nativeSourceFrameRates':{k:v['nativeFps'] for k,v in sources.items()},
-            'interpolation': 'minterpolate for sources below 48fps; high-fps originals retimed to 60',
+            'interpolation': 'frame blending (framerate filter) for sources below 48fps; source >=48fps retimed to 60',
             'footageUsage':'Pexels commercial license; no endorsement implied',
             'vbeeActualVoice':True,'voiceSegments':voice,'font':'Be Vietnam Pro (CI only)',
             'shotCount':18,'music':'New piano, dynamically ducked beneath Vbee',
