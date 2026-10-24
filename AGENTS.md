@@ -16,6 +16,10 @@ Build deterministic 9:16 Remotion videos while preserving each video's visual id
 6. For visual changes, run `npm run test:visual` and inspect the diff output.
 7. Keep secrets, personal voice previews, render output, and unlicensed media out of Git.
 
+## Google Drive delivery rules (mandatory for every final video)
+
+Before any new video's delivery, read [`docs/GOOGLE_DRIVE_VIDEO_ARCHIVE.md`](docs/GOOGLE_DRIVE_VIDEO_ARCHIVE.md). The owner's fixed parent is Google Drive folder ID `1rtJF9zDWuFZ8_6IixdMew3WCZj8415-D` (display name `Videos-shorts`). For each new video, inspect numbered folders and allocate `max(N)+1` with a title/date folder `N. Video title - YYYY-MM-DD` (Vietnam local production date). Do not create a new folder for revisions of the same video. Every completed video folder must have verified real `final.mp4`, original dramatic story-specific `thumbnail.png` (vertical 9:16 for Shorts, horizontal 16:9 for long videos), and UTF-8 `youtube-title-description.txt` with engaging accurate title + description. Confirm real bytes and each Drive URL before claiming completed delivery. No YouTube/TikTok publishing without approval.
+
 ## Video production rules (mandatory)
 **Mandatory high-retention script rule for EVERY video (YouTube Shorts + TikTok, all topics and genres):** Read [`docs/SHORTS_RETENTION_PLAYBOOK.md`](docs/SHORTS_RETENTION_PLAYBOOK.md) before approving any new script, shot list, storyboard or render. Draft three hook candidates; make the opening legible in 0–2s, complete a meaningful hook within 4–6s, create story-changing visual actions every ~3–6s, and deliver an earned climax and concise visual payoff. Prepare platform-native YouTube title/cover and TikTok caption/cover/safe-area treatment when publishing assets are requested. Review available watch-retention/engagement metrics after publishing and iterate; million views are **never guaranteed**. Film-specific timings may adapt; the retention principles must not be skipped.
 
