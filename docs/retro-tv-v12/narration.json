@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "act": "HOOK",
+    "narration": "Nếu phải bắt đầu lại từ đầu… bạn có sợ không?"
+  },
+  {
+    "id": 2,
+    "act": "THÂN BÀI",
+    "narration": "Có thể bạn vừa mất một cơ hội. Một kế hoạch đổ vỡ. Hoặc con đường từng tin tưởng… bỗng chẳng còn phù hợp. Bạn nghĩ mình đã đánh mất tất cả."
+  },
+  {
+    "id": 3,
+    "act": "CAO TRÀO",
+    "narration": "Nhưng không! Bạn không trở về vạch xuất phát! Bởi lần này, bạn mang theo những bài học, những vấp ngã… và một trái tim trưởng thành hơn."
+  },
+  {
+    "id": 4,
+    "act": "KẾT",
+    "narration": "Nếu cuộc đời cho bạn một trang giấy mới… hãy viết tiếp. Lần này, bằng tất cả những gì bạn đã học được."
+  }
+]
