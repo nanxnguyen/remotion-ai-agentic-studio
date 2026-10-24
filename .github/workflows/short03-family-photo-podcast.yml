@@ -1,0 +1,122 @@
+name: Short 03 - Family photo emotional visual podcast
+on:
+  push:
+    branches: [feat/short03-me-trong-anh-podcast]
+    paths:
+      - '.github/workflows/short03-family-photo-podcast.yml'
+      - 'docs/short-03-buc-anh-khong-co-me-podcast/story.json'
+      - 'docs/short-03-buc-anh-khong-co-me-podcast/podcast_render.py'
+      - 'docs/short-03-buc-anh-khong-co-me-podcast/podcast_mix.py'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: short03-family-podcast
+  cancel-in-progress: false
+jobs:
+  podcast:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    env:
+      VBEE_APP_ID: ${{ secrets.VBEE_APP_ID }}
+      VBEE_ACCESS_TOKEN: ${{ secrets.VBEE_ACCESS_TOKEN }}
+      VBEE_WEBHOOK_URL: https://iehmucsshklgjmxqyggp.supabase.co/functions/v1/vbee-batch-callback
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: feat/short03-me-trong-anh-podcast
+          persist-credentials: true
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+      - name: Install render tools
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg fonts-dejavu-core
+          python3 -m pip install --disable-pip-version-check numpy pillow
+      - name: Validate skill and story
+        run: |
+          set -euo pipefail
+          test -s .claude/skills/ray-emotional-stick-shorts/SKILL.md
+          python3 -m py_compile docs/short-03-buc-anh-khong-co-me-podcast/podcast_render.py docs/short-03-buc-anh-khong-co-me-podcast/podcast_mix.py
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          d=json.loads(Path("docs/short-03-buc-anh-khong-co-me-podcast/story.json").read_text())
+          assert d["skill"]=="ray-emotional-stick-shorts"
+          assert len(d["shots"])==16 and len(d["narrator"]["segments"])==8
+          assert 30<=d["durationSeconds"]<=45 and d["fps"]==60
+          assert not d["publishing"]["youtube"]
+          PY
+      - name: Render 16 storytelling scenes at 60fps and original piano
+        run: |
+          set -euo pipefail
+          root=docs/short-03-buc-anh-khong-co-me-podcast
+          mkdir -p /tmp/short03
+          python3 "$root/podcast_render.py" piano --out /tmp/short03/piano.wav
+          python3 "$root/podcast_render.py" render --out /tmp/short03/visual.mp4
+          python3 "$root/podcast_render.py" sheet --out "$root/contact-sheet.jpg"
+          python3 "$root/podcast_render.py" seams --out "$root/seam-QA.json"
+      - name: Preflight spoken-audio filter with synthetic audio
+        run: |
+          set -euo pipefail
+          for i in 0 1 2 3 4 5 6 7; do
+            ffmpeg -y -v error -f lavfi -i "sine=frequency=250:duration=2.3:sample_rate=24000" -codec:a libmp3lame -b:a 80k "/tmp/short03/voice$i.mp3"
+          done
+          python3 docs/short-03-buc-anh-khong-co-me-podcast/podcast_mix.py --workdir /tmp/short03 --out /tmp/short03/smoke.mp4 --smoke
+          rm -f /tmp/short03/voice*.mp3 /tmp/short03/smoke.mp4
+      - name: Generate actual emotional Vbee Thanh Long speech
+        run: |
+          set -euo pipefail
+          test -n "$VBEE_APP_ID" && test -n "$VBEE_ACCESS_TOKEN"
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          d=json.loads(Path("docs/short-03-buc-anh-khong-co-me-podcast/story.json").read_text())
+          p=Path("/tmp/short03")
+          for i,b in enumerate(d["narrator"]["segments"]):
+            (p/f"beat{i}.txt").write_text(b["text"],encoding="utf8")
+            (p/f"speed{i}.txt").write_text(str(b["speed"]))
+          PY
+          for i in 0 1 2 3 4 5 6 7; do
+            python3 docs/short-01-nho-phien-ban-duoc-yeu/voice/vbee_batch_tts.py \
+              --text-file "/tmp/short03/beat$i.txt" \
+              --voice-code hn_male_thanhlong_talk_48k-fhg \
+              --speed "$(cat /tmp/short03/speed$i.txt)" \
+              --output "/tmp/short03/voice$i.mp3"
+          done
+      - name: Mix podcast, preserve emotional pauses and validate final MP4
+        run: |
+          set -euo pipefail
+          root=docs/short-03-buc-anh-khong-co-me-podcast
+          mkdir -p "$root/final"
+          python3 "$root/podcast_mix.py" --workdir /tmp/short03 \
+            --out "$root/final/short03-me-trong-anh-podcast-full-vbee.mp4"
+          ffprobe -v error -show_entries format=duration,size:stream=codec_type,avg_frame_rate,width,height \
+             -of json "$root/final/short03-me-trong-anh-podcast-full-vbee.mp4"
+      - name: Archive complete MP4 and QA evidence in feature branch
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add docs/short-03-buc-anh-khong-co-me-podcast/final/ \
+            docs/short-03-buc-anh-khong-co-me-podcast/contact-sheet.jpg \
+            docs/short-03-buc-anh-khong-co-me-podcast/seam-QA.json \
+            docs/short-03-buc-anh-khong-co-me-podcast/final-QA.json \
+            docs/short-03-buc-anh-khong-co-me-podcast/final-SHA256SUMS
+          git diff --cached --quiet || git commit -m 'assets(short03): archive family photo podcast with actual Vbee and piano'
+          git fetch origin feat/short03-me-trong-anh-podcast
+          git rebase origin/feat/short03-me-trong-anh-podcast
+          git push origin HEAD:feat/short03-me-trong-anh-podcast
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: short03-family-photo-full-podcast
+          path: |
+            docs/short-03-buc-anh-khong-co-me-podcast/contact-sheet.jpg
+            docs/short-03-buc-anh-khong-co-me-podcast/seam-QA.json
+            docs/short-03-buc-anh-khong-co-me-podcast/final-QA.json
+            docs/short-03-buc-anh-khong-co-me-podcast/final/
+          retention-days: 7
+          if-no-files-found: ignore
