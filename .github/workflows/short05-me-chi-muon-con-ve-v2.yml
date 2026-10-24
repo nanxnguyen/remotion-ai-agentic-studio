@@ -1,0 +1,110 @@
+name: Short05 - Mother just wants son home V2
+on:
+  push:
+    branches: [feat/short05-me-chi-muon-con-ve-v2]
+    paths:
+      - '.github/workflows/short05-me-chi-muon-con-ve-v2.yml'
+      - 'docs/short-05-me-chi-muon-con-ve-v2/story.json'
+      - 'docs/short-05-me-chi-muon-con-ve-v2/cinematic_render.py'
+      - 'docs/short-05-me-chi-muon-con-ve-v2/mix_qa.py'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: short05-mother-son-v2
+  cancel-in-progress: false
+jobs:
+  movie:
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    env:
+      VBEE_APP_ID: ${{ secrets.VBEE_APP_ID }}
+      VBEE_ACCESS_TOKEN: ${{ secrets.VBEE_ACCESS_TOKEN }}
+      VBEE_WEBHOOK_URL: https://iehmucsshklgjmxqyggp.supabase.co/functions/v1/vbee-batch-callback
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: feat/short05-me-chi-muon-con-ve-v2
+          persist-credentials: true
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+      - name: Install motion and sound codecs
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg curl fonts-dejavu-core
+          python3 -m pip install --disable-pip-version-check pillow numpy
+      - name: Validate V2 contract and rendering code
+        run: |
+          set -euo pipefail
+          test -s .claude/skills/ray-emotional-stick-shorts/SKILL.md
+          python3 -m py_compile docs/short-05-me-chi-muon-con-ve-v2/cinematic_render.py \
+            docs/short-05-me-chi-muon-con-ve-v2/mix_qa.py
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          d=json.loads(Path("docs/short-05-me-chi-muon-con-ve-v2/story.json").read_text(encoding="utf8"))
+          assert len(d["shots"])==16
+          assert len(d["voice"]["segments"])==8
+          assert d["durationSeconds"]==44
+          assert not d["constraints"]["youtubePublish"]
+          assert [x["kind"] for x in d["shots"]].index("note") < [x["kind"] for x in d["shots"]].index("reunion")
+          for i,s in enumerate(d["shots"]):
+            assert s["start"] < s["end"]
+            assert i==0 or s["start"]==d["shots"][i-1]["end"]
+          print("Approved V2 shot order and twist-to-payoff verified")
+          PY
+      - name: Render real-motion footage and custom 2-bowl/calendar inserts
+        run: |
+          set -euo pipefail
+          root=docs/short-05-me-chi-muon-con-ve-v2
+          python3 "$root/cinematic_render.py" piano
+          python3 "$root/cinematic_render.py" video
+          python3 "$root/cinematic_render.py" sheet "$root/contact-sheet.jpg"
+      - name: Generate eight actual Vbee Thanh Long narration beats
+        run: |
+          set -euo pipefail
+          test -n "$VBEE_APP_ID" && test -n "$VBEE_ACCESS_TOKEN"
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          d=json.loads(Path("docs/short-05-me-chi-muon-con-ve-v2/story.json").read_text(encoding="utf8"))
+          for i,b in enumerate(d["voice"]["segments"]):
+              Path(f"/tmp/short05/beat{i}.txt").write_text(b["text"],encoding="utf8")
+              Path(f"/tmp/short05/speed{i}.txt").write_text(str(b["speed"]))
+          PY
+          for i in 0 1 2 3 4 5 6 7; do
+            python3 docs/short-01-nho-phien-ban-duoc-yeu/voice/vbee_batch_tts.py \
+              --text-file "/tmp/short05/beat$i.txt" \
+              --voice-code hn_male_thanhlong_talk_48k-fhg \
+              --speed "$(cat /tmp/short05/speed$i.txt)" \
+              --output "/tmp/short05/voice$i.mp3"
+          done
+      - name: Mix voice, duck piano and QA complete 44-sec AV
+        run: |
+          set -euo pipefail
+          python3 docs/short-05-me-chi-muon-con-ve-v2/mix_qa.py
+          ffprobe -v error -show_entries format=duration,size:stream=codec_type,avg_frame_rate,width,height \
+            -of json docs/short-05-me-chi-muon-con-ve-v2/final/short05-me-chi-muon-con-ve-v2-cinematic-vbee.mp4
+      - name: Archive verified full MP4 and contact sheet on GitHub
+        run: |
+          set -euo pipefail
+          root=docs/short-05-me-chi-muon-con-ve-v2
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add "$root/final" "$root/contact-sheet.jpg" "$root/final-QA.json" "$root/final-SHA256SUMS"
+          git diff --cached --quiet || git commit -m 'assets(short05): archive 44s cinematic family V2 with genuine Vbee'
+          git fetch origin feat/short05-me-chi-muon-con-ve-v2
+          git rebase origin/feat/short05-me-chi-muon-con-ve-v2
+          git push origin HEAD:feat/short05-me-chi-muon-con-ve-v2
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: short05-mother-son-v2-full-video
+          path: |
+            docs/short-05-me-chi-muon-con-ve-v2/final/
+            docs/short-05-me-chi-muon-con-ve-v2/final-QA.json
+            docs/short-05-me-chi-muon-con-ve-v2/contact-sheet.jpg
+          retention-days: 14
+          if-no-files-found: ignore
