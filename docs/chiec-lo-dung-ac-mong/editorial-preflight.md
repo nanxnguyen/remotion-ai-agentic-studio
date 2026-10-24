@@ -5,7 +5,7 @@
 ## Timed feasibility check
 
 - Source 12-line draft: **148 space-separated Vietnamese syllables**, estimated 36.1s at 4.1 syl/s; 8.9s left for breathing/SFX/holds within 45s. **Per-shot overload:** S02 has 15 syllables in 3s (~5/s), S10 18 syllables in 3s (~6/s), both unsuited to expressive Thanh Long delivery.
-- Revised 12-line candidate: **120 syllables**, estimated 29.3s, leaving 15.7s for silence, performance, visuals. These are **estimates**, not measured Vbee voice lengths.
+- Revised 12-line candidate: **115 syllables**, estimated 28.0s, leaving 17.0s for silence, performance, visuals. These are **estimates**, not measured Vbee voice lengths.
 
 ## Source draft strengths and concrete critical failures
 
