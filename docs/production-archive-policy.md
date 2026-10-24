@@ -78,3 +78,8 @@ For every NEW_FILM and revised story video:
 7. Keep Google Drive files private by default and GitHub Releases in **draft**. Never broaden Drive sharing, publish a Release or publish on YouTube without separate authorization.
 
 **This latest requirement supersedes the earlier preference to report only Google Drive links.** Both destinations remain mandatory, and **both links** are required in the routine report once actually verified.
+
+
+## Archive destination override — NO GitHub Releases (2026-10-25)
+
+**Latest explicit user direction supersedes every previous draft-GitHub-Release instruction.** For new finished videos, upload the real QA-approved MP4, portrait/landscape thumbnail and Vietnamese YouTube title/description into the sequentially numbered **Google Drive Videos-shorts** child folder (`1rtJF9zDWuFZ8_6IixdMew3WCZj8415-D`). **Do not upload any MP4 to GitHub Releases or create/publish a Release.** GitHub repository `nanxnguyen/remotion-ai-agentic-studio` remains mandatory for source code, Remotion compositions, shotlist, timelines, voice manifest, QA/report and links back to the Drive archive, using normal commits/PRs. Keep rendered MP4 binaries out of Git commits/history; the media lives on Drive. The user-facing completion report includes verified **Google Drive MP4 viewer**, **Google Drive numbered folder** and **GitHub source/production PR** links, never invented GitHub binary or Release links. Drive and GitHub are both required; their roles differ. Preserve private-sharing defaults and do not automatically publish publicly or upload YouTube.
