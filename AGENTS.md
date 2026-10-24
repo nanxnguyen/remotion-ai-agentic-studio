@@ -17,6 +17,8 @@ Build deterministic 9:16 Remotion videos while preserving each video's visual id
 7. Keep secrets, personal voice previews, render output, and unlicensed media out of Git.
 
 ## Video production rules (mandatory)
+**Universal Shorts script rule:** For any topic or genre, read [`docs/SHORTS_RETENTION_PLAYBOOK.md`](docs/SHORTS_RETENTION_PLAYBOOK.md) before approving a script or storyboard. Create three hook options, ensure 0–2s attention and 4–6s hook completion, escalate through meaningful visual actions, deliver a foreshadowed climax and concise emotional/informational payoff. Adjust the timing to the film's required duration; no formula guarantees views.
+
 
 Every agent and tool that works on a video (Claude Code, Codex, OpenCode, Cursor, Gemini, …) must run the full phase/stage/gate workflow in [`.agents/skills/ray-pineline-worflow-agent/SKILL.md`](.agents/skills/ray-pineline-worflow-agent/SKILL.md) without skipping any step (see rule 6 in `.agents/rules/README.md`), and must follow [.agents/rules/](.agents/rules/README.md): truthful status for the monitor, complete documents for every phase, `src/` ownership and timeline rules, and handoff discipline. Run `python3 -I scripts/pipeline.py audit <vid>` before ending any turn on a video; it must exit 0 or every remaining error goes into `docs/<vid>/HANDOFF.md`.
 
