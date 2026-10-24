@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "act": "hook",
+    "narration": "Bạn tưởng thành công đến từ một khoảnh khắc lớn? Không đâu!"
+  },
+  {
+    "id": 2,
+    "act": "body",
+    "narration": "Nó bắt đầu từ một trang sách. Mười phút cố gắng. Một lần muốn bỏ cuộc... nhưng vẫn tiếp tục."
+  },
+  {
+    "id": 3,
+    "act": "climax",
+    "narration": "Ngày đầu, chẳng ai thấy khác biệt. Nhưng mỗi ngày một chút... bạn đang tiến lên, nhanh hơn bạn nghĩ!"
+  },
+  {
+    "id": 4,
+    "act": "reflection",
+    "narration": "Rồi một ngày, ngoảnh lại... bạn đã đi rất xa. Vì điều kỳ diệu... là bạn đã không dừng lại."
+  }
+]
