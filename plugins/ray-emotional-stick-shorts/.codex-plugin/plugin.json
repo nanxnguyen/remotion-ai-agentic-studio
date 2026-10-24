@@ -1,0 +1,32 @@
+{
+  "interface": {
+    "capabilities": [
+      "Interactive"
+    ],
+    "category": "Productivity",
+    "defaultPrompt": "Viết kịch bản YouTube Shorts chủ đề bất kỳ theo công thức tối ưu giữ chân: hook 3–5 giây, nhịp kể tăng tiến, cao trào, câu kết chạm cảm xúc; storyboard và giọng Vbee Thanh Long nếu làm video.",
+    "developerName": "NGUYEN ANH NHUT",
+    "displayName": "Ray Emotional Stick Shorts",
+    "longDescription": "Sản xuất Shorts chủ đề bất kỳ (gia đình, chữa lành, tình cảm, câu chuyện, học tập, kiến thức) với hook mạnh, nhịp giữ chân, cú xoay, chuyển cảnh mượt, Vbee Thanh Long và QA trung thực; không hứa hẹn triệu view.",
+    "shortDescription": "Shorts chủ đề bất kỳ — tối ưu giữ chân"
+  },
+  "name": "ray-emotional-stick-shorts",
+  "version": "1.0.2",
+  "description": "Script, storyboard and production of high-retention Vietnamese cinematic stick-figure Shorts for ANY topic; universal hook/retention framework, Vbee Thanh Long, Remotion QA and verified delivery.",
+  "author": {
+    "name": "NGUYEN ANH NHUT",
+    "email": "nguyenanhnhut0101.99@gmail.com"
+  },
+  "keywords": [
+    "YouTube Shorts",
+    "Vietnamese",
+    "stick figure",
+    "cinematic",
+    "emotional storytelling",
+    "Vbee",
+    "retention",
+    "storyboard",
+    "Remotion"
+  ],
+  "skills": "./skills"
+}
