@@ -27,8 +27,8 @@ https://drive.google.com/drive/folders/1rtJF9zDWuFZ8_6IixdMew3WCZj8415-D
 
 Every video folder must contain **all three verified real files**:
 
-1. `final.mp4` — approved complete video with voice and soundtrack (as required), pass appropriate ffprobe/QA.
-2. `thumbnail.png` or `thumbnail.jpg` — extremely compelling, beautiful, cinematic/dramatic **story-specific** original artwork; **vertical 9:16 for Shorts**, **horizontal 16:9 for long videos**. Legible mobile-first typography, correct Vietnamese accents, credible imagery; not a contact sheet or placeholder.
+1. `video-final.mp4` — approved complete video with voice and soundtrack (as required), pass appropriate ffprobe/QA.
+2. `thumbnail-youtube.png` or `thumbnail-youtube.jpg` — extremely compelling, beautiful, cinematic/dramatic **story-specific** original artwork; **vertical 9:16 for Shorts**, **horizontal 16:9 for long videos**. Legible mobile-first typography, correct Vietnamese accents, credible imagery; not a contact sheet or placeholder.
 3. `youtube-title-description.txt` — UTF-8 ready-to-paste **YouTube TITLE + DESCRIPTION** with relevant hashtags and optionally a pinned comment; optimize curiosity, emotion and truthful story relevance according to the mandatory YouTube Shorts + TikTok retention playbook. If TikTok copy is requested, add a separate section/file, but never omit YouTube text.
 
 Upload full actual binary assets into that exact numbered folder and read back all three Drive file records (correct parent, nonzero sizes, accessible links). Share the **folder URL + links to video, thumbnail and publishing text**. Do not mark successful until all three are verified. Do not change sharing or post publicly without approval. For full steps and quality gates, read [Google Drive Video Archive Contract](GOOGLE_DRIVE_VIDEO_ARCHIVE.md).
