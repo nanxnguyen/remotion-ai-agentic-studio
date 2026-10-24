@@ -1,16 +1,16 @@
 {
   "interface": {
-    "displayName": "Ray Phim Kể Chuyện",
-    "shortDescription": "Video kể chuyện chuẩn cinematic",
-    "longDescription": "Trợ lý dựng Shorts kinh dị tiếng Việt 9:16, HOOK 0–6s, chuyển động video điện ảnh 2D/2.5D mượt, không đơ/giật; không bắt buộc diễn xuất nhân vật người thật. Vbee và QA.",
+    "displayName": "Ray Phim K\u1ec3 Chuy\u1ec7n",
+    "shortDescription": "Video k\u1ec3 chuy\u1ec7n chu\u1ea9n cinematic",
+    "longDescription": "T\u1ea1o phim kinh d\u1ecb Shorts 60s: m\u1ed7i c\u00e2u tho\u1ea1i ph\u1ea3i c\u00f3 b\u1eb1ng ch\u1ee9ng h\u00ecnh \u1ea3nh h\u00e0nh \u0111\u1ed9ng th\u1eadt trong MP4; ch\u00fa tr\u1ecdng hook, cao tr\u00e0o v\u00e0 twist; cinematic motion 2.5D fade \u00eam, Vbee th\u1eadt, QA tr\u01b0\u1edbc khi l\u01b0u Drive.",
     "developerName": "Ray",
     "category": "Productivity",
     "capabilities": [],
-    "defaultPrompt": "Dùng Ray Phim Kể Chuyện làm phim kinh dị Shorts <=60s HOOK 0–6s, motion 2D/2.5D mượt, không đơ/giật; giọng Vbee, chữ điện ảnh, QA và lưu cả Google Drive/GitHub."
+    "defaultPrompt": "Ray Phim K\u1ec3 Chuy\u1ec7n: \u0111\u1ecdc skills/voice-visual-retention-qa/SKILL.md v\u00e0 chu\u1ea9n VOICE_VISUAL_RETENTION_QA_V1; l\u1eadp evidence map Voice \u2192 Action \u2192 Frames cho t\u1eebng beat; d\u1ef1ng phim 9:16 60s, hook 0\u20136, BODY 6\u201330, CLIMAX 30\u201348, PAYOFF 48\u201360; 2D/2.5D m\u01b0\u1ee3t 0.35\u20130.55s fade, kh\u00f4ng rung/glitch, captions Vi\u1ec7t tr\u1eafng/v\u00e0ng/\u0111\u1ecf, gi\u1ecdng Vbee th\u1ef1c. Xu\u1ea5t video c\u00f3 b\u1eb1ng ch\u1ee9ng QA, l\u01b0u MP4 + thumbnail + YouTube copy tr\u00ean Google Drive theo folder c\u0169 khi n\u00e2ng phi\u00ean b\u1ea3n; ch\u1ec9 l\u01b0u source/QA tr\u00ean GitHub, KH\u00d4NG GitHub Releases."
   },
   "name": "ray-phim-ke-chuyen",
-  "version": "0.2.8",
-  "description": "Ray Phim Kể Chuyện: smooth fade/crossfade cinematic Shorts with zero intentional shake/glitch, Vbee, captioned storyboard; Drive media and GitHub source (no Releases).",
+  "version": "0.2.9",
+  "description": "Ray Phim K\u1ec3 Chuy\u1ec7n v0.2.9: 60s storytelling, visible-action evidence for each voice beat, cinematic fade and 2.5D, genuine Vbee, QA, Drive MP4 + GitHub source.",
   "author": {
     "name": "Ray"
   },
@@ -23,15 +23,27 @@
     "cinematic",
     "video-production",
     "preflight-qa",
-    "smooth cinematic motion",
+    "Google Drive",
+    "0-6s hook",
+    "Vbee Batch",
+    "numbered folders",
+    "YouTube thumbnail",
+    "YouTube title and description",
+    "smooth video motion",
     "2.5D parallax",
     "no freeze",
     "no jitter",
     "captioned storyboards",
-    "16-frame horror review",
-    "soft crossfade",
-    "fade only default",
-    "no glitch"
+    "Vietnamese cinematic typography",
+    "16-frame horror board",
+    "GitHub source only",
+    "Google Drive MP4",
+    "soft fade transitions",
+    "cinematic crossfade",
+    "no glitch",
+    "voice visual evidence QA",
+    "action-before-reaction",
+    "cinematic retention"
   ],
   "skills": "./skills"
 }
