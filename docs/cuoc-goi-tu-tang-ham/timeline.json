@@ -1,0 +1,112 @@
+[
+  {
+    "id": 1,
+    "start_sec": 0,
+    "duration_sec": 6,
+    "narration": "Mẹ Hà đã mất ba năm. Nhưng đêm nay... chính số của mẹ lại gọi đến!",
+    "headline": "MẸ ĐÃ MẤT 3 NĂM",
+    "caption": "CUỘC GỌI LÚC NỬA ĐÊM",
+    "phase": "HOOK",
+    "emotion": "shock",
+    "action": "phone rings"
+  },
+  {
+    "id": 2,
+    "start_sec": 6,
+    "duration_sec": 6,
+    "narration": "Đầu dây thì thào: Hà ơi... mở cửa tầng hầm cho mẹ.",
+    "headline": "MỞ CỬA CHO MẸ",
+    "caption": "GIỌNG NÓI TỪ DƯỚI SÀN",
+    "phase": "BODY",
+    "emotion": "grief",
+    "action": "answer phone"
+  },
+  {
+    "id": 3,
+    "start_sec": 12,
+    "duration_sec": 6,
+    "narration": "Nhà không có tầng hầm. Vậy mà dưới sàn vang lên ba tiếng gõ.",
+    "headline": "KHÔNG CÓ TẦNG HẦM",
+    "caption": "CỘC... CỘC... CỘC...",
+    "phase": "BODY",
+    "emotion": "suspicion",
+    "action": "hear knocking"
+  },
+  {
+    "id": 4,
+    "start_sec": 18,
+    "duration_sec": 6,
+    "narration": "Hà lật tấm thảm cũ. Bên dưới là một nắp sắt bị đóng đinh kín.",
+    "headline": "CÁNH CỬA BỊ CHÔN GIẤU",
+    "caption": "NHỮNG CHIẾC ĐINH RỈ",
+    "phase": "BODY",
+    "emotion": "dread",
+    "action": "lift rug"
+  },
+  {
+    "id": 5,
+    "start_sec": 24,
+    "duration_sec": 6,
+    "narration": "Tiếng mẹ nức nở... gọi đúng biệt danh chỉ mẹ mới biết.",
+    "headline": "CHỈ MẸ MỚI BIẾT",
+    "caption": "HÀ BẮT ĐẦU TIN",
+    "phase": "BODY",
+    "emotion": "hope",
+    "action": "touch lock"
+  },
+  {
+    "id": 6,
+    "start_sec": 30,
+    "duration_sec": 6,
+    "narration": "Ngay khi Hà chạm ổ khóa, cô thấy cuộn băng cha để lại: ĐỪNG MỞ!",
+    "headline": "LỜI NHẮN CỦA CHA",
+    "caption": "ĐỪNG MỞ!",
+    "phase": "CLIMAX",
+    "emotion": "alarm",
+    "action": "find cassette"
+  },
+  {
+    "id": 7,
+    "start_sec": 36,
+    "duration_sec": 6,
+    "narration": "Giọng cha run rẩy: Thứ dưới đó... bắt chước người con yêu nhất.",
+    "headline": "THỨ DƯỚI ĐÓ",
+    "caption": "BẮT CHƯỚC GIỌNG NGƯỜI",
+    "phase": "CLIMAX",
+    "emotion": "horror",
+    "action": "play warning"
+  },
+  {
+    "id": 8,
+    "start_sec": 42,
+    "duration_sec": 6,
+    "narration": "Tiếng mẹ im bặt. Một giọng khác cười khẽ: Con muốn nghe bố không?",
+    "headline": "GIỌNG NÓI THAY ĐỔI",
+    "caption": "CON MUỐN NGHE BỐ KHÔNG?",
+    "phase": "CLIMAX",
+    "emotion": "terror",
+    "action": "voice changes"
+  },
+  {
+    "id": 9,
+    "start_sec": 48,
+    "duration_sec": 6,
+    "narration": "Hà đóng sập nắp hầm. Bên dưới, hàng chục điện thoại đồng loạt sáng.",
+    "headline": "HÀNG CHỤC CUỘC GỌI",
+    "caption": "KHÔNG CHỈ CÓ MỘT NẠN NHÂN",
+    "phase": "ENDING",
+    "emotion": "flight",
+    "action": "slam hatch"
+  },
+  {
+    "id": 10,
+    "start_sec": 54,
+    "duration_sec": 6,
+    "narration": "Cô bỏ chạy. Rồi điện thoại nhà hàng xóm đổ chuông... hiện chữ: MẸ.",
+    "headline": "NHÀ BÊN CẠNH...",
+    "caption": "CŨNG CÓ CUỘC GỌI TỪ MẸ",
+    "phase": "ENDING",
+    "emotion": "shock",
+    "action": "neighbor phone rings"
+  }
+]
