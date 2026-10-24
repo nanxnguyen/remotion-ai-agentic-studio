@@ -18,7 +18,7 @@
 - Break story into 9–12 usable vertical shots (or 20–28 micro-beats where acting requires); avoid forcing one static picture to carry several contradictory events. Production scope must fit actual available animation/generation tools.
 - **Sign-off:** one story/shotlist pass with all ending clues, reactions and dialogue planned; do not create final frame assets until this passes. Approval can be inherited from user's existing approved script, not re-asked unnecessarily.
 
-## Gate B: Character, acting and continuity lock
+## Gate B: Character continuity and smooth visual-motion lock
 
 - Build a character bible and reference appearance. Define emotional progression across each scene, e.g. suspicion → disbelief → fear → urgency → relief/dread; include **eyes, brows, mouth, hand tension, breath, gaze direction, posture** and visible response to event.
 - Every narrated causal verb gets matching imagery at the corresponding syllable: **look → look**, **raise hand → hand visibly raises**, **tear ticket → visible tear**, **bell → light/screen response**, **door opens → latch and door move**, **smile → character actually smiles**. Single scene must not show the consequence before the event or hold an unrelated poster throughout.
@@ -60,8 +60,12 @@ Before expensive full render, run `python3 scripts/preflight_story_video.py --ti
 
 ## Non-negotiable minimum scorecard
 
-Creative: hook / clear story / stakes / earned payoff. Acting: visible emotion and causal motion. Audio: Vbee source real, dramatic rhythm, clean/dialogue distinction, no clipping. Visual: character continuity, no text baked into generated backgrounds. Type: legible, cinematic, phrase-synced Vietnamese. Edit: motivated smooth transitions and SFX frame-synced. Delivery: MP4 playback verified + accurate GitHub state. **Any critical fail blocks FINAL label.** No numeric scores or 'pass' unless actual evidence is present.
+Creative: hook / clear story / stakes / earned payoff. Motion: smooth temporal video progression, emotionally meaningful shot transitions. Audio: Vbee source real, dramatic rhythm, clean/dialogue distinction, no clipping. Visual: character continuity, no text baked into generated backgrounds. Type: legible, cinematic, phrase-synced Vietnamese. Edit: motivated smooth transitions and SFX frame-synced. Delivery: MP4 playback verified + accurate GitHub state. **Any critical fail blocks FINAL label.** No numeric scores or 'pass' unless actual evidence is present.
 
 ### Updated 2026-10-24: 0–6s hook preflight
 
 For a 60s film, verify HOOK 0–6s with 0–2s anomaly, 2–4s actor reaction, 4–6s threat; BODY 6–30s, CLIMAX 30–48s, PAYOFF 48–60s. The early 0–2s stopping image still matters. Run all other tests as before.
+
+## Newer override: SMOOTH_CINEMATIC_VIDEO_V1
+
+Independent human/AI actor animation is OPTIONAL, not a mandatory FINAL gate. Replace the former actor realism review with smooth 2D/2.5D video motion quality: no unintended freeze, jitter, repeated frames, flicker or unmotivated jumps; check the actual exported MP4 at scene boundaries. A short artistic hold is acceptable. Real Vbee, visual story communication, captions, audio, all existing technical tests and archives remain mandatory. This overrides older sections that prohibit FINAL solely due to still-image layers. Keep honest labeling of 2D rather than human acting. See `references/smooth-video-motion-standard.md`.
