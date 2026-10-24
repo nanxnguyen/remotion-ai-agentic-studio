@@ -10,7 +10,7 @@ on:
 permissions:
   contents: read
 concurrency:
-  group: healing60-realfootage
+  group: healing60-realfootage-optimized-v3
   cancel-in-progress: true
 
 jobs:
