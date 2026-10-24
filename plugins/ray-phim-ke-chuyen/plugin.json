@@ -1,8 +1,8 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "ray-phim-ke-chuyen",
-  "version": "0.2.6",
-  "description": "Ray Phim Kể Chuyện: mandatory dramatic Vietnamese captioned 16-frame horror storyboard reviews with white/yellow/red emphasis; smooth motion, Vbee, Drive+GitHub.",
+  "version": "0.2.7",
+  "description": "Ray Phim Kể Chuyện: captioned storyboards, smooth cinematic motion, original Vbee, video+thumbnail+YouTube copy on Drive, source and QA on GitHub (no Releases).",
   "author": {
     "name": "Ray"
   },
