@@ -12,10 +12,10 @@
     {
       "beat": 1,
       "start": 0,
-      "sourceDurationSeconds": 6.818,
+      "sourceDurationSeconds": 5.642,
       "availableSeconds": 5.83,
-      "appliedTempo": 1.1695,
-      "maxVoiceDb": -0.8,
+      "appliedTempo": 1,
+      "maxVoiceDb": -1.5,
       "provider": "Vbee Batch"
     },
     {
@@ -64,8 +64,8 @@
       "provider": "Vbee Batch"
     }
   ],
-  "sha256": "b14e7478f4e816e0de4a3dc1d4b5269b5f6f22d10740c9d7b56ad4e4179209ba",
-  "bytes": 2555504,
+  "sha256": "bda251984d729a5ea6449993a237c8422fa460eb69478129ee412c1dbfcf072c",
+  "bytes": 2564265,
   "VbeeProvenance": "real Batch API, 6 actual mp3 files synthesized via secrets",
   "originalScore": "procedural piano + timed SFX",
   "animationTechnique": "frame-driven original 2D puppet motion, NOT original CGI/3D or AI video",
