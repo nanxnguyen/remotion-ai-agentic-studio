@@ -1,0 +1,56 @@
+name: Publish Retro TV V8.2 real video binary
+on:
+  push:
+    branches: [feat/retro-tv-v8-2-cinematic-35s]
+    paths: [docs/retro-tv-v8-2/binary-manifest.json]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Reassemble MP4 from authenticated repository blob chunks
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          manifest="docs/retro-tv-v8-2/binary-manifest.json"
+          encoded="/tmp/v82-encoded.txt"
+          : > "$encoded"
+          jq -r '.chunks[]' "$manifest" | while IFS= read -r object_sha; do
+            gh api "repos/$GITHUB_REPOSITORY/git/blobs/$object_sha" --jq .content | base64 --decode >> "$encoded"
+          done
+          mkdir -p /tmp/retro-v82
+          base64 --decode "$encoded" > /tmp/retro-v82/Thanh_Cong_Bat_Dau_Tu_Dieu_Nho_Be_Retro_TV_V8_2.mp4
+          test "$(stat -c %s /tmp/retro-v82/Thanh_Cong_Bat_Dau_Tu_Dieu_Nho_Be_Retro_TV_V8_2.mp4)" -eq 11736268
+          printf "%s  %s\n" "e44ef8d77b8245aecb5bbb1cd7983fca370c936894b11b1cfa83c8c471e474a5" "/tmp/retro-v82/Thanh_Cong_Bat_Dau_Tu_Dieu_Nho_Be_Retro_TV_V8_2.mp4" | sha256sum --check
+          echo "Binary verified against 35s source master"
+      - name: Publish public GitHub Release
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          tag="retro-tv-v8-2-2026-10-24"
+          file="/tmp/retro-v82/Thanh_Cong_Bat_Dau_Tu_Dieu_Nho_Be_Retro_TV_V8_2.mp4"
+          if gh release view "$tag" >/dev/null 2>&1; then
+            gh release upload "$tag" "$file" --clobber
+          else
+            gh release create "$tag" "$file" --title "Retro TV V8.2 — Thành Công Bắt Đầu Từ Những Điều Nhỏ Bé" --notes "35.0s · 1080x1920 30 FPS H.264/AAC · genuine Vbee Ngọc Huyền · Be Vietnam Pro gold highlights · 11 nature edits. File binary checksum e44ef8d77b8245aecb5bbb1cd7983fca370c936894b11b1cfa83c8c471e474a5." --target "$GITHUB_SHA"
+          fi
+      - name: Download Release asset and re-check binary
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          tag="retro-tv-v8-2-2026-10-24"
+          name="Thanh_Cong_Bat_Dau_Tu_Dieu_Nho_Be_Retro_TV_V8_2.mp4"
+          gh release view "$tag" --json assets --jq ".assets[] | select(.name == \"$name\") | .size" | grep -x 11736268
+          mkdir -p /tmp/retro-v82-verify
+          gh release download "$tag" -p "$name" -D /tmp/retro-v82-verify
+          printf "%s  %s\n" "e44ef8d77b8245aecb5bbb1cd7983fca370c936894b11b1cfa83c8c471e474a5" "/tmp/retro-v82-verify/$name" | sha256sum --check
