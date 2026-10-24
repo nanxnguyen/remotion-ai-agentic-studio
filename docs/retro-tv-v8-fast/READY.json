@@ -1,0 +1,20 @@
+{
+  "video": "Thanh_Cong_Thoi_Quen_Nho_Retro_TV_V8_Fast_Motivation.mp4",
+  "tag": "retro-tv-v8-fast-2026-10-24",
+  "ready_to_publish": true,
+  "format": "mp4",
+  "compressed_size_bytes": 6858076,
+  "sha256": "64a9e87363fe25022d3a56330d740676b7a37859935bc7facd0f730fde520abf",
+  "chunk_manifests": [
+    "batch-00.json",
+    "batch-01.json",
+    "batch-02.json",
+    "batch-03.json"
+  ],
+  "chunk_count": 29,
+  "fps": 30,
+  "frames": 593,
+  "duration_seconds": 19.766667,
+  "video_resolution": "1080x1920",
+  "pipeline": "Reassemble git blobs, sha256 verify, gh release upload, gh release download verification"
+}
