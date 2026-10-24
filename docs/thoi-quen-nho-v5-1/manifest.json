@@ -1,0 +1,33 @@
+{
+  "slug": "thoi-quen-nho-v5-1",
+  "title": "V5.1 Be Vietnam Editorial",
+  "duration_seconds": 25.333333,
+  "frames": 760,
+  "fps": 30,
+  "resolution": "1080x1920",
+  "center_square": {
+    "x": 220,
+    "y": 640,
+    "width": 640,
+    "height": 640
+  },
+  "voice_source": "Genuine Vbee Ngọc Huyền mixed in original V5",
+  "source_footage": "user-supplied original nature video, cleaned and color graded",
+  "font": "Be Vietnam Pro ExtraBold, raster layers only",
+  "caption_beats": 41,
+  "font_artifact_run": 40071347158,
+  "render_method": "OpenCV/FFmpeg",
+  "sha256": "a9f6045cd01671685e98c032717adfe0f06f1644f2b756269bb0f50792faa8ad",
+  "bytes": 6332507,
+  "github_archive": {
+    "status": "pending",
+    "mp4_url": null
+  },
+  "qa": {
+    "ffmpeg_decode": true,
+    "ffprobe": true,
+    "contact_sheet": true,
+    "remotion_verify": false,
+    "pipeline_audit": false
+  }
+}

@@ -1,0 +1,80 @@
+name: V5.1 - Render Be Vietnam Pro Typography Layers
+on:
+  push:
+    branches: [feat/v5-1-bevietnam-cinematic-captions]
+    paths: [.github/workflows/v5-1-be-captions.yml]
+permissions:
+  contents: read
+jobs:
+  typography:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install rasterizer
+        run: python -m pip install pillow
+      - name: Download OFL open-source Be Vietnam Pro ExtraBold for render only
+        run: curl -fL --retry 2 https://raw.githubusercontent.com/google/fonts/main/ofl/bevietnampro/BeVietnamPro-ExtraBold.ttf -o /tmp/BeVietnamPro-ExtraBold.ttf
+      - name: Render 41 fully-transparent Be Vietnam Pro layers
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json, pathlib
+          from PIL import Image,ImageFont,ImageDraw,ImageFilter
+          out=pathlib.Path("caption-v5-1")
+          out.mkdir(exist_ok=True)
+          ftpath="/tmp/BeVietnamPro-ExtraBold.ttf"
+          cues=json.loads(r'''[["Bạn nghĩ thành công","đến từ một khoảnh khắc lớn?",["Bạn nghĩ","thành công","đến từ","một khoảnh khắc","lớn?"]],["Không.","",["Không."]],["Nó bắt đầu từ","những việc rất nhỏ.",["Nó bắt đầu","từ","những việc","rất","nhỏ."]],["Một trang sách.","",["Một trang","sách."]],["Mười phút luyện tập.","",["Mười phút","luyện tập."]],["Một lần không bỏ cuộc.","",["Một lần","không","bỏ cuộc."]],["Ngày đầu tiên,","chẳng ai nhận ra.",["Ngày đầu tiên,","chẳng ai","nhận ra."]],["Ngày thứ hai,","vẫn vậy.",["Ngày thứ hai,","vẫn vậy."]],["Nhưng từng lần lặp lại…","bạn đang tiến lên.",["Nhưng","từng lần","lặp lại…","bạn đang","tiến lên."]],["Rồi một ngày,","bạn thấy mình đã đi rất xa.",["Rồi một ngày,","bạn thấy","mình đã","đi","rất","xa."]],["Thành công… là điều nhỏ bé,","được lặp lại đủ lâu.",["Thành công","là điều","nhỏ bé,","được","lặp lại","đủ","lâu."]]]''')
+          files=[]
+          for i,(line1,line2,focuses) in enumerate(cues,1):
+            lines=[x for x in [line1,line2] if x]
+            tmp=Image.new("RGBA",(640,640)); d=ImageDraw.Draw(tmp)
+            fontsize=57
+            for size in range(57,31,-1):
+              f=ImageFont.truetype(ftpath,size)
+              if all(d.textlength(line,font=f)<=558 for line in lines): fontsize=size;break
+            f=ImageFont.truetype(ftpath,fontsize)
+            step=fontsize+18
+            start_y=320-len(lines)*step/2-7
+            for j,focus in enumerate(focuses,1):
+              img=Image.new("RGBA",(640,640),(0,0,0,0))
+              sh=Image.new("RGBA",(640,640),(0,0,0,0))
+              ds=ImageDraw.Draw(sh)
+              for k,line in enumerate(lines):
+                yy=start_y+k*step
+                xx=(640-d.textlength(line,font=f))/2
+                ds.text((xx+2,yy+5),line,font=f,fill=(0,0,0,190),stroke_width=5,stroke_fill=(0,0,0,130))
+              sh=sh.filter(ImageFilter.GaussianBlur(5))
+              img.alpha_composite(sh)
+              dd=ImageDraw.Draw(img)
+              for k,line in enumerate(lines):
+                yy=start_y+k*step
+                xx=(640-d.textlength(line,font=f))/2
+                dd.text((xx,yy),line,font=f,fill=(244,246,243,255),stroke_width=1,stroke_fill=(10,21,14,190))
+                ff=focus.replace("...","…")
+                pos=line.lower().find(ff.lower())
+                if pos<0: pos=line.replace("…","...").lower().find(focus.replace("…","...").lower())
+                if pos>=0:
+                  prefix=line[:pos]
+                  hl=line[pos:pos+len(ff)]
+                  hx=xx+d.textlength(prefix,font=f)
+                  dd.text((hx,yy),hl,font=f,fill=(255,211,120,255),stroke_width=1,stroke_fill=(10,20,11,170))
+                  # subtle underglow underline, 2px under natural baseline
+                  uy=yy+f.size+8
+                  dd.rounded_rectangle((hx+3,uy,hx+d.textlength(hl,font=f)-3,uy+2),radius=1,fill=(249,204,106,190))
+              path=out/f"cap_{i:02}_{j:02}.png"
+              img.save(path,optimize=True)
+              files.append({"scene":i,"beat":j,"filename":path.name,"focus":focus,"font":"Be Vietnam Pro ExtraBold","size":fontsize})
+          (out/"manifest.json").write_text(json.dumps(files,ensure_ascii=False,indent=2))
+          print("Created",len(files),"Be Vietnam Pro glyph overlays. Font excluded from artifact.")
+          
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: v5-1-be-vietnam-captions-png-only
+          path: caption-v5-1/
+          retention-days: 14
+          if-no-files-found: error
