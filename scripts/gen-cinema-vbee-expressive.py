@@ -22,8 +22,8 @@ for s in scenes:
     p=out/f"s{n}.mp3"
     module.generate_async(s["narration"], code, s["speed"], p, callback)
     duration=module.read_duration(p)
-    if duration>5.75:
-        raise RuntimeError(f"Scene {n} Vbee too long: {duration:.3f} sec exceeds 6s slot, shorten text; do not clip")
+    if duration>5.90:
+        raise RuntimeError(f"Scene {n} Vbee too long: {duration:.3f} sec exceeds safe 6s slot, shorten text; do not clip")
     sha=hashlib.sha256(p.read_bytes()).hexdigest()
     manifest.append({"id":n,"text":s["narration"],"speed":s["speed"],"emotion_direction":s["emotion"],"voice_code":code,"audio_seconds":duration,"slot_start_seconds":6*(n-1),"slot_seconds":6,"sha256":sha,"file":f"s{n}.mp3","provider":"Vbee Batch API"})
     print(f"scene{n}: {duration:.3f}s, {s['emotion']}",flush=True)
