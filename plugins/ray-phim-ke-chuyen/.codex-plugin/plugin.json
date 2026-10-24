@@ -1,20 +1,20 @@
 {
   "interface": {
-    "displayName": "Ray Phim K\u1ec3 Chuy\u1ec7n",
-    "shortDescription": "Video k\u1ec3 chuy\u1ec7n chu\u1ea9n cinematic",
-    "longDescription": "Tr\u1ee3 l\u00fd d\u1ef1ng Shorts kinh d\u1ecb ti\u1ebfng Vi\u1ec7t 9:16, gi\u1edbi h\u1ea1n 60 gi\u00e2y, b\u1eaft bu\u1ed9c ki\u1ec3m \u0111\u1ecbnh Hook\u2013Th\u00e2n\u2013Cao tr\u00e0o\u2013Payoff, kh\u1edbp gi\u1ecdng Vbee th\u1eadt v\u1edbi di\u1ec5n xu\u1ea5t v\u00e0 t\u1eebng micro-beat, ch\u1eef \u0111i\u1ec7n \u1ea3nh, chuy\u1ec3n c\u1ea3nh c\u00f3 m\u1ee5c \u0111\u00edch, QA tr\u01b0\u1edbc MP4. H\u1ed7 tr\u1ee3 ch\u1ec9 \u0111\u1ed5i voice m\u00e0 gi\u1eef nguy\u00ean h\u00ecnh g\u1ed1c.",
+    "displayName": "Ray Phim Kể Chuyện",
+    "shortDescription": "Video kể chuyện chuẩn cinematic",
+    "longDescription": "Trợ lý dựng Shorts kinh dị tiếng Việt 9:16, giới hạn 60 giây, bắt buộc kiểm định Hook–Thân–Cao trào–Payoff, khớp giọng Vbee thật với diễn xuất và từng micro-beat, chữ điện ảnh, chuyển cảnh có mục đích, QA trước MP4. Hỗ trợ chỉ đổi voice mà giữ nguyên hình gốc.",
     "developerName": "Ray",
     "category": "Productivity",
     "capabilities": [],
     "defaultPrompt": [
-      "D\u00f9ng Ray Phim K\u1ec3 Chuy\u1ec7n l\u00e0m phim kinh d\u1ecb Shorts 60s theo checklist di\u1ec5n xu\u1ea5t, Vbee kh\u1edbp h\u00ecnh v\u00e0 ch\u1eef cinematic.",
-      "Ki\u1ec3m tra preflight script, acting, voice map, typography v\u00e0 chuy\u1ec3n c\u1ea3nh tr\u01b0\u1edbc khi xu\u1ea5t MP4.",
-      "Ch\u1ec9 thay voice Vbee cho MP4 n\u00e0y v\u00e0 kh\u00f4ng \u0111\u1ee5ng t\u1edbi h\u00ecnh."
+      "Dùng Ray Phim Kể Chuyện làm phim kinh dị Shorts 60s theo checklist diễn xuất, Vbee khớp hình và chữ cinematic.",
+      "Kiểm tra preflight script, acting, voice map, typography và chuyển cảnh trước khi xuất MP4.",
+      "Chỉ thay voice Vbee cho MP4 này và không đụng tới hình."
     ]
   },
   "name": "ray-phim-ke-chuyen",
-  "version": "0.2.0",
-  "description": "S\u1ea3n xu\u1ea5t YouTube Shorts kinh d\u1ecb 9:16 <=60s c\u00f3 Hook\u2013Th\u00e2n\u2013Cao tr\u00e0o\u2013K\u1ebft, storyboard di\u1ec5n xu\u1ea5t, gi\u1ecdng Vbee th\u1eadt, typography \u0111i\u1ec7n \u1ea3nh, motion m\u01b0\u1ee3t v\u00e0 QA b\u1eaft bu\u1ed9c tr\u01b0\u1edbc khi render.",
+  "version": "0.2.2",
+  "description": "Sản xuất YouTube Shorts kinh dị 9:16 <=60s có Hook–Thân–Cao trào–Kết, storyboard diễn xuất, giọng Vbee thật, typography điện ảnh, motion mượt và QA bắt buộc trước khi render.",
   "author": {
     "name": "Ray"
   },
