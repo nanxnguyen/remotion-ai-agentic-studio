@@ -1,0 +1,46 @@
+name: Publish Retro TV V12.2 verified MP4
+on:
+  push:
+    branches:
+      - feat/v12-2-github-release-2026-10-25
+    paths:
+      - .github/workflows/release-v12-2-2026-10-25.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Reassemble original MP4 and verify SHA256
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          FILE=V12_2_Khat_Khao_Chay_Bong_30s.mp4
+          : > video-transfer.b64
+          while IFS= read -r SHA; do
+            test -n "$SHA" || continue
+            gh api "repos/$GH_REPO/git/blobs/$SHA" --jq '.content' | tr -d '\n' | base64 -d >> video-transfer.b64
+          done <<'BLOB_SHAS'
+          015855170506efbc4462dfe94b6d10151fcfd2fd
+          b63d95f9f43fa5e9df5b1155ac03fe9f0a5474ae
+          dff02441cae526dfdb7d4e51a6dbe8e6efc43f64
+          fabd69cb324cf6e31a6fac0a152bfb5f2ae99ad3
+          59c46216466b8ecf27555893c9db84c706082988
+          a5121c0034457e268dfb24127a173a1347ab0ef3
+          334acdac42ad21f2b0712bb89ab549726f864c18
+          a58946dc99ddeb0b22b30c891638716082e7df3f
+          f86080fe0a778b4e3e170fc85757f671df7f3745
+          2a1cad253b89bc97dfba7b59b1e10e78288993ad
+          BLOB_SHAS
+          base64 -d video-transfer.b64 > "$FILE"
+          echo "e23562eaae085e678d18e836c0ce7f44cb13e4d5b8a186bc9d4d766088187f59  $FILE" | sha256sum -c -
+          test "$(stat -c%s "$FILE")" -eq 7785305
+          gh release create retro-tv-v12-2-2026-10-25 "$FILE" \
+            --target "$GITHUB_SHA" \
+            --title "Retro TV V12.2 - Khat Khao Chay Bong (30s)" \
+            --notes "Bản V12.2 30 giây, giọng Vbee Ngọc Huyền. MP4 được xác minh nguyên vẹn trước khi phát hành. SHA256: e23562eaae085e678d18e836c0ce7f44cb13e4d5b8a186bc9d4d766088187f59. Size: 7,785,305 bytes."
