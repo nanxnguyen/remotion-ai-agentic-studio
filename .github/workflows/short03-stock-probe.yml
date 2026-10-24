@@ -1,0 +1,22 @@
+name: Short03 Real-Life Stock Source Probe
+on:
+  push:
+    branches: [feat/short03-real-life-podcast-preview]
+    paths: ['.github/workflows/short03-stock-probe.yml']
+  workflow_dispatch:
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v7
+      - name: Probe free real-life stock video sources
+        run: |
+          set -u
+          for id in 6878202 5493991 5493999 5494003 5494001 7712993; do
+            echo "=== PEXELS $id ==="
+            for url in "https://videos.pexels.com/video-files/$id/$id-hd_1080_1920_25fps.mp4" "https://www.pexels.com/download/video/$id/" "https://videos.pexels.com/video-files/$id/$id-hd_720_1280_25fps.mp4"; do
+              echo "PROBE $url"
+              curl -sIL --max-time 9 -A 'Mozilla/5.0' "$url" | grep -iE '^HTTP/|^content-type:|^content-length:|^location:' | tail -6 || true
+            done
+          done
