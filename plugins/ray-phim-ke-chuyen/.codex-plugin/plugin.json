@@ -13,7 +13,7 @@
     ]
   },
   "name": "ray-phim-ke-chuyen",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Sản xuất YouTube Shorts kinh dị 9:16 <=60s có Hook–Thân–Cao trào–Kết, storyboard diễn xuất, giọng Vbee thật, typography điện ảnh, motion mượt và QA bắt buộc trước khi render.",
   "author": {
     "name": "Ray"
