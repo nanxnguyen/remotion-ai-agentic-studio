@@ -63,11 +63,11 @@ Các tiện ích đóng gói (không tự chạy khi cài plugin): `scripts/gene
 - Tránh đưa MP4 vào Git commits. Draft Release là lưu trữ, không phải công bố video; không công khai release hay đăng YouTube nếu chưa có yêu cầu riêng. Khi không có khả năng truyền MP4 sang GitHub, báo rõ GitHub archival **chưa hoàn tất**, không gắn nhãn archived.
 - Đọc `docs/production-archive-policy.md` và repo `AGENTS.md` ở phiên bản mới nhất trước khi thao tác.
 
-## Bắt buộc trả link MP4 trên GitHub sau mỗi video hoàn tất
+## Bắt buộc lưu MP4 cả Google Drive và GitHub; báo cáo ưu tiên Drive
 
 - Mỗi tác vụ **NEW_VIDEO hoặc VOICE_ONLY** chỉ được báo "hoàn tất và đã lưu GitHub" sau khi GitHub Actions archive step tạo **draft Release MP4 asset** và bước **Verify release asset** đã qua: GitHub API phải trả về \`html_url\`, \`assets[].browser_download_url\`, đúng tên video, kích thước và SHA-256. Phải kiểm chứng bằng kết quả thật; không suy đoán tag hay URL.
-- **Giao ngay trong cùng phản hồi** hai link: **[Xem / tải video trên GitHub]** trỏ đến \`video_url\` thực nhận từ GitHub Release asset, và **[GitHub Release]** trỏ đến \`release_url\`. Có thể đính kèm sandbox MP4 nhưng không được dùng thay link GitHub khi archive thành công.
-- Khi render/QA chạy trong GitHub Actions, upload MP4 artifact sau QA, rồi production workflow **gọi reusable workflow** \`.github/workflows/archive-finished-video.yml\` qua \`workflow_call\` với \`qa_approved=true\` và \`source_run_id=github.run_id\`; dùng \`needs.archive.outputs.video_url\` và \`needs.archive.outputs.release_url\` để giao link. **Không** set QA=true nếu các gate chưa thực sự đạt.
+- **Báo cáo cho người dùng chỉ một link xem chính:** **[▶ Xem video trên Google Drive]** trỏ đến URL trả về thật sau khi tải file MP4 lên Google Drive và kiểm tra metadata. **Không tự đưa link GitHub/Release vào báo cáo mặc định**; vẫn phải lưu trữ MP4 thật lên draft GitHub Release và giữ hai URL đã xác minh trong production manifest / Actions summary, chỉ chia sẻ GitHub link khi được hỏi. Nếu Drive hay GitHub lỗi phải báo rõ trạng thái pending.
+- Khi render/QA chạy trong GitHub Actions, upload MP4 artifact sau QA, rồi production workflow **gọi reusable workflow** \`.github/workflows/archive-finished-video.yml\` qua \`workflow_call\` với \`qa_approved=true\` và \`source_run_id=github.run_id\`; lưu `needs.archive.outputs.video_url` và `needs.archive.outputs.release_url` vào manifest/hệ thống kiểm tra, không mặc định hiển thị trong phản hồi. **Không** set QA=true nếu các gate chưa thực sự đạt.
 - GitHub action viết link vào **Job Summary** và artifact \`github-video-links-<slug>\`. Khi runtime không truyền outputs trực tiếp, lấy artifact hoặc tra cứu Release API, rồi kiểm tra link đã tồn tại trước khi chia sẻ.
 - Draft Release là lưu trữ cho người có quyền truy cập repo (liên kết có thể yêu cầu đăng nhập), **không** tự công khai/phát hành release hoặc đăng YouTube.
 - Nếu không truyền được MP4 nhị phân từ môi trường hiện tại sang GitHub Actions/GitHub Release, báo rõ **chưa có link video GitHub**, nêu điều kiện còn thiếu và không tự nhận đã lưu thành công. Không phát hành URL được ghép thủ công.
@@ -121,3 +121,16 @@ Trigger this preset whenever a brief involves **kinh dị / truyện ma / psycho
 7. **Technical & delivery lock**: run existing \`preflight_story_video.py\`, canonical repository tests/audits, ffprobe and actual AV QC where available. Final MP4 and GitHub draft-Release asset must be real and verified, otherwise clearly report pending; do not mislabel animation level or uploaded status.
 
 This preset supplements existing \`references/preflight-quality-gates.md\`, \`references/visual-direction.md\` and \`references/story-and-manifest.md\`. No claims of guaranteed millions of views; rely on actual audience retention metrics.
+
+
+## Dual-location video archive; Drive-first review (updated 2026-10-24)
+
+For every completed new or revised story video:
+1. Finish actual render and QA first; never label an unverified or non-existent MP4 as complete.
+2. Save the **same QA-approved MP4** in **both** destinations: (a) private **Google Drive**, for the user's convenient in-browser preview, and (b) a **draft GitHub Release**, for long-term versioned archiving; verify each destination independently. Keep GitHub binaries out of regular Git commits. Compare sizes and SHA-256 where available.
+3. With the connected Google Drive app, pass a real generated/connector file reference into \`upload_file\` with \`mime_type="video/mp4"\`; verify the Drive item by \`get_file_metadata\` (file ID, size, MIME type and actual returned browser URL). Do not make up a Drive URL. Leave the file private by default, and let Google Drive finish preview transcoding before claiming in-browser playback works.
+4. **Default user-facing handoff:** show **only one prominent link** \`[▶ Xem video trên Google Drive](verified_drive_url)\`, plus a short duration/resolution/status summary. Do **not** add GitHub asset/release links to the normal report; retain those verified links in repository production manifests/Actions job summaries for traceability and provide them only if explicitly requested.
+5. If the GitHub archive or Drive upload is blocked, clearly and briefly disclose which destination is pending, without claiming both were saved or presenting an invented link. If Drive cannot be uploaded, provide the verified accessible chat MP4 as a fallback and say Drive review is pending.
+6. Never publish a GitHub draft Release or make a private Google Drive item public without separate explicit authorization. A preview-ready Drive link does not imply that public sharing was enabled.
+
+This **newer Drive-first delivery preference overrides earlier instructions that required including GitHub URLs in the user-facing report**. It does **not** remove the underlying requirement to archive the actual verified MP4 to both services.
