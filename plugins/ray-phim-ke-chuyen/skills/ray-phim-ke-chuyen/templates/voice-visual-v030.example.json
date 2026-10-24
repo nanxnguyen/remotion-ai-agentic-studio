@@ -1,0 +1,45 @@
+{
+  "title": "Example event-based evidence manifest (replace with movie-specific events)",
+  "duration_sec": 60,
+  "beats": [
+    {
+      "id": "HOOK-01",
+      "phase": "HOOK",
+      "start_sec": 0,
+      "end_sec": 2,
+      "narration": "Một con tàu ở giữa rừng!",
+      "expected_visible_action": "Ship is already visible among trees in the opening shot",
+      "observable_evidence": "Before: tree silhouettes; action: light exposes ship; result: ship occupies a readable part of the frame",
+      "asset_ref": "assets/ship_in_forest.png",
+      "review_frame_ref": "qa/HOOK-01.png",
+      "evidence_time_sec": 1.0,
+      "review_status": "pending"
+    },
+    {
+      "id": "CLIMAX-DOOR",
+      "phase": "CLIMAX",
+      "start_sec": 30,
+      "end_sec": 36,
+      "narration": "Ông mở cửa nhưng vẫn ở phòng đèn.",
+      "expected_visible_action": "Door visibly opens onto same lamp room",
+      "observable_evidence": "Before: closed door; action: panel swings; result: same lamp-room setting is visible",
+      "asset_ref": "assets/looped_door.mp4",
+      "review_frame_ref": "qa/CLIMAX-DOOR.png",
+      "evidence_time_sec": 33.5,
+      "review_status": "pending"
+    },
+    {
+      "id": "CLIMAX-WATER",
+      "phase": "CLIMAX",
+      "start_sec": 36,
+      "end_sec": 42,
+      "narration": "Nước biển dâng lên.",
+      "expected_visible_action": "Waterline advances from ankle to knee height",
+      "observable_evidence": "Before: bottom stair is dry; action: waterline moves across steps; result: stairs submerged progressively",
+      "asset_ref": "assets/rising_water.mp4",
+      "review_frame_ref": "qa/CLIMAX-WATER.png",
+      "evidence_time_sec": 39.5,
+      "review_status": "pending"
+    }
+  ]
+}
