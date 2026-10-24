@@ -1,0 +1,57 @@
+name: Retro TV V7 - Publish reassembled verified MP4
+on:
+  push:
+    branches: [feat/retro-tv-v7-github-asset]
+    paths:
+      - 'docs/retro-tv-v7/chunks-manifest.json'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Reassemble MP4 from GitHub git blobs
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          manifest="docs/retro-tv-v7/chunks-manifest.json"
+          output="/tmp/retro-v7-encoded.txt"
+          : > "$output"
+          jq -r '.chunks[]' "$manifest" | while IFS= read -r sha; do
+            gh api -H "Accept: application/vnd.github+json" "repos/$GITHUB_REPOSITORY/git/blobs/$sha" --jq '.content' | base64 -d >> "$output"
+          done
+          mkdir -p /tmp/retro-v7-release
+          file="/tmp/retro-v7-release/Thanh_Cong_Tu_Thoi_Quen_Nho_Retro_TV_V7_Cinematic.mp4"
+          base64 -d "$output" > "$file"
+          test "$(stat -c '%s' "$file")" -eq 8771863
+          echo "95925a895e9ff1dee066c0d5d63615514fef49380eba874d9bbda7bf1ab5f88c  $file" | sha256sum --check
+          ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1 "$file"
+      - name: Create release with the actual MP4 bytes
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          tag="retro-tv-v7-2026-10-24"
+          file="/tmp/retro-v7-release/Thanh_Cong_Tu_Thoi_Quen_Nho_Retro_TV_V7_Cinematic.mp4"
+          if gh release view "$tag" >/dev/null 2>&1; then
+            gh release upload "$tag" "$file" --clobber
+          else
+            gh release create "$tag" "$file" --title "Retro TV V7 — Thành Công Từ Thói Quen Nhỏ" --notes "25.33s · 1080×1920 · 30fps · authentic Vbee narration · Be Vietnam Pro highlights. Verified SHA256 95925a895e9ff1dee066c0d5d63615514fef49380eba874d9bbda7bf1ab5f88c." --target "$GITHUB_SHA"
+          fi
+      - name: Verify GitHub-hosted asset checksum via download
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          name="Thanh_Cong_Tu_Thoi_Quen_Nho_Retro_TV_V7_Cinematic.mp4"
+          gh release view retro-tv-v7-2026-10-24 --json assets --jq ".assets[] | select(.name == \"$name\") | .size" | grep -x 8771863
+          mkdir -p /tmp/retro-v7-verified
+          gh release download retro-tv-v7-2026-10-24 -p "$name" -D /tmp/retro-v7-verified
+          echo "95925a895e9ff1dee066c0d5d63615514fef49380eba874d9bbda7bf1ab5f88c  /tmp/retro-v7-verified/$name" | sha256sum --check
