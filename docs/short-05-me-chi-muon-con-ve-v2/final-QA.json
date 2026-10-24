@@ -1,0 +1,91 @@
+{
+  "status": "technical-pass",
+  "title": "Mẹ Không Cần Tiền, Mẹ Chỉ Muốn Con Về 💔",
+  "file": "short05-me-chi-muon-con-ve-v2-cinematic-vbee.mp4",
+  "durationSeconds": 44.0,
+  "resolution": [
+    1080,
+    1920
+  ],
+  "fps": 30,
+  "scenes": 16,
+  "transitionSeconds": 0.38,
+  "voice": "Real Vbee Thanh Long",
+  "actualVoiceBeats": 8,
+  "voiceTimings": [
+    {
+      "beat": 1,
+      "start": 0.1,
+      "recordedSeconds": 3.553,
+      "slotSeconds": 5.11,
+      "tempo": 1,
+      "peakDb": -1.0
+    },
+    {
+      "beat": 2,
+      "start": 5.3,
+      "recordedSeconds": 5.538,
+      "slotSeconds": 5.76,
+      "tempo": 1,
+      "peakDb": -1.6
+    },
+    {
+      "beat": 3,
+      "start": 11.15,
+      "recordedSeconds": 4.78,
+      "slotSeconds": 5.76,
+      "tempo": 1,
+      "peakDb": -0.5
+    },
+    {
+      "beat": 4,
+      "start": 17,
+      "recordedSeconds": 3.971,
+      "slotSeconds": 5.91,
+      "tempo": 1,
+      "peakDb": -1.4
+    },
+    {
+      "beat": 5,
+      "start": 23,
+      "recordedSeconds": 4.911,
+      "slotSeconds": 5.61,
+      "tempo": 1,
+      "peakDb": -1.3
+    },
+    {
+      "beat": 6,
+      "start": 28.7,
+      "recordedSeconds": 4.624,
+      "slotSeconds": 6.11,
+      "tempo": 1,
+      "peakDb": -1.9
+    },
+    {
+      "beat": 7,
+      "start": 34.9,
+      "recordedSeconds": 4.153,
+      "slotSeconds": 5.21,
+      "tempo": 1,
+      "peakDb": -1.0
+    },
+    {
+      "beat": 8,
+      "start": 40.2,
+      "recordedSeconds": 3.213,
+      "slotSeconds": 3.71,
+      "tempo": 1,
+      "peakDb": -1.8
+    }
+  ],
+  "finalAudioPeakDb": -0.2,
+  "music": "Original piano ducked below narration",
+  "realMotion": "Live-action Pexels videos underlaid, no synthetic lip sync",
+  "castContinuity": "Stock cast varies between settings; not certified single-actor continuity",
+  "props": "Custom two bowls, bank receipt, crossed calendar and handwritten note overlays",
+  "humanVisualReview": "pending",
+  "humanAudioReview": "pending",
+  "youtubePublished": false,
+  "sha256": "9c0b4386c37e5d414141d1832daa28f9d2705060a89db3cfaa1dc3e63c431639",
+  "bytes": 11363614
+}
