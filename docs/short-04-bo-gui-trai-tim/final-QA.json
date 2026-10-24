@@ -1,0 +1,89 @@
+{
+  "status": "technical-pass",
+  "title": "Bố Mất 17 Phút Để Gửi Một Trái Tim ❤️",
+  "durationSeconds": 41.6,
+  "resolution": [
+    540,
+    960
+  ],
+  "fps": 30,
+  "shots": 16,
+  "fadeSeconds": 0.42,
+  "voice": "Actual Vbee Thanh Long",
+  "actualVoiceBeats": 8,
+  "music": "Original piano / ducked",
+  "spokenLoudnessPeakDb": -0.4,
+  "voiceMeasurements": [
+    {
+      "beat": 1,
+      "start": 0.1,
+      "duration": 3.24,
+      "targetSlot": 5.04,
+      "temporalStretch": 1.0,
+      "peakDb": -2.0
+    },
+    {
+      "beat": 2,
+      "start": 5.2,
+      "duration": 4.57,
+      "targetSlot": 5.14,
+      "temporalStretch": 1.0,
+      "peakDb": -1.6
+    },
+    {
+      "beat": 3,
+      "start": 10.4,
+      "duration": 4.47,
+      "targetSlot": 5.14,
+      "temporalStretch": 1.0,
+      "peakDb": -1.6
+    },
+    {
+      "beat": 4,
+      "start": 15.6,
+      "duration": 4.88,
+      "targetSlot": 5.14,
+      "temporalStretch": 1.0,
+      "peakDb": -1.0
+    },
+    {
+      "beat": 5,
+      "start": 20.8,
+      "duration": 3.76,
+      "targetSlot": 5.14,
+      "temporalStretch": 1.0,
+      "peakDb": -1.6
+    },
+    {
+      "beat": 6,
+      "start": 26,
+      "duration": 3.63,
+      "targetSlot": 5.14,
+      "temporalStretch": 1.0,
+      "peakDb": -2.3
+    },
+    {
+      "beat": 7,
+      "start": 31.2,
+      "duration": 3.87,
+      "targetSlot": 5.14,
+      "temporalStretch": 1.0,
+      "peakDb": -2.5
+    },
+    {
+      "beat": 8,
+      "start": 36.4,
+      "duration": 3.94,
+      "targetSlot": 5.14,
+      "temporalStretch": 1.0,
+      "peakDb": -2.8
+    }
+  ],
+  "visualHumanReview": "not externally certified",
+  "audioHumanReview": "not externally certified",
+  "sources": "Real Pexels stock, multiple actors; identity consistency not certified",
+  "noYouTubePublishing": true,
+  "file": "short04-bo-gui-trai-tim-cinematic-vbee.mp4",
+  "bytes": 3906820,
+  "sha256": "93181aeed88dd450ce79904084f9843b0a890cfc9da84a458c14e32e2dee7e0e"
+}
