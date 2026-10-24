@@ -1,0 +1,53 @@
+name: Ca Truc Cuoi Cung - genuine Vbee voice
+on:
+  push:
+    branches:
+      - feat/ca-truc-cuoi-cung-mannequins-60s
+    paths:
+      - .github/workflows/ca-truc-cuoi-cung-vbee.yml
+      - docs/ca-truc-cuoi-cung/timeline.json
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  narrator:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      VBEE_ACCESS_TOKEN: ${{ secrets.VBEE_ACCESS_TOKEN || secrets.VBEE_TOKEN || secrets.VBEE_API_KEY || secrets.VBEE_API_TOKEN }}
+      VBEE_APP_ID: ${{ secrets.VBEE_APP_ID || secrets.VBEE_APPID || secrets.VBEE_APPLICATION_ID }}
+      VBEE_WEBHOOK_URL: ${{ vars.VBEE_WEBHOOK_URL || 'https://example.com/story-tts-webhook' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Check Vbee secrets are configured
+        run: |
+          test -n "$VBEE_ACCESS_TOKEN" && test -n "$VBEE_APP_ID"
+      - name: Generate original Vbee Anh Khoi lines
+        run: |
+          python3 scripts/gen-story-vbee-batch.py \
+            --timeline docs/ca-truc-cuoi-cung/timeline.json \
+            --out-dir public/audio/ca-truc-cuoi-cung \
+            --voice-code hn_male_phuthang_stor_24k-stl \
+            --speed 1.10 \
+            --webhook-url "$VBEE_WEBHOOK_URL"
+      - name: Validate measured voice durations against scene slots
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          items=json.loads(Path("public/audio/ca-truc-cuoi-cung/measured-timeline.json").read_text())
+          assert len(items)==10
+          for a in items:
+              print(f"Scene {a['id']}: {a['audio_seconds']:.2f}s")
+              if a["audio_seconds"]>5.85:
+                  raise ValueError(f"Scene {a['id']} Vbee exceeds 5.85-second allocation. Rewrite this line; never truncate speech.")
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ca-truc-cuoi-cung-authentic-vbee
+          path: public/audio/ca-truc-cuoi-cung/
+          retention-days: 14
+          if-no-files-found: error
