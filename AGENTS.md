@@ -63,7 +63,15 @@ See `.claude/skills/ray-pineline-worflow-agent/references/architecture-contract.
 Store newly created video skills both under `.claude/skills/<name>/` (agent runtime) and `plugins/<name>/` (reinstallable package). They must be committed to this repository, with sensitive values excluded. Once a fully reviewed video is final, archive its actual MP4 in a **draft GitHub Release** using `.github/workflows/archive-finished-video.yml` after the final MP4 is uploaded to an Actions artifact; store a SHA-256 manifest and verify the Release asset. Keep MP4 binaries out of normal Git history and do not publish releases or YouTube content without separate authorization. See `docs/production-archive-policy.md`. An unuploaded local/chat MP4 is not a GitHub archive.
 
 
-### Required output link for every completed video
+## Dual-location video archive; Drive-first review (updated 2026-10-24)
 
-For every successful new video or audio-only revision, archive the **actual verified final MP4** as a draft GitHub Release asset and include its verified **GitHub video download link** plus **Release page link** in the user-facing delivery. \`.github/workflows/archive-finished-video.yml\` now exports \`video_url\`, \`release_url\`, and \`sha256\`, and writes a readable Actions job summary and \`github-video-links-<slug>\` artifact. If upload or QA is blocked, report GitHub archive as pending; never manufacture links or imply that a chat attachment is already on GitHub.
+For every completed new or revised story video:
+1. Finish actual render and QA first; never label an unverified or non-existent MP4 as complete.
+2. Save the **same QA-approved MP4** in **both** destinations: (a) private **Google Drive**, for the user's convenient in-browser preview, and (b) a **draft GitHub Release**, for long-term versioned archiving; verify each destination independently. Keep GitHub binaries out of regular Git commits. Compare sizes and SHA-256 where available.
+3. With the connected Google Drive app, pass a real generated/connector file reference into \`upload_file\` with \`mime_type="video/mp4"\`; verify the Drive item by \`get_file_metadata\` (file ID, size, MIME type and actual returned browser URL). Do not make up a Drive URL. Leave the file private by default, and let Google Drive finish preview transcoding before claiming in-browser playback works.
+4. **Default user-facing handoff:** show **only one prominent link** \`[▶ Xem video trên Google Drive](verified_drive_url)\`, plus a short duration/resolution/status summary. Do **not** add GitHub asset/release links to the normal report; retain those verified links in repository production manifests/Actions job summaries for traceability and provide them only if explicitly requested.
+5. If the GitHub archive or Drive upload is blocked, clearly and briefly disclose which destination is pending, without claiming both were saved or presenting an invented link. If Drive cannot be uploaded, provide the verified accessible chat MP4 as a fallback and say Drive review is pending.
+6. Never publish a GitHub draft Release or make a private Google Drive item public without separate explicit authorization. A preview-ready Drive link does not imply that public sharing was enabled.
+
+This **newer Drive-first delivery preference overrides earlier instructions that required including GitHub URLs in the user-facing report**. It does **not** remove the underlying requirement to archive the actual verified MP4 to both services.
 
