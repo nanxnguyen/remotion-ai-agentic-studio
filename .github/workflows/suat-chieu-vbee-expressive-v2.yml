@@ -4,6 +4,8 @@ on:
     branches: [feat/suat-chieu-cinematic-v2-expressive-voice]
     paths:
       - .github/workflows/suat-chieu-vbee-expressive-v2.yml
+      - docs/suat-chieu-cuoi-cung/timeline-v2-expressive.json
+      - scripts/gen-cinema-vbee-expressive.py
 permissions:
   contents: read
 jobs:
