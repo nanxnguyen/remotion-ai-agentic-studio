@@ -1,0 +1,18 @@
+{
+  "status": "technical-pass",
+  "format": "V3 storyboard-exact animatic + V2 original Vbee Thanh Long narration and piano",
+  "runtimeSeconds": 44.0,
+  "sizeBytes": 8670383,
+  "resolution": [
+    1080,
+    1920
+  ],
+  "fps": 30,
+  "storyboardFrameSequencePreserved": true,
+  "originalVbeeAndPianoAudioPacketIdentical": true,
+  "storyboardSource": "docs/short-05-me-chi-muon-con-ve-v3/me-khong-can-tien-v3-storyboard-animatic-44s.mp4",
+  "audioSource": "docs/short-05-me-chi-muon-con-ve-v2/final/short05-me-chi-muon-con-ve-v2-cinematic-vbee.mp4",
+  "sha256": "10d9518af300a925ef5f9f21c00a17c3a853203223898c9da9557d9d84d6d6b6",
+  "limitations": "Camera motion on static approved storyboard, not native human-body animation. Human review pending.",
+  "youtubePublished": false
+}
