@@ -1,0 +1,96 @@
+name: Healing Monologue 16x9 - Vbee voice draft
+on:
+  push:
+    branches: [feat/healing-monologue-169-vbee-voice]
+    paths:
+      - ".github/workflows/healing-monologue-vbee-draft.yml"
+      - "docs/healing-monologue-169/vbee-beats.json"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  voice-draft:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      VBEE_APP_ID: ${{ secrets.VBEE_APP_ID }}
+      VBEE_ACCESS_TOKEN: ${{ secrets.VBEE_ACCESS_TOKEN }}
+      # Vbee Batch API requires a callback address, but narration status uses polling.
+      VBEE_WEBHOOK_URL: https://iehmucsshklgjmxqyggp.supabase.co/functions/v1/vbee-batch-callback
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: feat/healing-monologue-169-vbee-voice
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - name: Prepare and validate approved source
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg
+          test -n "$VBEE_APP_ID"
+          test -n "$VBEE_ACCESS_TOKEN"
+          test -s docs/short-01-nho-phien-ban-duoc-yeu/voice/vbee_batch_tts.py
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          x=json.loads(Path('docs/healing-monologue-169/vbee-beats.json').read_text(encoding='utf8'))
+          assert x['targetSeconds']==92 and len(x['beats'])==8
+          Path('voices').mkdir(exist_ok=True)
+          for i,b in enumerate(x['beats'],1):
+              assert b['startSec']<b['endSec']
+              assert i==1 or b['startSec']==x['beats'][i-2]['endSec']
+              Path(f'voices/beat-{i:02}.txt').write_text(b['text'],encoding='utf8')
+          PY
+      - name: Generate eight actual Vbee Thanh Long clips
+        run: |
+          set -euo pipefail
+          for i in 01 02 03 04 05 06 07 08; do
+            python3 docs/short-01-nho-phien-ban-duoc-yeu/voice/vbee_batch_tts.py \
+              --text-file "voices/beat-$i.txt" \
+              --voice-code hn_male_thanhlong_talk_48k-fhg \
+              --speed 0.98 \
+              --attempts 54 \
+              --output "voices/vbee-$i.mp3"
+          done
+      - name: Measure Vbee duration; mix only if voice fits without trimming
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json,subprocess
+          from pathlib import Path
+          x=json.loads(Path('docs/healing-monologue-169/vbee-beats.json').read_text(encoding='utf8'))
+          durations=[];violations=[]
+          for i,b in enumerate(x['beats'],1):
+              path=Path(f'voices/vbee-{i:02}.mp3')
+              meta=json.loads(subprocess.check_output(['ffprobe','-v','error',
+                '-show_entries','format=duration','-of','json',str(path)],text=True))
+              dur=float(meta['format']['duration']);slot=b['endSec']-b['startSec']
+              durations.append({'beat':i,'start':b['startSec'],'slot':slot,
+                'actualSeconds':round(dur,3),'fits':dur<=slot-.08})
+              if dur>slot-.08:violations.append(i)
+          qa={'status':'VOICE_ONLY_NOT_FINAL','voiceProvider':'Vbee',
+            'voiceCode':x['voice']['code'],'segments':durations,
+            'syncReady':not violations,'overlongBeats':violations,
+            'note':'If any beat exceeds its slot, adjust film timing; never crop final syllables or speed unnaturally.'}
+          Path('voices/voice-qa.json').write_text(json.dumps(qa,ensure_ascii=False,indent=2)+'\n',encoding='utf8')
+          if not violations:
+              args=['ffmpeg','-hide_banner','-loglevel','error','-y'];flt=[]
+              for i,b in enumerate(x['beats']):
+                  args+=['-i',f'voices/vbee-{i+1:02}.mp3']
+                  ms=round(b['startSec']*1000)
+                  flt.append(f'[{i}:a]aresample=48000,aformat=channel_layouts=stereo,adelay={ms}:all=1[s{i}]')
+              flt.append(''.join(f'[s{i}]' for i in range(8))+
+                'amix=inputs=8:duration=longest:normalize=0,atrim=0:92,apad=whole_dur=92,alimiter=limit=0.9[out]')
+              subprocess.run(args+['-filter_complex',';'.join(flt),'-map','[out]',
+                '-t','92','-c:a','pcm_s16le','voices/narration-92s.wav'],check=True)
+          print(json.dumps(qa,ensure_ascii=False))
+          PY
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: healing-monologue-vbee-8-beats
+          path: voices/
+          retention-days: 14
+          if-no-files-found: warn
