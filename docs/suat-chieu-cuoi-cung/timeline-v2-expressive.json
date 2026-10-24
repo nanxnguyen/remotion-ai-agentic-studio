@@ -1,0 +1,92 @@
+[
+  {
+    "id": 1,
+    "visual_start_seconds": 0,
+    "duration": 6,
+    "narration": "Rạp phim chỉ có Nam. Nhưng sau gáy anh... có người đang thở.",
+    "speed": 0.97,
+    "emotion": "HOÓK, sotto voce; breathless worry",
+    "phase": "HOOK"
+  },
+  {
+    "id": 2,
+    "visual_start_seconds": 6,
+    "duration": 6,
+    "narration": "Ông soát vé ghé sát, thì thào: Đừng rời ghế... dù nghe thấy gì!",
+    "speed": 1.01,
+    "emotion": "urgent whisper, warn",
+    "phase": "BODY"
+  },
+  {
+    "id": 3,
+    "visual_start_seconds": 12,
+    "duration": 6,
+    "narration": "Đèn vụt tắt! Trên màn ảnh... chính Nam đang ngồi trong rạp.",
+    "speed": 1.04,
+    "emotion": "cold realization",
+    "phase": "BODY"
+  },
+  {
+    "id": 4,
+    "visual_start_seconds": 18,
+    "duration": 6,
+    "narration": "Mỗi cử động của anh... bộ phim đã chiếu trước đúng ba giây.",
+    "speed": 0.97,
+    "emotion": "unease, weight on ba giây",
+    "phase": "BODY"
+  },
+  {
+    "id": 5,
+    "visual_start_seconds": 24,
+    "duration": 6,
+    "narration": "Trên phim, một bàn tay chạm vai Nam. Ngay sau lưng... ghế kêu cót két!",
+    "speed": 1.06,
+    "emotion": "escalation panic",
+    "phase": "BODY"
+  },
+  {
+    "id": 6,
+    "visual_start_seconds": 30,
+    "duration": 6,
+    "narration": "Nam lao tới cửa thoát hiểm. Nhưng mở cửa nào... anh cũng quay lại chỗ cũ!",
+    "speed": 1.1,
+    "emotion": "rushed urgent panic",
+    "phase": "CLIMAX"
+  },
+  {
+    "id": 7,
+    "visual_start_seconds": 36,
+    "duration": 6,
+    "narration": "Hàng ghế trống bỗng kín người. Tất cả... từ từ quay mặt nhìn anh!",
+    "speed": 1.07,
+    "emotion": "terror",
+    "phase": "CLIMAX"
+  },
+  {
+    "id": 8,
+    "visual_start_seconds": 42,
+    "duration": 6,
+    "narration": "Bỗng một tiếng quát vang lên: CẮT! Nam trên màn ảnh... lại mỉm cười.",
+    "speed": 1.02,
+    "emotion": "harsh cut, eerie pause",
+    "phase": "CLIMAX"
+  },
+  {
+    "id": 9,
+    "visual_start_seconds": 48,
+    "duration": 6,
+    "narration": "Nam chết lặng. Anh không phải khán giả... mà chính là nhân vật trong phim!",
+    "speed": 0.98,
+    "emotion": "devastating realization",
+    "phase": "ENDING"
+  },
+  {
+    "id": 10,
+    "visual_start_seconds": 54,
+    "duration": 6,
+    "narration": "Màn hình vụt đỏ: Suất chiếu tiếp theo... dành cho BẠN. Rồi, ghế phía sau bật dậy.",
+    "speed": 0.99,
+    "emotion": "slow sinister final hook",
+    "phase": "ENDING"
+  }
+]
