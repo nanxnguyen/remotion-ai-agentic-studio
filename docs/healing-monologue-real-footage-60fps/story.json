@@ -1,0 +1,244 @@
+{
+  "title": "Lớn Rồi, Không Cần Làm Vừa Lòng Tất Cả Nữa",
+  "format": "Cinematic healing documentary montage with real stock movement",
+  "fps": 60,
+  "durationSeconds": 92,
+  "canvas": {
+    "width": 1920,
+    "height": 1080
+  },
+  "cut": {
+    "style": "subtle dissolves",
+    "fadeSeconds": 0.35
+  },
+  "castContinuity": "Real people in separate Pexels stock footage vary; NOT an identical actress across shots. Use montage point of view rather than one named character.",
+  "sources": "Pexels; https://www.pexels.com/license/",
+  "frames": [
+    {
+      "scene": 1,
+      "start": 0,
+      "end": 4,
+      "pexelsId": "4115788",
+      "caption": "MỞ ĐẦU — KIỆT SỨC",
+      "sourceOffset": 1.1,
+      "url": "https://www.pexels.com/video/4115788/"
+    },
+    {
+      "scene": 2,
+      "start": 4,
+      "end": 9,
+      "pexelsId": "7693409",
+      "caption": "MỆT KHÔNG PHẢI VÌ CÔNG VIỆC",
+      "sourceOffset": 0.7,
+      "url": "https://www.pexels.com/video/7693409/"
+    },
+    {
+      "scene": 3,
+      "start": 9,
+      "end": 13,
+      "pexelsId": "8835827",
+      "caption": "SỢ LÀM NGƯỜI KHÁC BUỒN",
+      "sourceOffset": 0.8,
+      "url": "https://www.pexels.com/video/8835827/"
+    },
+    {
+      "scene": 4,
+      "start": 13,
+      "end": 17,
+      "pexelsId": "7693409",
+      "caption": "SỢ BỊ ĐÁNH GIÁ",
+      "sourceOffset": 3.8,
+      "url": "https://www.pexels.com/video/7693409/"
+    },
+    {
+      "scene": 5,
+      "start": 17,
+      "end": 21,
+      "pexelsId": "4486429",
+      "caption": "QUEN GẬT ĐẦU",
+      "sourceOffset": 0.1,
+      "url": "https://www.pexels.com/video/4486429/"
+    },
+    {
+      "scene": 6,
+      "start": 21,
+      "end": 26,
+      "pexelsId": "4115788",
+      "caption": "QUEN NHẬN PHẦN KHÓ",
+      "sourceOffset": 7.1,
+      "url": "https://www.pexels.com/video/4115788/"
+    },
+    {
+      "scene": 7,
+      "start": 26,
+      "end": 31,
+      "pexelsId": "8835827",
+      "caption": "QUEN NÓI: KHÔNG SAO",
+      "sourceOffset": 3.3,
+      "url": "https://www.pexels.com/video/8835827/"
+    },
+    {
+      "scene": 8,
+      "start": 31,
+      "end": 36,
+      "pexelsId": "7693409",
+      "caption": "TỬ TẾ VỚI MỌI NGƯỜI",
+      "sourceOffset": 2.9,
+      "url": "https://www.pexels.com/video/7693409/"
+    },
+    {
+      "scene": 9,
+      "start": 36,
+      "end": 41,
+      "pexelsId": "4115788",
+      "caption": "NGHIÊM KHẮC VỚI CHÍNH MÌNH",
+      "sourceOffset": 5.2,
+      "url": "https://www.pexels.com/video/4115788/"
+    },
+    {
+      "scene": 10,
+      "start": 41,
+      "end": 45,
+      "pexelsId": "7698997",
+      "caption": "ĐÃ BAO LÂU BẠN QUÊN MÌNH?",
+      "sourceOffset": 2,
+      "url": "https://www.pexels.com/video/7698997/"
+    },
+    {
+      "scene": 11,
+      "start": 45,
+      "end": 50,
+      "pexelsId": "4115788",
+      "caption": "RỒI MỘT NGÀY… BẠN MỆT",
+      "sourceOffset": 0.5,
+      "url": "https://www.pexels.com/video/4115788/"
+    },
+    {
+      "scene": 12,
+      "start": 50,
+      "end": 54,
+      "pexelsId": "6965767",
+      "caption": "MỆT VÌ PHẢI GỒNG",
+      "sourceOffset": 3.1,
+      "url": "https://www.pexels.com/video/6965767/"
+    },
+    {
+      "scene": 13,
+      "start": 54,
+      "end": 58,
+      "pexelsId": "7698997",
+      "caption": "KHÔNG MẤY AI HIỂU BẠN",
+      "sourceOffset": 5.7,
+      "url": "https://www.pexels.com/video/7698997/"
+    },
+    {
+      "scene": 14,
+      "start": 58,
+      "end": 64,
+      "pexelsId": "32727176",
+      "caption": "BÌNH YÊN KHÔNG PHẢI LÀM VỪA LÒNG",
+      "sourceOffset": 1,
+      "url": "https://www.pexels.com/video/32727176/"
+    },
+    {
+      "scene": 15,
+      "start": 64,
+      "end": 71,
+      "pexelsId": "3083418",
+      "caption": "HỌC CÁCH BUÔNG BỎ",
+      "sourceOffset": 0.4,
+      "url": "https://www.pexels.com/video/3083418/"
+    },
+    {
+      "scene": 16,
+      "start": 71,
+      "end": 77,
+      "pexelsId": "8507799",
+      "caption": "CHO MÌNH MỘT KHOẢNG LẶNG",
+      "sourceOffset": 1.2,
+      "url": "https://www.pexels.com/video/8507799/"
+    },
+    {
+      "scene": 17,
+      "start": 77,
+      "end": 83,
+      "pexelsId": "20783470",
+      "caption": "BẠN XỨNG ĐÁNG ĐƯỢC NGHỈ NGƠI",
+      "sourceOffset": 2.1,
+      "url": "https://www.pexels.com/video/20783470/"
+    },
+    {
+      "scene": 18,
+      "start": 83,
+      "end": 92,
+      "pexelsId": "4909242",
+      "caption": "ĐỪNG BỎ RƠI CHÍNH MÌNH",
+      "sourceOffset": 4,
+      "url": "https://www.pexels.com/video/4909242/"
+    }
+  ],
+  "voice": {
+    "provider": "Vbee",
+    "preferred": "hn_male_thanhlong_talk_48k-fhg",
+    "segments": [
+      {
+        "text": "Có một giai đoạn trong đời… bạn kiệt sức không phải vì làm quá nhiều. Mà vì… cố gắng làm vừa lòng quá nhiều người.",
+        "start": 0,
+        "end": 9,
+        "speed": 0.97
+      },
+      {
+        "text": "Bạn sợ người khác buồn. Sợ bị đánh giá. Sợ một ánh nhìn lạnh đi… hay một câu nói trách móc.",
+        "start": 9,
+        "end": 17,
+        "speed": 0.97
+      },
+      {
+        "text": "Nên bạn quen gật đầu. Quen nhận hết phần khó về mình. Quen im lặng khi bản thân đang tổn thương. Quen nói không sao… kể cả khi trong lòng đã chẳng ổn chút nào.",
+        "start": 17,
+        "end": 31,
+        "speed": 0.97
+      },
+      {
+        "text": "Bạn sống tử tế với tất cả mọi người… nhưng lại quá nghiêm khắc với chính mình. Bạn cố trở thành phiên bản mà ai cũng thấy dễ chịu… rồi dần dần quên mất phiên bản nào mới là mình thật sự.",
+        "start": 31,
+        "end": 45,
+        "speed": 0.97
+      },
+      {
+        "text": "Cho đến một ngày… bạn mệt. Mệt vì phải gồng. Mệt vì phải hiểu cho tất cả… trong khi chẳng mấy ai thật sự hiểu cho bạn.",
+        "start": 45,
+        "end": 58,
+        "speed": 0.97
+      },
+      {
+        "text": "Và rồi bạn nhận ra… càng sống chỉ để được yêu quý, bạn càng rời xa bình yên. Vì bình yên chưa từng đến từ việc ai cũng hài lòng về bạn.",
+        "start": 58,
+        "end": 71,
+        "speed": 0.97
+      },
+      {
+        "text": "Bình yên đến từ lúc bạn thôi ép mình phải hoàn hảo. Thôi xin lỗi vì những ranh giới cần có. Thôi làm đau mình chỉ để giữ một mối quan hệ nào đó.",
+        "start": 71,
+        "end": 83,
+        "speed": 0.97
+      },
+      {
+        "text": "Lớn rồi… không cần làm vừa lòng tất cả nữa. Chỉ cần sống đúng với lòng mình. Và đừng… bỏ rơi chính mình.",
+        "start": 83,
+        "end": 92,
+        "speed": 0.97
+      }
+    ]
+  },
+  "qualityGates": [
+    "No AI animation disguised as live footage",
+    "All 18 source MP4s must decode and have moving frames",
+    "Original FPS recorded for each source; lower-FPS material requires interpolation",
+    "Video 1920x1080, 60/1 FPS, 92 seconds",
+    "Be Vietnam Pro installed and Vietnamese overlays properly accented",
+    "Real Vbee narration, 8 segments, piano ducked",
+    "Licensed stock source list and media metadata retained",
+    "Final GitHub draft release and Drive archive only after independent QA"
+  ]
+}
