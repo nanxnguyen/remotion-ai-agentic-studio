@@ -1,0 +1,56 @@
+name: Short05 V3 - Archive storyboard-locked animatic
+on:
+  push:
+    branches: [feat/short05-v3-storyboard-locked]
+    paths:
+      - '.github/workflows/short05-v3-archive-animatic.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  archive:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: feat/short05-v3-storyboard-locked
+          persist-credentials: true
+      - name: Verify V3 approved storyboard is already committed
+        run: |
+          set -euo pipefail
+          echo "55120ae128804f29eee694b63eca6f9edccbdf4d17b06cefc03662172ed4e0b5  docs/short-05-me-chi-muon-con-ve-v3/storyboard-v3-16-canh.jpg" | sha256sum -c -
+      - name: Retrieve exact video from temporary vidIQ handoff
+        env:
+          HANDOFF_URL: 'https://storage.googleapis.com/vidiq-user-videos/778e417c-7c57-4bb7-bf63-da93d44b39bd/a7ab8936-fdb0-4b4a-a04f-098d7d84e7e8.mp4?GoogleAccessId=ai-proxy-20261001%40studious-pen-429.vid.io.iam.gserviceaccount.com&Expires=1793451148&Signature=ZwY%2FevZDiIyVBnqnlmn0ro5D4gDqf2r0dVor8p3mFJPNJVwRHLKhLcD1K%2Fvmx5G7zFq1cFYcNErlMmT6hqp4vmJqKgruBSFRB8ZHTe%2FSGIVzCgmr81mRWI2jGodbQc1IYFT%2FFT9HD6W6NXOQbfZDarkiZ0vuC%2FSWGlQadjnLcURYwUHvcd18CFE6VhG4dzLhSMISrQhe2UW0tvICumWBgUzL9SYavuqDgO77Vxr%2B56DGIujZT7KnnuxL0HYs6kfiMirlzhlyrqVTNhq%2B6%2F%2FLEfdMNbsaOxcgNz0lHA1nUtKX91eMf2DF0V1ULGGzyd4PsFamzbnsOKbtb04TG%2BsgJA%3D%3D'
+        run: |
+          set -euo pipefail
+          mkdir -p docs/short-05-me-chi-muon-con-ve-v3
+          curl -fL --retry 4 --retry-all-errors --max-time 210 \
+            -o "docs/short-05-me-chi-muon-con-ve-v3/me-khong-can-tien-v3-storyboard-animatic-44s.mp4" "$HANDOFF_URL"
+          echo "7a8db37bc3c2bc9be5728f0cf13b2ac173b4292d8c1ed79e0ffbe00231e3bfba  docs/short-05-me-chi-muon-con-ve-v3/me-khong-can-tien-v3-storyboard-animatic-44s.mp4" | sha256sum -c -
+      - name: Check dimensions, duration, audio and video
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json,subprocess
+          p="docs/short-05-me-chi-muon-con-ve-v3/me-khong-can-tien-v3-storyboard-animatic-44s.mp4"
+          a=json.loads(subprocess.check_output(["ffprobe","-v","error",
+            "-show_entries","format=duration:stream=codec_type,width,height,avg_frame_rate",
+            "-of","json",p],text=True))
+          assert abs(float(a["format"]["duration"])-44.0)<.1
+          v=next(s for s in a["streams"] if s["codec_type"]=="video")
+          assert (v["width"],v["height"],v["avg_frame_rate"]) == (1080,1920,"30/1")
+          assert any(s["codec_type"]=="audio" for s in a["streams"])
+          print("MP4 validated: storyboard-exact V3 44s, 1080x1920, 30FPS and soundtrack.")
+          PY
+      - name: Save immutable MP4 on GitHub branch
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add "docs/short-05-me-chi-muon-con-ve-v3/me-khong-can-tien-v3-storyboard-animatic-44s.mp4"
+          git diff --cached --quiet || git commit -m 'assets(short05-v3): archive storyboard exact animatic MP4 (not final)'
+          git fetch origin feat/short05-v3-storyboard-locked
+          git rebase origin/feat/short05-v3-storyboard-locked
+          git push origin HEAD:feat/short05-v3-storyboard-locked
