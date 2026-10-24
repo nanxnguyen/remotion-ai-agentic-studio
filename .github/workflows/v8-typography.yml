@@ -1,0 +1,28 @@
+name: V8 - Be Vietnam Pro 10 kinetic caption cards
+on:
+  push:
+    branches: [feat/retro-tv-v8-fast-four-act]
+    paths: [.github/workflows/v8-typography.yml]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  typography:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install Pillow
+      - name: Fetch Be Vietnam Pro font at build only
+        run: curl -fLsS --retry 3 https://raw.githubusercontent.com/google/fonts/main/ofl/bevietnampro/BeVietnamPro-ExtraBold.ttf -o /tmp/bev8.ttf
+      - name: Render transparent subtitle and gold focus PNGs
+        run: python scripts/v8-typography.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: v8-10-be-vietnam-pro-cards
+          path: caption-v8/
+          if-no-files-found: error
+          retention-days: 14
