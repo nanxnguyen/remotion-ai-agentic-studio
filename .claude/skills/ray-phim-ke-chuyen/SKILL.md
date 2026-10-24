@@ -5,7 +5,7 @@ description: "Use when making or revising Vietnamese storytelling Shorts/reels: 
 
 # Ray Phim Kể Chuyện — production workflow
 
-> **Standing production rule for all video topics:** Read [`docs/SHORTS_RETENTION_PLAYBOOK.md`](../../../docs/SHORTS_RETENTION_PLAYBOOK.md) before creating a new script. Draft three hooks, deliver a concrete attention-grabber at 0–2 seconds, complete the 4–6 second hook progression, introduce meaningful story changes every ~3–6 seconds, lead to a motivated climax and a concise, visually earned ending. Apply to every genre and adjust timing for 30–45s vs 45–60s films. This improves creative discipline but never guarantees views.
+> **Mandatory retention formula for EVERY video, every topic, on YouTube Shorts AND TikTok:** Read [`docs/SHORTS_RETENTION_PLAYBOOK.md`](../../../docs/SHORTS_RETENTION_PLAYBOOK.md) before scripting, storyboarding or rendering. Prepare three hooks; deliver a concrete visual/voice attention-grabber at 0–2 seconds; complete a 4–6s curiosity/reaction hook; introduce new meaningful story action every ~3–6s; then deliver an earned climax and a memorable, concise image-led payoff. Adapt length to each film, retain canonical Ray gates and real Vbee/audio checks. Provide separate native title/cover/caption/safe-area treatment for YouTube and TikTok when required. This is a mandatory creative goal, never a guarantee of viral reach.
 
 Sản xuất **video kể chuyện tiếng Việt** từ ý tưởng, kịch bản, clip tham chiếu, contact sheet hoặc MP4 đã dựng. Mục tiêu là **video có thể xem/nghe được**, không chỉ là storyboard hoặc một ZIP source. Kết quả phải được xác minh; không hứa đã render, đã ghép Vbee hay đã upload khi thiếu bằng chứng.
 
