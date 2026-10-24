@@ -1,0 +1,43 @@
+{
+  "status": "technical-pass",
+  "file": "short03-real-life-podcast-preview-full-vbee.mp4",
+  "duration": 40.433333,
+  "fps": 30,
+  "width": 540,
+  "height": 960,
+  "scenes": 15,
+  "hasNarrationAndMusic": true,
+  "sourceVbeeAudioByteIdentical": true,
+  "actorConsistency": "stock actors; NOT guaranteed same family across multiple clips",
+  "AIHostStatus": "Separate HeyGen AI studio-host generation; not inserted in this stock preview",
+  "clipSources": {
+    "host": {
+      "pexelsId": "6878202",
+      "page": "https://www.pexels.com/video/6878202/"
+    },
+    "album": {
+      "pexelsId": "5493991",
+      "page": "https://www.pexels.com/video/5493991/"
+    },
+    "memory": {
+      "pexelsId": "5493999",
+      "page": "https://www.pexels.com/video/5493999/"
+    },
+    "portrait": {
+      "pexelsId": "5494001",
+      "page": "https://www.pexels.com/video/5494001/"
+    },
+    "family": {
+      "pexelsId": "5494003",
+      "page": "https://www.pexels.com/video/5494003/"
+    },
+    "graduate": {
+      "pexelsId": "7712993",
+      "page": "https://www.pexels.com/video/7712993/"
+    }
+  },
+  "sha256": "026c57ac35a2ff59e30ffd66dc35728a48c67144b84e5e400a7dd6975b25eeb6",
+  "size": 3041972,
+  "publishedYouTube": false,
+  "subjectiveReview": "pending"
+}
