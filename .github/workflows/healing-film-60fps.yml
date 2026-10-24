@@ -1,0 +1,143 @@
+name: Healing Film - Real footage 60fps
+on:
+  push:
+    branches: [feat/healing-film-liveaction-60fps]
+    paths: ['.github/workflows/healing-film-60fps.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    env:
+      VBEE_APP_ID: ${{ secrets.VBEE_APP_ID }}
+      VBEE_ACCESS_TOKEN: ${{ secrets.VBEE_ACCESS_TOKEN }}
+      VBEE_WEBHOOK_URL: https://iehmucsshklgjmxqyggp.supabase.co/functions/v1/vbee-batch-callback
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install codecs and renderer
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg curl
+          python3 -m pip install --disable-pip-version-check numpy
+      - name: Restore versioned production kit
+        run: |
+          cat > /tmp/production-kit.b64 <<'B64_END'
+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
+B64_END
+          base64 -d /tmp/production-kit.b64 > /tmp/production-kit.zip
+          unzip -oq /tmp/production-kit.zip -d /tmp/healing-kit
+          cp /tmp/healing-kit/live_action_60fps.py ./live_action_60fps.py
+          cp /tmp/healing-kit/story-healing-liveaction.json ./story.json
+          cp /tmp/healing-kit/healing-stock-source-manifest.json ./source-manifest.json
+          python3 -m py_compile live_action_60fps.py
+          test -f docs/short-01-nho-phien-ban-duoc-yeu/voice/vbee_batch_tts.py
+      - name: Download cinematic footage and validate real motion
+        run: python3 live_action_60fps.py download
+      - name: Render 18 real-action cuts
+        run: python3 live_action_60fps.py picture
+      - name: Create genuine Thanh Long voice with Vbee
+        run: |
+          set -euo pipefail
+          python3 live_action_60fps.py voice
+          for i in 0 1 2 3 4 5 6 7; do
+            python3 docs/short-01-nho-phien-ban-duoc-yeu/voice/vbee_batch_tts.py               --text-file "/tmp/healing-60fps/beat$i.txt"               --voice-code hn_male_thanhlong_talk_48k-fhg               --speed "$(cat /tmp/healing-60fps/speed$i.txt)"               --output "/tmp/healing-60fps/voice$i.mp3"
+          done
+      - name: Mix cinematic film piano and voice, verify 60fps
+        run: python3 live_action_60fps.py mix
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: healing-film-liveaction-60fps-review
+          path: |
+            healing-liveaction-60fps-VBEE-review.mp4
+            QA.json
+            source-manifest.json
+          retention-days: 14
+          if-no-files-found: ignore
