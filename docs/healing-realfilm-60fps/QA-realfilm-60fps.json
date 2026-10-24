@@ -1,0 +1,365 @@
+{
+  "status": "RENDERED_REAL_CAMERA_FOOTAGE_60FPS_OUTPUT_PENDING_HUMAN_REVIEW",
+  "project": "Lớn Rồi, Không Cần Làm Vừa Lòng Tất Cả Nữa",
+  "videoFile": "realfilm_v3_92s_60fps_VbeeThanhLong.mp4",
+  "seconds": 92.0,
+  "width": 1920,
+  "height": 1080,
+  "outputFPS": 60,
+  "sceneCount": 18,
+  "bytes": 85186815,
+  "sha256": "3a0b4aafb4c3d7eab24d437c8b7ac4d24d852394d55a0c81ae29223e6d0252d5",
+  "audio": "Unmodified AAC stream from user's 92s Vbee Thanh Long + piano preview on Google Drive",
+  "stock": "Genuine Pexels filmed live-action footage; actors are intentionally distinct illustrative B-roll",
+  "native60fpsForEveryShot": false,
+  "fpsConvertedShots": [
+    {
+      "name": "late_office",
+      "pexelsID": 7668950,
+      "page": "https://www.pexels.com/video/7668950/",
+      "credit": "Yaroslav Shuraev",
+      "fpsOriginal": "25/1",
+      "fpsNum": 25.0,
+      "durationSeconds": 23.04,
+      "dimensions": [
+        3840,
+        2160
+      ]
+    },
+    {
+      "name": "tired_desk",
+      "pexelsID": 4115788,
+      "page": "https://www.pexels.com/video/4115788/",
+      "credit": "Marcus Aurelius",
+      "fpsOriginal": "25/1",
+      "fpsNum": 25.0,
+      "durationSeconds": 14.16,
+      "dimensions": [
+        3840,
+        2160
+      ]
+    },
+    {
+      "name": "office_stressed",
+      "pexelsID": 7693409,
+      "page": "https://www.pexels.com/video/7693409/",
+      "credit": "Yan Krukau",
+      "fpsOriginal": "25/1",
+      "fpsNum": 25.0,
+      "durationSeconds": 24.04,
+      "dimensions": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "name": "office_close",
+      "pexelsID": 8547458,
+      "page": "https://www.pexels.com/video/8547458/",
+      "credit": "Kaboompics",
+      "fpsOriginal": "25/1",
+      "fpsNum": 25.0,
+      "durationSeconds": 16.8,
+      "dimensions": [
+        4096,
+        2160
+      ]
+    },
+    {
+      "name": "typing_overhead",
+      "pexelsID": 3044759,
+      "page": "https://www.pexels.com/video/3044759/",
+      "credit": "fauxels",
+      "fpsOriginal": "25/1",
+      "fpsNum": 25.0,
+      "durationSeconds": 15.48,
+      "dimensions": [
+        3840,
+        2160
+      ]
+    },
+    {
+      "name": "fatigue",
+      "pexelsID": 5717001,
+      "page": "https://www.pexels.com/video/5717001/",
+      "credit": "Tima Miroshnichenko",
+      "fpsOriginal": "25/1",
+      "fpsNum": 25.0,
+      "durationSeconds": 24.96,
+      "dimensions": [
+        2560,
+        1440
+      ]
+    },
+    {
+      "name": "phone",
+      "pexelsID": 946147,
+      "page": "https://www.pexels.com/video/946147/",
+      "credit": "Carlos Arribas",
+      "fpsOriginal": "30000/1001",
+      "fpsNum": 29.97002997002997,
+      "durationSeconds": 22.441667,
+      "dimensions": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "name": "phone_bed",
+      "pexelsID": 7277928,
+      "page": "https://www.pexels.com/video/7277928/",
+      "credit": "MART PRODUCTION",
+      "fpsOriginal": "25/1",
+      "fpsNum": 25.0,
+      "durationSeconds": 32.68,
+      "dimensions": [
+        3840,
+        2160
+      ]
+    },
+    {
+      "name": "mirror",
+      "pexelsID": 6764078,
+      "page": "https://www.pexels.com/video/6764078/",
+      "credit": "cottonbro studio",
+      "fpsOriginal": "25/1",
+      "fpsNum": 25.0,
+      "durationSeconds": 21.2,
+      "dimensions": [
+        4096,
+        2160
+      ]
+    },
+    {
+      "name": "tea_evening",
+      "pexelsID": 6951939,
+      "page": "https://www.pexels.com/video/6951939/",
+      "credit": "cottonbro studio",
+      "fpsOriginal": "25/1",
+      "fpsNum": 25.0,
+      "durationSeconds": 33.12,
+      "dimensions": [
+        4096,
+        2160
+      ]
+    },
+    {
+      "name": "sunrise",
+      "pexelsID": 5368494,
+      "page": "https://www.pexels.com/video/5368494/",
+      "credit": "Honye Sanges",
+      "fpsOriginal": "30/1",
+      "fpsNum": 30.0,
+      "durationSeconds": 162.218333,
+      "dimensions": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "name": "tea_morning",
+      "pexelsID": 4482141,
+      "page": "https://www.pexels.com/video/4482141/",
+      "credit": "Martina Tomšič",
+      "fpsOriginal": "30/1",
+      "fpsNum": 30.0,
+      "durationSeconds": 17.983333,
+      "dimensions": [
+        2560,
+        1440
+      ]
+    },
+    {
+      "name": "final_walk",
+      "pexelsID": 5368493,
+      "page": "https://www.pexels.com/video/5368493/",
+      "credit": "Honye Sanges",
+      "fpsOriginal": "30/1",
+      "fpsNum": 30.0,
+      "durationSeconds": 39.366667,
+      "dimensions": [
+        1920,
+        1080
+      ]
+    }
+  ],
+  "trueBeVietnamPro": true,
+  "honestLimitations": [
+    "Footage from independent stock actors, not a single actress",
+    "Sources below 60fps use frame-rate conforming; source motion is not native 60fps",
+    "Internal edit at 1280x720, final MP4 upscale 1920x1080",
+    "Manual visual-and-audio QA still needed before release"
+  ],
+  "sourceInventory": [
+    {
+      "name": "late_office",
+      "pexelsID": 7668950,
+      "page": "https://www.pexels.com/video/7668950/",
+      "credit": "Yaroslav Shuraev",
+      "fpsOriginal": "25/1",
+      "fpsNum": 25.0,
+      "durationSeconds": 23.04,
+      "dimensions": [
+        3840,
+        2160
+      ]
+    },
+    {
+      "name": "tired_desk",
+      "pexelsID": 4115788,
+      "page": "https://www.pexels.com/video/4115788/",
+      "credit": "Marcus Aurelius",
+      "fpsOriginal": "25/1",
+      "fpsNum": 25.0,
+      "durationSeconds": 14.16,
+      "dimensions": [
+        3840,
+        2160
+      ]
+    },
+    {
+      "name": "office_stressed",
+      "pexelsID": 7693409,
+      "page": "https://www.pexels.com/video/7693409/",
+      "credit": "Yan Krukau",
+      "fpsOriginal": "25/1",
+      "fpsNum": 25.0,
+      "durationSeconds": 24.04,
+      "dimensions": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "name": "office_close",
+      "pexelsID": 8547458,
+      "page": "https://www.pexels.com/video/8547458/",
+      "credit": "Kaboompics",
+      "fpsOriginal": "25/1",
+      "fpsNum": 25.0,
+      "durationSeconds": 16.8,
+      "dimensions": [
+        4096,
+        2160
+      ]
+    },
+    {
+      "name": "typing_overhead",
+      "pexelsID": 3044759,
+      "page": "https://www.pexels.com/video/3044759/",
+      "credit": "fauxels",
+      "fpsOriginal": "25/1",
+      "fpsNum": 25.0,
+      "durationSeconds": 15.48,
+      "dimensions": [
+        3840,
+        2160
+      ]
+    },
+    {
+      "name": "fatigue",
+      "pexelsID": 5717001,
+      "page": "https://www.pexels.com/video/5717001/",
+      "credit": "Tima Miroshnichenko",
+      "fpsOriginal": "25/1",
+      "fpsNum": 25.0,
+      "durationSeconds": 24.96,
+      "dimensions": [
+        2560,
+        1440
+      ]
+    },
+    {
+      "name": "phone",
+      "pexelsID": 946147,
+      "page": "https://www.pexels.com/video/946147/",
+      "credit": "Carlos Arribas",
+      "fpsOriginal": "30000/1001",
+      "fpsNum": 29.97002997002997,
+      "durationSeconds": 22.441667,
+      "dimensions": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "name": "phone_bed",
+      "pexelsID": 7277928,
+      "page": "https://www.pexels.com/video/7277928/",
+      "credit": "MART PRODUCTION",
+      "fpsOriginal": "25/1",
+      "fpsNum": 25.0,
+      "durationSeconds": 32.68,
+      "dimensions": [
+        3840,
+        2160
+      ]
+    },
+    {
+      "name": "mirror",
+      "pexelsID": 6764078,
+      "page": "https://www.pexels.com/video/6764078/",
+      "credit": "cottonbro studio",
+      "fpsOriginal": "25/1",
+      "fpsNum": 25.0,
+      "durationSeconds": 21.2,
+      "dimensions": [
+        4096,
+        2160
+      ]
+    },
+    {
+      "name": "tea_evening",
+      "pexelsID": 6951939,
+      "page": "https://www.pexels.com/video/6951939/",
+      "credit": "cottonbro studio",
+      "fpsOriginal": "25/1",
+      "fpsNum": 25.0,
+      "durationSeconds": 33.12,
+      "dimensions": [
+        4096,
+        2160
+      ]
+    },
+    {
+      "name": "sunrise",
+      "pexelsID": 5368494,
+      "page": "https://www.pexels.com/video/5368494/",
+      "credit": "Honye Sanges",
+      "fpsOriginal": "30/1",
+      "fpsNum": 30.0,
+      "durationSeconds": 162.218333,
+      "dimensions": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "name": "tea_morning",
+      "pexelsID": 4482141,
+      "page": "https://www.pexels.com/video/4482141/",
+      "credit": "Martina Tomšič",
+      "fpsOriginal": "30/1",
+      "fpsNum": 30.0,
+      "durationSeconds": 17.983333,
+      "dimensions": [
+        2560,
+        1440
+      ]
+    },
+    {
+      "name": "final_walk",
+      "pexelsID": 5368493,
+      "page": "https://www.pexels.com/video/5368493/",
+      "credit": "Honye Sanges",
+      "fpsOriginal": "30/1",
+      "fpsNum": 30.0,
+      "durationSeconds": 39.366667,
+      "dimensions": [
+        1920,
+        1080
+      ]
+    }
+  ],
+  "youtubePublished": false
+}
