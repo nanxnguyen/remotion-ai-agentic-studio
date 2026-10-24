@@ -50,3 +50,13 @@ Gate: verify input audio exists and is Vbee-originated; measure duration and ali
 ## Hard duration gate: YouTube Shorts
 
 All new Shorts must have a final, measured duration between **30.00 and 45.00 seconds** inclusive unless the user explicitly overrides it. Aim **37–41s** with a complete emotional arc, not stretched silence or arbitrary slow-motion; write enough authentic narration and distinct intentional acting beats to justify the duration. Validate with `ffprobe` on the exact final MP4 and block release if out of range. This applies to Vbee, piano, vidIQ delivery and GitHub archiving. YouTube has no guarantee of view count or mandatory optimal length: this is the creator's production requirement.
+
+## Default YouTube Shorts story formula (October 2026)
+
+For **every newly written or rewritten emotional stick-figure script**, run the editorial retention pass in [retention formula](references/retention-formula.md) **before** production gates. This is a testable creative heuristic, never a promise of a million views.
+
+- **The complete hook must last 3–5 seconds**, with first-frame visual contradiction or emotionally legible action in the **first 0–1 second**. Never insist that the whole hook fit in 1–2 seconds. Draft three distinct hook mechanisms and select the strongest. No long intro or philosophical exposition before the event.
+- Open one concrete unanswered question by second 5, establish the friendship/emotional stakes by second 12, add new information and actor action every few seconds, **re-hook around 15–22 seconds**, reach the specific emotional climax around seconds 24–33, and end with a compassionate release and memorable line by 45 seconds.
+- **Always storyboard 10 scenes when requested**; in full production split into 12–20 purposeful shots if necessary. Per scene record timeline, exact VO, visible acting, frame/camera/continuity, captions and music. Avoid generic loops of lonely figures and random zooms.
+- Review hook sound-off, believable emotion, novelty, voice-length plausibility, story payoff, share-worthiness and continuity. Revise deficiencies before responding. A self-review score is not real YouTube retention analytics.
+- Default Vbee HN Thanh Long remains mandatory. Estimate timings in writing, then use **measured** Vbee output for authoritative scene timing and final duration. All GitHub draft Release, vidIQ full AV import, no auto-publish, and independent QA gates above remain unchanged.
