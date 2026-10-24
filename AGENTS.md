@@ -77,3 +77,8 @@ For every NEW_FILM and revised story video:
 7. Keep Google Drive files private by default and GitHub Releases in **draft**. Never broaden Drive sharing, publish a Release or publish on YouTube without separate authorization.
 
 **This latest requirement supersedes the earlier preference to report only Google Drive links.** Both destinations remain mandatory, and **both links** are required in the routine report once actually verified.
+
+
+## Mandatory Video-shorts Google Drive package (Ray Emotional Stick Shorts)
+
+For every completed Ray Emotional Stick Shorts video, follow [`docs/video-shorts-drive-archive-policy.md`](docs/video-shorts-drive-archive-policy.md). The owner-required Drive root is `Videos-shorts` (ID `1rtJF9zDWuFZ8_6IixdMew3WCZj8415-D`); create one sequentially numbered `<N>. <title> - <YYYY-MM-DD>` child folder per video, containing the QA-approved **`video-final.mp4`**, expressive original **`thumbnail-youtube.png`** and UTF-8 **`youtube-title-description.txt`** with publication title and description. Verify all three in Google Drive before claiming a complete delivery; the GitHub draft Release and other approved archive obligations remain separate.
