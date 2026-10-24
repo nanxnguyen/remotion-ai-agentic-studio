@@ -1,0 +1,82 @@
+[
+  {
+    "id": 1,
+    "start_sec": 0,
+    "duration_sec": 6,
+    "visual_start_seconds": 0,
+    "narration": "Đêm ấy, cả hội trường đứng dậy... nhưng lối đi cô dâu vẫn trống không!",
+    "phase": "HOOK"
+  },
+  {
+    "id": 2,
+    "start_sec": 6,
+    "duration_sec": 6,
+    "visual_start_seconds": 6,
+    "narration": "Chiếc voan trắng tự bay. Phong giơ máy quay... một cô dâu hiện ra!",
+    "phase": "BODY"
+  },
+  {
+    "id": 3,
+    "start_sec": 12,
+    "duration_sec": 6,
+    "visual_start_seconds": 12,
+    "narration": "Ngoài đời chẳng có ai. Nhưng trong màn hình... cô ấy đang tiến đến gần.",
+    "phase": "BODY"
+  },
+  {
+    "id": 4,
+    "start_sec": 18,
+    "duration_sec": 6,
+    "visual_start_seconds": 18,
+    "narration": "Một tấm thiệp nằm trên bàn. Tên chú rể ghi rõ... PHONG!",
+    "phase": "BODY"
+  },
+  {
+    "id": 5,
+    "start_sec": 24,
+    "duration_sec": 6,
+    "visual_start_seconds": 24,
+    "narration": "Những vị khách cùng nhìn anh, mỉm cười... như thể họ đã biết trước.",
+    "phase": "BODY"
+  },
+  {
+    "id": 6,
+    "start_sec": 30,
+    "duration_sec": 6,
+    "visual_start_seconds": 30,
+    "narration": "Bó hoa rơi xuống sàn! Phong chạy đến cửa thoát hiểm... giật mạnh tay nắm.",
+    "phase": "CLIMAX"
+  },
+  {
+    "id": 7,
+    "start_sec": 36,
+    "duration_sec": 6,
+    "visual_start_seconds": 36,
+    "narration": "Nhưng cánh cửa lại mở vào hội trường! Tất cả khách mời đã biến mất.",
+    "phase": "CLIMAX"
+  },
+  {
+    "id": 8,
+    "start_sec": 42,
+    "duration_sec": 6,
+    "visual_start_seconds": 42,
+    "narration": "Trên màn hình, cô dâu bước sát máy quay... rồi đưa tay về phía Phong.",
+    "phase": "CLIMAX"
+  },
+  {
+    "id": 9,
+    "start_sec": 48,
+    "duration_sec": 6,
+    "visual_start_seconds": 48,
+    "narration": "Phong xem lại đoạn phim. Người quay phim không còn nữa... anh chính là chú rể!",
+    "phase": "PAYOFF"
+  },
+  {
+    "id": 10,
+    "start_sec": 54,
+    "duration_sec": 6,
+    "visual_start_seconds": 54,
+    "narration": "Máy quay nằm trên ghế, vẫn ghi hình. Hội trường trống rỗng... nhưng trên màn hình, Phong vẫn đứng cạnh cô dâu!",
+    "phase": "PAYOFF"
+  }
+]
