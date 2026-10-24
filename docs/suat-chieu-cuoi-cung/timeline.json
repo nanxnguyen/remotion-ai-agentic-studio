@@ -1,0 +1,282 @@
+[
+  {
+    "id": 1,
+    "start_sec": 0,
+    "visual_start_seconds": 0,
+    "duration_sec": 6,
+    "narration": "Rạp chỉ có mình Nam. Nhưng ngay sau ghế anh... có một người đang thở.",
+    "speaker": "narrator",
+    "phase": "HOOK",
+    "emotion": "shock",
+    "action": "Nam looks back, dark silhouette behind chair",
+    "visual": "Nam looks back, dark silhouette behind chair",
+    "camera": "slow push with eerie parallax",
+    "headline": "BÊN SAU GHẾ ANH...",
+    "caption": "CÓ AI ĐÓ!",
+    "caption_beats": [
+      {
+        "at": 0.3,
+        "text": "BÊN SAU GHẾ ANH..."
+      },
+      {
+        "at": 3,
+        "text": "CÓ AI ĐÓ!"
+      }
+    ],
+    "motion": "separate 2D tracked zoom / parallax + transition",
+    "transition_in": "fade from black",
+    "sfx": "low whoosh breath"
+  },
+  {
+    "id": 2,
+    "start_sec": 6,
+    "visual_start_seconds": 6,
+    "duration_sec": 6,
+    "narration": "Người soát vé già dúi tấm vé cuối, dặn: Dù nghe gì, cũng đừng rời ghế.",
+    "speaker": "narrator",
+    "phase": "BODY",
+    "emotion": "unease",
+    "action": "elderly usher offers single ticket and warns Nam",
+    "visual": "elderly usher offers single ticket and warns Nam",
+    "camera": "tilt to ticket and usher",
+    "headline": "SUẤT CHIẾU CUỐI",
+    "caption": "ĐỪNG RỜI GHẾ!",
+    "caption_beats": [
+      {
+        "at": 0.3,
+        "text": "SUẤT CHIẾU CUỐI"
+      },
+      {
+        "at": 3,
+        "text": "ĐỪNG RỜI GHẾ!"
+      }
+    ],
+    "motion": "separate 2D tracked zoom / parallax + transition",
+    "transition_in": "0.25-0.38s cinematic dissolve or SFX cut",
+    "sfx": "ticket flutter"
+  },
+  {
+    "id": 3,
+    "start_sec": 12,
+    "visual_start_seconds": 12,
+    "duration_sec": 6,
+    "narration": "Phim bắt đầu. Trên màn ảnh... chính Nam đang ngồi xem phim, y hệt lúc này.",
+    "speaker": "narrator",
+    "phase": "BODY",
+    "emotion": "disbelief",
+    "action": "Nam staring at a movie frame of himself",
+    "visual": "Nam staring at a movie frame of himself",
+    "camera": "push on movie-screen reflection",
+    "headline": "NHÂN VẬT TRÊN MÀN ẢNH",
+    "caption": "LÀ CHÍNH NAM",
+    "caption_beats": [
+      {
+        "at": 0.3,
+        "text": "NHÂN VẬT TRÊN MÀN ẢNH"
+      },
+      {
+        "at": 3,
+        "text": "LÀ CHÍNH NAM"
+      }
+    ],
+    "motion": "separate 2D tracked zoom / parallax + transition",
+    "transition_in": "0.25-0.38s cinematic dissolve or SFX cut",
+    "sfx": "projector starts"
+  },
+  {
+    "id": 4,
+    "start_sec": 18,
+    "visual_start_seconds": 18,
+    "duration_sec": 6,
+    "narration": "Rồi màn hình chiếu những chuyện chưa xảy ra. Tất cả... nhanh hơn thực tế vài giây.",
+    "speaker": "narrator",
+    "phase": "BODY",
+    "emotion": "dread",
+    "action": "film strip reveals future events as ghost audience appears",
+    "visual": "film strip reveals future events as ghost audience appears",
+    "camera": "filmstrip match cut",
+    "headline": "BỘ PHIM ĐI TRƯỚC",
+    "caption": "TƯƠNG LAI VÀI GIÂY",
+    "caption_beats": [
+      {
+        "at": 0.3,
+        "text": "BỘ PHIM ĐI TRƯỚC"
+      },
+      {
+        "at": 3,
+        "text": "TƯƠNG LAI VÀI GIÂY"
+      }
+    ],
+    "motion": "separate 2D tracked zoom / parallax + transition",
+    "transition_in": "0.25-0.38s cinematic dissolve or SFX cut",
+    "sfx": "film reel skipping"
+  },
+  {
+    "id": 5,
+    "start_sec": 24,
+    "visual_start_seconds": 24,
+    "duration_sec": 6,
+    "narration": "Một bóng người đặt tay lên vai Nam trong phim. Sau lưng anh... ghế kêu cót két.",
+    "speaker": "narrator",
+    "phase": "BODY",
+    "emotion": "panic",
+    "action": "ghostly figure appears behind Nam; his on-screen death predicted",
+    "visual": "ghostly figure appears behind Nam; his on-screen death predicted",
+    "camera": "handheld restrained panic",
+    "headline": "NÓ ĐANG ĐẾN GẦN",
+    "caption": "NGAY SAU LƯNG",
+    "caption_beats": [
+      {
+        "at": 0.3,
+        "text": "NÓ ĐANG ĐẾN GẦN"
+      },
+      {
+        "at": 3,
+        "text": "NGAY SAU LƯNG"
+      }
+    ],
+    "motion": "separate 2D tracked zoom / parallax + transition",
+    "transition_in": "0.25-0.38s cinematic dissolve or SFX cut",
+    "sfx": "chair creak"
+  },
+  {
+    "id": 6,
+    "start_sec": 30,
+    "visual_start_seconds": 30,
+    "duration_sec": 6,
+    "narration": "Nam lao về cửa thoát hiểm. Nhưng cánh cửa nào... cũng dẫn về hàng ghế cũ.",
+    "speaker": "narrator",
+    "phase": "CLIMAX",
+    "emotion": "panic",
+    "action": "man reaches desperately; red EXIT door loops to cinema",
+    "visual": "man reaches desperately; red EXIT door loops to cinema",
+    "camera": "hard cut to EXIT and looping hall",
+    "headline": "KHÔNG THỂ THOÁT",
+    "caption": "MỌI CỬA ĐỀU QUAY VỀ",
+    "caption_beats": [
+      {
+        "at": 0.3,
+        "text": "KHÔNG THỂ THOÁT"
+      },
+      {
+        "at": 3,
+        "text": "MỌI CỬA ĐỀU QUAY VỀ"
+      }
+    ],
+    "motion": "separate 2D tracked zoom / parallax + transition",
+    "transition_in": "0.25-0.38s cinematic dissolve or SFX cut",
+    "sfx": "metal door slam"
+  },
+  {
+    "id": 7,
+    "start_sec": 36,
+    "visual_start_seconds": 36,
+    "duration_sec": 6,
+    "narration": "Khi anh quay lại, rạp đã đầy khán giả. Họ ngồi bất động... như những xác chết.",
+    "speaker": "narrator",
+    "phase": "CLIMAX",
+    "emotion": "terror",
+    "action": "haunting audience slowly materializes all around Nam",
+    "visual": "haunting audience slowly materializes all around Nam",
+    "camera": "dolly back reveals audience",
+    "headline": "RẠP PHIM ĐÃ ĐẦY",
+    "caption": "KHÁN GIẢ KHÔNG CÒN SỐNG",
+    "caption_beats": [
+      {
+        "at": 0.3,
+        "text": "RẠP PHIM ĐÃ ĐẦY"
+      },
+      {
+        "at": 3,
+        "text": "KHÁN GIẢ KHÔNG CÒN SỐNG"
+      }
+    ],
+    "motion": "separate 2D tracked zoom / parallax + transition",
+    "transition_in": "0.25-0.38s cinematic dissolve or SFX cut",
+    "sfx": "audience murmur"
+  },
+  {
+    "id": 8,
+    "start_sec": 42,
+    "visual_start_seconds": 42,
+    "duration_sec": 6,
+    "narration": "Một giọng đạo diễn vang lên: Cắt! Trên màn ảnh... Nam bắt đầu mỉm cười.",
+    "speaker": "narrator",
+    "phase": "CLIMAX",
+    "emotion": "revelation",
+    "action": "giant movie screen shows smiling Nam while Nam sits frozen",
+    "visual": "giant movie screen shows smiling Nam while Nam sits frozen",
+    "camera": "slow hold on smile",
+    "headline": "CẮT!",
+    "caption": "NAM TRÊN PHIM ĐANG CƯỜI",
+    "caption_beats": [
+      {
+        "at": 0.3,
+        "text": "CẮT!"
+      },
+      {
+        "at": 3,
+        "text": "NAM TRÊN PHIM ĐANG CƯỜI"
+      }
+    ],
+    "motion": "separate 2D tracked zoom / parallax + transition",
+    "transition_in": "0.25-0.38s cinematic dissolve or SFX cut",
+    "sfx": "director clap"
+  },
+  {
+    "id": 9,
+    "start_sec": 48,
+    "visual_start_seconds": 48,
+    "duration_sec": 6,
+    "narration": "Nam hiểu ra: anh không phải khán giả. Anh đã trở thành nhân vật chính của bộ phim.",
+    "speaker": "narrator",
+    "phase": "ENDING",
+    "emotion": "horror",
+    "action": "film strip frames Nam's face; perspective switches from observer to film character",
+    "visual": "film strip frames Nam's face; perspective switches from observer to film character",
+    "camera": "dolly into grainy filmstrip",
+    "headline": "ANH KHÔNG PHẢI KHÁN GIẢ",
+    "caption": "ANH ĐANG Ở TRONG PHIM",
+    "caption_beats": [
+      {
+        "at": 0.3,
+        "text": "ANH KHÔNG PHẢI KHÁN GIẢ"
+      },
+      {
+        "at": 3,
+        "text": "ANH ĐANG Ở TRONG PHIM"
+      }
+    ],
+    "motion": "separate 2D tracked zoom / parallax + transition",
+    "transition_in": "0.25-0.38s cinematic dissolve or SFX cut",
+    "sfx": "film reel click"
+  },
+  {
+    "id": 10,
+    "start_sec": 54,
+    "visual_start_seconds": 54,
+    "duration_sec": 6,
+    "narration": "Màn hình hiện dòng chữ: Suất chiếu tiếp theo... dành cho bạn. Phía sau, một chiếc ghế bật dậy.",
+    "speaker": "narrator",
+    "phase": "ENDING",
+    "emotion": "unsettling",
+    "action": "final cinema screen ominous offer, ghost audience waiting",
+    "visual": "final cinema screen ominous offer, ghost audience waiting",
+    "camera": "static frightening last shot",
+    "headline": "SUẤT CHIẾU TIẾP THEO",
+    "caption": "DÀNH CHO BẠN",
+    "caption_beats": [
+      {
+        "at": 0.3,
+        "text": "SUẤT CHIẾU TIẾP THEO"
+      },
+      {
+        "at": 3,
+        "text": "DÀNH CHO BẠN"
+      }
+    ],
+    "motion": "separate 2D tracked zoom / parallax + transition",
+    "transition_in": "0.25-0.38s cinematic dissolve or SFX cut",
+    "sfx": "empty seat spring"
+  }
+]
