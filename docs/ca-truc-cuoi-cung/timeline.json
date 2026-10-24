@@ -1,0 +1,82 @@
+[
+  {
+    "id": 1,
+    "start_sec": 0,
+    "visual_start_seconds": 0,
+    "duration_sec": 6,
+    "narration": "Camera ghi được một ma-nơ-canh tự quay đầu! Trên ngực nó... là bảng tên Hùng.",
+    "phase": "HOOK"
+  },
+  {
+    "id": 2,
+    "start_sec": 6,
+    "visual_start_seconds": 6,
+    "duration_sec": 6,
+    "narration": "Đêm đó, Hùng trực bảo vệ. Lan nghe tiếng chân lạ từ cửa hàng.",
+    "phase": "BODY"
+  },
+  {
+    "id": 3,
+    "start_sec": 12,
+    "visual_start_seconds": 12,
+    "duration_sec": 6,
+    "narration": "Lan hét qua bộ đàm: Đừng quay lưng! Nhưng camera... vừa mất dấu con búp bê.",
+    "phase": "BODY"
+  },
+  {
+    "id": 4,
+    "start_sec": 18,
+    "visual_start_seconds": 18,
+    "duration_sec": 6,
+    "narration": "Hùng nhìn ra kính. Con ma-nơ-canh đã đứng sát ngay sau lưng anh.",
+    "phase": "BODY"
+  },
+  {
+    "id": 5,
+    "start_sec": 24,
+    "visual_start_seconds": 24,
+    "duration_sec": 6,
+    "narration": "Camera số bảy bật sáng. Lan bị kéo vào phòng thử đồ... chỉ còn đôi dép.",
+    "phase": "BODY"
+  },
+  {
+    "id": 6,
+    "start_sec": 30,
+    "visual_start_seconds": 30,
+    "duration_sec": 6,
+    "narration": "Đèn vụt tắt! Hàng chục ma-nơ-canh bước xuống bục, tiếng nhựa kêu răng rắc.",
+    "phase": "CLIMAX"
+  },
+  {
+    "id": 7,
+    "start_sec": 36,
+    "visual_start_seconds": 36,
+    "duration_sec": 6,
+    "narration": "Hùng lao đến cửa thoát hiểm! Một bàn tay nhựa túm chặt cổ tay anh.",
+    "phase": "CLIMAX"
+  },
+  {
+    "id": 8,
+    "start_sec": 42,
+    "visual_start_seconds": 42,
+    "duration_sec": 6,
+    "narration": "Anh giằng ra, nhưng những ngón tay... đang dần hóa thành nhựa trắng!",
+    "phase": "CLIMAX"
+  },
+  {
+    "id": 9,
+    "start_sec": 48,
+    "visual_start_seconds": 48,
+    "duration_sec": 6,
+    "narration": "Sáng hôm sau, cửa hàng có một mẫu nam mới. Bảng tên ghi: Hùng.",
+    "phase": "ENDING"
+  },
+  {
+    "id": 10,
+    "start_sec": 54,
+    "visual_start_seconds": 54,
+    "duration_sec": 6,
+    "narration": "Một giọt nước mắt chảy xuống. Loa vang lên: Ca trực tiếp theo... bắt đầu!",
+    "phase": "ENDING"
+  }
+]
