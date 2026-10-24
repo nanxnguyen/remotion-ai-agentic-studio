@@ -1,0 +1,50 @@
+name: Last Shift - real Vbee Anh Khoi Minh V2
+on:
+  push:
+    branches: [feat/ca-truc-cuoi-cung-minh-v2-story-voice]
+    paths:
+      - .github/workflows/ca-truc-cuoi-cung-minh-v2-vbee.yml
+      - docs/ca-truc-cuoi-cung-v2-minh/timeline.json
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  voice:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    env:
+      VBEE_ACCESS_TOKEN: ${{ secrets.VBEE_ACCESS_TOKEN || secrets.VBEE_TOKEN || secrets.VBEE_API_KEY || secrets.VBEE_API_TOKEN }}
+      VBEE_APP_ID: ${{ secrets.VBEE_APP_ID || secrets.VBEE_APPID || secrets.VBEE_APPLICATION_ID }}
+      VBEE_WEBHOOK_URL: ${{ vars.VBEE_WEBHOOK_URL || 'https://example.com/story-tts-webhook' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify authorized secrets exist without revealing values
+        run: test -n "$VBEE_ACCESS_TOKEN" && test -n "$VBEE_APP_ID"
+      - name: Generate actual Vbee Batch audio from revised Minh script
+        run: |
+          python3 scripts/gen-story-vbee-batch.py \
+            --timeline docs/ca-truc-cuoi-cung-v2-minh/timeline.json \
+            --out-dir public/audio/ca-truc-cuoi-cung-minh-v2 \
+            --voice-code hn_male_phuthang_stor_24k-stl \
+            --speed 1.10 \
+            --webhook-url "$VBEE_WEBHOOK_URL"
+      - name: Check scene fit with natural breathing space
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          items=json.loads(Path("public/audio/ca-truc-cuoi-cung-minh-v2/measured-timeline.json").read_text())
+          assert len(items)==10
+          for s in items:
+              print(f"Scene {s['id']}: {s['audio_seconds']:.3f}s")
+              assert s["audio_seconds"] <= 5.80, f"Voice too long for scene {s['id']}; rewrite phrase rather than trimming it"
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ca-truc-cuoi-cung-minh-v2-genuine-vbee
+          path: public/audio/ca-truc-cuoi-cung-minh-v2/
+          retention-days: 14
+          if-no-files-found: error
