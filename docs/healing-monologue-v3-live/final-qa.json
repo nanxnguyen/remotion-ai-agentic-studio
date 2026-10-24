@@ -1,0 +1,145 @@
+{
+  "status": "TECHNICAL_PASS_REQUIRES_HUMAN_AESTHETIC_REVIEW",
+  "durationSeconds": 92.0,
+  "video": "healing-monologue-92s-live-footage-v3-vbee.mp4",
+  "resolution": [
+    1920,
+    1080
+  ],
+  "timelineFps": 60,
+  "nativeSourceRateAtLeast50FpsSeconds": 17.0,
+  "lowerFrameRateFootageSeconds": 75.0,
+  "liveAction": true,
+  "singleActorAcrossShots": false,
+  "voice": "Vbee Thanh Long — regenerated against approved 92s script",
+  "voiceBeatQA": [
+    {
+      "beat": 1,
+      "ttsDuration": 7.47,
+      "slot": 9,
+      "tempo": 0.845
+    },
+    {
+      "beat": 2,
+      "ttsDuration": 7.24,
+      "slot": 8,
+      "tempo": 0.923
+    },
+    {
+      "beat": 3,
+      "ttsDuration": 10.27,
+      "slot": 14,
+      "tempo": 0.742
+    },
+    {
+      "beat": 4,
+      "ttsDuration": 10.24,
+      "slot": 14,
+      "tempo": 0.74
+    },
+    {
+      "beat": 5,
+      "ttsDuration": 8.23,
+      "slot": 13,
+      "tempo": 0.72
+    },
+    {
+      "beat": 6,
+      "ttsDuration": 8.52,
+      "slot": 13,
+      "tempo": 0.72
+    },
+    {
+      "beat": 7,
+      "ttsDuration": 8.33,
+      "slot": 12,
+      "tempo": 0.72
+    },
+    {
+      "beat": 8,
+      "ttsDuration": 7.63,
+      "slot": 9,
+      "tempo": 0.863
+    }
+  ],
+  "font": "Be Vietnam Pro authentic Google Fonts",
+  "stockAttributions": [
+    {
+      "id": 7882757,
+      "credit": "RDNE Stock project",
+      "url": "https://www.pexels.com/video/woman-is-working-with-paperwork-7882757/"
+    },
+    {
+      "id": 8547458,
+      "credit": "Kaboompics",
+      "url": "https://www.pexels.com/video/a-close-up-of-a-bored-woman-in-an-office-8547458/"
+    },
+    {
+      "id": 4361977,
+      "credit": "Mikael Blomkvist",
+      "url": "https://www.pexels.com/video/a-woman-on-a-phone-call-doing-work-4361977/"
+    },
+    {
+      "id": 7882744,
+      "credit": "RDNE Stock project",
+      "url": "https://www.pexels.com/video/elegant-businesswoman-at-work-7882744/"
+    },
+    {
+      "id": 8632769,
+      "credit": "Kampus Production",
+      "url": "https://www.pexels.com/video/a-woman-looking-tired-and-burnout-while-working-8632769/"
+    },
+    {
+      "id": 4052996,
+      "credit": "KATRIN BOLOVTSOVA",
+      "url": "https://www.pexels.com/video/a-woman-typing-on-a-laptop-4052996/"
+    },
+    {
+      "id": 5683796,
+      "credit": "Tima Miroshnichenko",
+      "url": "https://www.pexels.com/video/woman-working-late-on-the-office-5683796/"
+    },
+    {
+      "id": 4426378,
+      "credit": "Edmond Dantès",
+      "url": "https://www.pexels.com/video/woman-laptop-office-working-4426378/"
+    },
+    {
+      "id": 5114836,
+      "credit": "ArtHouse Studio",
+      "url": "https://www.pexels.com/video/woman-looking-outside-of-a-window-on-a-rainy-day-5114836/"
+    },
+    {
+      "id": 12690703,
+      "credit": "Anna Shvets",
+      "url": "https://www.pexels.com/video/a-young-woman-using-a-laptop-at-an-outdoor-cafe-12690703/"
+    },
+    {
+      "id": 19232155,
+      "credit": "Atif Dar",
+      "url": "https://www.pexels.com/video/a-woman-walking-on-a-bridge-with-a-city-in-the-background-19232155/"
+    },
+    {
+      "id": 7592909,
+      "credit": "ROMAN ODINTSOV",
+      "url": "https://www.pexels.com/video/a-woman-pouring-tea-7592909/"
+    },
+    {
+      "id": 4053004,
+      "credit": "KATRIN BOLOVTSOVA",
+      "url": "https://www.pexels.com/video/a-woman-working-on-her-laptop-while-drinking-coffee-4053004/"
+    },
+    {
+      "id": 5940883,
+      "credit": "Maksim Goncharenok",
+      "url": "https://www.pexels.com/video/back-view-young-woman-and-man-walking-in-park-5940883/"
+    }
+  ],
+  "sha256": "032aa357fa0beee7ac18e5ce5a889cc18dad96642fc6c6a51c3450568ebfc86b",
+  "bytes": 34839211,
+  "limitations": [
+    "Source rate varies (some shots below native 60fps)",
+    "Stock actors vary; documentary montage, not same character",
+    "Human viewing and listening still pending"
+  ]
+}
