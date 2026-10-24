@@ -2,14 +2,14 @@
 
 > This is an editorially revised **candidate**, pending a clean-context independent `script-reviewer` Gate A. **No actual Vbee durations, rendered frames or approved MP4.**
 
-**45.0 seconds • 12 scenes • 120 space-separated Vietnamese syllables • estimate 29.3s speech at 4.1 syl/s + ~15.7s for breathing, action/SFX and emotional holds**. Actual TTS will determine the locked timing.
+**45.0 seconds • 12 scenes • 115 space-separated Vietnamese syllables • estimate 28.0s speech at 4.1 syl/s + ~17.0s for breathing, action/SFX and emotional holds**. Actual TTS will determine the locked timing.
 
 ## Story beats, voice and staging
 
 | Cảnh | Timecode | Lời Vbee (đọc nguyên văn) | Khung hình/hành động | Biểu cảm | Nhịp giọng |
 |---|---|---|---|---|---|
-| 01 | 0.0–3.0s | Ba giờ sáng. Có thứ gì đó dưới gầm giường Nam. | Mực dùng hai tay chống xuống sàn, chậm rãi trườn ra. Nam trở mình trong ác mộng. Khung phòng ngủ trẻ em về đêm. Đồng hồ 03:00 ngoài mép trái. Từ gầm giường, một bàn tay ba ngón bé xíu xuất hiện, hai con mắt vàng hiện lên; Nam ngủ nhăn trán trên giường. | Mực cảnh giác, ánh mắt lo chứ không dữ; Nam nhíu mày. | Nam, trầm thấp, nhỏ nhưng rõ. Nhấn 'ba giờ sáng', cuối câu hạ xuống. |
-| 02 | 3.0–6.0s | Nó vươn móng vuốt... nhưng không chạm vào cậu. | Mực thu đầu móng nhọn vào lớp lông, duỗi bàn tay dịu dàng đón luồng khói. Móng ba ngón tiến gần đầu Nam nhưng dừng cách trán 5cm. Con quái nhìn sang khói đen nhỏ đang rỉ ra từ tóc Nam. | Mực lo sợ đánh thức Nam, mím miệng; Nam co mày, mồ hôi nhỏ. | Trầm bí ẩn, tăng căng ở 'móng vuốt'; ngắt rõ trước 'nhưng', hạ giọng ở 'không chạm'. |
+| 01 | 0.0–3.0s | Ba giờ sáng... Có gì dưới gầm giường? | Mực dùng hai tay chống xuống sàn, chậm rãi trườn ra. Nam trở mình trong ác mộng. Khung phòng ngủ trẻ em về đêm. Đồng hồ 03:00 ngoài mép trái. Từ gầm giường, một bàn tay ba ngón bé xíu xuất hiện, hai con mắt vàng hiện lên; Nam ngủ nhăn trán trên giường. | Mực cảnh giác, ánh mắt lo chứ không dữ; Nam nhíu mày. | Nam, trầm thấp, nhỏ nhưng rõ. Nhấn 'ba giờ sáng', cuối câu hạ xuống. |
+| 02 | 3.0–6.0s | Móng vuốt gần Nam... rồi dừng lại. | Mực thu đầu móng nhọn vào lớp lông, duỗi bàn tay dịu dàng đón luồng khói. Móng ba ngón tiến gần đầu Nam nhưng dừng cách trán 5cm. Con quái nhìn sang khói đen nhỏ đang rỉ ra từ tóc Nam. | Mực lo sợ đánh thức Nam, mím miệng; Nam co mày, mồ hôi nhỏ. | Trầm bí ẩn, tăng căng ở 'móng vuốt'; ngắt rõ trước 'nhưng', hạ giọng ở 'không chạm'. |
 | 03 | 6.0–10.0s | Nó kéo khói đen ra khỏi giấc mơ của Nam. | Mực giữ chân trên thành giường, dùng cả hai tay kéo; Nam thả lỏng lông mày sau mỗi nhịp. Sợi khói tím đen có chấm mắt đỏ bám trán Nam; Mực kéo nó ra thành dải dài. Khi khói chạm vùng sáng vàng yếu từ đèn sao, nó co rúm lại. | Mực quyết tâm, hơi nhăn mặt; Nam dần yên. | Tò mò chuyển sang xót xa, giọng trầm vừa; nhấn 'khói đen' và 'giấc mơ'. |
 | 04 | 10.0–13.0s | Rồi nhốt từng cơn ác mộng vào chiếc lọ. | Mực vặn nút, xoay lọ, giữ nắp khít bằng hai bàn tay. Nút lọ mở; cuộn khói bị hút vào bên trong, tạo các vòng xoắn tím; trên thành kính khắc biểu tượng ngôi sao nhỏ. | Mực thở phào, mắt dịu lại. | Trầm ấm hơn, kéo nhẹ ở 'ác mộng', không thì thầm giả. |
 | 05 | 13.0–17.0s | Đêm nào cũng vậy. Đôi mắt nó ngày càng mệt. | Mực lặp thao tác giữ lọ, sau đó xoa mắt bằng mu bàn tay. Ba đêm khác nhau (mưa, trời quang, trăng khuyết), cùng vị trí đầu giường. Mỗi đêm bình khói đặc hơn. Lông quanh mắt Mực xơ và vai sụp xuống. | Từ dịu dàng sang kiệt sức nhưng vẫn nhìn Nam ân cần. | Giọng trung trầm, xót xa, chậm hơn ở 'ngày càng mệt'. |
