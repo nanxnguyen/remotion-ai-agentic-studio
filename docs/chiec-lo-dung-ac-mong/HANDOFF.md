@@ -21,3 +21,16 @@
 4. Upload 3 verified deliverables to owner's sequential Google Drive folder per `docs/GOOGLE_DRIVE_VIDEO_ARCHIVE.md`, and archive via repo/vidIQ contracts where applicable.
 
 **Do not merge PR #59 as approved screenplay or production without Gate A.**
+
+## Update: 2026-10-24 — actual complete Vbee + 2D render is available
+
+**This section supersedes the old `No Vbee/MP4` status in the storyboard-only snapshot above.**
+
+- Last successful GitHub workflow: https://github.com/nanxnguyen/remotion-ai-agentic-studio/actions/runs/40100962099
+- Actual technical A/V pass: `docs/chiec-lo-dung-ac-mong/final-QA.json`; 45.000 seconds, 1080×1920, 30fps, H.264/AAC, 6 real Vbee Thanh Long Batch segments, original piano + timed sound effects. Open hook shortened to avoid a 17% tempo acceleration; new measured first segment 5.642s atempo1.0.
+- Media: `docs/chiec-lo-dung-ac-mong/final/video-final.mp4`. SHA-256 `bda251984d729a5ea6449993a237c8422fa460eb69478129ee412c1dbfcf072c`.
+- Sampled `contact-sheet.jpg` actually inspected. The visual animation is **procedural 2D puppet art**, simpler than the requested expressive cinematic 3D CGI. It does **not** satisfy the user-requested full 3D character acting.
+- Generated a story-specific vertical cover and publishing copy, but real Drive archive with approved final has NOT been verified; owner-wide mandatory 3-file Google Drive folder remains pending. No YouTube/TikTok upload or publication.
+- Independent script reviewer never accepted GitHub invitation, canonical Remotion gate audit not completed, subjective full playback/listening not completed: this should stay a **technical complete draft / visual-quality blocked** handoff, NOT the final approved 3D video.
+- Video engine availability: HeyGen Video Agent blocked by regional plan; OpenArt 40 credits insufficient for a default video generation (lowest observed default 75 credits). No secrets copied to repo.
+- Repo publishing copy: `youtube-title-description.txt`; artifact provenance `asset-manifest.md`.
