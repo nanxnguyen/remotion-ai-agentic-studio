@@ -44,5 +44,6 @@
     "b210ab70de7044466674adeb8140422ab72df1b4",
     "729d83563af235288c4181ebb16f825e27be5494",
     "0c269a8e8c024511a2adf98e8fe5748becd24199"
-  ]
+  ],
+  "publish_retry": 1
 }
