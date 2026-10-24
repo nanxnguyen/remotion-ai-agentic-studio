@@ -1,0 +1,44 @@
+name: Lighthouse Original Vbee Narration
+on:
+  push:
+    branches: [feat/hai-dang-final-no-releases]
+    paths:
+      - .github/workflows/hai-dang-vbee.yml
+      - docs/ngon-hai-dang/timeline.json
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  voice:
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    env:
+      VBEE_ACCESS_TOKEN: ${{ secrets.VBEE_ACCESS_TOKEN || secrets.VBEE_TOKEN || secrets.VBEE_API_KEY || secrets.VBEE_API_TOKEN }}
+      VBEE_APP_ID: ${{ secrets.VBEE_APP_ID || secrets.VBEE_APPID || secrets.VBEE_APPLICATION_ID }}
+      VBEE_WEBHOOK_URL: ${{ vars.VBEE_WEBHOOK_URL || 'https://example.com/story-tts-webhook' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Generate ten original Vbee lines
+        run: |
+          python3 scripts/gen-story-vbee-batch.py --timeline docs/ngon-hai-dang/timeline.json --out-dir public/audio/ngon-hai-dang --voice-code hn_male_phuthang_stor_24k-stl --speed 1.15 --webhook-url "$VBEE_WEBHOOK_URL"
+      - name: Check duration and source trace
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          data=json.loads(Path("public/audio/ngon-hai-dang/measured-timeline.json").read_text())
+          assert len(data)==10
+          for item in data:
+              print(item['id'],item['audio_seconds'])
+              assert item['audio_seconds']<=5.90,f"Scene {item['id']} too long, needs rewrite"
+              assert item["sha256"] and item["voice_code"]
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ngon-hai-dang-authentic-vbee
+          path: public/audio/ngon-hai-dang/
+          retention-days: 20
+          if-no-files-found: error
