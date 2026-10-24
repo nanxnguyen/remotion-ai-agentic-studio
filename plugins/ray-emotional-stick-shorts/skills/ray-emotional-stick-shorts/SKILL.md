@@ -1,0 +1,45 @@
+---
+name: ray-emotional-stick-shorts
+description: Use for Vietnamese emotional stick-figure cinematic YouTube Shorts, especially when writing or revising scripts, selecting a high-retention 3–5-second hook, reviewing narrative pacing, generating a storyboard/frame preview, directing Vbee Thanh Long narration, or producing Remotion video with established QA and delivery gates.
+---
+
+# Ray Emotional Stick Shorts — YouTube Shorts story system
+
+## Intent, precedence and truthfulness
+
+Specialized wrapper of the existing GitHub skill `.claude/skills/ray-emotional-stick-shorts/SKILL.md` and parent `.claude/skills/ray-video-10-phut/SKILL.md` in `nanxnguyen/remotion-ai-agentic-studio`. The source repo and its current `AGENTS.md`, `ray-pineline-worflow-agent`, `scripts/pipeline.py`, review schema and production archive policy are authoritative for **execution**, not this standalone copy. Read live source before a render or source change. Preserve gate order **A → Content/Audio/D → Motion → E → B → C → final QA/eval**; no bypass, fabricated review scores, or invented results. Script drafting/previews do NOT constitute a completed render or certified QA.
+
+Create engaging, empathic storytelling with an achievable **million-view aspiration, never a promise**. A "viral formula" is a testable creative heuristic, not an official YouTube ranking algorithm. Prefer authentic human moments and emotional specificity over bait and fake shock. Official pointers are in `references/retention-formula.md`.
+
+## Non-negotiable creative defaults
+
+- Audience and format: Vietnamese YouTube Shorts, vertical **9:16**; typically 30–45 seconds, preferred **37–41**, obey requested 40–45 when provided. Time only the actual final audio/video, not estimated reading speed. Consciously designed 10 story scenes for script/storyboard when requested; **12–20 purposeful camera shots** for production as needed, never padding or arbitrary cuts.
+- **Hook lasts 3–5 seconds**, with visible/aural disruption at **0–1 second**; first image itself must make sense without sound. Intro, channel name, greetings and slow environmental establishing shots are forbidden before the hook. Hook should convey a **specific situation + emotional contradiction/open question**, not a long philosophical statement. The hook's audio must reasonably fit its allotted time at normal emotional speaking speed; use a silent visual sub-beat rather than cramming.
+- For each new story, propose **three truly different hook mechanisms** (unexpected action / sharp relatable confession / striking visual contrast), estimate reading duration, choose one with explicit why, and preserve a single unanswered story question until payoff. If user asks for a finished script without alternatives, still evaluate three privately and output the chosen one plus an abbreviated review.
+- Early stakes by seconds **5–12**; fresh concrete beat or meaningful camera/reaction change approximately every **2–4 seconds** without overcutting. A **re-hook/turn around 15–22 seconds**, emotional **climax around 24–33 seconds**, compassionate **release from 34 seconds**. Avoid flat exposition, repetitive abstract reflections and manipulative sentiment.
+- Ending must satisfy the question, reframe meaning or communicate a humane insight, and create a voluntary share/comment trigger without begging for engagement or false promises. A thoughtful loop back to frame 0 is welcome only when it serves the story.
+- Final voice target: first draft ~100–125 Vietnamese space-delimited tokens for 40–45 seconds as a *planning heuristic only*. Spoken rate and punctuation vary. Count tokens, estimate time, then measure real Vbee audio; rewrite script/shot durations as necessary. No impossible allocations (e.g., 20+ spoken syllables in a 2-second hook).
+- Cinematic stick figure aesthetic: **white expressive figures on near-black #08090B, restrained amber #EF9E69, white #F5F5F4, grey #85878A**. Strong negative space, recognizable props and character silhouettes, one visual motif through the film; no photorealistic humans, random decorative motion or unmotivated color changes. Fixed character bible; every camera shot must show purposeful acting; 5 emotional poses minimum, attached props, match cut continuity. Frame 0/ hook/ turn/ climax/ release frames designed explicitly. Max 2 predominant transition families.
+- Voice: **Vbee AIVoice HN – Thanh Long**, warm, intimate, restrained melancholy with hope, default ~0.93–0.97 speed where supported; always audition Vietnamese diacritics and emotional pronunciation. No auto-fallback to HeyGen/Paul/other voice. Separate spoken text from direction/subtitles; prefer one audio take per line/scene, inspect ffprobe durations and align captions to actual speech.
+- Original/licensed soft piano under voice with emotionally relevant rise at climax and resolution; duck beneath narration. No copyrighted unlicensed music. Captions readable on phone, at most 1–2 lines, correct Vietnamese characters and platform-safe margins.
+
+## Required script workflow — ALWAYS use before rendering
+
+1. **Premise and emotion:** identify audience recognition ("đã từng như mình"), protagonist's current desire/fear, concrete triggering event, one symbol/prop, moral tension, and gentle resolution. Prefer **an event** to broad generalities.
+2. **3 hook variants (3–5s):** first-frame visual and VO for each; micro-hook 0–1s. Select based on clarity without sound, specificity, curiosity and scene feasibility. Mark estimated spoken length, not fake measured time.
+3. **Beat map:** hook (0–4), establish/contrast (4–12), distance/complication (12–20), re-hook/incident (20–24), climax (24–33), insight (33–39), healing end (39–45); adapt exact allocations to user duration. Ensure one emotionally credible causal path: what happened → what changed → what did they choose → why it matters.
+4. **Shot-by-shot script:** for every requested scene provide start/end seconds, narration (exact spoken text), visible action and acting (not just a still), composition/camera, prop/light/screen continuity, on-screen subtitle (short), sound/transition, and purpose in retention. No narration that exceeds plausible reading time. Support distinct visual preview frames and direct animation mapping.
+5. **Retention reviewer pass:** independently critique the draft for hook immediacy, open loop, early stakes, fresh beats, believable emotion, VO pacing, visual clarity sound-off, climax, healing end and organic rewatch/share. **Revise failed portions before final output**, not simply grade high. Use checklist in `references/retention-formula.md` and state remaining assumptions.
+6. **Delivery:** output (a) 3 short hook candidates or chosen hook, (b) revised 10-scene table, (c) continuous Vbee-ready narration, (d) visual storyboard preview (image files or clearly marked concept frames), (e) creative reviewer notes + estimated pacing and (f) optional title, comment seed. Distinguish generated preview from rendered footage. When asked for frames, actually provide frames or explicitly state which cannot be generated, never claim unseen images exist.
+
+## Production mode (only when user requests video/export)
+
+Read live repo source and related `references/production-integrations.md` before invoking integrations. Reuse canonical pipeline, tests, Remotion rendering, voice gate, scene ownership and mandatory final QA. The duration gate is 30.00–45.00 seconds, unless explicitly overridden. Measure exact rendered MP4 with ffprobe and confirm audible genuine Vbee narration + piano, character continuity and Vietnamese subtitles. Don't silently use alternate TTS or music-only preview as FULL.
+
+Vbee Batch: `VBEE_APP_ID`/`VBEE_ACCESS_TOKEN` live in GitHub Secrets only; use repo's verified async `scripts/vbee_tts.py`, deployed callback and polling, download short-lived MP3 immediately. Never expose credentials. If Vbee fails, mark `BLOCKED_VBEE_VOICE` and provide honest preproduction material. Do not require Studio manual export as the default path.
+
+After full QA, archive actual final MP4 + SHA-256 as **draft GitHub Release asset** per latest `docs/production-archive-policy.md` (not plain Git history), commit approved script/source/manifest, verify release asset and provide verified link. Upload complete AV file to vidIQ media library when authorized/available, capture durable upload ID, retrieve fresh signed URL and identify expiry. Importing to vidIQ != YouTube publishing. Never upload incomplete versions or mark release delivered without verification; never publish YouTube or merge PR without distinct authorization.
+
+## Finish criteria
+
+A storyboard is **PREVIEW ONLY** and needs no fictional QA score. A published plugin version is not itself a video. Do not claim real audience retention, YouTube traffic, Vbee synthesis, vidIQ upload, GitHub archive or final audiovisual QA without observed evidence. Explain missing steps honestly, concisely, in Vietnamese.
