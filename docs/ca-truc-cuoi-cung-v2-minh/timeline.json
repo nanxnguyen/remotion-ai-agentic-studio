@@ -1,0 +1,174 @@
+[
+  {
+    "id": 1,
+    "start_sec": 0,
+    "visual_start_seconds": 0,
+    "duration_sec": 6,
+    "phase": "HOOK",
+    "narration": "Camera ghi lại một ma-nơ-canh tự quay đầu. Trên ngực nó... là bảng tên Minh!",
+    "speaker": "narrator",
+    "visual": "Ma-nơ-canh visibly twists neck in CCTV; guard Minh recoils then focuses on a MINH badge",
+    "emotion": "shock",
+    "caption": "ĐỔI CHỖ VỚI MA-NƠ-CANH?",
+    "character_ids": [
+      "MINH",
+      "MANNEQUIN"
+    ],
+    "motion_method": "INDEPENDENT_ACTION_VIDEO_REQUIRED",
+    "sfx": "CCTV ticking"
+  },
+  {
+    "id": 2,
+    "start_sec": 6,
+    "visual_start_seconds": 6,
+    "duration_sec": 6,
+    "phase": "BODY",
+    "narration": "Đêm ấy, chú Minh trực một mình. Cô Lan dặn: Đừng quay lưng về phía quầy thời trang.",
+    "speaker": "narrator",
+    "visual": "Elderly guard Minh patrols empty mall; cleaner Lan raises radio with stern warning",
+    "emotion": "unease",
+    "character_ids": [
+      "MINH",
+      "LAN"
+    ],
+    "motion_method": "INDEPENDENT_ACTION_VIDEO_REQUIRED",
+    "sfx": "walkie click"
+  },
+  {
+    "id": 3,
+    "start_sec": 12,
+    "visual_start_seconds": 12,
+    "duration_sec": 6,
+    "phase": "BODY",
+    "narration": "Chú xem lại camera. Mỗi lần màn hình nhiễu... đám ma-nơ-canh lại tiến thêm một bước.",
+    "speaker": "narrator",
+    "visual": "CCTV monitors flicker and mannequins physically reposition one step closer",
+    "emotion": "dread",
+    "character_ids": [
+      "MINH",
+      "MANNEQUIN"
+    ],
+    "motion_method": "INDEPENDENT_ACTION_VIDEO_REQUIRED",
+    "sfx": "CCTV interference"
+  },
+  {
+    "id": 4,
+    "start_sec": 18,
+    "visual_start_seconds": 18,
+    "duration_sec": 6,
+    "phase": "BODY",
+    "narration": "Chú quay phắt lại. Một con đứng sát kính, mặc đúng bộ đồng phục bảo vệ của chú!",
+    "speaker": "narrator",
+    "visual": "Minh physically pivots and recoils; mannequin at glass wears same guard outfit",
+    "emotion": "panic",
+    "character_ids": [
+      "MINH",
+      "MANNEQUIN"
+    ],
+    "motion_method": "INDEPENDENT_ACTION_VIDEO_REQUIRED",
+    "sfx": "reflective glass scrape"
+  },
+  {
+    "id": 5,
+    "start_sec": 24,
+    "visual_start_seconds": 24,
+    "duration_sec": 6,
+    "phase": "BODY",
+    "narration": "Đúng lúc đó, cô Lan mất tích. Bộ đàm chỉ còn tiếng thở... từ phòng thử đồ.",
+    "speaker": "narrator",
+    "visual": "Lan vanishes at fitting room curtain; her radio emits footsteps and breathing",
+    "emotion": "foreboding",
+    "character_ids": [
+      "LAN",
+      "MANNEQUIN"
+    ],
+    "motion_method": "INDEPENDENT_ACTION_VIDEO_REQUIRED",
+    "sfx": "fitting room curtain"
+  },
+  {
+    "id": 6,
+    "start_sec": 30,
+    "visual_start_seconds": 30,
+    "duration_sec": 6,
+    "phase": "CLIMAX",
+    "narration": "Đèn tắt phụt! Từng con ma-nơ-canh bước khỏi bục. Chú Minh lao về cửa thoát hiểm!",
+    "speaker": "narrator",
+    "visual": "Mall lights power down, mannequins step off displays, Minh runs toward EXIT",
+    "emotion": "high panic",
+    "character_ids": [
+      "MINH",
+      "MANNEQUIN"
+    ],
+    "motion_method": "INDEPENDENT_ACTION_VIDEO_REQUIRED",
+    "sfx": "power cut and porcelain steps"
+  },
+  {
+    "id": 7,
+    "start_sec": 36,
+    "visual_start_seconds": 36,
+    "duration_sec": 6,
+    "phase": "CLIMAX",
+    "narration": "Một bàn tay nhựa giữ chặt vai chú. Chú giằng ra... nhưng đôi chân bắt đầu cứng đờ.",
+    "speaker": "narrator",
+    "visual": "Glossy white mannequin hand grips Minh shoulder; legs resist movement",
+    "emotion": "struggle",
+    "character_ids": [
+      "MINH",
+      "MANNEQUIN"
+    ],
+    "motion_method": "INDEPENDENT_ACTION_VIDEO_REQUIRED",
+    "sfx": "plastic hand grab"
+  },
+  {
+    "id": 8,
+    "start_sec": 42,
+    "visual_start_seconds": 42,
+    "duration_sec": 6,
+    "phase": "CLIMAX",
+    "narration": "Chú nhìn xuống bàn tay. Da thịt đang hóa nhựa! Chú vẫn tỉnh táo... nhưng không thể kêu.",
+    "speaker": "narrator",
+    "visual": "Minh studies hand as pale plastic gradually replaces living skin, mouth unable to speak",
+    "emotion": "horror",
+    "character_ids": [
+      "MINH",
+      "MANNEQUIN"
+    ],
+    "motion_method": "INDEPENDENT_ACTION_VIDEO_REQUIRED",
+    "sfx": "plastic conversion whoosh"
+  },
+  {
+    "id": 9,
+    "start_sec": 48,
+    "visual_start_seconds": 48,
+    "duration_sec": 6,
+    "phase": "PAYOFF",
+    "narration": "Sáng hôm sau, cửa hàng xuất hiện một ma-nơ-canh bảo vệ mới... bảng tên ghi Minh.",
+    "speaker": "narrator",
+    "visual": "Morning mall: brand-new old male security mannequin with MINH name tag",
+    "emotion": "eerie stillness",
+    "character_ids": [
+      "MINH",
+      "MANNEQUIN"
+    ],
+    "motion_method": "INDEPENDENT_ACTION_VIDEO_REQUIRED",
+    "sfx": "morning ambience"
+  },
+  {
+    "id": 10,
+    "start_sec": 54,
+    "visual_start_seconds": 54,
+    "duration_sec": 6,
+    "phase": "PAYOFF",
+    "narration": "Dưới lớp nhựa, một giọt nước mắt lăn xuống. Loa vang lên: Ca trực tiếp theo... bắt đầu!",
+    "speaker": "narrator",
+    "visual": "On mannequin Minh a single tear falls; PA chimes and next shift starts",
+    "emotion": "chilling",
+    "caption": "CA TRỰC TIẾP THEO",
+    "character_ids": [
+      "MINH",
+      "MANNEQUIN"
+    ],
+    "motion_method": "INDEPENDENT_ACTION_VIDEO_REQUIRED",
+    "sfx": "PA chime"
+  }
+]
