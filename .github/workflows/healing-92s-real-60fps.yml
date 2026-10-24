@@ -1,0 +1,89 @@
+name: Healing 92s - Real Life Cinematic 60fps
+on:
+  push:
+    branches: [feat/healing-92s-real-footage-60fps]
+    paths:
+      - '.github/workflows/healing-92s-real-60fps.yml'
+      - 'docs/healing-92s-real-film-60fps/scene-plan.json'
+      - 'docs/healing-92s-real-film-60fps/render_live.py'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: healing-real-60fps
+  cancel-in-progress: false
+jobs:
+  film:
+    runs-on: ubuntu-latest
+    timeout-minutes: 70
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feat/healing-92s-real-footage-60fps
+          persist-credentials: true
+      - name: Install video and typography dependencies
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg curl fonts-dejavu-core
+          python3 -m pip install --disable-pip-version-check --break-system-packages gdown fonttools brotli
+      - name: Recover exact previously approved Vbee Thanh Long audio and piano
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/healing-real-60fps
+          gdown --fuzzy "https://drive.google.com/file/d/1inhnYkQ1kTGzMWKDQbI5dn092-FlvXgg/view" \
+            -O /tmp/healing-real-60fps/source-vbee.mp4
+          python3 - <<'PY'
+          from pathlib import Path
+          import json,subprocess
+          p=Path("/tmp/healing-real-60fps/source-vbee.mp4")
+          assert p.stat().st_size==66172358, "Source Drive file changed or download incomplete"
+          o=json.loads(subprocess.check_output(["ffprobe","-v","error","-show_entries",
+               "format=duration:stream=codec_type","-of","json",str(p)],text=True))
+          assert abs(float(o["format"]["duration"])-92)<.2
+          assert any(s["codec_type"]=="audio" for s in o["streams"])
+          print("Original Vbee preserved; no additional Vbee credits charged.")
+          PY
+      - name: Install real Be Vietnam Pro (Vietnamese 700 font)
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/healing-real-60fps/font
+          npm pack @fontsource/be-vietnam-pro --pack-destination /tmp/healing-real-60fps/font --silent
+          tar -xzf /tmp/healing-real-60fps/font/*.tgz -C /tmp/healing-real-60fps/font
+          python3 - <<'PY'
+          from pathlib import Path
+          from fontTools.ttLib import TTFont
+          p=Path("/tmp/healing-real-60fps/font/package/files")
+          files=list(p.glob("*vietnamese-700-normal.woff2"))
+          if not files: raise RuntimeError("Required Be Vietnam Pro Vietnamese font subset not present")
+          font=TTFont(str(files[0]));font.flavor=None
+          font.save("/tmp/BeVietnamPro-Bold.ttf")
+          print("Installed true Be Vietnam Pro Vietnamese typeface.")
+          PY
+      - name: Render 18 live-action scenes at 60fps and remux Vbee audio
+        run: |
+          set -euo pipefail
+          python3 -m py_compile docs/healing-92s-real-film-60fps/render_live.py
+          python3 docs/healing-92s-real-film-60fps/render_live.py
+      - name: Commit verified film without overwriting earlier preview
+        run: |
+          set -euo pipefail
+          d=docs/healing-92s-real-film-60fps/final
+          test -s "$d/Healing-Monologue-Real-Life-92s-16x9-60fps.mp4"
+          test "$(stat -c%s "$d/Healing-Monologue-Real-Life-92s-16x9-60fps.mp4")" -lt 99000000
+          (cd "$d" && sha256sum -c SHA256SUMS)
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add "$d"
+          git diff --cached --quiet || git commit -m "assets(healing): archive 92s live-life film 1080p 60fps with original Vbee"
+          git fetch origin feat/healing-92s-real-footage-60fps
+          git rebase origin/feat/healing-92s-real-footage-60fps
+          git push origin HEAD:feat/healing-92s-real-footage-60fps
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: healing-92s-real-life-60fps
+          path: |
+            docs/healing-92s-real-film-60fps/final/
+          retention-days: 14
+          if-no-files-found: ignore
