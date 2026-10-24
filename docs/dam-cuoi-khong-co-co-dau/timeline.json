@@ -1,0 +1,72 @@
+[
+  {
+    "id": 1,
+    "start_sec": 0,
+    "duration_sec": 6,
+    "narration": "Trong lễ cưới, mọi người đứng dậy. Nhưng lối đi hoàn toàn trống.",
+    "phase": "HOOK"
+  },
+  {
+    "id": 2,
+    "start_sec": 6,
+    "duration_sec": 6,
+    "narration": "Chiếc voan trắng tự bay, như có người đang bước bên dưới.",
+    "phase": "BODY"
+  },
+  {
+    "id": 3,
+    "start_sec": 12,
+    "duration_sec": 6,
+    "narration": "Phong nhìn vào máy quay. Trên màn hình hiện ra một cô dâu!",
+    "phase": "BODY"
+  },
+  {
+    "id": 4,
+    "start_sec": 18,
+    "duration_sec": 6,
+    "narration": "Tấm thiệp ghi tên chú rể là Phong. Anh sững người.",
+    "phase": "BODY"
+  },
+  {
+    "id": 5,
+    "start_sec": 24,
+    "duration_sec": 6,
+    "narration": "Tất cả khách mời cùng nhìn anh. Một bó hoa rơi xuống.",
+    "phase": "BODY"
+  },
+  {
+    "id": 6,
+    "start_sec": 30,
+    "duration_sec": 6,
+    "narration": "Phong chạy tới cửa thoát hiểm. Cánh cửa mở lại vào sảnh cưới!",
+    "phase": "CLIMAX"
+  },
+  {
+    "id": 7,
+    "start_sec": 36,
+    "duration_sec": 6,
+    "narration": "Không còn một người khách nào. Phong đứng một mình.",
+    "phase": "CLIMAX"
+  },
+  {
+    "id": 8,
+    "start_sec": 42,
+    "duration_sec": 6,
+    "narration": "Trong máy quay, cô dâu đang tiến tới rất gần anh.",
+    "phase": "CLIMAX"
+  },
+  {
+    "id": 9,
+    "start_sec": 48,
+    "duration_sec": 6,
+    "narration": "Phong xem lại video. Anh chính là chú rể trong buổi lễ!",
+    "phase": "PAYOFF"
+  },
+  {
+    "id": 10,
+    "start_sec": 54,
+    "duration_sec": 6,
+    "narration": "Máy quay vẫn ghi hình một sảnh cưới hoàn toàn trống.",
+    "phase": "PAYOFF"
+  }
+]
