@@ -1,0 +1,830 @@
+{
+  "id": "healing-v3-realfootage-6m30",
+  "title": "Lớn Rồi, Không Cần Làm Vừa Lòng Tất Cả Nữa — Cinematic Healing V3",
+  "chapterDurationSeconds": 390,
+  "format": "16:9",
+  "width": 1920,
+  "height": 1080,
+  "targetFPS": 60,
+  "native60fpsGuarantee": false,
+  "realMovementPriority": true,
+  "targetVoice": "hn_male_thanhlong_talk_48k-fhg",
+  "vbeeSegments": [
+    {
+      "segment": 1,
+      "start": 0,
+      "end": 15,
+      "text": "Bạn từng nói ‘không sao’… khi trong lòng chỉ mong có ai đó hỏi thêm một lần: Bạn có thật sự ổn không? Đôi khi người luôn mỉm cười lại chính là người mệt nhất.",
+      "speed": 0.97
+    },
+    {
+      "segment": 2,
+      "start": 15,
+      "end": 30,
+      "text": "Chiều thứ Sáu, Linh vừa đóng máy tính thì điện thoại sáng lên. Một lời nhờ làm thêm. Cô đã định nói mình có hẹn, nhưng ngón tay lại gõ: Để mình làm cho.",
+      "speed": 0.97
+    },
+    {
+      "segment": 3,
+      "start": 30,
+      "end": 45,
+      "text": "Không ai ép Linh phải nhận mọi việc. Nhưng cô sợ cảm giác bị thất vọng. Sợ một ánh nhìn thay đổi, một câu nhận xét lạnh lùng, hay những phút im lặng sau lời từ chối.",
+      "speed": 0.97
+    },
+    {
+      "segment": 4,
+      "start": 45,
+      "end": 60,
+      "text": "Vậy là suốt nhiều năm, câu trả lời quen thuộc nhất của cô luôn là đồng ý. Làm giúp một chút, ở lại thêm một giờ, nhận thêm một chuyện vốn chẳng thuộc phần mình.",
+      "speed": 0.97
+    },
+    {
+      "segment": 5,
+      "start": 60,
+      "end": 75,
+      "text": "Mỗi lần được cảm ơn, Linh thấy nhẹ đi vài giây. Nhưng đến cuối ngày, cô không còn sức để làm điều mình thích, thậm chí chẳng còn thời gian ăn bữa tối tử tế.",
+      "speed": 0.97
+    },
+    {
+      "segment": 6,
+      "start": 75,
+      "end": 90,
+      "text": "Hôm ấy, một người bạn nhắn rằng đang chờ ở quán cũ. Linh nhìn đồng hồ rồi nhìn bảng việc. Cô lại hẹn sang ngày khác. Phía bên kia chỉ còn một biểu tượng buồn.",
+      "speed": 0.97
+    },
+    {
+      "segment": 7,
+      "start": 90,
+      "end": 105,
+      "text": "Có những sự đánh đổi rất nhỏ, đến mức ta chẳng nhận ra. Một cuộc hẹn lỡ, một giấc ngủ muộn, một buổi sáng không còn vui. Rồi chúng tích lại thành mệt mỏi.",
+      "speed": 0.97
+    },
+    {
+      "segment": 8,
+      "start": 105,
+      "end": 120,
+      "text": "Tối xuống, thành phố vẫn sáng. Linh đi giữa những ô cửa kính, nghĩ về điều chưa xong. Cô có thể hiểu cho sự bận rộn của mọi người, mà quên hỏi mình đã ổn chưa.",
+      "speed": 0.97
+    },
+    {
+      "segment": 9,
+      "start": 120,
+      "end": 135,
+      "text": "Ở nhà, chiếc điện thoại đặt trên bàn tiếp tục rung. Một tin nhắn mới. Linh cầm lên, định trả lời ngay, rồi nhìn thấy gương mặt mình phản chiếu trong màn hình tối.",
+      "speed": 0.97
+    },
+    {
+      "segment": 10,
+      "start": 135,
+      "end": 150,
+      "text": "Cô giật mình vì đôi mắt đó. Không phải đôi mắt của người thất bại. Chỉ là một người đã cố mạnh mẽ quá lâu, đến mức không còn nhận ra giới hạn của mình.",
+      "speed": 0.97
+    },
+    {
+      "segment": 11,
+      "start": 150,
+      "end": 165,
+      "text": "Người ta thường nói hãy sống tử tế. Nhưng tử tế đâu có nghĩa là luôn phải có mặt, luôn trả lời ngay, hay luôn nhận phần thiệt. Và yêu thương không phải một cuộc thi chịu đựng.",
+      "speed": 0.97
+    },
+    {
+      "segment": 12,
+      "start": 165,
+      "end": 180,
+      "text": "Linh nhớ những lần mình xin lỗi vì không giúp được. Xin lỗi vì muốn về đúng giờ. Xin lỗi cả khi cơ thể cần nghỉ. Những điều rất bình thường bỗng trở thành lỗi lầm.",
+      "speed": 0.97
+    },
+    {
+      "segment": 13,
+      "start": 180,
+      "end": 195,
+      "text": "Đêm ấy, thay vì mở máy tính, cô rót một cốc nước. Căn phòng yên xuống. Lần đầu tiên sau nhiều ngày, Linh cho phép mình ngồi im mà không phải chứng minh điều gì.",
+      "speed": 0.97
+    },
+    {
+      "segment": 14,
+      "start": 195,
+      "end": 210,
+      "text": "Và trong khoảng lặng đó, một câu hỏi xuất hiện: Nếu hôm nay mình không làm vừa lòng tất cả, liệu mình có còn đáng được yêu thương? Câu hỏi ấy làm cô sợ.",
+      "speed": 0.97
+    },
+    {
+      "segment": 15,
+      "start": 210,
+      "end": 225,
+      "text": "Sáng hôm sau, lời nhờ làm thêm lại đến. Lần này, Linh không vội bấm trả lời. Cô đọc thật kỹ, xem lại công việc đã có, và nghĩ về cuộc hẹn với bản thân.",
+      "speed": 0.97
+    },
+    {
+      "segment": 16,
+      "start": 225,
+      "end": 240,
+      "text": "Rồi cô viết một câu thật bình tĩnh: Hôm nay mình không nhận thêm được. Nếu cần, ngày mai mình có thể hỗ trợ. Không viện cớ, không trách móc, không cố làm mình nhỏ lại.",
+      "speed": 0.97
+    },
+    {
+      "segment": 17,
+      "start": 240,
+      "end": 255,
+      "text": "Gửi xong, Linh vẫn thấy hồi hộp. Cô từng tưởng chỉ một lời từ chối cũng có thể khiến ai đó rời đi. Nhưng màn hình im lặng, và thế giới vẫn tiếp tục như thường.",
+      "speed": 0.97
+    },
+    {
+      "segment": 18,
+      "start": 255,
+      "end": 270,
+      "text": "Một lát sau, tin nhắn trả lời đến: Ừ, cảm ơn nhé. Vậy để mai. Chỉ đơn giản thế thôi. Điều cô sợ hãi nhiều năm hóa ra không phải lúc nào cũng xảy ra.",
+      "speed": 0.97
+    },
+    {
+      "segment": 19,
+      "start": 270,
+      "end": 285,
+      "text": "Đặt ranh giới không làm ta vô tâm. Nó giúp người khác hiểu điều gì mình có thể trao, điều gì mình cần giữ. Một sự tử tế bền lâu phải có chỗ cho cả hai phía.",
+      "speed": 0.97
+    },
+    {
+      "segment": 20,
+      "start": 285,
+      "end": 300,
+      "text": "Bạn không cần đợi đến lúc kiệt sức mới được nghỉ. Không cần một lý do thật lớn để nói hôm nay mình bận. Cũng không cần ai cho phép mình chăm sóc chính mình.",
+      "speed": 0.97
+    },
+    {
+      "segment": 21,
+      "start": 300,
+      "end": 315,
+      "text": "Hãy thử bắt đầu bằng một câu rất nhỏ: Để mình xem lịch đã. Câu ấy cho bạn vài nhịp thở, trước khi quyết định. Không phải mọi yêu cầu đều cần câu trả lời ngay.",
+      "speed": 0.97
+    },
+    {
+      "segment": 22,
+      "start": 315,
+      "end": 330,
+      "text": "Rồi tập nói: Mình không thể hôm nay. Nói bằng sự tôn trọng, nhưng không tự trách. Một lời từ chối rõ ràng đôi khi còn tử tế hơn một lời đồng ý trong miễn cưỡng.",
+      "speed": 0.97
+    },
+    {
+      "segment": 23,
+      "start": 330,
+      "end": 345,
+      "text": "Và dành lại một khoảng thời gian cho thứ khiến bạn thấy mình đang sống. Có thể là tách trà nóng, cuốn sách dở dang, hoặc một cuộc đi bộ không cần vội về đâu.",
+      "speed": 0.97
+    },
+    {
+      "segment": 24,
+      "start": 345,
+      "end": 360,
+      "text": "Linh gặp lại người bạn ở quán cũ. Cô không kể mình đã trở nên mạnh mẽ ra sao. Chỉ mỉm cười, lắng nghe, và lần đầu không ngó điện thoại sau mỗi vài phút.",
+      "speed": 0.97
+    },
+    {
+      "segment": 25,
+      "start": 360,
+      "end": 375,
+      "text": "Bình yên không đến vì tất cả mọi người đều hài lòng. Nó đến khi bạn biết điều gì quan trọng, chấp nhận có người không hiểu, mà vẫn cư xử với nhau bằng sự tử tế.",
+      "speed": 0.97
+    },
+    {
+      "segment": 26,
+      "start": 375,
+      "end": 390,
+      "text": "Lớn rồi, không cần làm vừa lòng tất cả nữa. Hãy thương người, nhưng đừng bỏ quên mình. Bởi một người xứng đáng được bạn đối xử dịu dàng nhất… cũng chính là bạn.",
+      "speed": 0.97
+    }
+  ],
+  "shots": [
+    {
+      "scene": 1,
+      "start": 0.0,
+      "end": 7.5,
+      "key": "office_tired",
+      "type": "real-life stock footage",
+      "chapter": "HOOK"
+    },
+    {
+      "scene": 2,
+      "start": 7.5,
+      "end": 15.0,
+      "key": "office_phone",
+      "type": "real-life stock footage",
+      "chapter": "HOOK"
+    },
+    {
+      "scene": 3,
+      "start": 15.0,
+      "end": 22.5,
+      "key": "office_walk",
+      "type": "real-life stock footage",
+      "chapter": "HOOK"
+    },
+    {
+      "scene": 4,
+      "start": 22.5,
+      "end": 30.0,
+      "key": "office_documents",
+      "type": "real-life stock footage",
+      "chapter": "HOOK"
+    },
+    {
+      "scene": 5,
+      "start": 30.0,
+      "end": 37.5,
+      "key": "office_typing",
+      "type": "real-life stock footage",
+      "chapter": "HOOK"
+    },
+    {
+      "scene": 6,
+      "start": 37.5,
+      "end": 45.0,
+      "key": "stressed_laptop",
+      "type": "real-life stock footage",
+      "chapter": "HOOK"
+    },
+    {
+      "scene": 7,
+      "start": 45.0,
+      "end": 52.5,
+      "key": "work_phone",
+      "type": "real-life stock footage",
+      "chapter": "HOOK"
+    },
+    {
+      "scene": 8,
+      "start": 52.5,
+      "end": 60.0,
+      "key": "office_tired",
+      "type": "real-life stock footage",
+      "chapter": "HOOK"
+    },
+    {
+      "scene": 9,
+      "start": 60.0,
+      "end": 67.5,
+      "key": "office_typing",
+      "type": "real-life stock footage",
+      "chapter": "HOOK"
+    },
+    {
+      "scene": 10,
+      "start": 67.5,
+      "end": 75.0,
+      "key": "work_late",
+      "type": "real-life stock footage",
+      "chapter": "HOOK"
+    },
+    {
+      "scene": 11,
+      "start": 75.0,
+      "end": 82.5,
+      "key": "work_phone",
+      "type": "real-life stock footage",
+      "chapter": "HOOK"
+    },
+    {
+      "scene": 12,
+      "start": 82.5,
+      "end": 90.0,
+      "key": "office_walk",
+      "type": "real-life stock footage",
+      "chapter": "ÁP LỰC"
+    },
+    {
+      "scene": 13,
+      "start": 90.0,
+      "end": 97.5,
+      "key": "late_laptop",
+      "type": "real-life stock footage",
+      "chapter": "ÁP LỰC"
+    },
+    {
+      "scene": 14,
+      "start": 97.5,
+      "end": 105.0,
+      "key": "alone_phone",
+      "type": "real-life stock footage",
+      "chapter": "ÁP LỰC"
+    },
+    {
+      "scene": 15,
+      "start": 105.0,
+      "end": 112.5,
+      "key": "stressed_laptop",
+      "type": "real-life stock footage",
+      "chapter": "ÁP LỰC"
+    },
+    {
+      "scene": 16,
+      "start": 112.5,
+      "end": 120.0,
+      "key": "late_laptop",
+      "type": "real-life stock footage",
+      "chapter": "ÁP LỰC"
+    },
+    {
+      "scene": 17,
+      "start": 120.0,
+      "end": 127.5,
+      "key": "home_work",
+      "type": "real-life stock footage",
+      "chapter": "ÁP LỰC"
+    },
+    {
+      "scene": 18,
+      "start": 127.5,
+      "end": 135.0,
+      "key": "phone_close",
+      "type": "real-life stock footage",
+      "chapter": "ÁP LỰC"
+    },
+    {
+      "scene": 19,
+      "start": 135.0,
+      "end": 142.5,
+      "key": "tired_woman",
+      "type": "real-life stock footage",
+      "chapter": "ÁP LỰC"
+    },
+    {
+      "scene": 20,
+      "start": 142.5,
+      "end": 150.0,
+      "key": "stress_reaction",
+      "type": "real-life stock footage",
+      "chapter": "ÁP LỰC"
+    },
+    {
+      "scene": 21,
+      "start": 150.0,
+      "end": 157.5,
+      "key": "late_laptop",
+      "type": "real-life stock footage",
+      "chapter": "ÁP LỰC"
+    },
+    {
+      "scene": 22,
+      "start": 157.5,
+      "end": 165.0,
+      "key": "phone_close",
+      "type": "real-life stock footage",
+      "chapter": "CHẠM ĐÁY"
+    },
+    {
+      "scene": 23,
+      "start": 165.0,
+      "end": 172.5,
+      "key": "work_late",
+      "type": "real-life stock footage",
+      "chapter": "CHẠM ĐÁY"
+    },
+    {
+      "scene": 24,
+      "start": 172.5,
+      "end": 180.0,
+      "key": "alone_phone",
+      "type": "real-life stock footage",
+      "chapter": "CHẠM ĐÁY"
+    },
+    {
+      "scene": 25,
+      "start": 180.0,
+      "end": 187.5,
+      "key": "home_work",
+      "type": "real-life stock footage",
+      "chapter": "CHẠM ĐÁY"
+    },
+    {
+      "scene": 26,
+      "start": 187.5,
+      "end": 195.0,
+      "key": "tea_pour",
+      "type": "real-life stock footage",
+      "chapter": "CHẠM ĐÁY"
+    },
+    {
+      "scene": 27,
+      "start": 195.0,
+      "end": 202.5,
+      "key": "tea_window",
+      "type": "real-life stock footage",
+      "chapter": "CHẠM ĐÁY"
+    },
+    {
+      "scene": 28,
+      "start": 202.5,
+      "end": 210.0,
+      "key": "alone_phone",
+      "type": "real-life stock footage",
+      "chapter": "CHẠM ĐÁY"
+    },
+    {
+      "scene": 29,
+      "start": 210.0,
+      "end": 217.5,
+      "key": "phone_close",
+      "type": "real-life stock footage",
+      "chapter": "CHẠM ĐÁY"
+    },
+    {
+      "scene": 30,
+      "start": 217.5,
+      "end": 225.0,
+      "key": "office_documents",
+      "type": "real-life stock footage",
+      "chapter": "CHẠM ĐÁY"
+    },
+    {
+      "scene": 31,
+      "start": 225.0,
+      "end": 232.5,
+      "key": "office_phone",
+      "type": "real-life stock footage",
+      "chapter": "CHẠM ĐÁY"
+    },
+    {
+      "scene": 32,
+      "start": 232.5,
+      "end": 240.0,
+      "key": "phone_close",
+      "type": "real-life stock footage",
+      "chapter": "CHẠM ĐÁY"
+    },
+    {
+      "scene": 33,
+      "start": 240.0,
+      "end": 247.5,
+      "key": "office_typing",
+      "type": "real-life stock footage",
+      "chapter": "RANH GIỚI"
+    },
+    {
+      "scene": 34,
+      "start": 247.5,
+      "end": 255.0,
+      "key": "office_phone",
+      "type": "real-life stock footage",
+      "chapter": "RANH GIỚI"
+    },
+    {
+      "scene": 35,
+      "start": 255.0,
+      "end": 262.5,
+      "key": "alone_phone",
+      "type": "real-life stock footage",
+      "chapter": "RANH GIỚI"
+    },
+    {
+      "scene": 36,
+      "start": 262.5,
+      "end": 270.0,
+      "key": "office_walk",
+      "type": "real-life stock footage",
+      "chapter": "RANH GIỚI"
+    },
+    {
+      "scene": 37,
+      "start": 270.0,
+      "end": 277.5,
+      "key": "phone_close",
+      "type": "real-life stock footage",
+      "chapter": "RANH GIỚI"
+    },
+    {
+      "scene": 38,
+      "start": 277.5,
+      "end": 285.0,
+      "key": "office_phone",
+      "type": "real-life stock footage",
+      "chapter": "RANH GIỚI"
+    },
+    {
+      "scene": 39,
+      "start": 285.0,
+      "end": 292.5,
+      "key": "stressed_laptop",
+      "type": "real-life stock footage",
+      "chapter": "RANH GIỚI"
+    },
+    {
+      "scene": 40,
+      "start": 292.5,
+      "end": 300.0,
+      "key": "park_walk",
+      "type": "real-life stock footage",
+      "chapter": "RANH GIỚI"
+    },
+    {
+      "scene": 41,
+      "start": 300.0,
+      "end": 307.5,
+      "key": "phone_close",
+      "type": "real-life stock footage",
+      "chapter": "RANH GIỚI"
+    },
+    {
+      "scene": 42,
+      "start": 307.5,
+      "end": 315.0,
+      "key": "tea_pour",
+      "type": "real-life stock footage",
+      "chapter": "RANH GIỚI"
+    },
+    {
+      "scene": 43,
+      "start": 315.0,
+      "end": 322.5,
+      "key": "morning_tea",
+      "type": "real-life stock footage",
+      "chapter": "CHỮA LÀNH"
+    },
+    {
+      "scene": 44,
+      "start": 322.5,
+      "end": 330.0,
+      "key": "tea_window",
+      "type": "real-life stock footage",
+      "chapter": "CHỮA LÀNH"
+    },
+    {
+      "scene": 45,
+      "start": 330.0,
+      "end": 337.5,
+      "key": "read_window",
+      "type": "real-life stock footage",
+      "chapter": "CHỮA LÀNH"
+    },
+    {
+      "scene": 46,
+      "start": 337.5,
+      "end": 345.0,
+      "key": "park_autumn",
+      "type": "real-life stock footage",
+      "chapter": "CHỮA LÀNH"
+    },
+    {
+      "scene": 47,
+      "start": 345.0,
+      "end": 352.5,
+      "key": "park_forest",
+      "type": "real-life stock footage",
+      "chapter": "CHỮA LÀNH"
+    },
+    {
+      "scene": 48,
+      "start": 352.5,
+      "end": 360.0,
+      "key": "friends_park",
+      "type": "real-life stock footage",
+      "chapter": "CHỮA LÀNH"
+    },
+    {
+      "scene": 49,
+      "start": 360.0,
+      "end": 367.5,
+      "key": "park_walk",
+      "type": "real-life stock footage",
+      "chapter": "CHỮA LÀNH"
+    },
+    {
+      "scene": 50,
+      "start": 367.5,
+      "end": 375.0,
+      "key": "park_autumn",
+      "type": "real-life stock footage",
+      "chapter": "CHỮA LÀNH"
+    },
+    {
+      "scene": 51,
+      "start": 375.0,
+      "end": 382.5,
+      "key": "park_forest",
+      "type": "real-life stock footage",
+      "chapter": "CHỮA LÀNH"
+    },
+    {
+      "scene": 52,
+      "start": 382.5,
+      "end": 390.0,
+      "key": "nature_walk",
+      "type": "real-life stock footage",
+      "chapter": "CHỮA LÀNH"
+    }
+  ],
+  "footage": [
+    {
+      "key": "office_tired",
+      "id": "8873327",
+      "page": "https://www.pexels.com/video/8873327/",
+      "nominalFpsFromWebsite": 25,
+      "description": "A tired Asian office worker on laptop",
+      "creator": "Mikhail Nilov",
+      "license": "Pexels stock, subject to Pexels terms; verify link/license/rights before publishing"
+    },
+    {
+      "key": "office_phone",
+      "id": "3253209",
+      "page": "https://www.pexels.com/video/3253209/",
+      "nominalFpsFromWebsite": 50,
+      "description": "Woman uses phone beside computer",
+      "creator": "fauxels",
+      "license": "Pexels stock, subject to Pexels terms; verify link/license/rights before publishing"
+    },
+    {
+      "key": "office_typing",
+      "id": "7165688",
+      "page": "https://www.pexels.com/video/7165688/",
+      "nominalFpsFromWebsite": 50,
+      "description": "Woman typing laptop in office",
+      "creator": "Antoni Shkraba",
+      "license": "Pexels stock, subject to Pexels terms; verify link/license/rights before publishing"
+    },
+    {
+      "key": "office_walk",
+      "id": "3044678",
+      "page": "https://www.pexels.com/video/3044678/",
+      "nominalFpsFromWebsite": 24,
+      "description": "Woman walking through office talking",
+      "creator": "fauxels",
+      "license": "Pexels stock, subject to Pexels terms; verify link/license/rights before publishing"
+    },
+    {
+      "key": "stressed_laptop",
+      "id": "6189268",
+      "page": "https://www.pexels.com/video/6189268/",
+      "nominalFpsFromWebsite": 25,
+      "description": "Frustrated woman working at home",
+      "creator": "Anna Tarazevich",
+      "license": "Pexels stock, subject to Pexels terms; verify link/license/rights before publishing"
+    },
+    {
+      "key": "work_late",
+      "id": "5683796",
+      "page": "https://www.pexels.com/video/5683796/",
+      "nominalFpsFromWebsite": 25,
+      "description": "Woman working late at office",
+      "creator": "Tima Miroshnichenko",
+      "license": "Pexels stock, subject to Pexels terms; verify link/license/rights before publishing"
+    },
+    {
+      "key": "stress_reaction",
+      "id": "8873365",
+      "page": "https://www.pexels.com/video/8873365/",
+      "nominalFpsFromWebsite": 25,
+      "description": "Stressed woman shaking head at desk",
+      "creator": "Mikhail Nilov",
+      "license": "Pexels stock, subject to Pexels terms; verify link/license/rights before publishing"
+    },
+    {
+      "key": "work_phone",
+      "id": "7660345",
+      "page": "https://www.pexels.com/video/7660345/",
+      "nominalFpsFromWebsite": 25,
+      "description": "Woman speaking on phone while multitasking",
+      "creator": "Alena Darmel",
+      "license": "Pexels stock, subject to Pexels terms; verify link/license/rights before publishing"
+    },
+    {
+      "key": "alone_phone",
+      "id": "8410085",
+      "page": "https://www.pexels.com/video/8410085/",
+      "nominalFpsFromWebsite": 25,
+      "description": "Woman seated and using phone alone",
+      "creator": "Mikhail Nilov",
+      "license": "Pexels stock, subject to Pexels terms; verify link/license/rights before publishing"
+    },
+    {
+      "key": "late_laptop",
+      "id": "7605082",
+      "page": "https://www.pexels.com/video/7605082/",
+      "nominalFpsFromWebsite": 25,
+      "description": "Tired woman using computer in dim room",
+      "creator": "MART PRODUCTION",
+      "license": "Pexels stock, subject to Pexels terms; verify link/license/rights before publishing"
+    },
+    {
+      "key": "tired_woman",
+      "id": "8632769",
+      "page": "https://www.pexels.com/video/8632769/",
+      "nominalFpsFromWebsite": 25,
+      "description": "Overworked Asian woman at laptop",
+      "creator": "Kampus Production",
+      "license": "Pexels stock, subject to Pexels terms; verify link/license/rights before publishing"
+    },
+    {
+      "key": "office_documents",
+      "id": "7692779",
+      "page": "https://www.pexels.com/video/7692779/",
+      "nominalFpsFromWebsite": 25,
+      "description": "Woman checking documents and phone",
+      "creator": "Yan Krukau",
+      "license": "Pexels stock, subject to Pexels terms; verify link/license/rights before publishing"
+    },
+    {
+      "key": "home_work",
+      "id": "8486622",
+      "page": "https://www.pexels.com/video/8486622/",
+      "nominalFpsFromWebsite": 25,
+      "description": "Woman working remotely on laptop",
+      "creator": "Ron Lach",
+      "license": "Pexels stock, subject to Pexels terms; verify link/license/rights before publishing"
+    },
+    {
+      "key": "phone_close",
+      "id": "5321400",
+      "page": "https://www.pexels.com/video/5321400/",
+      "nominalFpsFromWebsite": 25,
+      "description": "Close hands using mobile",
+      "creator": "Theo Decker",
+      "license": "Pexels stock, subject to Pexels terms; verify link/license/rights before publishing"
+    },
+    {
+      "key": "tea_pour",
+      "id": "7592904",
+      "page": "https://www.pexels.com/video/7592904/",
+      "nominalFpsFromWebsite": 25,
+      "description": "Woman prepares tea at window",
+      "creator": "ROMAN ODINTSOV",
+      "license": "Pexels stock, subject to Pexels terms; verify link/license/rights before publishing"
+    },
+    {
+      "key": "tea_window",
+      "id": "32727176",
+      "page": "https://www.pexels.com/video/32727176/",
+      "nominalFpsFromWebsite": 30,
+      "description": "Woman enjoying tea by window",
+      "creator": "Zulfugar Karimov",
+      "license": "Pexels stock, subject to Pexels terms; verify link/license/rights before publishing"
+    },
+    {
+      "key": "morning_tea",
+      "id": "7226977",
+      "page": "https://www.pexels.com/video/7226977/",
+      "nominalFpsFromWebsite": 25,
+      "description": "Woman drinking coffee by window",
+      "creator": "Thirdman",
+      "license": "Pexels stock, subject to Pexels terms; verify link/license/rights before publishing"
+    },
+    {
+      "key": "read_window",
+      "id": "20783470",
+      "page": "https://www.pexels.com/video/20783470/",
+      "nominalFpsFromWebsite": 24,
+      "description": "Woman reading book by window",
+      "creator": "Khanh Hoang Minh",
+      "license": "Pexels stock, subject to Pexels terms; verify link/license/rights before publishing"
+    },
+    {
+      "key": "park_walk",
+      "id": "3044235",
+      "page": "https://www.pexels.com/video/3044235/",
+      "nominalFpsFromWebsite": 24,
+      "description": "Woman walking and smiling in park",
+      "creator": "fauxels",
+      "license": "Pexels stock, subject to Pexels terms; verify link/license/rights before publishing"
+    },
+    {
+      "key": "park_autumn",
+      "id": "30643796",
+      "page": "https://www.pexels.com/video/30643796/",
+      "nominalFpsFromWebsite": 60,
+      "description": "Woman walking autumn forest 60 fps",
+      "creator": "Ahmed",
+      "license": "Pexels stock, subject to Pexels terms; verify link/license/rights before publishing"
+    },
+    {
+      "key": "park_forest",
+      "id": "3083418",
+      "page": "https://www.pexels.com/video/3083418/",
+      "nominalFpsFromWebsite": 60,
+      "description": "Back view woman walking in sunlit forest 60 fps",
+      "creator": "Fernan Gorrotxategi",
+      "license": "Pexels stock, subject to Pexels terms; verify link/license/rights before publishing"
+    },
+    {
+      "key": "friends_park",
+      "id": "35557184",
+      "page": "https://www.pexels.com/video/35557184/",
+      "nominalFpsFromWebsite": 25,
+      "description": "Two women walking together in park",
+      "creator": "Marc Espejo",
+      "license": "Pexels stock, subject to Pexels terms; verify link/license/rights before publishing"
+    },
+    {
+      "key": "nature_walk",
+      "id": "6006682",
+      "page": "https://www.pexels.com/video/6006682/",
+      "nominalFpsFromWebsite": 30,
+      "description": "Woman walking among trees",
+      "creator": "Ventill8 Productions",
+      "license": "Pexels stock, subject to Pexels terms; verify link/license/rights before publishing"
+    }
+  ],
+  "ethics": [
+    "Stock film is illustrative; it is not one continuous fictional actress Linh. Prefer same cast or POV when replacing stock.",
+    "Do not imply any model consented to a psychological diagnosis.",
+    "Do not declare every scene natively 60fps; most clips are 24/25/30/50.",
+    "Only publish after manual QA of story and actor continuity."
+  ],
+  "deliveryStatus": "preproduction - not yet rendered"
+}
