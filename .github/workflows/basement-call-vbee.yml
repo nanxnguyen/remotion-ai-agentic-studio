@@ -1,0 +1,34 @@
+name: Basement Call - Genuine Vbee Voice
+on:
+  push:
+    branches: [feat/cuoc-goi-tu-tang-ham-60s]
+    paths: [.github/workflows/basement-call-vbee.yml]
+permissions:
+  contents: read
+jobs:
+  tts:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      VBEE_ACCESS_TOKEN: ${{ secrets.VBEE_ACCESS_TOKEN || secrets.VBEE_TOKEN || secrets.VBEE_API_KEY || secrets.VBEE_API_TOKEN }}
+      VBEE_APP_ID: ${{ secrets.VBEE_APP_ID || secrets.VBEE_APPID || secrets.VBEE_APPLICATION_ID }}
+      VBEE_WEBHOOK_URL: ${{ vars.VBEE_WEBHOOK_URL || 'https://example.com/story-tts-webhook' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Synthesize genuine Vbee Anh Khoi narration
+        run: |
+          test -n "$VBEE_ACCESS_TOKEN" && test -n "$VBEE_APP_ID"
+          python3 scripts/gen-story-vbee-batch.py \
+            --timeline docs/cuoc-goi-tu-tang-ham/timeline.json \
+            --out-dir public/audio/cuoc-goi-tu-tang-ham \
+            --voice-code hn_male_phuthang_stor_24k-stl \
+            --speed 1.12
+      - uses: actions/upload-artifact@v4
+        with:
+          name: basement-call-real-vbee-voice
+          path: public/audio/cuoc-goi-tu-tang-ham/
+          retention-days: 14
+          if-no-files-found: error
