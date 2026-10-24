@@ -1,0 +1,41 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "author": {
+    "email": "nguyenanhnhut0101.99@gmail.com",
+    "name": "NGUYEN ANH NHUT"
+  },
+  "description": "Tr\u1ee3 l\u00fd s\u1ea3n xu\u1ea5t video truy\u1ec1n \u0111\u1ed9ng l\u1ef1c v\u00e0 ch\u1eefa l\u00e0nh phong c\u00e1ch Retro TV, t\u1eeb k\u1ecbch b\u1ea3n 4 h\u1ed3i, shotlist, Vbee, ch\u1eef karaoke, thumbnail YouTube \u0111\u1ebfn l\u01b0u Google Drive v\u00e0 GitHub Releases.",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "brandColor": "#A87E45",
+        "capabilities": [
+          "Interactive"
+        ],
+        "category": "Creativity",
+        "composerIcon": "./assets/plugin-icon.png",
+        "defaultPrompt": [
+          "L\u00ean 5 ch\u1ee7 \u0111\u1ec1 truy\u1ec1n \u0111\u1ed9ng l\u1ef1c ch\u1eefa l\u00e0nh ph\u00f9 h\u1ee3p Retro TV, ch\u1ecdn \u00fd t\u01b0\u1edfng c\u00f3 hook m\u1ea1nh nh\u1ea5t.",
+          "Vi\u1ebft k\u1ecbch b\u1ea3n 4 h\u1ed3i v\u00e0 shotlist chi ti\u1ebft cho Shorts Retro TV d\u00e0i 35 gi\u00e2y.",
+          "S\u1ea3n xu\u1ea5t video Retro TV theo k\u1ecbch b\u1ea3n n\u00e0y, l\u00e0m thumbnail v\u00e0 l\u01b0u \u0111\u1ea7y \u0111\u1ee7 l\u00ean Google Drive + GitHub."
+        ],
+        "developerName": "NGUYEN ANH NHUT",
+        "displayName": "Tay T\u1ea1o Video Truy\u1ec1n \u0110\u1ed9ng L\u1ef1c",
+        "logo": "./assets/plugin-icon.png",
+        "longDescription": "Vi\u1ebft k\u1ecbch b\u1ea3n truy\u1ec1n c\u1ea3m h\u1ee9ng, ch\u1eefa l\u00e0nh v\u00e0 t\u1ea1o video Short ho\u1eb7c video d\u00e0i theo phong c\u00e1ch TV c\u1ed5 \u0111i\u1ec3n ng\u01b0\u1eddi d\u00f9ng ch\u1ecdn. T\u1ea1o hook, th\u00e2n b\u00e0i, cao tr\u00e0o v\u00e0 k\u1ebft suy ng\u1eabm; chu\u1ea9n h\u00f3a 11 shot/27 caption beats khi ph\u00f9 h\u1ee3p; h\u01b0\u1edbng d\u1ef1ng video thi\u00ean nhi\u00ean trong m\u00e0n h\u00ecnh CRT, voice Vbee Ng\u1ecdc Huy\u1ec1n, typography Be Vietnam Pro v\u00e0 highlight v\u00e0ng m\u01b0\u1ee3t; t\u1ea1o thumbnail d\u1ecdc ho\u1eb7c ngang c\u00f9ng metadata YouTube h\u1ea5p d\u1eabn, ch\u00e2n th\u1ef1c; ki\u1ec3m \u0111\u1ecbnh MP4 tr\u01b0\u1edbc khi l\u01b0u video-final.mp4, thumbnail, youtube-title-description.txt v\u00e0o Google Drive Videos-shorts trong folder \u0111\u00e1nh s\u1ed1 li\u00ean t\u1ee5c, \u0111\u1ed3ng th\u1eddi l\u01b0u MP4 tr\u00ean GitHub Releases v\u1edbi link v\u00e0 checksum th\u1ef1c t\u1ebf. Kh\u1ea3 n\u0103ng d\u1ef1ng, TTS v\u00e0 upload ph\u1ee5 thu\u1ed9c c\u00e1c c\u00f4ng c\u1ee5, t\u00e0i kho\u1ea3n v\u00e0 quy\u1ec1n truy c\u1eadp \u0111\u00e3 k\u1ebft n\u1ed1i; kh\u00f4ng tuy\u00ean b\u1ed1 ho\u00e0n th\u00e0nh b\u01b0\u1edbc ch\u01b0a th\u1ef1c hi\u1ec7n.",
+        "shortDescription": "D\u1ef1ng Shorts Retro TV ch\u1eefa l\u00e0nh"
+      }
+    }
+  },
+  "keywords": [
+    "Vietnamese",
+    "retro tv",
+    "shorts",
+    "motivation",
+    "healing",
+    "video production"
+  ],
+  "name": "tay-tao-video-truyen-dong-luc",
+  "repository": "https://github.com/nanxnguyen/remotion-ai-agentic-studio",
+  "version": "1.0.0"
+}
