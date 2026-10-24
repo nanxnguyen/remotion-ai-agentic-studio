@@ -1,0 +1,63 @@
+name: Short03 Real People Podcast Preview
+on:
+  push:
+    branches: [feat/short03-real-life-podcast-preview]
+    paths:
+      - '.github/workflows/short03-real-life-preview.yml'
+      - 'docs/short-03-buc-anh-khong-co-me-podcast/real-life/stock_preview.py'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: short03-real-life-preview
+  cancel-in-progress: false
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 50
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: feat/short03-real-life-podcast-preview
+          persist-credentials: true
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+      - name: Install FFmpeg and graphics
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg fonts-dejavu-core curl
+          python3 -m pip install --disable-pip-version-check pillow
+      - name: Validate media license provenance and narrator
+        run: |
+          set -euo pipefail
+          test -s .claude/skills/ray-emotional-stick-shorts/SKILL.md
+          test -s docs/short-03-buc-anh-khong-co-me-podcast/final/short03-me-trong-anh-podcast-full-vbee.mp4
+          python3 -m py_compile docs/short-03-buc-anh-khong-co-me-podcast/real-life/stock_preview.py
+          ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1 \
+            docs/short-03-buc-anh-khong-co-me-podcast/final/short03-me-trong-anh-podcast-full-vbee.mp4
+      - name: Download verified Pexels footage and render actual live-action podcast
+        run: |
+          set -euo pipefail
+          python3 docs/short-03-buc-anh-khong-co-me-podcast/real-life/stock_preview.py
+      - name: Archive sample, QA and contact sheet
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add docs/short-03-buc-anh-khong-co-me-podcast/real-life/
+          git diff --cached --quiet || git commit -m 'assets(short03): live-action podcast sample using real stock footage and Vbee'
+          git fetch origin feat/short03-real-life-podcast-preview
+          git rebase origin/feat/short03-real-life-podcast-preview
+          git push origin HEAD:feat/short03-real-life-podcast-preview
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: short03-live-action-podcast-preview
+          path: |
+            docs/short-03-buc-anh-khong-co-me-podcast/real-life/final/
+            docs/short-03-buc-anh-khong-co-me-podcast/real-life/final-QA.json
+            docs/short-03-buc-anh-khong-co-me-podcast/real-life/contact-sheet.jpg
+          retention-days: 14
+          if-no-files-found: ignore
