@@ -1,0 +1,32 @@
+{
+  "interface": {
+    "capabilities": [
+      "Interactive"
+    ],
+    "category": "Productivity",
+    "defaultPrompt": "Vi\u1ebft k\u1ecbch b\u1ea3n YouTube Shorts ch\u1ee7 \u0111\u1ec1 b\u1ea5t k\u1ef3 theo c\u00f4ng th\u1ee9c t\u1ed1i \u01b0u gi\u1eef ch\u00e2n: hook 3\u20135 gi\u00e2y, nh\u1ecbp k\u1ec3 t\u0103ng ti\u1ebfn, cao tr\u00e0o, c\u00e2u k\u1ebft ch\u1ea1m c\u1ea3m x\u00fac; storyboard v\u00e0 gi\u1ecdng Vbee Thanh Long n\u1ebfu l\u00e0m video.",
+    "developerName": "NGUYEN ANH NHUT",
+    "displayName": "Ray Emotional Stick Shorts",
+    "longDescription": "S\u1ea3n xu\u1ea5t Shorts ch\u1ee7 \u0111\u1ec1 b\u1ea5t k\u1ef3 (gia \u0111\u00ecnh, ch\u1eefa l\u00e0nh, t\u00ecnh c\u1ea3m, c\u00e2u chuy\u1ec7n, h\u1ecdc t\u1eadp, ki\u1ebfn th\u1ee9c) v\u1edbi hook m\u1ea1nh, nh\u1ecbp gi\u1eef ch\u00e2n, c\u00fa xoay, chuy\u1ec3n c\u1ea3nh m\u01b0\u1ee3t, Vbee Thanh Long v\u00e0 QA trung th\u1ef1c; kh\u00f4ng h\u1ee9a h\u1eb9n tri\u1ec7u view.",
+    "shortDescription": "Shorts ch\u1ee7 \u0111\u1ec1 b\u1ea5t k\u1ef3 \u2014 t\u1ed1i \u01b0u gi\u1eef ch\u00e2n"
+  },
+  "name": "ray-emotional-stick-shorts",
+  "version": "1.0.1",
+  "description": "Script, storyboard and production of high-retention Vietnamese cinematic stick-figure Shorts for ANY topic; universal hook/retention framework, Vbee Thanh Long, Remotion QA and verified delivery.",
+  "author": {
+    "name": "NGUYEN ANH NHUT",
+    "email": "nguyenanhnhut0101.99@gmail.com"
+  },
+  "keywords": [
+    "YouTube Shorts",
+    "Vietnamese",
+    "stick figure",
+    "cinematic",
+    "emotional storytelling",
+    "Vbee",
+    "retention",
+    "storyboard",
+    "Remotion"
+  ],
+  "skills": "./skills"
+}
