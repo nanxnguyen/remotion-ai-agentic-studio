@@ -1,7 +1,7 @@
 {
   "s1": {
     "phrases": [
-      "Ba giờ sáng. Có thứ gì đó dưới gầm giường Nam."
+      "Ba giờ sáng... Có gì dưới gầm giường?"
     ],
     "intent": "Mực dùng hai tay chống xuống sàn, chậm rãi trườn ra. Nam trở mình trong ác mộng.",
     "emotion": "Mực cảnh giác, ánh mắt lo chứ không dữ; Nam nhíu mày.",
@@ -13,7 +13,7 @@
   },
   "s2": {
     "phrases": [
-      "Nó vươn móng vuốt... nhưng không chạm vào cậu."
+      "Móng vuốt gần Nam... rồi dừng lại."
     ],
     "intent": "Mực thu đầu móng nhọn vào lớp lông, duỗi bàn tay dịu dàng đón luồng khói.",
     "emotion": "Mực lo sợ đánh thức Nam, mím miệng; Nam co mày, mồ hôi nhỏ.",
