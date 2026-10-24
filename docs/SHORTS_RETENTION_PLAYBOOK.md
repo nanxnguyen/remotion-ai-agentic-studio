@@ -1,12 +1,12 @@
-# Universal YouTube Shorts Story & Retention Playbook
+# Universal YouTube Shorts & TikTok Short-Form Story / Retention Playbook
 
-**Scope:** Every new scripted vertical short in this repository — emotional stick figure, horror, family, romance, thriller, education, or other genre. This is a required **creative preflight**, not a promise of a particular number of views.
+**Mandatory for EVERY video, regardless of topic, genre or publishing platform:** Create scripts and storyboards using a high-retention YouTube Shorts **and TikTok** short-form storytelling formula. Apply its hook, escalating meaningful beats, payoff and native-platform packaging to every new production, including emotional stories, horror, family, romance, education, series episodes and experiments. Adapt exact timings to actual duration and platform format. These are creative best practices; **no "million-view formula" guarantees reach or reflects a secret official ranking algorithm.**
 
 ## Rule zero: make a story before adding motion
 
 Build a clear viewer question, specific identifiable protagonist, desire, obstacle, concrete actions, escalating tension, and an earned emotional or informational payoff. Do not use a sequence of generic stock scenes, hollow quotes, identical character poses, or motion added solely to increase shot count. Visuals must show what the narration says.
 
-## Retention-oriented script structure
+## Mandatory YouTube Shorts + TikTok retention-oriented script structure
 
 Choose duration based on the brief and measure the real synthesized narration.
 
@@ -25,6 +25,16 @@ Choose duration based on the brief and measure the real synthesized narration.
 
 **Ending:** End on a memorable visual action and one concise line. Prefer an emotional aftertaste, earned surprise, or natural discussion question, not a forced "like/share/subscribe." A looping ending is optional only when it serves the story.
 
+## Per-platform execution contract (both YouTube and TikTok)
+
+**Shared story core (mandatory for every film):** Hook legible in the first 0–2 seconds → three-beat curiosity/response sequence through ~4–6 seconds → concrete new information or motivated action every ~3–6 seconds → emotionally or causally earned reveal/decision → brief memorable visual payoff. Test this structure *even if the final deliverable is currently intended for only one platform*.
+
+**YouTube Shorts packaging:** Write an accurate curiosity-driven title, 9:16-safe cover/thumbnail, clear early context, legible Vietnamese captions and a payoff matching the title. After publishing inspect YouTube Studio metrics such as **viewed vs swiped away**, retention, average view duration, average percentage viewed and engagement. Optimize hypotheses using observed channel analytics, not invented ranking thresholds.
+
+**TikTok packaging:** Write a native TikTok cover line, short natural caption, relevant keywords/hashtags when appropriate, and readable on-screen text within mobile UI safe zones. The first spoken and visual beat must make sense without relying on a YouTube thumbnail/title; avoid intrusive intros, outro slates, misleading curiosity gaps or reused platform watermarks. After publishing inspect available TikTok analytics such as watch time, completion, replays and interactions (especially comments/shares), noting that available metrics vary by account.
+
+**Cross-platform editing:** Do not automatically reuse the same edit/crop/subtitle positions when TikTok's UI occludes them. Validate each platform export and packaging separately. No automated posting without explicit authorization. A platform-specific adaptation may shift pacing without changing the facts, emotional logic or earned ending.
+
 ## Production contract (apply regardless of genre)
 
 1. Write a one-sentence premise and **story question**. Define the intended viewer emotion.
@@ -37,14 +47,14 @@ Choose duration based on the brief and measure the real synthesized narration.
 8. Run repository's canonical gates and tests; record **actual** results. At minimum inspect first 6 seconds, midpoint climax, last 6 seconds, frame boundaries, voice and music, audio tails and MP4 with ffprobe. Do not claim human/subjective review has passed without playback.
 9. Publish/upload only when authorized. vidIQ media-library import != YouTube publication. Store stable file links and upload IDs, never expiring signed URLs or secrets.
 
-## What to measure *after* publishing
+## What to measure *after* publishing on YouTube Shorts and TikTok
 
-Evaluate metrics available in YouTube Studio: **Viewed vs swiped away**, average view duration / retention shape, average percentage viewed and replay behavior; also comments, likes, shares and subscribers gained in context. Compare variants of hook, pacing and endings over multiple comparable posts. High views are *not guaranteed*. Do not assume numerical thresholds without actual channel data.
+On **YouTube Studio**, inspect Viewed vs swiped away, average view duration, retention, average percentage viewed and engagement. On **TikTok Analytics**, inspect metrics that are actually available (watch time, completion/full-watch measures, replays, shares, comments and relevant reach indicators). Compare strong and weak hook, beat and payoff variants over comparable posts, accounting for audience and platform differences. Large view counts are *not guaranteed*; do not invent ranking thresholds or represent heuristics as official algorithms.
 
-## Script approval checklist
+## Required approval checklist — EVERY video
 
 - [ ] An audience can understand the anomaly/conflict in the first 1–2 seconds.
-- [ ] The hook is fulfilled, not misleading.
+- [ ] The hook is fulfilled, not misleading, and the opening works in both YouTube Shorts and TikTok native viewing contexts.
 - [ ] Each beat changes story information, stakes or feeling.
 - [ ] Main character has an identifiable goal, consistent appearance and visibly motivated actions.
 - [ ] The reveal is foreshadowed; climax arrives early enough.
@@ -52,9 +62,10 @@ Evaluate metrics available in YouTube Studio: **Viewed vs swiped away**, average
 - [ ] Final line is concise, supported by an image, and not a generic sermon.
 - [ ] Storyboard environments, props, subtitle timing and transitions are coherent.
 - [ ] Video and audio QA are verified before declaring complete.
+- [ ] YouTube title/cover and TikTok caption/cover are platform-native, coherent and safe-area checked whenever those assets are requested or published.
 
 ## Source and skills
 
 Start every new film by reading this file, `AGENTS.md`, the relevant **Ray** skill, and the canonical pipeline gates. Genre-specific cinematic treatments may vary while the retention-oriented story structure stays. For 30–45s shorts use `.claude/skills/ray-emotional-stick-shorts/SKILL.md` when emotional stick figures are requested; for broader stories `.claude/skills/ray-phim-ke-chuyen/SKILL.md`. Film-specific instructions can override timing, but never the demand for a strong opening and earned payoff.
 
-**Implementation history:** Captures the project owner's standing requirement (2026-10-24) to use a YouTube Shorts high-retention narrative formula for **every topic**. This is a creative heuristic and an internal creator preference, not an official YouTube ranking algorithm or a promise of a million views.
+**Implementation history:** Updated at the project owner's request (2026-10-24): **every new video, any topic, must follow the YouTube Shorts + TikTok high-retention story formula** with measured performance and native-platform packaging. This is a creator-wide creative requirement, not a guaranteed path to a million views and not a claim about either platform's proprietary algorithms.
