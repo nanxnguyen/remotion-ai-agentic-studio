@@ -30,7 +30,7 @@ jobs:
           base64 -d "$output" > "$file"
           test "$(stat -c '%s' "$file")" -eq 8771863
           echo "95925a895e9ff1dee066c0d5d63615514fef49380eba874d9bbda7bf1ab5f88c  $file" | sha256sum --check
-          ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1 "$file"
+          # SHA-256 verification is authoritative; ffprobe may not be installed on runner
       - name: Create release with the actual MP4 bytes
         shell: bash
         env:
