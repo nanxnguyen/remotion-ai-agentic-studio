@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "act": "HOOK",
+    "narration": "Bạn sợ bắt đầu lại… hay sợ người khác thấy mình thất bại?"
+  },
+  {
+    "id": 2,
+    "act": "BODY",
+    "narration": "Một kế hoạch vỡ tan. Bao đêm không ngủ. Bạn nhìn người khác tiến lên… rồi tự hỏi: Mình còn lại gì? Nhưng hãy nhìn thật kỹ. Những lần vấp ngã đều để lại một bài học."
+  },
+  {
+    "id": 3,
+    "act": "CLIMAX",
+    "narration": "Bạn không trở về con số không! Bạn mang theo kinh nghiệm, vết xước, và cả lòng can đảm. Đứng dậy! Mở cánh cửa ấy! Đường mới đang đợi bạn."
+  },
+  {
+    "id": 4,
+    "act": "ENDING",
+    "narration": "Đừng chờ đến khi hết sợ. Hãy bước đi… ngay hôm nay! Vì lần bắt đầu lại này… bạn đã khác rồi."
+  }
+]
