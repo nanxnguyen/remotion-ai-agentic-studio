@@ -1,8 +1,8 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "ray-phim-ke-chuyen",
-  "version": "0.2.2",
-  "description": "Sản xuất Shorts kinh dị <=60s, HOOK 0–6s, Vbee thật, diễn xuất tự nhiên, Remotion, QA, lưu Drive + GitHub",
+  "version": "0.2.3",
+  "description": "Ray Phim Kể Chuyện: 60s horror Shorts HOOK 0–6s, acting, Vbee, Remotion, Drive numbered folders with MP4+thumbnail+YouTube copy, GitHub Release.",
   "author": {
     "name": "Ray"
   },
@@ -18,7 +18,10 @@
     "preflight-qa",
     "0-6s hook",
     "Google Drive",
-    "GitHub Releases"
+    "GitHub Releases",
+    "numbered Drive folders",
+    "YouTube thumbnails",
+    "YouTube descriptions"
   ],
   "skills": "./skills"
 }
