@@ -1,8 +1,8 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "ray-phim-ke-chuyen",
-  "version": "0.2.3",
-  "description": "Ray Phim Kể Chuyện: 60s horror Shorts HOOK 0–6s, acting, Vbee, Remotion, Drive numbered folders with MP4+thumbnail+YouTube copy, GitHub Release.",
+  "version": "0.2.5",
+  "description": "Ray Phim Kể Chuyện: smooth cinematic 2D/2.5D motion, no freeze/jitter, actor realism optional; genuine Vbee, Remotion, Drive+GitHub archive.",
   "author": {
     "name": "Ray"
   },
@@ -14,14 +14,17 @@
     "Vbee",
     "cinematic",
     "video-production",
-    "acting-sync",
     "preflight-qa",
     "0-6s hook",
     "Google Drive",
     "GitHub Releases",
     "numbered Drive folders",
     "YouTube thumbnails",
-    "YouTube descriptions"
+    "YouTube descriptions",
+    "smooth cinematic motion",
+    "2.5D parallax",
+    "no freeze",
+    "no jitter"
   ],
   "skills": "./skills"
 }
