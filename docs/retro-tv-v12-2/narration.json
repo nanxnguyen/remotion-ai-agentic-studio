@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "act": "HOOK",
+    "narration": "Bạn đang định bỏ cuộc… chỉ vì phải bắt đầu lại? Nghe này!"
+  },
+  {
+    "id": 2,
+    "act": "INNER_CONFLICT",
+    "narration": "Bạn sợ người ta đi xa hơn. Sợ thêm một lần thất bại. Sợ bao đêm thức trắng hóa thành con số không. Nhưng điều đau nhất… là sống mãi trong cuộc đời mà chính bạn không còn tin tưởng."
+  },
+  {
+    "id": 3,
+    "act": "FIRE_UP",
+    "narration": "Đừng cúi đầu! Những lần vấp ngã không lấy mất giá trị của bạn. Chúng trao cho bạn bản lĩnh! Bạn không trở về vạch xuất phát. Bạn trở lại… với một trái tim mạnh mẽ hơn!"
+  },
+  {
+    "id": 4,
+    "act": "CALL_TO_ACTION",
+    "narration": "Vậy thì đứng dậy! Bước thêm một bước! Đừng chờ hết sợ mới bắt đầu. Hãy dùng chính nỗi sợ… làm ngọn lửa đưa bạn tiến lên!"
+  }
+]
