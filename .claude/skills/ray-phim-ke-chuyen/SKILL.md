@@ -9,6 +9,10 @@ description: "Use when making or revising Vietnamese storytelling Shorts/reels: 
 
 Sản xuất **video kể chuyện tiếng Việt** từ ý tưởng, kịch bản, clip tham chiếu, contact sheet hoặc MP4 đã dựng. Mục tiêu là **video có thể xem/nghe được**, không chỉ là storyboard hoặc một ZIP source. Kết quả phải được xác minh; không hứa đã render, đã ghép Vbee hay đã upload khi thiếu bằng chứng.
 
+## Mandatory final-video archive on Google Drive — all topics
+
+For **every completed video** (not script-only/preview), follow [`docs/GOOGLE_DRIVE_VIDEO_ARCHIVE.md`](../../../docs/GOOGLE_DRIVE_VIDEO_ARCHIVE.md). The user-authorized destination is https://drive.google.com/drive/folders/1rtJF9zDWuFZ8_6IixdMew3WCZj8415-D (verified display name `Videos-shorts`). Find the next available strictly increasing folder number by inspecting its direct child video folders, create `N. Video title - YYYY-MM-DD` (Asia/Ho_Chi_Minh), and upload **three real files**: approved audio/video `final.mp4`, original compelling `thumbnail.png` (**vertical 9:16 for Shorts, horizontal 16:9 for long-form**), and UTF-8 `youtube-title-description.txt` containing attractive accurate YouTube title + description. Read back each Drive item, then return the folder/file URLs. Do not claim success for an image/text-only or missing-voice bundle. Keep existing canonical gates, YouTube Shorts + TikTok retention scripting, voice/vidIQ constraints and no-auto-publishing rule.
+
 ## 1. Chọn đúng chế độ ngay từ yêu cầu
 
 - **NEW_FILM:** Người dùng muốn phim/video mới. Viết câu chuyện gốc → kịch bản theo mốc thời gian → thiết kế các hình riêng lẻ → voice Vbee → dựng Remotion → âm nhạc/SFX → QA → MP4.
