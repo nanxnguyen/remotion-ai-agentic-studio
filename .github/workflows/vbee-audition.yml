@@ -1,4 +1,4 @@
-name: Vbee Batch voice audition — automated callback and polling
+name: Vbee Batch voice – Emotional Short 01
 on:
   push:
     branches: [feat/vbee-voice-stick-shorts]
@@ -22,16 +22,16 @@ jobs:
           set -eu
           [ -n "$VBEE_APP_ID" ] && [ -n "$VBEE_ACCESS_TOKEN" ] || { echo "::error::Vbee credentials not configured"; exit 1; }
           python3 .claude/skills/ray-emotional-stick-shorts/scripts/vbee_tts.py \
-            --text-file docs/short-01-nho-phien-ban-duoc-yeu/voice/vbee-audition-script.txt \
+            --text-file docs/nguoi-tung-hieu-ban/voice/narration.txt \
             --voice-code hn_male_thanhlong_talk_48k-fhg \
-            --speed 0.93 \
-            --output docs/short-01-nho-phien-ban-duoc-yeu/voice/vbee-thanhlong-audition.mp3
-          ffprobe -v error -show_entries stream=codec_name -show_entries format=duration -of json docs/short-01-nho-phien-ban-duoc-yeu/voice/vbee-thanhlong-audition.mp3
-          sha256sum docs/short-01-nho-phien-ban-duoc-yeu/voice/vbee-thanhlong-audition.mp3 > docs/short-01-nho-phien-ban-duoc-yeu/voice/vbee-thanhlong-audition.sha256
+            --speed 0.95 \
+            --output docs/nguoi-tung-hieu-ban/voice/vbee-thanhlong-emotional-01.mp3
+          ffprobe -v error -show_entries stream=codec_name -show_entries format=duration -of json docs/nguoi-tung-hieu-ban/voice/vbee-thanhlong-emotional-01.mp3
+          sha256sum docs/nguoi-tung-hieu-ban/voice/vbee-thanhlong-emotional-01.mp3 > docs/nguoi-tung-hieu-ban/voice/vbee-thanhlong-emotional-01.sha256
       - name: Archive Vbee audio after technical check
         run: |
           set -eu
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add docs/short-01-nho-phien-ban-duoc-yeu/voice/vbee-thanhlong-audition.mp3 docs/short-01-nho-phien-ban-duoc-yeu/voice/vbee-thanhlong-audition.sha256
+          git add docs/nguoi-tung-hieu-ban/voice/vbee-thanhlong-emotional-01.mp3 docs/nguoi-tung-hieu-ban/voice/vbee-thanhlong-emotional-01.sha256
           git diff --cached --quiet || (git commit -m 'assets(vbee): archive Thanh Long audition voice' && git push)
