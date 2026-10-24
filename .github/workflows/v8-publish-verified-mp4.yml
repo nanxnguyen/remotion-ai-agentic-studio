@@ -1,0 +1,59 @@
+name: Retro TV V8 - Verified GitHub MP4 Release
+on:
+  push:
+    branches: [feat/retro-tv-v8-fast-four-act]
+    paths:
+      - 'docs/retro-tv-v8-fast/READY.json'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Reassemble MP4 from 29 GitHub-owned blobs and validate checksum
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          folder=docs/retro-tv-v8-fast/binary-chunks
+          base64_file=/tmp/retro-v8-encoded.txt
+          : > "$base64_file"
+          for f in "$folder"/batch-*.json; do
+            jq -r '.chunks[] | .sha' "$f" | while IFS= read -r sha; do
+              gh api -H "Accept: application/vnd.github+json" "repos/$GITHUB_REPOSITORY/git/blobs/$sha" --jq '.content' | base64 -d >> "$base64_file"
+            done
+          done
+          mkdir -p /tmp/retro-v8-release
+          file=/tmp/retro-v8-release/Thanh_Cong_Thoi_Quen_Nho_Retro_TV_V8_Fast_Motivation.mp4
+          base64 -d "$base64_file" > "$file"
+          test "$(stat -c '%s' "$file")" -eq 6858076
+          echo "64a9e87363fe25022d3a56330d740676b7a37859935bc7facd0f730fde520abf  $file" | sha256sum --check
+      - name: Upload actual verified MP4 to GitHub Release
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          tag=retro-tv-v8-fast-2026-10-24
+          file=/tmp/retro-v8-release/Thanh_Cong_Thoi_Quen_Nho_Retro_TV_V8_Fast_Motivation.mp4
+          if gh release view "$tag" >/dev/null 2>&1; then
+            gh release upload "$tag" "$file" --clobber
+          else
+            gh release create "$tag" "$file" --title "Retro TV V8 — Bốn nhịp truyền động lực" --notes "19.77s · 1080×1920 30fps · Hook / Thân bài / Cao trào / Kết suy ngẫm · Vbee Ngọc Huyền giọng thật · Be Vietnam Pro ExtraBold golden highlights. File SHA256: 64a9e87363fe25022d3a56330d740676b7a37859935bc7facd0f730fde520abf. User supplied original nature footage; verify redistribution rights." --target "$GITHUB_SHA"
+          fi
+      - name: Download GitHub asset and independently verify checksum
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          tag=retro-tv-v8-fast-2026-10-24
+          name=Thanh_Cong_Thoi_Quen_Nho_Retro_TV_V8_Fast_Motivation.mp4
+          gh release view "$tag" --json assets --jq ".assets[] | select(.name == \"$name\") | .size" | grep -x 6858076
+          mkdir -p /tmp/v8-confirmed
+          gh release download "$tag" --pattern "$name" --dir /tmp/v8-confirmed
+          echo "64a9e87363fe25022d3a56330d740676b7a37859935bc7facd0f730fde520abf  /tmp/v8-confirmed/$name" | sha256sum --check
