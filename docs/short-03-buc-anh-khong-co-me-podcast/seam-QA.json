@@ -1,0 +1,85 @@
+{
+  "status": "pass",
+  "fps": 60,
+  "frames": 2425,
+  "shots": 16,
+  "boundaries": 15,
+  "maxAdjacentMAE": 0.375,
+  "measurements": [
+    {
+      "boundary": 1,
+      "frame": 156,
+      "maxAdjacentMAE": 0.366
+    },
+    {
+      "boundary": 2,
+      "frame": 309,
+      "maxAdjacentMAE": 0.324
+    },
+    {
+      "boundary": 3,
+      "frame": 465,
+      "maxAdjacentMAE": 0.084
+    },
+    {
+      "boundary": 4,
+      "frame": 630,
+      "maxAdjacentMAE": 0.265
+    },
+    {
+      "boundary": 5,
+      "frame": 795,
+      "maxAdjacentMAE": 0.097
+    },
+    {
+      "boundary": 6,
+      "frame": 960,
+      "maxAdjacentMAE": 0.311
+    },
+    {
+      "boundary": 7,
+      "frame": 1122,
+      "maxAdjacentMAE": 0.106
+    },
+    {
+      "boundary": 8,
+      "frame": 1284,
+      "maxAdjacentMAE": 0.333
+    },
+    {
+      "boundary": 9,
+      "frame": 1458,
+      "maxAdjacentMAE": 0.156
+    },
+    {
+      "boundary": 10,
+      "frame": 1626,
+      "maxAdjacentMAE": 0.375
+    },
+    {
+      "boundary": 11,
+      "frame": 1767,
+      "maxAdjacentMAE": 0.099
+    },
+    {
+      "boundary": 12,
+      "frame": 1908,
+      "maxAdjacentMAE": 0.321
+    },
+    {
+      "boundary": 13,
+      "frame": 2055,
+      "maxAdjacentMAE": 0.088
+    },
+    {
+      "boundary": 14,
+      "frame": 2202,
+      "maxAdjacentMAE": 0.279
+    },
+    {
+      "boundary": 15,
+      "frame": 2313,
+      "maxAdjacentMAE": 0.123
+    }
+  ]
+}

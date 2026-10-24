@@ -1,0 +1,74 @@
+{
+  "status": "technical-pass",
+  "format": "9:16 visual podcast",
+  "duration": 40.416667,
+  "fps": 60,
+  "sceneCount": 16,
+  "spokenBeats": 8,
+  "speechChecks": [
+    {
+      "beat": 1,
+      "duration": 3.056,
+      "start": 0.12,
+      "tempo": 1.0,
+      "peakDb": -2.0
+    },
+    {
+      "beat": 2,
+      "duration": 4.336,
+      "start": 5.15,
+      "tempo": 1.0,
+      "peakDb": -0.8
+    },
+    {
+      "beat": 3,
+      "duration": 4.153,
+      "start": 10.5,
+      "tempo": 1.0,
+      "peakDb": -1.9
+    },
+    {
+      "beat": 4,
+      "duration": 4.545,
+      "start": 16,
+      "tempo": 1.0,
+      "peakDb": -1.9
+    },
+    {
+      "beat": 5,
+      "duration": 3.657,
+      "start": 21.4,
+      "tempo": 1.0,
+      "peakDb": -1.7
+    },
+    {
+      "beat": 6,
+      "duration": 3.5,
+      "start": 27.1,
+      "tempo": 1.0,
+      "peakDb": -0.9
+    },
+    {
+      "beat": 7,
+      "duration": 2.429,
+      "start": 31.8,
+      "tempo": 1.0,
+      "peakDb": -1.5
+    },
+    {
+      "beat": 8,
+      "duration": 3.866,
+      "start": 36.7,
+      "tempo": 1.078,
+      "peakDb": -1.4
+    }
+  ],
+  "hasSpokenAudio": true,
+  "hasPianoAudio": true,
+  "voiceProvider": "Vbee Thanh Long",
+  "audioListeningReview": "pending",
+  "humanVisualReview": "pending",
+  "youtubePublished": false,
+  "sha256": "f0ad4556fce21b1d2585e542ccb2a9157bc961e98790aae89fb560da87c0bfd1",
+  "bytes": 3027837
+}
