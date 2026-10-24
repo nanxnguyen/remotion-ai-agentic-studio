@@ -1,0 +1,109 @@
+name: Healing Monologue V3 - 92s Real-Life Footage
+on:
+  push:
+    branches: [feat/healing-monologue-92s-real-footage-v3]
+    paths:
+      - '.github/workflows/healing-monologue-v3-real-footage.yml'
+      - 'docs/healing-monologue-v3-live/manifest.json'
+      - 'docs/healing-monologue-v3-live/render_live.py'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: healing-monologue-v3
+  cancel-in-progress: false
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 105
+    env:
+      VBEE_APP_ID: ${{ secrets.VBEE_APP_ID }}
+      VBEE_ACCESS_TOKEN: ${{ secrets.VBEE_ACCESS_TOKEN }}
+      VBEE_WEBHOOK_URL: https://iehmucsshklgjmxqyggp.supabase.co/functions/v1/vbee-batch-callback
+      ROOT: docs/healing-monologue-v3-live
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feat/healing-monologue-92s-real-footage-v3
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install codecs, fonts and renderer
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg curl fonts-dejavu-core fontconfig
+          python3 -m pip install --disable-pip-version-check pillow numpy requests fonttools brotli
+      - name: Preflight - script, approved 92s timeline, Vbee credentials
+        run: |
+          set -euo pipefail
+          test -n "$VBEE_APP_ID" && test -n "$VBEE_ACCESS_TOKEN"
+          python3 -m py_compile "$ROOT/render_live.py" docs/short-01-nho-phien-ban-duoc-yeu/voice/vbee_batch_tts.py
+          python3 - <<'PY'
+          import json,os
+          from pathlib import Path
+          root=Path(os.environ['ROOT'])
+          x=json.loads((root/'manifest.json').read_text(encoding='utf8'))
+          assert x['duration']==92 and x['fpsExport']==60
+          assert len(x['shots'])==18 and len(x['voice']['beats'])==8
+          assert x['shots'][0]['start']==0 and x['shots'][-1]['end']==92
+          for i,s in enumerate(x['shots']):
+            assert s['end']>s['start']
+            assert i==0 or s['start']==x['shots'][i-1]['end']
+          clips={s['id'] for s in x['clips']}
+          assert all(s['source'] in clips for s in x['shots'])
+          assert not x['constraints']['noYouTubePublish'] is False
+          print('Approved 92s editorial contract and 18 live-action shots verified.')
+          PY
+      - name: Generate genuine Vbee Thanh Long narration
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/healing92live/voice
+          python3 - <<'PY'
+          import json,os
+          from pathlib import Path
+          x=json.loads((Path(os.environ['ROOT'])/'manifest.json').read_text(encoding='utf8'))
+          for i,b in enumerate(x['voice']['beats']):
+            Path(f'/tmp/healing92live/voice/beat{i}.txt').write_text(b['text'],encoding='utf8')
+          PY
+          for i in 0 1 2 3 4 5 6 7; do
+            python3 docs/short-01-nho-phien-ban-duoc-yeu/voice/vbee_batch_tts.py \
+              --text-file "/tmp/healing92live/voice/beat$i.txt" \
+              --voice-code hn_male_thanhlong_talk_48k-fhg \
+              --speed 1.0 --attempts 55 \
+              --output "/tmp/healing92live/voice/voice$i.mp3"
+          done
+      - name: Download real-world stock clips, render 18 shots and mix score
+        run: |
+          set -euo pipefail
+          python3 "$ROOT/render_live.py"
+          ffprobe -v error -show_entries format=duration,size:stream=codec_type,avg_frame_rate,width,height \
+            -of json "$ROOT/final/healing-monologue-92s-live-footage-v3-vbee.mp4"
+      - name: Keep QA files in source branch; do not mark final automatically
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add "$ROOT/source-inventory.json" "$ROOT/final-qa.json" "$ROOT/contact-sheet-v3-real-footage.jpg"
+          bytes=$(stat -c %s "$ROOT/final/healing-monologue-92s-live-footage-v3-vbee.mp4")
+          if [ "$bytes" -lt 85000000 ]; then
+            git add "$ROOT/final/healing-monologue-92s-live-footage-v3-vbee.mp4"
+          else
+            echo "MP4 exceeds 85 MB. Deliver in Actions artifact instead of storing in Git history."
+          fi
+          git diff --cached --quiet || git commit -m 'assets(healing-v3): preview with real-motion Pexels stock, 60fps container, Vbee and QA'
+          git fetch origin feat/healing-monologue-92s-real-footage-v3
+          git rebase origin/feat/healing-monologue-92s-real-footage-v3
+          git push origin HEAD:feat/healing-monologue-92s-real-footage-v3
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: healing-monologue-92s-real-life-V3-preview
+          path: |
+            docs/healing-monologue-v3-live/final/
+            docs/healing-monologue-v3-live/final-qa.json
+            docs/healing-monologue-v3-live/source-inventory.json
+            docs/healing-monologue-v3-live/contact-sheet-v3-real-footage.jpg
+          retention-days: 14
+          if-no-files-found: ignore
