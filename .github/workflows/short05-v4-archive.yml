@@ -1,0 +1,55 @@
+name: Short05 V4 - Archive verified cinematic editor's cut
+on:
+  push:
+    branches: [feat/short05-v4-editorial-cinema]
+    paths: ['.github/workflows/short05-v4-archive.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  archive-v4:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      V4_HANDOFF_URL: 'https://storage.googleapis.com/vidiq-user-videos/778e417c-7c57-4bb7-bf63-da93d44b39bd/a28c8229-bdf7-4bf1-9f55-819a55bfdc98.mp4?GoogleAccessId=ai-proxy-20261001%40studious-pen-429.vid.io.iam.gserviceaccount.com&Expires=1793454038&Signature=fEK9KfXabcltV1WRlX2rU2RqJeI88RU%2FJN5qkPxPx9zAlLXjLXy7IVtiK%2BGkcwdfaIqeGQiWfawBL5Q4RQU9nR%2F2Q80dwDw4MNDb%2FKr9P%2BrPu%2FhdkiCTdbeLdHh3CKIZQqee1XD5GEkRWD2SUQOlSzkCGXeWi2lQKk%2FkhnrpcNYqpVjSj2P9SDaWw2mSkLWNzBz2HMuOJq7sNG%2BP6%2FF0phsp3LaCIrE2fnRxEfUa17Tuj37gKsrAEbagIUJJIWiY4YcSW4ggx4r%2FCMOMY9s0Pbq5djkW3nhQiQU3ZNx4eklnzQnuTUgvg5CDOcaVP6JI99aaOgZEZVx7NcpLe0n6Hw%3D%3D'
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: feat/short05-v4-editorial-cinema
+          persist-credentials: true
+      - name: Verify approved 16-frame contact sheet exists
+        run: |
+          set -euo pipefail
+          test -s 'docs/short-05-me-chi-muon-con-ve-v4/04_Storyboard_V4_16_Canh.jpg'
+          test -s 'docs/short-05-me-chi-muon-con-ve-v4/05_Quality_Check.json'
+      - name: Download exact video asset from temporary approved media handoff
+        run: |
+          set -euo pipefail
+          mkdir -p 'docs/short-05-me-chi-muon-con-ve-v4'
+          curl -fL --retry 4 --retry-all-errors --connect-timeout 30 --max-time 190 -o 'docs/short-05-me-chi-muon-con-ve-v4/01_FINAL_Me_Khong_Can_Tien_Me_Chi_Muon_Con_Ve_V4_44s_1080x1920_Vbee.mp4' "$V4_HANDOFF_URL"
+          echo '337fd4a51276e63ba48a604155965cd294d4c58ea8df5f4c21944ed3fc55a4d2  docs/short-05-me-chi-muon-con-ve-v4/01_FINAL_Me_Khong_Can_Tien_Me_Chi_Muon_Con_Ve_V4_44s_1080x1920_Vbee.mp4' | sha256sum -c -
+      - name: Inspect MP4 properties and both streams
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg
+          python3 - <<'PY'
+          import json,subprocess
+          path='docs/short-05-me-chi-muon-con-ve-v4/01_FINAL_Me_Khong_Can_Tien_Me_Chi_Muon_Con_Ve_V4_44s_1080x1920_Vbee.mp4'
+          o=json.loads(subprocess.check_output(['ffprobe','-v','error','-show_entries','format=duration,size:stream=codec_type,width,height,avg_frame_rate','-of','json',path],text=True))
+          assert {x['codec_type'] for x in o['streams']} == {'audio','video'}
+          assert abs(float(o['format']['duration'])-44.0)<0.12
+          v=next(x for x in o['streams'] if x['codec_type']=='video')
+          assert (v['width'],v['height'],v['avg_frame_rate']) == (1080,1920,'30/1')
+          print('VERIFIED short05 V4: 44.0 seconds, 1080 x 1920, 30fps, audio and video.')
+          PY
+      - name: Commit V4 reviewed full MP4 to same branch as artwork and metadata
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add 'docs/short-05-me-chi-muon-con-ve-v4/01_FINAL_Me_Khong_Can_Tien_Me_Chi_Muon_Con_Ve_V4_44s_1080x1920_Vbee.mp4'
+          git diff --cached --quiet || git commit -m 'assets(short05): archive validated V4 cinematic storyboard video with Vbee and piano'
+          git fetch origin feat/short05-v4-editorial-cinema
+          git rebase origin/feat/short05-v4-editorial-cinema
+          git push origin HEAD:feat/short05-v4-editorial-cinema
