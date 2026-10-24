@@ -1,0 +1,37 @@
+{
+  "duration_sec": 60.0,
+  "beats": [
+    {
+      "id": "hook", "phase": "HOOK", "start_sec": 0, "end_sec": 6,
+      "narration": "Một con tàu xuất hiện giữa rừng",
+      "expected_visible_action": "Con tàu hiện rõ giữa cây trước ánh đèn hải đăng",
+      "observable_evidence": "Thân tàu hiện trong khe rừng và được soi rõ",
+      "asset_ref": "assets/hook_01.mp4", "review_frame_ref": "qa/hook_01.jpg", "evidence_time_sec": 1.2,
+      "review_status": "pending"
+    },
+    {
+      "id": "body", "phase": "BODY", "start_sec": 6, "end_sec": 30,
+      "narration": "Người trên tàu giơ tay trước ông Lâm",
+      "expected_visible_action": "Bóng tàu giơ tay rồi ông Lâm mới giơ tay",
+      "observable_evidence": "Bàn tay bóng người ở cao trong khi tay Lâm vẫn hạ; Lâm nhìn theo",
+      "asset_ref": "assets/body_02.mp4", "review_frame_ref": "qa/body_02.jpg", "evidence_time_sec": 25,
+      "review_status": "pending"
+    },
+    {
+      "id": "climax", "phase": "CLIMAX", "start_sec": 30, "end_sec": 48,
+      "narration": "Nước biển dâng trong phòng đèn",
+      "expected_visible_action": "Nước tăng dần từ nền lên chân ông Lâm",
+      "observable_evidence": "Đường mực nước leo lên các bậc thang trong ít nhất hai khung hình",
+      "asset_ref": "assets/climax_03.mp4", "review_frame_ref": "qa/climax_03.jpg", "evidence_time_sec": 38,
+      "review_status": "pending"
+    },
+    {
+      "id": "ending", "phase": "PAYOFF", "start_sec": 48, "end_sec": 60,
+      "narration": "Hải đăng đã nằm dưới đáy biển ba mươi năm",
+      "expected_visible_action": "Góc máy rộng cho thấy ngọn hải đăng chìm dưới mặt biển",
+      "observable_evidence": "Hải đăng bị bao quanh bởi cột nước và thân tàu đắm ở xa",
+      "asset_ref": "assets/ending_04.mp4", "review_frame_ref": "qa/ending_04.jpg", "evidence_time_sec": 57,
+      "review_status": "pending"
+    }
+  ]
+}

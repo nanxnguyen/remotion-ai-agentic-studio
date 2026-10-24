@@ -1,8 +1,8 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "ray-phim-ke-chuyen",
-  "version": "0.2.8",
-  "description": "Ray Phim Kể Chuyện: smooth fade/crossfade cinematic Shorts with zero intentional shake/glitch, Vbee, captioned storyboard; Drive media and GitHub source (no Releases).",
+  "version": "0.2.9",
+  "description": "Ray Phim Kể Chuyện v0.2.9: 60s storytelling, visible-action evidence for each voice beat, cinematic fade and 2.5D, genuine Vbee, QA, Drive MP4 + GitHub source.",
   "author": {
     "name": "Ray"
   },
@@ -15,21 +15,27 @@
     "cinematic",
     "video-production",
     "preflight-qa",
-    "0-6s hook",
     "Google Drive",
-    "GitHub Releases",
-    "numbered Drive folders",
-    "YouTube thumbnails",
-    "YouTube descriptions",
-    "smooth cinematic motion",
+    "0-6s hook",
+    "Vbee Batch",
+    "numbered folders",
+    "YouTube thumbnail",
+    "YouTube title and description",
+    "smooth video motion",
     "2.5D parallax",
     "no freeze",
     "no jitter",
     "captioned storyboards",
-    "16-frame horror review",
-    "soft crossfade",
-    "fade only default",
-    "no glitch"
+    "Vietnamese cinematic typography",
+    "16-frame horror board",
+    "GitHub source only",
+    "Google Drive MP4",
+    "soft fade transitions",
+    "cinematic crossfade",
+    "no glitch",
+    "voice visual evidence QA",
+    "action-before-reaction",
+    "cinematic retention"
   ],
   "skills": "./skills"
 }
