@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "act": "HOOK",
+    "narration": "Có bao giờ bạn cố gắng rất nhiều… mà vẫn thấy mình đứng yên?"
+  },
+  {
+    "id": 2,
+    "act": "BODY",
+    "narration": "Bạn thức dậy, làm việc, giấu đi mệt mỏi. Có những ngày, chỉ cần không bỏ cuộc… đã là chiến thắng."
+  },
+  {
+    "id": 3,
+    "act": "CLIMAX",
+    "narration": "Hãy nhìn một cái cây. Trước khi vươn cao, nó phải âm thầm cắm rễ. Bạn cũng vậy! Những khó khăn hôm nay… đang giúp bạn mạnh mẽ hơn."
+  },
+  {
+    "id": 4,
+    "act": "REFLECTION",
+    "narration": "Vậy nên, đừng trách mình vì chưa tới đích. Có những sự trưởng thành… diễn ra trong im lặng."
+  }
+]
