@@ -81,8 +81,8 @@ def make_scene(s,i,source,source_duration):
     graph=(
       "[0:v]fps=60,scale=1280:720:force_original_aspect_ratio=increase,"
       f"crop=1280:720,{eq},setsar=1,format=yuv420p[film];"
-      "[1:v]format=rgba,fade=t=in:st=0:d=.45:alpha=1,"
-      f"fade=t=out:st={fade_out:.3f}:d=.23:alpha=1[title];"
+      "[1:v]format=rgba,fade=t=in:st=0:d=0.45:alpha=1,"
+      f"fade=t=out:st={fade_out:.3f}:d=0.23:alpha=1[title];"
       "[film][title]overlay=0:0:shortest=1,format=yuv420p[vo]"
     )
     out=WORK/f"shot_{s['shot']:02d}.mp4"
