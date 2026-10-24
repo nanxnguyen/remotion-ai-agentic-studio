@@ -12,7 +12,7 @@
 
 ## Gate A: Story lock BEFORE generating assets or voice
 
-- Story is **HOOK (0–3s) → BODY (3–30s) → CLIMAX (30–48s) → END/PAYOFF (48–60s)**. These are indicative windows, not license to mis-time spoken lines. Each scene MUST advance causal plot and show an observable change. Horror rule and stakes visible; twist explained by prior clue; ending resolves the immediate dramatic question, may create a new unsettling implication.
+- Story is **HOOK (0–6s) → BODY (6–30s) → CLIMAX (30–48s) → END/PAYOFF (48–60s)**. These are indicative windows, not license to mis-time spoken lines. Each scene MUST advance causal plot and show an observable change. Horror rule and stakes visible; twist explained by prior clue; ending resolves the immediate dramatic question, may create a new unsettling implication.
 - Produce script with exact final spoken Vietnamese dialogue, speaker, emotional intent, subtext, correct pronunciations and punctuation; remove repetitive exposition. Distinguish *narrator* from in-world character lines.
 - Provide a **voice-to-action shotlist**, not just a picture prompt. At minimum `phase`, `narration`, `speaker`, `start_sec`, `duration_sec`, `emotion`, `action`, `camera`, `caption_beats`, `motion`, `transition_in` per shot; key emotional/prop events include precise local `action_beats` times and matching `voice_cue`.
 - Break story into 9–12 usable vertical shots (or 20–28 micro-beats where acting requires); avoid forcing one static picture to carry several contradictory events. Production scope must fit actual available animation/generation tools.
@@ -52,7 +52,7 @@
 
 Before expensive full render, run `python3 scripts/preflight_story_video.py --timeline <shotlist.json> --max-seconds 60` (portable skill equivalent: `scripts/preflight_story_video.py`) and optional `--voice-manifest <measured-timeline.json> --asset-root <path> --check-assets`. **Exit 0 does NOT certify creativity/performance**; checklist remains mandatory. Correct all script/voice/art/timing errors before export; do NOT silently downgrade features.
 
-- Produce **low-res timed animatic with real voice**, include 0–3s hook, one BODY beat, full CLIMAX and END, then inspect in motion for emotional reactions, captions and pacing. Only after this, freeze picture and render final 60s MP4.
+- Produce **low-res timed animatic with real voice**, include 0–6s hook, one BODY beat, full CLIMAX and END, then inspect in motion for emotional reactions, captions and pacing. Only after this, freeze picture and render final 60s MP4.
 - Mandatory finished-video review: `ffprobe` video/audio, actual FPS, width/height, measured duration <= 60.000s (allow <= one frame tolerance for container rounding only if promised exactly 60), AAC sound, non-silent narration; first 3s, every speech scene, every transition, climax, final 5s; check cuts/flash/freeze, eye/hand consistency, typo/diacritics, subtitle ownership, peaks/no clipping, authentic provider ID, final payoff not truncated. Save QA evidence and limitations accurately.
 - Run repo's `npm run verify`, visual tests and `python3 -I scripts/pipeline.py audit <vid>` whenever operating as canonical Remotion video. If blocked, record actual failures in handoff, not 'pass'.
 - Render preview MP4 accessible in ChatGPT **before** claiming success. Archive verified MP4 into a **draft GitHub Release**, validate asset name, bytes, SHA-256 and real download URL; never fabricate a GitHub URL. If connector cannot upload binary, mark `archive_pending` and provide real chat MP4 link only.
@@ -61,3 +61,7 @@ Before expensive full render, run `python3 scripts/preflight_story_video.py --ti
 ## Non-negotiable minimum scorecard
 
 Creative: hook / clear story / stakes / earned payoff. Acting: visible emotion and causal motion. Audio: Vbee source real, dramatic rhythm, clean/dialogue distinction, no clipping. Visual: character continuity, no text baked into generated backgrounds. Type: legible, cinematic, phrase-synced Vietnamese. Edit: motivated smooth transitions and SFX frame-synced. Delivery: MP4 playback verified + accurate GitHub state. **Any critical fail blocks FINAL label.** No numeric scores or 'pass' unless actual evidence is present.
+
+### Updated 2026-10-24: 0–6s hook preflight
+
+For a 60s film, verify HOOK 0–6s with 0–2s anomaly, 2–4s actor reaction, 4–6s threat; BODY 6–30s, CLIMAX 30–48s, PAYOFF 48–60s. The early 0–2s stopping image still matters. Run all other tests as before.
