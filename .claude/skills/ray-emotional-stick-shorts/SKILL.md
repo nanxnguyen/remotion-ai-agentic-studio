@@ -7,9 +7,9 @@ description: Produce emotionally expressive Vietnamese stick-figure Shorts with 
 
 Specialization of [ray-video-10-phut](../ray-video-10-phut/SKILL.md). Preserve canonical `ray-pineline-worflow-agent` and repo gates; do not invent approvals or bypass pipeline. This skill specializes **30–45s, 9:16** films with approximately **12–20 purposefully distinct shots**. Reference aesthetic: approved V5 "Hai phần ăn, một người": white expressive stick figures, nearly black background, restrained amber accents, deeply emotional narration and piano.
 
-## Universal Shorts retention rule (all topics)
+## Mandatory YouTube Shorts + TikTok retention rule (every video, every subject)
 
-Before storyboarding or producing **any** video, read [`docs/SHORTS_RETENTION_PLAYBOOK.md`](../../../docs/SHORTS_RETENTION_PLAYBOOK.md). Apply its three-hook comparison, instantly legible 0–2s opener, 4–6s three-beat hook, meaningful escalation, earned emotional turn, and concise visual payoff. This creator requirement applies across subjects and all future chats/agents; view counts are never guaranteed. Preserve the existing 30–45s duration and canonical production gates.
+Before writing, storyboarding or producing **any** film, read [`docs/SHORTS_RETENTION_PLAYBOOK.md`](../../../docs/SHORTS_RETENTION_PLAYBOOK.md). Every script must follow the owner's YouTube Shorts **and TikTok** high-retention creative formula: compare three hook options; show a clear reason to stop scrolling at 0–2s; complete the curiosity/reaction sequence by 4–6s; add new visual story information every ~3–6s; build a motivated climax, then end on one concise emotional visual payoff. Prepare platform-native cover/title/caption and mobile-safe text when requested. Preserve the existing 30–45s duration, Vbee audio rules and canonical production gates. This is mandatory creative direction, **not a guarantee of millions of views**.
 
 ## Rules
 
