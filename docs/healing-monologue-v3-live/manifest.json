@@ -1,0 +1,282 @@
+{
+  "project": "Lớn Rồi, Không Cần Làm Vừa Lòng Tất Cả Nữa",
+  "version": "V3-real-life-montage",
+  "duration": 92,
+  "fpsExport": 60,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "sourcePolicy": "Live-action Pexels clips, no AI stills, not a single-actor narrative; genuine source FPS recorded per clip",
+  "voice": {
+    "provider": "Vbee",
+    "voiceCode": "hn_male_thanhlong_talk_48k-fhg",
+    "status": "requires configured account secrets",
+    "beats": [
+      {
+        "start": 0,
+        "end": 9,
+        "text": "Có một giai đoạn trong đời… bạn kiệt sức không phải vì làm quá nhiều. Mà vì… cố gắng làm vừa lòng quá nhiều người."
+      },
+      {
+        "start": 9,
+        "end": 17,
+        "text": "Bạn sợ người khác buồn. Sợ bị đánh giá. Sợ một ánh nhìn lạnh đi… hay một câu nói trách móc."
+      },
+      {
+        "start": 17,
+        "end": 31,
+        "text": "Nên bạn quen gật đầu. Quen nhận hết phần khó về mình. Quen im lặng khi bản thân đang tổn thương. Quen nói không sao… kể cả khi trong lòng đã chẳng ổn chút nào."
+      },
+      {
+        "start": 31,
+        "end": 45,
+        "text": "Bạn sống tử tế với tất cả mọi người… nhưng lại quá nghiêm khắc với chính mình. Bạn cố trở thành phiên bản mà ai cũng thấy dễ chịu… rồi dần dần quên mất phiên bản nào mới là mình thật sự."
+      },
+      {
+        "start": 45,
+        "end": 58,
+        "text": "Cho đến một ngày… bạn mệt. Mệt vì phải gồng. Mệt vì phải hiểu cho tất cả… trong khi chẳng mấy ai thật sự hiểu cho bạn."
+      },
+      {
+        "start": 58,
+        "end": 71,
+        "text": "Và rồi bạn nhận ra… càng sống chỉ để được yêu quý, bạn càng rời xa bình yên. Vì bình yên chưa từng đến từ việc ai cũng hài lòng về bạn."
+      },
+      {
+        "start": 71,
+        "end": 83,
+        "text": "Bình yên đến từ lúc bạn thôi ép mình phải hoàn hảo. Thôi xin lỗi vì những ranh giới cần có. Thôi làm đau mình chỉ để giữ một mối quan hệ nào đó."
+      },
+      {
+        "start": 83,
+        "end": 92,
+        "text": "Lớn rồi… không cần làm vừa lòng tất cả nữa. Chỉ cần sống đúng với lòng mình. Và đừng… bỏ rơi chính mình."
+      }
+    ]
+  },
+  "clips": [
+    {
+      "id": 7882757,
+      "credit": "RDNE Stock project",
+      "link": "https://www.pexels.com/video/woman-is-working-with-paperwork-7882757/"
+    },
+    {
+      "id": 8547458,
+      "credit": "Kaboompics",
+      "link": "https://www.pexels.com/video/a-close-up-of-a-bored-woman-in-an-office-8547458/"
+    },
+    {
+      "id": 4361977,
+      "credit": "Mikael Blomkvist",
+      "link": "https://www.pexels.com/video/a-woman-on-a-phone-call-doing-work-4361977/"
+    },
+    {
+      "id": 7882744,
+      "credit": "RDNE Stock project",
+      "link": "https://www.pexels.com/video/elegant-businesswoman-at-work-7882744/"
+    },
+    {
+      "id": 8632769,
+      "credit": "Kampus Production",
+      "link": "https://www.pexels.com/video/a-woman-looking-tired-and-burnout-while-working-8632769/"
+    },
+    {
+      "id": 4052996,
+      "credit": "KATRIN BOLOVTSOVA",
+      "link": "https://www.pexels.com/video/a-woman-typing-on-a-laptop-4052996/"
+    },
+    {
+      "id": 5683796,
+      "credit": "Tima Miroshnichenko",
+      "link": "https://www.pexels.com/video/woman-working-late-on-the-office-5683796/"
+    },
+    {
+      "id": 4426378,
+      "credit": "Edmond Dantès",
+      "link": "https://www.pexels.com/video/woman-laptop-office-working-4426378/"
+    },
+    {
+      "id": 5114836,
+      "credit": "ArtHouse Studio",
+      "link": "https://www.pexels.com/video/woman-looking-outside-of-a-window-on-a-rainy-day-5114836/"
+    },
+    {
+      "id": 12690703,
+      "credit": "Anna Shvets",
+      "link": "https://www.pexels.com/video/a-young-woman-using-a-laptop-at-an-outdoor-cafe-12690703/"
+    },
+    {
+      "id": 19232155,
+      "credit": "Atif Dar",
+      "link": "https://www.pexels.com/video/a-woman-walking-on-a-bridge-with-a-city-in-the-background-19232155/"
+    },
+    {
+      "id": 7592909,
+      "credit": "ROMAN ODINTSOV",
+      "link": "https://www.pexels.com/video/a-woman-pouring-tea-7592909/"
+    },
+    {
+      "id": 4053004,
+      "credit": "KATRIN BOLOVTSOVA",
+      "link": "https://www.pexels.com/video/a-woman-working-on-her-laptop-while-drinking-coffee-4053004/"
+    },
+    {
+      "id": 5940883,
+      "credit": "Maksim Goncharenok",
+      "link": "https://www.pexels.com/video/back-view-young-woman-and-man-walking-in-park-5940883/"
+    }
+  ],
+  "shots": [
+    {
+      "index": 1,
+      "start": 0,
+      "end": 4,
+      "source": 7882757,
+      "headline": "MỘT NGÀY NÀO ĐÓ",
+      "subtitle": "Bạn đã quá mệt"
+    },
+    {
+      "index": 2,
+      "start": 4,
+      "end": 8,
+      "source": 8547458,
+      "headline": "KIỆT SỨC",
+      "subtitle": "Vì cố làm vừa lòng tất cả"
+    },
+    {
+      "index": 3,
+      "start": 8,
+      "end": 12,
+      "source": 4361977,
+      "headline": "NHỮNG CUỘC GỌI",
+      "subtitle": "Không bao giờ ngừng"
+    },
+    {
+      "index": 4,
+      "start": 12,
+      "end": 17,
+      "source": 7882744,
+      "headline": "BẠN VẪN MỈM CƯỜI",
+      "subtitle": "Dù trong lòng nặng trĩu"
+    },
+    {
+      "index": 5,
+      "start": 17,
+      "end": 22,
+      "source": 7882757,
+      "headline": "LUÔN NÓI ĐỒNG Ý",
+      "subtitle": "Dù đã quá sức"
+    },
+    {
+      "index": 6,
+      "start": 22,
+      "end": 27,
+      "source": 8632769,
+      "headline": "THẬT RA…",
+      "subtitle": "Bạn cũng biết đau"
+    },
+    {
+      "index": 7,
+      "start": 27,
+      "end": 31,
+      "source": 4052996,
+      "headline": "MÌNH ỔN MÀ…",
+      "subtitle": "Câu nói quen thuộc"
+    },
+    {
+      "index": 8,
+      "start": 31,
+      "end": 36,
+      "source": 5683796,
+      "headline": "TỬ TẾ VỚI MỌI NGƯỜI",
+      "subtitle": "Khắt khe với chính mình"
+    },
+    {
+      "index": 9,
+      "start": 36,
+      "end": 40,
+      "source": 4426378,
+      "headline": "KHÔNG SAO ĐÂU",
+      "subtitle": "Dù chẳng ổn chút nào"
+    },
+    {
+      "index": 10,
+      "start": 40,
+      "end": 45,
+      "source": 5114836,
+      "headline": "BẠN CÒN NHỚ MÌNH?",
+      "subtitle": "Lúc chưa phải gồng lên"
+    },
+    {
+      "index": 11,
+      "start": 45,
+      "end": 50,
+      "source": 8632769,
+      "headline": "BẠN MỆT.",
+      "subtitle": "Và điều đó thật bình thường"
+    },
+    {
+      "index": 12,
+      "start": 50,
+      "end": 58,
+      "source": 5114836,
+      "headline": "ĐÃ BAO LÂU RỒI",
+      "subtitle": "Bạn không được nghỉ ngơi?"
+    },
+    {
+      "index": 13,
+      "start": 58,
+      "end": 64,
+      "source": 12690703,
+      "headline": "BẮT ĐẦU LẠI",
+      "subtitle": "Từ một lời từ chối"
+    },
+    {
+      "index": 14,
+      "start": 64,
+      "end": 71,
+      "source": 19232155,
+      "headline": "KHÔNG CẦN AI CŨNG THÍCH",
+      "subtitle": "Bạn vẫn có giá trị"
+    },
+    {
+      "index": 15,
+      "start": 71,
+      "end": 76,
+      "source": 7592909,
+      "headline": "CHĂM SÓC MÌNH",
+      "subtitle": "Bắt đầu từ những điều nhỏ"
+    },
+    {
+      "index": 16,
+      "start": 76,
+      "end": 82,
+      "source": 4053004,
+      "headline": "CHO PHÉP NGHỈ NGƠI",
+      "subtitle": "Không cần hoàn hảo"
+    },
+    {
+      "index": 17,
+      "start": 82,
+      "end": 88,
+      "source": 5940883,
+      "headline": "GIỮ RANH GIỚI",
+      "subtitle": "Không có nghĩa là ích kỷ"
+    },
+    {
+      "index": 18,
+      "start": 88,
+      "end": 92,
+      "source": 19232155,
+      "headline": "ĐỪNG BỎ RƠI",
+      "subtitle": "CHÍNH MÌNH."
+    }
+  ],
+  "constraints": {
+    "noContactSheetAsVideo": true,
+    "noInventedNative60fps": true,
+    "noYouTubePublish": true,
+    "releaseState": "preview pending visual review"
+  }
+}
