@@ -1,0 +1,103 @@
+name: Healing Podcast V3 — Real Footage + Vbee + Remotion
+on:
+  push:
+    branches: [feat/healing-v3-live-action-6m30]
+    paths:
+      - '.github/workflows/healing-v3-real-footage.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: healing-v3-real-footage
+  cancel-in-progress: false
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 155
+    env:
+      VBEE_APP_ID: ${{ secrets.VBEE_APP_ID }}
+      VBEE_ACCESS_TOKEN: ${{ secrets.VBEE_ACCESS_TOKEN }}
+      VBEE_WEBHOOK_URL: https://iehmucsshklgjmxqyggp.supabase.co/functions/v1/vbee-batch-callback
+      HEALING_V3_WORK: /tmp/healing-v3
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feat/healing-v3-live-action-6m30
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install codecs and image/font dependencies
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg fonts-dejavu-core fonts-noto-core curl
+          python3 -m pip install --disable-pip-version-check numpy pillow
+          npm ci --no-audit --no-fund
+          npm install --no-save --ignore-scripts --no-audit --no-fund @fontsource/be-vietnam-pro
+      - name: Validate story 390 seconds and assets
+        run: |
+          set -euo pipefail
+          python3 docs/healing-v3/render_v3.py validate
+          python3 -m py_compile docs/healing-v3/render_v3.py
+          test -n "$VBEE_APP_ID" && test -n "$VBEE_ACCESS_TOKEN"
+      - name: Download original stock footage and verify media
+        run: |
+          set -euo pipefail
+          python3 docs/healing-v3/render_v3.py download
+      - name: Render 52 genuine footage shots with restrained crossfades
+        run: |
+          set -euo pipefail
+          python3 docs/healing-v3/render_v3.py picture
+          df -h /tmp
+      - name: Produce original cinematic piano
+        run: |
+          set -euo pipefail
+          python3 docs/healing-v3/render_v3.py piano
+      - name: Generate 26 narrated segments with real Vbee Thanh Long
+        run: |
+          set -euo pipefail
+          python3 docs/healing-v3/render_v3.py vbee_segments
+      - name: Mix natural-speech Vbee and piano with finished live-action edit
+        run: |
+          set -euo pipefail
+          python3 docs/healing-v3/render_v3.py mix
+          python3 docs/healing-v3/render_v3.py qa
+          mkdir -p public/healing-v3
+          cp /tmp/healing-v3/stock-film-with-real-vbee.mp4 public/healing-v3/master-stock-with-vbee.mp4
+      - name: Apply cinematic Be Vietnam Pro typography in Remotion
+        run: |
+          set -euo pipefail
+          mkdir -p docs/healing-v3/final
+          npx remotion render src/healing-v3/index.ts HealingV3 docs/healing-v3/final/Cinematic-Healing-Podcast-V3-6m30-REAL-FOOTAGE.mp4 \
+            --codec h264 --crf 25 --concurrency 2 --log error --overwrite
+      - name: Verify actual MP4, Vbee voice and no false native 60fps claim
+        run: |
+          set -euo pipefail
+          python3 docs/healing-v3/render_v3.py qa docs/healing-v3/final/Cinematic-Healing-Podcast-V3-6m30-REAL-FOOTAGE.mp4
+          cp /tmp/healing-v3/QA.json docs/healing-v3/final/QA.json
+          ffprobe -v error -show_entries format=duration,size:stream=codec_type,codec_name,width,height,avg_frame_rate \
+            -of json docs/healing-v3/final/Cinematic-Healing-Podcast-V3-6m30-REAL-FOOTAGE.mp4
+      - name: Archive on GitHub as a DRAFT preview — never publish YouTube
+        run: |
+          set -euo pipefail
+          target=docs/healing-v3/final/Cinematic-Healing-Podcast-V3-6m30-REAL-FOOTAGE.mp4
+          gh release create healing-v3-2026-10-25-review "$target" docs/healing-v3/final/QA.json \
+            --repo "$GITHUB_REPOSITORY" --target feat/healing-v3-live-action-6m30 \
+            --title 'Cinematic Healing Podcast V3 — 6m30 Review (Not Final)' \
+            --notes 'Real stock motion in 16:9; actual source clips use mixed FPS, exported 30fps; narration Vbee Thanh Long; Be Vietnam Pro Remotion typography. Multiple stock actors; not single-actress continuity. Needs human editorial review. YouTube NOT published.' \
+            --draft
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: healing-v3-real-footage-6m30-review
+          path: |
+            docs/healing-v3/final/
+            /tmp/healing-v3/QA.json
+          retention-days: 14
+          if-no-files-found: ignore
