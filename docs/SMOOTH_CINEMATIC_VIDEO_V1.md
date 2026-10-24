@@ -16,3 +16,12 @@
 
 If any older user-specific requirement in this plugin says `FULL ACTOR MOTION REQUIRED` or `motion-video credits blocked`, this newer policy overrides it, while honest technical characterization remains mandatory.
 
+
+
+## SOFT_FADE_TRANSITIONS_ONLY_V1 — latest mandatory user preference (2026-10-25)
+
+**Default all film-to-film scene transitions to gentle smooth FADES/CROSSFADE**, not shake/jitter/glitch/flash/whip/abrupt zoom. Prefer a natural overlap of **0.35–0.55 seconds** with continuous subpixel camera easing and stable image motion, without still-frame pauses or harsh luminance spikes. Longer 0.6–0.8s fades may be used for deliberate dream/memory passage, provided beats/voice remain in sync. Do **not** deliberately introduce shake, violent camera impacts, glitch bursts, strobing red flashes or split-second speed ramps to 'add horror'. Cinematic tension comes from character/story framing, voice, ambient SFX, atmospheric light and silence.
+
+For film production, preserve total story duration (Shorts <=60s) while giving fades actual overlapping source handles; avoid naive concatenation that makes videos shorter or clips freeze at transitions. Ease start/end movement, render true subpixel transforms, and **watch the actual MP4** at every boundary with audio. Verify no single-frame pops, black flashes, duplicate frames, caption/text ghosting or music-voice mismatch. Manual cinematic hard cuts are allowed **only if explicitly requested for a specific story beat**; otherwise fade/crossfade is the default.
+
+This is a **newer user preference that overrides older suggestions for random hard cuts, CCTV glitches, flash cuts or shaky jump-scares**. Continue using original story-specific 2D/2.5D assets, correct Vietnamese cinematic captions (no timecodes), measured genuine Vbee, Drive media storage and GitHub source/QA documentation (no Releases).
