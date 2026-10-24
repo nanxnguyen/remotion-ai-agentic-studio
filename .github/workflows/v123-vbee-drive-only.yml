@@ -1,0 +1,36 @@
+name: V12.3 Real Vbee Voice - Drive only
+on:
+  push:
+    branches: [feat/v123-drive-only-optimized-short]
+    paths: [.github/workflows/v123-vbee-drive-only.yml]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  voice:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      VBEE_ACCESS_TOKEN: ${{ secrets.VBEE_ACCESS_TOKEN || secrets.VBEE_TOKEN || secrets.VBEE_API_KEY || secrets.VBEE_API_TOKEN }}
+      VBEE_APP_ID: ${{ secrets.VBEE_APP_ID || secrets.VBEE_APPID || secrets.VBEE_APPLICATION_ID }}
+      VBEE_WEBHOOK_URL: ${{ vars.VBEE_WEBHOOK_URL || 'https://example.com/v123-voice' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Render four new Vbee Ngoc Huyen acts
+        run: |
+          test -n "$VBEE_ACCESS_TOKEN" && test -n "$VBEE_APP_ID"
+          python scripts/gen-story-vbee-batch.py \
+            --timeline docs/retro-tv-v12-3/narration.json \
+            --out-dir public/audio/v123-ngoc-huyen \
+            --voice-code hn_female_ngochuyen_full_48k-fhg \
+            --speed 1.12 \
+            --webhook-url "$VBEE_WEBHOOK_URL"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: v123-real-vbee-ngoc-huyen-audio
+          path: public/audio/v123-ngoc-huyen/
+          retention-days: 7
+          if-no-files-found: error
