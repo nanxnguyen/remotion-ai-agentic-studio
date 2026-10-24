@@ -1,0 +1,6 @@
+interface:
+  display_name: "Ray Emotional Stick Shorts"
+  short_description: "Kịch bản người que cinematic, hook 3–5 giây"
+  default_prompt: "Viết và tự review kịch bản YouTube Shorts chữa lành người que 40–45 giây, hook 3–5 giây, 10 cảnh, Vbee Thanh Long, kèm frame preview."
+policy:
+  allow_implicit_invocation: true

@@ -75,3 +75,7 @@ For every NEW_FILM and revised story video:
 7. Keep Google Drive files private by default and GitHub Releases in **draft**. Never broaden Drive sharing, publish a Release or publish on YouTube without separate authorization.
 
 **This latest requirement supersedes the earlier preference to report only Google Drive links.** Both destinations remain mandatory, and **both links** are required in the routine report once actually verified.
+
+## Universal YouTube Shorts storytelling standard (all topics; updated 2026-10-24)
+
+For **EVERY new or revised YouTube Short**, regardless of topic (family, healing, horror, educational, product, news), read and follow [`docs/standards/youtube-shorts-retention-universal.md`](docs/standards/youtube-shorts-retention-universal.md) **before** writing the script or rendering. The universal retention contract requires a first-frame hook, three candidate hook mechanisms, early stakes, meaningful escalation and re-hook, earned climax, satisfying ending, Vbee-measured narration where configured, actor/world consistency, smooth motion and observable QA; do not pad scenes or claim guaranteed views. This creative preflight complements the existing pipeline and **never replaces canonical gates, voice-provider policy or archive rules**. New chats and agents should read the linked file directly rather than relying on conversation-specific memory.
