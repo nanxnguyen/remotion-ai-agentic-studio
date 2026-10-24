@@ -54,3 +54,8 @@ Gate: verify input audio exists and is Vbee-originated; measure duration and ali
 ## Hard duration gate: YouTube Shorts
 
 All new Shorts must have a final, measured duration between **30.00 and 45.00 seconds** inclusive unless the user explicitly overrides it. Aim **37–41s** with a complete emotional arc, not stretched silence or arbitrary slow-motion; write enough authentic narration and distinct intentional acting beats to justify the duration. Validate with `ffprobe` on the exact final MP4 and block release if out of range. This applies to Vbee, piano, vidIQ delivery and GitHub archiving. YouTube has no guarantee of view count or mandatory optimal length: this is the creator's production requirement.
+
+
+## Required Google Drive handoff package for EVERY final video
+
+**Mandatory**: Before reporting that a Ray Emotional Stick Shorts video is fully delivered, follow [`docs/video-shorts-drive-archive-policy.md`](../../../docs/video-shorts-drive-archive-policy.md) from this repository. Always use actual Drive root folder ID `1rtJF9zDWuFZ8_6IixdMew3WCZj8415-D` (`Videos-shorts`), enumerate existing numbered folders before assigning the next `N`, and create/reuse a folder `<N>. <video title> - <YYYY-MM-DD>` (Vietnam production date). Upload **three required real artifacts** there: `video-final.mp4` with verified Vbee narration/music/subtitles, eye-catching mobile-optimized `thumbnail-youtube.png`, and UTF-8 `youtube-title-description.txt` with a compelling truthful YouTube title/description. Check returned metadata (size, parent, URL) for each file. Without all three, clearly report `INCOMPLETE` instead of saying archived. Do not publish to YouTube without explicit instruction. Keep earlier GitHub Release and vidIQ requirements intact.
