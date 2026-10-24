@@ -1,0 +1,64 @@
+name: Short03 - Memory Film + POV 9x16
+on:
+  push:
+    branches: [feat/short03-memory-film-pov]
+    paths:
+      - '.github/workflows/short03-memory-film-pov.yml'
+      - 'docs/short-03-buc-anh-khong-co-me-podcast/memory-film/memory_film.py'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: short03-memory-film
+  cancel-in-progress: false
+jobs:
+  film:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: feat/short03-memory-film-pov
+          persist-credentials: true
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+      - name: Install media processing dependencies
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg fonts-dejavu-core curl
+          python3 -m pip install --disable-pip-version-check pillow numpy
+      - name: Preflight source soundtrack and style skill
+        run: |
+          set -euo pipefail
+          test -s .claude/skills/ray-emotional-stick-shorts/SKILL.md
+          test -s docs/short-03-buc-anh-khong-co-me-podcast/final/short03-me-trong-anh-podcast-full-vbee.mp4
+          python3 -m py_compile docs/short-03-buc-anh-khong-co-me-podcast/memory-film/memory_film.py
+          ffprobe -v error -show_entries format=duration -of json docs/short-03-buc-anh-khong-co-me-podcast/final/short03-me-trong-anh-podcast-full-vbee.mp4
+      - name: Render stock-footage POV and memory film with original Vbee voice and piano
+        run: |
+          set -euo pipefail
+          python3 docs/short-03-buc-anh-khong-co-me-podcast/memory-film/memory_film.py
+      - name: Preserve MP4 and verification files
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add docs/short-03-buc-anh-khong-co-me-podcast/memory-film/final/ \
+                  docs/short-03-buc-anh-khong-co-me-podcast/memory-film/contact-sheet.jpg \
+                  docs/short-03-buc-anh-khong-co-me-podcast/memory-film/final-QA.json
+          git diff --cached --quiet || git commit -m 'assets(short03): archive Memory Film POV with preserved full Vbee narration'
+          git fetch origin feat/short03-memory-film-pov
+          git rebase origin/feat/short03-memory-film-pov
+          git push origin HEAD:feat/short03-memory-film-pov
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: short03-memory-film-pov-preview
+          path: |
+            docs/short-03-buc-anh-khong-co-me-podcast/memory-film/final/
+            docs/short-03-buc-anh-khong-co-me-podcast/memory-film/final-QA.json
+            docs/short-03-buc-anh-khong-co-me-podcast/memory-film/contact-sheet.jpg
+          retention-days: 14
+          if-no-files-found: ignore
