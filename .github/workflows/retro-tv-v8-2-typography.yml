@@ -1,0 +1,28 @@
+name: V8.2 — Cinematic Be Vietnam Pro Captions
+on:
+  push:
+    branches: [feat/retro-tv-v8-2-cinematic-35s]
+    paths: [.github/workflows/retro-tv-v8-2-typography.yml]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  typography:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install Pillow
+      - name: Fetch Open Font Licensed Be Vietnam Pro for rendering only
+        run: curl -fsSL --retry 3 https://raw.githubusercontent.com/google/fonts/main/ofl/bevietnampro/BeVietnamPro-ExtraBold.ttf -o /tmp/BeVietnamPro-ExtraBold.ttf
+      - name: Rasterize 27 beat pairs from approved V8.2 shotlist
+        run: python scripts/retro-tv-v8-2-captions.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: retro-tv-v8-2-be-vietnam-pro-27-beats
+          path: caption-v8-2/
+          retention-days: 21
+          if-no-files-found: error
