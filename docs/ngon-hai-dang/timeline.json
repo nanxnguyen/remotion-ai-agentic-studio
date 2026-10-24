@@ -1,0 +1,82 @@
+[
+  {
+    "id": 1,
+    "start_sec": 0,
+    "duration_sec": 6,
+    "visual_start_seconds": 0,
+    "narration": "Đêm nay, hải đăng soi vào rừng… và hiện ra một con tàu!",
+    "phase": "HOOK"
+  },
+  {
+    "id": 2,
+    "start_sec": 6,
+    "duration_sec": 6,
+    "visual_start_seconds": 6,
+    "narration": "Ông Lâm chết lặng. Đó là con tàu mất tích ba mươi năm trước.",
+    "phase": "BODY"
+  },
+  {
+    "id": 3,
+    "start_sec": 12,
+    "duration_sec": 6,
+    "visual_start_seconds": 12,
+    "narration": "Trong bức ảnh cũ… ông từng đứng trên boong tàu ấy.",
+    "phase": "BODY"
+  },
+  {
+    "id": 4,
+    "start_sec": 18,
+    "duration_sec": 6,
+    "visual_start_seconds": 18,
+    "narration": "Tiếng còi rền vang. Một bóng người đứng trên tàu vẫy ông.",
+    "phase": "BODY"
+  },
+  {
+    "id": 5,
+    "start_sec": 24,
+    "duration_sec": 6,
+    "visual_start_seconds": 24,
+    "narration": "Ông thử giơ tay… bóng người kia cũng giơ tay theo.",
+    "phase": "BODY"
+  },
+  {
+    "id": 6,
+    "start_sec": 30,
+    "duration_sec": 6,
+    "visual_start_seconds": 30,
+    "narration": "Ông lao xuống cầu thang, nhưng mở cửa… vẫn là phòng đèn!",
+    "phase": "CLIMAX"
+  },
+  {
+    "id": 7,
+    "start_sec": 36,
+    "duration_sec": 6,
+    "visual_start_seconds": 36,
+    "narration": "Tiếng sóng đập sát kính, dù ngoài kia rõ ràng là rừng.",
+    "phase": "CLIMAX"
+  },
+  {
+    "id": 8,
+    "start_sec": 42,
+    "duration_sec": 6,
+    "visual_start_seconds": 42,
+    "narration": "Ông quay đèn trở lại. Ánh sáng rọi thẳng lên boong tàu.",
+    "phase": "CLIMAX"
+  },
+  {
+    "id": 9,
+    "start_sec": 48,
+    "duration_sec": 6,
+    "visual_start_seconds": 48,
+    "narration": "Người đang vẫy tay… chính là ông Lâm của ba mươi năm trước!",
+    "phase": "ENDING"
+  },
+  {
+    "id": 10,
+    "start_sec": 54,
+    "duration_sec": 6,
+    "visual_start_seconds": 54,
+    "narration": "Rừng cây chìm xuống nước đen. Ngọn hải đăng… đã chìm từ lâu.",
+    "phase": "ENDING"
+  }
+]
