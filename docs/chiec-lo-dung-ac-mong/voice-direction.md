@@ -8,8 +8,8 @@
 
 | Shot | Intent and pitch | Emphasis | Planned musical space |
 |---|---|---|---|
-| S01 | Nam, trầm thấp, nhỏ nhưng rõ. Nhấn 'ba giờ sáng', cuối câu hạ xuống. | Ba giờ sáng. Có thứ gì đó dưới gầm giường Nam. | Tiếng tích tắc + sàn gỗ kẽo kẹt rất khẽ |
-| S02 | Trầm bí ẩn, tăng căng ở 'móng vuốt'; ngắt rõ trước 'nhưng', hạ giọng ở 'không chạm'. | Nó vươn móng vuốt... nhưng không chạm vào cậu. | Ngưng tích tắc 0.2s, tiếng thở khẽ |
+| S01 | Nam, trầm thấp, nhỏ nhưng rõ. Nhấn 'ba giờ sáng', cuối câu hạ xuống. | Ba giờ sáng... Có gì dưới gầm giường? | Tiếng tích tắc + sàn gỗ kẽo kẹt rất khẽ |
+| S02 | Trầm bí ẩn, tăng căng ở 'móng vuốt'; ngắt rõ trước 'nhưng', hạ giọng ở 'không chạm'. | Móng vuốt gần Nam... rồi dừng lại. | Ngưng tích tắc 0.2s, tiếng thở khẽ |
 | S03 | Tò mò chuyển sang xót xa, giọng trầm vừa; nhấn 'khói đen' và 'giấc mơ'. | Nó kéo khói đen ra khỏi giấc mơ của Nam. | Sợi khói kéo căng / bụp rất nhỏ khi chạm tia sáng |
 | S04 | Trầm ấm hơn, kéo nhẹ ở 'ác mộng', không thì thầm giả. | Rồi nhốt từng cơn ác mộng vào chiếc lọ. | Vút nhỏ + tiếng nút lọ 'cạch' |
 | S05 | Giọng trung trầm, xót xa, chậm hơn ở 'ngày càng mệt'. | Đêm nào cũng vậy. Đôi mắt nó ngày càng mệt. | 3 nhịp âm kim loại nhẹ theo chuyển đêm |
@@ -21,6 +21,6 @@
 | S11 | Nâng nhẹ ở 'bật đèn', rơi xuống ấm và dịu ở 'ôm chặt'. | Nam tỉnh giấc, bật đèn... rồi ôm chặt lấy nó. | Click bật đèn, tiếng khói tan nhẹ, piano chuyển hợp âm ấm |
 | S12 | Trầm ấm, thấp và dịu; ngắt bằng audio edit trước 'cũng được bảo vệ'; để 0.7–1.1s hậu âm. | Ác mộng tan biến. Đêm ấy, người bảo vệ Nam... cũng được bảo  | Hai nốt piano sáng, hơi thở đều, fade êm |
 
-**Timing:** 120 space-separated syllables, estimated ~29.3s at 4.1 syllables/s; video target 45.0s with 15.7s action/silence/hold allocation, only a planning estimate. Real audio lengths and emotional pauses may alter scene allocations. Any line over budget must be shortened/reallocated; never accelerate TTS excessively or cut sentence tails. Planned silences: after S02, S06, S10 and ~1s of hold after final phrase.
+**Timing:** 115 space-separated syllables, estimated ~28.0s at 4.1 syllables/s; video target 45.0s with 17.0s action/silence/hold allocation, only a planning estimate. Real audio lengths and emotional pauses may alter scene allocations. Any line over budget must be shortened/reallocated; never accelerate TTS excessively or cut sentence tails. Planned silences: after S02, S06, S10 and ~1s of hold after final phrase.
 
 **Tone probe:** not run (runner/environment unavailable in this storyboard-only step); should be run before Gate A final approval.
