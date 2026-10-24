@@ -1,0 +1,108 @@
+name: Healing Monologue V3 - Real Film 60fps
+on:
+  push:
+    branches: [feat/healing-monologue-real-footage-60fps]
+    paths:
+      - .github/workflows/healing-monologue-real-60fps.yml
+      - docs/healing-monologue-real-footage-60fps/story.json
+      - docs/healing-monologue-real-footage-60fps/render_real_life.py
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: healing60-realfootage
+  cancel-in-progress: false
+
+jobs:
+  produce-preview:
+    runs-on: ubuntu-latest
+    timeout-minutes: 75
+    env:
+      VBEE_APP_ID: ${{ secrets.VBEE_APP_ID }}
+      VBEE_ACCESS_TOKEN: ${{ secrets.VBEE_ACCESS_TOKEN }}
+      VBEE_WEBHOOK_URL: https://iehmucsshklgjmxqyggp.supabase.co/functions/v1/vbee-batch-callback
+    steps:
+      - name: Source checkout
+        uses: actions/checkout@v4
+        with:
+          ref: feat/healing-monologue-real-footage-60fps
+      - name: Python runtime
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: FFmpeg and voice editing tools
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg curl fonts-dejavu-core
+          python3 -m pip install --disable-pip-version-check numpy
+          python3 -m py_compile docs/healing-monologue-real-footage-60fps/render_real_life.py
+      - name: Verify source constraints and Vbee credentials
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -n "$VBEE_APP_ID" || { echo "::error::Missing VBEE_APP_ID secret"; exit 1; }
+          test -n "$VBEE_ACCESS_TOKEN" || { echo "::error::Missing VBEE_ACCESS_TOKEN secret"; exit 1; }
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('docs/healing-monologue-real-footage-60fps/story.json')
+          m=json.loads(p.read_text(encoding='utf-8'))
+          assert m['fps']==60 and m['durationSeconds']==92 and len(m['frames'])==18
+          assert len(m['voice']['segments'])==8
+          assert sum(x['end']-x['start'] for x in m['frames'])==92
+          for i,s in enumerate(m['frames']):
+              assert i==0 or s['start']==m['frames'][i-1]['end']
+          print('Scene/timeline spec and Vbee configuration verified')
+          PY
+      - name: Download and edit real licensed Pexels footage at 60fps
+        run: |
+          set -euo pipefail
+          python3 docs/healing-monologue-real-footage-60fps/render_real_life.py video
+      - name: Generate eight real Vbee Thanh Long voice beats
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          m=json.loads(Path('docs/healing-monologue-real-footage-60fps/story.json').read_text(encoding='utf-8'))
+          for i,s in enumerate(m['voice']['segments']):
+              Path(f'/tmp/healing60/beat{i}.txt').write_text(s['text'],encoding='utf-8')
+          PY
+          for i in {0..7}; do
+            python3 docs/short-01-nho-phien-ban-duoc-yeu/voice/vbee_batch_tts.py \
+              --text-file "/tmp/healing60/beat$i.txt" \
+              --voice-code hn_male_thanhlong_talk_48k-fhg \
+              --speed 1.00 \
+              --output "/tmp/healing60/voice$i.mp3"
+          done
+      - name: Render final 60fps MP4 and technical QA
+        run: |
+          set -euo pipefail
+          python3 docs/healing-monologue-real-footage-60fps/render_real_life.py finish
+          ffprobe -v error -show_entries format=duration,size:stream=codec_type,width,height,r_frame_rate -of json \
+            docs/healing-monologue-real-footage-60fps/output/healing_monologue_real_life_60fps_VBEE_FINAL.mp4
+      - name: Upload preview for human approval
+        uses: actions/upload-artifact@v4
+        with:
+          name: healing-monologue-real-60fps-preview
+          path: |
+            docs/healing-monologue-real-footage-60fps/output/healing_monologue_real_life_60fps_VBEE_FINAL.mp4
+            docs/healing-monologue-real-footage-60fps/output/final-QA.json
+            docs/healing-monologue-real-footage-60fps/output/SHA256SUMS
+            docs/healing-monologue-real-footage-60fps/output/stock-provenance.json
+          if-no-files-found: error
+          retention-days: 14
+      - name: Write production report
+        if: always()
+        shell: bash
+        run: |
+          {
+            echo "## Healing Monologue Real Film 60fps"
+            echo "- Source: original Vbee Vietnamese healing monologue; music composed in pipeline"
+            echo "- 18 Pexels live-action footage scenes, variable original FPS"
+            echo "- 1920 x 1080, 60fps; interpolated when native FPS below 48"
+            echo "- 92-second intended runtime"
+            echo "- Human art-direction/casting continuity review pending"
+            echo "- This workflow is a PREVIEW, not QA-approved Final or YouTube publication"
+          } >> "$GITHUB_STEP_SUMMARY"
