@@ -1,0 +1,56 @@
+name: Publish Retro TV V9 real video binary
+on:
+  push:
+    branches: [feat/retro-tv-v9-growth-30s]
+    paths: [docs/retro-tv-v9/binary-manifest.json]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Reassemble MP4 from authenticated repository blob chunks
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          manifest="docs/retro-tv-v9/binary-manifest.json"
+          encoded="/tmp/v9-encoded.txt"
+          : > "$encoded"
+          jq -r '.chunks[]' "$manifest" | while IFS= read -r object_sha; do
+            gh api "repos/$GITHUB_REPOSITORY/git/blobs/$object_sha" --jq .content | base64 --decode >> "$encoded"
+          done
+          mkdir -p /tmp/retro-v9
+          base64 --decode "$encoded" > /tmp/retro-v9/Khong_Sao_Dau_Ban_Dang_Lon_Len_Ma_Retro_TV_V9_30s.mp4
+          test "$(stat -c %s /tmp/retro-v9/Khong_Sao_Dau_Ban_Dang_Lon_Len_Ma_Retro_TV_V9_30s.mp4)" -eq 8403454
+          printf "%s  %s\n" "b1b3250e51df28e76b80b217043ae2bfecdfc66111a4405954cad35b1a9749f8" "/tmp/retro-v9/Khong_Sao_Dau_Ban_Dang_Lon_Len_Ma_Retro_TV_V9_30s.mp4" | sha256sum --check
+          echo "Binary verified against 30s source master"
+      - name: Publish public GitHub Release
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          tag="retro-tv-v9-2026-10-24"
+          file="/tmp/retro-v9/Khong_Sao_Dau_Ban_Dang_Lon_Len_Ma_Retro_TV_V9_30s.mp4"
+          if gh release view "$tag" >/dev/null 2>&1; then
+            gh release upload "$tag" "$file" --clobber
+          else
+            gh release create "$tag" "$file" --title "Retro TV V9 — Không Sao Đâu, Bạn Đang Lớn Lên Mà" --notes "30.0s · 1080x1920 30 FPS H.264/AAC · genuine Vbee Ngọc Huyền · Be Vietnam Pro gold highlights · 11 nature edits. File binary checksum b1b3250e51df28e76b80b217043ae2bfecdfc66111a4405954cad35b1a9749f8." --target "$GITHUB_SHA"
+          fi
+      - name: Download Release asset and re-check binary
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          tag="retro-tv-v9-2026-10-24"
+          name="Khong_Sao_Dau_Ban_Dang_Lon_Len_Ma_Retro_TV_V9_30s.mp4"
+          gh release view "$tag" --json assets --jq ".assets[] | select(.name == \"$name\") | .size" | grep -x 8403454
+          mkdir -p /tmp/retro-v9-verify
+          gh release download "$tag" -p "$name" -D /tmp/retro-v9-verify
+          printf "%s  %s\n" "b1b3250e51df28e76b80b217043ae2bfecdfc66111a4405954cad35b1a9749f8" "/tmp/retro-v9-verify/$name" | sha256sum --check
