@@ -1,0 +1,31 @@
+name: Last Screening - Vbee emotion-directed v2
+on:
+  push:
+    branches: [feat/suat-chieu-cinematic-v2-expressive-voice]
+    paths:
+      - .github/workflows/suat-chieu-vbee-expressive-v2.yml
+permissions:
+  contents: read
+jobs:
+  narrator:
+    runs-on: ubuntu-latest
+    timeout-minutes: 50
+    env:
+      VBEE_ACCESS_TOKEN: ${{ secrets.VBEE_ACCESS_TOKEN || secrets.VBEE_TOKEN || secrets.VBEE_API_KEY || secrets.VBEE_API_TOKEN }}
+      VBEE_APP_ID: ${{ secrets.VBEE_APP_ID || secrets.VBEE_APPID || secrets.VBEE_APPLICATION_ID }}
+      VBEE_WEBHOOK_URL: ${{ vars.VBEE_WEBHOOK_URL || 'https://example.com/story-tts-webhook' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify Vbee credentials exist (do not log values)
+        run: test -n "$VBEE_ACCESS_TOKEN" && test -n "$VBEE_APP_ID"
+      - name: Generate fresh expressive-arc 10-line Vbee Batch TTS
+        run: python3 scripts/gen-cinema-vbee-expressive.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: suat-chieu-v2-expressive-vbee
+          path: public/audio/suat-chieu-cuoi-cung-v2/
+          if-no-files-found: error
+          retention-days: 14
