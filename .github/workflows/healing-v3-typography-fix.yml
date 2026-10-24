@@ -1,0 +1,57 @@
+name: Healing 92s V3 - Fix Vietnamese Typography (No Vbee Re-Synthesis)
+on:
+  push:
+    branches: [feat/healing-monologue-92s-real-footage-v3]
+    paths:
+      - '.github/workflows/healing-v3-typography-fix.yml'
+      - 'docs/healing-monologue-v3-live/repair_v3_typography.py'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  repair:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    env:
+      ROOT: docs/healing-monologue-v3-live
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feat/healing-monologue-92s-real-footage-v3
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install FFmpeg and font checker
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg
+          python3 -m pip install --disable-pip-version-check pillow fonttools
+      - name: Redraw all Vietnamese titles with exact Be Vietnam Pro TTF
+        run: |
+          set -euo pipefail
+          python3 -m py_compile "$ROOT/repair_v3_typography.py"
+          python3 "$ROOT/repair_v3_typography.py"
+      - name: Archive separate corrected preview after technical QA
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add "$ROOT/final-qa-TYPO-FIX.json" "$ROOT/contact-sheet-v3-typefixed.jpg"
+          test "$(stat -c %s "$ROOT/final/healing-monologue-92s-live-footage-v3-TYPOGRAPHY-FIX.mp4")" -lt 85000000
+          git add "$ROOT/final/healing-monologue-92s-live-footage-v3-TYPOGRAPHY-FIX.mp4"
+          git diff --cached --quiet || git commit -m 'assets(healing-v3): correct full Vietnamese Be Vietnam Pro titles on real-footage preview'
+          git fetch origin feat/healing-monologue-92s-real-footage-v3
+          git rebase origin/feat/healing-monologue-92s-real-footage-v3
+          git push origin HEAD:feat/healing-monologue-92s-real-footage-v3
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: healing-92s-v3-full-vietnamese-typefixed-preview
+          path: |
+            docs/healing-monologue-v3-live/final/healing-monologue-92s-live-footage-v3-TYPOGRAPHY-FIX.mp4
+            docs/healing-monologue-v3-live/final-qa-TYPO-FIX.json
+            docs/healing-monologue-v3-live/contact-sheet-v3-typefixed.jpg
+          retention-days: 14
+          if-no-files-found: ignore
