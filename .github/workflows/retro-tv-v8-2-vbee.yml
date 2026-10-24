@@ -1,0 +1,31 @@
+name: V8.2 Cinematic authentic Vbee
+on:
+  push:
+    branches: [feat/retro-tv-v8-2-cinematic-final]
+    paths: [.github/workflows/retro-tv-v8-2-vbee.yml]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  vbee:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      VBEE_ACCESS_TOKEN: ${{ secrets.VBEE_ACCESS_TOKEN || secrets.VBEE_TOKEN || secrets.VBEE_API_KEY || secrets.VBEE_API_TOKEN }}
+      VBEE_APP_ID: ${{ secrets.VBEE_APP_ID || secrets.VBEE_APPID || secrets.VBEE_APPLICATION_ID }}
+      VBEE_WEBHOOK_URL: ${{ vars.VBEE_WEBHOOK_URL || 'https://example.com/v8-2-webhook' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Generate 11 real Vbee speech cues
+        run: |
+          test -n "$VBEE_ACCESS_TOKEN" && test -n "$VBEE_APP_ID"
+          python scripts/gen-story-vbee-batch.py --timeline docs/retro-tv-v8-2/voice-cues.json --out-dir public/audio/retro-tv-v8-2 --voice-code hn_female_ngochuyen_full_48k-fhg --speed 1.10 --webhook-url "$VBEE_WEBHOOK_URL"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: retro-tv-v8-2-real-vbee-11-cues
+          path: public/audio/retro-tv-v8-2/
+          retention-days: 30
+          if-no-files-found: error
