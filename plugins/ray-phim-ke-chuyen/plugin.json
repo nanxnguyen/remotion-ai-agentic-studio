@@ -1,8 +1,8 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "ray-phim-ke-chuyen",
-  "version": "0.2.5",
-  "description": "Ray Phim Kể Chuyện: smooth cinematic 2D/2.5D motion, no freeze/jitter, actor realism optional; genuine Vbee, Remotion, Drive+GitHub archive.",
+  "version": "0.2.6",
+  "description": "Ray Phim Kể Chuyện: mandatory dramatic Vietnamese captioned 16-frame horror storyboard reviews with white/yellow/red emphasis; smooth motion, Vbee, Drive+GitHub.",
   "author": {
     "name": "Ray"
   },
@@ -24,7 +24,9 @@
     "smooth cinematic motion",
     "2.5D parallax",
     "no freeze",
-    "no jitter"
+    "no jitter",
+    "captioned storyboards",
+    "16-frame horror review"
   ],
   "skills": "./skills"
 }
