@@ -84,9 +84,9 @@
     "id": 10,
     "visual_start_seconds": 54,
     "duration": 6,
-    "narration": "Màn hình vụt đỏ: Suất chiếu tiếp theo... dành cho BẠN. Rồi, ghế phía sau bật dậy.",
+    "narration": "Màn hình vụt đỏ: Suất chiếu tiếp theo... dành cho BẠN!",
     "speed": 0.99,
-    "emotion": "slow sinister final hook",
+    "emotion": "slow threatening payoff; silence for chair click",
     "phase": "ENDING"
   }
 ]
