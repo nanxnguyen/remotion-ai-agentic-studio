@@ -5,7 +5,7 @@
 ## Narration structure, max 60 seconds
 
 - Default 55–60 seconds. Hard maximum **60.000s** for this creator unless the user explicitly changes the constraint. Avoid 70–90s suggestions for productions intended as <=60s.
-- **HOOK 0–3s** (immediate impossible visual / threat); **BODY 3–30s** (new clue every ~4–7s, emotional causality); **CLIMAX 30–48s** (consequences, stakes, physical action); **ENDING 48–60s** (real payoff/twist and 0.5–1s emotional hold). Each film may shift these windows to fit measured voice.
+- **HOOK 0–6s** (immediate impossible visual / threat); **BODY 6–30s** (new clue every ~4–7s, emotional causality); **CLIMAX 30–48s** (consequences, stakes, physical action); **ENDING 48–60s** (real payoff/twist and 0.5–1s emotional hold). Each film may shift these windows to fit measured voice.
 - Ending reveals *why* prior clues matter; open ending okay but must close current conflict. The final shot should leave an image/sound memory, not a spoken disclaimer, generic CTA or abrupt unfinished sentence.
 - Use a script that can be performed naturally by authentic Vbee, leaving room for character reaction and SFX. Do not shorten emotional acting to accommodate excessive narration.
 

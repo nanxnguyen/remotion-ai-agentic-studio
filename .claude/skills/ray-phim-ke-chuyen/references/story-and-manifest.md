@@ -2,7 +2,7 @@
 
 ## Writing specifications
 
-Default Vietnamese mystery: ~55s including a little silence/holds; target 10–16 independent shots, not one busy collage. Hook (<3s), rule/setting, an impossible clue, escalating contradictory evidence, reversal, open-ended question. Use concrete sensory details rather than broad generic horror adjectives. Visual and voice must express the same story beat.
+Default Vietnamese mystery: ~55s including a little silence/holds; target 10–16 independent shots, not one busy collage. Hook (0–6s; anomaly must appear 0–2s), rule/setting, an impossible clue, escalating contradictory evidence, reversal, open-ended question. Use concrete sensory details rather than broad generic horror adjectives. Visual and voice must express the same story beat.
 
 Never present fictional crimes or fake missing-person reports as verified facts. A non-spoken fiction indication can appear in video metadata/description when necessary, but do not narrate the closing disclaimer unless requested. If story references identifiable real cases, verify every factual claim and avoid compositing fake press coverage implying genuine evidence.
 
@@ -42,3 +42,7 @@ For the existing GitHub repo, its canonical pipeline and registry override gener
 ## Final accepted Room 404 ending
 
 Spoken text: **“Nếu là bạn, bạn có mở cánh cửa đó không?”**. Do not append “Câu chuyện này hoàn toàn hư cấu.” to the spoken track. Keep separate fiction labeling, if appropriate, outside the question instead of confusing it with spoken content.
+
+## Latest 60s storytelling rule
+
+HOOK 0–6s (first uncanny image by 0–2s), BODY 6–30s, CLIMAX 30–48s, PAYOFF 48–60s. See `references/hook-0-6-cinematic-60s.md`. Never hard-cut an overlong Vbee scene.
