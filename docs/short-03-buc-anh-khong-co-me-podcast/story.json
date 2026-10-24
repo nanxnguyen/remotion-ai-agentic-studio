@@ -1,0 +1,178 @@
+{
+  "id": "short03-buc-anh-khong-co-me-podcast",
+  "skill": "ray-emotional-stick-shorts",
+  "title": "Bức Ảnh Duy Nhất Không Có Mẹ",
+  "format": "podcast storytelling with animated reenactments",
+  "durationSeconds": 40.416666666666664,
+  "fps": 60,
+  "resolution": [
+    1080,
+    1920
+  ],
+  "style": {
+    "background": "#08090B",
+    "foreground": "#F5F5F4",
+    "secondary": "#85878A",
+    "accent": "#EF9E69"
+  },
+  "hook": "Hơn trăm bức ảnh… nhưng Linh không thấy mẹ.",
+  "narrator": {
+    "provider": "Vbee",
+    "voiceCode": "hn_male_thanhlong_talk_48k-fhg",
+    "tone": "male intimate emotive narrative, not a news announcer",
+    "segments": [
+      {
+        "start": 0.12,
+        "text": "Hơn trăm bức ảnh… nhưng Linh không thấy mẹ.",
+        "speed": 0.97,
+        "direction": "thấp, thì thầm ngạc nhiên"
+      },
+      {
+        "start": 5.15,
+        "text": "Sinh nhật, mẹ chụp. Tốt nghiệp… mẹ cũng chụp.",
+        "speed": 0.97,
+        "direction": "ấm, hoài niệm"
+      },
+      {
+        "start": 10.5,
+        "text": "Đến bữa cơm… mẹ vẫn đứng sau máy, bảo cả nhà cười.",
+        "speed": 0.98,
+        "direction": "ấm dịu"
+      },
+      {
+        "start": 16,
+        "text": "Ai trong ảnh cũng vui. Chỉ có mẹ… luôn vắng mặt.",
+        "speed": 0.95,
+        "direction": "trầm, buồn, ngắt trước 'mẹ'"
+      },
+      {
+        "start": 21.4,
+        "text": "Linh nhìn vào ô kính phía sau tấm ảnh… có bóng mẹ.",
+        "speed": 0.97,
+        "direction": "hạ giọng ở cú phát hiện"
+      },
+      {
+        "start": 27.1,
+        "text": "Mẹ mỉm cười tự hào. Linh bỗng nghẹn lại.",
+        "speed": 0.96,
+        "direction": "nghẹn nhẹ, không kịch"
+      },
+      {
+        "start": 31.8,
+        "text": "Linh nắm tay mẹ: 'Mẹ ơi… lần này đứng giữa nhé.'",
+        "speed": 0.97,
+        "direction": "dịu, trìu mến, ấm dần"
+      },
+      {
+        "start": 36.7,
+        "text": "'Để con chụp mẹ.' Tách… Bức ảnh gia đình đã đủ đầy.",
+        "speed": 0.98,
+        "direction": "hạnh phúc, chậm và giữ nốt cuối"
+      }
+    ]
+  },
+  "shots": [
+    {
+      "number": 1,
+      "kind": "STUDIO_HOOK",
+      "headline": "PODCAST / VẤN ĐỀ",
+      "description": "Micro, một bức ảnh cũ và câu hỏi không lời đáp"
+    },
+    {
+      "number": 2,
+      "kind": "ALBUM",
+      "headline": "HƠN 100 BỨC ẢNH",
+      "description": "Cả album ảnh… không tìm được bóng mẹ"
+    },
+    {
+      "number": 3,
+      "kind": "BIRTHDAY",
+      "headline": "MẸ CHỤP SINH NHẬT",
+      "description": "Mẹ cầm điện thoại trước chiếc bánh có nến"
+    },
+    {
+      "number": 4,
+      "kind": "SHUTTER",
+      "headline": "LUÔN LÀ MẸ",
+      "description": "Mẹ nhấn chụp trong lúc Linh cười"
+    },
+    {
+      "number": 5,
+      "kind": "GRADUATION",
+      "headline": "NGÀY TỐT NGHIỆP",
+      "description": "Linh với mũ tốt nghiệp, mẹ giữ máy ảnh"
+    },
+    {
+      "number": 6,
+      "kind": "PROUD",
+      "headline": "MỘT NỤ CƯỜI",
+      "description": "Mẹ lùi ra sau, vui vì con"
+    },
+    {
+      "number": 7,
+      "kind": "DINNER",
+      "headline": "BỮA CƠM ĐÔNG ĐỦ",
+      "description": "Cả nhà sum vầy, mẹ ở ngoài khung"
+    },
+    {
+      "number": 8,
+      "kind": "CAMERA",
+      "headline": "CƯỜI LÊN NÀO!",
+      "description": "Tay mẹ nâng điện thoại chụp cả nhà"
+    },
+    {
+      "number": 9,
+      "kind": "PHOTO_WALL",
+      "headline": "MỌI NGƯỜI ĐỀU Ở ĐÂY",
+      "description": "Bức ảnh treo kín tường"
+    },
+    {
+      "number": 10,
+      "kind": "EMPTY",
+      "headline": "CHỈ THIẾU MẸ",
+      "description": "Linh ngập ngừng, trống trải"
+    },
+    {
+      "number": 11,
+      "kind": "ZOOM_GLASS",
+      "headline": "BẤT CHỢT…",
+      "description": "Cận lớp kính phía sau tấm ảnh tốt nghiệp"
+    },
+    {
+      "number": 12,
+      "kind": "REFLECTION",
+      "headline": "MẸ ĐÃ Ở ĐÓ",
+      "description": "Bóng phản chiếu của mẹ cầm máy"
+    },
+    {
+      "number": 13,
+      "kind": "KITCHEN",
+      "headline": "MẸ VẪN LẶNG LẼ",
+      "description": "Mẹ đang dọn bát ở căn bếp tối"
+    },
+    {
+      "number": 14,
+      "kind": "HAND",
+      "headline": "MẸ ƠI…",
+      "description": "Linh tiến đến, nắm tay mẹ"
+    },
+    {
+      "number": 15,
+      "kind": "CENTER",
+      "headline": "LẦN NÀY MẸ ĐỨNG GIỮA",
+      "description": "Linh đặt điện thoại lên giá đỡ"
+    },
+    {
+      "number": 16,
+      "kind": "FAMILY_PHOTO",
+      "headline": "BỨC ẢNH THẬT ĐỦ ĐẦY",
+      "description": "Gia đình ôm nhau, mẹ ở giữa"
+    }
+  ],
+  "sourceAudio": "Vbee Batch runtime secrets, no hardcoded tokens",
+  "publishing": {
+    "youtube": false,
+    "vidiqImportAfterQA": true
+  },
+  "notes": "Rendered studio scenes and illustrative cutaways; no lip-sync claim and no invented live podcast recording."
+}
