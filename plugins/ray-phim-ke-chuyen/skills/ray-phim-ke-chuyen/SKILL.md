@@ -20,7 +20,7 @@ Mặc định, khi không có brief khác: phim mystery/suspense gốc ~55 giây
 
 - Hình ảnh **cinematic noir / dark mystery**: nhân vật nhất quán, khách sạn/hành lang/mưa/đèn vàng, tương phản mạnh, đen than, vàng nổi bật, đỏ nhấn, grain/scratches nhẹ, 9:16. Mỗi shot là **một ảnh dọc độc lập**; contact sheet 4×4 chỉ để duyệt; **không** đưa nguyên lưới 16 ô làm một cảnh của video.
 - Chữ caption: tiếng Việt đậm, trắng + vàng nhấn + đỏ cho cao trào; viền/đổ bóng trên nền phức tạp; ít chữ mỗi lần xuất hiện; đúng dấu tiếng Việt. **Ưu tiên vẽ typography bằng Remotion** chứ không yêu cầu mô hình tạo ảnh tự render chữ tiếng Việt vì dễ sai chính tả.
-- Hook mạnh 0–3s → bối cảnh → 2–3 manh mối tăng độ bí ẩn → twist → câu hỏi cuối. Tránh mô tả lặp nhau ở nhiều cảnh; thống nhất nhân vật, trang phục, đạo cụ và vị trí.
+- Hook mạnh ba nhịp 0–6s → bối cảnh → 2–3 manh mối tăng độ bí ẩn → twist → câu hỏi cuối. Tránh mô tả lặp nhau ở nhiều cảnh; thống nhất nhân vật, trang phục, đạo cụ và vị trí.
 - **Không tự động chèn/đọc câu “Đây là câu chuyện hư cấu” vào đoạn kết.** Kết có thể là câu hỏi như “Nếu là bạn, bạn có mở cánh cửa đó không?”. Với tác phẩm hư cấu, có thể gắn nhãn *hư cấu* riêng trong phần mô tả/metadata hoặc vị trí không phá câu kết khi cần tránh khiến người xem hiểu nhầm là sự thật. Với true crime, không tự bịa tên, án mạng, số nạn nhân hoặc bằng chứng; xác minh các khẳng định thực tế.
 - BGM ambient/suspense rất nhẹ, voice rõ; không thay bằng một bản nhạc đơn thuần. Diễn xuất bằng nhịp cảnh, Ken Burns, âm thanh diegetic, match cut; tránh nhảy zoom ngẫu nhiên.
 
@@ -112,7 +112,7 @@ Trigger this preset whenever a brief involves **kinh dị / truyện ma / psycho
 
 ### One-pass mandatory preflight and delivery
 
-1. **Story lock**: HOOK (first 0–3s), BODY, CLIMAX and END/PAYOFF all present; audio budget and total runtime <=60.000s; meaningful twist and characters.
+1. **Story lock**: HOOK (0–6s), BODY, CLIMAX and END/PAYOFF all present; audio budget and total runtime <=60.000s; meaningful twist and characters.
 2. **Board lock**: each panel is a distinct event with timecode/caption; character bible continuity, visual diversity/subject distribution and face consistency approved; no misleading collage as video scene.
 3. **Audio lock**: genuine Vbee source verified, text identical to approved transcript, measured MP3 times, character voice differentiated when real dialogue requires it, no clipped final syllables.
 4. **Acting/shot lock**: audible words correspond to the pictured action at the right moment; expressions progress emotionally; hands, props and location match.
@@ -135,3 +135,10 @@ For every NEW_FILM and revised story video:
 7. Keep Google Drive files private by default and GitHub Releases in **draft**. Never broaden Drive sharing, publish a Release or publish on YouTube without separate authorization.
 
 **This latest requirement supersedes the earlier preference to report only Google Drive links.** Both destinations remain mandatory, and **both links** are required in the routine report once actually verified.
+
+
+## HOOK_0_6_60S_V1 — latest user-approved 60-second horror Shorts timing
+
+This section supersedes earlier 0–3s HOOK timings for NEW_FILM Shorts with a **60.000s maximum**. Four locked phases: **HOOK 0–6s; BODY 6–30s; CLIMAX 30–48s; END/PAYOFF 48–60s**. The hook must contain **0–2s striking visual anomaly**, **2–4s naturally acted character reaction**, **4–6s escalating evidence/threat**; do not defer the scroll-stopping event to second 6. Genuine Vbee, voice-to-action timing, real character-motion assets (rather than 2D still zoom), smooth motivated cuts, clean Vietnamese captions and mandatory preflight/QA remain enforced.
+
+Reference: [full hook 0–6s direction](references/hook-0-6-cinematic-60s.md) and [copy-ready production prompt](templates/master-prompt-60s-hook-0-6.md). Use the connected ChatGPT Ray Phim Kể Chuyện plugin and live GitHub repository `nanxnguyen/remotion-ai-agentic-studio`; repository commits and plugin releases are separate steps to verify. After actual final MP4 upload, report **BOTH verified links**, Google Drive viewer URL and GitHub draft Release asset URL. Do not fabricate or publish links or report full acting without actual moving footage.
