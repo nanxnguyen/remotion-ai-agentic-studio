@@ -1,0 +1,93 @@
+name: Short05 V3 — Storyboard With Original Vbee Narration
+on:
+  push:
+    branches: [feat/short05-v3-storyboard-locked]
+    paths:
+      - '.github/workflows/short05-v3-add-vbee-voice.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: short05-v3-vbee-voice
+  cancel-in-progress: false
+jobs:
+  revoice:
+    runs-on: ubuntu-latest
+    timeout-minutes: 14
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: feat/short05-v3-storyboard-locked
+          persist-credentials: true
+      - name: Install audio/video QA
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg
+      - name: Reuse exact V2 Vbee Thanh Long + piano soundtrack on V3 locked storyboard
+        run: |
+          set -euo pipefail
+          base=docs/short-05-me-chi-muon-con-ve-v3
+          v3="$base/me-khong-can-tien-v3-storyboard-animatic-44s.mp4"
+          v2=docs/short-05-me-chi-muon-con-ve-v2/final/short05-me-chi-muon-con-ve-v2-cinematic-vbee.mp4
+          out="$base/me-khong-can-tien-v3-storyboard-co-giong-vbee-44s.mp4"
+          test -s "$v3"
+          test -s "$v2"
+          echo "7a8db37bc3c2bc9be5728f0cf13b2ac173b4292d8c1ed79e0ffbe00231e3bfba  $v3" | sha256sum -c -
+          ffmpeg -hide_banner -loglevel error -y -i "$v3" -i "$v2" \
+            -map 0:v:0 -map 1:a:0 -c:v copy -c:a copy \
+            -t 44 -movflags +faststart "$out"
+          test -s "$out"
+          export ORIGINAL_V2="$v2" SOURCE_V3="$v3" VOICED_V3="$out"
+          python3 - <<'PY'
+          import hashlib,json,os,subprocess
+          from pathlib import Path
+          def ffprobe(p):
+              return json.loads(subprocess.check_output(["ffprobe","-v","error","-show_entries",
+                "format=duration,size:stream=codec_type,width,height,avg_frame_rate",
+                "-of","json",p],text=True))
+          def packetmd5(p,which):
+              return subprocess.check_output(["ffmpeg","-hide_banner","-loglevel","error","-i",p,
+                "-map",f"0:{which}:0","-c","copy","-f","md5","-"],text=True).strip()
+          v2,v3,out=[os.environ[k] for k in ("ORIGINAL_V2","SOURCE_V3","VOICED_V3")]
+          a,b,c=ffprobe(v2),ffprobe(v3),ffprobe(out)
+          assert {s["codec_type"] for s in c["streams"]} == {"audio","video"}
+          assert abs(float(c["format"]["duration"])-44)<.15
+          stream=next(s for s in c["streams"] if s["codec_type"]=="video")
+          assert (stream["width"],stream["height"],stream["avg_frame_rate"]) == (1080,1920,"30/1")
+          # Video was remuxed unchanged from the storyboard-locked V3.
+          assert packetmd5(v3,"v") == packetmd5(out,"v"),"Video frames changed"
+          # The authentic Vbee Thanh Long plus piano mix was remuxed unchanged from the V2 final.
+          assert packetmd5(v2,"a") == packetmd5(out,"a"),"Vbee audio changed"
+          p=Path(out)
+          qa={"status":"technical-pass","format":"V3 storyboard-exact animatic + V2 original Vbee Thanh Long narration and piano",
+            "runtimeSeconds":float(c["format"]["duration"]),"sizeBytes":p.stat().st_size,
+            "resolution":[1080,1920],"fps":30,"storyboardFrameSequencePreserved":True,
+            "originalVbeeAndPianoAudioPacketIdentical":True,
+            "storyboardSource":v3,"audioSource":v2,
+            "sha256":hashlib.sha256(p.read_bytes()).hexdigest(),
+            "limitations":"Camera motion on static approved storyboard, not native human-body animation. Human review pending.",
+            "youtubePublished":False}
+          (p.parent/"v3-co-giong-vbee-QA.json").write_text(json.dumps(qa,ensure_ascii=False,indent=2)+"\n",encoding="utf8")
+          print("QA PASSED:",json.dumps(qa,ensure_ascii=False))
+          PY
+      - name: Commit voiced MP4 and QA on separate V3 branch
+        run: |
+          set -euo pipefail
+          base=docs/short-05-me-chi-muon-con-ve-v3
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "$base/me-khong-can-tien-v3-storyboard-co-giong-vbee-44s.mp4" "$base/v3-co-giong-vbee-QA.json"
+          git diff --cached --quiet || git commit -m "assets(short05-v3): storyboard-locked video with genuine Vbee Thanh Long narration and piano"
+          git fetch origin feat/short05-v3-storyboard-locked
+          git rebase origin/feat/short05-v3-storyboard-locked
+          git push origin HEAD:feat/short05-v3-storyboard-locked
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: short05-v3-storyboard-co-giong-vbee
+          path: |
+            docs/short-05-me-chi-muon-con-ve-v3/me-khong-can-tien-v3-storyboard-co-giong-vbee-44s.mp4
+            docs/short-05-me-chi-muon-con-ve-v3/v3-co-giong-vbee-QA.json
+          retention-days: 14
+          if-no-files-found: ignore
