@@ -169,3 +169,7 @@ Deliver exactly the current fingerprint-approved MP4 plus a concise report:
 **Example invocation:** “Dùng `ray-video-10-phut` tạo video 35 giây về [chủ đề], profile knowledge, ưu tiên hook mạnh, visual cinematic, reuse asset, target 10 phút.”
 
 This skill is **source-only**: using it does not prove that the runtime, upstream skills, models or video are installed/working. Record actual outcomes.
+
+## Universal Shorts retention rule (all topics; 2026-10-24)
+
+For **every** 9:16 YouTube Short, whatever its subject or genre, **first read `docs/standards/youtube-shorts-retention-universal.md`**. Apply its first-frame scroll stop, 3 candidate hook mechanisms (usually 3–5s), early emotional/informational stakes, meaningful escalating beats/re-hook, earned climax, relevant payoff, voice timing, seamless scene continuity and honest review score; revise weak writing before rendering. **Million views is an aspiration, never a guarantee or official formula.** Obey the genre's content/safety and the canonical pipeline/review-gates first. A video is only final after genuine audiovisual QA and verified archived assets.
