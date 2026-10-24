@@ -1,0 +1,43 @@
+name: Emotional Stick Shorts 01 - Vbee narration
+on:
+  push:
+    branches:
+      - feat/ray-emotional-stick-plugin-retention-oct2026
+    paths:
+      - .github/workflows/ray-emotional-story-01-vbee.yml
+      - docs/nguoi-tung-hieu-ban/voice/narration.txt
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  vbee-narration:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install audio probe
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+      - name: Synthesize authentic Vbee HN Thanh Long voice
+        env:
+          VBEE_APP_ID: ${{ secrets.VBEE_APP_ID }}
+          VBEE_ACCESS_TOKEN: ${{ secrets.VBEE_ACCESS_TOKEN }}
+          VBEE_WEBHOOK_URL: https://iehmucsshklgjmxqyggp.supabase.co/functions/v1/vbee-batch-callback
+        run: |
+          set -euo pipefail
+          test -n "$VBEE_APP_ID"
+          test -n "$VBEE_ACCESS_TOKEN"
+          mkdir -p output
+          python3 .claude/skills/ray-emotional-stick-shorts/scripts/vbee_tts.py \
+            --text-file docs/nguoi-tung-hieu-ban/voice/narration.txt \
+            --voice-code hn_male_thanhlong_talk_48k-fhg \
+            --speed 0.95 \
+            --output output/vbee-thanhlong.mp3
+          ffprobe -v error -show_entries stream=codec_name -show_entries format=duration -of json output/vbee-thanhlong.mp3 > output/voice-probe.json
+          sha256sum output/vbee-thanhlong.mp3 > output/vbee-thanhlong.sha256
+          test "$(stat -c%s output/vbee-thanhlong.mp3)" -gt 10000
+      - uses: actions/upload-artifact@v4
+        with:
+          name: emotional-story-01-vbee-voice
+          path: output/
+          if-no-files-found: error
+          retention-days: 30
