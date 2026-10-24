@@ -1,0 +1,28 @@
+name: V8.2 Real Be Vietnam Pro typography
+on:
+  push:
+    branches: [feat/retro-tv-v8-2-cinematic-final]
+    paths: [.github/workflows/retro-tv-v8-2-typography.yml]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  captions:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install Pillow
+      - name: Fetch font solely for rasterization
+        run: curl -fLsS --retry 3 https://raw.githubusercontent.com/google/fonts/main/ofl/bevietnampro/BeVietnamPro-ExtraBold.ttf -o /tmp/retro-v8-2-bevietnam.ttf
+      - name: Produce 27 white and gold caption layers
+        run: python scripts/render-v8-2-typography.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: v8-2-27-be-vietnam-pro-transparent-caption-layers
+          path: public/generated/retro-tv-v8-2/captions/
+          if-no-files-found: error
+          retention-days: 30
