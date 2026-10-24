@@ -63,11 +63,11 @@ Các tiện ích đóng gói (không tự chạy khi cài plugin): `scripts/gene
 - Tránh đưa MP4 vào Git commits. Draft Release là lưu trữ, không phải công bố video; không công khai release hay đăng YouTube nếu chưa có yêu cầu riêng. Khi không có khả năng truyền MP4 sang GitHub, báo rõ GitHub archival **chưa hoàn tất**, không gắn nhãn archived.
 - Đọc `docs/production-archive-policy.md` và repo `AGENTS.md` ở phiên bản mới nhất trước khi thao tác.
 
-## Bắt buộc trả link MP4 trên GitHub sau mỗi video hoàn tất
+## Bắt buộc lưu MP4 cả Google Drive và GitHub; giao cả hai link
 
 - Mỗi tác vụ **NEW_VIDEO hoặc VOICE_ONLY** chỉ được báo "hoàn tất và đã lưu GitHub" sau khi GitHub Actions archive step tạo **draft Release MP4 asset** và bước **Verify release asset** đã qua: GitHub API phải trả về \`html_url\`, \`assets[].browser_download_url\`, đúng tên video, kích thước và SHA-256. Phải kiểm chứng bằng kết quả thật; không suy đoán tag hay URL.
-- **Giao ngay trong cùng phản hồi** hai link: **[Xem / tải video trên GitHub]** trỏ đến \`video_url\` thực nhận từ GitHub Release asset, và **[GitHub Release]** trỏ đến \`release_url\`. Có thể đính kèm sandbox MP4 nhưng không được dùng thay link GitHub khi archive thành công.
-- Khi render/QA chạy trong GitHub Actions, upload MP4 artifact sau QA, rồi production workflow **gọi reusable workflow** \`.github/workflows/archive-finished-video.yml\` qua \`workflow_call\` với \`qa_approved=true\` và \`source_run_id=github.run_id\`; dùng \`needs.archive.outputs.video_url\` và \`needs.archive.outputs.release_url\` để giao link. **Không** set QA=true nếu các gate chưa thực sự đạt.
+- **Báo cáo cho người dùng cả hai link:** **[▶ Xem video trên Google Drive]** (URL thật sau khi tải MP4 lên Drive và kiểm tra metadata/quyền truy cập) và **[⬇ Tải MP4 trên GitHub]** (URL asset thật từ draft GitHub Release đã kiểm chứng). Nếu bất kỳ đích nào lỗi thì ghi rõ pending; không bịa link hay coi PR tài liệu là bản MP4 đã lưu.
+- Khi render/QA chạy trong GitHub Actions, upload MP4 artifact sau QA, rồi production workflow **gọi reusable workflow** \`.github/workflows/archive-finished-video.yml\` qua \`workflow_call\` với \`qa_approved=true\` và \`source_run_id=github.run_id\`; lưu `needs.archive.outputs.video_url` và `needs.archive.outputs.release_url` vào manifest/hệ thống kiểm tra, và giao URL MP4 GitHub đã xác minh cùng link Drive trong phản hồi. **Không** set QA=true nếu các gate chưa thực sự đạt.
 - GitHub action viết link vào **Job Summary** và artifact \`github-video-links-<slug>\`. Khi runtime không truyền outputs trực tiếp, lấy artifact hoặc tra cứu Release API, rồi kiểm tra link đã tồn tại trước khi chia sẻ.
 - Draft Release là lưu trữ cho người có quyền truy cập repo (liên kết có thể yêu cầu đăng nhập), **không** tự công khai/phát hành release hoặc đăng YouTube.
 - Nếu không truyền được MP4 nhị phân từ môi trường hiện tại sang GitHub Actions/GitHub Release, báo rõ **chưa có link video GitHub**, nêu điều kiện còn thiếu và không tự nhận đã lưu thành công. Không phát hành URL được ghép thủ công.
@@ -121,3 +121,17 @@ Trigger this preset whenever a brief involves **kinh dị / truyện ma / psycho
 7. **Technical & delivery lock**: run existing \`preflight_story_video.py\`, canonical repository tests/audits, ffprobe and actual AV QC where available. Final MP4 and GitHub draft-Release asset must be real and verified, otherwise clearly report pending; do not mislabel animation level or uploaded status.
 
 This preset supplements existing \`references/preflight-quality-gates.md\`, \`references/visual-direction.md\` and \`references/story-and-manifest.md\`. No claims of guaranteed millions of views; rely on actual audience retention metrics.
+
+
+## Dual-location video archive and BOTH review links (updated 2026-10-24)
+
+For every NEW_FILM and revised story video:
+1. Finish real render and media QA first; never claim an MP4 is complete before validating it.
+2. Save the **same approved MP4** in **both** destinations: (a) Google Drive, for in-browser preview, and (b) a draft GitHub Release, for versioned archiving. Verify each destination independently using actual stored metadata, filename, byte size, and SHA-256 where available. Do not commit finished MP4 into regular Git history.
+3. Drive upload: pass a genuine generated/connector file reference into `mcp__Google_Drive__upload_file`, `mime_type="video/mp4"`; read back Drive metadata including verified URL, size, and MIME type. **Verify viewer access**: Drive may be private to the owning Google account; do not claim a URL is publicly playable without checking permissions. For an access issue, ask the user to use the connected Google account, or obtain explicit consent before sharing more broadly. Google Drive preview transcoding may take time; metadata alone does not prove playback.
+4. GitHub archive: upload actual validated MP4 bytes to a **draft Release** using the approved GitHub workflow/local uploader, and verify Release asset filename, byte count, checksum and the returned URL. A GitHub PR containing only source/docs is **not** an archived MP4.
+5. **Default user-facing production report MUST INCLUDE BOTH verified links**, in this order: **[▶ Xem video trên Google Drive]** (actual Drive `webViewLink`/returned URL) and **[⬇ Tải MP4 trên GitHub]** (actual verified Release asset download URL). GitHub Release page can be added if useful. Include a compact 9:16 resolution, FPS, duration and QA note.
+6. If either destination fails or is not accessible, explicitly label it **pending/permission restricted** and explain the precise blocker. Never invent URLs or describe a chat download, source-code PR, or unuploaded MP4 as the GitHub Release asset. Share an actually accessible preview alternative when necessary.
+7. Keep Google Drive files private by default and GitHub Releases in **draft**. Never broaden Drive sharing, publish a Release or publish on YouTube without separate authorization.
+
+**This latest requirement supersedes the earlier preference to report only Google Drive links.** Both destinations remain mandatory, and **both links** are required in the routine report once actually verified.
