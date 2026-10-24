@@ -1,0 +1,26 @@
+{
+  "status": "TECHNICAL_PASS_REQUIRES_HUMAN_VISUAL_REVIEW",
+  "durationSeconds": 92.0,
+  "canvas": [
+    1920,
+    1080
+  ],
+  "fpsExport": 60,
+  "audioUnchangedFromGenuineVbee": true,
+  "stockLiveAction": true,
+  "singleActor": false,
+  "nativeSourceRateAtLeast50FpsSeconds": 17,
+  "sourceFpsBelow50Seconds": 75,
+  "font": "Be Vietnam Pro bold, full TTF from official upstream",
+  "missingVietnameseGlyphs": 0,
+  "fix": "Full-coverage lower-third matte + redrawn timed Be Vietnam Pro titles",
+  "file": "healing-monologue-92s-live-footage-v3-TYPOGRAPHY-FIX.mp4",
+  "bytes": 78309520,
+  "sha256": "6ebab7a3dc67243b99dc047431c2772c508ca146a1e8a27576ba8f4c4954bba9",
+  "sourceVideoSha256": "032aa357fa0beee7ac18e5ce5a889cc18dad96642fc6c6a51c3450568ebfc86b",
+  "limitations": [
+    "60fps container includes repeated frames in lower-fps source shots",
+    "Montage actors are different stock performers",
+    "Human aesthetic/audio review still required before FINAL"
+  ]
+}
