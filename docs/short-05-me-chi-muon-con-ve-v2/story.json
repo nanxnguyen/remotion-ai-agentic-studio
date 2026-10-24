@@ -1,0 +1,278 @@
+{
+  "id": "short05-me-chi-muon-con-ve-v2",
+  "title": "Mẹ Không Cần Tiền, Mẹ Chỉ Muốn Con Về 💔",
+  "style": "real-life cinematic storytelling / documentary-stock preview",
+  "durationSeconds": 44,
+  "frameRate": 30,
+  "resolution": [
+    1080,
+    1920
+  ],
+  "fontSystem": "DejaVu Sans UTF-8 Vietnamese, ivory + amber",
+  "voice": {
+    "provider": "Vbee",
+    "code": "hn_male_thanhlong_talk_48k-fhg",
+    "segments": [
+      {
+        "start": 0.1,
+        "end": 5.2,
+        "text": "Mẹ dọn hai chiếc bát… dù bữa cơm chỉ có một người.",
+        "speed": 0.96,
+        "direction": "mở rất trầm, lặng ở chữ một người"
+      },
+      {
+        "start": 5.3,
+        "end": 11,
+        "text": "Nam đi làm xa. Tháng nào cũng gửi mẹ năm triệu… nghĩ như thế là đủ.",
+        "speed": 0.97,
+        "direction": "giọng ấm, hơi day dứt"
+      },
+      {
+        "start": 11.15,
+        "end": 16.9,
+        "text": "Mỗi lần mẹ hỏi bao giờ về, anh lại hẹn: Tuần sau, mẹ nhé.",
+        "speed": 0.97,
+        "direction": "đọc như lời hứa quen thuộc"
+      },
+      {
+        "start": 17,
+        "end": 22.9,
+        "text": "Mẹ chỉ đáp ừ… rồi khoanh ngày ấy trên cuốn lịch cạnh bếp.",
+        "speed": 0.97,
+        "direction": "dịu, ngắt trước 'rồi khoanh'"
+      },
+      {
+        "start": 23,
+        "end": 28.6,
+        "text": "Một tối Nam bất ngờ về nhà. Những ngày khoanh đỏ… đều bị gạch.",
+        "speed": 0.98,
+        "direction": "nhẹ dồn, hạ giọng cuối"
+      },
+      {
+        "start": 28.7,
+        "end": 34.8,
+        "text": "Dưới tờ lịch là dòng mẹ viết: Hôm nào Nam về, nhớ nấu cá kho.",
+        "speed": 0.96,
+        "direction": "nghẹn nhẹ ở câu chữ viết tay"
+      },
+      {
+        "start": 34.9,
+        "end": 40.1,
+        "text": "Nam kéo ghế, ngồi xuống: Mẹ ơi… con về rồi.",
+        "speed": 0.97,
+        "direction": "giọng dịu, kết nén cảm xúc"
+      },
+      {
+        "start": 40.2,
+        "end": 44,
+        "text": "Mẹ cười… gắp cho con miếng cá đầu tiên.",
+        "speed": 0.98,
+        "direction": "ấm áp, vui nhẹ"
+      }
+    ]
+  },
+  "shots": [
+    {
+      "shot": 1,
+      "start": 0,
+      "end": 2.7,
+      "kind": "bowl",
+      "headline": "HAI CHIẾC BÁT",
+      "description": "Cận 2 bát và 1 ghế trống",
+      "motion": "establishing focus pull"
+    },
+    {
+      "shot": 2,
+      "start": 2.7,
+      "end": 5.25,
+      "kind": "alone",
+      "headline": "MỘT NGƯỜI ĂN",
+      "description": "Mẹ nhìn sang ghế trống, không nói",
+      "motion": "slow reaction"
+    },
+    {
+      "shot": 3,
+      "start": 5.25,
+      "end": 8.1,
+      "kind": "office",
+      "headline": "NĂM TRIỆU MỖI THÁNG",
+      "description": "Nam đi làm muộn với điện thoại",
+      "motion": "office medium"
+    },
+    {
+      "shot": 4,
+      "start": 8.1,
+      "end": 11.1,
+      "kind": "transfer",
+      "headline": "CHUYỂN TIỀN THÀNH CÔNG",
+      "description": "Thông báo 5.000.000 VNĐ trên điện thoại",
+      "motion": "phone insert"
+    },
+    {
+      "shot": 5,
+      "start": 11.1,
+      "end": 13.9,
+      "kind": "office",
+      "headline": "TUẦN SAU NHÉ, MẸ",
+      "description": "Nam trả lời vội cuộc gọi",
+      "motion": "J-cut"
+    },
+    {
+      "shot": 6,
+      "start": 13.9,
+      "end": 16.9,
+      "kind": "mother",
+      "headline": "MẸ CHỈ NÓI Ừ",
+      "description": "Mẹ nhìn màn hình và cười nhỏ",
+      "motion": "reaction"
+    },
+    {
+      "shot": 7,
+      "start": 16.9,
+      "end": 19.7,
+      "kind": "calendar",
+      "headline": "MẸ KHOANH MỘT NGÀY",
+      "description": "Bút đỏ khoanh vòng tròn trên tờ lịch",
+      "motion": "prop action"
+    },
+    {
+      "shot": 8,
+      "start": 19.7,
+      "end": 22.9,
+      "kind": "crosses",
+      "headline": "RỒI LẠI GẠCH ĐI",
+      "description": "Những ngày hẹn về bị gạch liên tiếp",
+      "motion": "time lapse graphic"
+    },
+    {
+      "shot": 9,
+      "start": 22.9,
+      "end": 25.8,
+      "kind": "arrival",
+      "headline": "MỘT TỐI NAM VỀ…",
+      "description": "Bước chân và tay Nam mở cửa",
+      "motion": "POV"
+    },
+    {
+      "shot": 10,
+      "start": 25.8,
+      "end": 28.6,
+      "kind": "bowl",
+      "headline": "VẪN HAI CHIẾC BÁT",
+      "description": "Chỗ ngồi trống vẫn được chuẩn bị",
+      "motion": "match cut hook"
+    },
+    {
+      "shot": 11,
+      "start": 28.6,
+      "end": 31.5,
+      "kind": "crosses",
+      "headline": "NHỮNG VÒNG TRÒN ĐỎ",
+      "description": "Nam phát hiện lịch đầy những dấu gạch",
+      "motion": "slow push in"
+    },
+    {
+      "shot": 12,
+      "start": 31.5,
+      "end": 34.8,
+      "kind": "note",
+      "headline": "DÒNG CHỮ CỦA MẸ",
+      "description": "Mảnh giấy: Hôm nào Nam về, nhớ nấu cá kho",
+      "motion": "macro reveal"
+    },
+    {
+      "shot": 13,
+      "start": 34.8,
+      "end": 37.45,
+      "kind": "reaction",
+      "headline": "NAM LẶNG NGƯỜI",
+      "description": "Nét mặt Nam thay đổi khi hiểu nỗi chờ đợi",
+      "motion": "hold"
+    },
+    {
+      "shot": 14,
+      "start": 37.45,
+      "end": 40.15,
+      "kind": "reunion",
+      "headline": "MẸ ƠI… CON VỀ RỒI",
+      "description": "Con ngồi xuống, mẹ nhìn lên",
+      "motion": "action continuous"
+    },
+    {
+      "shot": 15,
+      "start": 40.15,
+      "end": 42.3,
+      "kind": "meal",
+      "headline": "BỮA CƠM ĐỦ ĐẦY",
+      "description": "Mẹ gắp thức ăn cho con, hai người cười",
+      "motion": "warm payoff"
+    },
+    {
+      "shot": 16,
+      "start": 42.3,
+      "end": 44,
+      "kind": "closing",
+      "headline": "MẸ CHỈ MUỐN CON VỀ",
+      "description": "Cận bát cơm thứ hai, kết màn",
+      "motion": "hold and warm dissolve"
+    }
+  ],
+  "sourceAssets": [
+    {
+      "code": "alone",
+      "id": "8531846",
+      "name": "Woman staring at empty chair",
+      "credit": "Kaboompics"
+    },
+    {
+      "code": "mother",
+      "id": "8531848",
+      "name": "Elderly woman alone at breakfast table",
+      "credit": "Kaboompics"
+    },
+    {
+      "code": "office",
+      "id": "8347692",
+      "name": "Man working at office",
+      "credit": "Kampus Production"
+    },
+    {
+      "code": "calendar",
+      "id": "9057559",
+      "name": "Marking dates on calendar",
+      "credit": "SHVETS production"
+    },
+    {
+      "code": "reunion",
+      "id": "9485953",
+      "name": "Elderly woman embracing adult son",
+      "credit": "Ron Lach"
+    },
+    {
+      "code": "meal",
+      "id": "9243201",
+      "name": "Mother and son at dining table",
+      "credit": "Ron Lach"
+    },
+    {
+      "code": "food",
+      "id": "6873441",
+      "name": "Elderly woman preparing meal",
+      "credit": "Teona Swift"
+    }
+  ],
+  "constraints": {
+    "youtubePublish": false,
+    "driveSave": false,
+    "vidiqImportOnSuccess": true,
+    "originalPiano": true,
+    "realHumanMotion": true,
+    "strictlyMatchingVietnameseCast": false
+  },
+  "disclosures": [
+    "Stock footage is illustrative and not guaranteed to show the same mother/son across all scenes.",
+    "The two bowls, red calendar marks, transfer confirmation and handwritten note are composited props with correct Vietnamese glyphs.",
+    "30 fps final source video, no fake 60 fps claim.",
+    "Human aesthetic approval after render is pending."
+  ]
+}
