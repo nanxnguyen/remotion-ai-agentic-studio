@@ -28,10 +28,12 @@ jobs:
             --output docs/nguoi-tung-hieu-ban/voice/vbee-thanhlong-emotional-01.mp3
           ffprobe -v error -show_entries stream=codec_name -show_entries format=duration -of json docs/nguoi-tung-hieu-ban/voice/vbee-thanhlong-emotional-01.mp3
           sha256sum docs/nguoi-tung-hieu-ban/voice/vbee-thanhlong-emotional-01.mp3 > docs/nguoi-tung-hieu-ban/voice/vbee-thanhlong-emotional-01.sha256
-      - name: Archive Vbee audio after technical check
-        run: |
-          set -eu
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add docs/nguoi-tung-hieu-ban/voice/vbee-thanhlong-emotional-01.mp3 docs/nguoi-tung-hieu-ban/voice/vbee-thanhlong-emotional-01.sha256
-          git diff --cached --quiet || (git commit -m 'assets(vbee): archive Thanh Long audition voice' && git push)
+      - name: Save genuine Vbee narration as Actions artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: nguoi-tung-hieu-ban-vbee-thanhlong
+          path: |
+            docs/nguoi-tung-hieu-ban/voice/vbee-thanhlong-emotional-01.mp3
+            docs/nguoi-tung-hieu-ban/voice/vbee-thanhlong-emotional-01.sha256
+          if-no-files-found: error
+          retention-days: 30
