@@ -196,9 +196,9 @@ def movie():
         last=dest
         if i<len(tracks)-1:at+=tracks[i][1]-FADE
     out=WORK/"picture.mp4"
-    run(inputs+["-filter_complex",";".join(fades),"-map",last,
+    fades.append(f"{last}scale=1080:1920:flags=lanczos[vout]")
+    run(inputs+["-filter_complex",";".join(fades),"-map","[vout]",
         "-t","44.000","-r","30","-an",
-        "-vf","scale=1080:1920:flags=lanczos",
         "-c:v","libx264","-preset","veryfast","-crf","22",
         "-pix_fmt","yuv420p","-movflags","+faststart",str(out)])
     print("MOVIE",out,flush=True)
