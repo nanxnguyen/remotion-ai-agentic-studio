@@ -16,6 +16,11 @@ jobs:
         with:
           ref: feat/short05-v3-storyboard-locked
           persist-credentials: true
+      - name: Install ffprobe for independent video validation
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg
       - name: Verify V3 approved storyboard is already committed
         run: |
           set -euo pipefail
