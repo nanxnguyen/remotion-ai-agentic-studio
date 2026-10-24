@@ -1,0 +1,253 @@
+{
+  "title": "Lớn Rồi, Không Cần Làm Vừa Lòng Tất Cả Nữa",
+  "production": "Real-life B-roll Cinematic Healing Monologue V3",
+  "output": {
+    "durationSeconds": 92,
+    "width": 1920,
+    "height": 1080,
+    "fps": 60
+  },
+  "stock": {
+    "late_office": {
+      "pexelsId": 7668950,
+      "credit": "Yaroslav Shuraev",
+      "page": "https://www.pexels.com/video/7668950/"
+    },
+    "tired_desk": {
+      "pexelsId": 4115788,
+      "credit": "Marcus Aurelius",
+      "page": "https://www.pexels.com/video/4115788/"
+    },
+    "office_stressed": {
+      "pexelsId": 7693409,
+      "credit": "Yan Krukau",
+      "page": "https://www.pexels.com/video/7693409/"
+    },
+    "office_close": {
+      "pexelsId": 8547458,
+      "credit": "Kaboompics",
+      "page": "https://www.pexels.com/video/8547458/"
+    },
+    "typing_overhead": {
+      "pexelsId": 3044759,
+      "credit": "fauxels",
+      "page": "https://www.pexels.com/video/3044759/"
+    },
+    "fatigue": {
+      "pexelsId": 5717001,
+      "credit": "Tima Miroshnichenko",
+      "page": "https://www.pexels.com/video/5717001/"
+    },
+    "phone": {
+      "pexelsId": 946147,
+      "credit": "Carlos Arribas",
+      "page": "https://www.pexels.com/video/946147/"
+    },
+    "phone_bed": {
+      "pexelsId": 7277928,
+      "credit": "MART PRODUCTION",
+      "page": "https://www.pexels.com/video/7277928/"
+    },
+    "mirror": {
+      "pexelsId": 6764078,
+      "credit": "cottonbro studio",
+      "page": "https://www.pexels.com/video/6764078/"
+    },
+    "tea_evening": {
+      "pexelsId": 6951939,
+      "credit": "cottonbro studio",
+      "page": "https://www.pexels.com/video/6951939/"
+    },
+    "sunrise": {
+      "pexelsId": 5368494,
+      "credit": "Honye Sanges",
+      "page": "https://www.pexels.com/video/5368494/"
+    },
+    "tea_morning": {
+      "pexelsId": 4482141,
+      "credit": "Martina Tomšič",
+      "page": "https://www.pexels.com/video/4482141/"
+    },
+    "final_walk": {
+      "pexelsId": 5368493,
+      "credit": "Honye Sanges",
+      "page": "https://www.pexels.com/video/5368493/"
+    }
+  },
+  "scenes": [
+    {
+      "shot": 1,
+      "start": 0,
+      "end": 4,
+      "src": "late_office",
+      "headline": "CÓ NHỮNG NGÀY...",
+      "grade": "cold",
+      "offset": 1
+    },
+    {
+      "shot": 2,
+      "start": 4,
+      "end": 9,
+      "src": "tired_desk",
+      "headline": "KIỆT SỨC",
+      "grade": "cold",
+      "offset": 1
+    },
+    {
+      "shot": 3,
+      "start": 9,
+      "end": 13,
+      "src": "office_stressed",
+      "headline": "SỢ LÀM AI THẤT VỌNG",
+      "grade": "cold",
+      "offset": 3
+    },
+    {
+      "shot": 4,
+      "start": 13,
+      "end": 17,
+      "src": "office_close",
+      "headline": "NÊN CỨ MỈM CƯỜI",
+      "grade": "cold",
+      "offset": 1
+    },
+    {
+      "shot": 5,
+      "start": 17,
+      "end": 21,
+      "src": "typing_overhead",
+      "headline": "QUEN GẬT ĐẦU",
+      "grade": "cold",
+      "offset": 1
+    },
+    {
+      "shot": 6,
+      "start": 21,
+      "end": 26,
+      "src": "fatigue",
+      "headline": "NHẬN HẾT PHẦN KHÓ",
+      "grade": "cold",
+      "offset": 4
+    },
+    {
+      "shot": 7,
+      "start": 26,
+      "end": 31,
+      "src": "phone",
+      "headline": "MÌNH ỔN MÀ...",
+      "grade": "cold",
+      "offset": 1
+    },
+    {
+      "shot": 8,
+      "start": 31,
+      "end": 36,
+      "src": "phone_bed",
+      "headline": "NHƯNG TRONG LÒNG THÌ KHÔNG",
+      "grade": "cold",
+      "offset": 4
+    },
+    {
+      "shot": 9,
+      "start": 36,
+      "end": 41,
+      "src": "phone",
+      "headline": "CHỈ CÒN LẠI CHÍNH MÌNH",
+      "grade": "cold",
+      "offset": 11
+    },
+    {
+      "shot": 10,
+      "start": 41,
+      "end": 45,
+      "src": "mirror",
+      "headline": "BẠN ĐÃ QUÊN MẤT MÌNH",
+      "grade": "neutral",
+      "offset": 2
+    },
+    {
+      "shot": 11,
+      "start": 45,
+      "end": 50,
+      "src": "tired_desk",
+      "headline": "MỆT VÌ PHẢI GỒNG",
+      "grade": "neutral",
+      "offset": 7
+    },
+    {
+      "shot": 12,
+      "start": 50,
+      "end": 54,
+      "src": "tea_evening",
+      "headline": "CHẲNG MẤY AI HIỂU CHO BẠN",
+      "grade": "neutral",
+      "offset": 1
+    },
+    {
+      "shot": 13,
+      "start": 54,
+      "end": 58,
+      "src": "phone_bed",
+      "headline": "ĐẾN KHI...",
+      "grade": "neutral",
+      "offset": 13
+    },
+    {
+      "shot": 14,
+      "start": 58,
+      "end": 64,
+      "src": "phone",
+      "headline": "BẠN BẮT ĐẦU CHỌN MÌNH",
+      "grade": "neutral",
+      "offset": 3
+    },
+    {
+      "shot": 15,
+      "start": 64,
+      "end": 71,
+      "src": "sunrise",
+      "headline": "KHÔNG PHẢI AI CŨNG HÀI LÒNG",
+      "grade": "warm",
+      "offset": 3
+    },
+    {
+      "shot": 16,
+      "start": 71,
+      "end": 77,
+      "src": "tea_morning",
+      "headline": "BÌNH YÊN TỪ NHỮNG ĐIỀU NHỎ",
+      "grade": "warm",
+      "offset": 3
+    },
+    {
+      "shot": 17,
+      "start": 77,
+      "end": 83,
+      "src": "sunrise",
+      "headline": "ĐẶT RANH GIỚI CŨNG LÀ YÊU MÌNH",
+      "grade": "warm",
+      "offset": 16
+    },
+    {
+      "shot": 18,
+      "start": 83,
+      "end": 92,
+      "src": "final_walk",
+      "headline": "ĐỪNG BỎ RƠI CHÍNH MÌNH.",
+      "grade": "warm",
+      "offset": 3
+    }
+  ],
+  "audio": {
+    "sourceDriveId": "1inhnYkQ1kTGzMWKDQbI5dn092-FlvXgg",
+    "source": "User's previous Vbee Thanh Long cinematic preview; retain original narration and score"
+  },
+  "facts": {
+    "sourceClipsInclude25fps": true,
+    "someSourceClips60fps": true,
+    "render60fpsOutput": true,
+    "allMotionNative60fps": false,
+    "actorsAreDifferent": true,
+    "outputUsesRealCameraFootage": true
+  }
+}
