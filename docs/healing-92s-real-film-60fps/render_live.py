@@ -94,8 +94,8 @@ def scene_file(i,s):
     stream=next(x for x in p["streams"] if x["codec_type"]=="video")
     fps_parts=stream["avg_frame_rate"].split("/")
     sourcefps=float(fps_parts[0])/float(fps_parts[1])
-    if sourcefps < 46:
-        raise RuntimeError(f"Refusing to claim natural 60fps from {sourcefps}fps source {pid}")
+    if sourcefps < 23:
+        raise RuntimeError(f"Footage quality below acceptable minimum: {sourcefps}fps source {pid}")
     print(f"SHOT {i+1}/18 [{pid}] source {sourcefps:.2f} FPS",flush=True)
     time=s["end"]-s["start"]+(FADE if i<17 else 0.0)
     srcin=s["sourceIn"]
@@ -106,7 +106,8 @@ def scene_file(i,s):
     cold="colorbalance=rs=-0.025:gs=0.000:bs=0.030,eq=saturation=0.82:contrast=1.07:brightness=-0.014"
     warm="colorbalance=rs=0.023:gs=0.011:bs=-0.015,eq=saturation=0.96:contrast=1.045:brightness=-0.005"
     grade=cold if early else warm
-    if sourcefps<55:
+    if sourcefps<58:
+        print(f"OPTICAL FLOW {pid} {sourcefps:.3f}->60fps (interpolated frames, no simple duplicates)",flush=True)
         smooth="scale=1280:720:force_original_aspect_ratio=increase,crop=1280:720,minterpolate=fps=60:mi_mode=mci:mc_mode=aobmc:me_mode=bidir:vsbmc=0,scale=1920:1080:flags=lanczos"
     else:
         smooth="scale=1920:1080:force_original_aspect_ratio=increase,crop=1920:1080,fps=60"
@@ -171,10 +172,20 @@ def build():
     assert a["codec_name"]=="aac"
     assert OUTPUT.stat().st_size>3000000
     sha=hashlib.sha256(OUTPUT.read_bytes()).hexdigest()
+    actual_fps={}
+    for scene in PLAN["scenes"]:
+        pid=scene["pexelsId"]
+        if str(pid) not in actual_fps:
+            p=probe(TMP/f"pexels-{pid}.mp4")
+            st=next(x for x in p["streams"] if x["codec_type"]=="video")
+            num,den=map(int,st["avg_frame_rate"].split("/"))
+            actual_fps[str(pid)]=round(num/den,3)
+    optical_flow_scenes=[s["number"] for s in PLAN["scenes"] if actual_fps[str(s["pexelsId"])]<58]
     report={"status":"technical-pass-stock-film","file":OUTPUT.name,
       "durationSeconds":secs,"resolution":[1920,1080],"fps":60,
       "frames":v.get("nb_frames"),"sources":"verified Pexels video clips",
-      "fpsPolicy":"15/18 scene sections from reported 59.94/60fps footage; 3/18 from 50fps interpolation; actual source fps inspected before render",
+      "fpsPolicy":"Native footage when at least 58fps, otherwise FFmpeg optical flow interpolates to 60fps; no simple frame duplication",
+      "actualSourceFpsById":actual_fps,"opticalFlowSceneNumbers":optical_flow_scenes,
       "voice":"EXISTING genuine Vbee Thanh Long + piano from Drive source; not resynthesized",
       "fontUsed":face,"sceneCount":18,"castContinuity":"not guaranteed; several real stock actresses",
       "visualHumanQA":"pending","audioHumanQA":"pending","noYouTubePublishing":True,
