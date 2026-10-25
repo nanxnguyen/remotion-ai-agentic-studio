@@ -1,8 +1,8 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "ray-phim-ke-chuyen",
-  "version": "0.3.0",
-  "description": "Ray Phim Kể Chuyện v0.3.0: cinematic horror Shorts, V3/V4 regression learning, voice-to-visible-action QA, smooth soft fades, authentic Vbee, captioned storyboard and Google Drive video + GitHub source.",
+  "version": "0.3.1",
+  "description": "Ray Phim Kể Chuyện v0.3.1: cinematic Shorts, screenplay-adaptive storyboard color, dramatic multi-card layouts, real Vbee, voice-action QA, smooth fades, Google Drive video + GitHub source.",
   "author": {
     "name": "Ray"
   },
@@ -16,15 +16,14 @@
     "video-production",
     "preflight-qa",
     "0-6s hook",
-    "captioned storyboards",
-    "native Vietnamese typography",
+    "dramatic portrait storyboard",
+    "script-adaptive colors",
+    "cinematic card grid",
+    "Vietnamese typography",
     "voice visual evidence QA",
-    "before-action-after",
     "visual continuity",
     "smooth 2.5D motion",
     "soft crossfade",
-    "retention-oriented editing",
-    "V3 V4 regression prevention",
     "Google Drive MP4",
     "GitHub source only",
     "no releases"
