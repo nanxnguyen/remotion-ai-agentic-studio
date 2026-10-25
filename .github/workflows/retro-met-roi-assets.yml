@@ -1,0 +1,28 @@
+name: Retro TV - Source genuine font and nature footage
+on:
+  push:
+    branches:
+      - feat/retro-met-roi-final-20261025
+    paths:
+      - .github/workflows/retro-met-roi-assets.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  fetch-assets:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Download and validate sources
+        run: python3 scripts/download-retro-met-roi-assets.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: retro-met-roi-licensed-assets
+          path: build/retro-met-roi/assets/
+          retention-days: 14
+          if-no-files-found: error
