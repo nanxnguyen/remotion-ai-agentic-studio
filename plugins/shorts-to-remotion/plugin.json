@@ -1,8 +1,8 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "shorts-to-remotion",
-  "version": "0.1.2",
-  "description": "Reusable Vietnamese workflow to analyze video references from Google Drive or MP4, extract frames using GitHub Actions, and produce scripts, storyboards, assets and Remotion-ready short videos.",
+  "version": "0.1.5",
+  "description": "Reusable Vietnamese video analysis and Remotion production with exact voice-caption-scene alignment, 30/60 fps, short 9:16 and long 16:9, and Be Vietnam Pro ExtraBold defaults.",
   "author": {
     "name": "Plugin owner"
   },
@@ -11,14 +11,14 @@
       "interface": {
         "displayName": "Shorts to Remotion Studio",
         "shortDescription": "Phân tích Shorts, dựng video",
-        "longDescription": "Phân tích video Shorts từ Google Drive hoặc MP4, trích frame qua GitHub Actions, nghiên cứu phong cách và sản xuất kịch bản, storyboard, video dọc 9:16 cùng mã Remotion tái sử dụng.",
+        "longDescription": "Phân tích video Google Drive/MP4 và dựng Remotion. Mặc định giọng–chữ–cảnh đồng bộ, không ngắt quãng dài, 30/60 FPS, Shorts 9:16, video dài 16:9, ưu tiên Be Vietnam Pro ExtraBold.",
         "developerName": "Plugin owner",
         "category": "Productivity",
         "capabilities": [],
         "defaultPrompt": [
           "Phân tích video Shorts từ Google Drive và đề xuất cách tái tạo bằng Remotion.",
-          "Dựa trên video tham chiếu này, tạo kịch bản chủ đề mới 55 giây và storyboard 9:16.",
-          "Tạo video Shorts mới bằng Remotion dựa trên phong cách của video mẫu."
+          "Tạo video Short 9:16 đồng bộ chính xác giọng đọc, phụ đề và cảnh tại 30/60 FPS.",
+          "Dựng video dài 16:9 bằng Remotion, caption Be Vietnam Pro ExtraBold, không có khoảng lặng dài."
         ]
       }
     }
