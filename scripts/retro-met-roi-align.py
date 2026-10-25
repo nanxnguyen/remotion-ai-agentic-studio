@@ -1,4 +1,4 @@
-import json, pathlib
+import json, pathlib, numpy as np, soundfile as sf
 from faster_whisper import WhisperModel
 p=pathlib.Path('voice')
 out=pathlib.Path('build/retro-met-roi/alignment')
@@ -7,7 +7,12 @@ model=WhisperModel('base',device='cpu',compute_type='int8')
 r={}
 for i in range(1,5):
   f=p/f's{i}.mp3'
-  segments,info=model.transcribe(str(f),language='vi',word_timestamps=True,beam_size=5,vad_filter=False)
+  audio,sr=sf.read(str(f),dtype='float32')
+  if audio.ndim>1:audio=audio.mean(axis=1)
+  xp=np.arange(len(audio))*16000/sr
+  newlen=round(len(audio)*16000/sr)
+  audio=np.interp(np.arange(newlen),xp,audio).astype('float32')
+  segments,info=model.transcribe(audio,language='vi',word_timestamps=True,beam_size=5,vad_filter=False)
   rows=[]
   for s in segments:
     for w in (s.words or []):
