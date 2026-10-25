@@ -65,5 +65,15 @@
       "start": 58.721,
       "seconds": 6.272
     }
-  ]
+  ],
+  "vidiqUploadId": "b09922e0-77a5-48c4-9327-e8918963e027",
+  "vidiqImportStatus": "ready",
+  "vidiqVerified": {
+    "durationSeconds": 66.167,
+    "sizeBytes": 11131334,
+    "width": 1920,
+    "height": 1080,
+    "streamCount": 2
+  },
+  "driveUploadStatus": "not_uploaded"
 }
