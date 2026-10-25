@@ -1,0 +1,29 @@
+name: Empty Wedding Authentic Vbee
+on:
+  push:
+    branches: [feat/dam-cuoi-khong-co-co-dau-vbee]
+    paths:
+      - .github/workflows/dam-cuoi-vbee.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  narrator:
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    env:
+      VBEE_ACCESS_TOKEN: ${{ secrets.VBEE_ACCESS_TOKEN || secrets.VBEE_TOKEN || secrets.VBEE_API_KEY || secrets.VBEE_API_TOKEN }}
+      VBEE_APP_ID: ${{ secrets.VBEE_APP_ID || secrets.VBEE_APPID || secrets.VBEE_APPLICATION_ID }}
+      VBEE_WEBHOOK_URL: ${{ vars.VBEE_WEBHOOK_URL || 'https://example.com/story-tts-webhook' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Generate original Vbee ten lines
+        run: python3 scripts/gen-story-vbee-batch.py --timeline docs/dam-cuoi-khong-co-co-dau/timeline.json --out-dir public/audio/dam-cuoi --voice-code hn_male_phuthang_stor_24k-stl --speed 1.15 --webhook-url "$VBEE_WEBHOOK_URL"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dam-cuoi-authentic-vbee
+          path: public/audio/dam-cuoi/
+          if-no-files-found: error
