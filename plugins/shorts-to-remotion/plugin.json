@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "shorts-to-remotion",
-  "version": "0.1.2",
+  "version": "0.1.4",
   "description": "Reusable Vietnamese workflow to analyze video references from Google Drive or MP4, extract frames using GitHub Actions, and produce scripts, storyboards, assets and Remotion-ready short videos.",
   "author": {
     "name": "Plugin owner"
