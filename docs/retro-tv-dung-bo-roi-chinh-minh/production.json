@@ -1,0 +1,126 @@
+{
+  "slug": "dung-bo-roi-chinh-minh",
+  "title": "Đừng Bỏ Rơi Chính Mình Để Làm Vừa Lòng Tất Cả",
+  "productionDate": "2026-10-25",
+  "width": 1920,
+  "height": 1080,
+  "fps": 60,
+  "format": "16:9",
+  "voice": "hn_male_thanhlong_talk_48k-fhg",
+  "voiceSpeed": 0.95,
+  "openingPauseSeconds": 0.25,
+  "betweenBeatsPauseSeconds": 0.37,
+  "endPauseSeconds": 1.15,
+  "shotsPerBeat": 2,
+  "frameFadeSeconds": 0.32,
+  "aesthetic": "Ray Retro TV V17 adapted to widescreen 16:9. Warm wooden studio, black-bronze TV, screen brighter than room, no original V17 baked text, subtitles below TV. B-roll must be moving footage.",
+  "rights": "Pexels royalty-free video; check license and depicted person's context before publishing.",
+  "beats": [
+    {
+      "act": "HOOK",
+      "text": "Có bao giờ bạn cố làm vui lòng tất cả… rồi chợt nhận ra, người bị bỏ quên lâu nhất chính là mình?",
+      "tone": "thì thầm, đau nhẹ",
+      "visualA": "CẢ THẾ GIỚI HÀI LÒNG",
+      "visualB": "CÒN BẠN THÌ SAO?",
+      "stock": "6670423"
+    },
+    {
+      "act": "THÂN",
+      "text": "Bạn trả lời tin nhắn dù mệt. Bạn nhận thêm việc dù không muốn. Bạn xin lỗi, ngay cả khi chẳng làm gì sai.",
+      "tone": "chậm, gần gũi",
+      "visualA": "VẪN NÓI: KHÔNG SAO",
+      "visualB": "DÙ TRONG LÒNG RẤT MỆT",
+      "stock": "6940828"
+    },
+    {
+      "act": "THÂN",
+      "text": "Đến đêm, căn phòng im lặng. Điện thoại vẫn sáng. Còn bạn… chỉ muốn có ai hỏi: hôm nay bạn có ổn không?",
+      "tone": "trầm xuống, nhiều khoảng thở",
+      "visualA": "ĐÊM XUỐNG",
+      "visualB": "AI HỎI BẠN CÓ ỔN KHÔNG?",
+      "stock": "6799114"
+    },
+    {
+      "act": "THÂN",
+      "text": "Bạn tưởng nếu đủ tốt, sẽ chẳng ai rời đi. Nên cứ nhường, cứ chịu, cứ lùi lại… cho đến khi hết chỗ cho chính mình.",
+      "tone": "tổn thương, giữ bình tĩnh",
+      "visualA": "CỨ NHƯỜNG, CỨ CHỊU",
+      "visualB": "ĐẾN KHI QUÊN MÌNH",
+      "stock": "5705724"
+    },
+    {
+      "act": "CAO TRÀO",
+      "text": "Nhưng người thật lòng thương bạn… không cần bạn kiệt sức mới ở lại. Một lời từ chối tử tế không khiến bạn trở thành người xấu.",
+      "tone": "ấm và vững, nhấn từng ý",
+      "visualA": "NGƯỜI THƯƠNG BẠN",
+      "visualB": "KHÔNG CẦN BẠN KIỆT SỨC",
+      "stock": "5326805"
+    },
+    {
+      "act": "CAO TRÀO",
+      "text": "Tối nay, hãy giữ lại một điều nhỏ. Một tách trà còn ấm. Một giấc ngủ không áy náy. Một khoảng lặng không cần giải thích.",
+      "tone": "dịu lại, gần",
+      "visualA": "GIỮ LẠI MỘT ĐIỀU NHỎ",
+      "visualB": "MỘT TÁCH TRÀ CÒN ẤM",
+      "stock": "946148"
+    },
+    {
+      "act": "KẾT",
+      "text": "Nếu hôm nay chưa mạnh mẽ, cũng không sao. Bạn được phép mệt, được phép dừng… và được chọn chính mình.",
+      "tone": "nâng đỡ và hy vọng",
+      "visualA": "BẠN ĐƯỢC PHÉP MỆT",
+      "visualB": "BẠN ĐƯỢC PHÉP DỪNG",
+      "stock": "13296846"
+    },
+    {
+      "act": "KẾT",
+      "text": "Bình yên không đến khi ai cũng hài lòng về bạn. Nó bắt đầu… từ lúc bạn thôi bỏ rơi chính mình.",
+      "tone": "thì thầm ấm, nhấn câu cuối",
+      "visualA": "BÌNH YÊN KHÔNG Ở NGOÀI KIA",
+      "visualB": "ĐỪNG BỎ RƠI CHÍNH MÌNH",
+      "stock": "8493720"
+    }
+  ],
+  "sourceCredits": [
+    {
+      "id": "6670423",
+      "title": "A Woman Crying by the Window",
+      "author": "RDNE Stock project"
+    },
+    {
+      "id": "6940828",
+      "title": "A Woman Writing on Her Diary",
+      "author": "cottonbro studio"
+    },
+    {
+      "id": "6799114",
+      "title": "Woman Sitting at Desk Writing in Notebook",
+      "author": "RDNE Stock project"
+    },
+    {
+      "id": "5705724",
+      "title": "Person Walking on Dry Leaves",
+      "author": "Pavel Danilyuk"
+    },
+    {
+      "id": "5326805",
+      "title": "Backlit Silhouette of Woman Standing Up",
+      "author": "Martina Tomšič"
+    },
+    {
+      "id": "946148",
+      "title": "Person Stirring Drink",
+      "author": "Carlos Arribas"
+    },
+    {
+      "id": "13296846",
+      "title": "Woman Looking at Sunset",
+      "author": "Evgenij Mikhailov"
+    },
+    {
+      "id": "8493720",
+      "title": "Woman Standing on a Cliff",
+      "author": "ArtHouse Studio"
+    }
+  ]
+}
