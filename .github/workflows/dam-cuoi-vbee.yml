@@ -1,0 +1,41 @@
+name: Dam Cuoi Khong Co Co Dau Original Vbee
+on:
+  push:
+    branches: [feat/dam-cuoi-khong-co-co-dau-film-v1]
+    paths: [.github/workflows/dam-cuoi-vbee.yml]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  vbee:
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    env:
+      VBEE_ACCESS_TOKEN: ${{ secrets.VBEE_ACCESS_TOKEN || secrets.VBEE_TOKEN || secrets.VBEE_API_KEY || secrets.VBEE_API_TOKEN }}
+      VBEE_APP_ID: ${{ secrets.VBEE_APP_ID || secrets.VBEE_APPID || secrets.VBEE_APPLICATION_ID }}
+      VBEE_WEBHOOK_URL: ${{ vars.VBEE_WEBHOOK_URL || 'https://example.com/story-tts-webhook' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Create original Vbee voice clips
+        run: python3 scripts/gen-story-vbee-batch.py --timeline docs/dam-cuoi-khong-co-co-dau/timeline.json --out-dir public/audio/dam-cuoi-khong-co-co-dau --voice-code hn_male_phuthang_stor_24k-stl --speed 1.15 --webhook-url "$VBEE_WEBHOOK_URL"
+      - name: Verify ten recorded voice clips
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          d=json.loads(Path('public/audio/dam-cuoi-khong-co-co-dau/measured-timeline.json').read_text())
+          assert len(d)==10
+          for s in d:
+            assert s['audio_seconds']<5.85, f"Voice too long: {s['id']}, {s['audio_seconds']}s"
+            assert s['sha256'] and s['voice_code']
+            print(s['id'], s['audio_seconds'])
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dam-cuoi-vbee-narration-original
+          path: public/audio/dam-cuoi-khong-co-co-dau/
+          retention-days: 20
+          if-no-files-found: error
