@@ -1,16 +1,16 @@
 {
   "interface": {
     "displayName": "Ray Phim K\u1ec3 Chuy\u1ec7n",
-    "shortDescription": "D\u1ef1ng phim kinh d\u1ecb Shorts \u0111i\u1ec7n \u1ea3nh c\u00f3 QA h\u00ecnh v\u00e0 ti\u1ebfng",
-    "longDescription": "Shorts kinh d\u1ecb 60s, HOOK 0\u20136s, captioned storyboard, 16\u201325 nh\u1ecbp h\u00ecnh theo n\u1ed9i dung, h\u00e0nh \u0111\u1ed9ng minh h\u1ecda \u0111\u00fang Vbee, fade m\u01b0\u1ee3t, \u00e2m thanh c\u00f3 chi\u1ec1u s\u00e2u. QA MP4 theo b\u00e0i h\u1ecdc V3/V4 r\u1ed3i l\u01b0u video tr\u00ean Google Drive v\u00e0 m\u00e3 ngu\u1ed3n tr\u00ean GitHub (kh\u00f4ng Releases).",
+    "shortDescription": "Storyboard \u0111i\u1ec7n \u1ea3nh theo k\u1ecbch b\u1ea3n, d\u1ef1ng phim kinh d\u1ecb Shorts c\u00f3 QA gi\u1ecdng v\u00e0 h\u00ecnh",
+    "longDescription": "YouTube Shorts 9:16: storyboard d\u1ea1ng l\u01b0\u1edbi th\u1ebb d\u1ecdc v\u1edbi ti\u00eau \u0111\u1ec1 l\u1edbn, ch\u1eef k\u1ec3 chuy\u1ec7n, m\u00e0u s\u1eafc t\u00f9y theo k\u1ecbch b\u1ea3n, timecode ch\u1ec9 trong review. Gi\u1ecdng Vbee th\u1eadt, \u00e2m thanh \u0111i\u1ec7n \u1ea3nh, QA c\u1ea3nh/voice v\u00e0 l\u01b0u MP4 Google Drive, GitHub l\u01b0u code, kh\u00f4ng Releases.",
     "developerName": "Ray",
     "category": "Productivity",
     "capabilities": [],
-    "defaultPrompt": "S\u1eed d\u1ee5ng Ray Phim K\u1ec3 Chuy\u1ec7n v0.3.0: tr\u01b0\u1edbc khi s\u1ea3n xu\u1ea5t, \u0111\u1ecdc skills/retention-action-director/SKILL.md, reference V3V4_RETENTION_ACTION_QA_V2, t\u1ea1o Voice-to-Visual event map c\u00f3 before\u2192action\u2192result cho m\u1ed7i s\u1ef1 ki\u1ec7n, d\u1ef1ng 12\u201316 captioned storyboard, 16\u201325 microshots khi c\u1ea7n, HOOK 0\u20136s, c\u1ea3nh n\u1ec1n \u0111\u1ed9c l\u1eadp 9:16, Vbee th\u1ef1c, fade 0.35\u20130.55s kh\u00f4ng gi\u1eadt/glitch. Tr\u01b0\u1edbc FINAL xu\u1ea5t MP4 ki\u1ec3m tra frame v\u00e0 nghe to\u00e0n b\u1ed9, minh h\u1ecda \u0111\u1ea7y \u0111\u1ee7 h\u00e0nh \u0111\u1ed9ng, subtitles an to\u00e0n mobile, QA c\u00f3 evidence. L\u01b0u video, thumbnail, YouTube copy c\u00f9ng th\u01b0 m\u1ee5c Drive \u0111\u00e3 \u0111\u00e1nh s\u1ed1; GitHub ch\u1ec9 l\u01b0u code/QA, kh\u00f4ng GitHub Releases."
+    "defaultPrompt": "S\u1eed d\u1ee5ng Ray Phim K\u1ec3 Chuy\u1ec7n v0.3.1. Storyboard m\u1eb7c \u0111\u1ecbnh theo m\u1eabu th\u1ebb phim d\u1ecdc 4 c\u1ed9t \u00d7 3 h\u00e0ng (12 beat cho 55-60 gi\u00e2y, m\u1edf r\u1ed9ng khi k\u1ecbch b\u1ea3n c\u1ea7n): \u0111\u1ea7u th\u1ebb c\u00f3 ti\u00eau \u0111\u1ec1 \u0111i\u1ec7n \u1ea3nh in \u0111\u1eadm, highlight t\u1eeb kh\u00f3a, \u1ea3nh ri\u00eang cho h\u00e0nh \u0111\u1ed9ng, cu\u1ed1i th\u1ebb c\u00f3 l\u1eddi k\u1ec3 1-2 d\u00f2ng, m\u1ed1c th\u1eddi gian n\u1eb1m ngo\u00e0i th\u1ebb CH\u1ec8 khi review. M\u00c0U S\u1eaeC PH\u1ea2I D\u1ef0A V\u00c0O T\u1eeaNG K\u1ecaCH B\u1ea2N, kh\u00f4ng c\u1ed1 \u0111\u1ecbnh \u0111\u1ecf \u0111en. Kh\u00f4ng \u0111\u01b0a timecode, l\u01b0\u1edbi storyboard hay review-caption l\u00ean MP4. D\u00f9ng Vbee th\u1eadt v\u00e0 subtitle kh\u1edbp t\u1eebng c\u00e2u, gi\u1eef h\u00ecnh \u0111\u1ed9c l\u1eadp 9:16, QA before\u2192action\u2192result, ki\u1ec3m tra th\u1ef1c t\u1ebf tr\u01b0\u1edbc final, l\u01b0u MP4 l\u00ean Google Drive v\u00e0 ngu\u1ed3n tr\u00ean GitHub."
   },
   "name": "ray-phim-ke-chuyen",
-  "version": "0.3.0",
-  "description": "Ray Phim K\u1ec3 Chuy\u1ec7n v0.3.0: cinematic horror Shorts, V3/V4 regression learning, voice-to-visible-action QA, smooth soft fades, authentic Vbee, captioned storyboard and Google Drive video + GitHub source.",
+  "version": "0.3.1",
+  "description": "Ray Phim K\u1ec3 Chuy\u1ec7n v0.3.1: cinematic Shorts, screenplay-adaptive storyboard color, dramatic multi-card layouts, real Vbee, voice-action QA, smooth fades, Google Drive video + GitHub source.",
   "author": {
     "name": "Ray"
   },
@@ -24,15 +24,14 @@
     "video-production",
     "preflight-qa",
     "0-6s hook",
-    "captioned storyboards",
-    "native Vietnamese typography",
+    "dramatic portrait storyboard",
+    "script-adaptive colors",
+    "cinematic card grid",
+    "Vietnamese typography",
     "voice visual evidence QA",
-    "before-action-after",
     "visual continuity",
     "smooth 2.5D motion",
     "soft crossfade",
-    "retention-oriented editing",
-    "V3 V4 regression prevention",
     "Google Drive MP4",
     "GitHub source only",
     "no releases"
