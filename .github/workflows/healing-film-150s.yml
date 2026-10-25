@@ -1,0 +1,97 @@
+name: Healing Podcast 150s - Moving Film
+on:
+  push:
+    branches: [feat/healing-podcast-150s-cinematic]
+    paths:
+      - '.github/workflows/healing-film-150s.yml'
+      - 'docs/healing-podcast-150s/render.py'
+      - 'docs/healing-podcast-150s/production.json'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: healing-150-film
+  cancel-in-progress: false
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    env:
+      VBEE_APP_ID: ${{ secrets.VBEE_APP_ID }}
+      VBEE_ACCESS_TOKEN: ${{ secrets.VBEE_ACCESS_TOKEN }}
+      VBEE_WEBHOOK_URL: https://iehmucsshklgjmxqyggp.supabase.co/functions/v1/vbee-batch-callback
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: feat/healing-podcast-150s-cinematic
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+      - name: Install codecs and graphics dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg curl fonts-dejavu-core
+          python3 -m pip install pillow numpy
+      - name: Preflight and create SILENT placeholder for private original audio
+        run: |
+          set -euo pipefail
+          root=docs/healing-podcast-150s
+          python3 -m py_compile "$root/render.py"
+          mkdir -p /tmp/healing150
+          ffmpeg -y -hide_banner -loglevel error -f lavfi \
+            -i "color=c=black:s=320x180:r=30:d=64.6" \
+            -f lavfi -i "anullsrc=r=48000:cl=stereo" \
+            -t 64.6 -c:v libx264 -preset ultrafast -c:a aac \
+            /tmp/healing150/original.mp4
+      - name: Generate nine real Vbee Thanh Long continuation segments
+        run: |
+          set -euo pipefail
+          test -n "$VBEE_APP_ID" && test -n "$VBEE_ACCESS_TOKEN"
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          j=json.loads(Path("docs/healing-podcast-150s/production.json").read_text(encoding="utf8"))
+          assert len(j["voiceExtension"])==9 and len(j["shots"])==34
+          for i,t in enumerate(j["voiceExtension"]):
+              Path(f"/tmp/healing150/beat_{i:02d}.txt").write_text(t,encoding="utf8")
+          PY
+          for i in 0 1 2 3 4 5 6 7 8; do
+            num=$(printf '%02d' "$i")
+            python3 docs/short-01-nho-phien-ban-duoc-yeu/voice/vbee_batch_tts.py \
+              --text-file "/tmp/healing150/beat_$num.txt" \
+              --voice-code hn_male_thanhlong_talk_48k-fhg \
+              --webhook-url "$VBEE_WEBHOOK_URL" \
+              --speed 0.95 --attempts 45 \
+              --output "/tmp/healing150/vbee_$num.mp3"
+          done
+      - name: Build 34 natural moving cinematic film shots
+        run: |
+          set -euo pipefail
+          python3 docs/healing-podcast-150s/render.py
+      - name: Full video/audio decode and QA
+        run: |
+          set -euo pipefail
+          base=docs/healing-podcast-150s
+          ffmpeg -hide_banner -loglevel error -i "$base/final/ngung-song-cinematic-150s.mp4" -f null -
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path("docs/healing-podcast-150s/render-QA.json")
+          j=json.loads(p.read_text(encoding="utf8"))
+          assert 135<=j["duration"]<=172 and j["scenes"]==34
+          j["fullDecode"]="pass"
+          j["stagingWarning"]="First 64.6sec soundtrack SILENT placeholder. Original private audio must be remuxed locally before final."
+          p.write_text(json.dumps(j,ensure_ascii=False,indent=2)+"\n",encoding="utf8")
+          PY
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: healing-150s-staging-film-plus-vbee
+          path: |
+            docs/healing-podcast-150s/final/
+            docs/healing-podcast-150s/extension-only.srt
+            docs/healing-podcast-150s/extension-timing.json
+            docs/healing-podcast-150s/qa-contact-sheet.jpg
+            docs/healing-podcast-150s/render-QA.json
+          retention-days: 14
+          if-no-files-found: ignore
