@@ -1,0 +1,42 @@
+[
+  {
+    "beat": 1,
+    "start": 0.24,
+    "seconds": 6.454
+  },
+  {
+    "beat": 2,
+    "start": 7.064,
+    "seconds": 7.604
+  },
+  {
+    "beat": 3,
+    "start": 15.038,
+    "seconds": 8.623
+  },
+  {
+    "beat": 4,
+    "start": 24.031,
+    "seconds": 9.485
+  },
+  {
+    "beat": 5,
+    "start": 33.885,
+    "seconds": 7.499
+  },
+  {
+    "beat": 6,
+    "start": 41.755,
+    "seconds": 8.753
+  },
+  {
+    "beat": 7,
+    "start": 50.878,
+    "seconds": 7.473
+  },
+  {
+    "beat": 8,
+    "start": 58.721,
+    "seconds": 6.272
+  }
+]

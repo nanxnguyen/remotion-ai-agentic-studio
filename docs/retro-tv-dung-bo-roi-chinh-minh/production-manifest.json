@@ -1,0 +1,69 @@
+{
+  "status": "technical-pass",
+  "file": "final/retro-tv-dung-bo-roi-chinh-minh-full-hd60-vbee.mp4",
+  "duration": 66.166667,
+  "resolution": "1920x1080",
+  "outputFps": 60,
+  "sourceFps": "Pexels varies (typically 24-60fps), 60fps output can contain resampled frames",
+  "shots": 16,
+  "crossfadeSeconds": 0.32,
+  "voice": "Actual Vbee Thanh Long via Batch API: eight verified MP3s",
+  "music": "Original synthesized piano score with ducking",
+  "fullAudioVideoDecode": "pass",
+  "externalVisualReview": "pending",
+  "stockSourceIds": [
+    "6670423",
+    "6940828",
+    "6799114",
+    "5705724",
+    "5326805",
+    "946148",
+    "13296846",
+    "8493720"
+  ],
+  "sha256": "65e1e9f90398d5fd4150199c469000a88eab94062931d224aa17d762b61dc5ef",
+  "bytes": 11131334,
+  "youtubePublished": false,
+  "timecodes": [
+    {
+      "beat": 1,
+      "start": 0.24,
+      "seconds": 6.454
+    },
+    {
+      "beat": 2,
+      "start": 7.064,
+      "seconds": 7.604
+    },
+    {
+      "beat": 3,
+      "start": 15.038,
+      "seconds": 8.623
+    },
+    {
+      "beat": 4,
+      "start": 24.031,
+      "seconds": 9.485
+    },
+    {
+      "beat": 5,
+      "start": 33.885,
+      "seconds": 7.499
+    },
+    {
+      "beat": 6,
+      "start": 41.755,
+      "seconds": 8.753
+    },
+    {
+      "beat": 7,
+      "start": 50.878,
+      "seconds": 7.473
+    },
+    {
+      "beat": 8,
+      "start": 58.721,
+      "seconds": 6.272
+    }
+  ]
+}
