@@ -1,19 +1,19 @@
 {
   "interface": {
     "displayName": "Shorts to Remotion Studio",
-    "shortDescription": "Phân tích Shorts, dựng video",
-    "longDescription": "Phân tích video Shorts từ Google Drive hoặc MP4, trích frame qua GitHub Actions, nghiên cứu phong cách và sản xuất kịch bản, storyboard, video dọc 9:16 cùng mã Remotion tái sử dụng.",
+    "shortDescription": "Ph\u00e2n t\u00edch Shorts, d\u1ef1ng video",
+    "longDescription": "Ph\u00e2n t\u00edch video Shorts t\u1eeb Google Drive ho\u1eb7c MP4, tr\u00edch frame qua GitHub Actions, nghi\u00ean c\u1ee9u phong c\u00e1ch v\u00e0 s\u1ea3n xu\u1ea5t k\u1ecbch b\u1ea3n, storyboard, video d\u1ecdc 9:16 c\u00f9ng m\u00e3 Remotion t\u00e1i s\u1eed d\u1ee5ng.",
     "developerName": "Plugin owner",
     "category": "Productivity",
     "capabilities": [],
     "defaultPrompt": [
-      "Phân tích video Shorts từ Google Drive và đề xuất cách tái tạo bằng Remotion.",
-      "Dựa trên video tham chiếu này, tạo kịch bản chủ đề mới 55 giây và storyboard 9:16.",
-      "Tạo video Shorts mới bằng Remotion dựa trên phong cách của video mẫu."
+      "Ph\u00e2n t\u00edch video Shorts t\u1eeb Google Drive v\u00e0 \u0111\u1ec1 xu\u1ea5t c\u00e1ch t\u00e1i t\u1ea1o b\u1eb1ng Remotion.",
+      "D\u1ef1a tr\u00ean video tham chi\u1ebfu n\u00e0y, t\u1ea1o k\u1ecbch b\u1ea3n ch\u1ee7 \u0111\u1ec1 m\u1edbi 55 gi\u00e2y v\u00e0 storyboard 9:16.",
+      "T\u1ea1o video Shorts m\u1edbi b\u1eb1ng Remotion d\u1ef1a tr\u00ean phong c\u00e1ch c\u1ee7a video m\u1eabu."
     ]
   },
   "name": "shorts-to-remotion",
-  "version": "0.1.2",
+  "version": "0.1.4",
   "description": "Reusable Vietnamese workflow to analyze video references from Google Drive or MP4, extract frames using GitHub Actions, and produce scripts, storyboards, assets and Remotion-ready short videos.",
   "author": {
     "name": "Plugin owner"
