@@ -83,7 +83,13 @@ def generate_async(text, voice_code, speed, dest, webhook_url):
     url = f"{API}/requests/{urllib.parse.quote(rid, safe='')}"
     for n in range(75):  # max 5 minutes per shot
         time.sleep(4)
-        result = request_json(urllib.request.Request(url, headers=headers()))
+        try:
+            result = request_json(urllib.request.Request(url, headers=headers()))
+        except RuntimeError as exc:
+            if any(f"Vbee HTTP {code}:" in str(exc) for code in (429, 500, 502, 503, 504)):
+                print("Temporary Vbee batch status error; retrying poll...", flush=True)
+                continue
+            raise
         state = str(result.get("status", "")).upper()
         if state in ("FAILED", "ERROR", "FAILURE"):
             raise RuntimeError(f"Vbee job failed, status={state}; check voice/credits")
