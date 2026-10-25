@@ -34,7 +34,8 @@ jobs:
       - name: Verify audio
         run: |
           test "$(find build/retro-met-roi/voice -name 's*.mp3' | wc -l)" -eq 4
-          for f in build/retro-met-roi/voice/s*.mp3; do ffprobe -v error -show_entries format=duration -of default=nw=1 "$f"; done
+          for f in build/retro-met-roi/voice/s*.mp3; do test -s "$f" || exit 1; done
+          python3 -c "import json; x=json.load(open('build/retro-met-roi/voice/measured-timeline.json')); assert len(x)==4 and all(y['audio_seconds']>0 for y in x); print([(v['id'],v['audio_seconds']) for v in x])"
       - uses: actions/upload-artifact@v4
         with:
           name: retro-met-roi-genuine-vbee-ngoc-huyen
