@@ -1,0 +1,127 @@
+name: Ray Retro TV - Healing Widescreen 60fps
+on:
+  push:
+    branches: [feat/retro-tv-long-16x9-20261025]
+    paths:
+      - '.github/workflows/retro-tv-healing-16x9.yml'
+      - 'docs/retro-tv-dung-bo-roi-chinh-minh/production.json'
+      - 'docs/retro-tv-dung-bo-roi-chinh-minh/render.py'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: retro-tv-healing-16x9
+  cancel-in-progress: false
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    env:
+      VBEE_APP_ID: ${{ secrets.VBEE_APP_ID }}
+      VBEE_ACCESS_TOKEN: ${{ secrets.VBEE_ACCESS_TOKEN }}
+      VBEE_WEBHOOK_URL: https://iehmucsshklgjmxqyggp.supabase.co/functions/v1/vbee-batch-callback
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: feat/retro-tv-long-16x9-20261025
+          persist-credentials: true
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+      - name: Install FFmpeg and image processing
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg curl fonts-dejavu-core
+          python3 -m pip install --disable-pip-version-check pillow numpy
+      - name: Preflight the 16x9 approved story and all moving stock sources
+        run: |
+          set -euo pipefail
+          root=docs/retro-tv-dung-bo-roi-chinh-minh
+          python3 -m py_compile "$root/render.py"
+          python3 - <<'PY'
+          import importlib.util,json
+          from pathlib import Path
+          p=Path('docs/retro-tv-dung-bo-roi-chinh-minh')
+          j=json.loads((p/'production.json').read_text(encoding='utf8'))
+          assert (j['width'],j['height'],j['fps']) == (1920,1080,60)
+          assert len(j['beats'])==8
+          assert sum(len(b['text'].split()) for b in j['beats'])>=150
+          spec=importlib.util.spec_from_file_location('renderer',p/'render.py')
+          mod=importlib.util.module_from_spec(spec);spec.loader.exec_module(mod)
+          mod.getstock()
+          print('All 8 LIVE stock video sources passed metadata and file-size validation')
+          PY
+      - name: Create 8 real emotional Vbee Thanh Long speech beats
+        run: |
+          set -euo pipefail
+          test -n "$VBEE_APP_ID" && test -n "$VBEE_ACCESS_TOKEN"
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          d=json.loads(Path('docs/retro-tv-dung-bo-roi-chinh-minh/production.json').read_text(encoding='utf8'))
+          out=Path('/tmp/ray_retro_long')
+          out.mkdir(parents=True,exist_ok=True)
+          for i,b in enumerate(d['beats']):
+              (out/f'beat_{i}.txt').write_text(b['text'],encoding='utf8')
+              print('VOICE CUE',i+1,b['act'],len(b['text']))
+          PY
+          for i in 0 1 2 3 4 5 6 7; do
+            python3 docs/short-01-nho-phien-ban-duoc-yeu/voice/vbee_batch_tts.py \
+              --text-file "/tmp/ray_retro_long/beat_${i}.txt" \
+              --voice-code hn_male_thanhlong_talk_48k-fhg \
+              --webhook-url "$VBEE_WEBHOOK_URL" \
+              --speed 0.95 \
+              --attempts 45 \
+              --output "/tmp/ray_retro_long/voice_${i}.mp3"
+            ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1 \
+              "/tmp/ray_retro_long/voice_${i}.mp3"
+          done
+      - name: Render cinematic real-motion CRT TV with Vietnamese narration and piano
+        run: |
+          set -euo pipefail
+          python3 docs/retro-tv-dung-bo-roi-chinh-minh/render.py
+      - name: QA full decode, UHD-safe scaling, 60fps and voiced audio
+        run: |
+          set -euo pipefail
+          root=docs/retro-tv-dung-bo-roi-chinh-minh
+          output="$root/final/retro-tv-dung-bo-roi-chinh-minh-full-hd60-vbee.mp4"
+          ffmpeg -hide_banner -loglevel error -i "$output" -f null -
+          python3 - <<'PY'
+          import json,subprocess
+          from pathlib import Path
+          root=Path('docs/retro-tv-dung-bo-roi-chinh-minh')
+          p=root/'production-manifest.json'
+          d=json.loads(p.read_text(encoding='utf8'))
+          assert d['duration']>60 and d['resolution']=='1920x1080' and d['outputFps']==60
+          assert d['shots']==16 and d['bytes']>1000000
+          assert (root/'thumbnail-long-1280x720.jpg').stat().st_size>10000
+          assert (root/'youtube-title-description.txt').stat().st_size>100
+          assert (root/'qa-contact-sheet.jpg').stat().st_size>10000
+          d['fullAudioVideoDecode']='pass'
+          p.write_text(json.dumps(d,ensure_ascii=False,indent=2)+'\n',encoding='utf8')
+          print('QA PASSED',d['duration'],d['sha256'])
+          PY
+      - name: Preserve video and files on feature branch
+        run: |
+          set -euo pipefail
+          root=docs/retro-tv-dung-bo-roi-chinh-minh
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add "$root/final" "$root/production-manifest.json" "$root/youtube-title-description.txt" \
+            "$root/thumbnail-long-1280x720.jpg" "$root/qa-contact-sheet.jpg" "$root/voice-timing.json"
+          git diff --cached --quiet || git commit -m 'assets(retro-tv): archive long-form widescreen 60fps voiced cinematic film'
+          git fetch origin feat/retro-tv-long-16x9-20261025
+          git rebase origin/feat/retro-tv-long-16x9-20261025
+          git push origin HEAD:feat/retro-tv-long-16x9-20261025
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: retro-tv-16x9-long-form-vbee
+          path: |
+            docs/retro-tv-dung-bo-roi-chinh-minh/final/
+            docs/retro-tv-dung-bo-roi-chinh-minh/qa-contact-sheet.jpg
+            docs/retro-tv-dung-bo-roi-chinh-minh/thumbnail-long-1280x720.jpg
+            docs/retro-tv-dung-bo-roi-chinh-minh/production-manifest.json
+          if-no-files-found: ignore
+          retention-days: 14
