@@ -1,0 +1,312 @@
+{
+  "title": "Ngừng Sống Để Làm Hài Lòng Người Khác",
+  "durationTargetSeconds": 150,
+  "originalDurationSeconds": 64.6,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "fps": 30,
+  "voiceExtension": [
+    "Khi bạn bắt đầu nói không, có người sẽ khó chịu. Nhưng điều đó không có nghĩa bạn trở thành người xấu.",
+    "Ngày mai, nếu điện thoại lại sáng lên, hãy tự hỏi: mình còn đủ sức không? Nếu không… bạn được phép nghỉ.",
+    "Bạn có thể nói: Mình muốn giúp, nhưng hôm nay cần thời gian cho bản thân. Chỉ vậy thôi, cũng đủ can đảm.",
+    "Bạn sợ người khác thất vọng. Nhưng một lời từ chối tử tế không xóa đi những điều tốt đẹp bạn từng làm.",
+    "Bạn không phải ngọn đèn phải sáng mãi. Bạn cũng có ngày mỏi mệt, có những giấc mơ cần chăm sóc.",
+    "Tối nay, hãy rót tách trà, đặt điện thoại xuống. Mở cửa sổ… và viết: Hôm nay, mình đã cố gắng đủ rồi.",
+    "Không phải mọi chuyện sẽ ổn sau một đêm. Nhưng từng lựa chọn nhỏ đang dạy bạn cách yêu thương chính mình.",
+    "Người thật lòng sẽ tôn trọng ranh giới của bạn. Và chính bạn… cũng cần học cách ở lại với bản thân.",
+    "Bình yên không phải khi ai cũng hài lòng. Bình yên bắt đầu từ lúc bạn dịu dàng với chính mình, kể cả khi chưa hoàn hảo."
+  ],
+  "voiceCode": "hn_male_thanhlong_talk_48k-fhg",
+  "shots": [
+    {
+      "index": 1,
+      "start": 0,
+      "end": 4,
+      "act": "HOOK",
+      "sourceId": "8226005",
+      "focusText": "CÓ BAO GIỜ…"
+    },
+    {
+      "index": 2,
+      "start": 4,
+      "end": 8,
+      "act": "HOOK",
+      "sourceId": "8410085",
+      "focusText": "BẠN ĐÃ QUÊN MÌNH?"
+    },
+    {
+      "index": 3,
+      "start": 8,
+      "end": 12.4,
+      "act": "NỖI ĐAU",
+      "sourceId": "1122525",
+      "focusText": "TỰ ĐẶT MÌNH SAU CÙNG"
+    },
+    {
+      "index": 4,
+      "start": 12.4,
+      "end": 16.8,
+      "act": "NỖI ĐAU",
+      "sourceId": "8410085",
+      "focusText": "CỨ NÓI: KHÔNG SAO"
+    },
+    {
+      "index": 5,
+      "start": 16.8,
+      "end": 21.2,
+      "act": "NỖI ĐAU",
+      "sourceId": "7339416",
+      "focusText": "MỆT MỎI VÌ KỲ VỌNG"
+    },
+    {
+      "index": 6,
+      "start": 21.2,
+      "end": 25.6,
+      "act": "NỖI ĐAU",
+      "sourceId": "12769420",
+      "focusText": "THÔNG BÁO KHÔNG NGỪNG"
+    },
+    {
+      "index": 7,
+      "start": 25.6,
+      "end": 30,
+      "act": "NỖI ĐAU",
+      "sourceId": "8410085",
+      "focusText": "CHỈ MUỐN ĐƯỢC LẮNG NGHE"
+    },
+    {
+      "index": 8,
+      "start": 30,
+      "end": 35,
+      "act": "NHẬN THỨC",
+      "sourceId": "8226005",
+      "focusText": "MỘT KHOẢNG LẶNG"
+    },
+    {
+      "index": 9,
+      "start": 35,
+      "end": 40,
+      "act": "NHẬN THỨC",
+      "sourceId": "946148",
+      "focusText": "HƠI ẤM TRONG TÁCH TRÀ"
+    },
+    {
+      "index": 10,
+      "start": 40,
+      "end": 45,
+      "act": "NHẬN THỨC",
+      "sourceId": "8051642",
+      "focusText": "VIẾT CHO CHÍNH MÌNH"
+    },
+    {
+      "index": 11,
+      "start": 45,
+      "end": 50,
+      "act": "NHẬN THỨC",
+      "sourceId": "7033436",
+      "focusText": "ĐIỀU BÉ NHỎ ĐÁNG TRÂN TRỌNG"
+    },
+    {
+      "index": 12,
+      "start": 50,
+      "end": 55,
+      "act": "NHẬN THỨC",
+      "sourceId": "6872033",
+      "focusText": "DỪNG LẠI ĐỂ THƯƠNG MÌNH"
+    },
+    {
+      "index": 13,
+      "start": 55,
+      "end": 60,
+      "act": "THAY ĐỔI",
+      "sourceId": "8410085",
+      "focusText": "ĐẶT ĐIỆN THOẠI XUỐNG"
+    },
+    {
+      "index": 14,
+      "start": 60,
+      "end": 65,
+      "act": "THAY ĐỔI",
+      "sourceId": "12769420",
+      "focusText": "ĐỪNG CỐ GẮNG QUÁ"
+    },
+    {
+      "index": 15,
+      "start": 65,
+      "end": 70,
+      "act": "THAY ĐỔI",
+      "sourceId": "8226005",
+      "focusText": "MỞ CỬA ĐÓN ÁNH SÁNG"
+    },
+    {
+      "index": 16,
+      "start": 70,
+      "end": 75,
+      "act": "THAY ĐỔI",
+      "sourceId": "4465799",
+      "focusText": "MỘT BƯỚC MỚI"
+    },
+    {
+      "index": 17,
+      "start": 75,
+      "end": 79.375,
+      "act": "RANH GIỚI",
+      "sourceId": "7339416",
+      "focusText": "HỌC CÁCH NÓI KHÔNG"
+    },
+    {
+      "index": 18,
+      "start": 79.375,
+      "end": 83.75,
+      "act": "RANH GIỚI",
+      "sourceId": "12769420",
+      "focusText": "BẠN ĐƯỢC PHÉP NGHỈ"
+    },
+    {
+      "index": 19,
+      "start": 83.75,
+      "end": 88.125,
+      "act": "RANH GIỚI",
+      "sourceId": "8051642",
+      "focusText": "ĐIỀU MÌNH MUỐN NÓI"
+    },
+    {
+      "index": 20,
+      "start": 88.125,
+      "end": 92.5,
+      "act": "RANH GIỚI",
+      "sourceId": "1122525",
+      "focusText": "KHÔNG SAO KHI NGƯỜI KHÁC BUỒN"
+    },
+    {
+      "index": 21,
+      "start": 92.5,
+      "end": 96.875,
+      "act": "RANH GIỚI",
+      "sourceId": "8226005",
+      "focusText": "RANH GIỚI CŨNG LÀ YÊU THƯƠNG"
+    },
+    {
+      "index": 22,
+      "start": 96.875,
+      "end": 101.25,
+      "act": "RANH GIỚI",
+      "sourceId": "7033436",
+      "focusText": "MÌNH ĐÃ CỐ GẮNG ĐỦ RỒI"
+    },
+    {
+      "index": 23,
+      "start": 101.25,
+      "end": 105.625,
+      "act": "RANH GIỚI",
+      "sourceId": "12769421",
+      "focusText": "MỘT TÁCH TRÀ BÌNH YÊN"
+    },
+    {
+      "index": 24,
+      "start": 105.625,
+      "end": 110,
+      "act": "RANH GIỚI",
+      "sourceId": "4465799",
+      "focusText": "BƯỚC RA KHỎI ÁP LỰC"
+    },
+    {
+      "index": 25,
+      "start": 110,
+      "end": 114.2857,
+      "act": "BÌNH YÊN",
+      "sourceId": "946148",
+      "focusText": "CHO MÌNH THỞ CHẬM"
+    },
+    {
+      "index": 26,
+      "start": 114.2857,
+      "end": 118.5714,
+      "act": "BÌNH YÊN",
+      "sourceId": "8051642",
+      "focusText": "VIẾT MỘT ĐIỀU TỐT"
+    },
+    {
+      "index": 27,
+      "start": 118.5714,
+      "end": 122.8571,
+      "act": "BÌNH YÊN",
+      "sourceId": "7033436",
+      "focusText": "KHÔNG CẦN HOÀN HẢO"
+    },
+    {
+      "index": 28,
+      "start": 122.8571,
+      "end": 127.1429,
+      "act": "BÌNH YÊN",
+      "sourceId": "8226005",
+      "focusText": "ĐỨNG LÊN MỘT LẦN NỮA"
+    },
+    {
+      "index": 29,
+      "start": 127.1429,
+      "end": 131.4286,
+      "act": "BÌNH YÊN",
+      "sourceId": "12769421",
+      "focusText": "DỊU DÀNG VỚI MÌNH"
+    },
+    {
+      "index": 30,
+      "start": 131.4286,
+      "end": 135.7143,
+      "act": "BÌNH YÊN",
+      "sourceId": "4465799",
+      "focusText": "MỌI THỨ CẦN THỜI GIAN"
+    },
+    {
+      "index": 31,
+      "start": 135.7143,
+      "end": 140,
+      "act": "BÌNH YÊN",
+      "sourceId": "7681465",
+      "focusText": "BÌNH YÊN TỪ NHỮNG ĐIỀU NHỎ"
+    },
+    {
+      "index": 32,
+      "start": 140,
+      "end": 143.3333,
+      "act": "KẾT",
+      "sourceId": "8226005",
+      "focusText": "BẠN XỨNG ĐÁNG ĐƯỢC YÊU"
+    },
+    {
+      "index": 33,
+      "start": 143.3333,
+      "end": 146.6667,
+      "act": "KẾT",
+      "sourceId": "4465799",
+      "focusText": "BẮT ĐẦU TỪ CHÍNH MÌNH"
+    },
+    {
+      "index": 34,
+      "start": 146.6667,
+      "end": 150,
+      "act": "KẾT",
+      "sourceId": "7681465",
+      "focusText": "BÌNH YÊN BẮT ĐẦU TỪ TA"
+    }
+  ],
+  "stockSources": [
+    "8226005",
+    "8410085",
+    "1122525",
+    "7339416",
+    "12769420",
+    "946148",
+    "8051642",
+    "7033436",
+    "6872033",
+    "4465799",
+    "12769421",
+    "7681465"
+  ],
+  "sourceRights": "Pexels footage; original TikTok soundtrack requires user rights before publishing",
+  "limits": "Stock sources may depict different actors; only claim consistency after manual visual approval."
+}
