@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "narration": "Bạn có đang kiệt sức… chỉ để mọi người nghĩ rằng mình ổn?",
+    "act": "hook"
+  },
+  {
+    "id": 2,
+    "narration": "Bạn vẫn mỉm cười, vẫn nói không sao, dù có những đêm chỉ muốn lặng im. Bạn sợ dừng lại, vì nghĩ mình sẽ khiến ai đó thất vọng.",
+    "act": "body"
+  },
+  {
+    "id": 3,
+    "narration": "Nhưng mạnh mẽ không phải là gồng mình đến tận cùng. Đôi khi, can đảm nhất là thừa nhận: hôm nay, mình mệt rồi.",
+    "act": "climax"
+  },
+  {
+    "id": 4,
+    "narration": "Bạn được phép mệt. Đôi khi, nghỉ ngơi cũng là một cách để bước tiếp.",
+    "act": "ending"
+  }
+]
