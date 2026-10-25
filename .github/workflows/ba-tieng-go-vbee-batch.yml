@@ -1,0 +1,65 @@
+name: Ba Tieng Go V4 - Genuine Vbee Batch Voice
+on:
+  push:
+    branches:
+      - film/ba-tieng-go-trong-dem-v4-20261025
+    paths:
+      - .github/workflows/ba-tieng-go-vbee-batch.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  vbee:
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    env:
+      VBEE_ACCESS_TOKEN: ${{ secrets.VBEE_ACCESS_TOKEN || secrets.VBEE_TOKEN || secrets.VBEE_API_KEY || secrets.VBEE_API_TOKEN }}
+      VBEE_APP_ID: ${{ secrets.VBEE_APP_ID || secrets.VBEE_APPID || secrets.VBEE_APPLICATION_ID }}
+      VBEE_WEBHOOK_URL: ${{ vars.VBEE_WEBHOOK_URL || 'https://example.com/story-tts-webhook' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Setup audio tools
+        run: sudo apt-get update -qq && sudo apt-get install -y ffmpeg
+      - name: Prepare exact V4 utterance list
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          src = Path('docs/ba-tieng-go-trong-dem-v4/vbee-voice-cues.json')
+          data = json.loads(src.read_text(encoding='utf-8'))
+          Path('/tmp/ba-tieng-go-lines.json').write_text(json.dumps(data['scenes'],ensure_ascii=False),encoding='utf-8')
+          print('Prepared', len(data['scenes']), 'approved voice lines')
+          PY
+      - name: Produce authentic Vbee Batch clips
+        run: |
+          test -n "$VBEE_ACCESS_TOKEN" && test -n "$VBEE_APP_ID"
+          python3 scripts/gen-story-vbee-batch.py \
+            --timeline /tmp/ba-tieng-go-lines.json \
+            --out-dir /tmp/ba-tieng-go-vbee-original \
+            --voice-code hn_male_phuthang_stor_24k-stl \
+            --speed 1.12 \
+            --webhook-url "$VBEE_WEBHOOK_URL"
+      - name: Duration fit evidence against locked screen beats
+        run: |
+          python3 - <<'PY'
+          import json, pathlib
+          cues=json.loads(pathlib.Path('docs/ba-tieng-go-trong-dem-v4/vbee-voice-cues.json').read_text())['scenes']
+          durations=json.loads(pathlib.Path('/tmp/ba-tieng-go-vbee-original/measured-timeline.json').read_text())
+          audit=[]
+          for cue,m in zip(cues,durations):
+              available=cue['end_sec']-cue['start_sec']
+              actual=m['audio_seconds']
+              audit.append({'id':cue['id'],'start_sec':cue['start_sec'],'end_sec':cue['end_sec'],'speaker':cue['speaker'],'narration':cue['narration'],'duration_actual_sec':actual,'available_sec':available,'fits':actual<=available-.1,'audio_file':m['audio_file'],'sha256':m['sha256'],'status':'needs retiming' if actual>available-.1 else 'duration fits; sync visual QA pending'})
+          pathlib.Path('/tmp/ba-tieng-go-vbee-original/timing-audit.json').write_text(json.dumps(audit,ensure_ascii=False,indent=2))
+          print('Vbee original cues produced',len(audit),'fits',sum(x['fits'] for x in audit),'needs retiming',sum(not x['fits'] for x in audit))
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ba-tieng-go-v4-vbee-audio
+          path: /tmp/ba-tieng-go-vbee-original/
+          retention-days: 14
+          if-no-files-found: warn

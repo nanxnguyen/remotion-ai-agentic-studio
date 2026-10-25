@@ -1,0 +1,106 @@
+{
+  "title": "Ba Tiếng Gõ Trong Đêm V4",
+  "status": "source-approved, Vbee generation not yet verified",
+  "duration_sec": 55,
+  "voice_provider": "Vbee Batch",
+  "voice_code": "hn_male_phuthang_stor_24k-stl",
+  "notes": "All spoken cues aligned to current picture; measure genuine MP3 durations before mix. Image storyboard timestamps never baked into video. Single authenticated Vbee voice until other voice codes are verified; must not mislabel distinct character cast.",
+  "scenes": [
+    {
+      "id": 1,
+      "start_sec": 2,
+      "end_sec": 6,
+      "speaker": "thuc_the",
+      "narration": "Cuối cùng... cũng tìm thấy mày.",
+      "visual": "Mud hand seizes Huy ankle"
+    },
+    {
+      "id": 2,
+      "start_sec": 6,
+      "end_sec": 9,
+      "speaker": "nguoi_ke",
+      "narration": "Năm dấu tay đầy bùn đất.",
+      "visual": "Five mud imprints on floor"
+    },
+    {
+      "id": 3,
+      "start_sec": 9,
+      "end_sec": 14,
+      "speaker": "me",
+      "narration": "Huy! Nếu nghe tiếng gõ thứ tư, tuyệt đối đừng mở cửa!",
+      "visual": "Huy sees mother calling; picks up telephone"
+    },
+    {
+      "id": 4,
+      "start_sec": 18,
+      "end_sec": 22,
+      "speaker": "gia_giong_me",
+      "narration": "Huy ơi... Mẹ lạnh quá. Mở cửa cho mẹ!",
+      "visual": "Closed bedroom door; voice outside"
+    },
+    {
+      "id": 5,
+      "start_sec": 22,
+      "end_sec": 26,
+      "speaker": "tin_nhan",
+      "narration": "Mẹ đang ở mộ con.",
+      "visual": "Phone lights up with warning message"
+    },
+    {
+      "id": 6,
+      "start_sec": 26,
+      "end_sec": 28,
+      "speaker": "huy",
+      "narration": "Mày là ai?!",
+      "visual": "Huy presses palms against door"
+    },
+    {
+      "id": 7,
+      "start_sec": 28,
+      "end_sec": 32,
+      "speaker": "thuc_the",
+      "narration": "Tao là thứ đã nằm trong mộ thay mày.",
+      "visual": "Huy braces door as shadow threatens"
+    },
+    {
+      "id": 8,
+      "start_sec": 37,
+      "end_sec": 42,
+      "speaker": "huy",
+      "narration": "Mẹ ơi! Cứu con!",
+      "visual": "Huy dragged into darkness"
+    },
+    {
+      "id": 9,
+      "start_sec": 42,
+      "end_sec": 46,
+      "speaker": "huy",
+      "narration": "Mẹ! Con chưa chết!",
+      "visual": "Shaking coffin in rainy graveyard"
+    },
+    {
+      "id": 10,
+      "start_sec": 46,
+      "end_sec": 49,
+      "speaker": "me",
+      "narration": "Không... Con tôi đã chết bảy ngày rồi.",
+      "visual": "Grieving mother in cemetery"
+    },
+    {
+      "id": 11,
+      "start_sec": 49,
+      "end_sec": 52,
+      "speaker": "me",
+      "narration": "Ba tiếng... là con tôi.",
+      "visual": "Mother raises hand to stop grave digger"
+    },
+    {
+      "id": 12,
+      "start_sec": 52,
+      "end_sec": 55,
+      "speaker": "me",
+      "narration": "Tiếng thứ tư... là thứ giết nó.",
+      "visual": "Fourth knock on coffin lid"
+    }
+  ]
+}

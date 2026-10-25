@@ -1,0 +1,127 @@
+{
+  "title": "BA TIẾNG GÕ TRONG ĐÊM",
+  "slug": "ba-tieng-go-trong-dem-v4",
+  "version": "V4",
+  "length_sec": 55,
+  "format": {
+    "aspect": "9:16",
+    "preferred": "1080x1920@30fps",
+    "preview": "540x960@24fps"
+  },
+  "type": "cinematic horror",
+  "approved_story": "V4 from conversation",
+  "timecodes_in_final_video": false,
+  "storyboard_grid_in_final_video": false,
+  "shots": [
+    {
+      "id": "s01",
+      "from": 0,
+      "to": 2,
+      "image": "clock at 2:17; 3 knocks",
+      "caption": "BA TIẾNG GÕ TRONG ĐÊM",
+      "sfx": "knock x3"
+    },
+    {
+      "id": "s02",
+      "from": 2,
+      "to": 6,
+      "image": "muddy hand seizes Huy ankle",
+      "voice": "Cuối cùng... cũng tìm thấy mày."
+    },
+    {
+      "id": "s03",
+      "from": 6,
+      "to": 9,
+      "image": "five mud marks on floor",
+      "voice": "Bàn tay biến mất, chỉ còn dấu đất"
+    },
+    {
+      "id": "s04",
+      "from": 9,
+      "to": 14,
+      "image": "phone; mother calling",
+      "voice": "Huy! Nếu nghe tiếng gõ thứ tư, tuyệt đối đừng mở cửa!"
+    },
+    {
+      "id": "s05",
+      "from": 14,
+      "to": 18,
+      "image": "Huy reacting; fourth knock",
+      "sfx": "knock x4"
+    },
+    {
+      "id": "s06",
+      "from": 18,
+      "to": 22,
+      "image": "voice beyond door; mother imitation",
+      "voice": "Huy ơi... mẹ lạnh quá. Mở cửa cho mẹ!"
+    },
+    {
+      "id": "s07",
+      "from": 22,
+      "to": 26,
+      "image": "phone message and doorknob",
+      "caption": "MẸ ĐANG Ở MỘ CON."
+    },
+    {
+      "id": "s08",
+      "from": 26,
+      "to": 32,
+      "image": "Huy holds the door",
+      "voice": "MÀY LÀ AI?! Tao là thứ đã nằm trong mộ thay mày."
+    },
+    {
+      "id": "s09",
+      "from": 32,
+      "to": 37,
+      "image": "wall cracks and soil falls",
+      "sfx": "cracking wall"
+    },
+    {
+      "id": "s10",
+      "from": 37,
+      "to": 42,
+      "image": "Huy dragged backwards",
+      "voice": "MẸ ƠI! CỨU CON!"
+    },
+    {
+      "id": "s11",
+      "from": 42,
+      "to": 46,
+      "image": "rainy cemetery and shaking coffin",
+      "voice": "MẸ! CON CHƯA CHẾT!"
+    },
+    {
+      "id": "s12",
+      "from": 46,
+      "to": 49,
+      "image": "mother mourning",
+      "voice": "Không... con tôi đã chết bảy ngày rồi."
+    },
+    {
+      "id": "s13",
+      "from": 49,
+      "to": 52,
+      "image": "three knocks at coffin",
+      "voice": "Ba tiếng... là con tôi."
+    },
+    {
+      "id": "s14",
+      "from": 52,
+      "to": 55,
+      "image": "fourth knock and coffin cracks",
+      "voice": "Tiếng thứ tư... là thứ giết nó."
+    }
+  ],
+  "production_rules": {
+    "smooth_crossfade": "0.35-0.55s",
+    "motion": "2D/2.5D smooth; real acting optional",
+    "captions": "Remotion-only Vietnamese white/amber/red; no baked review text",
+    "audio": "genuine Vbee Batch, measured; do not substitute without explicit disclosure",
+    "destinations": "Google Drive numbered Videos-shorts film folder for FINAL 3 assets; GitHub source/QA only, no Releases"
+  },
+  "review": {
+    "final_status": "BLOCKED",
+    "reason": "Preview only: temporary eSpeak narration, non-Vbee; no verified action evidence for every plot action; no Drive upload"
+  }
+}
