@@ -5,6 +5,7 @@ on:
       - feat/retro-met-roi-final-20261025
     paths:
       - .github/workflows/retro-met-roi-assets.yml
+      - scripts/download-retro-met-roi-assets.py
   workflow_dispatch:
 permissions:
   contents: read
