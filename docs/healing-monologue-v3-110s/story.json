@@ -1,0 +1,262 @@
+{
+  "title": "Đêm Sinh Nhật Của Linh — Đừng Bỏ Rơi Chính Mình",
+  "duration": 110,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "fps": 30,
+  "storyBeats": [
+    {
+      "n": 1,
+      "start": 0,
+      "end": 7,
+      "text": "Đêm sinh nhật, Linh vẫn là người cuối cùng tắt đèn văn phòng.",
+      "direction": "Trầm, hơi lạnh, nghỉ sau câu."
+    },
+    {
+      "n": 2,
+      "start": 7,
+      "end": 17,
+      "text": "Chỉ vì một đồng nghiệp nói: 'Giúp mình nốt hôm nay nhé.' Cô định từ chối. Nhưng rồi… lại gật đầu.",
+      "direction": "Gấp vừa phải rồi trầm ở gật đầu."
+    },
+    {
+      "n": 3,
+      "start": 17,
+      "end": 28,
+      "text": "Linh đã quen như vậy. Sợ người khác buồn. Sợ bị đánh giá. Sợ người ta nghĩ mình ích kỷ.",
+      "direction": "Dồn nhẹ qua mỗi câu sợ."
+    },
+    {
+      "n": 4,
+      "start": 28,
+      "end": 41,
+      "text": "Nên ai cần, cô đều có mặt. Còn khi bản thân mệt, cô chỉ cười: 'Mình ổn mà.' Nhưng đêm nay… chẳng còn ai ở lại.",
+      "direction": "Hạ giọng và để khoảng lặng."
+    },
+    {
+      "n": 5,
+      "start": 41,
+      "end": 52,
+      "text": "Điện thoại hiện lời chúc của mẹ. Bên cạnh là chiếc bánh nhỏ đã nguội. Linh cắm một ngọn nến… rồi nhìn đồng hồ.",
+      "direction": "Rất nhẹ, chạm chữ mẹ."
+    },
+    {
+      "n": 6,
+      "start": 52,
+      "end": 64,
+      "text": "Cô định ước một điều gì đó. Nhưng chẳng biết từ lúc nào… mong ước duy nhất của cô, chỉ còn là được nghỉ ngơi.",
+      "direction": "Nghẹn nhẹ và nghỉ trước được nghỉ."
+    },
+    {
+      "n": 7,
+      "start": 64,
+      "end": 75,
+      "text": "Ngay khi ấy, một tin nhắn khác sáng lên: 'Mai làm giúp mình nữa nhé?' Ngón tay cô dừng lại trên chữ 'được'.",
+      "direction": "Nhạc hạ xuống, trầm và căng."
+    },
+    {
+      "n": 8,
+      "start": 75,
+      "end": 87,
+      "text": "Lần đầu tiên, Linh xóa câu trả lời ấy. Cô viết: 'Hôm nay mình không thể. Mai mình sẽ trao đổi nhé.' Rồi đặt điện thoại xuống.",
+      "direction": "Giọng chậm rãi có quyết tâm."
+    },
+    {
+      "n": 9,
+      "start": 87,
+      "end": 95,
+      "text": "Không ai nổi giận. Không có điều tồi tệ nào xảy ra. Linh thắp nến… và gọi về cho mẹ.",
+      "direction": "Dịu, ấm lại."
+    },
+    {
+      "n": 10,
+      "start": 95,
+      "end": 110,
+      "text": "Mẹ hỏi: 'Con có ổn không?' Linh bật khóc. Lần này, cô không cố cười nữa: 'Con mệt, mẹ ạ.' Vì trưởng thành… là biết đừng bỏ rơi chính mình.",
+      "direction": "Vỡ òa tiết chế ở con mệt, kết ấm."
+    }
+  ],
+  "shots": [
+    {
+      "n": 1,
+      "start": 0,
+      "end": 5,
+      "source": "stressed",
+      "headline": "CÒN MÌNH Ở LẠI",
+      "trim": 0
+    },
+    {
+      "n": 2,
+      "start": 5,
+      "end": 9,
+      "source": "laptop",
+      "headline": "ĐÊM SINH NHẬT",
+      "trim": 0.3
+    },
+    {
+      "n": 3,
+      "start": 9,
+      "end": 14,
+      "source": "office",
+      "headline": "GIÚP MÌNH NỐT NHÉ",
+      "trim": 0.5
+    },
+    {
+      "n": 4,
+      "start": 14,
+      "end": 19,
+      "source": "phone",
+      "headline": "CÔ LẠI GẬT ĐẦU",
+      "trim": 1
+    },
+    {
+      "n": 5,
+      "start": 19,
+      "end": 25,
+      "source": "stressed",
+      "headline": "SỢ MẤT LÒNG",
+      "trim": 5
+    },
+    {
+      "n": 6,
+      "start": 25,
+      "end": 31,
+      "source": "laptop",
+      "headline": "CỨ NHẬN HẾT",
+      "trim": 2.5
+    },
+    {
+      "n": 7,
+      "start": 31,
+      "end": 37,
+      "source": "phone",
+      "headline": "MÌNH ỔN MÀ...",
+      "trim": 1.8
+    },
+    {
+      "n": 8,
+      "start": 37,
+      "end": 43,
+      "source": "stressed",
+      "headline": "KHÔNG AI Ở LẠI",
+      "trim": 13
+    },
+    {
+      "n": 9,
+      "start": 43,
+      "end": 49,
+      "source": "cupcake",
+      "headline": "MỘT ĐIỀU ƯỚC NHỎ",
+      "trim": 0.8
+    },
+    {
+      "n": 10,
+      "start": 49,
+      "end": 55,
+      "source": "phone",
+      "headline": "MẸ NHẮN: SINH NHẬT VUI VẺ",
+      "trim": 3.5
+    },
+    {
+      "n": 11,
+      "start": 55,
+      "end": 61,
+      "source": "stressed",
+      "headline": "CHỈ MONG ĐƯỢC NGHỈ",
+      "trim": 23
+    },
+    {
+      "n": 12,
+      "start": 61,
+      "end": 66,
+      "source": "cupcake",
+      "headline": "ĐƯỢC NGHỈ NGƠI",
+      "trim": 2.4
+    },
+    {
+      "n": 13,
+      "start": 66,
+      "end": 71,
+      "source": "phone",
+      "headline": "MAI LÀM GIÚP MÌNH NỮA?",
+      "trim": 5
+    },
+    {
+      "n": 14,
+      "start": 71,
+      "end": 77,
+      "source": "stressed",
+      "headline": "LẦN NÀY...",
+      "trim": 30
+    },
+    {
+      "n": 15,
+      "start": 77,
+      "end": 82,
+      "source": "phone",
+      "headline": "HÔM NAY MÌNH KHÔNG THỂ",
+      "trim": 0.8
+    },
+    {
+      "n": 16,
+      "start": 82,
+      "end": 88,
+      "source": "laptop",
+      "headline": "MÌNH CẦN NGHỈ",
+      "trim": 6
+    },
+    {
+      "n": 17,
+      "start": 88,
+      "end": 93,
+      "source": "tea",
+      "headline": "MỌI THỨ VẪN ỔN",
+      "trim": 0
+    },
+    {
+      "n": 18,
+      "start": 93,
+      "end": 100,
+      "source": "phone",
+      "headline": "GỌI CHO MẸ",
+      "trim": 2.3
+    },
+    {
+      "n": 19,
+      "start": 100,
+      "end": 106,
+      "source": "stressed",
+      "headline": "CON MỆT, MẸ Ạ",
+      "trim": 38
+    },
+    {
+      "n": 20,
+      "start": 106,
+      "end": 110,
+      "source": "walk",
+      "headline": "ĐỪNG BỎ RƠI CHÍNH MÌNH",
+      "trim": 0
+    }
+  ],
+  "sources": {
+    "stressed": "8486622",
+    "office": "7693409",
+    "laptop": "6279143",
+    "phone": "6670424",
+    "cupcake": "4315431",
+    "tea": "7592909",
+    "walk": "31536575"
+  },
+  "voice": {
+    "provider": "Vbee",
+    "code": "hn_male_thanhlong_talk_48k-fhg"
+  },
+  "publication": "DRAFT. This must be reviewed; no YouTube publication.",
+  "sourceIssues": [
+    "Stock face inconsistency, use close hands/back inserts",
+    "Most Pexels footage below 60fps, export truthful 30fps",
+    "Pexels license and people in negative light contextual review required"
+  ]
+}
