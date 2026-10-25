@@ -23,6 +23,10 @@ SHOTS=[
  ("leaves",8534971,"https://www.pexels.com/video/tree-leaves-shading-the-rays-of-the-sun-8534971/"),
  ("forest",27100094,"https://www.pexels.com/video/a-forest-with-trees-and-sunlight-shining-through-27100094/"),
  ("meadow",27100096,"https://www.pexels.com/video/a-sunrise-over-a-field-with-grass-and-trees-27100096/"),
+ ("sunflare",4376502,"https://www.pexels.com/video/sun-flare-through-the-tree-leaves-4376502/"),
+ ("rays",2882618,"https://www.pexels.com/video/rays-of-sun-in-a-forest-2882618/"),
+ ("cup",11350957,"https://www.pexels.com/video/hot-tea-in-cup-11350957/"),
+ ("sunrise",34446404,"https://www.pexels.com/video/serene-sunrise-over-swaying-meadow-grass-34446404/"),
 ]
 manifest=[]
 for name,id,url in SHOTS:
@@ -31,7 +35,7 @@ for name,id,url in SHOTS:
  text=text.replace("\\/","/").replace("&amp;","&")
  urls=re.findall(r'https?://[^"\\\\\s<>]+?\\.mp4(?:\\?[^"\\\\\s<>]*)?',text)
  urls=[u for u in urls if "pexels.com" in u]
- patterns=["hd_1920_1080_25fps","hd_1080_1920_25fps","hd_1080_1920_30fps","hd_1920_1080_30fps","hd_1080_1920_24fps","hd_1920_1080_24fps","sd_960_540_25fps","sd_540_960_25fps"]
+ patterns=["hd_1920_1080_25fps","hd_1080_1920_25fps","hd_1080_1920_30fps","hd_1920_1080_30fps","hd_1080_1920_24fps","hd_1920_1080_24fps","hd_1920_1080_60fps","hd_1920_1080_50fps","hd_1920_1080_29fps","hd_1920_1080_29.97fps","sd_960_540_25fps","sd_540_960_25fps"]
  urls.extend(f"https://videos.pexels.com/video-files/{id}/{id}-{p}.mp4" for p in patterns)
  print("CANDIDATES",name,len(urls),"html",len(html),flush=True)
  success=None
