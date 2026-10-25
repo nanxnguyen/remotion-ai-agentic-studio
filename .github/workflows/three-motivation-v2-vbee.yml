@@ -1,0 +1,41 @@
+name: Three Motivation Shorts V2 Vbee Thanh Long
+on:
+  push:
+    branches: [feat/three-motivation-shorts-v2-20261025]
+    paths:
+      - .github/workflows/three-motivation-v2-vbee.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  synthesize:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install FFmpeg
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+      - name: Authenticate and synthesize three Vbee Thanh Long voiceovers
+        env:
+          VBEE_APP_ID: ${{ secrets.VBEE_APP_ID }}
+          VBEE_ACCESS_TOKEN: ${{ secrets.VBEE_ACCESS_TOKEN }}
+          VBEE_WEBHOOK_URL: https://iehmucsshklgjmxqyggp.supabase.co/functions/v1/vbee-batch-callback
+        run: |
+          set -euo pipefail
+          test -n "$VBEE_APP_ID" && test -n "$VBEE_ACCESS_TOKEN"
+          mkdir -p output
+          python3 .claude/skills/ray-emotional-stick-shorts/scripts/vbee_tts.py --text-file docs/three-shorts-v2/a/narration.txt --voice-code hn_male_thanhlong_talk_48k-fhg --speed 1.02 --output output/a.mp3 &
+          python3 .claude/skills/ray-emotional-stick-shorts/scripts/vbee_tts.py --text-file docs/three-shorts-v2/b/narration.txt --voice-code hn_male_thanhlong_talk_48k-fhg --speed 1.02 --output output/b.mp3 &
+          python3 .claude/skills/ray-emotional-stick-shorts/scripts/vbee_tts.py --text-file docs/three-shorts-v2/c/narration.txt --voice-code hn_male_thanhlong_talk_48k-fhg --speed 1.02 --output output/c.mp3 &
+          wait
+          for f in output/*.mp3; do
+            test "$(stat -c%s "$f")" -gt 10000
+            ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1 "$f"
+          done
+          sha256sum output/*.mp3 > output/voices.sha256
+      - uses: actions/upload-artifact@v4
+        with:
+          name: three-motivation-v2-vbee-voices
+          path: output/
+          retention-days: 30
+          if-no-files-found: error
