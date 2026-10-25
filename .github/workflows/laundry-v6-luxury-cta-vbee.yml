@@ -7,6 +7,7 @@ on:
     paths:
       - .github/workflows/laundry-v6-luxury-cta-vbee.yml
       - docs/tiem-giat-ui-nhan-do-tu-ngay-mai/v6/cta-vbee-scene.json
+      - scripts/gen-laundry-vbee.py
   workflow_dispatch:
 
 permissions:
@@ -55,7 +56,7 @@ jobs:
           audio=p/item["audio_file"]
           assert audio.stat().st_size>1000
           assert hashlib.sha256(audio.read_bytes()).hexdigest()==item["sha256"]
-          assert 1<float(item["audio_seconds"])<=13.5, f"CTA exceeds 14s with safety buffer: {item['audio_seconds']}"
+          assert 1<float(item["audio_seconds"])<=4.7, f"CTA exceeds five-second window with safety buffer: {item['audio_seconds']}"
           print(f"Genuine Vbee CTA verified: {item['audio_seconds']} seconds.")
           PY
       - name: Upload verified original narration
