@@ -1,8 +1,8 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "ray-phim-ke-chuyen",
-  "version": "0.3.1",
-  "description": "Ray Phim Kể Chuyện v0.3.1: cinematic Shorts, screenplay-adaptive storyboard color, dramatic multi-card layouts, real Vbee, voice-action QA, smooth fades, Google Drive video + GitHub source.",
+  "version": "0.3.2",
+  "description": "Ray Phim Kể Chuyện v0.3.2: cinematic Shorts, adaptive storyboard palettes, real Vbee and voice-to-visual QA, plus required script-specific 3–5s like + follow CTA ending.",
   "author": {
     "name": "Ray"
   },
@@ -26,7 +26,10 @@
     "soft crossfade",
     "Google Drive MP4",
     "GitHub source only",
-    "no releases"
+    "no releases",
+    "story-specific CTA outro",
+    "3-5 second CTA",
+    "like and follow"
   ],
   "skills": "./skills"
 }
