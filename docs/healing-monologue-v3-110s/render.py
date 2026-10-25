@@ -46,7 +46,7 @@ def download():
             raise RuntimeError("Not a video: "+key)
         # Work with low-resolution mezzanine for 20-shot montage; NO fabricated actor motion.
         run(["ffmpeg","-y","-hide_banner","-loglevel","error","-i",str(src),
-             "-vf","fps=30,scale=960:540:force_original_aspect_ratio=decrease",
+             "-vf","fps=30,scale=960:540:force_original_aspect_ratio=decrease:force_divisible_by=2",
              "-an","-r","30","-c:v","libx264","-preset","ultrafast","-crf","25",
              "-pix_fmt","yuv420p",str(proxy)])
         if proxy.stat().st_size<100_000:raise RuntimeError("Proxy empty: "+key)
