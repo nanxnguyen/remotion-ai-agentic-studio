@@ -36,6 +36,7 @@ jobs:
       - name: Ensure ffprobe exists and map only secret names
         shell: bash
         run: |
+          sudo apt-get update -qq && sudo apt-get install -y ffmpeg >/dev/null
           command -v ffprobe
           if [[ -z "$VBEE_ACCESS_TOKEN" || -z "$VBEE_APP_ID" ]]; then
             echo "::error::Missing Vbee GitHub Actions credentials (token/App ID)"
