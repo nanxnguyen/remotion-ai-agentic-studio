@@ -1,0 +1,88 @@
+{
+  "status": "REVIEW_CUT—not actor-consistent FINAL",
+  "file": "healing-v3-real-footage-vbee-110s-review.mp4",
+  "durationSeconds": 110.0,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "fps": 30,
+  "actorContinuity": "stock actors vary; human review required",
+  "native60fps": false,
+  "voice": "Genuine Vbee Thanh Long from 10 asynchronous Batch API requests",
+  "voiceBeats": [
+    {
+      "beat": 1,
+      "duration": 4.04898,
+      "tempo": 1,
+      "slot": 6.88
+    },
+    {
+      "beat": 2,
+      "duration": 7.209796,
+      "tempo": 1,
+      "slot": 9.88
+    },
+    {
+      "beat": 3,
+      "duration": 7.262041,
+      "tempo": 1,
+      "slot": 10.88
+    },
+    {
+      "beat": 4,
+      "duration": 9.769796,
+      "tempo": 1,
+      "slot": 12.88
+    },
+    {
+      "beat": 5,
+      "duration": 7.810612,
+      "tempo": 1,
+      "slot": 10.88
+    },
+    {
+      "beat": 6,
+      "duration": 7.862857,
+      "tempo": 1,
+      "slot": 11.88
+    },
+    {
+      "beat": 7,
+      "duration": 6.321633,
+      "tempo": 1,
+      "slot": 10.88
+    },
+    {
+      "beat": 8,
+      "duration": 9.325714,
+      "tempo": 1,
+      "slot": 11.88
+    },
+    {
+      "beat": 9,
+      "duration": 6.713469,
+      "tempo": 1,
+      "slot": 7.88
+    },
+    {
+      "beat": 10,
+      "duration": 11.154286,
+      "tempo": 1,
+      "slot": 14.88
+    }
+  ],
+  "sourcePexelsIds": {
+    "stressed": "8486622",
+    "office": "7693409",
+    "laptop": "6279143",
+    "phone": "6670424",
+    "cupcake": "4315431",
+    "tea": "7592909",
+    "walk": "31536575"
+  },
+  "piano": "original synthetic arpeggio with dynamic mix",
+  "youtubePublished": false,
+  "sha256": "b89a48083703aefab2bc676a45a1916bb1fb6f868f2df0f299689d15cc7a9814",
+  "bytes": 36071424
+}
