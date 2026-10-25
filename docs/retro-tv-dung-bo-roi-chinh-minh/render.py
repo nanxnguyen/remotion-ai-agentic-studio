@@ -193,8 +193,13 @@ def audio_build():
     for x in timeline:
         a=max(0,int((x["start"]-.25)*rate));b=min(n,int((x["start"]+x["duration"]+.22)*rate))
         gain[a:b]=.19
-    for k in range(1,int(rate*.14)):
-        gain[k:] = np.minimum(gain[k:], gain[:-k]+k/(rate*.14)*.13)
+    # Smooth attack/release in O(n); never run a quadratic window loop.
+    a_len=round(rate*.17);r_len=round(rate*.34)
+    for x in timeline:
+        st=round(x["start"]*rate);en=round((x["start"]+x["duration"])*rate)
+        a=max(0,st-a_len);end=min(n,en+r_len)
+        if st>a:gain[a:st]=np.linspace(.33,.19,st-a,dtype=np.float32)
+        if end>en:gain[en:end]=np.linspace(.19,.33,end-en,dtype=np.float32)
     mix=np.tanh(voice*.99+music*gain)
     mix=np.clip(mix*.88,-.95,.95)
     outfile=TEMP/"mixed.wav"
@@ -209,6 +214,7 @@ def shot_render(timeline):
     scenes=[]
     for i,item in enumerate(timeline):
         shotlen=(item["duration"]+DATA["betweenBeatsPauseSeconds"] if i<7 else item["duration"]+DATA["endPauseSeconds"])
+        if i==0:shotlen+=DATA["openingPauseSeconds"]
         split=shotlen/2
         for j in (0,1):
             length=split+(OVERLAP if not(i==7 and j==1) else 0)
