@@ -1,0 +1,41 @@
+name: Three Motivation Shorts Vbee Thanh Long
+on:
+  push:
+    branches: [feat/three-motivation-shorts-vbee-20261025]
+    paths:
+      - .github/workflows/three-motivation-vbee.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  synthesize:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup FFmpeg
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+      - name: Generate three verified Vbee Thanh Long voiceovers
+        env:
+          VBEE_APP_ID: ${{ secrets.VBEE_APP_ID }}
+          VBEE_ACCESS_TOKEN: ${{ secrets.VBEE_ACCESS_TOKEN }}
+          VBEE_WEBHOOK_URL: https://iehmucsshklgjmxqyggp.supabase.co/functions/v1/vbee-batch-callback
+        run: |
+          set -euo pipefail
+          test -n "$VBEE_APP_ID" && test -n "$VBEE_ACCESS_TOKEN"
+          mkdir -p output
+          python3 .claude/skills/ray-emotional-stick-shorts/scripts/vbee_tts.py --text-file docs/three-shorts/a-ngay-ban-bo-cuoc/narration.txt --voice-code hn_male_thanhlong_talk_48k-fhg --speed 0.99 --output output/a-ngay-ban-bo-cuoc.mp3 &
+          python3 .claude/skills/ray-emotional-stick-shorts/scripts/vbee_tts.py --text-file docs/three-shorts/b-to-don-chua-gui/narration.txt --voice-code hn_male_thanhlong_talk_48k-fhg --speed 0.99 --output output/b-to-don-chua-gui.mp3 &
+          python3 .claude/skills/ray-emotional-stick-shorts/scripts/vbee_tts.py --text-file docs/three-shorts/c-buc-tranh-tuoi-tho/narration.txt --voice-code hn_male_thanhlong_talk_48k-fhg --speed 0.99 --output output/c-buc-tranh-tuoi-tho.mp3 &
+          wait
+          for f in output/*.mp3; do
+            test "$(stat -c%s "$f")" -gt 10000
+            ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1 "$f"
+          done
+          sha256sum output/*.mp3 > output/voices.sha256
+      - uses: actions/upload-artifact@v4
+        with:
+          name: three-motivation-vbee-voices
+          path: output/
+          retention-days: 30
+          if-no-files-found: error
