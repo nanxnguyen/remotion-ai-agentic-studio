@@ -1,16 +1,16 @@
 {
   "interface": {
     "displayName": "Ray Phim K\u1ec3 Chuy\u1ec7n",
-    "shortDescription": "Storyboard \u0111i\u1ec7n \u1ea3nh theo k\u1ecbch b\u1ea3n, d\u1ef1ng phim kinh d\u1ecb Shorts c\u00f3 QA gi\u1ecdng v\u00e0 h\u00ecnh",
-    "longDescription": "YouTube Shorts 9:16: storyboard d\u1ea1ng l\u01b0\u1edbi th\u1ebb d\u1ecdc v\u1edbi ti\u00eau \u0111\u1ec1 l\u1edbn, ch\u1eef k\u1ec3 chuy\u1ec7n, m\u00e0u s\u1eafc t\u00f9y theo k\u1ecbch b\u1ea3n, timecode ch\u1ec9 trong review. Gi\u1ecdng Vbee th\u1eadt, \u00e2m thanh \u0111i\u1ec7n \u1ea3nh, QA c\u1ea3nh/voice v\u00e0 l\u01b0u MP4 Google Drive, GitHub l\u01b0u code, kh\u00f4ng Releases.",
+    "shortDescription": "Storyboard \u0111i\u1ec7n \u1ea3nh, Vbee th\u1eadt v\u00e0 CTA theo truy\u1ec7n 3\u20135 gi\u00e2y",
+    "longDescription": "D\u1ef1ng phim Shorts 9:16, storyboard k\u1ecbch t\u00ednh v\u00e0 m\u00e0u t\u00f9y k\u1ecbch b\u1ea3n, Vbee th\u1eadt, QA h\u00e0nh \u0111\u1ed9ng/voice, v\u00e0 m\u1ed7i video c\u00f3 \u0111o\u1ea1n cu\u1ed1i 3\u20135 gi\u00e2y k\u00eau g\u1ecdi th\u1ea3 tim + \u0111\u0103ng k\u00fd/theo d\u00f5i ph\u00f9 h\u1ee3p ri\u00eang t\u1eebng c\u00e2u chuy\u1ec7n. L\u01b0u video tr\u00ean Drive, source/QA tr\u00ean GitHub.",
     "developerName": "Ray",
     "category": "Productivity",
     "capabilities": [],
-    "defaultPrompt": "S\u1eed d\u1ee5ng Ray Phim K\u1ec3 Chuy\u1ec7n v0.3.1. Storyboard m\u1eb7c \u0111\u1ecbnh theo m\u1eabu th\u1ebb phim d\u1ecdc 4 c\u1ed9t \u00d7 3 h\u00e0ng (12 beat cho 55-60 gi\u00e2y, m\u1edf r\u1ed9ng khi k\u1ecbch b\u1ea3n c\u1ea7n): \u0111\u1ea7u th\u1ebb c\u00f3 ti\u00eau \u0111\u1ec1 \u0111i\u1ec7n \u1ea3nh in \u0111\u1eadm, highlight t\u1eeb kh\u00f3a, \u1ea3nh ri\u00eang cho h\u00e0nh \u0111\u1ed9ng, cu\u1ed1i th\u1ebb c\u00f3 l\u1eddi k\u1ec3 1-2 d\u00f2ng, m\u1ed1c th\u1eddi gian n\u1eb1m ngo\u00e0i th\u1ebb CH\u1ec8 khi review. M\u00c0U S\u1eaeC PH\u1ea2I D\u1ef0A V\u00c0O T\u1eeaNG K\u1ecaCH B\u1ea2N, kh\u00f4ng c\u1ed1 \u0111\u1ecbnh \u0111\u1ecf \u0111en. Kh\u00f4ng \u0111\u01b0a timecode, l\u01b0\u1edbi storyboard hay review-caption l\u00ean MP4. D\u00f9ng Vbee th\u1eadt v\u00e0 subtitle kh\u1edbp t\u1eebng c\u00e2u, gi\u1eef h\u00ecnh \u0111\u1ed9c l\u1eadp 9:16, QA before\u2192action\u2192result, ki\u1ec3m tra th\u1ef1c t\u1ebf tr\u01b0\u1edbc final, l\u01b0u MP4 l\u00ean Google Drive v\u00e0 ngu\u1ed3n tr\u00ean GitHub."
+    "defaultPrompt": "S\u1eed d\u1ee5ng Ray Phim K\u1ec3 Chuy\u1ec7n v0.3.2. Storyboard m\u1eb7c \u0111\u1ecbnh theo m\u1eabu th\u1ebb phim d\u1ecdc 4 c\u1ed9t \u00d7 3 h\u00e0ng (12 beat cho 55-60 gi\u00e2y, m\u1edf r\u1ed9ng khi k\u1ecbch b\u1ea3n c\u1ea7n): \u0111\u1ea7u th\u1ebb c\u00f3 ti\u00eau \u0111\u1ec1 \u0111i\u1ec7n \u1ea3nh in \u0111\u1eadm, highlight t\u1eeb kh\u00f3a, \u1ea3nh ri\u00eang cho h\u00e0nh \u0111\u1ed9ng, cu\u1ed1i th\u1ebb c\u00f3 l\u1eddi k\u1ec3 1-2 d\u00f2ng, m\u1ed1c th\u1eddi gian n\u1eb1m ngo\u00e0i th\u1ebb CH\u1ec8 khi review. M\u00c0U S\u1eaeC PH\u1ea2I D\u1ef0A V\u00c0O T\u1eeaNG K\u1ecaCH B\u1ea2N, kh\u00f4ng c\u1ed1 \u0111\u1ecbnh \u0111\u1ecf \u0111en. Kh\u00f4ng \u0111\u01b0a timecode, l\u01b0\u1edbi storyboard hay review-caption l\u00ean MP4. D\u00f9ng Vbee th\u1eadt v\u00e0 subtitle kh\u1edbp t\u1eebng c\u00e2u, gi\u1eef h\u00ecnh \u0111\u1ed9c l\u1eadp 9:16, QA before\u2192action\u2192result, ki\u1ec3m tra th\u1ef1c t\u1ebf tr\u01b0\u1edbc final, l\u01b0u MP4 l\u00ean Google Drive v\u00e0 ngu\u1ed3n tr\u00ean GitHub.\nB\u1eaeT BU\u1ed8C \u0110\u1ed0I V\u1edaI M\u1eccI VIDEO M\u1edaI: d\u00e0nh ri\u00eang 3\u20135 GI\u00c2Y CU\u1ed0I (n\u1eb1m TRONG t\u1ed5ng th\u1eddi l\u01b0\u1ee3ng phim) cho l\u1eddi CTA g\u1ed3m c\u1ea3 th\u1ea3 tim v\u00e0 \u0111\u0103ng k\u00fd/theo d\u00f5i. Kh\u00f4ng c\u1ed1 \u0111\u1ecbnh m\u1ed9t c\u00e2u CTA; ch\u1ecdn l\u1eddi tho\u1ea1i, gi\u1ecdng Vbee, nh\u1ea1c/SFX v\u00e0 m\u00e0u ch\u1eef h\u1ee3p v\u1edbi k\u1ecbch b\u1ea3n, \u0111\u1ec3 twist ho\u00e0n t\u1ea5t tr\u01b0\u1edbc CTA. T\u1ea1o MP3 Vbee th\u1eadt \u0111o th\u1eddi l\u01b0\u1ee3ng, \u0111\u1ed3ng b\u1ed9 subtitle ch\u00ednh x\u00e1c, QA 3\u20135 gi\u00e2y v\u00e0 kh\u00f4ng ch\u1ed3ng c\u00e2u c\u0169; kh\u00f4ng d\u00f9ng timecode storyboard tr\u00ean MP4. \u0110\u1ecdc skill story-specific-cta-outro v\u00e0 reference story-specific-cta-outro-v1. T\u00f4n tr\u1ecdng y\u00eau c\u1ea7u ng\u01b0\u1eddi d\u00f9ng n\u1ebfu h\u1ecd ch\u1ec9 \u0111\u1ecbnh kh\u00f4ng c\u1ea7n CTA."
   },
   "name": "ray-phim-ke-chuyen",
-  "version": "0.3.1",
-  "description": "Ray Phim K\u1ec3 Chuy\u1ec7n v0.3.1: cinematic Shorts, screenplay-adaptive storyboard color, dramatic multi-card layouts, real Vbee, voice-action QA, smooth fades, Google Drive video + GitHub source.",
+  "version": "0.3.2",
+  "description": "Ray Phim K\u1ec3 Chuy\u1ec7n v0.3.2: cinematic Shorts, adaptive storyboard palettes, real Vbee and voice-to-visual QA, plus required script-specific 3\u20135s like + follow CTA ending.",
   "author": {
     "name": "Ray"
   },
@@ -34,7 +34,10 @@
     "soft crossfade",
     "Google Drive MP4",
     "GitHub source only",
-    "no releases"
+    "no releases",
+    "story-specific CTA outro",
+    "3-5 second CTA",
+    "like and follow"
   ],
   "skills": "./skills"
 }
