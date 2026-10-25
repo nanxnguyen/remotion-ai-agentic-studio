@@ -1,0 +1,27 @@
+{
+  "video": "Ba Tiếng Gõ Trong Đêm",
+  "revision": "V10",
+  "duration_sec": 55,
+  "replace_video_window_sec": [
+    0,
+    3
+  ],
+  "reuse_original_from_sec": 3,
+  "voice_provider": "Vbee Batch",
+  "voice_code": "hn_male_phuthang_stor_24k-stl",
+  "voice_speed": 1.17,
+  "voice_text": "Dám nghe tiếng gõ thứ tư không?",
+  "overlay_text": [
+    "NẾU BẠN ĐỦ CAN ĐẢM...",
+    "HÃY NGHE",
+    "TIẾNG GÕ THỨ TƯ",
+    "DÁM Ở LẠI ĐẾN CUỐI?"
+  ],
+  "intent": "Challenge teaser only. No extra total runtime, original end like+follow CTA retained. Storyboard timecode never enters video.",
+  "lines": [
+    {
+      "id": 1,
+      "narration": "Dám nghe tiếng gõ thứ tư không?"
+    }
+  ]
+}
