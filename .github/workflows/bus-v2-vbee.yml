@@ -1,0 +1,55 @@
+name: Bus V2 genuine Vbee Batch (18 scenes)
+on:
+  push:
+    branches:
+      - feat/chuyen-xe-buyt-khong-co-tram-cuoi-v2
+    paths:
+      - .github/workflows/bus-v2-vbee.yml
+      - docs/chuyen-xe-buyt-v2/voice-timeline.json
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  voice:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    env:
+      VBEE_ACCESS_TOKEN: ${{ secrets.VBEE_ACCESS_TOKEN || secrets.VBEE_TOKEN || secrets.VBEE_API_KEY || secrets.VBEE_API_TOKEN }}
+      VBEE_APP_ID: ${{ secrets.VBEE_APP_ID || secrets.VBEE_APPID || secrets.VBEE_APPLICATION_ID }}
+      VBEE_WEBHOOK_URL: ${{ vars.VBEE_WEBHOOK_URL || 'https://example.com/bus-v2-vbee-callback' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: sudo apt-get update -qq && sudo apt-get install -y ffmpeg
+      - name: Verify Vbee secrets
+        run: test -n "$VBEE_ACCESS_TOKEN" && test -n "$VBEE_APP_ID"
+      - name: Generate genuine 18-line Vbee narration
+        run: |
+          python3 scripts/gen-laundry-vbee.py \
+            --timeline docs/chuyen-xe-buyt-v2/voice-timeline.json \
+            --out-dir public/audio/chuyen-xe-buyt-v2 \
+            --voice-code hn_male_phuthang_stor_24k-stl \
+            --speed 1.10 \
+            --webhook-url "$VBEE_WEBHOOK_URL"
+      - name: Check Vbee source and SHA
+        run: |
+          python3 - <<'PY'
+          import pathlib,json,hashlib
+          p=pathlib.Path('public/audio/chuyen-xe-buyt-v2')
+          v=json.loads((p/'measured-timeline.json').read_text())
+          assert len(v)==18,len(v)
+          for x in v:
+            a=p/x['audio_file']
+            assert a.is_file() and a.stat().st_size>300
+            assert hashlib.sha256(a.read_bytes()).hexdigest()==x['sha256']
+            assert 0.3<x['audio_seconds']<10
+          print('18 genuine MP3s and checksums verified')
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: bus-v2-genuine-vbee-18-lines
+          path: public/audio/chuyen-xe-buyt-v2/
+          retention-days: 14
+          if-no-files-found: error
