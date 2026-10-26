@@ -1,0 +1,82 @@
+[
+  {
+    "id": 1,
+    "narration": "Giữa rừng đêm... một con tàu xuất hiện! Hải đăng đang soi thẳng vào nó.",
+    "start_sec": 0,
+    "duration_sec": 6,
+    "visual_start_seconds": 0,
+    "phase": "HOOK"
+  },
+  {
+    "id": 2,
+    "narration": "Ông Lâm chết lặng. Đó là con tàu biến mất ba mươi năm trước.",
+    "start_sec": 6,
+    "duration_sec": 6,
+    "visual_start_seconds": 6,
+    "phase": "BODY"
+  },
+  {
+    "id": 3,
+    "narration": "Trong tấm ảnh cũ... chính ông từng đứng trên boong ấy.",
+    "start_sec": 12,
+    "duration_sec": 6,
+    "visual_start_seconds": 12,
+    "phase": "BODY"
+  },
+  {
+    "id": 4,
+    "narration": "Tiếng còi rền lên. Một bóng người từ con tàu vẫy gọi ông.",
+    "start_sec": 18,
+    "duration_sec": 6,
+    "visual_start_seconds": 18,
+    "phase": "BODY"
+  },
+  {
+    "id": 5,
+    "narration": "Ông chưa kịp giơ tay... bóng người kia đã giơ tay trước!",
+    "start_sec": 24,
+    "duration_sec": 6,
+    "visual_start_seconds": 24,
+    "phase": "BODY"
+  },
+  {
+    "id": 6,
+    "narration": "Ông lao xuống tháp. Nhưng mở cửa... lại là phòng đèn!",
+    "start_sec": 30,
+    "duration_sec": 6,
+    "visual_start_seconds": 30,
+    "phase": "CLIMAX"
+  },
+  {
+    "id": 7,
+    "narration": "Nước biển dâng ngập chân. Nhưng hải đăng đang ở trên núi mà!",
+    "start_sec": 36,
+    "duration_sec": 6,
+    "visual_start_seconds": 36,
+    "phase": "CLIMAX"
+  },
+  {
+    "id": 8,
+    "narration": "Ông quay ngọn đèn... và cuối cùng nhìn rõ người trên boong.",
+    "start_sec": 42,
+    "duration_sec": 6,
+    "visual_start_seconds": 42,
+    "phase": "CLIMAX"
+  },
+  {
+    "id": 9,
+    "narration": "Đó là chính ông... của ba mươi năm trước, trong đêm con tàu chìm!",
+    "start_sec": 48,
+    "duration_sec": 6,
+    "visual_start_seconds": 48,
+    "phase": "PAYOFF"
+  },
+  {
+    "id": 10,
+    "narration": "Rừng cây biến mất. Ngọn hải đăng... đã nằm dưới biển suốt ba mươi năm.",
+    "start_sec": 54,
+    "duration_sec": 6,
+    "visual_start_seconds": 54,
+    "phase": "PAYOFF"
+  }
+]
