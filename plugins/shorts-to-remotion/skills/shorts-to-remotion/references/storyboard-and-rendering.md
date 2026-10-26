@@ -62,4 +62,10 @@ Design all scene timing from a central FPS. Make text-safe. Use generated illust
 
 ## Example user request
 
-"Dùng Short trên Drive làm style reference, tạo video 55 giây chủ đề 'bí ẩn tàu ma', viết voiceover, chia timeline, tạo asset gốc, dựng Remotion và gửi MP4 + zip code." 
+"Dùng Short trên Drive làm style reference, tạo video 55 giây chủ đề 'bí ẩn tàu ma', viết voiceover, chia timeline, tạo asset gốc, dựng Remotion và gửi MP4 + zip code."
+
+## Mandatory visual-quality & regression review (2026-10-25)
+
+Before assessing a reference or rendering a new video, **read and enforce [Video Quality Gates](video-quality-gates.md)**. This is required for ALL future footage and updates, not only stick figure shorts. For stick figure content use white heavy glyph-safe type, restrained amber accents, a thin dark stroke/shadow, **no solid black caption box by default**, no duplicate 'decorative' text overlapping the subtitles. Check font treatment against previously approved version and inspect a 360×640 phone-size preview. Animated actions must keep limbs attached, props consistent, feet planted and dramatic contact visible. A changed-frame percentage alone does not measure true cinematic motion.
+
+For revision comparisons always report **what changed, what still fails, what was measured, and what cannot be inferred about audience retention**. Produce separate versioned preview MP4; keep old final intact until user explicitly approves replacing it. Confirm final 48 kHz AAC audio and playback compatibility. Read actual final MP4 frame boundaries and replay dialogue, not only contact-sheet captions or render logs. Respect repository independent gates and archive policy.

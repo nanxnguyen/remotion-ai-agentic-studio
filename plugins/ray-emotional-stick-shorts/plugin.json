@@ -1,24 +1,11 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "ray-emotional-stick-shorts",
+  "version": "1.0.3",
+  "description": "Script, storyboard and production of high-retention Vietnamese cinematic stick-figure Shorts for ANY topic; universal hook/retention framework, Vbee Thanh Long, Remotion QA and verified delivery.",
   "author": {
     "email": "nguyenanhnhut0101.99@gmail.com",
     "name": "NGUYEN ANH NHUT"
-  },
-  "description": "Script, storyboard and production of high-retention Vietnamese cinematic stick-figure Shorts for ANY topic; universal hook/retention framework, Vbee Thanh Long, Remotion QA and verified delivery.",
-  "extensions": {
-    "com.openai": {
-      "interface": {
-        "capabilities": [
-          "Interactive"
-        ],
-        "category": "Productivity",
-        "defaultPrompt": "Viết kịch bản YouTube Shorts chủ đề bất kỳ theo công thức tối ưu giữ chân: hook 3–5 giây, nhịp kể tăng tiến, cao trào, câu kết chạm cảm xúc; storyboard và giọng Vbee Thanh Long nếu làm video.",
-        "developerName": "NGUYEN ANH NHUT",
-        "displayName": "Ray Emotional Stick Shorts",
-        "longDescription": "Sản xuất Shorts chủ đề bất kỳ (gia đình, chữa lành, tình cảm, câu chuyện, học tập, kiến thức) với hook mạnh, nhịp giữ chân, cú xoay, chuyển cảnh mượt, Vbee Thanh Long và QA trung thực; không hứa hẹn triệu view.",
-        "shortDescription": "Shorts chủ đề bất kỳ — tối ưu giữ chân"
-      }
-    }
   },
   "keywords": [
     "YouTube Shorts",
@@ -31,6 +18,19 @@
     "storyboard",
     "Remotion"
   ],
-  "name": "ray-emotional-stick-shorts",
-  "version": "1.0.2"
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Ray Emotional Stick Shorts",
+        "shortDescription": "Shorts chủ đề bất kỳ — tối ưu giữ chân",
+        "longDescription": "Sản xuất Shorts chủ đề bất kỳ (gia đình, chữa lành, tình cảm, câu chuyện, học tập, kiến thức) với hook mạnh, nhịp giữ chân, cú xoay, chuyển cảnh mượt, Vbee Thanh Long và QA trung thực; không hứa hẹn triệu view.",
+        "developerName": "NGUYEN ANH NHUT",
+        "category": "Productivity",
+        "capabilities": [
+          "Interactive"
+        ],
+        "defaultPrompt": "Viết kịch bản YouTube Shorts chủ đề bất kỳ theo công thức tối ưu giữ chân: hook 3–5 giây, nhịp kể tăng tiến, cao trào, câu kết chạm cảm xúc; storyboard và giọng Vbee Thanh Long nếu làm video."
+      }
+    }
+  }
 }
