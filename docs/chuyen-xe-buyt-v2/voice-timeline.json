@@ -1,0 +1,110 @@
+[
+  {
+    "id": 1,
+    "narration": "Nếu đủ can đảm… hãy xem đến cuối!",
+    "start_sec": 0,
+    "duration_sec": 3
+  },
+  {
+    "id": 2,
+    "narration": "Minh lên chuyến xe cuối giữa mưa đêm.",
+    "start_sec": 3,
+    "duration_sec": 3
+  },
+  {
+    "id": 3,
+    "narration": "Mười hai hành khách. Không một ai có bóng.",
+    "start_sec": 6,
+    "duration_sec": 3
+  },
+  {
+    "id": 4,
+    "narration": "Bác tài chỉ nhìn anh qua gương.",
+    "start_sec": 9,
+    "duration_sec": 3
+  },
+  {
+    "id": 5,
+    "narration": "Người phụ nữ áo xám để lại vệt nước trên ghế.",
+    "start_sec": 12,
+    "duration_sec": 4
+  },
+  {
+    "id": 6,
+    "narration": "Đến trạm đầu, cửa bật mở… không ai xuống.",
+    "start_sec": 16,
+    "duration_sec": 3
+  },
+  {
+    "id": 7,
+    "narration": "Cửa vừa khép. Người phụ nữ đã biến mất.",
+    "start_sec": 19,
+    "duration_sec": 3
+  },
+  {
+    "id": 8,
+    "narration": "Điện thoại báo: Đã đến đích. Nhưng xe vẫn chạy.",
+    "start_sec": 22,
+    "duration_sec": 4
+  },
+  {
+    "id": 9,
+    "narration": "Minh cúi xuống. Bóng của anh cũng biến mất.",
+    "start_sec": 26,
+    "duration_sec": 3
+  },
+  {
+    "id": 10,
+    "narration": "Một chiếc xe đồ chơi tự lăn dọc lối đi.",
+    "start_sec": 29,
+    "duration_sec": 4
+  },
+  {
+    "id": 11,
+    "narration": "Mỗi trạm dừng, một hành khách biến mất.",
+    "start_sec": 33,
+    "duration_sec": 3
+  },
+  {
+    "id": 12,
+    "narration": "Minh hỏi: Chuyến xe này đi đâu?",
+    "start_sec": 36,
+    "duration_sec": 4
+  },
+  {
+    "id": 13,
+    "narration": "Bác tài đáp: Hai mươi năm rồi… cậu chưa xuống à?",
+    "start_sec": 40,
+    "duration_sec": 4
+  },
+  {
+    "id": 14,
+    "narration": "Minh tra số tuyến. Một bài báo cũ hiện ra.",
+    "start_sec": 44,
+    "duration_sec": 4
+  },
+  {
+    "id": 15,
+    "narration": "Chiếc xe rơi xuống sông hai mươi năm trước.",
+    "start_sec": 48,
+    "duration_sec": 4
+  },
+  {
+    "id": 16,
+    "narration": "Danh sách nạn nhân ghi: Minh… bảy tuổi.",
+    "start_sec": 52,
+    "duration_sec": 4
+  },
+  {
+    "id": 17,
+    "narration": "Trong kính, anh biến thành cậu bé. Đến trạm rồi.",
+    "start_sec": 56,
+    "duration_sec": 4
+  },
+  {
+    "id": 18,
+    "narration": "Thả tim, đăng ký kênh… trước khi xe đón bạn!",
+    "start_sec": 60,
+    "duration_sec": 4
+  }
+]
