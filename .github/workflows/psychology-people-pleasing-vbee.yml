@@ -1,0 +1,50 @@
+name: Ray Psychology Original Vbee — People-Pleasing
+on:
+  push:
+    branches: [feat/psychology-people-pleasing-short-20261028]
+    paths:
+      - '.github/workflows/psychology-people-pleasing-vbee.yml'
+      - 'docs/psychology-pleasing-stick/vbee-script-V1.txt'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  genuine-vbee:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    env:
+      VBEE_ACCESS_TOKEN: ${{ secrets.VBEE_ACCESS_TOKEN || secrets.VBEE_TOKEN || secrets.VBEE_API_KEY || secrets.VBEE_API_TOKEN }}
+      VBEE_APP_ID: ${{ secrets.VBEE_APP_ID || secrets.VBEE_APPID || secrets.VBEE_APPLICATION_ID }}
+      VBEE_WEBHOOK_URL: ${{ vars.VBEE_WEBHOOK_URL || 'https://example.com/story-tts-webhook' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify real account secrets
+        run: test -n "$VBEE_ACCESS_TOKEN" && test -n "$VBEE_APP_ID"
+      - name: Produce original Vbee narration
+        run: |
+          python3 .claude/skills/ray-emotional-stick-shorts/scripts/vbee_tts.py \
+            --text-file docs/psychology-pleasing-stick/vbee-script-V1.txt \
+            --voice-code hn_male_thanhlong_talk_48k-fhg \
+            --speed 1.08 \
+            --attempts 70 \
+            --webhook-url "$VBEE_WEBHOOK_URL" \
+            --output output/psychology-people-pleasing-VBEE.mp3
+      - name: Validate delivered genuine audio
+        run: |
+          python3 - <<'PY'
+          import hashlib,pathlib
+          p=pathlib.Path("output/psychology-people-pleasing-VBEE.mp3")
+          b=p.read_bytes()
+          assert len(b)>10000 and (b[:3]==b"ID3" or (b[0]==255 and b[1]&224==224))
+          (p.parent/"sha256.txt").write_text(hashlib.sha256(b).hexdigest()+"  "+p.name+"\n")
+          print("Delivered Vbee audio bytes:",len(b))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: psychology-pleasing-real-vbee
+          path: output/
+          if-no-files-found: error
+          retention-days: 20
