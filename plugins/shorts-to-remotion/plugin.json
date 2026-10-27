@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "shorts-to-remotion",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "Reusable Vietnamese video analysis and Remotion production with exact voice-caption-scene alignment, 30/60 fps, short 9:16 and long 16:9, and Be Vietnam Pro ExtraBold defaults.",
   "author": {
     "name": "Plugin owner"
