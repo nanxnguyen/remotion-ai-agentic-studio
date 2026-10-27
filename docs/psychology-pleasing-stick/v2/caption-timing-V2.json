@@ -1,0 +1,160 @@
+{
+  "source": "verified Vbee 48k mono measured; 2026-10-28",
+  "alignment": "phrase-level estimated from RMS minima and Vietnamese syllable weights; NOT forced aligned; unverified word-level",
+  "cues": [
+    {
+      "scene": 0,
+      "text": "Bạn thường nói \"được thôi\",",
+      "start": 0.0,
+      "end": 1.26,
+      "timing_type": "estimated_energy_phrase_boundary"
+    },
+    {
+      "scene": 0,
+      "text": "dù trong lòng muốn từ chối?",
+      "start": 1.26,
+      "end": 2.796,
+      "timing_type": "estimated_energy_phrase_boundary"
+    },
+    {
+      "scene": 0,
+      "text": "Đây là sáu dấu hiệu",
+      "start": 2.796,
+      "end": 4.248,
+      "timing_type": "estimated_energy_phrase_boundary"
+    },
+    {
+      "scene": 0,
+      "text": "bạn đang cố làm hài lòng tất cả mọi người.",
+      "start": 4.248,
+      "end": 6.573,
+      "timing_type": "estimated_energy_phrase_boundary"
+    },
+    {
+      "scene": 1,
+      "text": "Một: Bạn nhận lời giúp đỡ,",
+      "start": 6.573,
+      "end": 8.172,
+      "timing_type": "estimated_energy_phrase_boundary"
+    },
+    {
+      "scene": 1,
+      "text": "ngay cả khi đã kiệt sức.",
+      "start": 8.172,
+      "end": 9.763,
+      "timing_type": "estimated_energy_phrase_boundary"
+    },
+    {
+      "scene": 2,
+      "text": "Hai: Bạn xin lỗi,",
+      "start": 9.763,
+      "end": 11.064,
+      "timing_type": "estimated_energy_phrase_boundary"
+    },
+    {
+      "scene": 2,
+      "text": "dù mình chẳng làm điều gì sai.",
+      "start": 11.064,
+      "end": 13.126,
+      "timing_type": "estimated_energy_phrase_boundary"
+    },
+    {
+      "scene": 3,
+      "text": "Ba: Bạn sợ người khác thất vọng,",
+      "start": 13.126,
+      "end": 15.192,
+      "timing_type": "estimated_energy_phrase_boundary"
+    },
+    {
+      "scene": 3,
+      "text": "nên không dám nói thật.",
+      "start": 15.192,
+      "end": 16.669,
+      "timing_type": "estimated_energy_phrase_boundary"
+    },
+    {
+      "scene": 4,
+      "text": "Bốn: Bạn đổi ý kiến,",
+      "start": 16.669,
+      "end": 18.132,
+      "timing_type": "estimated_energy_phrase_boundary"
+    },
+    {
+      "scene": 4,
+      "text": "chỉ để tránh một cuộc tranh cãi.",
+      "start": 18.132,
+      "end": 20.178,
+      "timing_type": "estimated_energy_phrase_boundary"
+    },
+    {
+      "scene": 5,
+      "text": "Năm: Bạn hỏi ai cũng ổn không,",
+      "start": 20.178,
+      "end": 22.32,
+      "timing_type": "estimated_energy_phrase_boundary"
+    },
+    {
+      "scene": 5,
+      "text": "nhưng quên hỏi chính mình.",
+      "start": 22.32,
+      "end": 23.859,
+      "timing_type": "estimated_energy_phrase_boundary"
+    },
+    {
+      "scene": 6,
+      "text": "Sáu: Khi từ chối một lần,",
+      "start": 23.859,
+      "end": 25.62,
+      "timing_type": "estimated_energy_phrase_boundary"
+    },
+    {
+      "scene": 6,
+      "text": "bạn day dứt cả ngày.",
+      "start": 25.62,
+      "end": 27.083,
+      "timing_type": "estimated_energy_phrase_boundary"
+    },
+    {
+      "scene": 7,
+      "text": "Nhớ nhé, tử tế không đồng nghĩa",
+      "start": 27.083,
+      "end": 29.292,
+      "timing_type": "estimated_energy_phrase_boundary"
+    },
+    {
+      "scene": 7,
+      "text": "phải đánh mất bản thân.",
+      "start": 29.292,
+      "end": 30.36,
+      "timing_type": "estimated_energy_phrase_boundary"
+    },
+    {
+      "scene": 7,
+      "text": "Bạn có thể nói:",
+      "start": 30.36,
+      "end": 31.608,
+      "timing_type": "estimated_energy_phrase_boundary"
+    },
+    {
+      "scene": 7,
+      "text": "\"Mình muốn giúp, nhưng hôm nay mình không thể.\"",
+      "start": 31.608,
+      "end": 34.462,
+      "timing_type": "estimated_energy_phrase_boundary"
+    },
+    {
+      "scene": 8,
+      "text": "Nếu thấy hữu ích,",
+      "start": 34.462,
+      "end": 35.556,
+      "timing_type": "estimated_energy_phrase_boundary"
+    },
+    {
+      "scene": 8,
+      "text": "hãy thả tim và đăng ký kênh nhé!",
+      "start": 35.556,
+      "end": 37.733,
+      "timing_type": "estimated_energy_phrase_boundary"
+    }
+  ]
+}
