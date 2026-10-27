@@ -1,50 +1,39 @@
-# Video-shorts — mandatory Google Drive delivery package
+# Canonical Videos-shorts archive SOP v1.0 (2026-10-25)
 
-> Canonical project instruction for **Ray Emotional Stick Shorts** production and every future chat/agent working on the series.
-> Established by project owner on **2026-10-24**. This document supplements, and does not bypass, mandatory Remotion/Vbee/QA/GitHub delivery gates.
+This is the current owner-issued canonical storage contract for all Ray Shorts/Remotion videos. **It supersedes earlier one-folder-per-export / exactly-three-files instructions.** The document text below preserves the user's original ten rules and examples. It does not automatically move or delete prior assets, grant sharing permissions or bypass QA.
 
-For the owner-wide **all-video and long-form** requirements, follow [Google Drive Video Archive Contract](GOOGLE_DRIVE_VIDEO_ARCHIVE.md) as well. This Shorts-specific policy uses the same folder ID, numbering, and filenames, and must not override 16:9 artwork for long-form uploads.
+# QUY TẮC LƯU VIDEO – VIDEOS-SHORTS
 
-## Destination (FIXED)
+Phiên bản: 1.0 · 2026-10-25
 
-**Root folder:** `Videos-shorts`
-**Exact Google Drive folder URL:** https://drive.google.com/drive/folders/1rtJF9zDWuFZ8_6IixdMew3WCZj8415-D
-**Exact folder ID:** `1rtJF9zDWuFZ8_6IixdMew3WCZj8415-D`
+## Thư mục gốc
 
-Do not substitute an earlier Google Drive destination (including `Ray Emotional Stick Shorts`) for this root.
+Google Drive: `Videos-shorts` Folder ID: `1rtJF9zDWuFZ8_6IixdMew3WCZj8415-D`
 
-## Per-video folder numbering and naming
+## Quy tắc bất biến
 
-Each completed video gets exactly one child folder inside the root:
+1. **Một chủ đề/video gốc = một thư mục đánh số duy nhất.** V2, V3, V12.3.1, V12.3.2, FINAL, RESTORED, Podcast, thumbnail, voice, project và metadata thuộc cùng video phải nằm trong **cùng thư mục** đã có.
+2. Trước mỗi lần lưu, **đọc lại danh sách tất cả folder con trực tiếp** trong `Videos-shorts`. Không dựa vào số thứ tự cũ ghi nhớ từ các lần trước. Nếu danh sách trả về bị cắt, phải phân trang/kiểm tra đủ.
+3. Xác định định danh video theo thứ tự: `video_id`/`canonical_slug` đã khai báo trong manifest (nếu có) > tên chủ đề đã được xác nhận > tên folder chuẩn hóa. Khi chuẩn hóa, bỏ dấu câu, khoảng trắng thừa, ngày tháng và hậu tố phiên bản (`V2`, `V3`, `V12.3.2`, `FINAL`, `PREVIEW`, `RESTORED`), không đánh đồng hai chủ đề khác nhau chỉ vì từ ngữ tương tự. Đối với chủ đề có thể nhập nhằng, xem kịch bản/manifest trước khi quyết định dùng lại folder.
+4. Nếu tìm thấy folder đúng chủ đề: **dùng lại folder ID đó**, không tạo folder khác. Không đổi số thứ tự chỉ vì nâng cấp video.
+5. Nếu thực sự là chủ đề mới: lấy `next = max(các số thứ tự đầu tên folder hợp lệ) + 1`. Kiểm tra danh sách mới nhất trước khi tạo folder để tránh trùng số. Tạo theo mẫu `{next}. {Tên video} - {YYYY-MM-DD}`. Không tái sử dụng số của video khác.
+6. Trước khi upload vào folder, kiểm tra file đã tồn tại chưa bằng tên, phiên bản, dung lượng và SHA-256/manifest khi có. Cùng nội dung -> bỏ qua upload; cùng tên nhưng nội dung khác -> lưu thành phiên bản khác (không ghi đè nếu người dùng chưa yêu cầu).
+7. Cấu trúc mong muốn trong folder: `video-final-Vx.mp4`, `thumbnail-shorts-Vx.png`, `youtube-title-description-Vx.txt`, `production-manifest-Vx.json`, các phiên bản/nguồn nếu cần.
+8. Sau upload, **kiểm tra lại bằng Google Drive**: URL và ID thật, đúng folder cha, MIME `video/mp4`, kích thước byte và các file được yêu cầu. Không báo thành công trước khi xác minh.
+9. Không xóa hay di chuyển file của video khác; khi gặp folder trùng, đối chiếu toàn bộ nội dung trước. Các thao tác phá hủy cần được người dùng chấp thuận cụ thể.
+10. Video nâng cấp cùng chủ đề phải lưu **bên cạnh bản gốc** để so sánh được hai link.
 
-`<N>. <Vietnamese video title> - <YYYY-MM-DD>`
+## Ví dụ đã kiểm chứng
 
-Example: `1. Người từng hiểu bạn nhất, giờ chỉ còn là người lạ - 2026-10-24`
+- \#11 `Lớn Rồi, Không Cần Làm Vừa Lòng Tất Cả Nữa`: toàn bộ 4 tài liệu Podcast V3 đã chuyển về đây; không tạo thêm folder số 13.
+- \#13 `Bạn Không Bắt Đầu Từ Số Không V12.3`: mọi bản V12.3.1 / V12.3.2 và bản tiếp theo đều lưu tại đây.
+- Chủ đề mới tiếp theo dùng #14 (nếu không có folder mới khác được tạo trước đó).
 
-- `N` is a positive integer: 1, 2, 3, ... with no fixed ceiling.
-- Before allocating, **list the actual folders under the exact root ID**; use the next available production sequence number after the largest assigned number. Do not collide with existing folders. Never renumber or rename previous videos just because their titles change.
-- Production date is the date the approved final was rendered in `Asia/Ho_Chi_Minh` (ISO date); do not use upload date when it differs.
-- For an existing video, find/reuse its numbered folder rather than creating duplicates.
+**Lưu ý:** File này là SOP cho quy trình lưu trữ, không cấp quyền truy cập và không tự động chạy. Mỗi lần lưu vẫn phải thực hiện kiểm tra trực tiếp qua Google Drive API.
 
-## Exactly three mandatory deliverables per video
+## Hướng dẫn thực thi cho agent
 
-1. **Final production MP4**: `video-final.mp4`. Must be the genuine QA-approved vertical YouTube Shorts master, including verified Vbee Thanh Long narration (unless a different provider is explicitly authorized), original/licensed music, synced Vietnamese subtitles and audiovisual QA. A storyboard, muted/voice-less preview, temporary link or an unverified render cannot replace it.
-2. **YouTube thumbnail image**: `thumbnail-youtube.png` (or `.jpg` for a high-quality export). Original, eye-catching, emotionally specific, readable on phone, high contrast, recognizable character/prop, accurate to the actual story, with Vietnamese accent/typography QA. Prefer 1080×1920 9:16 for the Shorts cover and a safe central content area so mobile crops do not hide the subject or text. No deceptive claims or fabricated evidence. Avoid unlicensed artwork.
-3. **YouTube publication copy**: `youtube-title-description.txt` encoded UTF-8, containing the final **TITLE** and **DESCRIPTION**, including compelling but honest 1–2-line hook, concise storyline/benefit, optional natural conversation prompt and relevant hashtags (e.g., #shorts). No unsupported guarantees of views and no automatic publication.
-
-Additional source files or QA reports are optional and may be retained in a `source/` subfolder, but never in place of these three required deliverables.
-
-## Mandatory automated upload / verification order
-
-1. Complete full story, Vbee synthesis, motion, music, captions, independent QA gates and `ffprobe` of final MP4 before marking it FINAL.
-2. Discover the **real** destination root and numbered subfolders via Google Drive. Check latest used number, and create/reuse the correct per-video folder. Keep existing files unless asked to move/delete them.
-3. Create the video-specific thumbnail, inspect readability/subject and text; write the matching UTF-8 title+description copy.
-4. Upload **all three actual files** into the same numbered folder, using connected Google Drive / supported file upload. Read back Google Drive metadata for every file: MIME type, size, parent folder ID, and returned `webViewLink`/display URL. For images and MP4, metadata alone does not prove render quality or Google playback.
-5. Do not say `archive completed` or hand off a fully packaged final video until every required file is present and verified. If any item is blocked, report `INCOMPLETE` with exact missing items and truthful evidence. Never invent Drive links or file paths.
-6. Return the **actual numbered folder link**, final MP4 link, thumbnail link, and copy-file link. Publishing to YouTube is a separate authorization. Preserve private access by default; do not broaden sharing without permission.
-
-The existing **draft GitHub Release** and **vidIQ** archive requirements still apply where documented. This Drive folder package is an *additional*, mandatory delivery destination; it does not supersede archive QA or imply publishing.
-
-## For future sessions / agents
-
-Read this policy at intake and before every completed emotional Shorts delivery. Keep the Google Drive destination ID stable, compute numbering from current Drive listings (not memory), and verify all 3 deliverables for each video. When an older video is migrated, **copy** source assets first and verify new copies rather than deleting or destructively moving the originals. Update this canonical file and matching skill/plugin references when the owner changes the rule.
+- Quy tắc SOP v1.0 này **thay thế quy định cũ** về tạo thư mục theo mỗi lần xuất và giới hạn mỗi thư mục chỉ có 3 file. Giữ tài sản nguyên bản và mọi phiên bản cạnh nhau; số tệp trong thư mục có thể nhiều hơn 3. Khi bàn giao bản FINAL, phải có video/thumbnail/title-description được yêu cầu cùng manifest nếu sản xuất được; chưa có thì báo thiếu trung thực.
+- Trước thao tác ghi, liệt kê danh sách children thực tế từ Drive và xử lý phân trang bằng công cụ hỗ trợ. Tách folder được đặt tên REVIEW hoặc folder chỉ chứa các phiên bản cùng chủ đề vào folder gốc đúng chủ đề **chỉ khi được người dùng yêu cầu và sau khi kiểm tra kỹ, không tự di chuyển hoặc xóa**.
+- Nếu một chủ đề mới chưa có video_id, có thể tạo canonical_slug ổn định trên manifest. Không tự gán số 14 cố định vì thư mục khác có thể đã được thêm trong thời gian giữa các phiên.
+- Nếu quy tắc repo/skill cũ xung đột (ví dụ 3 file duy nhất, folder REVIEW mới cho bản V2/V3), ưu tiên SOP này cho việc bố trí thư mục. Tuân thủ quy trình QA/voice và các quy định bảo mật hiện hành riêng rẽ.

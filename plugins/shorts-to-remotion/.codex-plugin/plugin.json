@@ -1,20 +1,20 @@
 {
   "interface": {
     "displayName": "Shorts to Remotion Studio",
-    "shortDescription": "Phân tích Shorts, dựng video",
-    "longDescription": "Phân tích video Shorts từ Google Drive hoặc MP4, trích frame qua GitHub Actions, nghiên cứu phong cách và sản xuất kịch bản, storyboard, video dọc 9:16 cùng mã Remotion tái sử dụng.",
+    "shortDescription": "Ph\u00e2n t\u00edch Shorts, d\u1ef1ng video",
+    "longDescription": "Ph\u00e2n t\u00edch video Google Drive/MP4 v\u00e0 d\u1ef1ng Remotion. M\u1eb7c \u0111\u1ecbnh gi\u1ecdng\u2013ch\u1eef\u2013c\u1ea3nh \u0111\u1ed3ng b\u1ed9, kh\u00f4ng ng\u1eaft qu\u00e3ng d\u00e0i, 30/60 FPS, Shorts 9:16, video d\u00e0i 16:9, \u01b0u ti\u00ean Be Vietnam Pro ExtraBold.",
     "developerName": "Plugin owner",
     "category": "Productivity",
     "capabilities": [],
     "defaultPrompt": [
-      "Phân tích video Shorts từ Google Drive và đề xuất cách tái tạo bằng Remotion.",
-      "Dựa trên video tham chiếu này, tạo kịch bản chủ đề mới 55 giây và storyboard 9:16.",
-      "Tạo video Shorts mới bằng Remotion dựa trên phong cách của video mẫu."
+      "Ph\u00e2n t\u00edch video Shorts t\u1eeb Google Drive v\u00e0 \u0111\u1ec1 xu\u1ea5t c\u00e1ch t\u00e1i t\u1ea1o b\u1eb1ng Remotion.",
+      "T\u1ea1o video Short 9:16 \u0111\u1ed3ng b\u1ed9 ch\u00ednh x\u00e1c gi\u1ecdng \u0111\u1ecdc, ph\u1ee5 \u0111\u1ec1 v\u00e0 c\u1ea3nh t\u1ea1i 30/60 FPS.",
+      "D\u1ef1ng video d\u00e0i 16:9 b\u1eb1ng Remotion, caption Be Vietnam Pro ExtraBold, kh\u00f4ng c\u00f3 kho\u1ea3ng l\u1eb7ng d\u00e0i."
     ]
   },
   "name": "shorts-to-remotion",
-  "version": "0.1.2",
-  "description": "Reusable Vietnamese workflow to analyze video references from Google Drive or MP4, extract frames using GitHub Actions, and produce scripts, storyboards, assets and Remotion-ready short videos.",
+  "version": "0.1.7",
+  "description": "Reusable Vietnamese video analysis and Remotion production with exact voice-caption-scene alignment, 30/60 fps, short 9:16 and long 16:9, and Be Vietnam Pro ExtraBold defaults.",
   "author": {
     "name": "Plugin owner"
   },
