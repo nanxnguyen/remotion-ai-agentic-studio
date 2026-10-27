@@ -1,0 +1,45 @@
+name: Bo oi con khong doi nua - original Vbee Thanh Long voice
+on:
+  push:
+    branches: [feat/bo-oi-con-khong-doi-vbee-v1-20261027]
+    paths:
+      - '.github/workflows/bo-oi-con-khong-doi-vbee.yml'
+      - 'docs/bo-oi-hom-nay-con-khong-doi-nua/voice/vbee-script-v1.txt'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  authentic-voice:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    env:
+      VBEE_ACCESS_TOKEN: ${{ secrets.VBEE_ACCESS_TOKEN || secrets.VBEE_TOKEN || secrets.VBEE_API_KEY || secrets.VBEE_API_TOKEN }}
+      VBEE_APP_ID: ${{ secrets.VBEE_APP_ID || secrets.VBEE_APPID || secrets.VBEE_APPLICATION_ID }}
+      VBEE_WEBHOOK_URL: ${{ vars.VBEE_WEBHOOK_URL || 'https://example.com/story-tts-webhook' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Check authorized Vbee credentials
+        run: |
+          test -n "$VBEE_ACCESS_TOKEN" && test -n "$VBEE_APP_ID" || { echo "::error::Original Vbee credentials missing"; exit 1; }
+      - name: Synthesize original HN Thanh Long story voice
+        run: |
+          python3 .claude/skills/ray-emotional-stick-shorts/scripts/vbee_tts.py \
+            --text-file docs/bo-oi-hom-nay-con-khong-doi-nua/voice/vbee-script-v1.txt \
+            --voice-code hn_male_thanhlong_talk_48k-fhg \
+            --speed 1.08 \
+            --attempts 70 \
+            --webhook-url "$VBEE_WEBHOOK_URL" \
+            --output output/bo-oi-con-khong-doi-VBEE-THANH-LONG.mp3
+      - name: Probe and checksum real Vbee MP3
+        run: |
+          ffprobe -v error -show_entries format=duration,size -show_entries stream=codec_name,sample_rate -of json output/bo-oi-con-khong-doi-VBEE-THANH-LONG.mp3 > output/voice-metadata.json
+          sha256sum output/bo-oi-con-khong-doi-VBEE-THANH-LONG.mp3 > output/voice.sha256
+      - uses: actions/upload-artifact@v4
+        with:
+          name: bo-oi-con-khong-doi-vbee-thanhlong-original
+          path: output/
+          retention-days: 20
+          if-no-files-found: error
