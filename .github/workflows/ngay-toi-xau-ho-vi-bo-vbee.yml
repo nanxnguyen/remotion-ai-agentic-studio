@@ -1,0 +1,50 @@
+name: Ngay toi xau ho vi bo - authentic Vbee Thanh Long voice
+on:
+  push:
+    branches: [feat/ngay-toi-xau-ho-vi-bo-vbee-20261027]
+    paths:
+      - '.github/workflows/ngay-toi-xau-ho-vi-bo-vbee.yml'
+      - 'docs/ngay-toi-xau-ho-vi-bo/voice/vbee-script-V1.txt'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  voice:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    env:
+      VBEE_ACCESS_TOKEN: ${{ secrets.VBEE_ACCESS_TOKEN || secrets.VBEE_TOKEN || secrets.VBEE_API_KEY || secrets.VBEE_API_TOKEN }}
+      VBEE_APP_ID: ${{ secrets.VBEE_APP_ID || secrets.VBEE_APPID || secrets.VBEE_APPLICATION_ID }}
+      VBEE_WEBHOOK_URL: ${{ vars.VBEE_WEBHOOK_URL || 'https://example.com/story-tts-webhook' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate credentials
+        run: test -n "$VBEE_ACCESS_TOKEN" && test -n "$VBEE_APP_ID"
+      - name: Synthesize full authentic Vbee Thanh Long narration
+        run: |
+          python3 .claude/skills/ray-emotional-stick-shorts/scripts/vbee_tts.py \
+            --text-file docs/ngay-toi-xau-ho-vi-bo/voice/vbee-script-V1.txt \
+            --voice-code hn_male_thanhlong_talk_48k-fhg \
+            --speed 1.16 \
+            --attempts 70 \
+            --webhook-url "$VBEE_WEBHOOK_URL" \
+            --output output/ngay-toi-xau-ho-vi-bo-VBEE-THANH-LONG.mp3
+      - name: Check MP3 and checksum
+        run: |
+          python3 - <<'PY'
+          import hashlib, pathlib
+          p=pathlib.Path("output/ngay-toi-xau-ho-vi-bo-VBEE-THANH-LONG.mp3")
+          b=p.read_bytes()
+          assert len(b)>12000 and (b[:3]==b"ID3" or (b[0]==255 and b[1]&224==224)), "Invalid original Vbee MP3"
+          (p.parent/"sha256.txt").write_text(hashlib.sha256(b).hexdigest()+"  "+p.name+"\n")
+          print("Vbee output bytes",len(b))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ngay-toi-xau-ho-vi-bo-original-vbee
+          path: output/
+          retention-days: 20
+          if-no-files-found: error
