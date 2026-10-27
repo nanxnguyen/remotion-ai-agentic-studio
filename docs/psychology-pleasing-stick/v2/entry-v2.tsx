@@ -98,7 +98,7 @@ const Graphic:React.FC<{scene:number;frame:number;elapsed:number}>=({scene,frame
  {scene===7&&<>
  <circle cx="460" cy="370" r={245+15*ease((phase-42)/29)} stroke={CYAN} strokeWidth={11} fill="none" opacity={.10+.77*ease((phase-32)/27)}/>
  <Actor x={445} y={398} scale={1.29} frame={phase} pose={phase<60?'tired':'confident'}/>
- {bubble('MÌNH KHÔNG THỂ HÔM NAY.',459,139,650,129,phase,GOLD)}
+ {bubble('MÌNH KHÔNG THỂ HÔM NAY.',459,65,650,129,phase,GOLD)}
  <SoftIcon kind="check" x={681} y={550} size={87} color={CYAN} frame={phase} delay={85}/></>}
  {scene===8&&<>
  <Actor x={460} y={245} scale={1.26} frame={phase} pose="cheer"/>
@@ -160,9 +160,9 @@ const ActionPropsV2:React.FC<ActionProps>=({scene,phase})=>{
    <path d="M718 470 A77 77 0 0 1 774 530" fill="none" stroke={CYAN} strokeWidth="5" strokeDasharray="8 12" opacity={e(12,19)}/>
    <text x="730" y="654" textAnchor="middle" fontSize="38" fontWeight="800" fill={GOLD} opacity={e(25,19)}>DAY DỨT</text>
  </g>;
- if(scene===7)return <g opacity={e(117,20)} transform={`translate(210 ${415-38*e(117,22)})`}>
-   <rect width="162" height="86" rx="24" fill="#113D43" stroke={CYAN} strokeWidth="4"/>
-   <text x="81" y="55" textAnchor="middle" fontSize="37" fill={CYAN} fontWeight="800">GIỚI HẠN</text>
+ if(scene===7)return <g opacity={e(117,20)} transform={`translate(44 ${522-22*e(117,22)})`}>
+   <rect width="220" height="80" rx="20" fill="#113D43" stroke={CYAN} strokeWidth="4"/>
+   <text x="110" y="51" textAnchor="middle" fontSize="29" fill={CYAN} fontWeight="800">GIỚI HẠN</text>
  </g>;
  if(scene===8)return <g opacity={e(7,11)}>
    <circle cx="450" cy="380" r={250+5*Math.sin(phase*.07)} stroke={GOLD} strokeWidth="5" fill="none" opacity=".27"/>
@@ -176,7 +176,9 @@ const Story:React.FC=()=>{
  const detected=timing.edges.findIndex((e,i)=>i<timing.edges.length-1&&e<=sec&&sec<timing.edges[i+1]);
  const idx=detected<0?8:Math.max(0,Math.min(8,detected));
  const st=timing.edges[idx],en=timing.edges[idx+1];const local=sec-st,fr=local*FPS,dur=en-st;
- const fade=ease(local/.18)*ease((en-sec)/.16);const [num,title]=TITLES[idx];
+ const fade=ease(local/.18)*ease((en-sec)/.16);const [baseNum,baseTitle]=TITLES[idx];
+ const num=idx===0&&fr>=84?'06 DẤU HIỆU':baseNum;
+ const title=idx===0&&fr>=84?'BẠN CÓ NHẬN RA?':baseTitle;
  const sectionLabel=idx===0?"MỞ ĐẦU":idx>=7?(idx===7?"GÓC NHÌN":"KẾT THÚC"):`${String(idx).padStart(2,"0")} / 06`;
  const active=captionTimings.cues.find(c=>c.start<=sec&&sec<c.end) ?? captionTimings.cues[captionTimings.cues.length-1];
  const captionText=active.text;
