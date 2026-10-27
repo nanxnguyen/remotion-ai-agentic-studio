@@ -2,19 +2,19 @@
   "interface": {
     "displayName": "Shorts to Remotion Studio",
     "shortDescription": "Ph\u00e2n t\u00edch Shorts, d\u1ef1ng video",
-    "longDescription": "Ph\u00e2n t\u00edch video Shorts t\u1eeb Google Drive ho\u1eb7c MP4, tr\u00edch frame qua GitHub Actions, nghi\u00ean c\u1ee9u phong c\u00e1ch v\u00e0 s\u1ea3n xu\u1ea5t k\u1ecbch b\u1ea3n, storyboard, video d\u1ecdc 9:16 c\u00f9ng m\u00e3 Remotion t\u00e1i s\u1eed d\u1ee5ng.",
+    "longDescription": "Ph\u00e2n t\u00edch video Google Drive/MP4 v\u00e0 d\u1ef1ng Remotion. M\u1eb7c \u0111\u1ecbnh gi\u1ecdng\u2013ch\u1eef\u2013c\u1ea3nh \u0111\u1ed3ng b\u1ed9, kh\u00f4ng ng\u1eaft qu\u00e3ng d\u00e0i, 30/60 FPS, Shorts 9:16, video d\u00e0i 16:9, \u01b0u ti\u00ean Be Vietnam Pro ExtraBold.",
     "developerName": "Plugin owner",
     "category": "Productivity",
     "capabilities": [],
     "defaultPrompt": [
       "Ph\u00e2n t\u00edch video Shorts t\u1eeb Google Drive v\u00e0 \u0111\u1ec1 xu\u1ea5t c\u00e1ch t\u00e1i t\u1ea1o b\u1eb1ng Remotion.",
-      "D\u1ef1a tr\u00ean video tham chi\u1ebfu n\u00e0y, t\u1ea1o k\u1ecbch b\u1ea3n ch\u1ee7 \u0111\u1ec1 m\u1edbi 55 gi\u00e2y v\u00e0 storyboard 9:16.",
-      "T\u1ea1o video Shorts m\u1edbi b\u1eb1ng Remotion d\u1ef1a tr\u00ean phong c\u00e1ch c\u1ee7a video m\u1eabu."
+      "T\u1ea1o video Short 9:16 \u0111\u1ed3ng b\u1ed9 ch\u00ednh x\u00e1c gi\u1ecdng \u0111\u1ecdc, ph\u1ee5 \u0111\u1ec1 v\u00e0 c\u1ea3nh t\u1ea1i 30/60 FPS.",
+      "D\u1ef1ng video d\u00e0i 16:9 b\u1eb1ng Remotion, caption Be Vietnam Pro ExtraBold, kh\u00f4ng c\u00f3 kho\u1ea3ng l\u1eb7ng d\u00e0i."
     ]
   },
   "name": "shorts-to-remotion",
-  "version": "0.1.4",
-  "description": "Reusable Vietnamese workflow to analyze video references from Google Drive or MP4, extract frames using GitHub Actions, and produce scripts, storyboards, assets and Remotion-ready short videos.",
+  "version": "0.1.6",
+  "description": "Reusable Vietnamese video analysis and Remotion production with exact voice-caption-scene alignment, 30/60 fps, short 9:16 and long 16:9, and Be Vietnam Pro ExtraBold defaults.",
   "author": {
     "name": "Plugin owner"
   },
