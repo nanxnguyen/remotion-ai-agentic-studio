@@ -1,0 +1,20 @@
+{
+  "fps": 30,
+  "edges": [
+    0.0,
+    6.572562,
+    9.762767,
+    13.12576,
+    16.668934,
+    20.177596,
+    23.858912,
+    27.083175,
+    34.462358,
+    37.733016
+  ],
+  "voiceDuration": 37.733041666666665,
+  "totalFrames": 1144,
+  "originalVoiceDuration": 43.990204,
+  "voiceSource": "Vbee HN Thanh Long genuine run 40551246372, source sha256 9e47cfddf10a0969a5884d2a365c2c78297d04989c8f3aecaf85cf6fda56eb94",
+  "captionTiming": "phrase/scene matched by measured original silence midpoints, not word-level aligned"
+}
