@@ -1,0 +1,82 @@
+name: Ray psychology native Remotion REVIEW
+on:
+  push:
+    branches: [feat/psychology-people-pleasing-short-20261028]
+    paths:
+      - '.github/workflows/psychology-people-pleasing-render.yml'
+      - 'docs/psychology-pleasing-stick/entry.tsx'
+      - 'docs/psychology-pleasing-stick/retime_voice.py'
+      - 'docs/psychology-pleasing-stick/timing.json'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+jobs:
+  render-review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+      - name: Install packages and FFmpeg
+        run: |
+          npm ci --no-audit --no-fund
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg
+      - name: Download real Vbee narration from successful protected run
+        uses: actions/download-artifact@v4
+        with:
+          name: psychology-pleasing-real-vbee
+          run-id: 40551246372
+          github-token: ${{ github.token }}
+          path: docs/psychology-pleasing-stick
+      - name: Build synchronized final narration and original music
+        run: |
+          mkdir -p public output
+          python3 docs/psychology-pleasing-stick/retime_voice.py
+          cp docs/psychology-pleasing-stick/voice-clean-48k.wav public/psychology-voice-clean-48k.wav
+          cp docs/psychology-pleasing-stick/psychology-music-48k.wav public/psychology-music-48k.wav
+          curl -fL --retry 2 --max-time 35 \
+            https://raw.githubusercontent.com/google/fonts/main/ofl/bevietnampro/BeVietnamPro-ExtraBold.ttf \
+            -o public/BeVietnamPro-ExtraBold.ttf
+          test -s public/BeVietnamPro-ExtraBold.ttf
+      - name: Render original native 1080 x 1920 Remotion animation
+        run: |
+          npx remotion render docs/psychology-pleasing-stick/entry.tsx \
+            PsychologyPeoplePleasing output/6-dau-hieu-lam-hai-long-nguoi-khac-V1-REVIEW.mp4 \
+            --codec h264 --crf 19 --concurrency 2 --log=error
+      - name: Validate format, actual voice and complete decode
+        run: |
+          set -e
+          ffprobe -v error -show_format -show_streams -of json \
+            output/6-dau-hieu-lam-hai-long-nguoi-khac-V1-REVIEW.mp4 > output/ffprobe.json
+          python3 - <<'PY'
+          import json,os
+          p='output/ffprobe.json';d=json.load(open(p));s=d['streams']
+          v=next(x for x in s if x.get('codec_type')=='video')
+          a=next(x for x in s if x.get('codec_type')=='audio')
+          assert v['codec_name']=='h264' and v['width']==1080 and v['height']==1920,(v['codec_name'],v['width'],v['height'])
+          assert v['r_frame_rate']=='30/1',v['r_frame_rate']
+          assert a['codec_name']=='aac',a['codec_name']
+          assert 37<float(d['format']['duration'])<40,d['format']['duration']
+          assert os.path.getsize('output/6-dau-hieu-lam-hai-long-nguoi-khac-V1-REVIEW.mp4')>100000
+          print('Validated native Remotion H264/AAC 1080x1920')
+          PY
+          ffmpeg -v error -xerror -i output/6-dau-hieu-lam-hai-long-nguoi-khac-V1-REVIEW.mp4 -f null -
+          for s in 1 5 9 13 18 22 26 31 35 37; do
+            ffmpeg -y -v error -ss "$s" -i output/6-dau-hieu-lam-hai-long-nguoi-khac-V1-REVIEW.mp4 -frames:v 1 "output/qa-$s.jpg"
+          done
+      - name: Artifact handoff (REVIEW; no false FINAL)
+        uses: actions/upload-artifact@v4
+        with:
+          name: psychology-people-pleasing-remotion-V1-REVIEW
+          path: |
+            output/6-dau-hieu-lam-hai-long-nguoi-khac-V1-REVIEW.mp4
+            output/ffprobe.json
+            output/qa-*.jpg
+            docs/psychology-pleasing-stick/voice-clean-48k.wav
+          retention-days: 30
+          if-no-files-found: error
