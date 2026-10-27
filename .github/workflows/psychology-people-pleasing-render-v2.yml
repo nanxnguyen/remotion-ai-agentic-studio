@@ -1,0 +1,86 @@
+name: Ray psychology native Remotion V2 REVIEW
+on:
+  push:
+    branches: [feat/psychology-people-pleasing-v2-20261028]
+    paths:
+      - '.github/workflows/psychology-people-pleasing-render-v2.yml'
+      - 'docs/psychology-pleasing-stick/v2/**'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+jobs:
+  render-v2-review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+      - name: Install packages and FFmpeg
+        run: |
+          npm ci --no-audit --no-fund
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg
+      - name: Download genuine Vbee narration from protected successful run
+        uses: actions/download-artifact@v4
+        with:
+          name: psychology-pleasing-real-vbee
+          run-id: 40551246372
+          github-token: ${{ github.token }}
+          path: docs/psychology-pleasing-stick
+      - name: Build measured dry voice and original music
+        run: |
+          mkdir -p public output
+          python3 docs/psychology-pleasing-stick/retime_voice.py
+          cp docs/psychology-pleasing-stick/voice-clean-48k.wav public/psychology-voice-clean-48k.wav
+          cp docs/psychology-pleasing-stick/psychology-music-48k.wav public/psychology-music-48k.wav
+          curl -fL --retry 2 --max-time 35 \
+            https://raw.githubusercontent.com/google/fonts/main/ofl/bevietnampro/BeVietnamPro-ExtraBold.ttf \
+            -o public/BeVietnamPro-ExtraBold.ttf
+          test -s public/BeVietnamPro-ExtraBold.ttf
+      - name: Run V2 regression tests
+        run: |
+          python3 -m unittest discover -s docs/psychology-pleasing-stick/v2 -p 'test_v2.py' -v
+      - name: Render original native Remotion V2 REVIEW at true 1080 x 1920
+        run: |
+          npx remotion render docs/psychology-pleasing-stick/v2/entry-v2.tsx \
+            PsychologyPeoplePleasingV2 \
+            output/6-dau-hieu-lam-hai-long-nguoi-khac-V2-REVIEW.mp4 \
+            --codec h264 --crf 18 --concurrency 2 --log=error
+      - name: Full decode + metadata + QA frames
+        run: |
+          set -euo pipefail
+          ffprobe -v error -show_format -show_streams -of json \
+            output/6-dau-hieu-lam-hai-long-nguoi-khac-V2-REVIEW.mp4 > output/ffprobe-V2.json
+          python3 - <<'PY'
+          import json,os
+          d=json.load(open('output/ffprobe-V2.json'));s=d['streams']
+          v=next(x for x in s if x.get('codec_type')=='video')
+          a=next(x for x in s if x.get('codec_type')=='audio')
+          assert v['codec_name']=='h264' and v['pix_fmt']=='yuv420p' and v['width']==1080 and v['height']==1920
+          assert v['r_frame_rate']=='30/1'
+          assert a['codec_name']=='aac' and a['sample_rate']=='48000' and a['channels']==2
+          assert 37.7<float(d['format']['duration'])<39
+          assert os.path.getsize('output/6-dau-hieu-lam-hai-long-nguoi-khac-V2-REVIEW.mp4')>500000
+          print('QA FFPROBE PASS',d['format']['duration'])
+          PY
+          ffmpeg -v error -xerror -i output/6-dau-hieu-lam-hai-long-nguoi-khac-V2-REVIEW.mp4 -f null -
+          for s in 0.45 1.8 4.2 7.7 10.8 14.9 18.8 22.6 25.3 30.0 32.5 35.5 36.8; do
+            ffmpeg -y -v error -ss "$s" -i output/6-dau-hieu-lam-hai-long-nguoi-khac-V2-REVIEW.mp4 -frames:v 1 "output/qa-V2-$s.jpg"
+          done
+          sha256sum output/6-dau-hieu-lam-hai-long-nguoi-khac-V2-REVIEW.mp4 > output/sha256-V2.txt
+      - name: Upload verified V2 REVIEW artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: psychology-people-pleasing-remotion-V2-REVIEW
+          path: |
+            output/6-dau-hieu-lam-hai-long-nguoi-khac-V2-REVIEW.mp4
+            output/ffprobe-V2.json
+            output/qa-V2-*.jpg
+            output/sha256-V2.txt
+            docs/psychology-pleasing-stick/v2/caption-timing-V2.json
+          retention-days: 30
+          if-no-files-found: error
