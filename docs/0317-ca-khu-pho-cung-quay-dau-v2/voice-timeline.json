@@ -1,0 +1,128 @@
+[
+  {
+    "id": 1,
+    "shot": "CTA-OPEN",
+    "start_sec": 0,
+    "duration_sec": 3,
+    "narration": "Nếu đủ can đảm… hãy xem đến cuối!"
+  },
+  {
+    "id": 2,
+    "shot": "01",
+    "start_sec": 3,
+    "duration_sec": 3,
+    "narration": "Ba giờ mười bảy. Nam bỗng lạnh sống lưng."
+  },
+  {
+    "id": 3,
+    "shot": "02",
+    "start_sec": 6,
+    "duration_sec": 3,
+    "narration": "Cả chung cư đối diện… đang nhìn anh!"
+  },
+  {
+    "id": 4,
+    "shot": "03",
+    "start_sec": 9,
+    "duration_sec": 3,
+    "narration": "Không ai cử động. Không ai chớp mắt."
+  },
+  {
+    "id": 5,
+    "shot": "04",
+    "start_sec": 12,
+    "duration_sec": 3,
+    "narration": "Nam hoảng hốt kéo rèm, tắt đèn."
+  },
+  {
+    "id": 6,
+    "shot": "05",
+    "start_sec": 15,
+    "duration_sec": 3,
+    "narration": "Nhưng khi nhìn lại… họ vẫn ở đó."
+  },
+  {
+    "id": 7,
+    "shot": "06",
+    "start_sec": 18,
+    "duration_sec": 3,
+    "narration": "Lần này, họ nhìn lên phía trên anh."
+  },
+  {
+    "id": 8,
+    "shot": "07",
+    "start_sec": 21,
+    "duration_sec": 3,
+    "narration": "Một tiếng cào vang lên từ trần nhà."
+  },
+  {
+    "id": 9,
+    "shot": "08",
+    "start_sec": 24,
+    "duration_sec": 3,
+    "narration": "Rồi một giọt nước đen rơi xuống bàn."
+  },
+  {
+    "id": 10,
+    "shot": "09",
+    "start_sec": 27,
+    "duration_sec": 3,
+    "narration": "Nam bật camera trước, kiểm tra phía sau."
+  },
+  {
+    "id": 11,
+    "shot": "10",
+    "start_sec": 30,
+    "duration_sec": 4,
+    "narration": "Trên màn hình… có một bàn tay bám trần!"
+  },
+  {
+    "id": 12,
+    "shot": "11",
+    "start_sec": 34,
+    "duration_sec": 4,
+    "narration": "Anh ngẩng lên. Trần nhà hoàn toàn trống!"
+  },
+  {
+    "id": 13,
+    "shot": "12",
+    "start_sec": 38,
+    "duration_sec": 4,
+    "narration": "Nhưng qua điện thoại… thứ đó đang bò tới!"
+  },
+  {
+    "id": 14,
+    "shot": "13",
+    "start_sec": 42,
+    "duration_sec": 4,
+    "narration": "Nam chợt hiểu. Họ đang cố cảnh báo anh!"
+  },
+  {
+    "id": 15,
+    "shot": "14",
+    "start_sec": 46,
+    "duration_sec": 4,
+    "narration": "Bỗng nhiên… từng ô cửa bắt đầu tắt đèn."
+  },
+  {
+    "id": 16,
+    "shot": "15",
+    "start_sec": 50,
+    "duration_sec": 3,
+    "narration": "Chỉ còn một khuôn mặt đang nhìn anh."
+  },
+  {
+    "id": 17,
+    "shot": "16",
+    "start_sec": 53,
+    "duration_sec": 3,
+    "narration": "Đừng ngẩng đầu… nó ngay trên anh!"
+  },
+  {
+    "id": 18,
+    "shot": "CTA-CLOSE",
+    "start_sec": 56,
+    "duration_sec": 4,
+    "narration": "Thả tim, đăng ký… trước khi nó tìm thấy bạn!"
+  }
+]
