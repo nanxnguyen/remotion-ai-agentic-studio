@@ -33,10 +33,17 @@ jobs:
             --attempts 70 \
             --webhook-url "$VBEE_WEBHOOK_URL" \
             --output output/bo-oi-con-khong-doi-VBEE-THANH-LONG.mp3
-      - name: Probe and checksum real Vbee MP3
+      - name: Verify and checksum Vbee MP3 before packaging
         run: |
-          ffprobe -v error -show_entries format=duration,size -show_entries stream=codec_name,sample_rate -of json output/bo-oi-con-khong-doi-VBEE-THANH-LONG.mp3 > output/voice-metadata.json
-          sha256sum output/bo-oi-con-khong-doi-VBEE-THANH-LONG.mp3 > output/voice.sha256
+          python3 - <<'PY'
+          import hashlib
+          from pathlib import Path
+          p=Path("output/bo-oi-con-khong-doi-VBEE-THANH-LONG.mp3")
+          data=p.read_bytes()
+          assert len(data)>10000 and (data.startswith(b"ID3") or (data[0]==255 and (data[1]&224)==224)), "invalid Vbee audio"
+          (p.parent/"voice.sha256").write_text(hashlib.sha256(data).hexdigest()+"  "+p.name+"\n")
+          print("Verified Vbee MP3 bytes:",len(data))
+          PY
       - uses: actions/upload-artifact@v4
         with:
           name: bo-oi-con-khong-doi-vbee-thanhlong-original
