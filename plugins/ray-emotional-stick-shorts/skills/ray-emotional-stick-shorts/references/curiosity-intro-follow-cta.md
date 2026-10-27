@@ -36,3 +36,8 @@ End CTAs should match each story, not be copy-pasted: #15 “Muốn bước ti�
 3. Validate actual synthesized voice duration after adding both CTA lines; re-time 10 scenes/captions and music to the audio before export. No speed-up that hurts emotion solely to fit 45 s.
 4. Check intro and CTA on 360×640 mobile preview; no occluded subtitles or UI conflicts; avoid interrupting the climax to demand subscribe.
 5. Keep versions beside the original in the **same canonical numbered Videos-shorts Google Drive folder**, following the owner SOP; do not overwrite/delete files without explicit permission. For V5, store as versioned REVIEW until approved and independently QA'd.
+
+
+## Explicit Like + Subscribe extension (owner update 2026-10-27)
+
+The END CTA now asks for **both** a heart/like ("thả tim") and a channel subscription ("đăng ký kênh"), not just Follow. Keep total CTA 1–4 seconds; retain story payoff, genuinely voiced Vbee call-to-action when narration is requested, mobile-friendly animated heart and Subscribe indicator, and no duplicate clutter. Prefer story-specific wording; test measured narration before locking 45s. Use [Real Vbee production guide](real-vbee-production-and-like-subscribe.md) for the exact production/QA steps.
