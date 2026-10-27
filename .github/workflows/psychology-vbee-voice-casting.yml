@@ -1,0 +1,80 @@
+name: Audition real Vbee voices for psychology shorts
+on:
+  push:
+    branches: [feat/psychology-people-pleasing-v2-20261028]
+    paths:
+      - '.github/workflows/psychology-vbee-voice-casting.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  auditions:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    env:
+      VBEE_ACCESS_TOKEN: ${{ secrets.VBEE_ACCESS_TOKEN || secrets.VBEE_TOKEN || secrets.VBEE_API_KEY || secrets.VBEE_API_TOKEN }}
+      VBEE_APP_ID: ${{ secrets.VBEE_APP_ID || secrets.VBEE_APPID || secrets.VBEE_APPLICATION_ID }}
+      VBEE_WEBHOOK_URL: ${{ vars.VBEE_WEBHOOK_URL || 'https://example.com/story-tts-webhook' }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify Vbee account secrets
+        run: |
+          test -n "$VBEE_ACCESS_TOKEN"
+          test -n "$VBEE_APP_ID"
+      - name: Create both authentic audition voices
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p output
+          python3 .claude/skills/ray-emotional-stick-shorts/scripts/vbee_tts.py \
+            --text-file docs/psychology-pleasing-stick/voice-casting/audition-psychology.txt \
+            --voice-code sg_female_thanhmai_yt_24k-pre \
+            --speed 1.06 \
+            --attempts 70 \
+            --webhook-url "$VBEE_WEBHOOK_URL" \
+            --output output/psychology-audition-Thanh-Mai-Pro.mp3
+          python3 .claude/skills/ray-emotional-stick-shorts/scripts/vbee_tts.py \
+            --text-file docs/psychology-pleasing-stick/voice-casting/audition-psychology.txt \
+            --voice-code sg_female_thaotrinh_full_48k-fhg \
+            --speed 1.07 \
+            --attempts 70 \
+            --webhook-url "$VBEE_WEBHOOK_URL" \
+            --output output/psychology-audition-Thao-Trinh.mp3
+      - name: Produce full-length recommended Thanh Mai Pro narration
+        run: |
+          python3 .claude/skills/ray-emotional-stick-shorts/scripts/vbee_tts.py \
+            --text-file docs/psychology-pleasing-stick/vbee-script-V1.txt \
+            --voice-code sg_female_thanhmai_yt_24k-pre \
+            --speed 1.12 \
+            --attempts 70 \
+            --webhook-url "$VBEE_WEBHOOK_URL" \
+            --output output/psychology-full-Thanh-Mai-Pro.mp3
+      - name: Validate real MP3 bytes and record provenance
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import hashlib,json
+          files=sorted(Path('output').glob('*.mp3'))
+          assert len(files)==3,files
+          items=[]
+          for p in files:
+            b=p.read_bytes()
+            assert len(b)>10000 and (b.startswith(b'ID3') or (b[0]==255 and (b[1]&224)==224)),p
+            items.append({'name':p.name,'bytes':len(b),'sha256':hashlib.sha256(b).hexdigest()})
+          Path('output/voice-casting-manifest.json').write_text(json.dumps({
+            'provider':'Vbee Batch TTS','narration_subject':'6 signs of people-pleasing',
+            'selected_proposed_voice':'Thanh Mai Pro (Beta)',
+            'selected_proposed_code':'sg_female_thanhmai_yt_24k-pre',
+            'other_tested_candidate':'sg_female_thaotrinh_full_48k-fhg',
+            'note':'Synthetic speech from verified account; independent human audition/commercial terms remain pending',
+            'files':items
+          },ensure_ascii=False,indent=2),encoding='utf8')
+          print(items)
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ray-psychology-vbee-voice-casting
+          path: output/
+          if-no-files-found: error
+          retention-days: 30
