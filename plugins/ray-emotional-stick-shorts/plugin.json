@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "ray-emotional-stick-shorts",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Script, storyboard and production of high-retention Vietnamese cinematic stick-figure Shorts for ANY topic; universal hook/retention framework, Vbee Thanh Long, Remotion QA and verified delivery.",
   "author": {
     "email": "nguyenanhnhut0101.99@gmail.com",
