@@ -57,3 +57,8 @@ A storyboard is **PREVIEW ONLY** and needs no fictional QA score. A published pl
 ## Mandatory curiosity intro + end subscribe CTA (2026-10-27)
 
 For all NEW narrative/motivational stick-figure Shorts, read [45-second Curiosity Intro + Follow CTA standard](references/curiosity-intro-follow-cta.md) **before drafting script/storyboard and before render**. Default total 40–45 s: curiosity intro 0–2/3 s, concrete hook by 6 s, development/re-hook until 25 s, climax 25–39 s, lingering emotional payoff 39–42 s, story-specific subscribe/follow CTA 42–45 s. Avoid generic channel greeting and repetitive “Hôm nay chúng ta sẽ tìm hiểu về…” unless deliberately requested. Preserve strong first-frame action, 2-line readable animated captions and real Vbee Thanh Long emotion; retime after real voice. Test blended hook vs standalone intro with retention data where available; don't claim viral outcomes. This **does not** waive current quality gates or canonical Drive SOP.
+
+
+## Mandatory full production pipeline + Like and Subscribe CTA (2026-10-27)
+
+Read and enforce [Real Vbee production and end Like + Subscribe CTA](references/real-vbee-production-and-like-subscribe.md) before script, render, voice update, QA and Drive handoff. Add explicit 1–4s ending with **both narrated and visible** “thả tim” + “đăng ký kênh” calls to action; retime against genuine measured Vbee HN Thanh Long, never fake voice. Use the #24 real MP3 → 10-scene render → H.264/AAC QA → canonical Drive folder delivery workflow. This adds to, not bypasses, [the curiosity intro standard](references/curiosity-intro-follow-cta.md), current quality gates and one-topic-one-folder SOP. Do not claim all visual quality gates are passed merely because a file exported.
