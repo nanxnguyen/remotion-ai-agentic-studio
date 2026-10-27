@@ -1,0 +1,51 @@
+name: Bo oi - authentic Vbee Like and Subscribe CTA
+on:
+  push:
+    branches: [feat/bo-oi-con-khong-doi-vbee-v1-20261027]
+    paths:
+      - '.github/workflows/bo-oi-vbee-like-subscribe-cta.yml'
+      - 'docs/bo-oi-hom-nay-con-khong-doi-nua/voice/cta-like-subscribe-V1.1.txt'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  cta:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      VBEE_ACCESS_TOKEN: ${{ secrets.VBEE_ACCESS_TOKEN || secrets.VBEE_TOKEN || secrets.VBEE_API_KEY || secrets.VBEE_API_TOKEN }}
+      VBEE_APP_ID: ${{ secrets.VBEE_APP_ID || secrets.VBEE_APPID || secrets.VBEE_APPLICATION_ID }}
+      VBEE_WEBHOOK_URL: ${{ vars.VBEE_WEBHOOK_URL || 'https://example.com/story-tts-webhook' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify protected Vbee credentials
+        run: test -n "$VBEE_ACCESS_TOKEN" && test -n "$VBEE_APP_ID"
+      - name: Produce real CTA with Thanh Long
+        run: |
+          python3 .claude/skills/ray-emotional-stick-shorts/scripts/vbee_tts.py \
+            --text-file docs/bo-oi-hom-nay-con-khong-doi-nua/voice/cta-like-subscribe-V1.1.txt \
+            --voice-code hn_male_thanhlong_talk_48k-fhg \
+            --speed 1.16 \
+            --attempts 70 \
+            --webhook-url "$VBEE_WEBHOOK_URL" \
+            --output output/cta-vbee-like-and-subscribe-V1.1.mp3
+      - name: Verify MP3 bytes and SHA256
+        run: |
+          python3 - <<'PY'
+          import hashlib
+          from pathlib import Path
+          p=Path("output/cta-vbee-like-and-subscribe-V1.1.mp3")
+          b=p.read_bytes()
+          assert len(b)>10000 and (b.startswith(b"ID3") or (b[0]==255 and b[1]&224==224)), "invalid MP3"
+          (p.parent/"cta-sha256.txt").write_text(hashlib.sha256(b).hexdigest()+"  "+p.name+"\n")
+          print("Genuine Vbee CTA bytes:",len(b))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: bo-oi-v1-1-real-vbee-heart-subscribe-cta
+          path: output/
+          retention-days: 20
+          if-no-files-found: error
