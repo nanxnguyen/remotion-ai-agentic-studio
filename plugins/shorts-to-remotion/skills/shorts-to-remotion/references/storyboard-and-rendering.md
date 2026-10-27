@@ -78,3 +78,8 @@ Before every saving or revised video handoff read and follow [the Videos-shorts 
 ## Stick figure Shorts curiosity-intro and follow-CTA pacing default (2026-10-27)
 
 Before writing a stick-figure motivational/emotional storyboard, read and enforce [the 45-second intro–hook–payoff–follow CTA standard](curiosity-intro-follow-cta.md). Target 40–45 s (45 s default), with 0–2/3s genuine curiosity intro, concrete hook by 6s, development/re-hook to 25s, climax 25–39s, emotional payoff 39–42s and 1–4s story-specific subscribe/follow CTA at the end. The intro must not be a generic bumper; test merged intro + hook against standalone intro when real analytics permit. For shorter videos adapt proportionally, preserve strongest action at frame 0 and cap subtitles at two clean mobile-readable lines. Retiming requires real voice duration, not fabricated word-level timestamps. This is an editorial default, not a guarantee of viral performance. Obey current Google Drive single-numbered-folder SOP and QA gates.
+
+
+## Mandatory full production pipeline + Like and Subscribe CTA (2026-10-27)
+
+Read and enforce [Real Vbee production and end Like + Subscribe CTA](real-vbee-production-and-like-subscribe.md) before script, render, voice update, QA and Drive handoff. Add explicit 1–4s ending with **both narrated and visible** “thả tim” + “đăng ký kênh” calls to action; retime against genuine measured Vbee HN Thanh Long, never fake voice. Use the #24 real MP3 → 10-scene render → H.264/AAC QA → canonical Drive folder delivery workflow. This adds to, not bypasses, [the curiosity intro standard](curiosity-intro-follow-cta.md), current quality gates and one-topic-one-folder SOP. Do not claim all visual quality gates are passed merely because a file exported.
