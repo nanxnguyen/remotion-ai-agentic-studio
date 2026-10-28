@@ -75,6 +75,8 @@ jobs:
           (out / "scene-metadata.json").write_text(json.dumps(result, indent=2), encoding="utf-8")
           print(json.dumps(result, indent=2))
           PY
+            # Pace requests to avoid provider-side burst/quota rejection.
+            sleep 25
           done
       - name: Verify all ten chunks and assemble full narration
         run: |
