@@ -1,0 +1,149 @@
+name: Vbee English narration — resume and assemble sequentially
+on:
+  push:
+    branches: [feat/vbee-voice-stick-shorts]
+    paths:
+      - '.github/workflows/vbee-english-narration-sequential.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+jobs:
+  synthesize_and_assemble:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install FFmpeg once
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+      - name: Reuse verified scene 01 audio
+        uses: actions/download-artifact@v4
+        with:
+          name: vbee-scene-audio-01
+          path: /tmp/vbee-scene-artifacts/01
+          run-id: 40743339657
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Reuse verified scene 02 audio
+        uses: actions/download-artifact@v4
+        with:
+          name: vbee-scene-audio-02
+          path: /tmp/vbee-scene-artifacts/02
+          run-id: 40743339657
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Synthesize remaining scenes with Vbee Andrew
+        env:
+          VBEE_APP_ID: ${{ secrets.VBEE_APP_ID }}
+          VBEE_ACCESS_TOKEN: ${{ secrets.VBEE_ACCESS_TOKEN }}
+          VBEE_WEBHOOK_URL: https://iehmucsshklgjmxqyggp.supabase.co/functions/v1/vbee-batch-callback
+        run: |
+          set -euo pipefail
+          ROOT=/tmp/vbee-scene-artifacts
+          mkdir -p "$ROOT"
+          for scene in 03 04 05 06 07 08 09 10; do
+            OUT="$ROOT/$scene"
+            mkdir -p "$OUT"
+            tail -n +6 "docs/what-did-humans-eat-before-supermarkets/voice/scenes/scene-$scene.txt" > "$OUT/narration.txt"
+            test -s "$OUT/narration.txt"
+            echo "Synthesizing scene $scene with Vbee Andrew..."
+            python3 .claude/skills/ray-emotional-stick-shorts/scripts/vbee_tts.py \
+              --text-file "$OUT/narration.txt" \
+              --voice-code en-US-AndrewNeural \
+              --speed 0.95 \
+              --attempts 24 \
+              --output "$OUT/scene-$scene.mp3" 2>&1 | tee "$OUT/vbee-tts.log"
+            ffprobe -v error \
+              -show_entries stream=codec_name,sample_rate,channels \
+              -show_entries format=duration,size \
+              -of json "$OUT/scene-$scene.mp3" > "$OUT/metadata.json"
+            python3 - "$OUT" "$scene" <<'PY'
+          import json, pathlib, sys
+          out = pathlib.Path(sys.argv[1])
+          scene = sys.argv[2]
+          meta = json.loads((out / "metadata.json").read_text(encoding="utf-8"))
+          result = {
+              "scene": scene,
+              "provider": "Vbee AIVoice Batch",
+              "voice_name": "Andrew",
+              "voice_code": "en-US-AndrewNeural",
+              "language": "en-US",
+              "speed": 0.95,
+              "duration_seconds": float(meta["format"]["duration"]),
+              "sample_rate_hz": int(meta["streams"][0]["sample_rate"]),
+              "channels": int(meta["streams"][0]["channels"]),
+              "bytes": int(meta["format"]["size"])
+          }
+          (out / "scene-metadata.json").write_text(json.dumps(result, indent=2), encoding="utf-8")
+          print(json.dumps(result, indent=2))
+          PY
+          done
+      - name: Verify all ten chunks and assemble full narration
+        run: |
+          set -euo pipefail
+          ROOT=/tmp/vbee-scene-artifacts
+          OUT=/tmp/vbee-prehistoric-food-v3
+          mkdir -p "$OUT"
+          : > "$OUT/concat.txt"
+          for scene in 01 02 03 04 05 06 07 08 09 10; do
+            file="$ROOT/$scene/scene-$scene.mp3"
+            test -s "$file" || { echo "Missing audio for scene $scene"; exit 1; }
+            ffprobe -v error -show_entries format=duration -of csv=p=0 "$file" > "$ROOT/$scene/duration.txt"
+            printf "file '%s'\n" "$file" >> "$OUT/concat.txt"
+          done
+          ffmpeg -hide_banner -loglevel error -y \
+            -f concat -safe 0 -i "$OUT/concat.txt" \
+            -ac 1 -ar 48000 -c:a libmp3lame -b:a 128k \
+            "$OUT/narration-v3-andrew-en-us.mp3"
+          ffprobe -v error \
+            -show_entries stream=codec_name,sample_rate,channels \
+            -show_entries format=duration,size \
+            -of json "$OUT/narration-v3-andrew-en-us.mp3" > "$OUT/audio-metadata.json"
+          sha256sum "$OUT/narration-v3-andrew-en-us.mp3" > "$OUT/audio.sha256"
+          python3 - "$ROOT" "$OUT" <<'PY'
+          import json, pathlib, sys
+          root, out = pathlib.Path(sys.argv[1]), pathlib.Path(sys.argv[2])
+          durations = {}
+          for scene in range(1, 11):
+              key = f"{scene:02d}"
+              meta_path = root / key / "metadata.json"
+              if not meta_path.exists():
+                  meta_path = root / key / "scene-metadata.json"
+              if meta_path.exists():
+                  meta = json.loads(meta_path.read_text(encoding="utf-8"))
+                  if "format" in meta:
+                      durations[key] = float(meta["format"]["duration"])
+                  else:
+                      durations[key] = float(meta["duration_seconds"])
+              else:
+                  durations[key] = float((root / key / "duration.txt").read_text().strip())
+          meta = json.loads((out / "audio-metadata.json").read_text(encoding="utf-8"))
+          fmt, stream = meta["format"], meta["streams"][0]
+          if float(fmt["duration"]) < 60:
+              raise SystemExit("QA failed: full narration duration is implausibly short.")
+          result = {
+              "provider": "Vbee AIVoice Batch",
+              "voice_name": "Andrew",
+              "voice_code": "en-US-AndrewNeural",
+              "language": "en-US",
+              "speed": 0.95,
+              "scene_count": 10,
+              "scene_durations_seconds": durations,
+              "sum_of_scene_durations_seconds": round(sum(durations.values()), 3),
+              "final_duration_seconds": float(fmt["duration"]),
+              "codec": stream.get("codec_name"),
+              "sample_rate_hz": int(stream["sample_rate"]),
+              "channels": int(stream["channels"]),
+              "bytes": int(fmt["size"]),
+              "qa": "PASS: all ten scene MP3s present, ordered, concatenated and measured with ffprobe."
+          }
+          (out / "voice-cast.json").write_text(json.dumps(result, indent=2), encoding="utf-8")
+          print(json.dumps(result, indent=2))
+          PY
+      - name: Upload full narration and scene metadata
+        uses: actions/upload-artifact@v4
+        with:
+          name: vbee-prehistoric-food-v3-andrew-full-narration
+          path: |
+            /tmp/vbee-prehistoric-food-v3/
+            /tmp/vbee-scene-artifacts/*/scene-*.mp3
+            /tmp/vbee-scene-artifacts/*/scene-metadata.json
+          if-no-files-found: error
