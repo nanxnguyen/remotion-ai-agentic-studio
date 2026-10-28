@@ -6,6 +6,7 @@ on:
     paths:
       - .github/workflows/house49-v2-vbee.yml
       - docs/ngoi-nha-thu-49-v2/voice-timeline.json
+      - scripts/gen-laundry-vbee.py
   workflow_dispatch:
 permissions:
   contents: read
