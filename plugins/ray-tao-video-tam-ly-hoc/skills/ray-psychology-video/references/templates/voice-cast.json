@@ -1,0 +1,19 @@
+{
+  "provider": "Vbee",
+  "script_id": "",
+  "voice_name": "",
+  "voiceCode": "",
+  "model_tier": "",
+  "locale": "",
+  "audition_candidates": [],
+  "selected_because": "",
+  "audition_listened_and_approved": false,
+  "voice_source_github_run_id": null,
+  "voice_source_artifact_id": null,
+  "original_mp3_sha256": "",
+  "original_mp3_duration_seconds": null,
+  "actual_sample_rate_hz": null,
+  "speed_used": null,
+  "commercial_use_rights": "unverified",
+  "final_narration_listening_approved": false
+}

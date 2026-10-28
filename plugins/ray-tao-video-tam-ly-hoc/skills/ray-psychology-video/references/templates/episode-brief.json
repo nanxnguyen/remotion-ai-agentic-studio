@@ -1,0 +1,52 @@
+{
+  "video_id": "unique-stable-id",
+  "canonical_slug": "unique-slug",
+  "working_title": "A specific psychology topic",
+  "series_format": "A_FACTS | B_MINI_STORY | C_EXPLAINED",
+  "audience": "Vietnamese general audience",
+  "target_platform": "YouTube Shorts",
+  "target_duration_seconds": 40,
+  "hooks": [
+    "specific visual contradiction",
+    "recognizable question",
+    "realistic social dilemma"
+  ],
+  "chosen_hook": "",
+  "why_this_hook": "",
+  "value_proposition": "",
+  "compared_recent_episodes": [],
+  "distinct_story_mechanism": "",
+  "psychology_claims": [
+    {
+      "claim": "",
+      "classification": "SUPPORTED | QUALIFIED | EXAMPLE | OPINION | UNVERIFIED",
+      "source_url": "",
+      "caveat": "",
+      "approved_wording": ""
+    }
+  ],
+  "canonical_spoken_script": "",
+  "beats": [
+    {
+      "id": "hook",
+      "speech": "",
+      "visual_action": "",
+      "caption": "",
+      "sfx": ""
+    }
+  ],
+  "voice_cast_file": "voice-cast-V1.json",
+  "status": "PREPRODUCTION",
+  "intro_hook": {
+    "hook_family": "UNSELECTED",
+    "spoken_text": "",
+    "viewer_challenge": "",
+    "visual_action_first_second": "",
+    "target_duration_seconds": 2.5,
+    "measured_audio_duration_seconds": null,
+    "recent_hook_comparison_ids": [],
+    "differentiation_note": "",
+    "originality_review": "PENDING",
+    "sync_review": "PENDING"
+  }
+}
