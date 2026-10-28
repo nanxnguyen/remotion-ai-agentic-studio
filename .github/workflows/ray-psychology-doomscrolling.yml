@@ -1,0 +1,87 @@
+name: Ray Psychology Doomscrolling Original Vbee Remotion REVIEW
+on:
+  push:
+    branches: [feat/ray-psychology-doomscrolling-20261028]
+    paths:
+      - '.github/workflows/ray-psychology-doomscrolling.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 65
+    env:
+      VBEE_ACCESS_TOKEN: ${{ secrets.VBEE_ACCESS_TOKEN || secrets.VBEE_TOKEN || secrets.VBEE_API_KEY || secrets.VBEE_API_TOKEN }}
+      VBEE_APP_ID: ${{ secrets.VBEE_APP_ID || secrets.VBEE_APPID || secrets.VBEE_APPLICATION_ID }}
+      VBEE_WEBHOOK_URL: ${{ vars.VBEE_WEBHOOK_URL || 'https://example.com/story-tts-webhook' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+      - name: Install Remotion and media tools
+        run: |
+          npm ci --no-audit --no-fund
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg
+      - name: Create real Vbee Minh Quan Pro original narration
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -n "$VBEE_APP_ID" && test -n "$VBEE_ACCESS_TOKEN"
+          python3 .claude/skills/ray-emotional-stick-shorts/scripts/vbee_tts.py \
+            --text-file docs/ray-psychology-doomscrolling/vbee-script.txt \
+            --voice-code hn_male_minhquan_yt_24k-pre \
+            --speed 1.12 \
+            --attempts 70 \
+            --webhook-url "$VBEE_WEBHOOK_URL" \
+            --output docs/ray-psychology-doomscrolling/voice-vbee.mp3
+          ffprobe -v error -show_entries format=duration -of default=nw=1 \
+            docs/ray-psychology-doomscrolling/voice-vbee.mp3
+      - name: Derive exact scene windows and synthesize original music
+        run: |
+          python3 docs/ray-psychology-doomscrolling/prepare_audio.py
+          mkdir -p public output
+          cp docs/ray-psychology-doomscrolling/public/doom-voice.wav public/doom-voice.wav
+          cp docs/ray-psychology-doomscrolling/public/doom-music.wav public/doom-music.wav
+          curl -fL --retry 2 --max-time 35 https://raw.githubusercontent.com/google/fonts/main/ofl/bevietnampro/BeVietnamPro-ExtraBold.ttf -o public/BeVietnamPro-ExtraBold.ttf
+          test -s public/doom-voice.wav && test -s public/BeVietnamPro-ExtraBold.ttf
+      - name: Render full resolution original SVG Remotion REVIEW
+        run: |
+          npx remotion render docs/ray-psychology-doomscrolling/entry.tsx \
+            RayDoomscrollingExplained output/ray-doomscrolling-psychology-V1-REVIEW.mp4 \
+            --codec h264 --crf 18 --concurrency 2 --log=error
+      - name: Technical QA, full decode, sampled visual frames
+        shell: bash
+        run: |
+          set -euo pipefail
+          ffprobe -v error -show_format -show_streams -of json output/ray-doomscrolling-psychology-V1-REVIEW.mp4 > output/ffprobe-V1.json
+          python3 - <<'PY'
+          import json,os
+          d=json.load(open('output/ffprobe-V1.json'))
+          v=next(x for x in d['streams'] if x['codec_type']=='video')
+          a=next(x for x in d['streams'] if x['codec_type']=='audio')
+          assert v['codec_name']=='h264' and (v['width'],v['height'])==(1080,1920) and v['pix_fmt']=='yuv420p',(v['codec_name'],v['width'],v['height'],v['pix_fmt'])
+          assert v['r_frame_rate']=='30/1'
+          assert a['codec_name']=='aac' and a['sample_rate']=='48000' and a['channels']==2
+          assert 25<float(d['format']['duration'])<75,d['format']['duration']
+          assert os.stat('output/ray-doomscrolling-psychology-V1-REVIEW.mp4').st_size>300000
+          t=json.load(open('docs/ray-psychology-doomscrolling/timing.json'))
+          assert len(t['edges'])==9 and 1<t['edges'][1]<4
+          print('QA technical PASS',d['format']['duration'],'hook',t['edges'][1])
+          PY
+          ffmpeg -v error -xerror -i output/ray-doomscrolling-psychology-V1-REVIEW.mp4 -f null -
+          for p in 0.5 2 4 7 11 16 20 25 30 34 38 42 46 50 54; do
+            ffmpeg -y -v error -ss "$p" -i output/ray-doomscrolling-psychology-V1-REVIEW.mp4 -frames:v 1 "output/frame-$p.jpg" || true
+          done
+          cp docs/ray-psychology-doomscrolling/timing.json output/timing-V1.json
+          cp docs/ray-psychology-doomscrolling/voice-vbee.mp3 output/voice-vbee-minhquan-pro-V1.mp3
+          sha256sum output/ray-doomscrolling-psychology-V1-REVIEW.mp4 > output/sha256-V1.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ray-psychology-doomscrolling-V1-REVIEW
+          path: output/
+          retention-days: 30
+          if-no-files-found: error
