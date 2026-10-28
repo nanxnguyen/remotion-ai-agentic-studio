@@ -1,0 +1,54 @@
+name: Recover already-generated Vbee scene audio
+on:
+  push:
+    branches: [feat/vbee-voice-stick-shorts]
+    paths:
+      - '.github/workflows/vbee-recover-generated-scenes.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+jobs:
+  recover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Download existing scene 01 audio
+        uses: actions/download-artifact@v4
+        with:
+          name: vbee-scene-audio-01
+          path: /tmp/vbee-recovery/01
+          run-id: 40743339657
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Download existing scene 02 audio
+        uses: actions/download-artifact@v4
+        with:
+          name: vbee-scene-audio-02
+          path: /tmp/vbee-recovery/02
+          run-id: 40743339657
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Fetch Vbee helper
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/vbee-src /tmp/vbee-recovery/03 /tmp/vbee-recovery/04
+          curl -fsSL "https://raw.githubusercontent.com/nanxnguyen/remotion-ai-agentic-studio/ab80dbbb71d9b43ca7bc5aac66db06185de666a1/.claude/skills/ray-emotional-stick-shorts/scripts/vbee_tts.py" -o /tmp/vbee-src/vbee_tts.py
+      - name: Recover scene 03 and 04 by existing Vbee request IDs
+        env:
+          VBEE_APP_ID: ${{ secrets.VBEE_APP_ID }}
+          VBEE_ACCESS_TOKEN: ${{ secrets.VBEE_ACCESS_TOKEN }}
+        run: |
+          set -euo pipefail
+          python3 /tmp/vbee-src/vbee_tts.py \
+            --request-id f8dfce3a-abaf-4deb-8e92-bb60a0245ec1 \
+            --output /tmp/vbee-recovery/03/scene-03.mp3
+          python3 /tmp/vbee-src/vbee_tts.py \
+            --request-id 9f3afcec-a95e-4d5f-a9da-05a6947f3c35 \
+            --output /tmp/vbee-recovery/04/scene-04.mp3
+          test -s /tmp/vbee-recovery/03/scene-03.mp3
+          test -s /tmp/vbee-recovery/04/scene-04.mp3
+      - name: Upload recovered audio without creating new speech requests
+        uses: actions/upload-artifact@v4
+        with:
+          name: vbee-prehistoric-food-scenes-01-to-04
+          path: /tmp/vbee-recovery/
+          if-no-files-found: error
