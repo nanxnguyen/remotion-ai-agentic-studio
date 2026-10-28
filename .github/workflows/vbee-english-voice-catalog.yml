@@ -1,0 +1,121 @@
+name: Vbee English voice catalog discovery
+on:
+  push:
+    branches: [feat/vbee-voice-stick-shorts]
+    paths: ['.github/workflows/vbee-english-voice-catalog.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Query authorized Vbee voice catalog
+        env:
+          VBEE_APP_ID: ${{ secrets.VBEE_APP_ID }}
+          VBEE_ACCESS_TOKEN: ${{ secrets.VBEE_ACCESS_TOKEN }}
+        run: |
+          python3 - <<'PY'
+          import json, os, sys, urllib.request, urllib.error
+
+          app_id = os.environ.get("VBEE_APP_ID", "")
+          token = os.environ.get("VBEE_ACCESS_TOKEN", "")
+          if not app_id or not token:
+              print("BLOCKED: Vbee credentials are not configured as GitHub Secrets.")
+              sys.exit(1)
+
+          endpoints = [
+              "https://api.vbee.vn/v1/voices",
+              "https://vbee.vn/api/v1/voices",
+          ]
+          payload = None
+          used_endpoint = None
+          for endpoint in endpoints:
+              req = urllib.request.Request(
+                  endpoint,
+                  headers={
+                      "Authorization": "Bearer " + token,
+                      "App-Id": app_id,
+                      "Accept": "application/json",
+                  },
+                  method="GET",
+              )
+              try:
+                  with urllib.request.urlopen(req, timeout=30) as response:
+                      payload = json.loads(response.read().decode("utf-8"))
+                      used_endpoint = endpoint
+                      break
+              except urllib.error.HTTPError as exc:
+                  print(f"Catalog endpoint returned HTTP {exc.code}: {endpoint}")
+              except Exception as exc:
+                  print(f"Catalog endpoint unavailable: {endpoint} ({type(exc).__name__})")
+
+          if payload is None:
+              print("BLOCKED: Could not retrieve the authorized Vbee voice catalog.")
+              sys.exit(2)
+
+          def walk(value):
+              if isinstance(value, dict):
+                  yield value
+                  for child in value.values():
+                      yield from walk(child)
+              elif isinstance(value, list):
+                  for child in value:
+                      yield from walk(child)
+
+          def first(obj, keys):
+              for key in keys:
+                  value = obj.get(key)
+                  if isinstance(value, (str, int, float)) and str(value).strip():
+                      return str(value).strip()
+              return ""
+
+          name_keys = ["voiceName", "voice_name", "name", "displayName", "display_name", "title"]
+          code_keys = ["voiceCode", "voice_code", "voiceId", "voice_id", "code", "id"]
+          lang_keys = ["language", "languageName", "language_name", "languageCode", "language_code", "locale", "lang"]
+          gender_keys = ["gender", "sex"]
+          accent_keys = ["accent", "region", "dialect", "locale"]
+          style_keys = ["style", "category", "description", "useCase", "use_case", "tags"]
+
+          candidates = {}
+          for item in walk(payload):
+              code = first(item, code_keys)
+              name = first(item, name_keys)
+              if not code or not name:
+                  continue
+              values = " ".join(str(v) for v in item.values() if isinstance(v, (str, int, float))).lower()
+              lang = first(item, lang_keys)
+              english_markers = ("english", "en-us", "en_us", "en-gb", "en_gb", "en-au", "en_au", "american", "british", "australian")
+              is_english = any(marker in (values + " " + lang.lower()) for marker in english_markers) or code.lower().startswith(("en_", "en-"))
+              if not is_english:
+                  continue
+              candidates[code] = {
+                  "name": name,
+                  "voice_code": code,
+                  "language": lang,
+                  "gender": first(item, gender_keys),
+                  "accent": first(item, accent_keys),
+                  "style": first(item, style_keys),
+              }
+
+          result = {
+              "source_endpoint": used_endpoint,
+              "candidate_count": len(candidates),
+              "english_voices": sorted(candidates.values(), key=lambda v: (v["accent"], v["gender"], v["name"])),
+          }
+          with open("/tmp/vbee-english-voice-catalog.json", "w", encoding="utf-8") as f:
+              json.dump(result, f, ensure_ascii=False, indent=2)
+
+          print("Vbee English voice catalog retrieved successfully.")
+          print("Matching English voices:", len(candidates))
+          print(json.dumps(result["english_voices"], ensure_ascii=False, indent=2))
+          if not candidates:
+              print("No English voice records matched the known catalog fields; inspect API schema before selecting a voice.")
+          PY
+      - name: Save sanitized voice catalog artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: vbee-english-voice-catalog
+          path: /tmp/vbee-english-voice-catalog.json
+          if-no-files-found: error
