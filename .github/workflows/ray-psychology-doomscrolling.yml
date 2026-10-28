@@ -34,7 +34,7 @@ jobs:
           python3 .claude/skills/ray-emotional-stick-shorts/scripts/vbee_tts.py \
             --text-file docs/ray-psychology-doomscrolling/vbee-script.txt \
             --voice-code hn_male_minhquan_yt_24k-pre \
-            --speed 1.12 \
+            --speed 0.93 \
             --attempts 70 \
             --webhook-url "$VBEE_WEBHOOK_URL" \
             --output docs/ray-psychology-doomscrolling/voice-vbee.mp3
@@ -66,7 +66,7 @@ jobs:
           assert v['codec_name']=='h264' and (v['width'],v['height'])==(1080,1920) and v['pix_fmt']=='yuv420p',(v['codec_name'],v['width'],v['height'],v['pix_fmt'])
           assert v['r_frame_rate']=='30/1'
           assert a['codec_name']=='aac' and a['sample_rate']=='48000' and a['channels']==2
-          assert 25<float(d['format']['duration'])<75,d['format']['duration']
+          assert 29<float(d['format']['duration'])<75,d['format']['duration']
           assert os.stat('output/ray-doomscrolling-psychology-V1-REVIEW.mp4').st_size>300000
           t=json.load(open('docs/ray-psychology-doomscrolling/timing.json'))
           assert len(t['edges'])==9 and 1<t['edges'][1]<4
