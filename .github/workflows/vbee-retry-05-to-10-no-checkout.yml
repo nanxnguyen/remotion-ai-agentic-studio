@@ -1,0 +1,63 @@
+name: Vbee narrator recovery 05-10 no-checkout
+on:
+  push:
+    branches: [feat/vbee-voice-stick-shorts]
+    paths: ['.github/workflows/vbee-retry-05-to-10-no-checkout.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Fetch scene text and TTS helper
+        run: |
+          set -euo pipefail
+          ROOT=/tmp/vbee-continue
+          mkdir -p "$ROOT"
+          SRC=https://raw.githubusercontent.com/nanxnguyen/remotion-ai-agentic-studio/5ad3c2b816a95adc16b3c8b506f79b3744e89970
+          curl --retry 3 -fsSL "$SRC/.claude/skills/ray-emotional-stick-shorts/scripts/vbee_tts.py" -o "$ROOT/vbee_tts.py"
+          for SC in 05 06 07 08 09 10; do
+            mkdir -p "$ROOT/$SC"
+            curl --retry 3 -fsSL "$SRC/docs/what-did-humans-eat-before-supermarkets/voice/scenes/scene-$SC.txt" -o "$ROOT/$SC/source.txt"
+            tail -n +6 "$ROOT/$SC/source.txt" > "$ROOT/$SC/narration.txt"
+            test -s "$ROOT/$SC/narration.txt"
+          done
+      - name: Synthesize scenes in order, preserving partial success
+        env:
+          VBEE_APP_ID: ${{ secrets.VBEE_APP_ID }}
+          VBEE_ACCESS_TOKEN: ${{ secrets.VBEE_ACCESS_TOKEN }}
+          VBEE_WEBHOOK_URL: https://iehmucsshklgjmxqyggp.supabase.co/functions/v1/vbee-batch-callback
+        run: |
+          set -u
+          ROOT=/tmp/vbee-continue
+          echo STARTED > "$ROOT/status.txt"
+          for SC in 05 06 07 08 09 10; do
+            echo "Requesting Vbee narration for scene $SC"
+            python3 "$ROOT/vbee_tts.py" --text-file "$ROOT/$SC/narration.txt" \
+              --voice-code en-US-AndrewNeural --speed 0.95 --attempts 24 \
+              --output "$ROOT/$SC/scene-$SC.mp3" > "$ROOT/$SC/tts.log" 2>&1
+            CODE=$?
+            cat "$ROOT/$SC/tts.log"
+            if [ "$CODE" -ne 0 ]; then
+              echo "STOPPED_ON_SCENE_$SC" > "$ROOT/status.txt"
+              exit 0
+            fi
+            ffprobe -v error -show_entries format=duration,size -show_entries stream=codec_name,sample_rate,channels \
+              -of json "$ROOT/$SC/scene-$SC.mp3" > "$ROOT/$SC/metadata.json"
+            sha256sum "$ROOT/$SC/scene-$SC.mp3" > "$ROOT/$SC/audio.sha256"
+            echo "SCENE_$SC_GENERATED" >> "$ROOT/status.txt"
+            sleep 18
+          done
+          echo ALL_SIX_GENERATED > "$ROOT/status.txt"
+      - name: Preserve succeeded audio and diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: vbee-v3-remaining-scenes-recovery
+          path: /tmp/vbee-continue/
+          if-no-files-found: warn
+      - name: Enforce full completion status
+        run: grep -q '^ALL_SIX_GENERATED$' /tmp/vbee-continue/status.txt
