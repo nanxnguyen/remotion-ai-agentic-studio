@@ -19,11 +19,13 @@
     "sha256": "73d3a409eff4850e5b426d0faa5cc33cc62a07c63617f2d0536ba213e82efc33"
   },
   "full_narration": {
-    "status": "generating",
+    "status": "BLOCKED_VBEE_VOICE",
     "source_audio_id": null,
     "source_audio_sha256": null,
     "duration_seconds_from_ffprobe": null,
-    "sample_rate_hz_from_ffprobe": null
+    "sample_rate_hz_from_ffprobe": null,
+    "blocker": "Vbee Batch returned HTTP 400 before issuing a request ID. No full narration MP3 was generated; no automatic retry was attempted.",
+    "workflow_run_url": "https://github.com/nanxnguyen/remotion-ai-agentic-studio/actions/runs/40741266074"
   },
   "narrator_or_character": {
     "narrator": "Andrew (US English)",
