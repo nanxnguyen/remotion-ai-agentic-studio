@@ -1,0 +1,146 @@
+[
+  {
+    "id": 1,
+    "start_sec": 0,
+    "duration_sec": 3,
+    "narration": "Dám bước vào ngôi nhà không tồn tại?",
+    "headline": "NGÔI NHÀ KHÔNG TỒN TẠI",
+    "cta_role": "intro"
+  },
+  {
+    "id": 2,
+    "start_sec": 3,
+    "duration_sec": 3,
+    "narration": "Làng Thảo chỉ có bốn mươi tám nhà.",
+    "headline": "NGÔI LÀNG 48 CĂN",
+    "cta_role": null
+  },
+  {
+    "id": 3,
+    "start_sec": 6,
+    "duration_sec": 3,
+    "narration": "Nhưng đêm đó… số bốn mươi chín sáng đèn.",
+    "headline": "CĂN NHÀ THỨ 49",
+    "cta_role": null
+  },
+  {
+    "id": 4,
+    "start_sec": 9,
+    "duration_sec": 3,
+    "narration": "Nó giống hệt nhà mẹ Thảo.",
+    "headline": "HAI CĂN NHÀ Y HỆT",
+    "cta_role": null
+  },
+  {
+    "id": 5,
+    "start_sec": 12,
+    "duration_sec": 3,
+    "narration": "Cô bước vào, gọi: “Mẹ ơi, con về!”",
+    "headline": "TIẾNG GỌI ĐẦU TIÊN",
+    "cta_role": null
+  },
+  {
+    "id": 6,
+    "start_sec": 15,
+    "duration_sec": 3,
+    "narration": "Từ bức tường… tiếng cô đáp lại.",
+    "headline": "BỨC TƯỜNG BIẾT NÓI",
+    "cta_role": null
+  },
+  {
+    "id": 7,
+    "start_sec": 18,
+    "duration_sec": 3,
+    "narration": "Mẹ gọi: “Nhà mình số bốn mươi tám!”",
+    "headline": "CUỘC GỌI TỪ MẸ",
+    "cta_role": null
+  },
+  {
+    "id": 8,
+    "start_sec": 21,
+    "duration_sec": 3,
+    "narration": "Ngoài cửa sổ, mẹ đứng ở nhà đối diện.",
+    "headline": "NGƯỜI MẸ BÊN KIA",
+    "cta_role": null
+  },
+  {
+    "id": 9,
+    "start_sec": 24,
+    "duration_sec": 3,
+    "narration": "Thảo vặn khóa… tay nắm biến mất!",
+    "headline": "LỐI RA BIẾN MẤT",
+    "cta_role": null
+  },
+  {
+    "id": 10,
+    "start_sec": 27,
+    "duration_sec": 3,
+    "narration": "Dưới giấy tường, hàng chục bàn tay cào mạnh.",
+    "headline": "CÓ AI TRONG TƯỜNG?",
+    "cta_role": null
+  },
+  {
+    "id": 11,
+    "start_sec": 30,
+    "duration_sec": 4,
+    "narration": "Một cô gái giống hệt Thảo bước ra.",
+    "headline": "CÔ GÁI CÓ KHUÔN MẶT TÔI",
+    "cta_role": null
+  },
+  {
+    "id": 12,
+    "start_sec": 34,
+    "duration_sec": 4,
+    "narration": "Nó mặc đúng áo cô… và gọi: “Mẹ ơi, con về!”",
+    "headline": "NÓ ĐÃ HỌC GIỌNG CÔ",
+    "cta_role": null
+  },
+  {
+    "id": 13,
+    "start_sec": 38,
+    "duration_sec": 4,
+    "narration": "Cánh cửa mở cho bản sao… nhưng khóa chặt Thảo.",
+    "headline": "CỬA CHỈ MỞ CHO NÓ",
+    "cta_role": null
+  },
+  {
+    "id": 14,
+    "start_sec": 42,
+    "duration_sec": 4,
+    "narration": "Ngoài sân, nó chạy sang nhà số bốn mươi tám.",
+    "headline": "BẢN SAO VỀ NHÀ",
+    "cta_role": null
+  },
+  {
+    "id": 15,
+    "start_sec": 46,
+    "duration_sec": 4,
+    "narration": "Thảo đập kính. Mẹ ôm bản sao vào lòng.",
+    "headline": "MẸ ĐÃ NHẬN NHẦM",
+    "cta_role": null
+  },
+  {
+    "id": 16,
+    "start_sec": 50,
+    "duration_sec": 4,
+    "narration": "Căn nhà thứ bốn mươi chín chìm vào sương.",
+    "headline": "NGÔI NHÀ BỊ XÓA",
+    "cta_role": null
+  },
+  {
+    "id": 17,
+    "start_sec": 54,
+    "duration_sec": 2,
+    "narration": "Trong ảnh… Thảo biến mất.",
+    "headline": "BỨC ẢNH CHỈ CÒN MẸ",
+    "cta_role": null
+  },
+  {
+    "id": 18,
+    "start_sec": 56,
+    "duration_sec": 4,
+    "narration": "Thả tim, đăng ký… trước khi nó gọi tên bạn!",
+    "headline": "AI ĐANG SỐNG THAY BẠN?",
+    "cta_role": "outro"
+  }
+]
