@@ -1,0 +1,62 @@
+name: Vbee independent tests scenes 06-10
+on:
+  push:
+    branches: [feat/vbee-voice-stick-shorts]
+    paths: ['.github/workflows/vbee-independent-scenes-06-10.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  test_remaining:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Fetch locked scene text and TTS helper
+        run: |
+          set -euo pipefail
+          ROOT=/tmp/vbee-remaining
+          mkdir -p "$ROOT"
+          SRC=https://raw.githubusercontent.com/nanxnguyen/remotion-ai-agentic-studio/5ad3c2b816a95adc16b3c8b506f79b3744e89970
+          curl --retry 3 -fsSL "$SRC/.claude/skills/ray-emotional-stick-shorts/scripts/vbee_tts.py" -o "$ROOT/vbee_tts.py"
+          for SC in 06 07 08 09 10; do
+            mkdir -p "$ROOT/$SC"
+            curl --retry 3 -fsSL "$SRC/docs/what-did-humans-eat-before-supermarkets/voice/scenes/scene-$SC.txt" -o "$ROOT/$SC/source.txt"
+            tail -n +6 "$ROOT/$SC/source.txt" > "$ROOT/$SC/narration.txt"
+            test -s "$ROOT/$SC/narration.txt"
+          done
+      - name: Attempt each remaining scene once and record individual results
+        env:
+          VBEE_APP_ID: ${{ secrets.VBEE_APP_ID }}
+          VBEE_ACCESS_TOKEN: ${{ secrets.VBEE_ACCESS_TOKEN }}
+          VBEE_WEBHOOK_URL: https://iehmucsshklgjmxqyggp.supabase.co/functions/v1/vbee-batch-callback
+        run: |
+          set -euo pipefail
+          ROOT=/tmp/vbee-remaining
+          echo -n "" > "$ROOT/status.txt"
+          for SC in 06 07 08 09 10; do
+            echo "=== SCENE $SC ==="
+            if python3 "$ROOT/vbee_tts.py" --text-file "$ROOT/$SC/narration.txt" \
+                 --voice-code en-US-AndrewNeural --speed 0.95 --attempts 24 \
+                 --output "$ROOT/$SC/scene-$SC.mp3" > "$ROOT/$SC/tts.log" 2>&1; then
+              if [ -s "$ROOT/$SC/scene-$SC.mp3" ]; then
+                ffprobe -v error -show_entries format=duration,size -show_entries stream=codec_name,sample_rate,channels \
+                  -of json "$ROOT/$SC/scene-$SC.mp3" > "$ROOT/$SC/metadata.json"
+                sha256sum "$ROOT/$SC/scene-$SC.mp3" > "$ROOT/$SC/audio.sha256"
+                echo "SCENE $SC SUCCESS" >> "$ROOT/status.txt"
+              else
+                echo "SCENE $SC AUDIO_MISSING" >> "$ROOT/status.txt"
+              fi
+            else
+              echo "SCENE $SC FAILED" >> "$ROOT/status.txt"
+            fi
+            tail -n 3 "$ROOT/$SC/tts.log"
+            sleep 15
+          done
+          cat "$ROOT/status.txt"
+      - name: Save all results and any completed audio
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: vbee-v3-scenes-06-10-independent-results
+          path: /tmp/vbee-remaining/
+          if-no-files-found: error
