@@ -1,0 +1,73 @@
+name: Vbee English full narration — prehistoric food V3
+on:
+  push:
+    branches: [feat/vbee-voice-stick-shorts]
+    paths: ['.github/workflows/vbee-english-narration.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  synthesize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install FFmpeg for measured audio QA
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+      - name: Generate full narration with selected Vbee voice
+        env:
+          VBEE_APP_ID: ${{ secrets.VBEE_APP_ID }}
+          VBEE_ACCESS_TOKEN: ${{ secrets.VBEE_ACCESS_TOKEN }}
+          VBEE_WEBHOOK_URL: https://iehmucsshklgjmxqyggp.supabase.co/functions/v1/vbee-batch-callback
+        run: |
+          set -euo pipefail
+          OUT=/tmp/vbee-prehistoric-food-v3
+          mkdir -p "$OUT"
+          python3 .claude/skills/ray-emotional-stick-shorts/scripts/vbee_tts.py \
+            --text-file docs/what-did-humans-eat-before-supermarkets/voice/narration-v3.txt \
+            --voice-code en-US-AndrewNeural \
+            --speed 0.95 \
+            --output "$OUT/narration-v3-andrew-en-us.mp3" 2>&1 | tee "$OUT/vbee-tts.log"
+          ffprobe -v error \
+            -show_entries stream=codec_name,sample_rate,channels \
+            -show_entries format=duration,size \
+            -of json "$OUT/narration-v3-andrew-en-us.mp3" > "$OUT/audio-metadata.json"
+          sha256sum "$OUT/narration-v3-andrew-en-us.mp3" > "$OUT/audio.sha256"
+          python3 - "$OUT" <<'PY'
+          import hashlib, json, pathlib, re, sys
+          out = pathlib.Path(sys.argv[1])
+          meta = json.loads((out / "audio-metadata.json").read_text(encoding="utf-8"))
+          stream = meta["streams"][0]
+          fmt = meta["format"]
+          log = (out / "vbee-tts.log").read_text(encoding="utf-8", errors="replace")
+          match = re.search(r"Vbee request ID: ([0-9a-f-]+)", log, re.I)
+          request_id = match.group(1) if match else None
+          audio = out / "narration-v3-andrew-en-us.mp3"
+          sha = hashlib.sha256(audio.read_bytes()).hexdigest()
+          cast = {
+              "provider": "Vbee AIVoice Batch",
+              "voice_name": "Andrew",
+              "voice_code": "en-US-AndrewNeural",
+              "language": "en-US",
+              "selection_reason": "Verified in the connected Vbee voice catalog; selected as a clear, neutral US English narrator for an educational explainer.",
+              "audition_artifact_url": "https://github.com/nanxnguyen/remotion-ai-agentic-studio/actions/runs/40740399883/artifacts/12839995737",
+              "usage_rights_status": "Confirm current Vbee account plan and terms for the intended monetized publication.",
+              "selected_speed": 0.95,
+              "codec": stream.get("codec_name"),
+              "sample_rate_hz_from_ffprobe": int(stream["sample_rate"]) if stream.get("sample_rate") else None,
+              "channels": int(stream["channels"]) if stream.get("channels") else None,
+              "duration_seconds_from_ffprobe": float(fmt["duration"]),
+              "audio_bytes": int(fmt["size"]),
+              "source_audio_id": request_id,
+              "source_audio_sha256": sha,
+              "narrator_or_character": {"narrator": "Andrew (US English)", "character_dialogue": "none"}
+          }
+          (out / "voice-cast.json").write_text(json.dumps(cast, ensure_ascii=False, indent=2), encoding="utf-8")
+          print("Verified Vbee full narration.")
+          print(json.dumps(cast, ensure_ascii=False, indent=2))
+          PY
+      - name: Upload real Vbee narration and provenance
+        uses: actions/upload-artifact@v4
+        with:
+          name: vbee-prehistoric-food-v3-andrew
+          path: /tmp/vbee-prehistoric-food-v3/
+          if-no-files-found: error
