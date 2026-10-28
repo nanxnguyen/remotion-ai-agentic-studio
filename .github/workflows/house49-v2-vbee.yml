@@ -1,0 +1,57 @@
+name: House 49 V2 — authentic Vbee narration
+on:
+  push:
+    branches:
+      - feat/ngoi-nha-thu-49-v2-production-20261028
+    paths:
+      - .github/workflows/house49-v2-vbee.yml
+      - docs/ngoi-nha-thu-49-v2/voice-timeline.json
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  voice:
+    runs-on: ubuntu-latest
+    timeout-minutes: 80
+    env:
+      VBEE_ACCESS_TOKEN: ${{ secrets.VBEE_ACCESS_TOKEN || secrets.VBEE_TOKEN || secrets.VBEE_API_KEY || secrets.VBEE_API_TOKEN }}
+      VBEE_APP_ID: ${{ secrets.VBEE_APP_ID || secrets.VBEE_APPID || secrets.VBEE_APPLICATION_ID }}
+      VBEE_WEBHOOK_URL: ${{ vars.VBEE_WEBHOOK_URL || 'https://example.com/ngoi-nha-thu-49-vbee-callback' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install ffprobe
+        run: sudo apt-get -qq update && sudo apt-get install -y ffmpeg
+      - name: Require real Vbee credentials
+        run: test -n "$VBEE_ACCESS_TOKEN" && test -n "$VBEE_APP_ID"
+      - name: Generate all 18 Vbee batch clips with measured duration
+        run: |
+          python3 scripts/gen-laundry-vbee.py \
+            --timeline docs/ngoi-nha-thu-49-v2/voice-timeline.json \
+            --out-dir public/audio/ngoi-nha-thu-49-v2 \
+            --voice-code hn_male_phuthang_stor_24k-stl \
+            --speed 1.16 \
+            --webhook-url "$VBEE_WEBHOOK_URL"
+      - name: Verify 18 source clips, authentic voice and hashes
+        run: |
+          python3 - <<'PY'
+          import json,hashlib
+          from pathlib import Path
+          p=Path('public/audio/ngoi-nha-thu-49-v2')
+          lines=json.loads((p/'measured-timeline.json').read_text())
+          assert len(lines)==18, len(lines)
+          for line in lines:
+            a=p/line['audio_file']
+            assert a.is_file() and a.stat().st_size>500
+            assert hashlib.sha256(a.read_bytes()).hexdigest()==line['sha256']
+            assert line['voice_code']=='hn_male_phuthang_stor_24k-stl'
+            print(line['id'],line['audio_seconds'])
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: house49-v2-authentic-vbee-18-lines
+          path: public/audio/ngoi-nha-thu-49-v2/
+          retention-days: 14
+          if-no-files-found: error
