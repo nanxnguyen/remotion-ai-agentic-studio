@@ -1,0 +1,32 @@
+{
+  "provider": "Vbee AIVoice Batch",
+  "voice_name": "Andrew",
+  "voice_code": "en-US-AndrewNeural",
+  "language": "en-US",
+  "selection_reason": "Verified in the connected Vbee voice catalog and generated a real audition sample. Selected as a clear, neutral US English narrator for an educational explainer.",
+  "audition_artifacts": [
+    "https://github.com/nanxnguyen/remotion-ai-agentic-studio/actions/runs/40740399883/artifacts/12839995737"
+  ],
+  "usage_rights_status": "Vbee's official FAQ states generated voice audio can be used for YouTube and other content; current account plan and service terms still apply.",
+  "selected_speed": 0.95,
+  "audition_sample": {
+    "request_id": "7b6b5a51-0b14-4508-8f75-add6a22db9d8",
+    "codec": "mp3",
+    "sample_rate_hz_from_ffprobe": 48000,
+    "channels": 1,
+    "duration_seconds_from_ffprobe": 6.288,
+    "audio_bytes": 75789,
+    "sha256": "73d3a409eff4850e5b426d0faa5cc33cc62a07c63617f2d0536ba213e82efc33"
+  },
+  "full_narration": {
+    "status": "generating",
+    "source_audio_id": null,
+    "source_audio_sha256": null,
+    "duration_seconds_from_ffprobe": null,
+    "sample_rate_hz_from_ffprobe": null
+  },
+  "narrator_or_character": {
+    "narrator": "Andrew (US English)",
+    "character_dialogue": "none"
+  }
+}
