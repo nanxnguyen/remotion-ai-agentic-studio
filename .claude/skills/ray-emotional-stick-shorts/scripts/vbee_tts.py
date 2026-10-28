@@ -27,7 +27,13 @@ def json_request(url, hdrs, payload=None):
         with urlopen(req, timeout=60) as response:
             return json.load(response)
     except HTTPError as error:
-        raise RuntimeError("Vbee HTTP status " + str(error.code) + "; inspect account and quota.") from None
+        try:
+            detail = error.read(1200).decode("utf-8", errors="replace").strip()
+        except Exception:
+            detail = ""
+        detail = " ".join(detail.split())[:700]
+        suffix = ("; provider_detail=" + detail) if detail else ""
+        raise RuntimeError("Vbee HTTP status " + str(error.code) + suffix) from None
 
 def secure_https(value):
     uri = urlparse(value)
