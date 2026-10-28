@@ -1,0 +1,46 @@
+name: Vbee English narration audition — Andrew
+on:
+  push:
+    branches: [feat/vbee-voice-stick-shorts]
+    paths: ['.github/workflows/vbee-english-audition.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  audition:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install FFmpeg
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+      - name: Synthesize genuine Vbee English sample
+        env:
+          VBEE_APP_ID: ${{ secrets.VBEE_APP_ID }}
+          VBEE_ACCESS_TOKEN: ${{ secrets.VBEE_ACCESS_TOKEN }}
+          VBEE_WEBHOOK_URL: https://iehmucsshklgjmxqyggp.supabase.co/functions/v1/vbee-batch-callback
+        run: |
+          set -eu
+          mkdir -p /tmp/vbee-english-audition
+          cat > /tmp/vbee-english-audition/sample.txt <<'TEXT'
+          Imagine waking up tomorrow with no food in your kitchen. No supermarket. No refrigerator.
+          TEXT
+          python3 .claude/skills/ray-emotional-stick-shorts/scripts/vbee_tts.py \
+            --text-file /tmp/vbee-english-audition/sample.txt \
+            --voice-code en-US-AndrewNeural \
+            --speed 0.95 \
+            --output /tmp/vbee-english-audition/vbee-andrew-en-us-audition.mp3
+          ffprobe -v error \
+            -show_entries stream=codec_name,sample_rate,channels \
+            -show_entries format=duration,size \
+            -of json /tmp/vbee-english-audition/vbee-andrew-en-us-audition.mp3 \
+            | tee /tmp/vbee-english-audition/audio-metadata.json
+          sha256sum /tmp/vbee-english-audition/vbee-andrew-en-us-audition.mp3 \
+            | tee /tmp/vbee-english-audition/audio.sha256
+          printf '%s\n' 'voice_name=Andrew' 'voice_code=en-US-AndrewNeural' 'language=en-US' \
+            > /tmp/vbee-english-audition/voice-cast.txt
+      - name: Upload audition sample and measured metadata
+        uses: actions/upload-artifact@v4
+        with:
+          name: vbee-english-andrew-audition
+          path: /tmp/vbee-english-audition/
+          if-no-files-found: error
