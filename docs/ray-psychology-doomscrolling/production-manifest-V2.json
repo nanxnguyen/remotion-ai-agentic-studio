@@ -1,0 +1,34 @@
+{
+  "status": "REVIEW",
+  "video_id": "ray-psychology-doomscrolling-20261028",
+  "canonical_slug": "vi-sao-khong-the-ngung-luot-tin-tieu-cuc",
+  "topic": "Vì sao bạn không thể ngừng lướt tin tiêu cực?",
+  "subject": "doomscrolling and digital wellbeing",
+  "format": "C_EXPLAINED",
+  "vbee_voice": {
+    "provider": "Vbee",
+    "name": "Minh Quân Pro (Beta)",
+    "voice_code": "hn_male_minhquan_yt_24k-pre",
+    "verified_from": "GitHub Actions protected Vbee production run",
+    "source_sha256": "6ece180ccb9a47c3527df0d53afe92aa6b61a9dc2a7c15426823e6f95cebba95",
+    "commercial_rights": "PENDING_USER_PLAN_VERIFICATION"
+  },
+  "render": {
+    "mp4": "video-review-V2.mp4",
+    "sha256": "759b633b7d56c57753f450bfab9532702f7ae08dc3e4dc6fa2c27355af2cb621",
+    "duration_audio_s": 30.672,
+    "width": 1080,
+    "height": 1920,
+    "fps": 30,
+    "stereo_aac_48k": true
+  },
+  "intro": {
+    "text": "Thử đoán: ai đang điều khiển ngón tay bạn?",
+    "duration_s": 2.4806,
+    "recent_comparison": "INCOMPLETE"
+  },
+  "caption_alignment": "Phrases timed by acoustic scene edges and estimated within each scene; NOT word verified",
+  "scientific_claims": "qualified correlation; does not establish causation",
+  "youtube_publication": "NOT_AUTHORIZED",
+  "approval": "owner review pending"
+}
