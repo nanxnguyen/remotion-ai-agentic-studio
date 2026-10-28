@@ -19,7 +19,7 @@
     "sha256": "73d3a409eff4850e5b426d0faa5cc33cc62a07c63617f2d0536ba213e82efc33"
   },
   "full_narration": {
-    "status": "PARTIAL_VBEE_BAD_REQUEST",
+    "status": "BLOCKED_VBEE_HTTP_400_ALL_REMAINING_SCENES",
     "completed_scenes": [
       "01",
       "02",
@@ -43,10 +43,22 @@
       "09",
       "10"
     ],
-    "blocker": "Vbee Batch returned HTTP 400 BAD_REQUEST for scene 05 and again for scene 03 during a later retry. The provider response was generic and did not establish whether the cause was quota, account limits, or another request validation issue. Full narration has not been generated.",
+    "blocker": "Six separate scene-level attempts for 05–10 all returned Vbee HTTP 400 BAD_REQUEST; provider body {error:{code:BAD_REQUEST,message:Bad Request}}. This does not establish whether Studio points can be used by the connected API application.",
     "workflow_runs": [
       "https://github.com/nanxnguyen/remotion-ai-agentic-studio/actions/runs/40744222517",
       "https://github.com/nanxnguyen/remotion-ai-agentic-studio/actions/runs/40745140442"
+    ],
+    "failed_scenes": [
+      "05",
+      "06",
+      "07",
+      "08",
+      "09",
+      "10"
+    ],
+    "latest_diagnostic_runs": [
+      "https://github.com/nanxnguyen/remotion-ai-agentic-studio/actions/runs/40748530288",
+      "https://github.com/nanxnguyen/remotion-ai-agentic-studio/actions/runs/40748733881"
     ]
   },
   "narrator_or_character": {
