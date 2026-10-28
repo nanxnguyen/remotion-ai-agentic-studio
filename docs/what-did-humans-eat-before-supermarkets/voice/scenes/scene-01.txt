@@ -1,0 +1,16 @@
+# Scene 01 narration — locked V3
+
+Voice: Andrew (en-US-AndrewNeural)
+Speed: 0.95
+
+Imagine waking up tomorrow with no food in your kitchen.
+
+No supermarket. No refrigerator. No way to order a meal.
+
+Before you could eat, you would have to solve a problem humans have faced for thousands of generations: where will your next meal come from?
+
+Today, we're following Nara, a fictional prehistoric forager, on a search for food.
+
+The goal is simple: bring something useful back to the group before nightfall.
+
+But the first plan won't work.
