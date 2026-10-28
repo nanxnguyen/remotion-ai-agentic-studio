@@ -1,0 +1,44 @@
+name: Vbee retry scene 05 — Andrew English
+on:
+  push:
+    branches: [feat/vbee-voice-stick-shorts]
+    paths: ['.github/workflows/vbee-retry-scene-05.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  scene05:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - name: Generate scene 05 (one API request, no duplicate scenes)
+        env:
+          VBEE_APP_ID: ${{ secrets.VBEE_APP_ID }}
+          VBEE_ACCESS_TOKEN: ${{ secrets.VBEE_ACCESS_TOKEN }}
+          VBEE_WEBHOOK_URL: https://iehmucsshklgjmxqyggp.supabase.co/functions/v1/vbee-batch-callback
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/vbee-scene-05
+          tail -n +6 docs/what-did-humans-eat-before-supermarkets/voice/scenes/scene-05.txt > /tmp/vbee-scene-05/narration.txt
+          python3 .claude/skills/ray-emotional-stick-shorts/scripts/vbee_tts.py \
+            --text-file /tmp/vbee-scene-05/narration.txt \
+            --voice-code en-US-AndrewNeural \
+            --speed 0.95 \
+            --attempts 24 \
+            --output /tmp/vbee-scene-05/scene-05.mp3
+          ffprobe -v error -show_entries format=duration,size -show_entries stream=codec_name,sample_rate,channels -of json /tmp/vbee-scene-05/scene-05.mp3 > /tmp/vbee-scene-05/metadata.json
+          sha256sum /tmp/vbee-scene-05/scene-05.mp3 > /tmp/vbee-scene-05/audio.sha256
+          python3 - <<'PY'
+          import json
+          p='/tmp/vbee-scene-05/metadata.json'
+          d=json.load(open(p))
+          print('SCENE_05_VERIFIED',json.dumps(d))
+          if float(d['format']['duration'])<10: raise SystemExit('Audio too short')
+          PY
+      - name: Upload verified audio
+        uses: actions/upload-artifact@v4
+        with:
+          name: vbee-english-narration-scene-05-retry
+          path: /tmp/vbee-scene-05/
+          if-no-files-found: error
