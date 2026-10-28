@@ -1,0 +1,16 @@
+[
+  {
+    "id": 1,
+    "cta_role": "intro",
+    "start_sec": 0,
+    "duration_sec": 2.5,
+    "narration": "Bạn dám dự đám cưới này không?"
+  },
+  {
+    "id": 2,
+    "cta_role": "outro",
+    "start_sec": 55.5,
+    "duration_sec": 4.5,
+    "narration": "Thả tim và đăng ký kênh… trước khi thiệp cưới ghi tên bạn!"
+  }
+]
