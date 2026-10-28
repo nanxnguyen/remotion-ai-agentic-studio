@@ -1,0 +1,54 @@
+name: Wedding V2 — genuine Vbee dual CTA
+on:
+  push:
+    branches:
+      - feat/dam-cuoi-khong-co-co-dau-v2-dual-cta
+    paths:
+      - .github/workflows/wedding-v2-cta-vbee.yml
+      - docs/dam-cuoi-khong-co-co-dau-v2/cta-voice-timeline.json
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  voice:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      VBEE_ACCESS_TOKEN: ${{ secrets.VBEE_ACCESS_TOKEN || secrets.VBEE_TOKEN || secrets.VBEE_API_KEY || secrets.VBEE_API_TOKEN }}
+      VBEE_APP_ID: ${{ secrets.VBEE_APP_ID || secrets.VBEE_APPID || secrets.VBEE_APPLICATION_ID }}
+      VBEE_WEBHOOK_URL: ${{ vars.VBEE_WEBHOOK_URL || 'https://example.com/wedding-v2-cta-callback' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: sudo apt-get -qq update && sudo apt-get install -y ffmpeg
+      - run: test -n "$VBEE_ACCESS_TOKEN" && test -n "$VBEE_APP_ID"
+      - name: Render genuine dual CTA with Vbee Batch
+        run: |
+          python3 scripts/gen-laundry-vbee.py \
+            --timeline docs/dam-cuoi-khong-co-co-dau-v2/cta-voice-timeline.json \
+            --out-dir public/audio/dam-cuoi-khong-co-co-dau-v2/cta \
+            --voice-code hn_male_phuthang_stor_24k-stl \
+            --speed 1.15 \
+            --webhook-url "$VBEE_WEBHOOK_URL"
+      - name: Validate durations and hashes
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import hashlib,json
+          p=Path('public/audio/dam-cuoi-khong-co-co-dau-v2/cta')
+          v=json.loads((p/'measured-timeline.json').read_text())
+          assert len(v)==2
+          for item, limit in zip(v,[2.5,4.5]):
+            a=p/item['audio_file']
+            assert a.exists() and hashlib.sha256(a.read_bytes()).hexdigest()==item['sha256']
+            assert item['audio_seconds']<limit+0.02,(item['id'],item['audio_seconds'],limit)
+          print('Vbee dual CTA verified',v)
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: wedding-v2-genuine-vbee-cta
+          path: public/audio/dam-cuoi-khong-co-co-dau-v2/cta/
+          retention-days: 14
+          if-no-files-found: error
