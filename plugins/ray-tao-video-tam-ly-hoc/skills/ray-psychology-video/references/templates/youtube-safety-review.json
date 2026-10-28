@@ -1,0 +1,17 @@
+{
+  "video_id": "",
+  "status": "NOT_CHECKED | REVISE | BLOCK | PASS",
+  "checked_recent_topic_ids": [],
+  "plot_and_visual_distinctiveness": "unverified",
+  "psychology_claims_review": "unverified",
+  "commercial_rights_audio_and_visual": "unverified",
+  "vbee_voice_rights": "unverified",
+  "audience_setting": "requires_review",
+  "synthetic_disclosure": "requires_review",
+  "ad_suitability": "requires_review",
+  "thumbnail_title_truthfulness": "requires_review",
+  "rendered_video_full_decode": "not_checked",
+  "real_video_human_visual_and_listening": "not_checked",
+  "issues": [],
+  "reviewer_approval": "pending"
+}

@@ -1,0 +1,6 @@
+interface:
+  display_name: "Ray Tạo Video Tâm Lý Học"
+  short_description: "Shorts tâm lý người que Vbee"
+  default_prompt: "Hãy thực hiện Ray Psychology Shorts: lấy chủ đề tâm lý nguyên bản, kiểm chứng thông tin, chọn giọng Vbee có thật phù hợp kịch bản, dựng Remotion, căn phụ đề theo MP3, kiểm định nội dung và lưu cùng thư mục Google Drive. Nếu không có MP4 thực phải báo đúng trạng thái."
+policy:
+  allow_implicit_invocation: true
