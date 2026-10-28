@@ -1,0 +1,18 @@
+# Scene 09 narration — locked V3
+
+Voice: Andrew (en-US-AndrewNeural)
+Speed: 0.95
+
+Today, food can travel thousands of miles before it reaches your plate.
+
+A supermarket brings together products grown, raised, harvested, processed, stored, and transported through an enormous supply system.
+
+Before modern food distribution, people depended much more directly on local resources and their knowledge of the environment.
+
+That does not mean every ancient meal was harder to obtain, or that modern food systems are without problems.
+
+The important difference is how people organize the work needed to get food.
+
+The supermarket is a recent part of a much longer story.
+
+The need to find, prepare, and share food connects people across time, even as the tools and systems around them change.
