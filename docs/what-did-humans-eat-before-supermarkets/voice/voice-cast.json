@@ -19,13 +19,35 @@
     "sha256": "73d3a409eff4850e5b426d0faa5cc33cc62a07c63617f2d0536ba213e82efc33"
   },
   "full_narration": {
-    "status": "BLOCKED_VBEE_VOICE",
-    "source_audio_id": null,
-    "source_audio_sha256": null,
-    "duration_seconds_from_ffprobe": null,
-    "sample_rate_hz_from_ffprobe": null,
-    "blocker": "Vbee Batch returned HTTP 400 before issuing a request ID. No full narration MP3 was generated; no automatic retry was attempted.",
-    "workflow_run_url": "https://github.com/nanxnguyen/remotion-ai-agentic-studio/actions/runs/40741266074"
+    "status": "PARTIAL_VBEE_BAD_REQUEST",
+    "completed_scenes": [
+      "01",
+      "02",
+      "03",
+      "04"
+    ],
+    "completed_scene_durations_seconds": {
+      "01": 28.104,
+      "02": 49.68,
+      "03": 40.92,
+      "04": 48.744
+    },
+    "partial_duration_seconds": 167.448,
+    "local_preview_filename": "vbee_narration_preview_scenes_01-04.mp3",
+    "local_preview_sha256": "39f8fb212d2c01ea72511e22e5c3e3d625ba0ef70254307d5fbd900b2a3be927",
+    "remaining_scenes": [
+      "05",
+      "06",
+      "07",
+      "08",
+      "09",
+      "10"
+    ],
+    "blocker": "Vbee Batch returned HTTP 400 BAD_REQUEST for scene 05 and again for scene 03 during a later retry. The provider response was generic and did not establish whether the cause was quota, account limits, or another request validation issue. Full narration has not been generated.",
+    "workflow_runs": [
+      "https://github.com/nanxnguyen/remotion-ai-agentic-studio/actions/runs/40744222517",
+      "https://github.com/nanxnguyen/remotion-ai-agentic-studio/actions/runs/40745140442"
+    ]
   },
   "narrator_or_character": {
     "narrator": "Andrew (US English)",
