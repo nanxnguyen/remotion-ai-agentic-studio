@@ -1,0 +1,20 @@
+{
+  "video_id": "ray-psychology-doomscrolling-20261028",
+  "canonical_slug": "vi-sao-khong-the-ngung-luot-tin-tieu-cuc",
+  "working_title": "Vì sao bạn không thể ngừng lướt tin tiêu cực?",
+  "series_format": "C_EXPLAINED",
+  "hook_candidates": [
+    {"text": "Thử đoán: ai đang điều khiển ngón tay bạn?", "family": "visual choice and prediction", "visual": "stick figure tries to put down phone while red headline pulls it back"},
+    {"text": "Tin xấu tiếp theo có gì mà bạn cứ tìm?", "family": "question tied to uncertainty", "visual": "person taps new alert despite sleep"},
+    {"text": "Đêm đã khuya, sao ngón tay vẫn lướt?", "family": "mid-action micro-story", "visual": "phone and bedside clock turning past midnight"}
+  ],
+  "selected_hook": "Thử đoán: ai đang điều khiển ngón tay bạn?",
+  "hook_target_seconds": 3.2,
+  "why": "The visual conflict shows the impulse without pseudo-diagnosing a viewer; body explains negative-news monitoring habit.",
+  "topic_claim": "Doomscrolling is repetitive consumption of negative online information; studies associate it with stress/anxiety but don't establish causality.",
+  "source_links": ["https://pubmed.ncbi.nlm.nih.gov/42827532/", "https://health.clevelandclinic.org/everything-you-need-to-know-about-doomscrolling-and-how-to-avoid-it"],
+  "voice_candidate": {"name":"Minh Quân Pro (Beta)","voice_code":"hn_male_minhquan_yt_24k-pre","reason":"youthful and clear tech/podcast explainer voice, unlike emotional Thanh Long and Thanh Mai Pro selected for previous #27"},
+  "viewing_context":"General adult digital well-being explainer, not diagnosis; no clinical claim of causation.",
+  "recent_comparison":"Drive latest 10 titles checked, none doomscrolling/negative news; actual spoken hook comparison INCOMPLETE without all prior MP3s.",
+  "publication_status":"REVIEW_ONLY"
+}
