@@ -1,0 +1,56 @@
+name: 61st Second — genuine Vbee narration 135s
+on:
+  push:
+    branches:
+      - feat/giay-thu-61-longfilm-16x9-v1
+    paths:
+      - .github/workflows/giay-thu-61-vbee.yml
+      - docs/giay-thu-61-v1/voice-timeline.json
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  voice:
+    runs-on: ubuntu-latest
+    timeout-minutes: 95
+    env:
+      VBEE_ACCESS_TOKEN: ${{ secrets.VBEE_ACCESS_TOKEN || secrets.VBEE_TOKEN || secrets.VBEE_API_KEY || secrets.VBEE_API_TOKEN }}
+      VBEE_APP_ID: ${{ secrets.VBEE_APP_ID || secrets.VBEE_APPID || secrets.VBEE_APPLICATION_ID }}
+      VBEE_WEBHOOK_URL: ${{ vars.VBEE_WEBHOOK_URL || 'https://example.com/giay-thu-61-vbee-callback' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install FFprobe
+        run: sudo apt-get -qq update && sudo apt-get install -y ffmpeg
+      - name: Require actual Vbee Batch credentials
+        run: test -n "$VBEE_ACCESS_TOKEN" && test -n "$VBEE_APP_ID"
+      - name: Generate all 22 genuinely Vbee MP3 clips
+        run: |
+          python3 scripts/gen-laundry-vbee.py \
+            --timeline docs/giay-thu-61-v1/voice-timeline.json \
+            --out-dir public/audio/giay-thu-61-v1 \
+            --voice-code hn_male_phuthang_stor_24k-stl \
+            --speed 1.17 \
+            --webhook-url "$VBEE_WEBHOOK_URL"
+      - name: Verify hashes and count
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import json,hashlib
+          p=Path('public/audio/giay-thu-61-v1')
+          v=json.loads((p/'measured-timeline.json').read_text())
+          assert len(v)==22, len(v)
+          for x in v:
+            a=p/x['audio_file']
+            assert a.is_file() and a.stat().st_size>500
+            assert hashlib.sha256(a.read_bytes()).hexdigest()==x['sha256']
+            print(x['id'],x['audio_seconds'])
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: giay-thu-61-v1-genuine-vbee-22
+          path: public/audio/giay-thu-61-v1/
+          retention-days: 14
+          if-no-files-found: error
