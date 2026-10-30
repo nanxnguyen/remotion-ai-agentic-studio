@@ -1,0 +1,44 @@
+name: Retro TV - Met Roi genuine Vbee Ngoc Huyen
+on:
+  push:
+    branches:
+      - feat/retro-met-roi-final-20261025
+    paths:
+      - .github/workflows/retro-met-roi-voice.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  real-vbee-narration:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      VBEE_ACCESS_TOKEN: ${{ secrets.VBEE_ACCESS_TOKEN || secrets.VBEE_TOKEN || secrets.VBEE_API_KEY || secrets.VBEE_API_TOKEN }}
+      VBEE_APP_ID: ${{ secrets.VBEE_APP_ID || secrets.VBEE_APPID || secrets.VBEE_APPLICATION_ID }}
+      VBEE_WEBHOOK_URL: ${{ vars.VBEE_WEBHOOK_URL || 'https://example.com/story-tts-webhook' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Preflight Vbee
+        run: |
+          test -n "$VBEE_ACCESS_TOKEN" && test -n "$VBEE_APP_ID" || (echo "Missing Vbee credentials" && exit 1)
+      - name: Generate authentic Ngoc Huyen per act
+        run: |
+          python3 scripts/gen-story-vbee-batch.py \
+            --timeline docs/retro-met-roi-final/voice.json \
+            --out-dir build/retro-met-roi/voice \
+            --voice-code hn_female_ngochuyen_full_48k-fhg \
+            --speed 1.08
+      - name: Verify audio
+        run: |
+          test "$(find build/retro-met-roi/voice -name 's*.mp3' | wc -l)" -eq 4
+          for f in build/retro-met-roi/voice/s*.mp3; do test -s "$f" || exit 1; done
+          python3 -c "import json; x=json.load(open('build/retro-met-roi/voice/measured-timeline.json')); assert len(x)==4 and all(y['audio_seconds']>0 for y in x); print([(v['id'],v['audio_seconds']) for v in x])"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: retro-met-roi-genuine-vbee-ngoc-huyen
+          path: build/retro-met-roi/voice/
+          retention-days: 14
+          if-no-files-found: error
