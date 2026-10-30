@@ -14,6 +14,9 @@ SOURCES=[
  {"name":"aerial_clouds_sunrise","download_id":"37517592","page":"https://www.pexels.com/video/aerial-view-of-clouds-over-mountain-range-at-sunrise-37517582/","creator":"Arturo Salas","description":"Aerial view of misty mountains and clouds at sunrise"},
  {"name":"sea_of_clouds_golden_hour","download_id":"6850514","page":"https://www.pexels.com/video/sea-of-clouds-and-mountains-during-golden-hour-6989027/","creator":"Mikhail Nilov","description":"Sea of clouds and mountains in golden hour"},
  {"name":"sunlight_over_clouds","download_id":"12278129","page":"https://www.pexels.com/video/sunlight-over-clouds-12278192/","creator":"Altaf Shah","description":"Aerial sunlit cloudscape at sunrise"},
+ {"name":"dramatic_clouds_mountains","download_id":"11800506","page":"https://www.pexels.com/video/clouds-over-mountains-11800515/","creator":"Akshit Garg","description":"Dramatic time lapse of mountains and clouds under vivid sky"},
+ {"name":"rolling_clouds_highlands","download_id":"28977240","page":"https://www.pexels.com/video/dramatic-cloud-timelapse-over-scenic-mountains-31994182/","creator":"ttudays","description":"Dramatic cloud timelapse over scenic mountain ranges"},
+ {"name":"vertical_sunset_clouds","download_id":"12145210","page":"https://www.pexels.com/video/sunset-above-clouds-12113828/","creator":"Altaf Shah","description":"Golden sunset over cloudscape, vertical video"},
 ]
 HEADERS={"User-Agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36","Referer":"https://www.pexels.com/"}
 session=requests.Session()
