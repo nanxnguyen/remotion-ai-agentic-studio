@@ -15,7 +15,7 @@
 - Added `shot-generation-plan-safe.md`: 21 standalone 16:9 scene prompts with continuity locks, no gore/violence and no direct visual depiction of a minor. Linh's V1 dialogue and story identity remain unchanged; her presence is represented through off-screen voice, objects and environmental evidence.
 - Updated `assets-manifest.md` to reflect the actual 23/23 Vbee verification and current blockers.
 - Image-generation attempts in this session returned poster/storyboard collages rather than clean standalone footage frames. **Those outputs are rejected as scene assets** and must not be used in the MP4.
-- The off-screen-only visual treatment for Linh is a proposed safety workaround and requires the user's approval before final asset generation; it does not rewrite the V1 script.
+- The user approved the off-screen-only visual treatment for Linh on 2026-10-31. It does not rewrite the V1 script or remove any of Linh's approved Vbee dialogue.
 
 ## Blocking FINAL / render
 1. **Clean source footage / stills missing:** 21 independent, high-resolution landscape 16:9 source shots are not available. Posters/contact sheets are review-only and excluded from final footage.
