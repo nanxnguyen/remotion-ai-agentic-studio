@@ -1,0 +1,75 @@
+name: Retro TV - Ban Da Lon Len V4 Motivational Journey
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+jobs:
+  v4-review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg
+          python -m pip install --no-input pillow numpy
+      - name: Fetch original Ngoc Huyen Vbee MP3s
+        uses: actions/download-artifact@v4
+        with:
+          run-id: 40918739264
+          name: retro-ban-da-lon-len-vbee-ngoc-huyen
+          github-token: ${{ github.token }}
+          path: build/retro-ban-da-lon-len/voice
+      - name: Fetch licensed skies
+        uses: actions/download-artifact@v4
+        with:
+          run-id: 41101547956
+          name: retro-ban-da-lon-len-clouds-v2
+          github-token: ${{ github.token }}
+          path: build/retro-ban-da-lon-len-clouds-v2/assets
+      - name: Fetch verified moving human footage
+        uses: actions/download-artifact@v4
+        with:
+          run-id: 41114719174
+          name: retro-ban-da-lon-len-human-v4
+          github-token: ${{ github.token }}
+          path: build/retro-ban-da-lon-len-v4/human-assets
+      - name: Render new motivational journey V4
+        run: python3 scripts/render-ban-da-lon-len-v4-motivational.py
+      - name: QA source and media
+        run: |
+          test -s build/retro-ban-da-lon-len-v4/Ban_Da_Lon_Len_V4_HANH_TRINH_REVIEW_9x16.mp4
+          test -s build/retro-ban-da-lon-len-v4/previews/V4_contact_sheet.jpg
+          python3 - <<'PY'
+          import json,pathlib
+          p=pathlib.Path("build/retro-ban-da-lon-len-v4")
+          q=json.loads((p/"production-manifest-V4.json").read_text())
+          assert q["qa"]["original_script_exact"]
+          assert q["qa"]["full_media_decode"]
+          assert q["qa"]["status"]=="REVIEW"
+          assert sum(s["type"]=="human_action" for s in q["shots"])>=5
+          print("REVIEW, human-action beats:",sum(s["type"]=="human_action" for s in q["shots"]))
+          print("Full A/V decode PASS; word-level sound and visual-semantic review not certified")
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ban-da-lon-len-v4-human-journey-review-mp4
+          path: build/retro-ban-da-lon-len-v4/Ban_Da_Lon_Len_V4_HANH_TRINH_REVIEW_9x16.mp4
+          retention-days: 14
+          if-no-files-found: error
+          compression-level: 0
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ban-da-lon-len-v4-review-qa
+          path: |
+            build/retro-ban-da-lon-len-v4/previews/V4_contact_sheet.jpg
+            build/retro-ban-da-lon-len-v4/production-manifest-V4.json
+            build/retro-ban-da-lon-len-v4/youtube-title-description-V4.txt
+            build/retro-ban-da-lon-len-v4/caption-timeline.json
+          retention-days: 14
+          if-no-files-found: error
