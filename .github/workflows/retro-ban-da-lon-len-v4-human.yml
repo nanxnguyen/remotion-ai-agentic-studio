@@ -1,0 +1,52 @@
+name: Retro TV - V4 Meaningful Human Footage
+on:
+  push:
+    branches:
+      - feat/retro-ban-da-lon-len-v4-story-driven-footage-20261031
+    paths:
+      - .github/workflows/retro-ban-da-lon-len-v4-human.yml
+      - scripts/download-ban-da-lon-len-human-v4.py
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  fetch-human-footage:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg
+          python -m pip install requests pillow
+      - name: Download moving humans in nature with source evidence
+        run: python scripts/download-ban-da-lon-len-human-v4.py
+      - name: Create contact sheet with genuine frame samples
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from PIL import Image,ImageDraw
+          import subprocess,json
+          root=Path("build/retro-ban-da-lon-len-v4/human-assets")
+          data=json.loads((root/"human-footage-manifest.json").read_text())
+          out=Image.new("RGB",(2*380,((len(data)+1)//2)*245),"#15130f")
+          for i,d in enumerate(data):
+            p=root/d["file"]
+            frame=root/(p.stem+".jpg")
+            subprocess.run(["ffmpeg","-y","-v","error","-ss","1","-i",str(p),"-frames:v","1",str(frame)],check=True)
+            im=Image.open(frame).convert("RGB");im.thumbnail((360,210))
+            out.paste(im,((i%2)*380+(380-im.width)//2,(i//2)*245))
+            ImageDraw.Draw(out).text(((i%2)*380+12,(i//2)*245+215),d["name"],fill="white")
+          out.save(root/"human-footage-contact.jpg",quality=88)
+          print("VERIFIED",len(data),"unique human action clips")
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: retro-ban-da-lon-len-human-v4
+          path: build/retro-ban-da-lon-len-v4/human-assets/
+          if-no-files-found: error
+          retention-days: 14
