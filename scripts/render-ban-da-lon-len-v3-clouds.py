@@ -151,6 +151,16 @@ def background_art():
     d.polygon(((222,1138),(294,1138),(279,1179),(218,1179)),fill=(37,26,24,255))
     d.polygon(((790,1138),(855,1138),(859,1179),(805,1179)),fill=(37,26,24,255))
     front.save(ROOT/"retro-frame.png")
+    # Explicit rounded screen matte: sky pixels outside the CRT window MUST NOT leak.
+    # Draw at 4x resolution for true anti-aliased rounded corners.
+    m=Image.new("L",(SW*4,SH*4),0)
+    md=ImageDraw.Draw(m)
+    md.rounded_rectangle((0,0,SW*4-1,SH*4-1),radius=34*4,fill=255)
+    m=m.resize((SW,SH),Image.Resampling.LANCZOS)
+    m.save(ROOT/"screen-alpha.png")
+    assert m.getpixel((0,0))<10 and m.getpixel((SW//2,SH//2))==255
+    # CRT inner bezel/footage share a single SX,SY,SW,SH geometry.
+    assert SX>140 and SY>480 and SX+SW<950 and SY+SH<1060
 
 def make_voice():
     spoken=json.loads(Path("docs/retro-ban-da-lon-len/voice.json").read_text(encoding="utf8"))
@@ -314,12 +324,17 @@ def make_ass(spoken,act_ranges,frames):
 
 def master(frames):
     # Voice is authored once in the measured timeline. Captions are composited after visual dissolves.
-    filt=("[1:v]format=rgba[room];[room][0:v]overlay=x="+str(SX)+":y="+str(SY)+":shortest=1[base];"
+    # Explicit alpha merge prevents raw rectangular footage from spilling
+    # beyond rounded CRT screen edges, independent of overlay transparency.
+    filt=("[0:v]format=rgba[sky];[3:v]format=gray[matte];"
+          "[sky][matte]alphamerge[clipped];"
+          "[1:v]format=rgba[room];[room][clipped]overlay=x="+str(SX)+":y="+str(SY)+":shortest=1[base];"
           "[base][2:v]overlay=x=0:y=0:shortest=1[frame];"
           "[frame]ass=filename="+str(ROOT/"captions.ass")+":fontsdir="+str(ROOT/"font")+"[v]")
     run("ffmpeg","-y","-v","error",
         "-i",ROOT/"sky.mp4","-loop","1","-i",ROOT/"room.png","-loop","1","-i",ROOT/"retro-frame.png",
-        "-i",ROOT/"mixed.wav","-filter_complex",filt,"-map","[v]","-map","3:a:0",
+        "-loop","1","-i",ROOT/"screen-alpha.png",
+        "-i",ROOT/"mixed.wav","-filter_complex",filt,"-map","[v]","-map","4:a:0",
         "-frames:v",frames,"-r",FPS,"-c:v","libx264","-preset","veryfast","-crf","20",
         "-pix_fmt","yuv420p","-c:a","aac","-b:a","192k","-ar",SR,"-ac","2",
         "-movflags","+faststart",OUT)
