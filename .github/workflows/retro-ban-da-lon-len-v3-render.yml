@@ -1,0 +1,79 @@
+name: Retro TV - Ban Da Lon Len - V3 Cloud Sky Review
+on:
+  push:
+    branches:
+      - feat/retro-ban-da-lon-len-v3-qa-20261031
+    paths:
+      - .github/workflows/retro-ban-da-lon-len-v3-render.yml
+      - scripts/render-ban-da-lon-len-v3-clouds.py
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+jobs:
+  sky-retro-render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install media dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg
+          python -m pip install --no-input pillow numpy
+      - name: Fetch genuine previously generated Vbee Ngoc Huyen voice
+        uses: actions/download-artifact@v4
+        with:
+          run-id: 40918739264
+          name: retro-ban-da-lon-len-vbee-ngoc-huyen
+          github-token: ${{ github.token }}
+          path: build/retro-ban-da-lon-len/voice
+      - name: Fetch eight verified Pexels cloud-sky clips
+        uses: actions/download-artifact@v4
+        with:
+          run-id: 41101547956
+          name: retro-ban-da-lon-len-clouds-v2
+          github-token: ${{ github.token }}
+          path: build/retro-ban-da-lon-len-clouds-v2/assets
+      - name: Render audiovisual V3 and measure QA
+        run: python3 scripts/render-ban-da-lon-len-v3-clouds.py
+      - name: Review manifest and real MP4
+        run: |
+          test -s build/retro-ban-da-lon-len-v3/Ban_Da_Lon_Len_V3_MAY_TROI_REVIEW_9x16.mp4
+          test -s build/retro-ban-da-lon-len-v3/previews/V3_contact_sheet.jpg
+          python3 - <<'PY'
+          import json,pathlib
+          p=pathlib.Path("build/retro-ban-da-lon-len-v3")
+          d=json.loads((p/"production-manifest-V3.json").read_text(encoding="utf-8"))
+          assert d["qa"]["original_script_exact"] is True
+          assert d["qa"]["status"] == "REVIEW"
+          assert d["qa"]["full_media_decode"]
+          assert d["fps"]==30 and d["size"]==[1080,1920]
+          print("QA REVIEW:",len(d["shots"]),"moving cloud shots,",len(d["captions"]),"caption groups")
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ban-da-lon-len-v3-review-mp4
+          path: build/retro-ban-da-lon-len-v3/Ban_Da_Lon_Len_V3_MAY_TROI_REVIEW_9x16.mp4
+          retention-days: 14
+          if-no-files-found: error
+          compression-level: 0
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ban-da-lon-len-v3-review-qa
+          path: |
+            build/retro-ban-da-lon-len-v3/caption-timeline.json
+            build/retro-ban-da-lon-len-v3/captions.ass
+            build/retro-ban-da-lon-len-v3/production-manifest-V3.json
+            build/retro-ban-da-lon-len-v3/youtube-title-description-V3.txt
+            build/retro-ban-da-lon-len-v3/previews/V3_contact_sheet.jpg
+          retention-days: 14
+          if-no-files-found: error
+      - name: Summary
+        run: |
+          echo "## Ban Da Lon Len V3 - REVIEW" >> "$GITHUB_STEP_SUMMARY"
+          echo "Vbee Ngoc Huyen MP3 from run 40918739264; licensed Pexels source clips from run 41101547956." >> "$GITHUB_STEP_SUMMARY"
+          echo "Word-level and semantic verification must be performed before FINAL; this job never self-approves." >> "$GITHUB_STEP_SUMMARY"
