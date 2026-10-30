@@ -1,0 +1,200 @@
+{
+  "title": "Cuốc Taxi Lúc 02:17",
+  "revision": "V1 measured Vbee retime",
+  "duration_sec": 134.559,
+  "width": 1920,
+  "height": 1080,
+  "fps": 30,
+  "aspect_ratio": "16:9",
+  "scenes": [
+    {
+      "id": 0,
+      "label": "CTA INTRO",
+      "start_sec": 0,
+      "end_sec": 3,
+      "duration_sec": 3,
+      "speech_sec": 3,
+      "hold_sec": 0
+    },
+    {
+      "id": 1,
+      "label": "01",
+      "start_sec": 3,
+      "end_sec": 10.116,
+      "duration_sec": 7.116,
+      "speech_sec": 6.216,
+      "hold_sec": 0.9
+    },
+    {
+      "id": 2,
+      "label": "02",
+      "start_sec": 10.116,
+      "end_sec": 16.564,
+      "duration_sec": 6.448,
+      "speech_sec": 5.448,
+      "hold_sec": 1
+    },
+    {
+      "id": 3,
+      "label": "03",
+      "start_sec": 16.564,
+      "end_sec": 22.7,
+      "duration_sec": 6.136,
+      "speech_sec": 5.136,
+      "hold_sec": 1
+    },
+    {
+      "id": 4,
+      "label": "04",
+      "start_sec": 22.7,
+      "end_sec": 30.368,
+      "duration_sec": 7.668,
+      "speech_sec": 6.168,
+      "hold_sec": 1.5
+    },
+    {
+      "id": 5,
+      "label": "05",
+      "start_sec": 30.368,
+      "end_sec": 35.683,
+      "duration_sec": 5.315,
+      "speech_sec": 4.315,
+      "hold_sec": 1
+    },
+    {
+      "id": 6,
+      "label": "06",
+      "start_sec": 35.683,
+      "end_sec": 43.403,
+      "duration_sec": 7.72,
+      "speech_sec": 6.12,
+      "hold_sec": 1.6
+    },
+    {
+      "id": 7,
+      "label": "07",
+      "start_sec": 43.403,
+      "end_sec": 50.811,
+      "duration_sec": 7.408,
+      "speech_sec": 5.808,
+      "hold_sec": 1.6
+    },
+    {
+      "id": 8,
+      "label": "08",
+      "start_sec": 50.811,
+      "end_sec": 56.352,
+      "duration_sec": 5.541,
+      "speech_sec": 4.441,
+      "hold_sec": 1.1
+    },
+    {
+      "id": 9,
+      "label": "09",
+      "start_sec": 56.352,
+      "end_sec": 63.52,
+      "duration_sec": 7.168,
+      "speech_sec": 6.168,
+      "hold_sec": 1
+    },
+    {
+      "id": 10,
+      "label": "10",
+      "start_sec": 63.52,
+      "end_sec": 70.372,
+      "duration_sec": 6.852,
+      "speech_sec": 5.352,
+      "hold_sec": 1.5
+    },
+    {
+      "id": 11,
+      "label": "11",
+      "start_sec": 70.372,
+      "end_sec": 77.136,
+      "duration_sec": 6.764,
+      "speech_sec": 5.664,
+      "hold_sec": 1.1
+    },
+    {
+      "id": 12,
+      "label": "12",
+      "start_sec": 77.136,
+      "end_sec": 83.848,
+      "duration_sec": 6.712,
+      "speech_sec": 5.712,
+      "hold_sec": 1
+    },
+    {
+      "id": 13,
+      "label": "13",
+      "start_sec": 83.848,
+      "end_sec": 89.772,
+      "duration_sec": 5.924,
+      "speech_sec": 4.924,
+      "hold_sec": 1
+    },
+    {
+      "id": 14,
+      "label": "14",
+      "start_sec": 89.772,
+      "end_sec": 96.628,
+      "duration_sec": 6.856,
+      "speech_sec": 5.856,
+      "hold_sec": 1
+    },
+    {
+      "id": 15,
+      "label": "15",
+      "start_sec": 96.628,
+      "end_sec": 103.652,
+      "duration_sec": 7.024,
+      "speech_sec": 6.024,
+      "hold_sec": 1
+    },
+    {
+      "id": 16,
+      "label": "16",
+      "start_sec": 103.652,
+      "end_sec": 109.193,
+      "duration_sec": 5.541,
+      "speech_sec": 4.441,
+      "hold_sec": 1.1
+    },
+    {
+      "id": 17,
+      "label": "17",
+      "start_sec": 109.193,
+      "end_sec": 116.289,
+      "duration_sec": 7.096,
+      "speech_sec": 5.496,
+      "hold_sec": 1.6
+    },
+    {
+      "id": 18,
+      "label": "18",
+      "start_sec": 116.289,
+      "end_sec": 122.669,
+      "duration_sec": 6.38,
+      "speech_sec": 5.28,
+      "hold_sec": 1.1
+    },
+    {
+      "id": 19,
+      "label": "19",
+      "start_sec": 122.669,
+      "end_sec": 130.561,
+      "duration_sec": 7.892,
+      "speech_sec": 6.192,
+      "hold_sec": 1.7
+    },
+    {
+      "id": 20,
+      "label": "CTA OUTRO",
+      "start_sec": 130.561,
+      "end_sec": 134.559,
+      "duration_sec": 3.998,
+      "speech_sec": 3.648,
+      "hold_sec": 0.35
+    }
+  ]
+}
