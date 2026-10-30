@@ -1,5 +1,11 @@
 name: Retro TV - Ban Da Lon Len V4 Motivational Journey
 on:
+  push:
+    branches:
+      - feat/retro-ban-da-lon-len-v4-story-driven-footage-20261031
+    paths:
+      - .github/workflows/retro-ban-da-lon-len-v4-render.yml
+      - scripts/render-ban-da-lon-len-v4-motivational.py
   workflow_dispatch:
 permissions:
   contents: read
