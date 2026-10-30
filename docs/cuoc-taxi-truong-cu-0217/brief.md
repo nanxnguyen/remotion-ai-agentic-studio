@@ -1,7 +1,7 @@
 # Production Brief — Cuốc Taxi Lúc 02:17
 
 - Slug: `cuoc-taxi-truong-cu-0217`
-- Format: Full HD 1920×1080, 16:9 landscape, 30fps; target 173s (2:53), within user range 90–180s.
+- Format: Full HD 1920×1080, 16:9 landscape, 30fps; target 134.559s (2:14.559), within user range 90–180s.
 - Genre: original supernatural / psychological horror with family-emotional payoff.
 - Reference: #23 “Chuyến Xe Buýt Không Có Trạm Cuối”, user-reported current view leader. Reuse only the narrative grammar (night transit, uncanny passenger, clue escalation, twist); do not reuse its bus, ticket, characters, dialogue, images or ending.
 - Premise: Quân receives a taxi pickup at a school closed for twelve years. A girl in a yellow raincoat calls him “Anh Hai” and leads him back to a promise he broke.
