@@ -27,17 +27,26 @@ results=[]
 for info in CANDIDATES:
  print("PAGE",info["key"],info["page"],flush=True)
  try:
-  page=SESSION.get(info["page"],headers=HEADERS,timeout=30)
-  page.raise_for_status()
-  html=unquote(page.text.replace("\\/","/").replace("&amp;","&"))
-  # Free download button's native video ID, or direct Pexels file sources.
-  video_ids=list(dict.fromkeys(int(x) for x in re.findall(r'pexels\.com/download/video/([0-9]+)',html)))
-  srcs=list(dict.fromkeys(re.findall(r'https://videos\.pexels\.com/video-files/[^"\x27\\<>\s]+?\.mp4(?:\?[^"\x27\\<>\s]*)?',html)))
+  html=""
+  try:
+   page=SESSION.get(info["page"],headers=HEADERS,timeout=20)
+   if page.ok:html=unquote(page.text.replace("\\/","/").replace("&amp;","&"))
+   else:print("Page HTML unavailable, using direct Pexels video CDN",page.status_code,flush=True)
+  except Exception as page_error:print("Page HTML unavailable",str(page_error)[:80],flush=True)
+  # Pexels website sometimes sends HTTP 403 to cloud runners. The video CDN can
+  # still serve the corresponding original ID; try documented rendition patterns.
+  video_ids=list(dict.fromkeys(int(x) for x in re.findall(r'pexels\\.com/download/video/([0-9]+)',html)))
+  srcs=list(dict.fromkeys(re.findall(r'https://videos\\.pexels\\.com/video-files/[^"\\x27\\\\<>\\s]+?\\.mp4(?:\\?[^"\\x27\\\\<>\\s]*)?',html)))
   if info["page_id"] not in video_ids:video_ids.append(info["page_id"])
-  # Try official page's download links first; direct CDN URLs are the fallback.
-  urls=[f"https://www.pexels.com/download/video/{ident}/" for ident in video_ids[:6]]
-  urls+=srcs[:12]
-  if not urls:raise RuntimeError("No video download candidates present on the source page")
+  patterns=["hd_1920_1080_25fps","hd_1080_1920_25fps","hd_1920_1080_30fps",
+            "hd_1080_1920_30fps","hd_1920_1080_24fps","hd_1080_1920_24fps",
+            "hd_1080_1920_50fps","hd_1920_1080_50fps","sd_960_540_25fps",
+            "sd_540_960_25fps","hd_1920_1080_60fps","hd_1080_1920_60fps"]
+  urls=srcs[:10]
+  for ident in video_ids[:6]:
+   urls += [f"https://videos.pexels.com/video-files/{ident}/{ident}-{pat}.mp4" for pat in patterns]
+   urls.append(f"https://www.pexels.com/download/video/{ident}/")
+  urls=list(dict.fromkeys(urls))
   saved=False
   for candidate in urls:
    dest=OUT/(info["key"]+".mp4")
