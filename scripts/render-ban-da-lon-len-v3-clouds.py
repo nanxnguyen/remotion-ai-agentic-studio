@@ -94,7 +94,7 @@ def background_art():
     top=np.array([25.,19.,24.]).reshape(1,1,3)
     bottom=np.array([64.,40.,33.]).reshape(1,1,3)
     grad=top*(1-Y)+bottom*Y
-    amber=np.exp(-((X-.8)**2/.1+(Y-.3)**2/.22))[...,None]*np.array([22.,11.,2.])
+    amber=np.exp(-((X-.8)**2/.1+(Y-.3)**2/.22))*np.array([22.,11.,2.])
     grad=np.broadcast_to(grad,(HEIGHT,WIDTH,3)).copy()+amber
     vignette=np.clip(1-.46*((X-.5)**2*2+(Y-.5)**2*1.3),.4,1)
     rgb=np.uint8(np.clip(grad*vignette,0,255))
