@@ -1,6 +1,6 @@
 # Shot generation plan — Cuốc Taxi Lúc 02:17 (V1)
 
-Status: **PROMPT PLAN ONLY — no clean scene assets generated yet.**
+Status: **APPROVED PROMPT PLAN — user approved off-screen-only visual treatment for Linh on 2026-10-31; clean scene assets are still pending.**
 Scope: 21 independent landscape 16:9 source frames for the locked 134.559s timeline.
 Safety adaptation: keep Linh's voice, identity, backstory and all V1 dialogue unchanged, but **do not depict Linh or any other child/minor visually**. Represent her supernatural presence through objects, environmental changes, reflections, sound and Quân's eyelines/reactions. No violence, blood, injury, body, corpse, abuse, frightening child imagery, or real-world missing-child poster. This is a visual-safety adaptation, not a script rewrite.
 
