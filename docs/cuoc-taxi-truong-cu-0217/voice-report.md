@@ -5,6 +5,8 @@
 - Linh: `hn_female_ngochuyen_full_48k-fhg`; total measured speech 13.297s.
 - Combined measured speech: 111.407s. Film timeline retimed to 134.559s (2:14.559); holds are explicit in timeline.json.
 - Every MP3 was decoded with FFmpeg, duration checked with FFprobe, and SHA-256 compared to the Vbee artifact manifest. All 23 passed.
+- The assembled voice-only WAV is PCM 24-bit, 48kHz mono, 134.559s; MP3 is 48kHz mono, 134.592s. FFmpeg analysis: integrated loudness -19.96 LUFS, true peak -1.21 dBTP, loudness range 5.20 LU. These are objective measurements of the voice-only mix, not a final soundtrack.
+- No BGM/SFX are present in this voice-only preview. Final music ducking, stereo mix and diegetic sound design remain pending.
 - Human listening and ASR/character error-rate review remain pending; machine checks do not certify pronunciation or emotional performance.
 
 | Voice | Clip | Duration | SHA-256 | Text |
