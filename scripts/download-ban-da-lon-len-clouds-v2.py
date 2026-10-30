@@ -47,5 +47,5 @@ for item in SOURCES:
   print("FAILED",item["name"],repr(e),flush=True)
   raise
 (OUT/"footage-licenses.json").write_text(json.dumps(manifest,ensure_ascii=False,indent=2),encoding="utf-8")
-assert len(manifest)==5
+assert len(manifest)==8
 print("SUCCESS",len(manifest),"sky/cloud clips",flush=True)
