@@ -1,0 +1,123 @@
+[
+  {
+    "id": "door-open",
+    "start_sec": 16.564,
+    "end_sec": 22.7,
+    "expected_visible_action": "Door closed → latch rises → door opens and Linh sits",
+    "observable_evidence": "Door gap visibly grows; Linh enters and red bag lands on seat.",
+    "asset_ref": null,
+    "review_frame_ref": null,
+    "evidence_time_sec": null,
+    "review_status": "pending"
+  },
+  {
+    "id": "mirror-empty",
+    "start_sec": 22.7,
+    "end_sec": 30.368,
+    "expected_visible_action": "Empty mirror → seatbelt locks → fogged handprint appears",
+    "observable_evidence": "Mirror stays empty while buckle clicks and handprint grows.",
+    "asset_ref": null,
+    "review_frame_ref": null,
+    "evidence_time_sec": null,
+    "review_status": "pending"
+  },
+  {
+    "id": "watch-stop",
+    "start_sec": 35.683,
+    "end_sec": 43.403,
+    "expected_visible_action": "Second hand moves → slows → stops at 02:17",
+    "observable_evidence": "Visible second hand halts at 02:17; Quân reacts.",
+    "asset_ref": null,
+    "review_frame_ref": null,
+    "evidence_time_sec": null,
+    "review_status": "pending"
+  },
+  {
+    "id": "badge-name",
+    "start_sec": 43.403,
+    "end_sec": 50.811,
+    "expected_visible_action": "Wet badge blurred → droplets slide → LINH becomes readable",
+    "observable_evidence": "Letters LINH become unobstructed; Quân freezes.",
+    "asset_ref": null,
+    "review_frame_ref": null,
+    "evidence_time_sec": null,
+    "review_status": "pending"
+  },
+  {
+    "id": "flashback-abandon",
+    "start_sec": 56.352,
+    "end_sec": 63.52,
+    "expected_visible_action": "Quân beside Linh → Quân walks away → Linh remains waiting",
+    "observable_evidence": "Wide shot shows separation and child alone at gate.",
+    "asset_ref": null,
+    "review_frame_ref": null,
+    "evidence_time_sec": null,
+    "review_status": "pending"
+  },
+  {
+    "id": "flood-bag",
+    "start_sec": 63.52,
+    "end_sec": 70.372,
+    "expected_visible_action": "Dry courtyard → floodwater rises → red bag catches on fence",
+    "observable_evidence": "Waterline rises across landmarks; bag moves and catches.",
+    "asset_ref": null,
+    "review_frame_ref": null,
+    "evidence_time_sec": null,
+    "review_status": "pending"
+  },
+  {
+    "id": "wet-sleeve",
+    "start_sec": 77.136,
+    "end_sec": 83.848,
+    "expected_visible_action": "Dry mat → droplets fall → puddle expands",
+    "observable_evidence": "Droplets visibly fall from sleeve; puddle grows.",
+    "asset_ref": null,
+    "review_frame_ref": null,
+    "evidence_time_sec": null,
+    "review_status": "pending"
+  },
+  {
+    "id": "crane-transfer",
+    "start_sec": 96.628,
+    "end_sec": 103.652,
+    "expected_visible_action": "Linh holds crane → transfers it to Quân → crane unfolds",
+    "observable_evidence": "Paper crane changes hands and unfolds; native text overlay.",
+    "asset_ref": null,
+    "review_frame_ref": null,
+    "evidence_time_sec": null,
+    "review_status": "pending"
+  },
+  {
+    "id": "empty-seat-mother",
+    "start_sec": 109.193,
+    "end_sec": 116.289,
+    "expected_visible_action": "Door opens → mother steps out → her eyeline lands on empty seat",
+    "observable_evidence": "Mother is outside; rear seat is visibly empty.",
+    "asset_ref": null,
+    "review_frame_ref": null,
+    "evidence_time_sec": null,
+    "review_status": "pending"
+  },
+  {
+    "id": "crane-only",
+    "start_sec": 116.289,
+    "end_sec": 122.669,
+    "expected_visible_action": "Quân looks back → seat empty → paper crane remains",
+    "observable_evidence": "Girl absent; crane remains centered on upholstery.",
+    "asset_ref": null,
+    "review_frame_ref": null,
+    "evidence_time_sec": null,
+    "review_status": "pending"
+  },
+  {
+    "id": "past-receipt",
+    "start_sec": 122.669,
+    "end_sec": 130.561,
+    "expected_visible_action": "Current ride screen → completion state → date 14/11/2014 at 02:17",
+    "observable_evidence": "Native app overlay shows date/time; mirror shows empty seat.",
+    "asset_ref": null,
+    "review_frame_ref": null,
+    "evidence_time_sec": null,
+    "review_status": "pending"
+  }
+]

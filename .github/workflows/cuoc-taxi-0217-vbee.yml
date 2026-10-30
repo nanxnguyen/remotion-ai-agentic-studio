@@ -1,0 +1,70 @@
+name: Cuoc Taxi 0217 — Genuine Vbee Batch Voice
+on:
+  push:
+    branches:
+      - feat/cuoc-taxi-truong-cu-0217-20261030
+    paths:
+      - .github/workflows/cuoc-taxi-0217-vbee.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  narrator:
+    runs-on: ubuntu-latest
+    timeout-minutes: 50
+    env:
+      VBEE_ACCESS_TOKEN: ${{ secrets.VBEE_ACCESS_TOKEN || secrets.VBEE_TOKEN || secrets.VBEE_API_KEY || secrets.VBEE_API_TOKEN }}
+      VBEE_APP_ID: ${{ secrets.VBEE_APP_ID || secrets.VBEE_APPID || secrets.VBEE_APPLICATION_ID }}
+      VBEE_WEBHOOK_URL: ${{ vars.VBEE_WEBHOOK_URL || 'https://example.com/cuoc-taxi-0217-webhook' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install FFmpeg for true MP3 duration measurement
+        run: sudo apt-get update && sudo apt-get install -y ffmpeg
+      - name: Generate genuine Vbee Anh Khoi narration
+        run: |
+          test -n "$VBEE_ACCESS_TOKEN" && test -n "$VBEE_APP_ID"
+          python3 scripts/gen-story-vbee-batch.py \
+            --timeline docs/cuoc-taxi-truong-cu-0217/voice-narrator.json \
+            --out-dir public/audio/cuoc-taxi-truong-cu-0217/narrator \
+            --voice-code hn_male_phuthang_stor_24k-stl \
+            --speed 1.02
+      - uses: actions/upload-artifact@v4
+        with:
+          name: cuoc-taxi-0217-vbee-anh-khoi
+          path: public/audio/cuoc-taxi-truong-cu-0217/narrator/
+          retention-days: 14
+          if-no-files-found: error
+  linh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    env:
+      VBEE_ACCESS_TOKEN: ${{ secrets.VBEE_ACCESS_TOKEN || secrets.VBEE_TOKEN || secrets.VBEE_API_KEY || secrets.VBEE_API_TOKEN }}
+      VBEE_APP_ID: ${{ secrets.VBEE_APP_ID || secrets.VBEE_APPID || secrets.VBEE_APPLICATION_ID }}
+      VBEE_WEBHOOK_URL: ${{ vars.VBEE_WEBHOOK_URL || 'https://example.com/cuoc-taxi-0217-webhook' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install FFmpeg for true MP3 duration measurement
+        run: sudo apt-get update && sudo apt-get install -y ffmpeg
+      - name: Generate genuine Vbee Linh dialogue
+        run: |
+          test -n "$VBEE_ACCESS_TOKEN" && test -n "$VBEE_APP_ID"
+          python3 scripts/gen-story-vbee-batch.py \
+            --timeline docs/cuoc-taxi-truong-cu-0217/voice-linh.json \
+            --out-dir public/audio/cuoc-taxi-truong-cu-0217/linh \
+            --voice-code hn_female_ngochuyen_full_48k-fhg \
+            --speed 0.96
+      - uses: actions/upload-artifact@v4
+        with:
+          name: cuoc-taxi-0217-vbee-linh
+          path: public/audio/cuoc-taxi-truong-cu-0217/linh/
+          retention-days: 14
+          if-no-files-found: error
