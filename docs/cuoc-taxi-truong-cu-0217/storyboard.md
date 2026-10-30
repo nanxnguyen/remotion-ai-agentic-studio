@@ -1,7 +1,4 @@
-# Storyboard — CUỐC TAXI LÚC 02:17
-**173s · 1920×1080 · 16:9 · 30fps · 21 cards (2 CTA + 19 story beats)**
-
-| # | Time | Headline | Image / observable action | Camera / sound |
+# 02:10.561–02:14.559| # | Time | Headline | Image / observable action | Camera / sound |
 |---|---:|---|---|---|
 | CTA IN | 00:00–00:03 | GHẾ SAU CÓ NGƯỜI | Taxi at locked school; rear door opens a little; yellow silhouette appears only in wet side glass, not in mirror. | Slow push; rain, latch click. |
 | 01 | 00:03–00:12 | CUỐC XE LÚC 02:17 | App wakes with pickup pin at the closed school; dashboard clock reads 02:17. | Phone insert → gate OTS; app ping. |
