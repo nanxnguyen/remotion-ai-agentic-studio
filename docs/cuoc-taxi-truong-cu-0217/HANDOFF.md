@@ -12,6 +12,10 @@
 - No old film folders or MP4s were modified.
 
 ## Work continued in this session
+- User approved the off-screen-only visual treatment for Linh; approval is recorded in this handoff and the safe shot plan.
+- Created Drive subfolder `Scene assets 16x9 — Cuốc Taxi 02:17` for approved source footage: https://drive.google.com/drive/folders/1nYcraGfXUxXfbrJSykz7Hc6q0uMqmwdT
+- Saved the approved 21-shot safe generation plan as a Google Doc in that subfolder: https://docs.google.com/document/d/1cQEaJ6Hk_tvEbnfpa6gcjXc93ETeUpmgbTBvc4kAHG8/edit
+
 - Added `shot-generation-plan-safe.md`: 21 standalone 16:9 scene prompts with continuity locks, no gore/violence and no direct visual depiction of a minor. Linh's V1 dialogue and story identity remain unchanged; her presence is represented through off-screen voice, objects and environmental evidence.
 - Updated `assets-manifest.md` to reflect the actual 23/23 Vbee verification and current blockers.
 - Image-generation attempts in this session returned poster/storyboard collages rather than clean standalone footage frames. **Those outputs are rejected as scene assets** and must not be used in the MP4.
