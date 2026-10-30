@@ -260,8 +260,13 @@ def build_sky(shots,frames):
         dest=ROOT/f"shot_{i:02d}.mp4"
         need=s["frames"]+(transition if i<len(shots)-1 else 0)
         duration=need/FPS
-        # All Pexels clips are motion video; no re-use of previous V1 imagery.
-        run("ffmpeg","-y","-v","error","-ss",s["offset"],"-i",src,"-t",duration,
+        source_duration=float(ffprobe(src)["format"]["duration"])
+        if source_duration < duration-0.15:
+            raise ValueError(f"Source video {src.name} shorter than shot {duration:.2f}s ({source_duration:.2f}s)")
+        offset=min(s["offset"],max(0.0,source_duration-duration-0.15))
+        s["actual_source_offset"]=round(offset,3)
+        # Only use actual moving Pexels frames, never pad with a frozen source frame.
+        run("ffmpeg","-y","-v","error","-ss",offset,"-i",src,"-t",duration,
             "-vf",f"scale={SW}:{SH}:force_original_aspect_ratio=increase,crop={SW}:{SH},fps={FPS},setsar=1,format=yuv420p",
             "-an","-c:v","libx264","-preset","ultrafast","-crf","21","-r",FPS,"-frames:v",need,dest)
         files.append(dest)
