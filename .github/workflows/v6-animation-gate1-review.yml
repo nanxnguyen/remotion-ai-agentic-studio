@@ -22,13 +22,13 @@ jobs:
           sudo apt-get install -y -qq ffmpeg fonts-inter
           python -m pip install --disable-pip-version-check "Pillow>=11,<13" "numpy>=2,<3"
       - name: Run motion tests (V6)
-        run: python -m unittest discover -s prototypes/khong-ai-vo-tay-v6-gate1/src -p test_v6.py -v
+        run: python -m unittest discover -s prototypes/khong-ai-vo-tay-v6-gate1/src -p 'test*.py' -v
       - name: Render REVIEW proof at native 1080p/30fps
         run: python prototypes/khong-ai-vo-tay-v6-gate1/src/render_gate1_v6.py
       - name: Verify video and audio
         run: |
           set -euo pipefail
-          VIDEO=prototypes/khong-ai-vo-tay-v6-gate1/V6-GATE1-15s-1080p30-EN-REVIEW.mp4
+          VIDEO=prototypes/khong-ai-vo-tay-v6-gate1/V6.1-GATE1-15s-1080p30-EN-REVIEW.mp4
           test -s "$VIDEO"
           ffprobe -v error -show_entries format=duration -of default=nokey=1:noprint_wrappers=1 "$VIDEO" | awk '{if ($1 < 14.95 || $1 > 15.05) exit 1}'
           ffmpeg -hide_banner -loglevel error -i "$VIDEO" -f null -
@@ -37,7 +37,7 @@ jobs:
         with:
           name: v6-gate1-15s-english-review
           path: |
-            prototypes/khong-ai-vo-tay-v6-gate1/V6-GATE1-15s-1080p30-EN-REVIEW.mp4
-            prototypes/khong-ai-vo-tay-v6-gate1/V6-GATE1-storyboard-from-render.jpg
-            prototypes/khong-ai-vo-tay-v6-gate1/manifest-v6-gate1.json
+            prototypes/khong-ai-vo-tay-v6-gate1/V6.1-GATE1-15s-1080p30-EN-REVIEW.mp4
+            prototypes/khong-ai-vo-tay-v6-gate1/V6.1-GATE1-storyboard-from-render.jpg
+            prototypes/khong-ai-vo-tay-v6-gate1/manifest-v6.1-gate1.json
           retention-days: 90
