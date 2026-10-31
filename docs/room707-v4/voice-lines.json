@@ -1,0 +1,57 @@
+[
+  {
+    "id": 1,
+    "start": 0,
+    "narration": "Đổi chỗ nhé."
+  },
+  {
+    "id": 2,
+    "start": 3.8,
+    "narration": "Cậu giao phòng nào?"
+  },
+  {
+    "id": 3,
+    "start": 5.9,
+    "narration": "Bảy không bảy!"
+  },
+  {
+    "id": 4,
+    "start": 7.5,
+    "narration": "Chủ phòng chết tuần trước!"
+  },
+  {
+    "id": 5,
+    "start": 9.5,
+    "narration": "Cảm ơn, Nam."
+  },
+  {
+    "id": 6,
+    "start": 10.6,
+    "narration": "Camera! Mở camera!"
+  },
+  {
+    "id": 7,
+    "start": 16.8,
+    "narration": "Nó... có đồng hồ của tôi!"
+  },
+  {
+    "id": 8,
+    "start": 20.3,
+    "narration": "Nam... tay cậu!"
+  },
+  {
+    "id": 9,
+    "start": 26.3,
+    "narration": "Không! Nó lấy mặt tôi!"
+  },
+  {
+    "id": 10,
+    "start": 29.3,
+    "narration": "Tôi còn ở đây!"
+  },
+  {
+    "id": 11,
+    "start": 32.7,
+    "narration": "Đổi chỗ nhé."
+  }
+]
