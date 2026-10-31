@@ -21,8 +21,8 @@ Build deterministic 9:16 Remotion videos while preserving each video's visual id
 Before any new video's delivery, read [`docs/GOOGLE_DRIVE_VIDEO_ARCHIVE.md`](docs/GOOGLE_DRIVE_VIDEO_ARCHIVE.md). The owner's fixed parent is Google Drive folder ID `1rtJF9zDWuFZ8_6IixdMew3WCZj8415-D` (display name `Videos-shorts`). For each new video, inspect numbered folders and allocate `max(N)+1` with a title/date folder `N. Video title - YYYY-MM-DD` (Vietnam local production date). Do not create a new folder for revisions of the same video. Every completed video folder must have verified real `video-final.mp4`, original dramatic story-specific `thumbnail-youtube.png` (vertical 9:16 for Shorts, horizontal 16:9 for long videos), and UTF-8 `youtube-title-description.txt` with engaging accurate title + description. Confirm real bytes and each Drive URL before claiming completed delivery. No YouTube/TikTok publishing without approval.
 
 ## Video production rules (mandatory)
-**Mandatory high-retention script rule for EVERY video (YouTube Shorts + TikTok, all topics and genres):** Read [`docs/SHORTS_RETENTION_PLAYBOOK.md`](docs/SHORTS_RETENTION_PLAYBOOK.md) before approving any new script, shot list, storyboard or render. Draft three hook candidates; make the opening legible in 0–2s, complete a meaningful hook within 4–6s, create story-changing visual actions every ~3–6s, and deliver an earned climax and concise visual payoff. Prepare platform-native YouTube title/cover and TikTok caption/cover/safe-area treatment when publishing assets are requested. Review available watch-retention/engagement metrics after publishing and iterate; million views are **never guaranteed**. Film-specific timings may adapt; the retention principles must not be skipped.
 
+**Mandatory high-retention script rule for EVERY video (YouTube Shorts + TikTok, all topics and genres):** Read [`docs/SHORTS_RETENTION_PLAYBOOK.md`](docs/SHORTS_RETENTION_PLAYBOOK.md) before approving any new script, shot list, storyboard or render. Draft three hook candidates; make the opening legible in 0–2s, complete a meaningful hook within 4–6s, create story-changing visual actions every ~3–6s, and deliver an earned climax and concise visual payoff. Prepare platform-native YouTube title/cover and TikTok caption/cover/safe-area treatment when publishing assets are requested. Review available watch-retention/engagement metrics after publishing and iterate; million views are **never guaranteed**. Film-specific timings may adapt; the retention principles must not be skipped.
 
 Every agent and tool that works on a video (Claude Code, Codex, OpenCode, Cursor, Gemini, …) must run the full phase/stage/gate workflow in [`.agents/skills/ray-pineline-worflow-agent/SKILL.md`](.agents/skills/ray-pineline-worflow-agent/SKILL.md) without skipping any step (see rule 6 in `.agents/rules/README.md`), and must follow [.agents/rules/](.agents/rules/README.md): truthful status for the monitor, complete documents for every phase, `src/` ownership and timeline rules, and handoff discipline. Run `python3 -I scripts/pipeline.py audit <vid>` before ending any turn on a video; it must exit 0 or every remaining error goes into `docs/<vid>/HANDOFF.md`.
 
@@ -68,10 +68,10 @@ See `.claude/skills/ray-pineline-worflow-agent/references/architecture-contract.
 
 Store newly created video skills both under `.claude/skills/<name>/` (agent runtime) and `plugins/<name>/` (reinstallable package). They must be committed to this repository, with sensitive values excluded. Once a fully reviewed video is final, archive its actual MP4 in a **draft GitHub Release** using `.github/workflows/archive-finished-video.yml` after the final MP4 is uploaded to an Actions artifact; store a SHA-256 manifest and verify the Release asset. Keep MP4 binaries out of normal Git history and do not publish releases or YouTube content without separate authorization. See `docs/production-archive-policy.md`. An unuploaded local/chat MP4 is not a GitHub archive.
 
-
 ## Dual-location video archive and BOTH review links (updated 2026-10-24)
 
 For every NEW_FILM and revised story video:
+
 1. Finish real render and media QA first; never claim an MP4 is complete before validating it.
 2. Save the **same approved MP4** in **both** destinations: (a) Google Drive, for in-browser preview, and (b) a draft GitHub Release, for versioned archiving. Verify each destination independently using actual stored metadata, filename, byte size, and SHA-256 where available. Do not commit finished MP4 into regular Git history.
 3. Drive upload: pass a genuine generated/connector file reference into `mcp__Google_Drive__upload_file`, `mime_type="video/mp4"`; read back Drive metadata including verified URL, size, and MIME type. **Verify viewer access**: Drive may be private to the owning Google account; do not claim a URL is publicly playable without checking permissions. For an access issue, ask the user to use the connected Google account, or obtain explicit consent before sharing more broadly. Google Drive preview transcoding may take time; metadata alone does not prove playback.
@@ -82,16 +82,13 @@ For every NEW_FILM and revised story video:
 
 **This latest requirement supersedes the earlier preference to report only Google Drive links.** Both destinations remain mandatory, and **both links** are required in the routine report once actually verified.
 
-
 ## Mandatory Video-shorts Google Drive package (Ray Emotional Stick Shorts)
 
 For every completed Ray Emotional Stick Shorts video, follow [`docs/video-shorts-drive-archive-policy.md`](docs/video-shorts-drive-archive-policy.md). The owner-required Drive root is `Videos-shorts` (ID `1rtJF9zDWuFZ8_6IixdMew3WCZj8415-D`); create one sequentially numbered `<N>. <title> - <YYYY-MM-DD>` child folder per video, containing the QA-approved **`video-final.mp4`**, expressive original **`thumbnail-youtube.png`** and UTF-8 **`youtube-title-description.txt`** with publication title and description. Verify all three in Google Drive before claiming a complete delivery; the GitHub draft Release and other approved archive obligations remain separate.
 
-
 ## Archive destination override — NO GitHub Releases (2026-10-25)
 
 **Latest explicit user direction supersedes every previous draft-GitHub-Release instruction.** For new finished videos, upload the real QA-approved MP4, portrait/landscape thumbnail and Vietnamese YouTube title/description into the sequentially numbered **Google Drive Videos-shorts** child folder (`1rtJF9zDWuFZ8_6IixdMew3WCZj8415-D`). **Do not upload any MP4 to GitHub Releases or create/publish a Release.** GitHub repository `nanxnguyen/remotion-ai-agentic-studio` remains mandatory for source code, Remotion compositions, shotlist, timelines, voice manifest, QA/report and links back to the Drive archive, using normal commits/PRs. Keep rendered MP4 binaries out of Git commits/history; the media lives on Drive. The user-facing completion report includes verified **Google Drive MP4 viewer**, **Google Drive numbered folder** and **GitHub source/production PR** links, never invented GitHub binary or Release links. Drive and GitHub are both required; their roles differ. Preserve private-sharing defaults and do not automatically publish publicly or upload YouTube.
-
 
 ## Production QA 2026-10-25 — Ray v0.2.9 action evidence gate
 
