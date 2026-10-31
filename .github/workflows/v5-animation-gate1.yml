@@ -30,14 +30,14 @@ jobs:
       - name: Validate real MP4 streams and duration
         run: |
           ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 \
-            prototypes/khong-ai-vo-tay-v5-gate1/V5-GATE1-15s-1080p30.mp4 |
+            prototypes/V5-GATE1-15s-1080p30.mp4 |
             awk '{if ($1 < 14.95 || $1 > 15.05) exit 1}'
-          ffmpeg -hide_banner -loglevel error -i prototypes/khong-ai-vo-tay-v5-gate1/V5-GATE1-15s-1080p30.mp4 -f null -
+          ffmpeg -hide_banner -loglevel error -i prototypes/V5-GATE1-15s-1080p30.mp4 -f null -
       - uses: actions/upload-artifact@v4
         with:
           name: v5-gate1-15s-1080p30
           path: |
-            prototypes/khong-ai-vo-tay-v5-gate1/V5-GATE1-15s-1080p30.mp4
-            prototypes/khong-ai-vo-tay-v5-gate1/V5-GATE1-storyboard-from-render.jpg
+            prototypes/V5-GATE1-15s-1080p30.mp4
+            prototypes/V5-GATE1-storyboard-from-render.jpg
             prototypes/khong-ai-vo-tay-v5-gate1/manifest-v5-gate1.json
           retention-days: 90
