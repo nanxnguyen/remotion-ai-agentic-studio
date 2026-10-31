@@ -292,7 +292,7 @@ def score(path):
 
 def render():
  score(OUT/'original-gate1-score-48khz-stereo.wav')
- raw=OUT/'video-gate1-silent.mp4';final=ROOT/'V6-GATE1-15s-1080p30-EN-REVIEW.mp4'
+ raw=OUT/'video-gate1-silent.mp4';final=ROOT/'V6.1-GATE1-15s-1080p30-EN-REVIEW.mp4'
  cmd=['ffmpeg','-hide_banner','-loglevel','error','-y','-f','rawvideo','-pix_fmt','rgb24','-s','1920x1080','-r','30','-i','-','-c:v','libx264','-preset','veryfast','-crf','19','-pix_fmt','yuv420p','-movflags','+faststart',str(raw)]
  proc=subprocess.Popen(cmd,stdin=subprocess.PIPE,bufsize=12_000_000)
  times=[0.5,1.4,2.8,4.6,6.2,7.3,8.45,8.67,9.9,11.4,12.4,13.3,14.6]
@@ -311,9 +311,9 @@ def render():
  for j,(t,im) in enumerate(thumbs):
   x=(j%4)*tw;y=(j//4)*th
   sheet.paste(im.resize((tw,th),Image.Resampling.LANCZOS),(x,y));d.text((x+12,y+th-28),f'{t:04.1f}s',fill=(255,255,255),font=text_font(17,True))
- sheet.save(ROOT/'V6-GATE1-storyboard-from-render.jpg',quality=91)
- manifest={'title':'Không Ai Vỗ Tay Cho Ngày Đầu Tiên','version':'V6 - Gate 1 visual review','durationSeconds':SECONDS,'width':W,'height':H,'fps':FPS,'frameCount':FPS*SECONDS,'render':'native Pillow vector at 1920x1080 for every frame, no 720p source upscale','audio':'original synthesized 48k stereo AAC','sha256':hashlib.sha256(final.read_bytes()).hexdigest(),'status':'REVIEW-motion-visual-acting-unapproved','isFinalFilm':False,'source':'src/rig_v6.py, src/render_gate1_v6.py'}
- (ROOT/'manifest-v6-gate1.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2),encoding='utf-8')
+ sheet.save(ROOT/'V6.1-GATE1-storyboard-from-render.jpg',quality=91)
+ manifest={'title':'Không Ai Vỗ Tay Cho Ngày Đầu Tiên','version':'V6.1 - Gate 1 motion acting review','durationSeconds':SECONDS,'width':W,'height':H,'fps':FPS,'frameCount':FPS*SECONDS,'render':'native Pillow vector at 1920x1080 for every frame, no 720p source upscale','audio':'original synthesized 48k stereo AAC','sha256':hashlib.sha256(final.read_bytes()).hexdigest(),'status':'REVIEW-art-direction-unapproved','isFinalFilm':False,'source':'src/rig_v6.py, src/render_gate1_v6.py'}
+ (ROOT/'manifest-v6.1-gate1.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2),encoding='utf-8')
  print('COMPLETE',final,final.stat().st_size,flush=True)
 
 if __name__=='__main__':
