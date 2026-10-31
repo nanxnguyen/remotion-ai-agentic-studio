@@ -152,7 +152,6 @@ See [Contributing](CONTRIBUTING.md), [Security](SECURITY.md), [good first issues
 
 Code is released under the [MIT License](LICENSE). Media assets may have separate terms documented in their manifests.
 
-
 ```Dùng skill ray-video-10-phut (.claude/skills/ray-video-10-phut/SKILL.md) để sản xuất video mới.
 Skill này bọc ray-pineline-worflow-agent: đọc AGENTS.md, .agents/rules/, base SKILL.md,
 architecture-contract.md, review-gates.json trước, rồi references của ray-video-10-phut theo §1.

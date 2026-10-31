@@ -21,7 +21,13 @@ describe('videoRegistry', () => {
       {id: '07-ThuongHaySoReel', durationInFrames: 1769, fps: 30, width: 1080, height: 1920},
       {id: '08-XayDoiMinhReel', durationInFrames: 1776, fps: 30, width: 1080, height: 1920},
       {id: '09-ChungMinhDeLamGiReel', durationInFrames: 1728, fps: 30, width: 1080, height: 1920},
-      {id: '10-TiecNguoiHayNamThangReel', durationInFrames: 1422, fps: 30, width: 1080, height: 1920},
+      {
+        id: '10-TiecNguoiHayNamThangReel',
+        durationInFrames: 1422,
+        fps: 30,
+        width: 1080,
+        height: 1920,
+      },
       {
         id: '11-DungBienTuoi30ThanhBanAnReel',
         durationInFrames: 1549,
@@ -44,7 +50,14 @@ describe('videoRegistry', () => {
         height: 1920,
       },
       {id: '14-BanKhongYeuDuoiReel', durationInFrames: 720, fps: 30, width: 1080, height: 1920},
-      {id: '15-KhoangTrongTrongBucTranhReel', durationInFrames: 1542, fps: 30, width: 1080, height: 1920},
+      {
+        id: '15-KhoangTrongTrongBucTranhReel',
+        durationInFrames: 1720,
+        fps: 30,
+        width: 1080,
+        height: 1920,
+      },
+      {id: '16-SoNoiKhongReel', durationInFrames: 630, fps: 30, width: 1080, height: 1920},
     ]);
   });
 

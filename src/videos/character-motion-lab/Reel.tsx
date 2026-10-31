@@ -22,7 +22,12 @@ const Stage: React.FC<{children: React.ReactNode; caption: string}> = ({children
       fontFamily: 'Arial, sans-serif',
     }}
   >
-    <svg viewBox="0 0 1920 1080" width="100%" height="100%" style={{position: 'absolute', inset: 0}}>
+    <svg
+      viewBox="0 0 1920 1080"
+      width="100%"
+      height="100%"
+      style={{position: 'absolute', inset: 0}}
+    >
       <defs>
         <linearGradient id="floor" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0" stopColor="#333B51" />
@@ -87,7 +92,14 @@ const WalkToRun: React.FC = () => {
     <Stage caption="01 / FOOT-LOCK WALK → RUN">
       <g opacity={0.18}>
         {[0, 1, 2, 3, 4, 5, 6, 7].map((i) => (
-          <rect key={i} x={i * 260 - 20} y={350 + (i % 3) * 40} width={92} height={GROUND - 350 - (i % 3) * 40} fill="#48536C" />
+          <rect
+            key={i}
+            x={i * 260 - 20}
+            y={350 + (i % 3) * 40}
+            width={92}
+            height={GROUND - 350 - (i % 3) * 40}
+            fill="#48536C"
+          />
         ))}
       </g>
       <CharacterPuppet pose={pose} />
@@ -119,10 +131,41 @@ const Boxing: React.FC = () => {
       <path d={`M 1070 121 L ${baseX + offset} 352`} stroke="#77879B" strokeWidth="8" />
       <ellipse cx={baseX + offset} cy={GROUND + 12} rx="110" ry="15" fill="#000" opacity="0.35" />
       <g transform={`translate(${offset} 0)`}>
-        <rect x={baseX - bagRadius} y="350" width={bagRadius * 2} height="410" rx="68" fill="#A84C58" />
-        <rect x={baseX - bagRadius + 8} y="372" width="26" height="360" rx="13" fill="#DE7D7C" opacity="0.45" />
-        <line x1={baseX - 68} y1="432" x2={baseX + 68} y2="432" stroke="#422534" strokeWidth="7" opacity="0.65" />
-        <line x1={baseX - 68} y1="678" x2={baseX + 68} y2="678" stroke="#422534" strokeWidth="7" opacity="0.65" />
+        <rect
+          x={baseX - bagRadius}
+          y="350"
+          width={bagRadius * 2}
+          height="410"
+          rx="68"
+          fill="#A84C58"
+        />
+        <rect
+          x={baseX - bagRadius + 8}
+          y="372"
+          width="26"
+          height="360"
+          rx="13"
+          fill="#DE7D7C"
+          opacity="0.45"
+        />
+        <line
+          x1={baseX - 68}
+          y1="432"
+          x2={baseX + 68}
+          y2="432"
+          stroke="#422534"
+          strokeWidth="7"
+          opacity="0.65"
+        />
+        <line
+          x1={baseX - 68}
+          y1="678"
+          x2={baseX + 68}
+          y2="678"
+          stroke="#422534"
+          strokeWidth="7"
+          opacity="0.65"
+        />
       </g>
       <CharacterPuppet pose={pose} />
     </Stage>

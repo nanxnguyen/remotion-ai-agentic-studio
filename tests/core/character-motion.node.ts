@@ -1,10 +1,26 @@
 import {strict as assert} from 'node:assert';
 import {test} from 'node:test';
-import {bagDisplacement, blendPose, locomotionPose, punchPose, pushupPose, solveTwoBone} from '../../src/animation/character-motion.ts';
+import {
+  bagDisplacement,
+  blendPose,
+  locomotionPose,
+  punchPose,
+  pushupPose,
+  solveTwoBone,
+} from '../../src/animation/character-motion.ts';
 
-const approx = (a: number, b: number, epsilon = 0.001) => assert.ok(Math.abs(a - b) <= epsilon, `${a} != ${b}`);
+const approx = (a: number, b: number, epsilon = 0.001) =>
+  assert.ok(Math.abs(a - b) <= epsilon, `${a} != ${b}`);
 const finitePose = (pose: ReturnType<typeof locomotionPose>) => {
-  for (const point of [pose.head, pose.shoulder, pose.hip, ...pose.elbows, ...pose.hands, ...pose.knees, ...pose.feet]) {
+  for (const point of [
+    pose.head,
+    pose.shoulder,
+    pose.hip,
+    ...pose.elbows,
+    ...pose.hands,
+    ...pose.knees,
+    ...pose.feet,
+  ]) {
     assert.ok(Number.isFinite(point.x) && Number.isFinite(point.y));
   }
 };
@@ -43,8 +59,15 @@ test('stance foot remains fixed on the ground during walk and run', () => {
 });
 
 test('foot positions remain continuous across step changes', () => {
-  const speed = 150, duration = 78 / speed;
-  const before = locomotionPose({time: duration - 0.00001, originX: 0, groundY: 900, speed, mode: 'walk'});
+  const speed = 150,
+    duration = 78 / speed;
+  const before = locomotionPose({
+    time: duration - 0.00001,
+    originX: 0,
+    groundY: 900,
+    speed,
+    mode: 'walk',
+  });
   const after = locomotionPose({time: duration, originX: 0, groundY: 900, speed, mode: 'walk'});
   for (let i = 0; i < 2; i++) {
     assert.ok(Math.abs(before.feet[i].x - after.feet[i].x) < 1);
@@ -67,7 +90,8 @@ test('pushups keep palms and toes planted through repetitions', () => {
 });
 
 test('punch fist reaches the bag without crossing through it', () => {
-  const bagX = 1070, bagRadius = 78;
+  const bagX = 1070,
+    bagRadius = 78;
   const p = punchPose({time: 0.48, originX: 760, groundY: 900, bagX, bagRadius});
   approx(p.hands[1].x, bagX - bagRadius, 0.5);
   assert.ok(p.hands[1].x <= bagX - bagRadius + 0.5);
