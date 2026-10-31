@@ -18,8 +18,11 @@ jobs:
           python-version: "3.11"
       - name: Install Python render dependencies
         run: python -m pip install --disable-pip-version-check "Pillow>=11,<13" "numpy>=2,<3"
-      - name: Validate FFmpeg availability
-        run: ffmpeg -version | head -1
+      - name: Install FFmpeg on the clean runner
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg
+          ffmpeg -version | head -1
       - name: Run deterministic motion tests
         run: python -m unittest discover -s prototypes/khong-ai-vo-tay-v5-gate1 -p test_v5.py -v
       - name: Render 15-second original proof (native Full HD / 30fps)
