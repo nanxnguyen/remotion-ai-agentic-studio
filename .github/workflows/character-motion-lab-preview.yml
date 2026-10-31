@@ -32,4 +32,4 @@ jobs:
         with:
           name: character-motion-lab-preview
           path: out/character-motion-lab.mp4
-          retention-days: 7
+          retention-days: 90
