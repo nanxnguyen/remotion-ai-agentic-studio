@@ -1,0 +1,45 @@
+name: Bua Com Bo Doi V3 - Genuine Vbee narration
+on:
+  push:
+    branches:
+      - feat/bua-com-bo-doi-v3-production-20261031
+    paths:
+      - .github/workflows/bua-com-bo-doi-v3-voice.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  vbee-v3:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - name: Prepare FFmpeg
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+      - name: Create genuine Vbee Batch MP3
+        env:
+          VBEE_APP_ID: ${{ secrets.VBEE_APP_ID }}
+          VBEE_ACCESS_TOKEN: ${{ secrets.VBEE_ACCESS_TOKEN }}
+          VBEE_WEBHOOK_URL: https://iehmucsshklgjmxqyggp.supabase.co/functions/v1/vbee-batch-callback
+        run: |
+          set -euo pipefail
+          if [ -z "${VBEE_APP_ID:-}" ] || [ -z "${VBEE_ACCESS_TOKEN:-}" ]; then
+            echo "::error::Missing credentials" ; exit 1
+          fi
+          python3 .claude/skills/ray-emotional-stick-shorts/scripts/vbee_tts.py \
+            --text-file docs/bua-com-bo-doi/voice/narration-V3.txt \
+            --voice-code hn_male_thanhlong_talk_48k-fhg \
+            --speed 1.00 \
+            --attempts 60 \
+            --output /tmp/bua-com-bo-doi-V3-vbee.mp3
+          ffprobe -v error -show_entries format=duration,size -show_entries stream=codec_name,sample_rate -of json /tmp/bua-com-bo-doi-V3-vbee.mp3 | tee /tmp/voice-info.json
+          sha256sum /tmp/bua-com-bo-doi-V3-vbee.mp3 | tee /tmp/voice-sha256.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: bua-com-bo-doi-v3-vbee
+          path: |
+            /tmp/bua-com-bo-doi-V3-vbee.mp3
+            /tmp/voice-info.json
+            /tmp/voice-sha256.txt
+          if-no-files-found: error
+          retention-days: 7
