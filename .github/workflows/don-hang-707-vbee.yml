@@ -1,4 +1,4 @@
-name: Don Hang 707 Vbee Voice - Private Render Source
+name: Room 707 V4 Authentic Dialogue
 on:
   push:
     branches: [feat/don-hang-707-final-vbee-20261031]
@@ -7,7 +7,7 @@ on:
   pull_request:
     branches: [main]
     paths:
-      - 'docs/don-hang-707/voice-lines.json'
+      - 'docs/room707-v4/voice-lines.json'
       - 'scripts/gen-707-vbee.py'
       - '.github/workflows/don-hang-707-vbee.yml'
 permissions:
@@ -36,15 +36,15 @@ jobs:
       - name: Generate genuine Vbee Vietnamese narration
         run: |
           python3 scripts/gen-707-vbee.py \
-            --timeline docs/don-hang-707/voice-lines.json \
-            --out-dir public/audio/don-hang-707 \
+            --timeline docs/room707-v4/voice-lines.json \
+            --out-dir public/audio/room707-v4 \
             --voice-code hn_male_phuthang_stor_24k-stl \
-            --speed 1.07 \
+            --speed 1.18 \
             --webhook-url "$VBEE_WEBHOOK_URL"
       - name: Upload real voice output and durations
         uses: actions/upload-artifact@v4
         with:
-          name: room707-vbee-voice
-          path: public/audio/don-hang-707/
+          name: room707-v4-genuine-vbee
+          path: public/audio/room707-v4/
           if-no-files-found: error
           retention-days: 14
