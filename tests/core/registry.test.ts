@@ -52,11 +52,12 @@ describe('videoRegistry', () => {
       {id: '14-BanKhongYeuDuoiReel', durationInFrames: 720, fps: 30, width: 1080, height: 1920},
       {
         id: '15-KhoangTrongTrongBucTranhReel',
-        durationInFrames: 1542,
+        durationInFrames: 1720,
         fps: 30,
         width: 1080,
         height: 1920,
       },
+      {id: '16-SoNoiKhongReel', durationInFrames: 630, fps: 30, width: 1080, height: 1920},
     ]);
   });
 
