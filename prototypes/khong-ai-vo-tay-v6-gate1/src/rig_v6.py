@@ -68,9 +68,9 @@ def run(t:float,start=760.0,ground=858.0,camera=0)->Motion:
   joint,_=ik(anchor,foot,178,172,-1 if (i==0) else -1)
   knees.append(joint)
  # Deliberate opposite swing: hands near hip/ribcage, never over shoulder.
- wave=math.sin(2*math.pi*phase)
- hands=((shoulder[0]-31-39*wave,shoulder[1]+142-17*max(0,wave)),
-        (shoulder[0]+31+39*wave,shoulder[1]+139-17*max(0,-wave)))
+ wave=math.sin(math.pi*phase_time)  # switch lead arm every step, not every two steps
+ hands=((shoulder[0]-31-57*wave,shoulder[1]+142-17*max(0,wave)),
+        (shoulder[0]+31+57*wave,shoulder[1]+139-17*max(0,-wave)))
  elbows=[]
  for i,target in enumerate(hands):
   anchor=(shoulder[0]+(-23 if i==0 else 23),shoulder[1]+10)
@@ -135,7 +135,7 @@ def boxing(t:float,origin=930,ground=870,bag_front=1175)->Motion:
   knees.append(knee)
  # Fist aligned with leading surface only at contact; guard remains near chin.
  face=bag_front
- fist=(lerp(shoulder[0]+40,face,power)-42*recoil,shoulder[1]+43-20*power)
+ fist=(lerp(shoulder[0]+95,face,power)-42*recoil,shoulder[1]+88-65*power)
  guard=(shoulder[0]+5,shoulder[1]+105)
  anchors=((shoulder[0]-23,shoulder[1]+10),(shoulder[0]+23,shoulder[1]+10))
  elbows=[]
@@ -175,6 +175,6 @@ def helping(t:float,origin=690,ground=866)->tuple[Motion,Motion]:
  child_anchors=((child_sh[0]-20,child_sh[1]+7),(child_sh[0]+20,child_sh[1]+7))
  adult_elbows=(ik(adult_anchors[0],adult_back,86,83,-1)[0],ik(adult_anchors[1],adult_hand,137,129,1)[0])
  child_elbows=(ik(child_anchors[0],child_hand,102,100,-1)[0],ik(child_anchors[1],child_back,81,80,1)[0])
- adult=Motion('help',adult_head,adult_sh,adult_hip,adult_knees,adult_feet,adult_elbows,(adult_back,adult_hand),'hope',1)
- child=Motion('help',child_head,child_sh,child_hip,child_knees,child_feet,child_elbows,(child_hand,child_back),'hope',-1)
+ adult=Motion('help',adult_head,adult_sh,adult_hip,adult_knees,adult_feet,adult_elbows,(adult_back,adult_hand),'concern' if q < .44 else 'hope',1)
+ child=Motion('help',child_head,child_sh,child_hip,child_knees,child_feet,child_elbows,(child_hand,child_back),'uncertain' if q < .59 else 'hope',-1)
  return adult,child
