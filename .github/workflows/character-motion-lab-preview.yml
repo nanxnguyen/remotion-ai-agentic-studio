@@ -20,6 +20,10 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
+      - name: Typecheck all TypeScript
+        run: npm run typecheck
+      - name: Test the character motion invariants
+        run: node --experimental-strip-types --test tests/core/character-motion.node.ts
       - name: Render diagnostic 10s MP4
         run: npx remotion render src/index.ts CharacterMotionLab out/character-motion-lab.mp4 --concurrency=2
       - name: Verify output is nonempty
