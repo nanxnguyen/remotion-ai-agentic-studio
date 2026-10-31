@@ -32,10 +32,10 @@ SHA-256: `ce19276870dbd312610ec30403e53c605847dffd135a2f275e0dcddc34f70e04`.
 - MP4 was rendered and inspected, and its video/audio stream metadata verified.
 - 24-frame storyboard and representative frames extracted from the actual encoded MP4 were inspected.
 - **This was produced using a standalone Python/FFmpeg animator, not the repository's native Remotion composition system.** Do not describe it as integrated into `src/videos/registry.ts`.
-- This PR is documentation and asset handoff. The Python sources are delivered in the linked Drive ZIP; the full standalone Python film has not been ported to Remotion.
+- This PR preserves the full original Python sources in `scripts/original-films/khong-ai-vo-tay/` and documents the final media handoff. The film is not yet ported to native Remotion.
 - No public publishing, and no claim of studio-quality character acting or monetization guarantees.
 - Human creative approval and a proper Remotion port remain separate follow-up tasks.
 
 ## Local source
 
-For reproducibility, download the complete source ZIP and inspect `pilot/build.py` and `final/build_final.py`. The current scripts refer to the original `/mnt/data/` working paths; adjust their paths when moving them to a different checkout.
+Original reproducible scripts are now versioned under `scripts/original-films/khong-ai-vo-tay/`. On a Linux system with Python 3.12+, NumPy, Pillow, and FFmpeg installed, run `python scripts/original-films/khong-ai-vo-tay/build_final.py` from the repository root. It writes MP4, music, thumbnail, storyboard and manifest to its local `out/` folder. Running the complete render is resource intensive; exclude generated MP4 and WAV from commits. The exact produced film bytes and QA-reviewed artifacts are stored in Google Drive above.
