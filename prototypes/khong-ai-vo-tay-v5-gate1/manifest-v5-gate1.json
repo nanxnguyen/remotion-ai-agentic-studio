@@ -1,0 +1,15 @@
+{
+  "title": "Không Ai Vỗ Tay Cho Ngày Đầu Tiên",
+  "version": "V5 - Gate 1 technical proof",
+  "durationSeconds": 15,
+  "width": 1920,
+  "height": 1080,
+  "fps": 30,
+  "frameCount": 450,
+  "render": "native Pillow vector at 1920x1080 for every frame, no 720p source upscale",
+  "audio": "original synthesized 48k stereo AAC",
+  "sha256": "33439d6de0c239d36b9790380f24b71d9ee2d5b58b59050d4ea5168fe8e07d8b",
+  "status": "proof-awaiting-human-art-direct-review",
+  "isFinalFilm": false,
+  "source": "src/rig_v5.py, src/render_gate1.py"
+}
