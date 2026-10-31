@@ -137,7 +137,7 @@ def main():
         timeline.append({
             "id": i, "audio_file": dest.name, "text": scene["narration"],
             "voice_code": args.voice_code, "audio_seconds": round(duration, 3),
-            "visual_start_seconds": roundscene.get("start", (i-1)*5.5), 3,
+            "visual_start_seconds": round(float(scene.get("start", (i-1)*5.5)), 3),
             "sha256": hashlib.sha256(dest.read_bytes()).hexdigest()
         })
         print(f"Vbee clip s{i}.mp3: {duration:.2f}s", flush=True)
