@@ -1,0 +1,195 @@
+import React from 'react';
+import {
+  AbsoluteFill, Audio, Easing, Img, Sequence, interpolate, staticFile, useCurrentFrame,
+} from 'remotion';
+import {FitText} from '../../core';
+import {timeline} from './timeline';
+
+const SCENES = [
+  {
+    "id": "scene01",
+    "headline": "ĐÀI ĐÃ TẮT SÓNG",
+    "caption": "Đừng nghe một mình.",
+    "image": "images/ban-tin-luc-0-gio-07/scene-01.png",
+    "voice": "audio/ban-tin-luc-0-gio-07/s1.mp3"
+  },
+  {
+    "id": "scene02",
+    "headline": "ĐÈN ON AIR",
+    "caption": "Đèn vẫn sáng.",
+    "image": "images/ban-tin-luc-0-gio-07/scene-02.png",
+    "voice": "audio/ban-tin-luc-0-gio-07/s2.mp3"
+  },
+  {
+    "id": "scene03",
+    "headline": "AI ĐANG GỌI DUY?",
+    "caption": "Duy, nghe đi.",
+    "image": "images/ban-tin-luc-0-gio-07/scene-03.png",
+    "voice": "audio/ban-tin-luc-0-gio-07/s3.mp3"
+  },
+  {
+    "id": "scene04",
+    "headline": "ÂM LƯỢNG BẰNG KHÔNG",
+    "caption": "Duy kéo cần âm lượng về không. Tiếng nói vẫn vang.",
+    "image": "images/ban-tin-luc-0-gio-07/scene-04.png",
+    "voice": "audio/ban-tin-luc-0-gio-07/s4.mp3"
+  },
+  {
+    "id": "scene05",
+    "headline": "BẢN TIN 00:07",
+    "caption": "Bản tin tự mở: “Duy, đừng mở cửa.”",
+    "image": "images/ban-tin-luc-0-gio-07/scene-05.png",
+    "voice": "audio/ban-tin-luc-0-gio-07/s5.mp3"
+  },
+  {
+    "id": "scene06",
+    "headline": "HÀNH LANG KHÔNG NGƯỜI",
+    "caption": "Camera hành lang trống trơn. Tiếng gõ vang sau lưng.",
+    "image": "images/ban-tin-luc-0-gio-07/scene-06.png",
+    "voice": "audio/ban-tin-luc-0-gio-07/s6.mp3"
+  },
+  {
+    "id": "scene07",
+    "headline": "NGƯỜI TRONG PHẢN CHIẾU",
+    "caption": "Trong kính, một Duy khác đang ngồi trước micro.",
+    "image": "images/ban-tin-luc-0-gio-07/scene-07.png",
+    "voice": "audio/ban-tin-luc-0-gio-07/s7.mp3"
+  },
+  {
+    "id": "scene08",
+    "headline": "MICRO QUAY LẠI",
+    "caption": "Anh quay lại. Ghế trống. Nhưng micro tự xoay về phía anh.",
+    "image": "images/ban-tin-luc-0-gio-07/scene-08.png",
+    "voice": "audio/ban-tin-luc-0-gio-07/s8.mp3"
+  },
+  {
+    "id": "scene09",
+    "headline": "BẢN TIN CUỐI",
+    "caption": "Bản tin cuối vang lên: “Người đang nghe chương trình này... là Duy của ngày mai.”",
+    "image": "images/ban-tin-luc-0-gio-07/scene-09.png",
+    "voice": "audio/ban-tin-luc-0-gio-07/s9.mp3"
+  },
+  {
+    "id": "scene10",
+    "headline": "ĐỪNG TẮT RADIO",
+    "caption": "Nếu bản tin khiến bạn lạnh gáy, hãy thả tim và theo dõi Hẻm Chuyện Lạ.",
+    "image": "images/ban-tin-luc-0-gio-07/scene-10.png",
+    "voice": "audio/ban-tin-luc-0-gio-07/s10.mp3"
+  }
+] as const;
+
+type ScenePlateProps = {
+  image: string;
+  headline: string;
+  caption: string;
+  duration: number;
+  index: number;
+  fadeIn: boolean;
+  fadeOut: boolean;
+};
+
+const ScenePlate: React.FC<ScenePlateProps> = ({
+  image, headline, caption, duration, index, fadeIn, fadeOut,
+}) => {
+  const frame = useCurrentFrame();
+  const eased = Easing.inOut(Easing.quad);
+  const scale = interpolate(frame, [0, Math.max(1,duration)], [1.015, 1.075], {
+    easing: eased, extrapolateLeft: 'clamp', extrapolateRight: 'clamp',
+  });
+  const drift = index % 2 === 0 ? -20 : 20;
+  const x = interpolate(frame, [0, Math.max(1,duration)], [0, drift], {
+    easing: eased, extrapolateLeft: 'clamp', extrapolateRight: 'clamp',
+  });
+  const fadeInOpacity = fadeIn
+    ? interpolate(frame, [0, 12], [0, 1], {extrapolateLeft:'clamp',extrapolateRight:'clamp'})
+    : 1;
+  const fadeOutOpacity = fadeOut
+    ? interpolate(frame, [Math.max(0,duration-12), duration], [1, 0], {extrapolateLeft:'clamp',extrapolateRight:'clamp'})
+    : 1;
+  const opacity = Math.min(fadeInOpacity, fadeOutOpacity);
+  return (
+    <AbsoluteFill style={{backgroundColor:'#03080D', opacity, overflow:'hidden'}}>
+      <Img
+        src={staticFile(image)}
+        style={{
+          width:'100%', height:'100%', objectFit:'cover',
+          transform:`translate3d(${x}px,0,0) scale(${scale})`,
+          filter:'saturate(0.82) contrast(1.12) brightness(0.88)',
+        }}
+      />
+      <AbsoluteFill style={{background:'linear-gradient(180deg, rgba(0,0,0,0.72) 0%, transparent 28%, transparent 54%, rgba(0,0,0,0.82) 100%)'}} />
+      <div style={{position:'absolute',top:94,left:72,right:72,display:'flex',alignItems:'center',gap:16}}>
+        <div style={{width:7,height:34,background:'#D64A43',boxShadow:'0 0 22px rgba(220,55,48,.45)'}} />
+        <div style={{fontFamily:'Noto Sans',fontSize:22,fontWeight:800,letterSpacing:3,color:'#E8E2D4',textShadow:'0 2px 10px #000'}}>HẺM CHUYỆN LẠ</div>
+      </div>
+      <div style={{position:'absolute',top:218,left:72,right:72}}>
+        <FitText
+          text={headline}
+          maxWidth={930}
+          maxLines={1}
+          fontFamily='Noto Sans'
+          fontWeight={900}
+          minFontSize={38}
+          maxFontSize={60}
+          style={{color:'#F4EBDD',letterSpacing:1.2,textShadow:'0 3px 18px rgba(0,0,0,.95)'}}
+        />
+      </div>
+      <div style={{position:'absolute',left:72,right:72,bottom:250,paddingTop:42,paddingBottom:34,borderTop:'2px solid rgba(238,225,199,.32)'}}>
+        <FitText
+          text={caption}
+          maxWidth={930}
+          maxLines={2}
+          fontFamily='Noto Sans'
+          fontWeight={700}
+          minFontSize={39}
+          maxFontSize={58}
+          style={{color:'#FFF9ED',textShadow:'0 3px 16px rgba(0,0,0,.98)'}}
+        />
+      </div>
+      <div style={{position:'absolute',left:72,right:72,bottom:214,height:3,background:'rgba(230,224,210,.16)'}}>
+        <div style={{height:'100%',width:'100%',background:'rgba(220,70,62,.72)'}} />
+      </div>
+    </AbsoluteFill>
+  );
+};
+
+export const BanTinLuc0Gio07Reel: React.FC = () => (
+  <AbsoluteFill style={{backgroundColor:'#02060A'}}>
+    <Audio src={staticFile('audio/ban-tin-luc-0-gio-07/ambience.wav')} volume={0.18} />
+    {SCENES.map((scene, index) => {
+      const timing = timeline.shots[scene.id];
+      const visualFrom = index === 0 ? timing.from : Math.max(0, timing.from - 12);
+      const visualDuration = timing.duration + (index === 0 ? 0 : 12);
+      return (
+        <Sequence
+          key={scene.id}
+          from={visualFrom}
+          durationInFrames={visualDuration}
+        >
+          <ScenePlate
+            image={scene.image}
+            headline={scene.headline}
+            caption={scene.caption}
+            duration={visualDuration}
+            index={index}
+            fadeIn={index > 0}
+            fadeOut={index < SCENES.length - 1}
+          />
+        </Sequence>
+      );
+    })}
+    {SCENES.map((scene) => {
+      const timing = timeline.shots[scene.id];
+      const voiceIndex = Number(scene.id.slice(-2));
+      return (
+        <Sequence
+          key={`voice-${scene.id}`}
+          from={timing.from}
+          durationInFrames={timeline.totalDurationInFrames - timing.from}
+        >
+          <Audio src={staticFile(`audio/ban-tin-luc-0-gio-07/s${voiceIndex}.mp3`)} volume={1} />
+        </Sequence>
+      );
+    })}
+  </AbsoluteFill>
+);
