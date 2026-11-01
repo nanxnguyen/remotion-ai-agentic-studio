@@ -1,0 +1,10 @@
+{
+  "provider": "Vbee Batch API",
+  "voice_code": "hn_male_phuthang_stor_24k-stl",
+  "voice_name": "Anh Khôi nâng cao/Beta",
+  "language": "vi-VN",
+  "delivery": "male Vietnamese storyteller, low register, intimate and controlled suspense; no screaming",
+  "speed": 0.98,
+  "clone": false,
+  "authorization": "No voice cloning used; standard provider voice."
+}
