@@ -43,6 +43,11 @@ jobs:
           run-id: 41328503584
           path: /tmp/vbee-fixes
 
+      - name: Install FFmpeg for voice duration verification
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg
+
       - name: Assemble voice library and verify script-to-audio integrity
         run: |
           set -euo pipefail
@@ -106,11 +111,11 @@ jobs:
           print("VOICE QA PASS: 40/40 current-script MP3 clips verified.")
           PY
 
-      - name: Install FFmpeg, Noto Sans and Python image dependencies
+      - name: Install Noto Sans and Python image dependencies
         run: |
           set -euo pipefail
           sudo apt-get update -qq
-          sudo apt-get install -y -qq ffmpeg fonts-noto-core
+          sudo apt-get install -y -qq fonts-noto-core
           fc-cache -f
           mkdir -p public/fonts
           cp /usr/share/fonts/truetype/noto/NotoSans-Regular.ttf public/fonts/
