@@ -10,70 +10,70 @@ const SCENES = [
   {
     "id": "scene01",
     "headline": "SẠP HÀNG CUỐI CÙNG",
-    "caption": "Đừng nhận đồ lạ.",
+    "caption": "ĐỪNG NHẬN ĐỒ LẠ",
     "image": "images/sap-hang-khong-co-trong-so/scene-01.png",
     "voice": "audio/sap-hang-khong-co-trong-so/s1.mp3"
   },
   {
     "id": "scene02",
     "headline": "CHỢ ĐÃ ĐÓNG",
-    "caption": "Một sạp vẫn sáng.",
+    "caption": "MỘT SẠP VẪN SÁNG",
     "image": "images/sap-hang-khong-co-trong-so/scene-02.png",
     "voice": "audio/sap-hang-khong-co-trong-so/s2.mp3"
   },
   {
     "id": "scene03",
     "headline": "AI GỌI TÊN THUẬN",
-    "caption": "Họ gọi tên Thuận.",
+    "caption": "HỌ GỌI TÊN THUẬN",
     "image": "images/sap-hang-khong-co-trong-so/scene-03.png",
     "voice": "audio/sap-hang-khong-co-trong-so/s3.mp3"
   },
   {
     "id": "scene04",
     "headline": "SƠ ĐỒ BỊ THIẾU",
-    "caption": "Thuận mở sơ đồ. Dãy này không có sạp nào.",
+    "caption": "KHÔNG CÓ TRÊN SƠ ĐỒ",
     "image": "images/sap-hang-khong-co-trong-so/scene-04.png",
     "voice": "audio/sap-hang-khong-co-trong-so/s4.mp3"
   },
   {
     "id": "scene05",
     "headline": "HAI SUẤT ĂN",
-    "caption": "Máy in tự chạy: hai suất, ghi tên Thuận.",
+    "caption": "HÓA ĐƠN 2 SUẤT",
     "image": "images/sap-hang-khong-co-trong-so/scene-05.png",
     "voice": "audio/sap-hang-khong-co-trong-so/s5.mp3"
   },
   {
     "id": "scene06",
     "headline": "CÓ NGƯỜI ĐỢI",
-    "caption": "Một chiếc ghế tự kéo ra. Tô thứ hai bốc khói.",
+    "caption": "CÓ NGƯỜI ĐỢI",
     "image": "images/sap-hang-khong-co-trong-so/scene-06.png",
     "voice": "audio/sap-hang-khong-co-trong-so/s6.mp3"
   },
   {
     "id": "scene07",
     "headline": "CAMERA GHI LẠI",
-    "caption": "Camera ghi Thuận đang ngồi đối diện một người.",
+    "caption": "AI ĐANG NGỒI ĐÓ?",
     "image": "images/sap-hang-khong-co-trong-so/scene-07.png",
     "voice": "audio/sap-hang-khong-co-trong-so/s7.mp3"
   },
   {
     "id": "scene08",
     "headline": "KHUÔN MẶT THỨ HAI",
-    "caption": "Người kia quay mặt. Khuôn mặt giống hệt Thuận.",
+    "caption": "KHUÔN MẶT THỨ HAI",
     "image": "images/sap-hang-khong-co-trong-so/scene-08.png",
     "voice": "audio/sap-hang-khong-co-trong-so/s8.mp3"
   },
   {
     "id": "scene09",
     "headline": "CHỈ MỘT NGƯỜI RA",
-    "caption": "Camera tua lại: hai người bước vào sạp. Chỉ một người đi ra.",
+    "caption": "CHỈ MỘT NGƯỜI RỜI ĐI",
     "image": "images/sap-hang-khong-co-trong-so/scene-09.png",
     "voice": "audio/sap-hang-khong-co-trong-so/s9.mp3"
   },
   {
     "id": "scene10",
     "headline": "SẠP VẪN CÒN SÁNG",
-    "caption": "Nếu bạn thấy sạp hàng ấy, hãy thả tim và theo dõi Hẻm Chuyện Lạ.",
+    "caption": "SẠP VẪN CÒN MỞ",
     "image": "images/sap-hang-khong-co-trong-so/scene-10.png",
     "voice": "audio/sap-hang-khong-co-trong-so/s10.mp3"
   }
@@ -142,8 +142,8 @@ const ScenePlate: React.FC<ScenePlateProps> = ({
           maxLines={2}
           fontFamily='Noto Sans'
           fontWeight={700}
-          minFontSize={39}
-          maxFontSize={58}
+          minFontSize={30}
+          maxFontSize={54}
           style={{color:'#FFF9ED',textShadow:'0 3px 16px rgba(0,0,0,.98)'}}
         />
       </div>
