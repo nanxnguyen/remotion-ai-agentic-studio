@@ -1,0 +1,202 @@
+name: Hem Chuyen La - Four Shorts Render
+
+on:
+  push:
+    branches:
+      - feat/hem-chuyen-la-four-shorts-20261101
+    paths:
+      - .github/workflows/hem-chuyen-la-four-render.yml
+  workflow_dispatch:
+
+permissions:
+  actions: read
+  contents: read
+
+jobs:
+  render-four-shorts:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    env:
+      BASE_VBEE_RUN_ID: "41321087439"
+      FIX_VBEE_RUN_ID: "41328503584"
+    steps:
+      - name: Checkout production-ready short compositions
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+
+      - name: Download original 40-clip Vbee batch
+        uses: actions/download-artifact@v4
+        with:
+          name: hem-chuyen-la-four-vbee-voices
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: 41321087439
+          path: /tmp/vbee-base
+
+      - name: Download corrected Vbee hook takes
+        uses: actions/download-artifact@v4
+        with:
+          name: hem-chuyen-la-vbee-voice-fixes
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: 41328503584
+          path: /tmp/vbee-fixes
+
+      - name: Assemble voice library and verify script-to-audio integrity
+        run: |
+          set -euo pipefail
+          mkdir -p public/audio
+          cp -a /tmp/vbee-base/. public/audio/
+          cp -a /tmp/vbee-fixes/. public/audio/
+          python3 - <<'PY'
+          import hashlib, json, subprocess
+          from pathlib import Path
+
+          slugs = [
+              "hanh-khach-khong-buoc-ra",
+              "ban-tin-luc-0-gio-07",
+              "sap-hang-khong-co-trong-so",
+              "cot-den-thu-tam",
+          ]
+          fixed = {
+              ("ban-tin-luc-0-gio-07", 3),
+              ("cot-den-thu-tam", 3),
+          }
+          fix_report = json.loads(Path("public/audio/voice-fixes-report.json").read_text(encoding="utf-8"))
+          fix_hashes = {(row["slug"], row["id"]): row["sha256"] for row in fix_report}
+          assert set(fix_hashes) == fixed, "The Vbee correction artifact is incomplete or unexpected."
+          summary = []
+          for slug in slugs:
+              manifest = json.loads((Path("docs") / slug / "storyboard.json").read_text(encoding="utf-8"))
+              voice = json.loads((Path("docs") / slug / "voice.json").read_text(encoding="utf-8"))
+              base_rows = json.loads((Path("public/audio") / slug / "measured-timeline.json").read_text(encoding="utf-8"))
+              base_by_id = {row["id"]: row for row in base_rows}
+              assert len(manifest) == 10 and len(voice) == 10, slug
+              for scene in manifest:
+                  i = int(scene["id"])
+                  assert voice[f"s{i}"] == scene["narration"], f"voice.json mismatch: {slug}/s{i}"
+                  audio = Path("public/audio") / slug / f"s{i}.mp3"
+                  assert audio.is_file() and audio.stat().st_size > 1000, f"Missing/empty {audio}"
+                  digest = hashlib.sha256(audio.read_bytes()).hexdigest()
+                  if (slug, i) in fixed:
+                      assert digest == fix_hashes[(slug, i)], f"Wrong corrected take: {audio}"
+                  else:
+                      row = base_by_id[i]
+                      assert row["text"] == scene["narration"], f"Stale narration in {audio}: {row['text']!r}"
+                      assert digest == row["sha256"], f"Base audio checksum mismatch: {audio}"
+                  seconds = float(subprocess.check_output([
+                      "ffprobe", "-v", "error", "-show_entries", "format=duration",
+                      "-of", "default=noprint_wrappers=1:nokey=1", str(audio)
+                  ], text=True).strip())
+                  assert seconds <= float(scene["duration_sec"]) - 0.1 + 0.002, (
+                      f"Voice exceeds safe shot duration: {slug}/s{i} {seconds:.3f}s "
+                      f"> {scene['duration_sec']:.3f}s"
+                  )
+                  summary.append({
+                      "slug": slug, "scene": i, "audio_seconds": round(seconds, 3),
+                      "slot_seconds": scene["duration_sec"], "sha256": digest
+                  })
+              print(f"{slug}: 10/10 Vbee takes match the approved script and fit their shots.")
+          assert len(summary) == 40
+          Path("out").mkdir(exist_ok=True)
+          Path("out/voice-qa.json").write_text(
+              json.dumps(summary, ensure_ascii=False, indent=2), encoding="utf-8"
+          )
+          print("VOICE QA PASS: 40/40 current-script MP3 clips verified.")
+          PY
+
+      - name: Install FFmpeg, Noto Sans and Python image dependencies
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg fonts-noto-core
+          fc-cache -f
+          mkdir -p public/fonts
+          cp /usr/share/fonts/truetype/noto/NotoSans-Regular.ttf public/fonts/
+          cp /usr/share/fonts/truetype/noto/NotoSans-Bold.ttf public/fonts/
+          python3 -m pip install --disable-pip-version-check pillow numpy
+          test -s public/fonts/NotoSans-Regular.ttf
+          test -s public/fonts/NotoSans-Bold.ttf
+          ffmpeg -version | head -n 1
+          fc-match "Noto Sans"
+
+      - name: Generate 40 original vertical scene plates and four ambient beds
+        run: |
+          set -euo pipefail
+          python3 scripts/hem_chuyen_la_generate_art.py
+          test "$(find public/images -path '*/scene-*.png' -type f | wc -l)" -eq 40
+          test "$(find public/audio -name ambience.wav -type f | wc -l)" -eq 4
+
+      - name: Measure all Vbee clips and build voice-driven timelines
+        run: |
+          set -euo pipefail
+          node scripts/measure-voice.mjs hanh-khach-khong-buoc-ra --out src/videos/hanh-khach-khong-buoc-ra/voice-durations.ts
+          node scripts/measure-voice.mjs ban-tin-luc-0-gio-07 --out src/videos/ban-tin-luc-0-gio-07/voice-durations.ts
+          node scripts/measure-voice.mjs sap-hang-khong-co-trong-so --out src/videos/sap-hang-khong-co-trong-so/voice-durations.ts
+          node scripts/measure-voice.mjs cot-den-thu-tam --out src/videos/cot-den-thu-tam/voice-durations.ts
+
+      - name: Install Node dependencies
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: npm ci
+        run: npm ci
+
+      - name: Type-check Remotion compositions
+        run: npm run typecheck
+
+      - name: Render Hành Khách Không Bước Ra
+        run: npm run render -- --id 18-HanhKhachKhongBuocRa --out out/01-hanh-khach-khong-buoc-ra.mp4
+      - name: Render Bản Tin Lúc 0 Giờ 07
+        run: npm run render -- --id 19-BanTinLuc0Gio07 --out out/02-ban-tin-luc-0-gio-07.mp4
+      - name: Render Sạp Hàng Không Có Trong Sổ
+        run: npm run render -- --id 20-SapHangKhongCoTrongSo --out out/03-sap-hang-khong-co-trong-so.mp4
+      - name: Render Cột Đèn Thứ Tám
+        run: npm run render -- --id 21-CotDenThuTam --out out/04-cot-den-thu-tam.mp4
+
+      - name: Verify final MP4 technical properties
+        run: |
+          python3 - <<'PY'
+          import json, subprocess
+          from pathlib import Path
+          files = sorted(Path("out").glob("*.mp4"))
+          assert len(files) == 4, [p.name for p in files]
+          results = []
+          for file in files:
+              data = json.loads(subprocess.check_output([
+                  "ffprobe", "-v", "error", "-show_streams", "-show_format", "-of", "json", str(file)
+              ], text=True))
+              video = next(s for s in data["streams"] if s["codec_type"] == "video")
+              audio = next(s for s in data["streams"] if s["codec_type"] == "audio")
+              duration = float(data["format"]["duration"])
+              assert (video["width"], video["height"]) == (1080, 1920), (file, video)
+              assert video["codec_name"] == "h264" and video["pix_fmt"] == "yuv420p", (file, video)
+              assert video["r_frame_rate"] == "30/1", (file, video)
+              assert audio["codec_name"] == "aac" and int(audio["channels"]) == 2, (file, audio)
+              assert 30 <= duration <= 45, (file, duration)
+              results.append({
+                  "file": file.name, "duration_seconds": round(duration, 3),
+                  "resolution": "1080x1920", "fps": 30,
+                  "video": "H.264/yuv420p", "audio": "AAC/stereo"
+              })
+              print(results[-1])
+          Path("out/render-qa.json").write_text(json.dumps(results, indent=2), encoding="utf-8")
+          print("RENDER QA PASS: all four vertical shorts are encoded and verified.")
+          PY
+
+      - name: Upload four rendered shorts for private review
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: hem-chuyen-la-four-rendered-shorts
+          path: |
+            out/01-hanh-khach-khong-buoc-ra.mp4
+            out/02-ban-tin-luc-0-gio-07.mp4
+            out/03-sap-hang-khong-co-trong-so.mp4
+            out/04-cot-den-thu-tam.mp4
+            out/voice-qa.json
+            out/render-qa.json
+          retention-days: 14
+          if-no-files-found: warn
