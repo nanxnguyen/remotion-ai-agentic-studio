@@ -1,0 +1,112 @@
+[
+  {
+    "id": 1,
+    "start_sec": 0,
+    "duration_sec": 2,
+    "narration": "Đừng rời mắt.",
+    "caption": "ĐỪNG RỜI MẮT",
+    "visual": "Màn hình CCTV trong phòng điều khiển; bóng người đứng trong cabin tối, Minh ở tiền cảnh.",
+    "motion": "Push-in chậm vào màn hình; bóng người không đổi vị trí.",
+    "sfx": "Hum điện lạnh",
+    "speaker": "narrator"
+  },
+  {
+    "id": 2,
+    "start_sec": 2,
+    "duration_sec": 2,
+    "narration": "Cabin trống. Camera có người.",
+    "caption": "CABIN TRỐNG",
+    "visual": "Cửa thang máy mở vào cabin hoàn toàn trống; màn hình CCTV phía cạnh vẫn hiện một bóng người.",
+    "motion": "Match cut giữa cabin thật và màn hình camera.",
+    "sfx": "Tiếng cửa thang máy",
+    "speaker": "narrator"
+  },
+  {
+    "id": 3,
+    "start_sec": 4,
+    "duration_sec": 2,
+    "narration": "Người đó giống Minh.",
+    "caption": "GIỐNG HỆT MINH",
+    "visual": "Cận mặt Minh nhìn màn hình; bóng người trên CCTV có cùng khuôn mặt và đồng phục.",
+    "motion": "Rack-focus mô phỏng từ mặt Minh sang màn hình.",
+    "sfx": "Nhịp bass thấp",
+    "speaker": "narrator"
+  },
+  {
+    "id": 4,
+    "start_sec": 6,
+    "duration_sec": 4,
+    "narration": "Minh quay lại. Hành lang không một bóng người.",
+    "caption": "HÀNH LANG TRỐNG",
+    "visual": "Minh quay phắt về hành lang chung cư; hành lang kéo dài, không có ai.",
+    "motion": "Camera dolly lùi nhẹ, đèn hành lang nhấp nháy rất nhẹ.",
+    "sfx": "Gió lùa xa",
+    "speaker": "narrator"
+  },
+  {
+    "id": 5,
+    "start_sec": 10,
+    "duration_sec": 4,
+    "narration": "Anh ngắt cầu dao. Số mười ba vẫn sáng.",
+    "caption": "TẦNG 13",
+    "visual": "Bàn tay Minh gạt cầu dao xuống; bảng số tầng vẫn phát sáng số 13 màu đỏ.",
+    "motion": "Insert tay gạt cầu dao rồi tilt lên bảng số.",
+    "sfx": "Tiếng công tắc",
+    "speaker": "narrator"
+  },
+  {
+    "id": 6,
+    "start_sec": 14,
+    "duration_sec": 4,
+    "narration": "Trên màn hình, bản sao áp tay lên kính.",
+    "caption": "BÀN TAY SAU KÍNH",
+    "visual": "Cận cảnh bàn tay của bản sao áp lên mặt kính cabin trên màn hình CCTV.",
+    "motion": "Slow push-in; phản chiếu ánh đèn chạy trên kính.",
+    "sfx": "Tiếng chạm kính",
+    "speaker": "narrator"
+  },
+  {
+    "id": 7,
+    "start_sec": 18,
+    "duration_sec": 4,
+    "narration": "Nó gõ ba tiếng, rồi chỉ thẳng vào Minh.",
+    "caption": "BA TIẾNG GÕ",
+    "visual": "Bản sao gõ ba lần lên kính rồi đưa ngón tay chỉ thẳng về phía camera.",
+    "motion": "Ba nhịp rung ánh sáng nhỏ, không dùng glitch.",
+    "sfx": "Cộc... cộc... cộc...",
+    "speaker": "narrator"
+  },
+  {
+    "id": 8,
+    "start_sec": 22,
+    "duration_sec": 6,
+    "narration": "Cửa thật mở ra. Cabin trống, nhưng camera vẫn ghi Minh đang đứng bên trong.",
+    "caption": "AI Ở BÊN TRONG?",
+    "visual": "Cửa cabin thật mở ra trống không; màn hình CCTV vẫn thấy Minh đứng bên trong và nhìn ra.",
+    "motion": "Crossfade từ cửa thật sang khung CCTV, giữ cùng trục không gian.",
+    "sfx": "Tiếng cửa mở, ambience hạ",
+    "speaker": "narrator"
+  },
+  {
+    "id": 9,
+    "start_sec": 28,
+    "duration_sec": 9,
+    "narration": "Sáng hôm sau, thang máy mở. Không ai bước ra. Chỉ còn thẻ nhân viên của Minh nằm trên sàn.",
+    "caption": "KHÔNG AI BƯỚC RA",
+    "visual": "Cabin sáng đèn nhưng trống; thẻ nhân viên Minh nằm sát ngưỡng cửa, camera CCTV không có người.",
+    "motion": "Dolly chậm vào chiếc thẻ, giữ hình 1 giây sau lời thoại.",
+    "sfx": "Âm trầm ngân dài",
+    "speaker": "narrator"
+  },
+  {
+    "id": 10,
+    "start_sec": 37,
+    "duration_sec": 5,
+    "narration": "Nếu bạn thấy lạnh gáy, hãy thả tim và theo dõi Hẻm Chuyện Lạ.",
+    "caption": "CÒN BẠN THÌ SAO?",
+    "visual": "Cửa thang máy từ từ khép lại; số 13 vẫn sáng trong bóng tối.",
+    "motion": "Fade mềm sang đen; icon tim và theo dõi nhỏ, tinh tế.",
+    "sfx": "Một tiếng chuông thang máy xa",
+    "speaker": "narrator"
+  }
+]
