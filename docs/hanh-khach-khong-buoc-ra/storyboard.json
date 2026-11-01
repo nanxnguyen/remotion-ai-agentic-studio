@@ -2,7 +2,7 @@
   {
     "id": 1,
     "start_sec": 0,
-    "duration_sec": 2,
+    "duration_sec": 1.9,
     "narration": "Đừng rời mắt.",
     "caption": "ĐỪNG RỜI MẮT",
     "visual": "Màn hình CCTV trong phòng điều khiển; bóng người đứng trong cabin tối, Minh ở tiền cảnh.",
@@ -12,8 +12,8 @@
   },
   {
     "id": 2,
-    "start_sec": 2,
-    "duration_sec": 2,
+    "start_sec": 1.9,
+    "duration_sec": 2.1,
     "narration": "Camera có người.",
     "caption": "CAMERA CÓ NGƯỜI",
     "visual": "Cửa thang máy mở vào cabin hoàn toàn trống; màn hình CCTV phía cạnh vẫn hiện một bóng người.",
