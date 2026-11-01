@@ -2,7 +2,7 @@
   {
     "id": 1,
     "start_sec": 0,
-    "duration_sec": 2,
+    "duration_sec": 1.9,
     "narration": "Đừng nghe một mình.",
     "caption": "ĐỪNG NGHE MỘT MÌNH",
     "visual": "Phòng thu phát thanh tối, đèn ON AIR đỏ bật lên khi không có người trong phòng.",
@@ -12,8 +12,8 @@
   },
   {
     "id": 2,
-    "start_sec": 2,
-    "duration_sec": 2,
+    "start_sec": 1.9,
+    "duration_sec": 2.1,
     "narration": "Đèn vẫn sáng.",
     "caption": "ĐÈN VẪN SÁNG",
     "visual": "Bàn điều khiển đã tắt, nhưng đèn ON AIR đỏ vẫn sáng sau lớp kính.",
