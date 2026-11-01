@@ -19,7 +19,7 @@
 ## Voice lines and scene plan
 
 ### Scene 1 · 0.0–1.9s
-- **Voice:** Đừng nghe một mình.
+- **Voice:** Đừng nghe.
 - **Caption:** ĐỪNG NGHE MỘT MÌNH
 - **Visual:** Phòng thu phát thanh tối, đèn ON AIR đỏ bật lên khi không có người trong phòng.
 - **Motion:** Push-in chậm vào đèn ON AIR.
@@ -33,7 +33,7 @@
 - **SFX:** Tiếng điện rè nhẹ
 
 ### Scene 3 · 4.0–6.0s
-- **Voice:** Micro gọi tên Duy.
+- **Voice:** Micro gọi Duy.
 - **Caption:** AI ĐANG GỌI?
 - **Visual:** Duy đeo tai nghe, quay đầu về chiếc micro đang bật dù cần âm lượng ở mức 0.
 - **Motion:** Slow push-in vào gương mặt Duy.
@@ -53,28 +53,28 @@
 - **Motion:** Slow tilt xuống waveform đang chuyển động.
 - **SFX:** Tiếng click máy tính
 
-### Scene 6 · 14.0–18.0s
+### Scene 6 · 14.0–18.2s
 - **Voice:** Camera hành lang trống trơn. Tiếng gõ vang sau lưng.
 - **Caption:** CÓ NGƯỜI NGOÀI CỬA?
 - **Visual:** Màn hình CCTV cho thấy hành lang trống; phía sau Duy là cửa kính rung nhẹ.
 - **Motion:** Rack-focus từ CCTV sang cửa kính phía sau.
 - **SFX:** Ba tiếng gõ xa
 
-### Scene 7 · 18.0–22.0s
+### Scene 7 · 18.2–22.2s
 - **Voice:** Trong kính, một Duy khác đang ngồi trước micro.
 - **Caption:** NGƯỜI TRONG PHẢN CHIẾU
 - **Visual:** Phản chiếu trên kính cho thấy một Duy khác đang ngồi trước micro, dù ghế thật trống.
 - **Motion:** Camera trượt ngang để phản chiếu xuất hiện rõ.
 - **SFX:** Ambience hạ đột ngột
 
-### Scene 8 · 22.0–28.0s
+### Scene 8 · 22.2–28.2s
 - **Voice:** Anh quay lại. Ghế trống. Nhưng micro tự xoay về phía anh.
 - **Caption:** MICRO QUAY LẠI
 - **Visual:** Duy quay phắt lại; ghế trống, micro từ từ xoay về phía anh.
 - **Motion:** Chuyển động micro chậm, camera khóa khung.
 - **SFX:** Tiếng khớp kim loại
 
-### Scene 9 · 28.0–37.0s
+### Scene 9 · 28.2–37.0s
 - **Voice:** Bản tin cuối vang lên: “Người đang nghe chương trình này... là Duy của ngày mai.”
 - **Caption:** NGƯỜI NGHE TIẾP THEO
 - **Visual:** Phòng thu trống dần trong ánh đỏ; màn hình phát sóng hiển thị waveform và ghế trống.
