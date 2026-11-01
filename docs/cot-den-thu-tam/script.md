@@ -18,14 +18,14 @@
 
 ## Voice lines and scene plan
 
-### Scene 1 · 0.0–2.0s
+### Scene 1 · 0.0–1.9s
 - **Voice:** Đếm cùng tôi.
 - **Caption:** ĐẾM CÙNG TÔI
 - **Visual:** Góc nhìn sau lưng shipper trên con đường quê mưa đêm; các cột đèn kéo dài vào sương.
 - **Motion:** Dolly tiến chậm theo xe máy.
 - **SFX:** Mưa rơi, máy xe xa
 
-### Scene 2 · 2.0–4.0s
+### Scene 2 · 1.9–4.0s
 - **Voice:** Bảy cột đèn thôi.
 - **Caption:** BẢY CỘT ĐÈN
 - **Visual:** Phúc dừng xe, nhìn bảy cột đèn vàng lần lượt dọc con đường.
