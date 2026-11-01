@@ -26,14 +26,14 @@
 - **SFX:** Mưa rơi, máy xe xa
 
 ### Scene 2 · 2.0–4.0s
-- **Voice:** Con đường chỉ có bảy cột đèn.
+- **Voice:** Bảy cột đèn thôi.
 - **Caption:** BẢY CỘT ĐÈN
 - **Visual:** Phúc dừng xe, nhìn bảy cột đèn vàng lần lượt dọc con đường.
 - **Motion:** Pan chậm qua từng cột đèn, dừng ở cuối đường.
 - **SFX:** Gió đồng
 
 ### Scene 3 · 4.0–6.0s
-- **Voice:** Đêm nay, cột thứ tám bật sáng.
+- **Voice:** Cột tám vừa sáng.
 - **Caption:** CỘT ĐÈN THỨ TÁM
 - **Visual:** Một cột đèn thứ tám bật lên phía sau màn sương, xa hơn hẳn những cột còn lại.
 - **Motion:** Ánh sáng lan dần trên mặt đường, không dùng flash.
