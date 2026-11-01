@@ -33,7 +33,7 @@
 - **SFX:** Gió đồng
 
 ### Scene 3 · 4.0–6.0s
-- **Voice:** Cột tám vừa sáng.
+- **Voice:** Đèn thứ tám.
 - **Caption:** CỘT ĐÈN THỨ TÁM
 - **Visual:** Một cột đèn thứ tám bật lên phía sau màn sương, xa hơn hẳn những cột còn lại.
 - **Motion:** Ánh sáng lan dần trên mặt đường, không dùng flash.
