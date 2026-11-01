@@ -53,7 +53,6 @@ jobs:
           import hashlib, json, subprocess
           from pathlib import Path
           specs = [
-              ("ban-tin-luc-0-gio-07", 1),
               ("ban-tin-luc-0-gio-07", 3),
               ("cot-den-thu-tam", 3),
           ]
@@ -79,7 +78,6 @@ jobs:
         with:
           name: hem-chuyen-la-vbee-voice-fixes
           path: |
-            public/audio/ban-tin-luc-0-gio-07/s1.mp3
             public/audio/ban-tin-luc-0-gio-07/s3.mp3
             public/audio/cot-den-thu-tam/s3.mp3
             public/audio/voice-fixes-report.json
