@@ -1,0 +1,112 @@
+[
+  {
+    "id": 1,
+    "start_sec": 0,
+    "duration_sec": 2,
+    "narration": "Đừng nhận đồ ăn lạ.",
+    "caption": "ĐỪNG NHẬN ĐỒ ĂN LẠ",
+    "visual": "Khu chợ tối om, chỉ một sạp nhỏ dưới bóng đèn vàng vẫn sáng và có hơi nước bốc lên.",
+    "motion": "Dolly tiến chậm từ lối chợ vào sạp.",
+    "sfx": "Mưa nhỏ, tiếng mái tôn",
+    "speaker": "narrator"
+  },
+  {
+    "id": 2,
+    "start_sec": 2,
+    "duration_sec": 2,
+    "narration": "Chợ đã đóng. Một sạp vẫn sáng.",
+    "caption": "SẠP CUỐI CÙNG",
+    "visual": "Toàn cảnh dãy sạp đã kéo cửa sắt; một quầy duy nhất mở hé, ánh đèn vàng hắt ra nền ướt.",
+    "motion": "Pan ngang dãy cửa sắt rồi dừng ở quầy sáng.",
+    "sfx": "Gió lùa qua mái bạt",
+    "speaker": "narrator"
+  },
+  {
+    "id": 3,
+    "start_sec": 4,
+    "duration_sec": 2,
+    "narration": "Người bán gọi tên Thuận.",
+    "caption": "THUẬN...",
+    "visual": "Thuận đứng quay lưng về quầy; phía sau tấm rèm chỉ có bóng người mờ.",
+    "motion": "Slow push-in vào vai Thuận và bóng người.",
+    "sfx": "Giọng gọi vọng",
+    "speaker": "narrator"
+  },
+  {
+    "id": 4,
+    "start_sec": 6,
+    "duration_sec": 4,
+    "narration": "Thuận mở sơ đồ. Dãy này không có sạp nào.",
+    "caption": "KHÔNG CÓ TRÊN SƠ ĐỒ",
+    "visual": "Bàn tay Thuận rà trên sơ đồ chợ; vị trí quầy đang sáng là khoảng trống không đánh số.",
+    "motion": "Insert ngón tay dừng ở ô trống.",
+    "sfx": "Tiếng giấy sột soạt",
+    "speaker": "narrator"
+  },
+  {
+    "id": 5,
+    "start_sec": 10,
+    "duration_sec": 4,
+    "narration": "Máy in tự chạy: hai suất, ghi tên Thuận.",
+    "caption": "HÓA ĐƠN 2 SUẤT",
+    "visual": "Máy in hóa đơn kéo giấy ra; dòng chữ THUẬN — 2 SUẤT hiện rõ.",
+    "motion": "Cận giấy trượt ra, đèn máy in chớp nhẹ.",
+    "sfx": "Tiếng máy in",
+    "speaker": "narrator"
+  },
+  {
+    "id": 6,
+    "start_sec": 14,
+    "duration_sec": 4,
+    "narration": "Một chiếc ghế tự kéo ra. Tô thứ hai bốc khói.",
+    "caption": "CÓ NGƯỜI ĐỢI",
+    "visual": "Chiếc ghế đối diện trượt khỏi bàn; hai tô nóng bốc hơi, không có ai ngồi.",
+    "motion": "Dolly thấp theo chân ghế, dừng ở tô thứ hai.",
+    "sfx": "Tiếng ghế kéo",
+    "speaker": "narrator"
+  },
+  {
+    "id": 7,
+    "start_sec": 18,
+    "duration_sec": 4,
+    "narration": "Camera ghi Thuận đang ngồi đối diện một người.",
+    "caption": "AI ĐANG NGỒI ĐÓ?",
+    "visual": "Màn hình CCTV đen trắng cho thấy Thuận ngồi đối diện một bóng người ở quầy.",
+    "motion": "Push-in vào màn hình CCTV, không thêm chữ giả.",
+    "sfx": "Tiếng nhiễu camera nhẹ",
+    "speaker": "narrator"
+  },
+  {
+    "id": 8,
+    "start_sec": 22,
+    "duration_sec": 6,
+    "narration": "Người kia quay mặt. Khuôn mặt giống hệt Thuận.",
+    "caption": "KHUÔN MẶT THỨ HAI",
+    "visual": "Bóng người từ từ xoay đầu; gương mặt giống hệt Thuận nhưng biểu cảm hoàn toàn bình thản.",
+    "motion": "Rack-focus từ vai bóng người sang gương mặt.",
+    "sfx": "Âm trầm kéo dài",
+    "speaker": "narrator"
+  },
+  {
+    "id": 9,
+    "start_sec": 28,
+    "duration_sec": 9,
+    "narration": "Camera tua lại: hai người bước vào sạp. Chỉ một người đi ra.",
+    "caption": "CHỈ MỘT NGƯỜI RỜI ĐI",
+    "visual": "Màn hình CCTV tua lại: hai bóng người đi vào quầy, sau đó chỉ một bóng rời khỏi vùng sáng.",
+    "motion": "Tua lại chậm có kiểm soát, dừng ở lối ra trống.",
+    "sfx": "Tiếng tua băng nhỏ",
+    "speaker": "narrator"
+  },
+  {
+    "id": 10,
+    "start_sec": 37,
+    "duration_sec": 5,
+    "narration": "Nếu bạn thấy sạp hàng ấy, hãy thả tim và theo dõi Hẻm Chuyện Lạ.",
+    "caption": "SẠP VẪN CÒN MỞ",
+    "visual": "Toàn cảnh khu chợ lúc gần sáng; sạp hàng vẫn sáng nhưng không còn ai đứng bán.",
+    "motion": "Fade mềm từ quầy sáng ra toàn cảnh chợ.",
+    "sfx": "Một tiếng chuông gió",
+    "speaker": "narrator"
+  }
+]
