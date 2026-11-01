@@ -10,70 +10,70 @@ const SCENES = [
   {
     "id": "scene01",
     "headline": "ĐÀI ĐÃ TẮT SÓNG",
-    "caption": "Đừng nghe một mình.",
+    "caption": "ĐỪNG NGHE MỘT MÌNH",
     "image": "images/ban-tin-luc-0-gio-07/scene-01.png",
     "voice": "audio/ban-tin-luc-0-gio-07/s1.mp3"
   },
   {
     "id": "scene02",
     "headline": "ĐÈN ON AIR",
-    "caption": "Đèn vẫn sáng.",
+    "caption": "ĐÈN VẪN SÁNG",
     "image": "images/ban-tin-luc-0-gio-07/scene-02.png",
     "voice": "audio/ban-tin-luc-0-gio-07/s2.mp3"
   },
   {
     "id": "scene03",
     "headline": "AI ĐANG GỌI DUY?",
-    "caption": "Duy, nghe đi.",
+    "caption": "DUY!",
     "image": "images/ban-tin-luc-0-gio-07/scene-03.png",
     "voice": "audio/ban-tin-luc-0-gio-07/s3.mp3"
   },
   {
     "id": "scene04",
     "headline": "ÂM LƯỢNG BẰNG KHÔNG",
-    "caption": "Duy kéo cần âm lượng về không. Tiếng nói vẫn vang.",
+    "caption": "ÂM LƯỢNG BẰNG KHÔNG",
     "image": "images/ban-tin-luc-0-gio-07/scene-04.png",
     "voice": "audio/ban-tin-luc-0-gio-07/s4.mp3"
   },
   {
     "id": "scene05",
     "headline": "BẢN TIN 00:07",
-    "caption": "Bản tin tự mở: “Duy, đừng mở cửa.”",
+    "caption": "BẢN TIN 00:07",
     "image": "images/ban-tin-luc-0-gio-07/scene-05.png",
     "voice": "audio/ban-tin-luc-0-gio-07/s5.mp3"
   },
   {
     "id": "scene06",
     "headline": "HÀNH LANG KHÔNG NGƯỜI",
-    "caption": "Camera hành lang trống trơn. Tiếng gõ vang sau lưng.",
+    "caption": "CÓ NGƯỜI NGOÀI CỬA?",
     "image": "images/ban-tin-luc-0-gio-07/scene-06.png",
     "voice": "audio/ban-tin-luc-0-gio-07/s6.mp3"
   },
   {
     "id": "scene07",
     "headline": "NGƯỜI TRONG PHẢN CHIẾU",
-    "caption": "Trong kính, một Duy khác đang ngồi trước micro.",
+    "caption": "NGƯỜI TRONG PHẢN CHIẾU",
     "image": "images/ban-tin-luc-0-gio-07/scene-07.png",
     "voice": "audio/ban-tin-luc-0-gio-07/s7.mp3"
   },
   {
     "id": "scene08",
     "headline": "MICRO QUAY LẠI",
-    "caption": "Anh quay lại. Ghế trống. Nhưng micro tự xoay về phía anh.",
+    "caption": "MICRO QUAY LẠI",
     "image": "images/ban-tin-luc-0-gio-07/scene-08.png",
     "voice": "audio/ban-tin-luc-0-gio-07/s8.mp3"
   },
   {
     "id": "scene09",
     "headline": "BẢN TIN CUỐI",
-    "caption": "Bản tin cuối vang lên: “Người đang nghe chương trình này... là Duy của ngày mai.”",
+    "caption": "NGƯỜI NGHE TIẾP THEO",
     "image": "images/ban-tin-luc-0-gio-07/scene-09.png",
     "voice": "audio/ban-tin-luc-0-gio-07/s9.mp3"
   },
   {
     "id": "scene10",
     "headline": "ĐỪNG TẮT RADIO",
-    "caption": "Nếu bản tin khiến bạn lạnh gáy, hãy thả tim và theo dõi Hẻm Chuyện Lạ.",
+    "caption": "ĐỪNG TẮT RADIO",
     "image": "images/ban-tin-luc-0-gio-07/scene-10.png",
     "voice": "audio/ban-tin-luc-0-gio-07/s10.mp3"
   }
@@ -142,8 +142,8 @@ const ScenePlate: React.FC<ScenePlateProps> = ({
           maxLines={2}
           fontFamily='Noto Sans'
           fontWeight={700}
-          minFontSize={39}
-          maxFontSize={58}
+          minFontSize={30}
+          maxFontSize={54}
           style={{color:'#FFF9ED',textShadow:'0 3px 16px rgba(0,0,0,.98)'}}
         />
       </div>
