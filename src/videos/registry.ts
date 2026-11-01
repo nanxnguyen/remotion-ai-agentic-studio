@@ -17,6 +17,10 @@ import {banKhongYeuDuoiReelVideo} from './ban-khong-yeu-duoi-chi-da-manh-qua-lau
 import {khoangTrongTrongBucTranhVideo} from './khoang-trong-trong-buc-tranh';
 import {soNoiKhongVideo} from './so-bi-xem-la-ich-ky-khi-noi-khong';
 import {characterMotionLabVideo} from './character-motion-lab';
+import {hanhKhachKhongBuocRaVideo} from './hanh-khach-khong-buoc-ra';
+import {banTinLuc0Gio07Video} from './ban-tin-luc-0-gio-07';
+import {sapHangKhongCoTrongSoVideo} from './sap-hang-khong-co-trong-so';
+import {cotDenThuTamVideo} from './cot-den-thu-tam';
 // video:new imports -- keep this marker
 
 export const videoRegistry: readonly AnyVideoDefinition[] = [
@@ -37,6 +41,10 @@ export const videoRegistry: readonly AnyVideoDefinition[] = [
   khoangTrongTrongBucTranhVideo,
   soNoiKhongVideo,
   characterMotionLabVideo,
+  hanhKhachKhongBuocRaVideo,
+  banTinLuc0Gio07Video,
+  sapHangKhongCoTrongSoVideo,
+  cotDenThuTamVideo,
   // video:new entries -- keep this marker
 ];
 
