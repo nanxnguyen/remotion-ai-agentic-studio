@@ -18,14 +18,14 @@
 
 ## Voice lines and scene plan
 
-### Scene 1 · 0.0–2.0s
+### Scene 1 · 0.0–1.9s
 - **Voice:** Đừng nghe một mình.
 - **Caption:** ĐỪNG NGHE MỘT MÌNH
 - **Visual:** Phòng thu phát thanh tối, đèn ON AIR đỏ bật lên khi không có người trong phòng.
 - **Motion:** Push-in chậm vào đèn ON AIR.
 - **SFX:** Hum máy phát
 
-### Scene 2 · 2.0–4.0s
+### Scene 2 · 1.9–4.0s
 - **Voice:** Đèn vẫn sáng.
 - **Caption:** ON AIR
 - **Visual:** Bàn điều khiển đã tắt, nhưng đèn ON AIR đỏ vẫn sáng sau lớp kính.
