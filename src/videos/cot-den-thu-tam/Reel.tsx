@@ -10,70 +10,70 @@ const SCENES = [
   {
     "id": "scene01",
     "headline": "ĐẾM CÙNG TÔI",
-    "caption": "Đếm cùng tôi.",
+    "caption": "ĐẾM CÙNG TÔI",
     "image": "images/cot-den-thu-tam/scene-01.png",
     "voice": "audio/cot-den-thu-tam/s1.mp3"
   },
   {
     "id": "scene02",
     "headline": "BẢY CỘT ĐÈN",
-    "caption": "Bảy cột đèn thôi.",
+    "caption": "BẢY CỘT ĐÈN THÔI",
     "image": "images/cot-den-thu-tam/scene-02.png",
     "voice": "audio/cot-den-thu-tam/s2.mp3"
   },
   {
     "id": "scene03",
     "headline": "CỘT THỨ TÁM",
-    "caption": "Đèn thứ tám.",
+    "caption": "ĐÈN BẬT",
     "image": "images/cot-den-thu-tam/scene-03.png",
     "voice": "audio/cot-den-thu-tam/s3.mp3"
   },
   {
     "id": "scene04",
     "headline": "ĐƠN HÀNG BÍ ẨN",
-    "caption": "Phúc dừng xe. Điện thoại báo đơn giao cho chính anh.",
+    "caption": "NGƯỜI NHẬN: PHÚC",
     "image": "images/cot-den-thu-tam/scene-04.png",
     "voice": "audio/cot-den-thu-tam/s4.mp3"
   },
   {
     "id": "scene05",
     "headline": "NGƯỜI DƯỚI ÁNH ĐÈN",
-    "caption": "Người nhận đứng dưới đèn, mặc áo giống hệt Phúc.",
+    "caption": "NGƯỜI DƯỚI CỘT ĐÈN",
     "image": "images/cot-den-thu-tam/scene-05.png",
     "voice": "audio/cot-den-thu-tam/s5.mp3"
   },
   {
     "id": "scene06",
     "headline": "CUỘC GỌI LẠ",
-    "caption": "Cuộc gọi vang lên: “Anh sắp tới rồi, phải không?”",
+    "caption": "CUỘC GỌI TỪ CHÍNH MÌNH",
     "image": "images/cot-den-thu-tam/scene-06.png",
     "voice": "audio/cot-den-thu-tam/s6.mp3"
   },
   {
     "id": "scene07",
     "headline": "KHUÔN MẶT GIỐNG HỆT",
-    "caption": "Người kia quay đầu. Khuôn mặt giống hệt anh.",
+    "caption": "GƯƠNG MẶT THỨ HAI",
     "image": "images/cot-den-thu-tam/scene-07.png",
     "voice": "audio/cot-den-thu-tam/s7.mp3"
   },
   {
     "id": "scene08",
     "headline": "NGƯỜI NHẬN: PHÚC",
-    "caption": "Ứng dụng hiện ảnh người nhận: chính Phúc.",
+    "caption": "ẢNH XÁC NHẬN",
     "image": "images/cot-den-thu-tam/scene-08.png",
     "voice": "audio/cot-den-thu-tam/s8.mp3"
   },
   {
     "id": "scene09",
     "headline": "ĐƠN ĐÃ GIAO",
-    "caption": "Đơn hàng báo đã giao, dù gói hàng vẫn nằm trong thùng xe. Người dưới cột đèn giơ tay vẫy. Cột đèn chớp tắt.",
+    "caption": "ĐÃ GIAO?",
     "image": "images/cot-den-thu-tam/scene-09.png",
     "voice": "audio/cot-den-thu-tam/s9.mp3"
   },
   {
     "id": "scene10",
     "headline": "ĐƯỜNG CHỈ CÓ BẢY CỘT",
-    "caption": "Nếu dám đi qua cột đèn thứ tám, hãy thả tim và theo dõi Hẻm Chuyện Lạ.",
+    "caption": "ĐỪNG ĐẾM LẠI",
     "image": "images/cot-den-thu-tam/scene-10.png",
     "voice": "audio/cot-den-thu-tam/s10.mp3"
   }
@@ -142,8 +142,8 @@ const ScenePlate: React.FC<ScenePlateProps> = ({
           maxLines={2}
           fontFamily='Noto Sans'
           fontWeight={700}
-          minFontSize={39}
-          maxFontSize={58}
+          minFontSize={30}
+          maxFontSize={54}
           style={{color:'#FFF9ED',textShadow:'0 3px 16px rgba(0,0,0,.98)'}}
         />
       </div>
