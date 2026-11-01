@@ -18,14 +18,14 @@
 
 ## Voice lines and scene plan
 
-### Scene 1 · 0.0–1.9s
-- **Voice:** Đừng nghe.
+### Scene 1 · 0.0–2.0s
+- **Voice:** Đừng nghe một mình.
 - **Caption:** ĐỪNG NGHE MỘT MÌNH
 - **Visual:** Phòng thu phát thanh tối, đèn ON AIR đỏ bật lên khi không có người trong phòng.
 - **Motion:** Push-in chậm vào đèn ON AIR.
 - **SFX:** Hum máy phát
 
-### Scene 2 · 1.9–4.0s
+### Scene 2 · 2.0–4.0s
 - **Voice:** Đèn vẫn sáng.
 - **Caption:** ON AIR
 - **Visual:** Bàn điều khiển đã tắt, nhưng đèn ON AIR đỏ vẫn sáng sau lớp kính.
@@ -33,7 +33,7 @@
 - **SFX:** Tiếng điện rè nhẹ
 
 ### Scene 3 · 4.0–6.0s
-- **Voice:** Micro gọi Duy.
+- **Voice:** Duy, nghe đi.
 - **Caption:** AI ĐANG GỌI?
 - **Visual:** Duy đeo tai nghe, quay đầu về chiếc micro đang bật dù cần âm lượng ở mức 0.
 - **Motion:** Slow push-in vào gương mặt Duy.
