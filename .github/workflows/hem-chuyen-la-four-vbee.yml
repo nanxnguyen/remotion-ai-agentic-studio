@@ -1,3 +1,4 @@
+# Retry after tightening 0-6s hook lines; preserve measured audio and never trim syllables.
 name: Hem Chuyen La - Four Shorts Vbee Batch Voice
 
 on:
