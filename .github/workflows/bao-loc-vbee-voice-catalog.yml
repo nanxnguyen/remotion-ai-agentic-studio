@@ -1,0 +1,59 @@
+name: Inspect accessible Vbee voice catalog for Bao Loc
+on:
+  push:
+    branches:
+      - production/bao-loc-three-girls-short
+    paths:
+      - .github/workflows/bao-loc-vbee-voice-catalog.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  catalog:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      VBEE_ACCESS_TOKEN: ${{ secrets.VBEE_ACCESS_TOKEN || secrets.VBEE_TOKEN || secrets.VBEE_API_KEY || secrets.VBEE_API_TOKEN }}
+      VBEE_APP_ID: ${{ secrets.VBEE_APP_ID || secrets.VBEE_APPID || secrets.VBEE_APPLICATION_ID }}
+    steps:
+      - name: Query authenticated voice catalog (never print credentials)
+        run: |
+          python3 - <<'PY'
+          import os, json, urllib.request, urllib.error
+          token=os.environ.get("VBEE_ACCESS_TOKEN","")
+          app=os.environ.get("VBEE_APP_ID","")
+          if not token or not app:
+              raise SystemExit("Missing Vbee credentials")
+          req=urllib.request.Request(
+              "https://api.vbee.vn/v1/voices",
+              headers={"Authorization":"Bearer "+token,"App-Id":app,"Accept":"application/json"}
+          )
+          try:
+              with urllib.request.urlopen(req,timeout=45) as r:
+                  payload=json.loads(r.read().decode("utf-8"))
+          except urllib.error.HTTPError as e:
+              body=e.read(2048).decode("utf-8","replace")
+              body=body.replace(token,"[REDACTED]").replace(app,"[REDACTED]")
+              raise SystemExit(f"Vbee voice catalog HTTP {e.code}: {body[:500]}")
+          def walk(x):
+              if isinstance(x,dict):
+                  yield x
+                  for v in x.values(): yield from walk(v)
+              elif isinstance(x,list):
+                  for v in x: yield from walk(v)
+          found={}
+          for item in walk(payload):
+              name=str(item.get("name") or item.get("voiceName") or item.get("displayName") or item.get("voice_name") or "")
+              code=str(item.get("voiceCode") or item.get("voice_code") or item.get("code") or "")
+              if name or code:
+                  key=(name,code)
+                  if key not in found: found[key]=item
+          hits=[]
+          for (name,code),item in found.items():
+              hay=(name+" "+code+" "+json.dumps(item,ensure_ascii=False)).lower()
+              if "ngan" in hay or "ngạn" in hay or "ngankechuyen" in hay:
+                  hits.append({"name":name,"voiceCode":code,"keys":sorted(item.keys())})
+          print(json.dumps({"match_count":len(hits),"matches":hits[:30],"response_top_keys":list(payload.keys()) if isinstance(payload,dict) else type(payload).__name__},ensure_ascii=False,indent=2))
+          if not hits:
+              print("No Ngạn entry was returned for this API account.")
+          PY
