@@ -2,7 +2,7 @@
   {
     "id": 1,
     "start_sec": 0,
-    "duration_sec": 2,
+    "duration_sec": 1.9,
     "narration": "Đếm cùng tôi.",
     "caption": "ĐẾM CÙNG TÔI",
     "visual": "Góc nhìn sau lưng shipper trên con đường quê mưa đêm; các cột đèn kéo dài vào sương.",
@@ -12,8 +12,8 @@
   },
   {
     "id": 2,
-    "start_sec": 2,
-    "duration_sec": 2,
+    "start_sec": 1.9,
+    "duration_sec": 2.1,
     "narration": "Bảy cột đèn thôi.",
     "caption": "BẢY CỘT ĐÈN THÔI",
     "visual": "Phúc dừng xe, nhìn bảy cột đèn vàng lần lượt dọc con đường.",
