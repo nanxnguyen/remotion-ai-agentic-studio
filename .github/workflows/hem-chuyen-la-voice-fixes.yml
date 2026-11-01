@@ -1,0 +1,87 @@
+name: Hem Chuyen La - Vbee Voice Fixes
+
+on:
+  push:
+    branches:
+      - feat/hem-chuyen-la-four-shorts-20261101
+    paths:
+      - .github/workflows/hem-chuyen-la-voice-fixes.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  voice-fixes:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      VBEE_ACCESS_TOKEN: ${{ secrets.VBEE_ACCESS_TOKEN || secrets.VBEE_TOKEN || secrets.VBEE_API_KEY || secrets.VBEE_API_TOKEN }}
+      VBEE_APP_ID: ${{ secrets.VBEE_APP_ID || secrets.VBEE_APPID || secrets.VBEE_APPLICATION_ID }}
+      VBEE_WEBHOOK_URL: ${{ vars.VBEE_WEBHOOK_URL || 'https://iehmucsshklgjmxqyggp.supabase.co/functions/v1/vbee-batch-callback' }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+      - name: Setup Python and FFmpeg
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install FFmpeg
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg
+      - name: Validate Vbee credentials
+        run: |
+          set -euo pipefail
+          test -n "$VBEE_ACCESS_TOKEN"
+          test -n "$VBEE_APP_ID"
+          case "$VBEE_WEBHOOK_URL" in https://*) ;; *) exit 1;; esac
+          echo "Vbee credentials present; values are not logged."
+      - name: Regenerate only overlong hook takes
+        run: |
+          set -euo pipefail
+          GEN=".claude/skills/ray-phim-ke-chuyen/scripts/generate_vbee_batch.py"
+          VOICE="hn_male_phuthang_stor_24k-stl"
+          python3 "$GEN" --manifest docs/ban-tin-luc-0-gio-07/storyboard.json --out-dir public/audio/ban-tin-luc-0-gio-07 --voice-code "$VOICE" --speed 0.98 --webhook-url "$VBEE_WEBHOOK_URL" --only-scene 1
+          python3 "$GEN" --manifest docs/ban-tin-luc-0-gio-07/storyboard.json --out-dir public/audio/ban-tin-luc-0-gio-07 --voice-code "$VOICE" --speed 0.98 --webhook-url "$VBEE_WEBHOOK_URL" --only-scene 3
+          python3 "$GEN" --manifest docs/cot-den-thu-tam/storyboard.json --out-dir public/audio/cot-den-thu-tam --voice-code "$VOICE" --speed 0.98 --webhook-url "$VBEE_WEBHOOK_URL" --only-scene 3
+      - name: Consolidate measured replacements
+        run: |
+          python3 - <<'PY'
+          import hashlib, json, subprocess
+          from pathlib import Path
+          specs = [
+              ("ban-tin-luc-0-gio-07", 1),
+              ("ban-tin-luc-0-gio-07", 3),
+              ("cot-den-thu-tam", 3),
+          ]
+          report = []
+          for slug, scene_id in specs:
+              audio = Path("public/audio") / slug / f"s{scene_id}.mp3"
+              seconds = float(subprocess.check_output([
+                  "ffprobe","-v","error","-show_entries","format=duration",
+                  "-of","default=noprint_wrappers=1:nokey=1",str(audio)
+              ], text=True).strip())
+              report.append({
+                  "slug":slug,"id":scene_id,"file":audio.name,
+                  "audio_seconds":round(seconds,3),
+                  "sha256":hashlib.sha256(audio.read_bytes()).hexdigest()
+              })
+          Path("public/audio/voice-fixes-report.json").write_text(
+              json.dumps(report,ensure_ascii=False,indent=2),encoding="utf-8"
+          )
+          for row in report: print(row)
+          PY
+      - name: Upload replacement MP3s
+        uses: actions/upload-artifact@v4
+        with:
+          name: hem-chuyen-la-vbee-voice-fixes
+          path: |
+            public/audio/ban-tin-luc-0-gio-07/s1.mp3
+            public/audio/ban-tin-luc-0-gio-07/s3.mp3
+            public/audio/cot-den-thu-tam/s3.mp3
+            public/audio/voice-fixes-report.json
+          retention-days: 14
+          if-no-files-found: error
