@@ -2,7 +2,7 @@
   {
     "id": 1,
     "start_sec": 0,
-    "duration_sec": 1.9,
+    "duration_sec": 1.95,
     "narration": "Đừng nhận đồ lạ.",
     "caption": "ĐỪNG NHẬN ĐỒ LẠ",
     "visual": "Khu chợ tối om, chỉ một sạp nhỏ dưới bóng đèn vàng vẫn sáng và có hơi nước bốc lên.",
@@ -12,8 +12,8 @@
   },
   {
     "id": 2,
-    "start_sec": 1.9,
-    "duration_sec": 2.1,
+    "start_sec": 1.95,
+    "duration_sec": 2.05,
     "narration": "Một sạp vẫn sáng.",
     "caption": "MỘT SẠP VẪN SÁNG",
     "visual": "Toàn cảnh dãy sạp đã kéo cửa sắt; một quầy duy nhất mở hé, ánh đèn vàng hắt ra nền ướt.",
