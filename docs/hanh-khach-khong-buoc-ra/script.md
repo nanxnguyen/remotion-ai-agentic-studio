@@ -26,7 +26,7 @@
 - **SFX:** Hum điện lạnh
 
 ### Scene 2 · 2.0–4.0s
-- **Voice:** Cabin trống. Camera có người.
+- **Voice:** Camera có người.
 - **Caption:** CABIN TRỐNG
 - **Visual:** Cửa thang máy mở vào cabin hoàn toàn trống; màn hình CCTV phía cạnh vẫn hiện một bóng người.
 - **Motion:** Match cut giữa cabin thật và màn hình camera.
