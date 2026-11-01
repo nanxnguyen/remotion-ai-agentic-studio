@@ -19,21 +19,21 @@
 ## Voice lines and scene plan
 
 ### Scene 1 · 0.0–2.0s
-- **Voice:** Đừng nhận đồ ăn lạ.
+- **Voice:** Đừng nhận đồ lạ.
 - **Caption:** ĐỪNG NHẬN ĐỒ ĂN LẠ
 - **Visual:** Khu chợ tối om, chỉ một sạp nhỏ dưới bóng đèn vàng vẫn sáng và có hơi nước bốc lên.
 - **Motion:** Dolly tiến chậm từ lối chợ vào sạp.
 - **SFX:** Mưa nhỏ, tiếng mái tôn
 
 ### Scene 2 · 2.0–4.0s
-- **Voice:** Chợ đã đóng. Một sạp vẫn sáng.
+- **Voice:** Một sạp vẫn sáng.
 - **Caption:** SẠP CUỐI CÙNG
 - **Visual:** Toàn cảnh dãy sạp đã kéo cửa sắt; một quầy duy nhất mở hé, ánh đèn vàng hắt ra nền ướt.
 - **Motion:** Pan ngang dãy cửa sắt rồi dừng ở quầy sáng.
 - **SFX:** Gió lùa qua mái bạt
 
 ### Scene 3 · 4.0–6.0s
-- **Voice:** Người bán gọi tên Thuận.
+- **Voice:** Họ gọi tên Thuận.
 - **Caption:** THUẬN...
 - **Visual:** Thuận đứng quay lưng về quầy; phía sau tấm rèm chỉ có bóng người mờ.
 - **Motion:** Slow push-in vào vai Thuận và bóng người.
