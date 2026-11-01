@@ -33,7 +33,7 @@
 - **SFX:** Tiếng điện rè nhẹ
 
 ### Scene 3 · 4.0–6.0s
-- **Voice:** Duy, nghe đi.
+- **Voice:** Duy!
 - **Caption:** AI ĐANG GỌI?
 - **Visual:** Duy đeo tai nghe, quay đầu về chiếc micro đang bật dù cần âm lượng ở mức 0.
 - **Motion:** Slow push-in vào gương mặt Duy.
