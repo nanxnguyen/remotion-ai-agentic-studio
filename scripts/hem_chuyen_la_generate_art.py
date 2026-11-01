@@ -244,6 +244,7 @@ def draw_phone(d, x=650, y=720, name="PHÚC", status="ĐƠN HÀNG"):
 
 def render_scene(slug: str, i: int):
     seed = 4100 + SLUGS.index(slug)*100 + i
+    random.seed(seed)
     if slug == "hanh-khach-khong-buoc-ra":
         img=base(seed,(5,12,20),(13,28,36),(42,89,103))
         rain(img,seed,120)
