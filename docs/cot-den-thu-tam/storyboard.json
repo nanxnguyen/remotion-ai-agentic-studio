@@ -1,0 +1,112 @@
+[
+  {
+    "id": 1,
+    "start_sec": 0,
+    "duration_sec": 2,
+    "narration": "Đếm cùng tôi.",
+    "caption": "ĐẾM CÙNG TÔI",
+    "visual": "Góc nhìn sau lưng shipper trên con đường quê mưa đêm; các cột đèn kéo dài vào sương.",
+    "motion": "Dolly tiến chậm theo xe máy.",
+    "sfx": "Mưa rơi, máy xe xa",
+    "speaker": "narrator"
+  },
+  {
+    "id": 2,
+    "start_sec": 2,
+    "duration_sec": 2,
+    "narration": "Con đường chỉ có bảy cột đèn.",
+    "caption": "BẢY CỘT ĐÈN",
+    "visual": "Phúc dừng xe, nhìn bảy cột đèn vàng lần lượt dọc con đường.",
+    "motion": "Pan chậm qua từng cột đèn, dừng ở cuối đường.",
+    "sfx": "Gió đồng",
+    "speaker": "narrator"
+  },
+  {
+    "id": 3,
+    "start_sec": 4,
+    "duration_sec": 2,
+    "narration": "Đêm nay, cột thứ tám bật sáng.",
+    "caption": "CỘT ĐÈN THỨ TÁM",
+    "visual": "Một cột đèn thứ tám bật lên phía sau màn sương, xa hơn hẳn những cột còn lại.",
+    "motion": "Ánh sáng lan dần trên mặt đường, không dùng flash.",
+    "sfx": "Tiếng điện bật",
+    "speaker": "narrator"
+  },
+  {
+    "id": 4,
+    "start_sec": 6,
+    "duration_sec": 4,
+    "narration": "Phúc dừng xe. Điện thoại báo đơn giao cho chính anh.",
+    "caption": "NGƯỜI NHẬN: PHÚC",
+    "visual": "Màn hình điện thoại giao hàng hiện tên người nhận PHÚC; Phúc nhìn màn hình, tay khựng lại.",
+    "motion": "Insert điện thoại rồi rack-focus lên mắt Phúc.",
+    "sfx": "Tiếng thông báo đơn",
+    "speaker": "narrator"
+  },
+  {
+    "id": 5,
+    "start_sec": 10,
+    "duration_sec": 4,
+    "narration": "Người nhận đứng dưới đèn, mặc áo giống hệt Phúc.",
+    "caption": "NGƯỜI DƯỚI CỘT ĐÈN",
+    "visual": "Một người đứng quay lưng dưới cột đèn thứ tám, mặc áo khoác và mũ bảo hiểm giống Phúc.",
+    "motion": "Slow push-in qua vai Phúc về phía bóng người.",
+    "sfx": "Mưa nặng hạt hơn",
+    "speaker": "narrator"
+  },
+  {
+    "id": 6,
+    "start_sec": 14,
+    "duration_sec": 4,
+    "narration": "Cuộc gọi vang lên: “Anh sắp tới rồi, phải không?”",
+    "caption": "CUỘC GỌI TỪ CHÍNH MÌNH",
+    "visual": "Điện thoại rung trong tay Phúc; cuộc gọi không hiện tên, bóng người vẫn đứng im dưới đèn.",
+    "motion": "Cận điện thoại rung, ánh sáng phản lên mặt.",
+    "sfx": "Rung điện thoại",
+    "speaker": "narrator"
+  },
+  {
+    "id": 7,
+    "start_sec": 18,
+    "duration_sec": 4,
+    "narration": "Người kia quay đầu. Khuôn mặt giống hệt anh.",
+    "caption": "GƯƠNG MẶT THỨ HAI",
+    "visual": "Người dưới cột đèn quay nửa mặt; khuôn mặt giống hệt Phúc, không biểu cảm.",
+    "motion": "Slow reveal từ bóng tối sang gương mặt.",
+    "sfx": "Ambience hạ",
+    "speaker": "narrator"
+  },
+  {
+    "id": 8,
+    "start_sec": 22,
+    "duration_sec": 6,
+    "narration": "Ứng dụng hiện ảnh người nhận: chính Phúc.",
+    "caption": "ẢNH XÁC NHẬN",
+    "visual": "Ứng dụng hiển thị ảnh người nhận trùng khớp hoàn toàn với khuôn mặt Phúc.",
+    "motion": "Push-in vào ảnh đại diện trên điện thoại.",
+    "sfx": "Tiếng xác nhận điện tử",
+    "speaker": "narrator"
+  },
+  {
+    "id": 9,
+    "start_sec": 28,
+    "duration_sec": 9,
+    "narration": "Đơn hàng báo đã giao, dù gói hàng vẫn nằm trong thùng xe. Người dưới cột đèn giơ tay vẫy. Cột đèn chớp tắt.",
+    "caption": "ĐÃ GIAO?",
+    "visual": "Màn hình báo ĐÃ GIAO; gói hàng vẫn nằm trong thùng xe, bóng người dưới đèn giơ tay vẫy.",
+    "motion": "Match cut giữa màn hình điện thoại và bóng người, ánh đèn tắt dần.",
+    "sfx": "Tiếng báo giao hàng, gió rít nhẹ",
+    "speaker": "narrator"
+  },
+  {
+    "id": 10,
+    "start_sec": 37,
+    "duration_sec": 5,
+    "narration": "Nếu dám đi qua cột đèn thứ tám, hãy thả tim và theo dõi Hẻm Chuyện Lạ.",
+    "caption": "ĐỪNG ĐẾM LẠI",
+    "visual": "Con đường trở về chỉ còn bảy cột đèn; phía xa, một bóng người đứng dưới ánh đèn vàng.",
+    "motion": "Dolly lùi chậm, fade mềm sang đen.",
+    "sfx": "Tiếng máy xe tắt",
+    "speaker": "narrator"
+  }
+]
