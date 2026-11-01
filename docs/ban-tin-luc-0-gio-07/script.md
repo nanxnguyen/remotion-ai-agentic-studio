@@ -26,7 +26,7 @@
 - **SFX:** Hum máy phát
 
 ### Scene 2 · 2.0–4.0s
-- **Voice:** Đài tắt. Đèn vẫn sáng.
+- **Voice:** Đèn vẫn sáng.
 - **Caption:** ON AIR
 - **Visual:** Bàn điều khiển đã tắt, nhưng đèn ON AIR đỏ vẫn sáng sau lớp kính.
 - **Motion:** Pan chậm từ bàn điều khiển lên đèn.
