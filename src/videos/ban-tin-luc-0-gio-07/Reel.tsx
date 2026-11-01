@@ -3,6 +3,7 @@ import {
   AbsoluteFill, Audio, Easing, Img, Sequence, interpolate, staticFile, useCurrentFrame,
 } from 'remotion';
 import {FitText} from '../../core';
+import {HemChuyenLaFontLoader} from '../hem-chuyen-la-font-loader';
 import {timeline} from './timeline';
 
 const SCENES = [
@@ -155,6 +156,7 @@ const ScenePlate: React.FC<ScenePlateProps> = ({
 
 export const BanTinLuc0Gio07Reel: React.FC = () => (
   <AbsoluteFill style={{backgroundColor:'#02060A'}}>
+    <HemChuyenLaFontLoader />
     <Audio src={staticFile('audio/ban-tin-luc-0-gio-07/ambience.wav')} volume={0.18} />
     {SCENES.map((scene, index) => {
       const timing = timeline.shots[scene.id];
