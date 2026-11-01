@@ -1,0 +1,112 @@
+[
+  {
+    "id": 1,
+    "start_sec": 0,
+    "duration_sec": 2,
+    "narration": "Đừng nghe một mình.",
+    "caption": "ĐỪNG NGHE MỘT MÌNH",
+    "visual": "Phòng thu phát thanh tối, đèn ON AIR đỏ bật lên khi không có người trong phòng.",
+    "motion": "Push-in chậm vào đèn ON AIR.",
+    "sfx": "Hum máy phát",
+    "speaker": "narrator"
+  },
+  {
+    "id": 2,
+    "start_sec": 2,
+    "duration_sec": 2,
+    "narration": "Đài tắt. Đèn vẫn sáng.",
+    "caption": "ON AIR",
+    "visual": "Bàn điều khiển đã tắt, nhưng đèn ON AIR đỏ vẫn sáng sau lớp kính.",
+    "motion": "Pan chậm từ bàn điều khiển lên đèn.",
+    "sfx": "Tiếng điện rè nhẹ",
+    "speaker": "narrator"
+  },
+  {
+    "id": 3,
+    "start_sec": 4,
+    "duration_sec": 2,
+    "narration": "Micro gọi tên Duy.",
+    "caption": "AI ĐANG GỌI?",
+    "visual": "Duy đeo tai nghe, quay đầu về chiếc micro đang bật dù cần âm lượng ở mức 0.",
+    "motion": "Slow push-in vào gương mặt Duy.",
+    "sfx": "Một tiếng gọi rất nhỏ",
+    "speaker": "narrator"
+  },
+  {
+    "id": 4,
+    "start_sec": 6,
+    "duration_sec": 4,
+    "narration": "Duy kéo cần âm lượng về không. Tiếng nói vẫn vang.",
+    "caption": "ÂM LƯỢNG BẰNG KHÔNG",
+    "visual": "Ngón tay Duy kéo fader xuống hết; đèn meter vẫn nhảy và loa vẫn rung.",
+    "motion": "Insert fader trước, meter sau.",
+    "sfx": "Tiếng radio xa",
+    "speaker": "narrator"
+  },
+  {
+    "id": 5,
+    "start_sec": 10,
+    "duration_sec": 4,
+    "narration": "Bản tin tự mở: “Duy, đừng mở cửa.”",
+    "caption": "BẢN TIN 00:07",
+    "visual": "Màn hình máy tính tự mở file âm thanh 00:07; sóng âm tự chạy.",
+    "motion": "Slow tilt xuống waveform đang chuyển động.",
+    "sfx": "Tiếng click máy tính",
+    "speaker": "narrator"
+  },
+  {
+    "id": 6,
+    "start_sec": 14,
+    "duration_sec": 4,
+    "narration": "Camera hành lang trống trơn. Tiếng gõ vang sau lưng.",
+    "caption": "CÓ NGƯỜI NGOÀI CỬA?",
+    "visual": "Màn hình CCTV cho thấy hành lang trống; phía sau Duy là cửa kính rung nhẹ.",
+    "motion": "Rack-focus từ CCTV sang cửa kính phía sau.",
+    "sfx": "Ba tiếng gõ xa",
+    "speaker": "narrator"
+  },
+  {
+    "id": 7,
+    "start_sec": 18,
+    "duration_sec": 4,
+    "narration": "Trong kính, một Duy khác đang ngồi trước micro.",
+    "caption": "NGƯỜI TRONG PHẢN CHIẾU",
+    "visual": "Phản chiếu trên kính cho thấy một Duy khác đang ngồi trước micro, dù ghế thật trống.",
+    "motion": "Camera trượt ngang để phản chiếu xuất hiện rõ.",
+    "sfx": "Ambience hạ đột ngột",
+    "speaker": "narrator"
+  },
+  {
+    "id": 8,
+    "start_sec": 22,
+    "duration_sec": 6,
+    "narration": "Anh quay lại. Ghế trống. Nhưng micro tự xoay về phía anh.",
+    "caption": "MICRO QUAY LẠI",
+    "visual": "Duy quay phắt lại; ghế trống, micro từ từ xoay về phía anh.",
+    "motion": "Chuyển động micro chậm, camera khóa khung.",
+    "sfx": "Tiếng khớp kim loại",
+    "speaker": "narrator"
+  },
+  {
+    "id": 9,
+    "start_sec": 28,
+    "duration_sec": 9,
+    "narration": "Bản tin cuối vang lên: “Người đang nghe chương trình này... là Duy của ngày mai.”",
+    "caption": "NGƯỜI NGHE TIẾP THEO",
+    "visual": "Phòng thu trống dần trong ánh đỏ; màn hình phát sóng hiển thị waveform và ghế trống.",
+    "motion": "Dolly lùi ra sau lớp kính, giữ đèn ON AIR trong khung.",
+    "sfx": "Giọng radio lọc băng nhẹ",
+    "speaker": "narrator"
+  },
+  {
+    "id": 10,
+    "start_sec": 37,
+    "duration_sec": 5,
+    "narration": "Nếu bản tin khiến bạn lạnh gáy, hãy thả tim và theo dõi Hẻm Chuyện Lạ.",
+    "caption": "ĐỪNG TẮT RADIO",
+    "visual": "Đèn ON AIR tắt, rồi bật lại một lần trong căn phòng trống.",
+    "motion": "Fade mềm; headline giữ 1 giây rồi fade out.",
+    "sfx": "Click phát sóng xa",
+    "speaker": "narrator"
+  }
+]
