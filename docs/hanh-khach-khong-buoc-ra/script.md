@@ -18,14 +18,14 @@
 
 ## Voice lines and scene plan
 
-### Scene 1 · 0.0–2.0s
+### Scene 1 · 0.0–1.9s
 - **Voice:** Đừng rời mắt.
 - **Caption:** ĐỪNG RỜI MẮT
 - **Visual:** Màn hình CCTV trong phòng điều khiển; bóng người đứng trong cabin tối, Minh ở tiền cảnh.
 - **Motion:** Push-in chậm vào màn hình; bóng người không đổi vị trí.
 - **SFX:** Hum điện lạnh
 
-### Scene 2 · 2.0–4.0s
+### Scene 2 · 1.9–4.0s
 - **Voice:** Camera có người.
 - **Caption:** CABIN TRỐNG
 - **Visual:** Cửa thang máy mở vào cabin hoàn toàn trống; màn hình CCTV phía cạnh vẫn hiện một bóng người.
