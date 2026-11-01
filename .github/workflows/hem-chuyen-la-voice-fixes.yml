@@ -1,5 +1,5 @@
 name: Hem Chuyen La - Vbee Voice Fixes
-# Retry after shortening the two remaining hook utterances.
+# Retry after correcting the radio hook scene index.
 
 on:
   push:
