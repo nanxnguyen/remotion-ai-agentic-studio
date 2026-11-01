@@ -1,0 +1,66 @@
+[
+  {
+    "id": 1,
+    "audio_file": "s1.mp3",
+    "voice_code": "n_hn_male_ngankechuyen_ytstable_vc",
+    "audio_seconds": 4.416,
+    "text": "Nếu gặp ba cô gái áo trắng vẫy xe giữa đèo Bảo Lộc… bạn có dừng lại?",
+    "sha256": "05574ecd182c00e118442ed59b3c08b408e1939a02a95522db29d94279726588"
+  },
+  {
+    "id": 2,
+    "audio_file": "s2.mp3",
+    "voice_code": "n_hn_male_ngankechuyen_ytstable_vc",
+    "audio_seconds": 4.32,
+    "text": "Người ta kể, Loan, Hòa và Thảo từng gặp tai nạn trên cung đèo này.",
+    "sha256": "283831f8664ad76757c4892d8b34852cebc08c220366cfbf47d8cd6fe5fe8779"
+  },
+  {
+    "id": 3,
+    "audio_file": "s3.mp3",
+    "voice_code": "n_hn_male_ngankechuyen_ytstable_vc",
+    "audio_seconds": 4.68,
+    "text": "Sau đó, miếu Ba Cô trở thành nơi người qua đường ghé thắp nhang cầu bình an.",
+    "sha256": "b72c240589ccd233483a0bb736f758ea47aec4cea8fe27499c67eb61b6e84498"
+  },
+  {
+    "id": 4,
+    "audio_file": "s4.mp3",
+    "voice_code": "n_hn_male_ngankechuyen_ytstable_vc",
+    "audio_seconds": 4.152,
+    "text": "Nhưng vào những đêm sương dày, vài tài xế truyền tai một chuyện rùng mình.",
+    "sha256": "dace6bd87c02db44839a174e61d4d8b580d73f7bbd126c89449a951481555bee"
+  },
+  {
+    "id": 5,
+    "audio_file": "s5.mp3",
+    "voice_code": "n_hn_male_ngankechuyen_ytstable_vc",
+    "audio_seconds": 3.888,
+    "text": "Họ thấy ba cô gái đứng bên vệ đường, tay vẫy xin quá giang.",
+    "sha256": "e421184b01ab2ca640bc75fc8b8af66e798a812e1e5177b0d0bcd35020df401e"
+  },
+  {
+    "id": 6,
+    "audio_file": "s6.mp3",
+    "voice_code": "n_hn_male_ngankechuyen_ytstable_vc",
+    "audio_seconds": 3.864,
+    "text": "Dưới chân là ba chiếc ba lô cũ, cạnh đó có mấy cuốn sách.",
+    "sha256": "c001a00e9e5a1ca2d72b90d5420006316125547c29ca74b1a410532bdd5cf723"
+  },
+  {
+    "id": 7,
+    "audio_file": "s7.mp3",
+    "voice_code": "n_hn_male_ngankechuyen_ytstable_vc",
+    "audio_seconds": 4.56,
+    "text": "Một tài xế giảm tốc. Đèn pha vừa quét tới… cả ba bỗng biến mất.",
+    "sha256": "ad5dee7302cc4e0cfff6c7d7faea724c5f33e870a75954af433d9acf5b5bf156"
+  },
+  {
+    "id": 9,
+    "audio_file": "s9.mp3",
+    "voice_code": "n_hn_male_ngankechuyen_ytstable_vc",
+    "audio_seconds": 4.416,
+    "text": "Người trông miếu từng phủ nhận chuyện oan hồn. Nhưng lời đồn vẫn chưa dứt.",
+    "sha256": "c963b88e23c98d43a825f4b90909963109bc6cfd5c5373c10e3f026dfb39e5f0"
+  }
+]
