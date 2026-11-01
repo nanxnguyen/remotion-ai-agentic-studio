@@ -18,14 +18,14 @@
 
 ## Voice lines and scene plan
 
-### Scene 1 · 0.0–2.0s
+### Scene 1 · 0.0–1.9s
 - **Voice:** Đừng nhận đồ lạ.
 - **Caption:** ĐỪNG NHẬN ĐỒ ĂN LẠ
 - **Visual:** Khu chợ tối om, chỉ một sạp nhỏ dưới bóng đèn vàng vẫn sáng và có hơi nước bốc lên.
 - **Motion:** Dolly tiến chậm từ lối chợ vào sạp.
 - **SFX:** Mưa nhỏ, tiếng mái tôn
 
-### Scene 2 · 2.0–4.0s
+### Scene 2 · 1.9–4.0s
 - **Voice:** Một sạp vẫn sáng.
 - **Caption:** SẠP CUỐI CÙNG
 - **Visual:** Toàn cảnh dãy sạp đã kéo cửa sắt; một quầy duy nhất mở hé, ánh đèn vàng hắt ra nền ướt.
