@@ -10,70 +10,70 @@ const SCENES = [
   {
     "id": "scene01",
     "headline": "CÓ AI TRONG CABIN",
-    "caption": "Đừng rời mắt.",
+    "caption": "ĐỪNG RỜI MẮT",
     "image": "images/hanh-khach-khong-buoc-ra/scene-01.png",
     "voice": "audio/hanh-khach-khong-buoc-ra/s1.mp3"
   },
   {
     "id": "scene02",
     "headline": "MÀN HÌNH KHÔNG NÓI DỐI",
-    "caption": "Camera có người.",
+    "caption": "CAMERA CÓ NGƯỜI",
     "image": "images/hanh-khach-khong-buoc-ra/scene-02.png",
     "voice": "audio/hanh-khach-khong-buoc-ra/s2.mp3"
   },
   {
     "id": "scene03",
     "headline": "NGƯỜI ĐÓ GIỐNG MINH",
-    "caption": "Người đó giống Minh.",
+    "caption": "GIỐNG HỆT MINH",
     "image": "images/hanh-khach-khong-buoc-ra/scene-03.png",
     "voice": "audio/hanh-khach-khong-buoc-ra/s3.mp3"
   },
   {
     "id": "scene04",
     "headline": "HÀNH LANG TRỐNG",
-    "caption": "Minh quay lại. Hành lang không một bóng người.",
+    "caption": "HÀNH LANG TRỐNG",
     "image": "images/hanh-khach-khong-buoc-ra/scene-04.png",
     "voice": "audio/hanh-khach-khong-buoc-ra/s4.mp3"
   },
   {
     "id": "scene05",
     "headline": "TẦNG KHÔNG TỒN TẠI",
-    "caption": "Anh ngắt cầu dao. Số mười ba vẫn sáng.",
+    "caption": "TẦNG 13",
     "image": "images/hanh-khach-khong-buoc-ra/scene-05.png",
     "voice": "audio/hanh-khach-khong-buoc-ra/s5.mp3"
   },
   {
     "id": "scene06",
     "headline": "BÀN TAY SAU KÍNH",
-    "caption": "Trên màn hình, bản sao áp tay lên kính.",
+    "caption": "BÀN TAY SAU KÍNH",
     "image": "images/hanh-khach-khong-buoc-ra/scene-06.png",
     "voice": "audio/hanh-khach-khong-buoc-ra/s6.mp3"
   },
   {
     "id": "scene07",
     "headline": "BA TIẾNG GÕ",
-    "caption": "Nó gõ ba tiếng, rồi chỉ thẳng vào Minh.",
+    "caption": "BA TIẾNG GÕ",
     "image": "images/hanh-khach-khong-buoc-ra/scene-07.png",
     "voice": "audio/hanh-khach-khong-buoc-ra/s7.mp3"
   },
   {
     "id": "scene08",
     "headline": "AI ĐANG Ở BÊN TRONG",
-    "caption": "Cửa thật mở ra. Cabin trống, nhưng camera vẫn ghi Minh đang đứng bên trong.",
+    "caption": "AI Ở BÊN TRONG?",
     "image": "images/hanh-khach-khong-buoc-ra/scene-08.png",
     "voice": "audio/hanh-khach-khong-buoc-ra/s8.mp3"
   },
   {
     "id": "scene09",
     "headline": "CHIẾC THẺ CÒN LẠI",
-    "caption": "Sáng hôm sau, thang máy mở. Không ai bước ra. Chỉ còn thẻ nhân viên của Minh nằm trên sàn.",
+    "caption": "KHÔNG AI BƯỚC RA",
     "image": "images/hanh-khach-khong-buoc-ra/scene-09.png",
     "voice": "audio/hanh-khach-khong-buoc-ra/s9.mp3"
   },
   {
     "id": "scene10",
     "headline": "CỬA VẪN MỞ",
-    "caption": "Nếu bạn thấy lạnh gáy, hãy thả tim và theo dõi Hẻm Chuyện Lạ.",
+    "caption": "CÒN BẠN THÌ SAO?",
     "image": "images/hanh-khach-khong-buoc-ra/scene-10.png",
     "voice": "audio/hanh-khach-khong-buoc-ra/s10.mp3"
   }
@@ -142,8 +142,8 @@ const ScenePlate: React.FC<ScenePlateProps> = ({
           maxLines={2}
           fontFamily='Noto Sans'
           fontWeight={700}
-          minFontSize={39}
-          maxFontSize={58}
+          minFontSize={30}
+          maxFontSize={54}
           style={{color:'#FFF9ED',textShadow:'0 3px 16px rgba(0,0,0,.98)'}}
         />
       </div>
