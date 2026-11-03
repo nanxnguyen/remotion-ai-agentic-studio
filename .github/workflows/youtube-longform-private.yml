@@ -1,0 +1,83 @@
+name: YouTube Long-form (private, multi-channel)
+
+on:
+  workflow_dispatch:
+    inputs:
+      channel:
+        description: 'Allowlisted channel key, e.g. OLISE_MAN'
+        required: true
+        default: 'OLISE_MAN'
+        type: string
+      video_drive_id:
+        description: 'Private Google Drive FINAL video file ID'
+        required: true
+        type: string
+      thumbnail_drive_id:
+        description: 'Private Google Drive PNG/JPG thumbnail file ID'
+        required: true
+        type: string
+      metadata_path:
+        description: 'Approved JSON metadata path, committed to repository'
+        required: true
+        default: 'config/youtube-longform-metadata.example.json'
+        type: string
+      execute:
+        description: 'FALSE = dry-run. TRUE = upload PRIVATE after QA approval'
+        required: true
+        default: false
+        type: boolean
+
+permissions:
+  contents: read
+
+concurrency:
+  group: youtube-longform-${{ inputs.channel }}-${{ inputs.video_drive_id }}
+  cancel-in-progress: false
+
+jobs:
+  upload-private:
+    name: Validate channel / upload only if explicitly enabled
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    env:
+      YOUTUBE_CLIENT_ID: ${{ secrets.YOUTUBE_CLIENT_ID }}
+      YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
+      DRIVE_REFRESH_TOKEN: ${{ secrets.DRIVE_REFRESH_TOKEN }}
+      YOUTUBE_REFRESH_TOKEN: ${{ secrets[format('YOUTUBE_REFRESH_TOKEN_{0}', inputs.channel)] }}
+      YOUTUBE_UPLOAD_PRIVATE_ENABLED: ${{ inputs.execute && '1' || '0' }}
+      CHANNEL: ${{ inputs.channel }}
+      VIDEO_DRIVE_ID: ${{ inputs.video_drive_id }}
+      THUMBNAIL_DRIVE_ID: ${{ inputs.thumbnail_drive_id }}
+      METADATA_PATH: ${{ inputs.metadata_path }}
+      EXECUTE: ${{ inputs.execute }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install dependencies
+        run: |
+          python -m pip install --disable-pip-version-check -r scripts/youtube-multi-requirements.txt
+          command -v ffprobe
+      - name: Check routing tests (no network)
+        run: python -m unittest discover -s tests -p 'test_youtube_multi_channel.py' -v
+      - name: Check private video, validate chosen channel and optionally upload
+        shell: bash
+        run: |
+          set -euo pipefail
+          cmd=(python scripts/youtube_multi_channel.py
+            --channel "$CHANNEL"
+            --video-drive-id "$VIDEO_DRIVE_ID"
+            --thumbnail-drive-id "$THUMBNAIL_DRIVE_ID"
+            --metadata "$METADATA_PATH"
+            --receipt youtube-private-receipt.json)
+          if [[ "$EXECUTE" == "true" ]]; then cmd+=(--execute); fi
+          "${cmd[@]}"
+      - name: Save non-secret receipt
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: youtube-longform-${{ inputs.channel }}-receipt
+          path: youtube-private-receipt.json
+          if-no-files-found: ignore
+          retention-days: 30
