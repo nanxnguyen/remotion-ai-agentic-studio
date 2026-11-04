@@ -1,8 +1,8 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "ray-phim-ke-chuyen",
-  "version": "0.3.0",
-  "description": "Ray Phim Kể Chuyện v0.3.0: cinematic horror Shorts, V3/V4 regression learning, voice-to-visible-action QA, smooth soft fades, authentic Vbee, captioned storyboard and Google Drive video + GitHub source.",
+  "version": "0.3.5",
+  "description": "Tạo phim ma v0.3.5: cinematic storytelling, genuine Vbee and QA, mandatory storyboard-designed 1–3s opening challenge plus 3–5s story-specific like/follow outro for future videos.",
   "author": {
     "name": "Ray"
   },
@@ -13,21 +13,20 @@
     "Remotion",
     "Vbee",
     "cinematic",
+    "horror",
     "video-production",
-    "preflight-qa",
-    "0-6s hook",
-    "captioned storyboards",
-    "native Vietnamese typography",
+    "storyboard",
+    "script-adaptive palettes",
+    "Mini Horror",
+    "Luxury Cinematic",
     "voice visual evidence QA",
-    "before-action-after",
-    "visual continuity",
-    "smooth 2.5D motion",
-    "soft crossfade",
-    "retention-oriented editing",
-    "V3 V4 regression prevention",
+    "opening challenge CTA 1-3s",
+    "closing like follow CTA 3-5s",
+    "dual CTA storyboard",
+    "QA actual MP4",
     "Google Drive MP4",
     "GitHub source only",
-    "no releases"
+    "no GitHub Releases"
   ],
   "skills": "./skills"
 }
