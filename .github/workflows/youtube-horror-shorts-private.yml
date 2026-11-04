@@ -1,0 +1,86 @@
+name: YouTube Horror Shorts VI (private, HEM_CHUYEN_LA only)
+
+on:
+  workflow_dispatch:
+    inputs:
+      video_drive_id:
+        description: 'Verified final Vietnamese horror 1080x1920 MP4 Drive file ID'
+        required: true
+        type: string
+      thumbnail_drive_id:
+        description: 'Verified 1280x720 YouTube upload thumbnail Drive ID (not storyboard poster)'
+        required: true
+        type: string
+      metadata_path:
+        description: 'Committed, reviewed Vietnamese metadata JSON path'
+        required: true
+        default: 'config/youtube-shorts-vi-metadata.example.json'
+        type: string
+      execute:
+        description: 'FALSE = real Drive/API dry-run; TRUE = upload PRIVATE only after approved QA'
+        required: true
+        default: false
+        type: boolean
+
+permissions:
+  contents: read
+
+concurrency:
+  group: horror-shorts-private-HEM_CHUYEN_LA-${{ inputs.video_drive_id }}
+  cancel-in-progress: false
+
+jobs:
+  upload-private:
+    name: Verify exact Horror Shorts channel and optionally upload Private
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      YOUTUBE_CLIENT_ID: ${{ secrets.YOUTUBE_CLIENT_ID }}
+      YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
+      DRIVE_REFRESH_TOKEN: ${{ secrets.DRIVE_REFRESH_TOKEN }}
+      YOUTUBE_REFRESH_TOKEN: ${{ secrets.YOUTUBE_REFRESH_TOKEN_HEM_CHUYEN_LA }}
+      YOUTUBE_UPLOAD_PRIVATE_ENABLED: ${{ inputs.execute && '1' || '0' }}
+      CHANNEL: HEM_CHUYEN_LA
+      PROFILE: SHORTS_VI
+      VIDEO_DRIVE_ID: ${{ inputs.video_drive_id }}
+      THUMBNAIL_DRIVE_ID: ${{ inputs.thumbnail_drive_id }}
+      METADATA_PATH: ${{ inputs.metadata_path }}
+      EXECUTE: ${{ inputs.execute }}
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Ensure ffprobe
+        shell: bash
+        run: |
+          if ! command -v ffprobe >/dev/null 2>&1; then
+            sudo apt-get update -qq
+            sudo apt-get install -y -qq ffmpeg
+          fi
+      - name: Install YouTube API dependencies
+        run: python -m pip install --disable-pip-version-check -r scripts/youtube-multi-requirements.txt
+      - name: Check upload profile regression tests (no remote changes)
+        run: python -m unittest discover -s tests -p 'test_youtube_multi_channel.py' -v
+      - name: Verify and optionally upload (never Public)
+        shell: bash
+        run: |
+          set -euo pipefail
+          cmd=(python scripts/youtube_multi_channel.py
+            --channel "$CHANNEL"
+            --profile "$PROFILE"
+            --video-drive-id "$VIDEO_DRIVE_ID"
+            --thumbnail-drive-id "$THUMBNAIL_DRIVE_ID"
+            --metadata "$METADATA_PATH"
+            --receipt youtube-horror-shorts-private-receipt.json)
+          if [[ "$EXECUTE" == "true" ]]; then cmd+=(--execute); fi
+          "${cmd[@]}"
+      - name: Upload non-secret receipt
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: youtube-horror-shorts-private-receipt
+          path: youtube-horror-shorts-private-receipt.json
+          if-no-files-found: ignore
+          retention-days: 30
