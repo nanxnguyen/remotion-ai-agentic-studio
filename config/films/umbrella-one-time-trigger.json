@@ -1,0 +1,8 @@
+{
+  "mode": "dry_run",
+  "channel": "OLISE_MAN",
+  "video_drive_id": "1mesjS1Ql-7eDuQ7sfTnrwIY_B0RUvHhq",
+  "thumbnail_drive_id": "1JbNp4xUtVpwYpxM6r8OQMneFhcK6YzNK",
+  "metadata_path": "config/films/umbrella-that-chose-others-20261104.json",
+  "test_attempt": "umbrella-v1.5-owner-private-preflight"
+}
