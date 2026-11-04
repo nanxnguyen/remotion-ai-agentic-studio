@@ -1,0 +1,28 @@
+{
+  "title": "MA DA KÉO GIÒ: Đừng Nhìn Xuống Dưới Xuồng! | Hẻm Chuyện Lạ",
+  "description": "Đêm mưa trên một con rạch miền Tây, Lợi nghe tiếng gõ dưới xuồng và tiếng cầu cứu giữa đám lục bình. Một sợi chỉ đỏ tưởng vô hại lại che giấu điều kinh hoàng...\n\nĐây là phim kinh dị hư cấu lấy cảm hứng từ truyền thuyết Ma Da trong dân gian Việt Nam; không phải câu chuyện có thật được xác minh.\n\nNếu là Lợi, bạn có dám nhìn xuống nước? Thả tim, đăng ký Hẻm Chuyện Lạ để nghe thêm những chuyện ma Việt Nam.\n\n#Shorts #MaDa #TruyenMa #KinhDi #HemChuyenLa",
+  "tags": [
+    "ma da kéo giò",
+    "ma da",
+    "kẻ thế mạng",
+    "Hẻm Chuyện Lạ",
+    "truyện ma Việt Nam",
+    "kinh dị miền Tây",
+    "shorts",
+    "truyền thuyết dân gian"
+  ],
+  "language": "vi",
+  "privacy": "private",
+  "made_for_kids": false,
+  "contains_synthetic_media": true,
+  "qa_approved": true,
+  "qa_approval_basis": "Existing V3 technical acceptance report; owner explicitly requested PRIVATE upload. Independent uninterrupted subjective playback review not performed.",
+  "technical_qa": {
+    "sha256": "4c419b0fa9f12c288a165a6bce2a100834d37fa015ff2a7ed610d186896435cb",
+    "duration_seconds": 60,
+    "video": "H.264 1080x1920 30fps",
+    "audio": "AAC",
+    "full_decode": "PASS"
+  },
+  "target_channel": "HEM_CHUYEN_LA"
+}
