@@ -1,10 +1,6 @@
 name: One-time Ma Da V3 HEM_CHUYEN_LA Private Upload
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflows/one-time-ma-da-v3-private.yml'
   workflow_dispatch:
 
 permissions:
