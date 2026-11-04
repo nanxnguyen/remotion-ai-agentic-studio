@@ -1,0 +1,57 @@
+{
+  "workflow_version": 4,
+  "name": "bat-dau-lai-sau-moi-quan-he-dai",
+  "comp": "BatDauLaiReel",
+  "voice": "thanh-long-nang-cao",
+  "profile": "story",
+  "paths": {
+    "audio": "bat-dau-lai-sau-moi-quan-he-dai",
+    "out": "bat-dau-lai-sau-moi-quan-he-dai-thanh-long-nang-cao",
+    "qa": "bat-dau-lai-sau-moi-quan-he-dai"
+  },
+  "gates": [],
+  "stages": {
+    "research": {
+      "state": "in_progress",
+      "at": "2026-10-22T07:50:47+07:00"
+    },
+    "motion": {
+      "state": "pending"
+    },
+    "qa": {
+      "state": "pending"
+    }
+  },
+  "reviews": {},
+  "review_valid": {},
+  "next": "",
+  "log": [
+    {
+      "t": "2026-10-22T07:49:15+07:00",
+      "stage": "-",
+      "who": "agent",
+      "msg": "status initialised"
+    },
+    {
+      "t": "2026-10-22T07:50:47+07:00",
+      "stage": "research",
+      "who": "agent",
+      "msg": "research -> in_progress"
+    },
+    {
+      "t": "2026-10-22T07:50:47+07:00",
+      "stage": "research",
+      "who": "research-agent-1",
+      "msg": "research-agent-1 running: audience language + hooks + differentiation"
+    }
+  ],
+  "updated": "2026-10-22T07:50:47+07:00",
+  "agents": {
+    "research-agent-1": {
+      "state": "running",
+      "at": "2026-10-22T07:50:47+07:00",
+      "note": "audience language + hooks + differentiation",
+      "stage": "research"
+    }
+  }
+}
