@@ -118,14 +118,19 @@ def download_drive(drive, fid: str, destination: Path, expected_mimes: set[str])
 
 def inspect_video(path: Path) -> dict:
     try:
-        data = json.loads(subprocess.check_output(["ffprobe", "-v", "error", "-show_streams", "-show_format", "-of", "json", str(path)], text=True))
+        output = subprocess.run(["ffprobe", "-v", "error", "-show_streams", "-show_format", "-of", "json", str(path)], capture_output=True, text=True, check=False)
+        if output.returncode:
+            raise PreflightError(f"ffprobe failed (exit={output.returncode}, bytes={path.stat().st_size}): {output.stderr[-300:]}")
+        data = json.loads(output.stdout)
         v = next(x for x in data["streams"] if x.get("codec_type") == "video")
         a = next(x for x in data["streams"] if x.get("codec_type") == "audio")
         fps = v.get("avg_frame_rate", "0/1")
         n, d = (int(x) for x in fps.split("/"))
         duration = float(data["format"]["duration"])
+    except PreflightError:
+        raise
     except (OSError, StopIteration, KeyError, ValueError, subprocess.CalledProcessError, ZeroDivisionError) as e:
-        raise PreflightError("Invalid MP4 or missing video/audio stream") from e
+        raise PreflightError(f"Invalid MP4 or missing video/audio stream (bytes={path.stat().st_size}): {type(e).__name__}: {str(e)[:180]}") from e
     if (v.get("width"), v.get("height")) != (2560, 1440) or abs(n / d - 30) > 0.05 or not 180 <= duration <= 240.5:
         raise PreflightError("Expected 2560x1440 at 30 FPS and 3–4 minutes")
     if v.get("codec_name") != "h264" or a.get("codec_name") != "aac":
