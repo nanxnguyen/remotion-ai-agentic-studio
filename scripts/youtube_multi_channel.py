@@ -148,13 +148,29 @@ def inspect_video(path: Path, profile: str = "LONGFORM_EN") -> dict:
     return {"width": v["width"], "height": v["height"], "fps": round(n / d, 3), "duration": round(duration, 3)}
 
 
-def inspect_thumbnail(path: Path) -> None:
+def inspect_thumbnail(path: Path, profile: str = "LONGFORM_EN") -> None:
+    """Video thumbnails are profile-specific: Shorts are genuinely 9:16."""
     from PIL import Image
-    if path.stat().st_size > 2 * 1024 * 1024:
-        raise PreflightError("Thumbnail must be 2 MiB or smaller")
+    size = path.stat().st_size
+    if profile == "LONGFORM_EN":
+        if size > 2 * 1024 * 1024:
+            raise PreflightError("Thumbnail must be 2 MiB or smaller")
+    elif profile == "SHORTS_VI":
+        if size > 50 * 1024 * 1024:
+            raise PreflightError("Shorts thumbnail must be 50 MiB or smaller")
+    else:
+        raise PreflightError("Unknown thumbnail profile")
+
     with Image.open(path) as im:
-        if im.size != (1280, 720) or im.format not in {"JPEG", "PNG"}:
-            raise PreflightError("Thumbnail must be 1280x720 PNG/JPEG")
+        if im.format not in {"JPEG", "PNG"}:
+            raise PreflightError("Thumbnail must be PNG/JPEG")
+        width, height = im.size
+        if profile == "LONGFORM_EN":
+            if (width, height) != (1280, 720):
+                raise PreflightError("LONGFORM_EN thumbnail must be 1280x720")
+        elif (width >= height or height < 640 or
+              abs(width / height - 9 / 16) > 0.015):
+            raise PreflightError("SHORTS_VI thumbnail must be vertical 9:16, min height 640")
         im.verify()
 
 
@@ -255,7 +271,7 @@ def run(args) -> dict:
         download_drive(drive, video_id, video, {"video/mp4"})
         download_drive(drive, thumb_id, thumb, {"image/png", "image/jpeg"})
         stats = inspect_video(video, profile=profile)
-        inspect_thumbnail(thumb)
+        inspect_thumbnail(thumb, profile=profile)
         sha = file_hash(video)
         marker = "saf-" + sha[:32]
         existing = duplicate_video(yt, owned, marker)
@@ -275,7 +291,29 @@ def run(args) -> dict:
         write_receipt(Path(args.receipt), receipt)  # fail-safe before thumbnail
         from googleapiclient.http import MediaFileUpload
         mime = "image/png" if thumb.read_bytes()[:8] == b"\x89PNG\r\n\x1a\n" else "image/jpeg"
-        yt.thumbnails().set(videoId=remote_id, media_body=MediaFileUpload(str(thumb), mimetype=mime)).execute()
+        if profile == "SHORTS_VI":
+            # As of 2026-11-03, Shorts custom thumbnails are supported, but
+            # only after YouTube processingDetails.processingStatus=succeeded.
+            for _ in range(18):
+                videos = yt.videos().list(
+                    part="processingDetails,status", id=remote_id, maxResults=1
+                ).execute().get("items", [])
+                processing = (videos[0].get("processingDetails", {}).get("processingStatus")
+                              if len(videos) == 1 else None)
+                if processing == "succeeded":
+                    break
+                if processing in {"failed", "terminated"}:
+                    raise PreflightError(f"YouTube Shorts processing {processing}; thumbnail pending")
+                time.sleep(10)
+            else:
+                receipt["status"] = "uploaded_private_thumbnail_pending_processing"
+                write_receipt(Path(args.receipt), receipt)
+                return receipt
+        thumb_result = yt.thumbnails().set(
+            videoId=remote_id, media_body=MediaFileUpload(str(thumb), mimetype=mime)
+        ).execute()
+        if not thumb_result.get("items"):
+            raise PreflightError("YouTube thumbnail API returned no thumbnail resources")
         receipt["status"] = "uploaded_private_ready_for_review"
         write_receipt(Path(args.receipt), receipt)
         return receipt

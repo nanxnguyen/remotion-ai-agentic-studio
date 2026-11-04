@@ -52,6 +52,32 @@ class ChannelTests(unittest.TestCase):
         with self.assertRaisesRegex(mod.PreflightError, "Pinned"):
             mod.resolve_channel(yt, {"handle": "@olise-man", "channel_id": "UC_DIFF"})
 
+    def test_shorts_vi_thumbnail_vertical_accepts_portrait(self):
+        from PIL import Image
+        with tempfile.TemporaryDirectory() as temp:
+            p = pathlib.Path(temp) / "shorts.png"
+            Image.new("RGB", (1080, 1920), "black").save(p)
+            mod.inspect_thumbnail(p, profile="SHORTS_VI")
+            with self.assertRaisesRegex(mod.PreflightError, "1280x720"):
+                mod.inspect_thumbnail(p, profile="LONGFORM_EN")
+
+    def test_shorts_vi_rejects_landscape_thumbnail(self):
+        from PIL import Image
+        with tempfile.TemporaryDirectory() as temp:
+            p = pathlib.Path(temp) / "landscape.jpg"
+            Image.new("RGB", (1280, 720), "black").save(p)
+            with self.assertRaisesRegex(mod.PreflightError, "vertical 9:16"):
+                mod.inspect_thumbnail(p, profile="SHORTS_VI")
+            mod.inspect_thumbnail(p, profile="LONGFORM_EN")
+
+    def test_shorts_vi_rejects_wrong_portrait_aspect_ratio(self):
+        from PIL import Image
+        with tempfile.TemporaryDirectory() as temp:
+            p = pathlib.Path(temp) / "wrong-aspect.png"
+            Image.new("RGB", (800, 1200), "black").save(p)
+            with self.assertRaisesRegex(mod.PreflightError, "vertical 9:16"):
+                mod.inspect_thumbnail(p, profile="SHORTS_VI")
+
     def test_shorts_vi_accepts_vietnamese_metadata(self):
         meta = json.loads((ROOT / "config" / "youtube-longform-metadata.example.json").read_text())
         meta["language"] = "vi"

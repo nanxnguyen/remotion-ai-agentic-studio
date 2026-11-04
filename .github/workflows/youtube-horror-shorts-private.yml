@@ -8,7 +8,7 @@ on:
         required: true
         type: string
       thumbnail_drive_id:
-        description: 'Verified 1280x720 YouTube upload thumbnail Drive ID (not storyboard poster)'
+        description: 'Verified 9:16 portrait Shorts thumbnail Drive ID (not a landscape fallback)'
         required: true
         type: string
       metadata_path:
