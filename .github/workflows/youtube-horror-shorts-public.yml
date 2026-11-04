@@ -1,0 +1,134 @@
+name: YouTube Horror Shorts VI — Quality-Gated PUBLIC (Hẻm Chuyện Lạ)
+
+on:
+  workflow_dispatch:
+    inputs:
+      video_drive_id:
+        description: "Final QA-PASS original Shorts video Drive ID"
+        required: true
+        type: string
+      thumbnail_drive_id:
+        description: "QA-PASS vertical 9:16 cinematic thumbnail Drive ID"
+        required: true
+        type: string
+      metadata_path:
+        description: "Committed public metadata JSON with independent QA report"
+        required: true
+        type: string
+      execute:
+        description: "FALSE = dry-run; TRUE = publish NEW video PUBLIC after all gates"
+        type: boolean
+        default: false
+        required: true
+
+permissions:
+  contents: read
+
+concurrency:
+  group: hem-shorts-public-${{ inputs.video_drive_id }}
+  cancel-in-progress: false
+
+jobs:
+  public-upload:
+    name: Gate new horror Shorts then publish PUBLIC once
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      YOUTUBE_CLIENT_ID: ${{ secrets.YOUTUBE_CLIENT_ID }}
+      YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
+      YOUTUBE_REFRESH_TOKEN: ${{ secrets.YOUTUBE_REFRESH_TOKEN_HEM_CHUYEN_LA }}
+      DRIVE_REFRESH_TOKEN: ${{ secrets.DRIVE_REFRESH_TOKEN }}
+      YOUTUBE_PUBLIC_UPLOAD_ENABLED: ${{ inputs.execute && '1' || '0' }}
+      VIDEO_DRIVE_ID: ${{ inputs.video_drive_id }}
+      THUMBNAIL_DRIVE_ID: ${{ inputs.thumbnail_drive_id }}
+      METADATA_PATH: ${{ inputs.metadata_path }}
+      EXECUTE: ${{ inputs.execute }}
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install uploader dependencies and ffprobe
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check -r scripts/youtube-multi-requirements.txt
+          if ! command -v ffprobe >/dev/null 2>&1; then
+            sudo apt-get update -qq
+            sudo apt-get install -y -qq ffmpeg
+          fi
+      - name: Regression test (all uploads fail closed)
+        run: python -m unittest discover -s tests -p 'test_youtube_multi_channel.py' -v
+      - name: Validate actual Drive files, Hẻm channel, no duplicate and full QA
+        shell: bash
+        run: |
+          set -euo pipefail
+          python scripts/youtube_multi_channel.py \
+            --channel HEM_CHUYEN_LA \
+            --profile SHORTS_VI \
+            --video-drive-id "$VIDEO_DRIVE_ID" \
+            --thumbnail-drive-id "$THUMBNAIL_DRIVE_ID" \
+            --metadata "$METADATA_PATH" \
+            --receipt horror-public-dry-run.json \
+            --public
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          r=json.loads(Path('horror-public-dry-run.json').read_text())
+          assert r.get('status') == 'dry_run'
+          assert r.get('channel_key') == 'HEM_CHUYEN_LA'
+          assert r.get('channel_id') == 'UC4zHyyv2YnYGv1xbyuZzteA'
+          assert r.get('privacy') == 'public'
+          assert r.get('profile') == 'SHORTS_VI'
+          assert r.get('previously_uploaded_id') is None, 'Duplicate video: blocked'
+          print('PASS: QA-approved media, 9:16 thumbnail, OAuth owner, hash and dedupe')
+          PY
+      - name: Publish exactly one NEW video PUBLIC, never an existing film
+        if: ${{ inputs.execute }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          python scripts/youtube_multi_channel.py \
+            --channel HEM_CHUYEN_LA \
+            --profile SHORTS_VI \
+            --video-drive-id "$VIDEO_DRIVE_ID" \
+            --thumbnail-drive-id "$THUMBNAIL_DRIVE_ID" \
+            --metadata "$METADATA_PATH" \
+            --receipt horror-public-upload-receipt.json \
+            --public --execute
+      - name: Report actual YouTube state, not a promise
+        if: always()
+        shell: bash
+        run: |
+          python - <<'PY'
+          import os, json
+          from pathlib import Path
+          out = os.getenv('GITHUB_STEP_SUMMARY')
+          if not out:
+              raise SystemExit(0)
+          lines = ['## Hẻm Chuyện Lạ — Quality-Gated Shorts PUBLIC', '']
+          for name in ('horror-public-dry-run.json', 'horror-public-upload-receipt.json'):
+              p=Path(name)
+              if not p.exists():
+                  continue
+              x=json.loads(p.read_text())
+              lines.append('- '+name+': '+str(x.get('status', 'unknown')))
+              for key in ('youtube_video_id', 'youtube_url', 'channel_id', 'privacy'):
+                  if x.get(key):
+                      lines.append('  - '+key+': '+str(x[key]))
+          lines.append('')
+          lines.append('Only uploaded_public_verified means published PUBLIC with thumbnail API accepted.')
+          with open(out,'a',encoding='utf-8') as w:
+              w.write('\n'.join(lines)+'\n')
+          PY
+      - name: Preserve non-secret dry-run/public receipts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: hem-shorts-public-qa-receipts
+          path: |
+            horror-public-dry-run.json
+            horror-public-upload-receipt.json
+          retention-days: 30
+          if-no-files-found: ignore
