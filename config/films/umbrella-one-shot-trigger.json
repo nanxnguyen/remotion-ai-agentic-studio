@@ -1,8 +1,9 @@
 {
-  "mode": "dry_run",
+  "mode": "upload_private",
   "channel": "OLISE_MAN",
   "video_drive_id": "1GK93f8vATRASEeKYkV7_VIIm3htcWjy0",
   "thumbnail_drive_id": "1-WxAotBRaQd7T1XxWYCxALMst4F4_h-i",
   "metadata_path": "config/films/umbrella-20261104.json",
-  "release": "private_owner_creative_override_after_5_fixes"
+  "release": "private_owner_creative_override_after_5_fixes",
+  "execution": "owner_authorized_private_only_after_verified_dry_run_41871306281"
 }
