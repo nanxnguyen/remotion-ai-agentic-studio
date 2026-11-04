@@ -21,6 +21,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - name: Install Pillow used by thumbnail tests
+        run: python -m pip install --disable-pip-version-check pillow
       - name: Validate uploader and Shorts VI profile (offline)
         run: |
           python -m compileall -q scripts/youtube_multi_channel.py
