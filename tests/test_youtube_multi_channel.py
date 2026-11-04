@@ -4,6 +4,7 @@ import json
 import pathlib
 import tempfile
 import unittest
+import unittest.mock
 from unittest.mock import Mock
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
@@ -50,6 +51,41 @@ class ChannelTests(unittest.TestCase):
         yt = Mock(channels=lambda: FakeList({"public": [payload], "owned": [payload]}))
         with self.assertRaisesRegex(mod.PreflightError, "Pinned"):
             mod.resolve_channel(yt, {"handle": "@olise-man", "channel_id": "UC_DIFF"})
+
+    def test_shorts_vi_accepts_vietnamese_metadata(self):
+        meta = json.loads((ROOT / "config" / "youtube-longform-metadata.example.json").read_text())
+        meta["language"] = "vi"
+        mod.validate_meta(meta, require_approval=False, profile="SHORTS_VI")
+
+    def test_olise_longform_still_rejects_vietnamese_metadata(self):
+        meta = json.loads((ROOT / "config" / "youtube-longform-metadata.example.json").read_text())
+        meta["language"] = "vi"
+        with self.assertRaisesRegex(mod.PreflightError, "language=en"):
+            mod.validate_meta(meta, require_approval=False)
+
+    def test_shorts_vi_requires_vertical_video(self):
+        streams = [
+            {"codec_type": "video", "codec_name": "h264", "width": 1080,
+             "height": 1920, "avg_frame_rate": "30/1"},
+            {"codec_type": "audio", "codec_name": "aac"}
+        ]
+        payload = {"streams": streams, "format": {"duration": "60.0"}}
+        with unittest.mock.patch.object(mod.subprocess, "run", return_value=Mock(
+                returncode=0, stdout=json.dumps(payload), stderr="")):
+            self.assertEqual(mod.inspect_video(pathlib.Path("video.mp4"), profile="SHORTS_VI")["duration"], 60)
+            with self.assertRaisesRegex(mod.PreflightError, "2560x1440"):
+                mod.inspect_video(pathlib.Path("video.mp4"), profile="LONGFORM_EN")
+
+    def test_shorts_vi_rejects_duration_over_sixty(self):
+        payload = {"streams": [
+            {"codec_type": "video", "codec_name": "h264", "width": 1080,
+             "height": 1920, "avg_frame_rate": "30/1"},
+            {"codec_type": "audio", "codec_name": "aac"}
+        ], "format": {"duration": "61.0"}}
+        with unittest.mock.patch.object(mod.subprocess, "run", return_value=Mock(
+                returncode=0, stdout=json.dumps(payload), stderr="")):
+            with self.assertRaisesRegex(mod.PreflightError, "10–60"):
+                mod.inspect_video(pathlib.Path("video.mp4"), profile="SHORTS_VI")
 
     def test_metadata_requires_qa_for_upload(self):
         meta = json.loads((ROOT / "config" / "youtube-longform-metadata.example.json").read_text())

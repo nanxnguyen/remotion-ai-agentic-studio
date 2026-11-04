@@ -70,14 +70,17 @@ def credentials(scope: list[str], refresh: str):
     return cred
 
 
-def validate_meta(meta: dict, *, require_approval: bool) -> None:
+def validate_meta(meta: dict, *, require_approval: bool, profile: str = "LONGFORM_EN") -> None:
     title, desc = meta.get("title"), meta.get("description")
     if not isinstance(title, str) or not 5 <= len(title.strip()) <= 100:
         raise PreflightError("Title must contain 5–100 characters")
     if not isinstance(desc, str) or not 1 <= len(desc) <= 5000:
         raise PreflightError("Description must contain 1–5000 characters")
-    if meta.get("language") != "en":
-        raise PreflightError("This silent-animation workflow requires language=en")
+    expected_language = {"LONGFORM_EN": "en", "SHORTS_VI": "vi"}.get(profile)
+    if not expected_language:
+        raise PreflightError("Unknown upload profile")
+    if meta.get("language") != expected_language:
+        raise PreflightError(f"{profile} requires language={expected_language}")
     if not isinstance(meta.get("made_for_kids"), bool) or not isinstance(meta.get("contains_synthetic_media"), bool):
         raise PreflightError("Set made_for_kids and contains_synthetic_media explicitly")
     if require_approval and meta.get("qa_approved") is not True:
@@ -116,7 +119,7 @@ def download_drive(drive, fid: str, destination: Path, expected_mimes: set[str])
         raise PreflightError("Downloaded file is empty")
 
 
-def inspect_video(path: Path) -> dict:
+def inspect_video(path: Path, profile: str = "LONGFORM_EN") -> dict:
     try:
         output = subprocess.run(["ffprobe", "-v", "error", "-show_streams", "-show_format", "-of", "json", str(path)], capture_output=True, text=True, check=False)
         if output.returncode:
@@ -131,8 +134,15 @@ def inspect_video(path: Path) -> dict:
         raise
     except (OSError, StopIteration, KeyError, ValueError, subprocess.CalledProcessError, ZeroDivisionError) as e:
         raise PreflightError(f"Invalid MP4 or missing video/audio stream (bytes={path.stat().st_size}): {type(e).__name__}: {str(e)[:180]}") from e
-    if (v.get("width"), v.get("height")) != (2560, 1440) or abs(n / d - 30) > 0.05 or not 180 <= duration <= 240.5:
-        raise PreflightError("Expected 2560x1440 at 30 FPS and 3–4 minutes")
+    dimensions = (v.get("width"), v.get("height"))
+    if profile == "LONGFORM_EN":
+        if dimensions != (2560, 1440) or abs(n / d - 30) > 0.05 or not 180 <= duration <= 240.5:
+            raise PreflightError("Expected 2560x1440 at 30 FPS and 3–4 minutes")
+    elif profile == "SHORTS_VI":
+        if dimensions != (1080, 1920) or abs(n / d - 30) > 0.05 or not 10 <= duration <= 60.05:
+            raise PreflightError("Expected 1080x1920 at 30 FPS and 10–60 seconds")
+    else:
+        raise PreflightError("Unknown upload profile")
     if v.get("codec_name") != "h264" or a.get("codec_name") != "aac":
         raise PreflightError("Expected H.264 video and AAC audio")
     return {"width": v["width"], "height": v["height"], "fps": round(n / d, 3), "duration": round(duration, 3)}
@@ -181,7 +191,7 @@ def upload_video(yt, path: Path, meta: dict, marker: str) -> str:
     from googleapiclient.errors import HttpError
     body = {
         "snippet": {"title": meta["title"].strip(), "description": meta["description"],
-                    "tags": [*meta.get("tags", []), marker], "categoryId": "1", "defaultLanguage": "en"},
+                    "tags": [*meta.get("tags", []), marker], "categoryId": "1", "defaultLanguage": meta["language"]},
         "status": {"privacyStatus": "private", "selfDeclaredMadeForKids": meta["made_for_kids"],
                    "containsSyntheticMedia": meta["contains_synthetic_media"]},
     }
@@ -212,12 +222,15 @@ def write_receipt(path: Path, doc: dict) -> None:
 
 
 def run(args) -> dict:
+    profile = getattr(args, "profile", "LONGFORM_EN")
+    if profile not in {"LONGFORM_EN", "SHORTS_VI"}:
+        raise PreflightError("Unknown upload profile")
     target = read_target(Path(args.config), args.channel)
     metadata_path = Path(args.metadata).resolve()
     if not metadata_path.is_relative_to(ROOT):
         raise PreflightError("Metadata must be a file checked into this repository")
     meta = json.loads(metadata_path.read_text(encoding="utf-8"))
-    validate_meta(meta, require_approval=args.execute)
+    validate_meta(meta, require_approval=args.execute, profile=profile)
     video_id = drive_id(args.video_drive_id)
     thumb_id = drive_id(args.thumbnail_drive_id)
     if video_id == thumb_id:
@@ -241,12 +254,13 @@ def run(args) -> dict:
         thumb = Path(folder) / "thumbnail.png"
         download_drive(drive, video_id, video, {"video/mp4"})
         download_drive(drive, thumb_id, thumb, {"image/png", "image/jpeg"})
-        stats = inspect_video(video)
+        stats = inspect_video(video, profile=profile)
         inspect_thumbnail(thumb)
         sha = file_hash(video)
         marker = "saf-" + sha[:32]
         existing = duplicate_video(yt, owned, marker)
         receipt = {"channel_key": target["key"], "handle": target["handle"], "channel_id": owned["id"],
+                   "profile": profile, "language": meta["language"],
                    "video_sha256": sha, "video_info": stats, "source_drive_id": video_id,
                    "thumbnail_drive_id": thumb_id, "privacy": "private"}
         if not args.execute:
@@ -270,6 +284,8 @@ def run(args) -> dict:
 def main():
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--channel", default="OLISE_MAN", help="Allowlisted channel key, e.g. OLISE_MAN")
+    ap.add_argument("--profile", choices=("LONGFORM_EN", "SHORTS_VI"), default="LONGFORM_EN",
+                    help="Strict media and metadata profile; default keeps Olise longform safeguards")
     ap.add_argument("--config", default=str(ROOT / "config" / "youtube-channel-targets.json"))
     ap.add_argument("--video-drive-id", required=True)
     ap.add_argument("--thumbnail-drive-id", required=True)
