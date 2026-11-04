@@ -1,0 +1,27 @@
+{
+  "title": "CHƯA DUYỆT — không xuất bản",
+  "description": "Ví dụ fail-closed. Chỉ thay bằng metadata của video mới có nguồn và QA hoàn chỉnh.",
+  "tags": [
+    "ma viet nam",
+    "shorts"
+  ],
+  "language": "vi",
+  "privacy": "public",
+  "made_for_kids": false,
+  "contains_synthetic_media": true,
+  "qa_approved": false,
+  "creative_qa_passed": false,
+  "full_media_review_passed": false,
+  "source_rights_verified": false,
+  "thumbnail_qa_approved": false,
+  "title_qa_approved": false,
+  "description_qa_approved": false,
+  "public_release_approved": false,
+  "packaging_scores": {
+    "thumbnail": 0,
+    "title": 0,
+    "description": 0
+  },
+  "video_sha256": "",
+  "qa_report_path": ""
+}

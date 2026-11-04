@@ -70,7 +70,7 @@ def credentials(scope: list[str], refresh: str):
     return cred
 
 
-def validate_meta(meta: dict, *, require_approval: bool, profile: str = "LONGFORM_EN") -> None:
+def validate_meta(meta: dict, *, require_approval: bool, profile: str = "LONGFORM_EN", public_opt_in: bool = False) -> None:
     title, desc = meta.get("title"), meta.get("description")
     if not isinstance(title, str) or not 5 <= len(title.strip()) <= 100:
         raise PreflightError("Title must contain 5–100 characters")
@@ -85,8 +85,35 @@ def validate_meta(meta: dict, *, require_approval: bool, profile: str = "LONGFOR
         raise PreflightError("Set made_for_kids and contains_synthetic_media explicitly")
     if require_approval and meta.get("qa_approved") is not True:
         raise PreflightError("FINAL QA approval is required before uploading")
-    if meta.get("privacy", "private") != "private" or "publish_at" in meta or "publishAt" in meta:
-        raise PreflightError("This uploader is PRIVATE ONLY")
+    if "publish_at" in meta or "publishAt" in meta:
+        raise PreflightError("Scheduled publishing is not supported")
+    requested_privacy = meta.get("privacy", "private")
+    if public_opt_in:
+        if profile != "SHORTS_VI" or requested_privacy != "public":
+            raise PreflightError("PUBLIC allowed only for explicitly authorized SHORTS_VI")
+        mandatory = (
+            "qa_approved", "creative_qa_passed", "full_media_review_passed",
+            "source_rights_verified", "thumbnail_qa_approved",
+            "title_qa_approved", "description_qa_approved",
+            "public_release_approved",
+        )
+        if any(meta.get(key) is not True for key in mandatory):
+            raise PreflightError("PUBLIC blocked: missing independent media/rights/packaging QA approvals")
+        if meta.get("private_release_exception") is True:
+            raise PreflightError("PUBLIC blocked: creative sixth-pass override is PRIVATE only")
+        scores = meta.get("packaging_scores")
+        if not isinstance(scores, dict):
+            raise PreflightError("PUBLIC blocked: packaging QA scorecard missing")
+        for kind, floor in (("thumbnail", 90), ("title", 90), ("description", 85)):
+            score = scores.get(kind)
+            if type(score) not in (int, float) or not floor <= score <= 100:
+                raise PreflightError(f"PUBLIC blocked: {kind} QA must reach {floor}/100")
+        if not isinstance(meta.get("video_sha256"), str) or not re.fullmatch(r"[0-9a-fA-F]{64}", meta["video_sha256"]):
+            raise PreflightError("PUBLIC blocked: exact video SHA-256 missing")
+        if not isinstance(meta.get("qa_report_path"), str) or not meta["qa_report_path"].strip():
+            raise PreflightError("PUBLIC blocked: committed independent QA report path required")
+    elif requested_privacy != "private":
+        raise PreflightError("This uploader defaults to PRIVATE ONLY; PUBLIC needs --public opt-in")
     tags = meta.get("tags", [])
     if not isinstance(tags, list) or len(tags) > 30 or not all(isinstance(t, str) and t.strip() for t in tags):
         raise PreflightError("Invalid tags")
@@ -202,13 +229,13 @@ def duplicate_video(yt, channel: dict, marker: str) -> str | None:
     return None
 
 
-def upload_video(yt, path: Path, meta: dict, marker: str) -> str:
+def upload_video(yt, path: Path, meta: dict, marker: str, privacy: str = "private") -> str:
     from googleapiclient.http import MediaFileUpload
     from googleapiclient.errors import HttpError
     body = {
         "snippet": {"title": meta["title"].strip(), "description": meta["description"],
                     "tags": [*meta.get("tags", []), marker], "categoryId": "1", "defaultLanguage": meta["language"]},
-        "status": {"privacyStatus": "private", "selfDeclaredMadeForKids": meta["made_for_kids"],
+        "status": {"privacyStatus": privacy, "selfDeclaredMadeForKids": meta["made_for_kids"],
                    "containsSyntheticMedia": meta["contains_synthetic_media"]},
     }
     req = yt.videos().insert(part="snippet,status", body=body,
@@ -220,8 +247,8 @@ def upload_video(yt, path: Path, meta: dict, marker: str) -> str:
             if progress:
                 print(f"Upload: {progress.progress() * 100:.0f}%")
             if result:
-                if not result.get("id") or result.get("status", {}).get("privacyStatus") not in {"private", None}:
-                    raise PreflightError("Unexpected upload result; verify the video in YouTube Studio")
+                if not result.get("id"):
+                    raise PreflightError("Video upload returned no video ID")
                 return result["id"]
         except HttpError as ex:
             retries += 1
@@ -239,20 +266,38 @@ def write_receipt(path: Path, doc: dict) -> None:
 
 def run(args) -> dict:
     profile = getattr(args, "profile", "LONGFORM_EN")
+    public = bool(getattr(args, "public", False))
     if profile not in {"LONGFORM_EN", "SHORTS_VI"}:
         raise PreflightError("Unknown upload profile")
     target = read_target(Path(args.config), args.channel)
+    if public and (profile != "SHORTS_VI" or target["key"] != "HEM_CHUYEN_LA" or
+                   target.get("channel_id") != "UC4zHyyv2YnYGv1xbyuZzteA"):
+        raise PreflightError("PUBLIC is restricted to pinned HEM_CHUYEN_LA Shorts")
     metadata_path = Path(args.metadata).resolve()
     if not metadata_path.is_relative_to(ROOT):
         raise PreflightError("Metadata must be a file checked into this repository")
     meta = json.loads(metadata_path.read_text(encoding="utf-8"))
-    validate_meta(meta, require_approval=args.execute, profile=profile)
+    validate_meta(meta, require_approval=args.execute, profile=profile, public_opt_in=public)
+    if public:
+        qa_path = (ROOT / meta["qa_report_path"]).resolve()
+        if not qa_path.is_relative_to(ROOT) or not qa_path.is_file():
+            raise PreflightError("PUBLIC requires a committed QA report inside repository")
+        qa = json.loads(qa_path.read_text(encoding="utf-8"))
+        if (qa.get("verdict") != "PASS" or
+            qa.get("video_sha256") != meta["video_sha256"] or
+            qa.get("independent_full_media_review_passed") is not True or
+            qa.get("packaging_passed") is not True or
+            qa.get("rights_qa_passed") is not True):
+            raise PreflightError("PUBLIC blocked: report lacks matching independent media/rights/packaging QA")
     video_id = drive_id(args.video_drive_id)
     thumb_id = drive_id(args.thumbnail_drive_id)
     if video_id == thumb_id:
         raise PreflightError("Video and thumbnail cannot be the same Drive file")
-    if args.execute and os.getenv("YOUTUBE_UPLOAD_PRIVATE_ENABLED") != "1":
-        raise PreflightError("Upload blocked: set YOUTUBE_UPLOAD_PRIVATE_ENABLED=1")
+    if args.execute:
+        if public and os.getenv("YOUTUBE_PUBLIC_UPLOAD_ENABLED") != "1":
+            raise PreflightError("PUBLIC blocked: YOUTUBE_PUBLIC_UPLOAD_ENABLED=1 required")
+        if not public and os.getenv("YOUTUBE_UPLOAD_PRIVATE_ENABLED") != "1":
+            raise PreflightError("Upload blocked: set YOUTUBE_UPLOAD_PRIVATE_ENABLED=1")
 
     from googleapiclient.discovery import build
     yt_refresh = os.environ.get("YOUTUBE_REFRESH_TOKEN", "")
@@ -273,20 +318,23 @@ def run(args) -> dict:
         stats = inspect_video(video, profile=profile)
         inspect_thumbnail(thumb, profile=profile)
         sha = file_hash(video)
+        if public and sha.lower() != meta["video_sha256"].lower():
+            raise PreflightError("PUBLIC blocked: downloaded video hash differs from QA report")
         marker = "saf-" + sha[:32]
         existing = duplicate_video(yt, owned, marker)
         receipt = {"channel_key": target["key"], "handle": target["handle"], "channel_id": owned["id"],
                    "profile": profile, "language": meta["language"],
                    "video_sha256": sha, "video_info": stats, "source_drive_id": video_id,
-                   "thumbnail_drive_id": thumb_id, "privacy": "private"}
+                   "thumbnail_drive_id": thumb_id, "privacy": "public" if public else "private"}
         if not args.execute:
             receipt.update(status="dry_run", previously_uploaded_id=existing)
             write_receipt(Path(args.receipt), receipt)
             return receipt
         if existing:
             raise PreflightError(f"Video already uploaded to target channel as {existing}; no duplicate upload")
-        remote_id = upload_video(yt, video, meta, marker)
-        receipt.update(status="uploaded_private_thumbnail_pending", youtube_video_id=remote_id,
+        remote_id = upload_video(yt, video, meta, marker, privacy="public" if public else "private")
+        receipt.update(status="uploaded_public_thumbnail_pending" if public else "uploaded_private_thumbnail_pending",
+                       youtube_video_id=remote_id,
                        youtube_url=f"https://www.youtube.com/watch?v={remote_id}")
         write_receipt(Path(args.receipt), receipt)  # fail-safe before thumbnail
         from googleapiclient.http import MediaFileUpload
@@ -306,7 +354,7 @@ def run(args) -> dict:
                     raise PreflightError(f"YouTube Shorts processing {processing}; thumbnail pending")
                 time.sleep(10)
             else:
-                receipt["status"] = "uploaded_private_thumbnail_pending_processing"
+                receipt["status"] = "uploaded_public_thumbnail_pending_processing" if public else "uploaded_private_thumbnail_pending_processing"
                 write_receipt(Path(args.receipt), receipt)
                 return receipt
         thumb_result = yt.thumbnails().set(
@@ -314,7 +362,19 @@ def run(args) -> dict:
         ).execute()
         if not thumb_result.get("items"):
             raise PreflightError("YouTube thumbnail API returned no thumbnail resources")
-        receipt["status"] = "uploaded_private_ready_for_review"
+        if public:
+            verified = yt.videos().list(
+                part="snippet,status", id=remote_id, maxResults=1
+            ).execute().get("items", [])
+            if (len(verified) != 1 or
+                verified[0].get("snippet", {}).get("channelId") != owned["id"] or
+                verified[0].get("status", {}).get("privacyStatus") != "public"):
+                receipt["status"] = "uploaded_public_verification_failed"
+                write_receipt(Path(args.receipt), receipt)
+                raise PreflightError("PUBLIC video uploaded but final channel/privacy check failed: inspect receipt")
+            receipt["status"] = "uploaded_public_verified"
+        else:
+            receipt["status"] = "uploaded_private_ready_for_review"
         write_receipt(Path(args.receipt), receipt)
         return receipt
 
@@ -329,7 +389,8 @@ def main():
     ap.add_argument("--thumbnail-drive-id", required=True)
     ap.add_argument("--metadata", required=True)
     ap.add_argument("--receipt", default="youtube-private-receipt.json")
-    ap.add_argument("--execute", action="store_true", help="Upload PRIVATE; default is dry-run")
+    ap.add_argument("--execute", action="store_true", help="Upload after QA; default is dry-run")
+    ap.add_argument("--public", action="store_true", help="Opt in to QA-gated PUBLIC only for HEM_CHUYEN_LA Shorts")
     a = ap.parse_args()
     try:
         result = run(a)
