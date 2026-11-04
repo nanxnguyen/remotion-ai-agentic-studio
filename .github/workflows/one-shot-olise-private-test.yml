@@ -1,0 +1,77 @@
+name: One-shot Olise PRIVATE upload test (temporary)
+
+on:
+  push:
+    branches:
+      - feat/youtube-longform-multichannel-private-v1
+    paths:
+      - config/films/one-time-olise-upload-trigger.json
+
+permissions:
+  contents: read
+
+concurrency:
+  group: youtube-olise-private-one-time-test
+  cancel-in-progress: false
+
+jobs:
+  upload-test:
+    name: Validate Google tokens and optionally upload PRIVATE
+    if: github.repository == 'nanxnguyen/remotion-ai-agentic-studio'
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      YOUTUBE_CLIENT_ID: \${{ secrets.YOUTUBE_CLIENT_ID }}
+      YOUTUBE_CLIENT_SECRET: \${{ secrets.YOUTUBE_CLIENT_SECRET }}
+      YOUTUBE_REFRESH_TOKEN: \${{ secrets.YOUTUBE_REFRESH_TOKEN_OLISE_MAN }}
+      DRIVE_REFRESH_TOKEN: \${{ secrets.DRIVE_REFRESH_TOKEN }}
+      YOUTUBE_UPLOAD_PRIVATE_ENABLED: '1'
+      PYTHONUNBUFFERED: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install uploader dependencies
+        run: python -m pip install --disable-pip-version-check -r scripts/youtube-multi-requirements.txt
+      - name: Verify routing tests
+        run: python -m unittest discover -s tests -p test_youtube_multi_channel.py -v
+      - name: Preflight and one-time upload
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          cfg=json.loads(Path('config/films/one-time-olise-upload-trigger.json').read_text())
+          if cfg.get('mode') not in ('dry_run','upload_private'):
+              raise SystemExit('Invalid one-time upload mode')
+          if cfg.get('channel') != 'OLISE_MAN':
+              raise SystemExit('One-shot test only permits Olise')
+          if not cfg.get('video_drive_id') or not cfg.get('thumbnail_drive_id'):
+              raise SystemExit('Both Drive IDs required')
+          if cfg.get('metadata_path') != 'config/films/girl-with-1-percent-final-v2.json':
+              raise SystemExit('Only QA-approved Girl 1% FINAL is permitted')
+          print('One-shot test mode:',cfg['mode'],'(PRIVATE only)')
+          PY
+          python - <<'PY'
+          import json,os,subprocess,sys
+          from pathlib import Path
+          cfg=json.loads(Path('config/films/one-time-olise-upload-trigger.json').read_text())
+          args=[sys.executable,'scripts/youtube_multi_channel.py','--channel','OLISE_MAN',
+                '--video-drive-id',cfg['video_drive_id'],
+                '--thumbnail-drive-id',cfg['thumbnail_drive_id'],
+                '--metadata',cfg['metadata_path'],
+                '--receipt','youtube-private-receipt.json']
+          if cfg['mode']=='upload_private':
+              args.append('--execute')
+          subprocess.run(args,check=True)
+          PY
+      - name: Store safe QA/upload receipt
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: olise-private-upload-test-receipt
+          path: youtube-private-receipt.json
+          if-no-files-found: ignore
+          retention-days: 30
