@@ -1,8 +1,8 @@
 {
-  "mode": "dry_run",
+  "mode": "upload_private",
   "channel": "OLISE_MAN",
   "video_drive_id": "1Dm-dSTzmDaHKLtKPoiqtf64kpgM4eX6x",
   "thumbnail_drive_id": "11rnCrX6LNgf-6pZMW53HVmZEtmEmwYMc",
   "metadata_path": "config/films/girl-with-1-percent-final-v2.json",
-  "test_attempt": "ffprobe-installed-dryrun-20261104"
+  "test_attempt": "approved-first-private-upload-olise-20261104"
 }
