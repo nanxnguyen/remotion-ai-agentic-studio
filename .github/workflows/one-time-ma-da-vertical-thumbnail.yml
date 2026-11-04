@@ -1,0 +1,149 @@
+name: Replace Ma Da Shorts 9x16 Thumbnail (ONE TIME)
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/one-time-ma-da-vertical-thumbnail.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ma-da-v3-short-thumbnail-only
+  cancel-in-progress: false
+
+jobs:
+  replace-thumbnail:
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.head_commit.message == 'Apply Ma Da Shorts vertical thumbnail (one-time)' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    env:
+      YOUTUBE_CLIENT_ID: ${{ secrets.YOUTUBE_CLIENT_ID }}
+      YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
+      YOUTUBE_REFRESH_TOKEN: ${{ secrets.YOUTUBE_REFRESH_TOKEN_HEM_CHUYEN_LA }}
+      DRIVE_REFRESH_TOKEN: ${{ secrets.DRIVE_REFRESH_TOKEN }}
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install verified API and image libraries
+        run: python -m pip install --disable-pip-version-check -r scripts/youtube-multi-requirements.txt
+      - name: Check channel and processing, replace thumbnail only
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import hashlib
+          import json
+          import os
+          import tempfile
+          from pathlib import Path
+
+          from PIL import Image
+          from googleapiclient.discovery import build
+          from googleapiclient.http import MediaFileUpload
+          from scripts.youtube_multi_channel import (
+              credentials, read_target, resolve_channel, download_drive,
+              YT_SCOPES, DRIVE_SCOPES,
+          )
+
+          VIDEO_ID = "KpcOsiUKG_g"
+          THUMBNAIL_DRIVE_ID = "1XlItEQ4JIHSSlRTdhcqxYCa2WrjvPUVg"
+          TARGET_ID = "UC4zHyyv2YnYGv1xbyuZzteA"
+
+          target = read_target(Path("config/youtube-channel-targets.json"), "HEM_CHUYEN_LA")
+          if target["channel_id"] != TARGET_ID:
+              raise SystemExit("STOP: pinned channel ID mismatch")
+          refresh = os.environ.get("YOUTUBE_REFRESH_TOKEN", "")
+          yt = build("youtube", "v3", credentials=credentials(YT_SCOPES, refresh), cache_discovery=False)
+          channel = resolve_channel(yt, target)
+          if channel["id"] != TARGET_ID:
+              raise SystemExit("STOP: OAuth token belongs to the wrong channel")
+
+          before_items = yt.videos().list(
+              part="snippet,status,processingDetails", id=VIDEO_ID,
+              maxResults=1
+          ).execute().get("items", [])
+          if len(before_items) != 1:
+              raise SystemExit("STOP: YouTube video not found for authorized channel")
+          before = before_items[0]
+          if before.get("snippet", {}).get("channelId") != TARGET_ID:
+              raise SystemExit("STOP: video does not belong to Hẻm Chuyện Lạ")
+          if before.get("status", {}).get("privacyStatus") != "private":
+              raise SystemExit("STOP: expected existing video to remain PRIVATE")
+          processing = before.get("processingDetails", {}).get("processingStatus")
+          if processing != "succeeded":
+              raise SystemExit(f"STOP: Shorts processing not succeeded ({processing}); thumbnail not attempted")
+
+          drefresh = os.environ.get("DRIVE_REFRESH_TOKEN", "")
+          drive = build("drive", "v3", credentials=credentials(DRIVE_SCOPES, drefresh), cache_discovery=False)
+          with tempfile.TemporaryDirectory(prefix="ma-da-vertical-thumbnail-") as td:
+              thumbnail = Path(td) / "thumbnail-shorts-9x16.png"
+              download_drive(drive, THUMBNAIL_DRIVE_ID, thumbnail, {"image/png"})
+              with Image.open(thumbnail) as im:
+                  width, height = im.size
+                  image_format = im.format
+                  im.verify()
+              if image_format != "PNG" or width >= height or height < 640:
+                  raise SystemExit("STOP: image must be valid portrait PNG, height >= 640")
+              if abs(width / height - 9 / 16) > 0.015:
+                  raise SystemExit(f"STOP: expected 9:16 Shorts thumbnail, received {width}x{height}")
+              if thumbnail.stat().st_size > 50 * 1024 * 1024:
+                  raise SystemExit("STOP: thumbnail exceeds YouTube 50MB limit")
+              digest = hashlib.sha256(thumbnail.read_bytes()).hexdigest()
+
+              response = yt.thumbnails().set(
+                  videoId=VIDEO_ID,
+                  media_body=MediaFileUpload(str(thumbnail), mimetype="image/png"),
+              ).execute()
+              if not response.get("items"):
+                  raise SystemExit("STOP: thumbnails.set returned no thumbnail resources")
+
+          after_items = yt.videos().list(part="snippet,status", id=VIDEO_ID).execute().get("items", [])
+          if len(after_items) != 1:
+              raise SystemExit("STOP: cannot verify existing video after thumbnail call")
+          after = after_items[0]
+          if (after.get("snippet", {}).get("channelId") != TARGET_ID or
+              after.get("status", {}).get("privacyStatus") != "private"):
+              raise SystemExit("STOP: channel ownership/privacy unexpectedly changed")
+
+          receipt = {
+              "status": "thumbnail_api_accepted",
+              "youtube_video_id": VIDEO_ID,
+              "youtube_url": "https://www.youtube.com/watch?v=" + VIDEO_ID,
+              "channel_alias": "HEM_CHUYEN_LA",
+              "channel_id": TARGET_ID,
+              "privacy": "private",
+              "thumbnail_drive_id": THUMBNAIL_DRIVE_ID,
+              "thumbnail_dimensions": [width, height],
+              "thumbnail_sha256": digest,
+              "api_thumbnail_items": len(response["items"]),
+              "note": "YouTube may take time to propagate the new Shorts thumbnail in all surfaces."
+          }
+          Path("ma-da-vertical-thumbnail-receipt.json").write_text(
+              json.dumps(receipt, ensure_ascii=False, indent=2) + "\n",
+              encoding="utf-8"
+          )
+          print(json.dumps(receipt, ensure_ascii=False, indent=2))
+          summary = os.environ.get("GITHUB_STEP_SUMMARY")
+          if summary:
+              with open(summary, "a", encoding="utf-8") as out:
+                  out.write("## Ma Da Shorts 9:16 thumbnail replacement\n\n")
+                  out.write(f"- Result: {receipt['status']}\n")
+                  out.write(f"- Video: {receipt['youtube_url']} (Private)\n")
+                  out.write(f"- Thumbnail: {width}x{height} PNG\n")
+                  out.write(f"- Thumbnail Drive ID: {THUMBNAIL_DRIVE_ID}\n")
+                  out.write("- No new video was uploaded; YouTube privacy was not changed.\n")
+          PY
+      - name: Preserve safe result receipt
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ma-da-vertical-thumbnail-receipt
+          path: ma-da-vertical-thumbnail-receipt.json
+          if-no-files-found: ignore
+          retention-days: 30
