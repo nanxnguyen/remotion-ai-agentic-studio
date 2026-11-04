@@ -117,3 +117,5 @@ jobs:
             ma-da-v3-upload-receipt.json
           if-no-files-found: ignore
           retention-days: 30
+
+# one-time dispatch check: upload only after pinned-hash dry-run
