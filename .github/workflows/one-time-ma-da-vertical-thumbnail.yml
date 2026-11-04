@@ -1,10 +1,6 @@
 name: Replace Ma Da Shorts 9x16 Thumbnail (ONE TIME)
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflows/one-time-ma-da-vertical-thumbnail.yml'
   workflow_dispatch:
 
 permissions:
