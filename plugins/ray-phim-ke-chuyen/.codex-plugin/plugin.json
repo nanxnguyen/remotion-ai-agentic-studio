@@ -1,16 +1,8 @@
 {
-  "interface": {
-    "displayName": "Ray Phim K\u1ec3 Chuy\u1ec7n",
-    "shortDescription": "D\u1ef1ng phim kinh d\u1ecb Shorts \u0111i\u1ec7n \u1ea3nh c\u00f3 QA h\u00ecnh v\u00e0 ti\u1ebfng",
-    "longDescription": "Shorts kinh d\u1ecb 60s, HOOK 0\u20136s, captioned storyboard, 16\u201325 nh\u1ecbp h\u00ecnh theo n\u1ed9i dung, h\u00e0nh \u0111\u1ed9ng minh h\u1ecda \u0111\u00fang Vbee, fade m\u01b0\u1ee3t, \u00e2m thanh c\u00f3 chi\u1ec1u s\u00e2u. QA MP4 theo b\u00e0i h\u1ecdc V3/V4 r\u1ed3i l\u01b0u video tr\u00ean Google Drive v\u00e0 m\u00e3 ngu\u1ed3n tr\u00ean GitHub (kh\u00f4ng Releases).",
-    "developerName": "Ray",
-    "category": "Productivity",
-    "capabilities": [],
-    "defaultPrompt": "S\u1eed d\u1ee5ng Ray Phim K\u1ec3 Chuy\u1ec7n v0.3.0: tr\u01b0\u1edbc khi s\u1ea3n xu\u1ea5t, \u0111\u1ecdc skills/retention-action-director/SKILL.md, reference V3V4_RETENTION_ACTION_QA_V2, t\u1ea1o Voice-to-Visual event map c\u00f3 before\u2192action\u2192result cho m\u1ed7i s\u1ef1 ki\u1ec7n, d\u1ef1ng 12\u201316 captioned storyboard, 16\u201325 microshots khi c\u1ea7n, HOOK 0\u20136s, c\u1ea3nh n\u1ec1n \u0111\u1ed9c l\u1eadp 9:16, Vbee th\u1ef1c, fade 0.35\u20130.55s kh\u00f4ng gi\u1eadt/glitch. Tr\u01b0\u1edbc FINAL xu\u1ea5t MP4 ki\u1ec3m tra frame v\u00e0 nghe to\u00e0n b\u1ed9, minh h\u1ecda \u0111\u1ea7y \u0111\u1ee7 h\u00e0nh \u0111\u1ed9ng, subtitles an to\u00e0n mobile, QA c\u00f3 evidence. L\u01b0u video, thumbnail, YouTube copy c\u00f9ng th\u01b0 m\u1ee5c Drive \u0111\u00e3 \u0111\u00e1nh s\u1ed1; GitHub ch\u1ec9 l\u01b0u code/QA, kh\u00f4ng GitHub Releases."
-  },
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "ray-phim-ke-chuyen",
-  "version": "0.3.0",
-  "description": "Ray Phim K\u1ec3 Chuy\u1ec7n v0.3.0: cinematic horror Shorts, V3/V4 regression learning, voice-to-visible-action QA, smooth soft fades, authentic Vbee, captioned storyboard and Google Drive video + GitHub source.",
+  "version": "0.3.5",
+  "description": "T\u1ea1o phim ma v0.3.5: cinematic storytelling, genuine Vbee and QA, mandatory storyboard-designed 1\u20133s opening challenge plus 3\u20135s story-specific like/follow outro for future videos.",
   "author": {
     "name": "Ray"
   },
@@ -21,21 +13,29 @@
     "Remotion",
     "Vbee",
     "cinematic",
+    "horror",
     "video-production",
-    "preflight-qa",
-    "0-6s hook",
-    "captioned storyboards",
-    "native Vietnamese typography",
+    "storyboard",
+    "script-adaptive palettes",
+    "Mini Horror",
+    "Luxury Cinematic",
     "voice visual evidence QA",
-    "before-action-after",
-    "visual continuity",
-    "smooth 2.5D motion",
-    "soft crossfade",
-    "retention-oriented editing",
-    "V3 V4 regression prevention",
+    "opening challenge CTA 1-3s",
+    "closing like follow CTA 3-5s",
+    "dual CTA storyboard",
+    "QA actual MP4",
     "Google Drive MP4",
     "GitHub source only",
-    "no releases"
+    "no GitHub Releases"
   ],
-  "skills": "./skills"
+  "skills": "./skills",
+  "interface": {
+    "displayName": "T\u1ea1o phim ma",
+    "shortDescription": "Storyboard phim \u0111i\u1ec7n \u1ea3nh v\u00e0 CTA m\u1edf \u0111\u1ea7u/k\u1ebft th\u00fac theo t\u1eebng truy\u1ec7n",
+    "longDescription": "S\u1ea3n xu\u1ea5t phim k\u1ec3 chuy\u1ec7n d\u1ecdc cinematic v\u1edbi storyboard 9:16, Vbee th\u1eadt, QA h\u00e0nh \u0111\u1ed9ng, v\u00e0 hai CTA \u0111\u01b0\u1ee3c thi\u1ebft k\u1ebf ngay trong storyboard: th\u1eed th\u00e1ch/kh\u01a1i t\u00f2 m\u00f2 1\u20133 gi\u00e2y \u1edf \u0111\u1ea7u, th\u1ea3 tim + \u0111\u0103ng k\u00fd 3\u20135 gi\u00e2y \u1edf cu\u1ed1i. Mini Horror \u00d7 Luxury Cinematic cho phim kinh d\u1ecb; m\u00e0u s\u1eafc ph\u00f9 h\u1ee3p c\u00e1c th\u1ec3 lo\u1ea1i kh\u00e1c. L\u01b0u MP4 tr\u00ean Drive, m\u00e3 ngu\u1ed3n/QA tr\u00ean GitHub.",
+    "developerName": "Ray",
+    "category": "Productivity",
+    "capabilities": [],
+    "defaultPrompt": "T\u1ea1o phim ma v0.3.5. V\u1edbi M\u1eccI VIDEO M\u1edaI h\u00e3y d\u00f9ng storyboard 9:16 phong c\u00e1ch cinematic card-grid, m\u00e0u s\u1eafc th\u00edch \u1ee9ng theo k\u1ecbch b\u1ea3n, t\u00ecnh ti\u1ebft c\u1ee5 th\u1ec3 v\u00e0 nh\u00e2n v\u1eadt/\u0111\u1ea1o c\u1ee5 nh\u1ea5t qu\u00e1n.\nB\u1eaeT BU\u1ed8C: \u0111\u1ecdc skills/opening-challenge-cta/SKILL.md v\u00e0 reference dual-cta-storyboard-visual-contract-v1.md tr\u01b0\u1edbc khi l\u1eadp script/storyboard: CTA M\u1ede \u0110\u1ea6U 1\u20133 GI\u00c2Y th\u00e1ch th\u1ee9c/kh\u01a1i t\u00f2 m\u00f2 th\u1eadt ph\u00f9 h\u1ee3p ri\u00eang truy\u1ec7n, CTA K\u1ebeT 3\u20135 GI\u00c2Y g\u1ed3m c\u1ea3 TH\u1ea2 TIM + \u0110\u0102NG K\u00dd/THEO D\u00d5I. Storyboard ph\u1ea3i c\u00f3 CARD RI\u00caNG cho C\u1ea2 HAI CTA, \u0111\u1ee7 h\u00ecnh ngh\u1ec7 thu\u1eadt 9:16, headline \u1edf tr\u00ean v\u00e0 c\u00e2u \u0111\u1ecdc Vbee \u1edf d\u01b0\u1edbi, kh\u00f4ng l\u1eb7p ch\u1eef. D\u00f9ng Mini Horror \u00d7 Luxury Cinematic c\u00f3 poster \u0111en/teal, v\u00e0ng champagne, \u0111\u1ecf th\u1eabm cho phim kinh d\u1ecb; phim kh\u00e1c d\u00f9ng phong c\u00e1ch ph\u00f9 h\u1ee3p, kh\u00f4ng c\u1ed1 \u0111\u1ecbnh m\u00e0u. Thi\u1ebft k\u1ebf \u0111\u00e3 duy\u1ec7t ph\u1ea3i \u0111\u01b0\u1ee3c gi\u1eef nguy\u00ean tinh th\u1ea7n, c\u1ee1/chi ti\u1ebft, b\u1ed1 c\u1ee5c trong MP4.\nCTA m\u1eb7c \u0111\u1ecbnh n\u1eb1m trong t\u1ed5ng th\u1eddi l\u01b0\u1ee3ng cho ph\u00e9p; ch\u1ec9 k\u00e9o d\u00e0i n\u1ebfu user \u0111\u1ed3ng \u00fd. Khi hi\u1ec7n timeline 60s hook, kh\u00f4ng che m\u1ea5t b\u1ea5t th\u01b0\u1eddng 0\u20132s b\u1eb1ng intro \u0111en v\u00f4 ngh\u0129a. Kh\u00f4ng t\u1ef1 s\u1eeda phim c\u0169.\nGi\u1ecdng Vbee Batch TH\u1eacT, \u0111o MP3/c\u0103n subtitle theo audio. Storyboard ch\u1ec9 \u0111\u1ec3 REVIEW; video kh\u00f4ng c\u00f3 grid/s\u1ed1 shot/timecode. Video d\u00f9ng h\u00ecnh d\u1ecdc s\u1ea1ch \u0111\u1ed9c l\u1eadp v\u00e0 c\u00f3 QA h\u00ecnh \u1ea3nh tr\u01b0\u1edbc\u2192action\u2192result. Trong MP4 ph\u1ea7n tr\u00ean l\u00e0 scene headline, d\u01b0\u1edbi l\u00e0 subtitle \u0111\u00fang l\u1eddi k\u1ec3, kh\u00f4ng tr\u00f9ng l\u1eb7p. Xem v\u00e0 so s\u00e1nh FRAME TH\u1ef0C CTA \u0111\u1ea7u/cu\u1ed1i v\u1edbi storyboard \u0111\u00e3 duy\u1ec7t, kh\u00f4ng g\u1ecdi FINAL khi ch\u01b0a c\u00f3 ki\u1ec3m th\u1eed th\u1ef1c.\nL\u01b0u video QA-approved l\u00ean Google Drive theo \u0111\u00fang th\u01b0 m\u1ee5c phim, m\u00e3 ngu\u1ed3n/QA \u1edf GitHub nanxnguyen/remotion-ai-agentic-studio; KH\u00d4NG GitHub Releases, kh\u00f4ng t\u1ef1 xu\u1ea5t b\u1ea3n YouTube. T\u00f4n tr\u1ecdng m\u1ecdi y\u00eau c\u1ea7u ri\u00eang c\u1ee7a ng\u01b0\u1eddi d\u00f9ng."
+  }
 }

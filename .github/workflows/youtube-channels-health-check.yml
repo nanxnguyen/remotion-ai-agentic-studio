@@ -1,0 +1,138 @@
+name: YouTube - Check 5 Channels OAuth
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify-channels:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      YOUTUBE_CLIENT_ID: ${{ secrets.YOUTUBE_CLIENT_ID }}
+      YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
+      TOKEN_OLISE_MAN: ${{ secrets.YOUTUBE_REFRESH_TOKEN_OLISE_MAN }}
+      TOKEN_HEM_CHUYEN_LA: ${{ secrets.YOUTUBE_REFRESH_TOKEN_HEM_CHUYEN_LA }}
+      TOKEN_TECH_CA_CHON: ${{ secrets.YOUTUBE_REFRESH_TOKEN_TECH_CA_CHON }}
+      TOKEN_GIEO_MOT_NIEM_LANH: ${{ secrets.YOUTUBE_REFRESH_TOKEN_GIEO_MOT_NIEM_LANH }}
+      TOKEN_CU_LA_CHINH_MINH: ${{ secrets.YOUTUBE_REFRESH_TOKEN_CU_LA_CHINH_MINH }}
+
+    steps:
+      - name: Checkout channel registry
+        uses: actions/checkout@v4
+
+      - name: Verify each channel (read-only, never uploads)
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import json
+          import os
+          import sys
+          from pathlib import Path
+          from urllib.error import HTTPError, URLError
+          from urllib.parse import urlencode
+          from urllib.request import Request, urlopen
+
+          ALIASES = (
+              "OLISE_MAN",
+              "HEM_CHUYEN_LA",
+              "TECH_CA_CHON",
+              "GIEO_MOT_NIEM_LANH",
+              "CU_LA_CHINH_MINH",
+          )
+          TOKEN_ENDPOINT = "https://oauth2.googleapis.com/token"
+          CHANNELS_ENDPOINT = "https://www.googleapis.com/youtube/v3/channels"
+
+          def api_json(url, *, data=None, access_token=None):
+              headers = {}
+              if access_token:
+                  headers["Authorization"] = "Bearer " + access_token
+              if data is not None:
+                  headers["Content-Type"] = "application/x-www-form-urlencoded"
+              try:
+                  with urlopen(Request(url, data=data, headers=headers), timeout=25) as res:
+                      return json.load(res)
+              except HTTPError as ex:
+                  # Only show the OAuth error code, never a token or response body.
+                  allowed = {"invalid_client", "invalid_grant", "access_denied", "unauthorized_client"}
+                  try:
+                      code = json.loads(ex.read()).get("error", "")
+                  except (ValueError, UnicodeError):
+                      code = ""
+                  if not isinstance(code, str) or code not in allowed:
+                      code = "Google API error"
+                  raise RuntimeError(f"HTTP {ex.code}: {code}") from None
+              except URLError:
+                  raise RuntimeError("Không kết nối được Google API") from None
+
+          def channel_lookup(token, **filters):
+              params = urlencode({"part": "id,snippet", **filters})
+              result = api_json(CHANNELS_ENDPOINT + "?" + params, access_token=token)
+              return result.get("items", [])
+
+          try:
+              targets = json.loads(
+                  Path("config/youtube-channel-targets.json").read_text(encoding="utf-8")
+              )["channels"]
+          except (OSError, ValueError, KeyError) as exc:
+              sys.exit(f"❌ Không đọc được channel registry: {type(exc).__name__}")
+
+          client_id = os.environ.get("YOUTUBE_CLIENT_ID", "")
+          client_secret = os.environ.get("YOUTUBE_CLIENT_SECRET", "")
+          results = []
+
+          for alias in ALIASES:
+              try:
+                  target = targets[alias]
+                  handle = target["handle"]
+                  pinned_id = target.get("channel_id")
+                  refresh = os.environ.get("TOKEN_" + alias, "")
+                  if not client_id or not client_secret or not refresh:
+                      raise RuntimeError("Thiếu Client ID/Secret hoặc Refresh Token trong GitHub Secrets")
+                  if not isinstance(handle, str) or not handle.startswith("@"):
+                      raise RuntimeError("Handle trong config không hợp lệ")
+
+                  payload = urlencode({
+                      "client_id": client_id,
+                      "client_secret": client_secret,
+                      "refresh_token": refresh,
+                      "grant_type": "refresh_token",
+                  }).encode("utf-8")
+                  access_token = api_json(TOKEN_ENDPOINT, data=payload)["access_token"]
+                  mine = channel_lookup(access_token, mine="true")
+                  public = channel_lookup(access_token, forHandle=handle)
+                  if len(mine) != 1 or len(public) != 1:
+                      raise RuntimeError("Không xác định được duy nhất kênh OAuth hoặc handle")
+
+                  actual_id = mine[0]["id"]
+                  public_id = public[0]["id"]
+                  if actual_id != public_id:
+                      raise RuntimeError(f"Sai kênh: OAuth={actual_id}, handle={public_id}")
+                  if pinned_id is not None and actual_id != pinned_id:
+                      raise RuntimeError(f"Sai Channel ID: config={pinned_id}, thực tế={actual_id}")
+
+                  title = mine[0].get("snippet", {}).get("title", alias)
+                  note = "PASS" if pinned_id else "PASS (chưa pin Channel ID)"
+                  print(f"✅ {alias}: {title} | {handle} | {actual_id} | {note}")
+                  results.append((alias, "PASS" if pinned_id else "WARN", actual_id))
+              except Exception as ex:
+                  # No secret values are ever displayed.
+                  print(f"❌ {alias}: {type(ex).__name__}: {ex}")
+                  results.append((alias, "FAIL", "-"))
+
+          summary_path = os.environ.get("GITHUB_STEP_SUMMARY")
+          if summary_path:
+              with open(summary_path, "a", encoding="utf-8") as summary:
+                  summary.write("## YouTube OAuth / Channel Routing Health Check\n\n")
+                  summary.write("| Kênh | Kết quả | Channel ID |\n|---|---|---|\n")
+                  for alias, status, channel_id in results:
+                      summary.write(f"| {alias} | {status} | {channel_id} |\n")
+                  summary.write("\nKhông có video nào được upload.\n")
+
+          failures = sum(status == "FAIL" for _, status, _ in results)
+          warnings = sum(status == "WARN" for _, status, _ in results)
+          print(f"\nTỔNG KẾT: {len(results)-failures}/5 OK, {warnings} chưa pin, {failures} FAIL")
+          sys.exit(1 if failures else 0)
+          PY
