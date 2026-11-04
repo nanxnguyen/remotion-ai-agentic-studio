@@ -26,6 +26,12 @@ class ChannelTests(unittest.TestCase):
             cfg.write_text(json.dumps({"channels": {"OLISE_MAN": {"handle": "@olise-man", "channel_id": None}}}))
             self.assertEqual(mod.read_target(cfg, "OLISE_MAN")["handle"], "@olise-man")
 
+    def test_unicode_youtube_handle_allowed(self):
+        cfg = ROOT / "config" / "youtube-channel-targets.json"
+        result = mod.read_target(cfg, "TECH_CA_CHON")
+        self.assertEqual(result["handle"], "@TechCàChớn")
+        self.assertEqual(result["channel_id"], "UCPy649MXLinlhyxnc2OQHxg")
+
     def test_unknown_channel_blocked(self):
         cfg = ROOT / "config" / "youtube-channel-targets.json"
         with self.assertRaisesRegex(mod.PreflightError, "Unknown channel"):
