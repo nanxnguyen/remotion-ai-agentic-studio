@@ -38,7 +38,7 @@ jobs:
           youtube = build('youtube', 'v3', credentials=credentials(YT_SCOPES, os.environ['YOUTUBE_REFRESH_TOKEN']), cache_discovery=False)
           owner = resolve_channel(youtube, {'key':'OLISE_MAN','handle':'@olise-man','channel_id':'UCY3n3Nlqyo6uI4GU8nuX-5g'})
           video_id='Skas4K2mKYs'
-          match='saf-f920b53ced5df3680b12868eea766c2ed'
+          match='saf-f920b53ced5df3680b12868eea766c2e'
           data = youtube.videos().list(part='snippet,status,contentDetails', id=video_id).execute()
           if len(data.get('items',[])) != 1:
               raise SystemExit('Previously-uploaded video not visible to the channel OAuth')
