@@ -119,6 +119,43 @@ class ChannelTests(unittest.TestCase):
         with self.assertRaisesRegex(mod.PreflightError, "FINAL QA"):
             mod.validate_meta(meta, require_approval=True)
 
+    def test_public_rejected_without_explicit_opt_in(self):
+        meta = json.loads((ROOT / "config" / "youtube-longform-metadata.example.json").read_text())
+        meta["language"] = "vi"
+        meta["privacy"] = "public"
+        with self.assertRaisesRegex(mod.PreflightError, "PRIVATE ONLY"):
+            mod.validate_meta(meta, require_approval=False, profile="SHORTS_VI")
+
+    def test_public_requires_independent_qa_flags(self):
+        meta = json.loads((ROOT / "config" / "youtube-longform-metadata.example.json").read_text())
+        meta.update(language="vi", privacy="public", qa_approved=True)
+        with self.assertRaisesRegex(mod.PreflightError, "missing independent"):
+            mod.validate_meta(meta, require_approval=False, profile="SHORTS_VI", public_opt_in=True)
+
+    def test_public_requires_high_thumbnail_title_description_scores(self):
+        meta = {
+            "title": "Ma da keo gio - cơn ác mộng nơi bến nước",
+            "description": "Truyện ma hư cấu lấy cảm hứng từ dân gian.",
+            "language": "vi",
+            "privacy": "public",
+            "made_for_kids": False,
+            "contains_synthetic_media": True,
+            "qa_approved": True, "creative_qa_passed": True,
+            "full_media_review_passed": True, "source_rights_verified": True,
+            "thumbnail_qa_approved": True, "title_qa_approved": True,
+            "description_qa_approved": True, "public_release_approved": True,
+            "video_sha256": "a" * 64,
+            "qa_report_path": "docs/example-qa.json",
+            "packaging_scores": {"thumbnail": 89, "title": 95, "description": 90},
+        }
+        with self.assertRaisesRegex(mod.PreflightError, "thumbnail QA must reach 90"):
+            mod.validate_meta(meta, require_approval=True, profile="SHORTS_VI", public_opt_in=True)
+        meta["packaging_scores"]["thumbnail"] = 94
+        mod.validate_meta(meta, require_approval=True, profile="SHORTS_VI", public_opt_in=True)
+        meta["private_release_exception"] = True
+        with self.assertRaisesRegex(mod.PreflightError, "PRIVATE only"):
+            mod.validate_meta(meta, require_approval=True, profile="SHORTS_VI", public_opt_in=True)
+
     def test_never_public(self):
         meta = json.loads((ROOT / "config" / "youtube-longform-metadata.example.json").read_text())
         meta["privacy"] = "public"
