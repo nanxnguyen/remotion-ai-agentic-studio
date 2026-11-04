@@ -3,6 +3,22 @@
     "OLISE_MAN": {
       "handle": "@olise-man",
       "channel_id": null
+    },
+    "HEM_CHUYEN_LA": {
+      "handle": "@HemChuyenLa",
+      "channel_id": null
+    },
+    "TECH_CA_CHON": {
+      "handle": "@TechCàChớn",
+      "channel_id": "UCPy649MXLinlhyxnc2OQHxg"
+    },
+    "GIEO_MOT_NIEM_LANH": {
+      "handle": "@GieoMot.NiemLanh",
+      "channel_id": "UCRsfFasaKaKcsRjsCO5pGSA"
+    },
+    "CU_LA_CHINH_MINH": {
+      "handle": "@CuLachinhminh",
+      "channel_id": "UClvEUI8YW3dv9aqQknMJS0w"
     }
   }
 }

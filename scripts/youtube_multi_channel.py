@@ -35,7 +35,7 @@ def read_target(config: Path, key: str) -> dict:
     if not isinstance(target, dict):
         raise PreflightError(f"Unknown channel {key}; add it to {config}")
     handle = target.get("handle")
-    if not isinstance(handle, str) or not re.fullmatch(r"@[A-Za-z0-9._-]{3,30}", handle):
+    if not isinstance(handle, str) or not re.fullmatch(r"@[\w.-]{3,30}", handle):
         raise PreflightError("Invalid channel handle in allowlist")
     pinned = target.get("channel_id")
     if pinned is not None and (not isinstance(pinned, str) or not re.fullmatch(r"UC[A-Za-z0-9_-]{22}", pinned)):
