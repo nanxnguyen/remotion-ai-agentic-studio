@@ -1,0 +1,119 @@
+name: One-time Ma Da V3 HEM_CHUYEN_LA Private Upload
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/one-time-ma-da-v3-private.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: one-time-ma-da-v3-hem-private
+  cancel-in-progress: false
+
+jobs:
+  upload-private:
+    name: Ma Da V3 dry-run then YouTube PRIVATE upload
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      YOUTUBE_CLIENT_ID: ${{ secrets.YOUTUBE_CLIENT_ID }}
+      YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
+      YOUTUBE_REFRESH_TOKEN: ${{ secrets.YOUTUBE_REFRESH_TOKEN_HEM_CHUYEN_LA }}
+      DRIVE_REFRESH_TOKEN: ${{ secrets.DRIVE_REFRESH_TOKEN }}
+      YOUTUBE_UPLOAD_PRIVATE_ENABLED: '1'
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install media utilities
+        shell: bash
+        run: |
+          if ! command -v ffprobe >/dev/null 2>&1; then
+            sudo apt-get update -qq
+            sudo apt-get install -y -qq ffmpeg
+          fi
+      - name: Install uploader dependencies
+        run: python -m pip install --disable-pip-version-check -r scripts/youtube-multi-requirements.txt
+      - name: Run strict routing and profile tests
+        run: python -m unittest discover -s tests -p 'test_youtube_multi_channel.py' -v
+      - name: Preflight actual Drive media and verified channel (NO UPLOAD)
+        shell: bash
+        run: |
+          set -euo pipefail
+          python scripts/youtube_multi_channel.py \
+            --channel HEM_CHUYEN_LA \
+            --profile SHORTS_VI \
+            --video-drive-id 1jV5k1YnXpYKhgzsNN_oED_gnMfyim-_c \
+            --thumbnail-drive-id 1Z10P8U2Jk4Yb0p0kYk6vl0WnsHYZMLJL \
+            --metadata config/films/ma-da-keo-gio-v3.json \
+            --receipt ma-da-v3-dry-run.json
+      - name: Verify exact approved media hash and prevent duplicate
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          r=json.loads(Path("ma-da-v3-dry-run.json").read_text())
+          assert r.get("status") == "dry_run", r.get("status")
+          assert r.get("channel_key") == "HEM_CHUYEN_LA"
+          assert r.get("channel_id") == "UC4zHyyv2YnYGv1xbyuZzteA"
+          assert r.get("privacy") == "private"
+          assert r.get("profile") == "SHORTS_VI"
+          assert r.get("video_sha256") == "4c419b0fa9f12c288a165a6bce2a100834d37fa015ff2a7ed610d186896435cb"
+          assert r.get("previously_uploaded_id") is None, "STOP: Duplicate detected; never re-upload"
+          info=r.get("video_info",{})
+          assert info.get("width")==1080 and info.get("height")==1920
+          assert 59.9 <= info.get("duration",0) <= 60.05
+          print("VERIFIED: correct final V3 bytes, HEM channel, PRIVATE, no duplicate")
+          PY
+      - name: Upload approved Ma Da V3 PRIVATE with real thumbnail
+        shell: bash
+        run: |
+          set -euo pipefail
+          python scripts/youtube_multi_channel.py \
+            --channel HEM_CHUYEN_LA \
+            --profile SHORTS_VI \
+            --video-drive-id 1jV5k1YnXpYKhgzsNN_oED_gnMfyim-_c \
+            --thumbnail-drive-id 1Z10P8U2Jk4Yb0p0kYk6vl0WnsHYZMLJL \
+            --metadata config/films/ma-da-keo-gio-v3.json \
+            --receipt ma-da-v3-upload-receipt.json \
+            --execute
+      - name: Summarize actual YouTube result
+        if: always()
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import os, json
+          p=Path("ma-da-v3-upload-receipt.json")
+          summary=os.getenv("GITHUB_STEP_SUMMARY")
+          if not summary:
+              raise SystemExit(0)
+          lines=["## Ma Da V3 — Hẻm Chuyện Lạ",""]
+          if p.is_file():
+              r=json.loads(p.read_text())
+              lines.extend(["- Status: "+str(r.get("status")),
+                            "- Channel ID: "+str(r.get("channel_id")),
+                            "- YouTube video ID: "+str(r.get("youtube_video_id")),
+                            "- YouTube URL: "+str(r.get("youtube_url")),
+                            "- Privacy: "+str(r.get("privacy"))])
+          else:
+              lines.append("- Upload receipt absent; check preflight or upload step log.")
+          Path(summary).open("a").write("\n".join(lines)+"\n")
+          PY
+      - name: Preserve receipts (never credentials)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ma-da-v3-youtube-private-receipts
+          path: |
+            ma-da-v3-dry-run.json
+            ma-da-v3-upload-receipt.json
+          if-no-files-found: ignore
+          retention-days: 30
