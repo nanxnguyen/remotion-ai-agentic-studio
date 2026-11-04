@@ -1,0 +1,92 @@
+[
+  {
+    "id": 1,
+    "narration": "Dám nhìn xuống dưới xuồng không?",
+    "visual_start_seconds": 0.26,
+    "slot_seconds": 3
+  },
+  {
+    "id": 2,
+    "narration": "Ai đó?",
+    "visual_start_seconds": 3.26,
+    "slot_seconds": 2.8
+  },
+  {
+    "id": 3,
+    "narration": "Đêm mưa, Lợi chèo xuồng qua con rạch vắng.",
+    "visual_start_seconds": 6.26,
+    "slot_seconds": 4.7
+  },
+  {
+    "id": 4,
+    "narration": "Giữa đám lục bình, ai đó kêu cứu.",
+    "visual_start_seconds": 11.26,
+    "slot_seconds": 3.7
+  },
+  {
+    "id": 5,
+    "narration": "Cứu tôi!",
+    "visual_start_seconds": 15.26,
+    "slot_seconds": 1
+  },
+  {
+    "id": 6,
+    "narration": "Cổ tay cô buộc sợi chỉ đỏ.",
+    "visual_start_seconds": 16.381,
+    "slot_seconds": 3.2
+  },
+  {
+    "id": 7,
+    "narration": "Ma da kéo giò... bắt người thế mạng!",
+    "visual_start_seconds": 20.26,
+    "slot_seconds": 4.7
+  },
+  {
+    "id": 8,
+    "narration": "Lợi chìa mái chèo ra, nhất quyết không chạm tay.",
+    "visual_start_seconds": 25.26,
+    "slot_seconds": 4.7
+  },
+  {
+    "id": 9,
+    "narration": "Nhưng bàn tay khác siết chặt cổ chân anh.",
+    "visual_start_seconds": 30.26,
+    "slot_seconds": 3.7
+  },
+  {
+    "id": 10,
+    "narration": "Xuồng lật nghiêng. Lợi rơi xuống nước!",
+    "visual_start_seconds": 34.26,
+    "slot_seconds": 4.7
+  },
+  {
+    "id": 11,
+    "narration": "Trên đầu anh, cô gái đang trèo lên.",
+    "visual_start_seconds": 39.26,
+    "slot_seconds": 3.7
+  },
+  {
+    "id": 12,
+    "narration": "Rồi cô bình thản chèo về bến.",
+    "visual_start_seconds": 43.26,
+    "slot_seconds": 3.7
+  },
+  {
+    "id": 13,
+    "narration": "Sợi chỉ đỏ giờ nằm trên cổ tay Lợi.",
+    "visual_start_seconds": 47.26,
+    "slot_seconds": 5.7
+  },
+  {
+    "id": 14,
+    "narration": "Ma da đã có người thay.",
+    "visual_start_seconds": 53.26,
+    "slot_seconds": 2.7
+  },
+  {
+    "id": 15,
+    "narration": "Thả tim, theo dõi... nếu còn dám nghe.",
+    "visual_start_seconds": 56.26,
+    "slot_seconds": 3.5
+  }
+]
