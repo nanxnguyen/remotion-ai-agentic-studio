@@ -1,0 +1,77 @@
+name: Ma Da Keo Gio - Vbee Ngan voice replacement
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'docs/ma-da-keo-gio/voice-vbee-ngan-timeline.json'
+      - '.github/workflows/ma-da-keo-gio-vbee-ngan.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  synthesize-vbee:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    env:
+      VBEE_ACCESS_TOKEN: ${{ secrets.VBEE_ACCESS_TOKEN || secrets.VBEE_TOKEN || secrets.VBEE_API_KEY || secrets.VBEE_API_TOKEN }}
+      VBEE_APP_ID: ${{ secrets.VBEE_APP_ID || secrets.VBEE_APPID || secrets.VBEE_APPLICATION_ID }}
+      VBEE_WEBHOOK_URL: ${{ vars.VBEE_WEBHOOK_URL || 'https://iehmucsshklgjmxqyggp.supabase.co/functions/v1/vbee-batch-callback' }}
+      VBEE_VOICE_CODE: n_hn_male_ngankechuyen_ytstable_vc
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install FFmpeg
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+      - name: Validate credentials without printing them
+        shell: bash
+        run: |
+          test -n "$VBEE_APP_ID" || { echo "::error::Missing Vbee App ID"; exit 1; }
+          test -n "$VBEE_ACCESS_TOKEN" || { echo "::error::Missing Vbee access token"; exit 1; }
+      - name: Synthesize original 15 Vbee utterances
+        shell: bash
+        run: |
+          python - <<'PY'
+          import concurrent.futures, hashlib, importlib.util, json, os
+          from pathlib import Path
+          from math import isfinite
+          p=Path('scripts/gen-story-vbee-batch.py')
+          spec=importlib.util.spec_from_file_location('vbee_batch',p)
+          module=importlib.util.module_from_spec(spec)
+          spec.loader.exec_module(module)
+          timeline=json.loads(Path('docs/ma-da-keo-gio/voice-vbee-ngan-timeline.json').read_text(encoding='utf-8'))
+          assert len(timeline)==15
+          out=Path('output/ma-da-keo-gio-vbee-ngan')
+          out.mkdir(parents=True,exist_ok=True)
+          voice_code='n_hn_male_ngankechuyen_ytstable_vc'
+          def generate(row):
+              idx=row['id']
+              audio=out/f's{idx:02}.mp3'
+              module.generate_async(row['narration'],voice_code,1.03,audio,os.environ['VBEE_WEBHOOK_URL'])
+              duration=module.read_duration(audio)
+              if not isfinite(duration) or duration < 0.15:
+                  raise RuntimeError(f'Invalid audio duration for line {idx}')
+              return {
+                  **row,
+                  'voice_code':voice_code,
+                  'audio_file':audio.name,
+                  'audio_seconds':round(duration,3),
+                  'sha256':hashlib.sha256(audio.read_bytes()).hexdigest(),
+                  'fits_scene_without_adjustment': duration <= row['slot_seconds']
+              }
+          with concurrent.futures.ThreadPoolExecutor(max_workers=3) as pool:
+              result=sorted(list(pool.map(generate,timeline)),key=lambda r:r['id'])
+          (out/'measured-timeline.json').write_text(json.dumps(result,ensure_ascii=False,indent=2),encoding='utf-8')
+          if any(not x['fits_scene_without_adjustment'] for x in result):
+              print('NOTE: Vbee generated; some lines need timeline realignment before muxing MP4.')
+          print(f'Generated {len(result)} real Vbee MP3 utterances for voice {voice_code}')
+          PY
+      - name: Collect actual Vbee MP3 artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ma-da-keo-gio-vbee-ngan-15-lines
+          path: output/ma-da-keo-gio-vbee-ngan/
+          if-no-files-found: warn
+          retention-days: 14
