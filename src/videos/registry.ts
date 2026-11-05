@@ -17,6 +17,7 @@ import {banKhongYeuDuoiReelVideo} from './ban-khong-yeu-duoi-chi-da-manh-qua-lau
 import {khoangTrongTrongBucTranhVideo} from './khoang-trong-trong-buc-tranh';
 import {soNoiKhongVideo} from './so-bi-xem-la-ich-ky-khi-noi-khong';
 import {characterMotionLabVideo} from './character-motion-lab';
+import {silentFactoryLongformVideo} from './silent-factory-longform';
 // video:new imports -- keep this marker
 
 export const videoRegistry: readonly AnyVideoDefinition[] = [
@@ -37,6 +38,7 @@ export const videoRegistry: readonly AnyVideoDefinition[] = [
   khoangTrongTrongBucTranhVideo,
   soNoiKhongVideo,
   characterMotionLabVideo,
+  silentFactoryLongformVideo,
   // video:new entries -- keep this marker
 ];
 

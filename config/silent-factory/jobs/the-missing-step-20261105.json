@@ -1,0 +1,299 @@
+{
+  "title": "The Missing Step — When One Kind Act Changed Everything",
+  "revision": 0,
+  "category": "stick-figure-motivational-short-film",
+  "stage": "TECHNICAL_RENDER_TEST_UNREVIEWED",
+  "creative_qa_approved": false,
+  "original_rights_accepted": false,
+  "shots": [
+    {
+      "id": "shot-01",
+      "scene": "city",
+      "action": "stumble",
+      "caption": "A STEP WAS MISSING.",
+      "highlight": "STEP",
+      "palette": "cold"
+    },
+    {
+      "id": "shot-02",
+      "scene": "stairs",
+      "action": "pause",
+      "caption": "",
+      "highlight": "",
+      "palette": "cold"
+    },
+    {
+      "id": "shot-03",
+      "scene": "stairs",
+      "action": "reach",
+      "caption": "EVERYONE WALKED PAST.",
+      "highlight": "WALKED PAST",
+      "palette": "cold"
+    },
+    {
+      "id": "shot-04",
+      "scene": "city",
+      "action": "walk",
+      "caption": "",
+      "highlight": "",
+      "palette": "cold"
+    },
+    {
+      "id": "shot-05",
+      "scene": "stairs",
+      "action": "stumble",
+      "caption": "BUT SOMEONE ALWAYS FELL.",
+      "highlight": "FELL",
+      "palette": "cold"
+    },
+    {
+      "id": "shot-06",
+      "scene": "bridge",
+      "action": "pause",
+      "caption": "",
+      "highlight": "",
+      "palette": "cold"
+    },
+    {
+      "id": "shot-07",
+      "scene": "city",
+      "action": "help",
+      "caption": "SHE COULD NOT IGNORE IT.",
+      "highlight": "NOT IGNORE",
+      "palette": "warm"
+    },
+    {
+      "id": "shot-08",
+      "scene": "stairs",
+      "action": "reach",
+      "caption": "",
+      "highlight": "",
+      "palette": "cold"
+    },
+    {
+      "id": "shot-09",
+      "scene": "stairs",
+      "action": "repair",
+      "caption": "SHE TRIED TO FIX IT.",
+      "highlight": "TRIED",
+      "palette": "warm"
+    },
+    {
+      "id": "shot-10",
+      "scene": "workshop",
+      "action": "repair",
+      "caption": "ONE BOARD WASN'T ENOUGH.",
+      "highlight": "WASN'T ENOUGH",
+      "palette": "cold"
+    },
+    {
+      "id": "shot-11",
+      "scene": "stairs",
+      "action": "stumble",
+      "caption": "",
+      "highlight": "",
+      "palette": "cold"
+    },
+    {
+      "id": "shot-12",
+      "scene": "workshop",
+      "action": "pause",
+      "caption": "THE FIRST ATTEMPT FAILED.",
+      "highlight": "FAILED",
+      "palette": "cold"
+    },
+    {
+      "id": "shot-13",
+      "scene": "city",
+      "action": "walk",
+      "caption": "PEOPLE LAUGHED.",
+      "highlight": "LAUGHED",
+      "palette": "cold"
+    },
+    {
+      "id": "shot-14",
+      "scene": "bridge",
+      "action": "stumble",
+      "caption": "",
+      "highlight": "",
+      "palette": "cold"
+    },
+    {
+      "id": "shot-15",
+      "scene": "workshop",
+      "action": "repair",
+      "caption": "SHE CAME BACK TOMORROW.",
+      "highlight": "CAME BACK",
+      "palette": "hope"
+    },
+    {
+      "id": "shot-16",
+      "scene": "stairs",
+      "action": "repair",
+      "caption": "",
+      "highlight": "",
+      "palette": "warm"
+    },
+    {
+      "id": "shot-17",
+      "scene": "stairs",
+      "action": "reach",
+      "caption": "AND THE DAY AFTER THAT.",
+      "highlight": "DAY AFTER",
+      "palette": "hope"
+    },
+    {
+      "id": "shot-18",
+      "scene": "city",
+      "action": "walk",
+      "caption": "",
+      "highlight": "",
+      "palette": "cold"
+    },
+    {
+      "id": "shot-19",
+      "scene": "workshop",
+      "action": "repair",
+      "caption": "SMALL FIXES ADDED UP.",
+      "highlight": "SMALL FIXES",
+      "palette": "hope"
+    },
+    {
+      "id": "shot-20",
+      "scene": "stairs",
+      "action": "help",
+      "caption": "SOMEONE FINALLY STOPPED.",
+      "highlight": "FINALLY STOPPED",
+      "palette": "hope"
+    },
+    {
+      "id": "shot-21",
+      "scene": "bridge",
+      "action": "reach",
+      "caption": "",
+      "highlight": "",
+      "palette": "warm"
+    },
+    {
+      "id": "shot-22",
+      "scene": "workshop",
+      "action": "repair",
+      "caption": "THEN ANOTHER PERSON HELPED.",
+      "highlight": "HELPED",
+      "palette": "hope"
+    },
+    {
+      "id": "shot-23",
+      "scene": "workshop",
+      "action": "repair",
+      "caption": "",
+      "highlight": "",
+      "palette": "warm"
+    },
+    {
+      "id": "shot-24",
+      "scene": "stairs",
+      "action": "repair",
+      "caption": "THEY WORKED SIDE BY SIDE.",
+      "highlight": "SIDE BY SIDE",
+      "palette": "hope"
+    },
+    {
+      "id": "shot-25",
+      "scene": "city",
+      "action": "walk",
+      "caption": "",
+      "highlight": "",
+      "palette": "cold"
+    },
+    {
+      "id": "shot-26",
+      "scene": "stairs",
+      "action": "reach",
+      "caption": "THE GAP GREW SMALLER.",
+      "highlight": "GAP",
+      "palette": "hope"
+    },
+    {
+      "id": "shot-27",
+      "scene": "stairs",
+      "action": "repair",
+      "caption": "",
+      "highlight": "",
+      "palette": "warm"
+    },
+    {
+      "id": "shot-28",
+      "scene": "stairs",
+      "action": "rise",
+      "caption": "ONE LITTLE STEP RETURNED.",
+      "highlight": "STEP",
+      "palette": "hope"
+    },
+    {
+      "id": "shot-29",
+      "scene": "stairs",
+      "action": "help",
+      "caption": "",
+      "highlight": "",
+      "palette": "hope"
+    },
+    {
+      "id": "shot-30",
+      "scene": "bridge",
+      "action": "walk",
+      "caption": "A CHILD CROSSED SAFELY.",
+      "highlight": "SAFELY",
+      "palette": "hope"
+    },
+    {
+      "id": "shot-31",
+      "scene": "stairs",
+      "action": "help",
+      "caption": "",
+      "highlight": "",
+      "palette": "hope"
+    },
+    {
+      "id": "shot-32",
+      "scene": "city",
+      "action": "pause",
+      "caption": "BUT SHE WAS STILL AFRAID.",
+      "highlight": "AFRAID",
+      "palette": "cold"
+    },
+    {
+      "id": "shot-33",
+      "scene": "stairs",
+      "action": "rise",
+      "caption": "",
+      "highlight": "",
+      "palette": "hope"
+    },
+    {
+      "id": "shot-34",
+      "scene": "dawn",
+      "action": "walk",
+      "caption": "SO SHE TOOK HER OWN STEP.",
+      "highlight": "OWN STEP",
+      "palette": "hope"
+    },
+    {
+      "id": "shot-35",
+      "scene": "dawn",
+      "action": "help",
+      "caption": "",
+      "highlight": "",
+      "palette": "hope"
+    },
+    {
+      "id": "shot-36",
+      "scene": "dawn",
+      "action": "rise",
+      "caption": "KINDNESS BUILDS A WAY FOR ALL.",
+      "highlight": "KINDNESS",
+      "palette": "hope"
+    }
+  ],
+  "executor_test_sequence": 2
+}
