@@ -1,0 +1,85 @@
+name: Horror Factory - Queue Vbee + Cinematic Render
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'production/horror-queue/*.json'
+permissions:
+  contents: read
+concurrency:
+  group: horror-factory-media-queue-${{ github.sha }}
+  cancel-in-progress: false
+jobs:
+  produce-media:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 75
+    env:
+      VBEE_ACCESS_TOKEN: ${{ secrets.VBEE_ACCESS_TOKEN }}
+      VBEE_APP_ID: ${{ secrets.VBEE_APP_ID }}
+      VBEE_WEBHOOK_URL: ${{ vars.VBEE_WEBHOOK_URL || 'https://example.com/horror-story-voice-callback' }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install original art renderer and media codecs
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check 'CairoSVG>=2.7,<3'
+          if ! command -v ffmpeg >/dev/null || ! command -v ffprobe >/dev/null; then
+            sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+          fi
+      - name: Verify factory regression tests
+        run: |
+          python -m unittest discover -s tests -p 'test_horror_factory_run.py' -v
+          python -m compileall -q scripts/horror_factory_run.py
+      - name: Require exactly one newly queued film
+        id: queue
+        shell: bash
+        run: |
+          set -euo pipefail
+          mapfile -t files < <(git diff-tree --no-commit-id --name-only --diff-filter=A -r "$GITHUB_SHA" -- production/horror-queue/)
+          if [[ ${#files[@]} -ne 1 || ! "${files[0]}" =~ ^production/horror-queue/[a-z0-9-]+\.json$ ]]; then
+            echo "::error::Require exactly one newly added manifest. Never rerender edited/old films automatically."
+            exit 1
+          fi
+          echo "manifest=${files[0]}" >> "$GITHUB_OUTPUT"
+      - name: Source, storyboard, thumbnail and script audit preflight
+        shell: bash
+        run: |
+          python scripts/horror_factory_run.py --manifest "${{ steps.queue.outputs.manifest }}"
+      - name: Generate genuine Vbee Ngạn narration and vertical 9:16 MP4
+        shell: bash
+        run: |
+          python scripts/horror_factory_run.py --manifest "${{ steps.queue.outputs.manifest }}" --execute
+      - name: Record media state, not a fake Public release
+        if: always()
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json, os
+          from pathlib import Path
+          results=list(Path("out/horror-factory").glob("*/render-receipt.json"))
+          with open(os.environ["GITHUB_STEP_SUMMARY"],"a",encoding="utf8") as w:
+              w.write("## Horror Factory - media production\n\n")
+              if results:
+                  receipt=json.loads(results[0].read_text(encoding="utf8"))
+                  w.write(f"- Status: **{receipt['status']}**\n")
+                  w.write(f"- Film: {receipt['slug']}\n")
+                  w.write(f"- Measured duration: {receipt['duration_seconds']}s\n")
+                  w.write(f"- MP4 SHA256: `{receipt['video_sha256']}`\n")
+                  w.write("- **Next required:** independent entire-film, thumbnail/title/description QA; then Drive and Public upload. Not published by this workflow.\n")
+              else:
+                  w.write("- BLOCKED before a verified final media receipt. Inspect step logs. No video was published.\n")
+          PY
+      - name: Preserve rendered MP4 and both 9:16 thumbnail candidates
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: horror-factory-media-candidates
+          path: out/horror-factory/
+          retention-days: 14
+          if-no-files-found: ignore
