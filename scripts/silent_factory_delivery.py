@@ -107,7 +107,14 @@ def repair_existing_private_video(record: dict, video_id: str, youtube, thumbnai
 
 def validate_reviewed_film(technical: dict, delivery: dict, story: dict) -> dict:
     """Require timecoded independent review of the actual complete encoded film."""
-    from scripts.silent_factory_media_review import verify_review, MediaReviewBlocked
+    # The CLI is invoked as `python scripts/silent_factory_delivery.py`; unit
+    # tests import it as a module from the repository root. Support both modes.
+    try:
+        from scripts.silent_factory_media_review import verify_review, MediaReviewBlocked
+    except ModuleNotFoundError as exc:
+        if exc.name != 'scripts':
+            raise
+        from silent_factory_media_review import verify_review, MediaReviewBlocked
     shots = story.get('shots')
     _require(isinstance(shots, list) and len(shots) == 36 and
              all(isinstance(s, dict) and isinstance(s.get('id'), str) for s in shots),
