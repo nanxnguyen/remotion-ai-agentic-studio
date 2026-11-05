@@ -36,6 +36,7 @@ def manifest(path: Path) -> dict:
     if not isinstance(data.get("shots"), list) or len(data["shots"]) != EXPECTED_SHOTS:
         raise ValueError("Exactly 36 timed shots are required for the 210s composition")
     ids = set()
+    caption_count = 0
     for i, shot in enumerate(data["shots"]):
         if not isinstance(shot, dict):
             raise ValueError(f"shot {i} is not an object")
