@@ -1,0 +1,108 @@
+name: Horror Factory - Capability Audit
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/horror-factory-capability-audit.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  capability-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      VBEE_ACCESS_TOKEN: ${{ secrets.VBEE_ACCESS_TOKEN }}
+      VBEE_APP_ID: ${{ secrets.VBEE_APP_ID }}
+      YOUTUBE_CLIENT_ID: ${{ secrets.YOUTUBE_CLIENT_ID }}
+      YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
+      YOUTUBE_REFRESH_TOKEN: ${{ secrets.YOUTUBE_REFRESH_TOKEN_HEM_CHUYEN_LA }}
+      DRIVE_REFRESH_TOKEN: ${{ secrets.DRIVE_REFRESH_TOKEN }}
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Inspect actual executor and secret presence only
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json
+          import os
+          import shutil
+          from pathlib import Path
+          from urllib.parse import urlencode
+          from urllib.request import Request, urlopen
+          from urllib.error import HTTPError, URLError
+
+          root = Path(".")
+          required = (
+              "VBEE_ACCESS_TOKEN", "VBEE_APP_ID", "YOUTUBE_CLIENT_ID",
+              "YOUTUBE_CLIENT_SECRET", "YOUTUBE_REFRESH_TOKEN", "DRIVE_REFRESH_TOKEN",
+          )
+          secrets = {name: bool(os.environ.get(name)) for name in required}
+          components = {
+              "story_model_credential_present": any(os.environ.get(n) for n in ("OPENAI_API_KEY", "GEMINI_API_KEY", "ANTHROPIC_API_KEY")),
+              "nightly_factory_entrypoint": (root / "scripts/horror_factory_run.py").is_file(),
+              "existing_vbee_batch_tool": (root / "scripts/gen-story-vbee-batch.py").is_file(),
+              "existing_remotion_tool": (root / "scripts/video-new.mjs").is_file(),
+              "public_youtube_uploader": (root / "scripts/youtube_multi_channel.py").is_file(),
+              "ffmpeg_executable": shutil.which("ffmpeg") is not None,
+              "node_executable": shutil.which("node") is not None,
+          }
+          drive_scope = "unknown"
+          if all(secrets[x] for x in ("DRIVE_REFRESH_TOKEN", "YOUTUBE_CLIENT_ID", "YOUTUBE_CLIENT_SECRET")):
+              try:
+                  payload = urlencode({
+                      "client_id": os.environ["YOUTUBE_CLIENT_ID"],
+                      "client_secret": os.environ["YOUTUBE_CLIENT_SECRET"],
+                      "refresh_token": os.environ["DRIVE_REFRESH_TOKEN"],
+                      "grant_type": "refresh_token",
+                  }).encode()
+                  with urlopen(Request("https://oauth2.googleapis.com/token", data=payload), timeout=25) as response:
+                      token = json.load(response).get("access_token")
+                  with urlopen("https://oauth2.googleapis.com/tokeninfo?" + urlencode({"access_token": token}), timeout=25) as response:
+                      scope_set = set(json.load(response).get("scope", "").split())
+                  permitted = {"https://www.googleapis.com/auth/drive", "https://www.googleapis.com/auth/drive.file"}
+                  drive_scope = "drive_write_granted" if scope_set & permitted else "drive_write_missing"
+              except (HTTPError, URLError, ValueError, KeyError, TypeError):
+                  drive_scope = "drive_scope_check_failed"
+
+          can_produce = bool(
+              all(secrets.values()) and components["story_model_credential_present"]
+              and components["nightly_factory_entrypoint"]
+              and drive_scope == "drive_write_granted"
+          )
+          status = "READY_FOR_E2E_TEST" if can_produce else "BLOCKED"
+          report = {"status": status, "secrets_presence": secrets, "components": components,
+                    "drive_scope": drive_scope, "note": "Secret presence is not quota or production proof. No publishing attempted."}
+          Path("horror-factory-capability-audit.json").write_text(
+              json.dumps(report, indent=2, ensure_ascii=False) + "\n"
+          )
+          print(json.dumps(report, indent=2, ensure_ascii=False))
+          with open(os.environ["GITHUB_STEP_SUMMARY"], "a") as summary:
+              summary.write("## Horror Factory capability audit\n\n| Gate | Result |\n|---|---|\n")
+              for name, present in secrets.items():
+                  summary.write(f"| {name} | {'PRESENT' if present else 'MISSING'} |\n")
+              for name, present in components.items():
+                  summary.write(f"| {name} | {'YES' if present else 'NO'} |\n")
+              summary.write(f"| Drive write scope | {drive_scope} |\n\nOverall: **{status}**. No video uploaded.\n")
+          if not can_produce:
+              raise SystemExit("Nightly production not ready; inspect capability report")
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: horror-factory-capability-report
+          path: horror-factory-capability-audit.json
+          if-no-files-found: ignore
+          retention-days: 14
