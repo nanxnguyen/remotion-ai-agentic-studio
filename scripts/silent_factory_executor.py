@@ -47,12 +47,18 @@ def manifest(path: Path) -> dict:
         if shot.get("action") not in ACTIONS or shot.get("scene") not in SCENES:
             raise ValueError(f"invalid scene/action for {sid}")
         caption, highlight = shot.get("caption"), shot.get("highlight")
-        if not isinstance(caption, str) or not 5 <= len(caption) <= 100 or "\n" in caption:
+        if not isinstance(caption, str) or len(caption) > 100 or "\\n" in caption:
             raise ValueError(f"invalid English micro-caption for {sid}")
-        if not isinstance(highlight, str) or not highlight.strip() or highlight.casefold() not in caption.casefold():
-            raise ValueError(f"highlight is not a literal part of caption in {sid}")
+        if caption:
+            caption_count += 1
+            if len(caption) < 5 or not isinstance(highlight, str) or not highlight.strip() or highlight.casefold() not in caption.casefold():
+                raise ValueError(f"highlight is not a literal part of caption in {sid}")
+        elif highlight not in ('', None):
+            raise ValueError(f"silent shot {sid} cannot have highlighted text")
         if shot.get("palette", "cold") not in PALETTES:
             raise ValueError(f"invalid highlight palette in {sid}")
+    if not 12 <= caption_count <= 25:
+        raise ValueError(f"Expected 12-25 highlight cues, got {caption_count}")
     revision = data.get("revision", 0)
     if isinstance(revision, bool) or not isinstance(revision, int) or not 0 <= revision <= 5:
         raise ValueError("revision must be integer 0..5 (baseline plus five real fixes)")
@@ -166,7 +172,7 @@ def quality_assurance(movie: Path, data: dict, report_path: Path, sheet: Path) -
         "video_codec": v["codec_name"], "audio_codec": a["codec_name"],
         "shots": len(data["shots"]),
         "expected_total_frames": EXPECTED_FRAMES,
-        "caption_highlights_supplied": len(data["shots"]),
+        "caption_highlights_supplied": sum(bool(x["caption"]) for x in data["shots"]),
         "all_video_frames_decoded": True,
         "all_audio_decoded": True,
         "integrated_lufs": loudness,
