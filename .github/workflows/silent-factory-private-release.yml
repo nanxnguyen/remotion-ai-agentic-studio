@@ -1,0 +1,71 @@
+name: Silent Animation Factory / reviewed Olise PRIVATE release
+
+# Connector-safe: a NEW reviewed release manifest triggers publishing via push,
+# avoiding workflow_dispatch, and never changing visibility to Public.
+on:
+  push:
+    branches:
+      - main
+      - fix/silent-factory-longform-executor-20261105
+    paths:
+      - 'config/silent-factory/releases/*.json'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: silent-factory-private-release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  private-only:
+    if: github.repository == 'nanxnguyen/remotion-ai-agentic-studio'
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    env:
+      YOUTUBE_CLIENT_ID: ${{ secrets.YOUTUBE_CLIENT_ID }}
+      YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
+      YOUTUBE_REFRESH_TOKEN: ${{ secrets.YOUTUBE_REFRESH_TOKEN_OLISE_MAN }}
+      DRIVE_REFRESH_TOKEN: ${{ secrets.DRIVE_REFRESH_TOKEN }}
+      YOUTUBE_UPLOAD_PRIVATE_ENABLED: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Resolve exact new reviewed release manifest
+        shell: bash
+        run: |
+          set -euo pipefail
+          mapfile -t paths < <(git diff --name-only HEAD^ HEAD -- config/silent-factory/releases/ | grep -E '^config/silent-factory/releases/[a-z0-9-]+\.json$' || true)
+          if [[ "${#paths[@]}" -ne 1 ]]; then
+            echo "::error::Exactly one changed release manifest required"
+            exit 1
+          fi
+          echo "RELEASE_FILE=${paths[0]}" >> "$GITHUB_ENV"
+      - name: Ensure FFmpeg and FFprobe for final MP4 inspection
+        shell: bash
+        run: |
+          if ! command -v ffprobe >/dev/null 2>&1; then
+            sudo apt-get update -qq
+            sudo apt-get install -y -qq ffmpeg
+          fi
+      - name: Install existing verified YouTube uploader dependencies
+        run: python -m pip install --disable-pip-version-check -r scripts/youtube-multi-requirements.txt
+      - name: Test authenticated routing and metadata validation
+        run: python -m unittest discover -s tests -p 'test_youtube_multi_channel.py' -v
+      - name: Verify review + source SHA, preflight, and upload PRIVATE to Olise
+        shell: bash
+        run: |
+          set -euo pipefail
+          python scripts/silent_factory_release.py --release "$RELEASE_FILE" --execute
+      - name: Preserve actual PRIVATE upload receipt
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: silent-factory-private-receipt-${{ github.run_id }}
+          path: out/silent-factory-release/
+          if-no-files-found: ignore
+          retention-days: 90
