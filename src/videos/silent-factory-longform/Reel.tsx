@@ -117,6 +117,7 @@ const Backdrop: React.FC<{scene: StickScene; index: number; time: number}> = ({s
 };
 
 const Caption: React.FC<{shot: FilmShot; local: number}> = ({shot, local}) => {
+  if (!shot.caption.trim()) return null;
   const fade = clamp(Math.min(local / 12, (SHOT_FRAMES - local) / 15));
   const highlight = shot.highlight.trim();
   const index = highlight ? shot.caption.toLowerCase().indexOf(highlight.toLowerCase()) : -1;
