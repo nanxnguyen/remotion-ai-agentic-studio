@@ -1,0 +1,22 @@
+name: Horror factory — minimal runner smoke
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/horror-runner-smoke.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  ubuntu-24:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 3
+    steps:
+      - name: Runner allocated
+        run: echo 'RUNNER_ALLOCATED=YES ubuntu-24.04'
+  ubuntu-22:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 3
+    steps:
+      - name: Runner allocated
+        run: echo 'RUNNER_ALLOCATED=YES ubuntu-22.04'
