@@ -63,7 +63,73 @@ def validate_delivery(record: dict, actual_sha: str) -> dict:
     return record
 
 
-def safe_private_release(record: dict, publish) -> dict:
+def repair_existing_private_video(record: dict, video_id: str, youtube, thumbnail_path: Path,
+                                  *, media_factory=None) -> dict:
+    """Repair thumbnail on the SAME verified private video, never call videos.insert."""
+    validate_delivery(record, record['video_sha256'])
+    _require(isinstance(video_id, str) and re.fullmatch(r'[A-Za-z0-9_-]{11}', video_id) is not None,
+             'Invalid existing YouTube video ID')
+    marker = 'saf-' + record['video_sha256'][:32]
+
+    def verified_item() -> dict:
+        result = youtube.videos().list(part='snippet,status', id=video_id).execute()
+        items = result.get('items', [])
+        _require(len(items) == 1, 'Existing video is not visible to this OAuth channel')
+        item = items[0]
+        snippet = item.get('snippet', {})
+        _require(snippet.get('channelId') == CHANNEL_ID, 'Existing video belongs to wrong channel')
+        _require(item.get('status', {}).get('privacyStatus') == 'private', 'Existing video is not Private')
+        _require(marker in snippet.get('tags', []), 'Existing video SHA marker does not match source MP4')
+        return item
+
+    verified_item()  # verify before touching the video
+    thumbnail_path = Path(thumbnail_path)
+    _require(thumbnail_path.is_file(), 'Real thumbnail image missing')
+    with thumbnail_path.open('rb') as stream:
+        header = stream.read(10)
+    if thumbnail_path.suffix.lower() in {'.jpg', '.jpeg'}:
+        _require(header.startswith(b'\xff\xd8\xff'), 'Invalid JPEG thumbnail')
+        mime = 'image/jpeg'
+    elif thumbnail_path.suffix.lower() == '.png':
+        _require(header.startswith(b'\x89PNG\r\n\x1a\n'), 'Invalid PNG thumbnail')
+        mime = 'image/png'
+    else:
+        raise DeliveryBlocked('Thumbnail must be JPEG/PNG')
+    if media_factory is None:
+        from googleapiclient.http import MediaFileUpload
+        media_factory = lambda p, mime_type: MediaFileUpload(str(p), mimetype=mime_type, resumable=False)
+    youtube.thumbnails().set(videoId=video_id, media_body=media_factory(thumbnail_path, mime)).execute()
+    verified_item()  # confirm channel and Private visibility remain unchanged
+    return {'status':'existing_private_verified', 'youtube_video_id':video_id,
+            'channel_id': CHANNEL_ID, 'privacy':'private',
+            'video_sha256':record['video_sha256'], 'thumbnail_set_ack':True}
+
+
+def validate_reviewed_film(technical: dict, delivery: dict, story: dict) -> dict:
+    """Require timecoded independent review of the actual complete encoded film."""
+    from scripts.silent_factory_media_review import verify_review, MediaReviewBlocked
+    shots = story.get('shots')
+    _require(isinstance(shots, list) and len(shots) == 36 and
+             all(isinstance(s, dict) and isinstance(s.get('id'), str) for s in shots),
+             'Independent review must be based on a real 36-shot story manifest')
+    try:
+        result = verify_review(technical, delivery.get('independent_audiovisual_review'),
+                               [shot['id'] for shot in shots])
+    except MediaReviewBlocked as exc:
+        raise DeliveryBlocked('independent review: ' + str(exc)) from exc
+    _require(result.get('independent_full_media_reviewed') is True,
+             'independent full-video reviewer execution missing')
+    basis = delivery.get('creative_release_basis')
+    if basis == 'creative_qa_passed':
+        _require(result['status'] == 'CREATIVE_PASS', 'independent creative PASS not established')
+    else:
+        _require(basis == 'private_override_after_5_actual_repairs' and
+                 result['status'] == 'CREATIVE_FAIL',
+                 'private override requires independent creative FAIL and 5 actual repairs')
+    return result
+
+
+def safe_private_release(record: dict, publish, *, repair_existing=None) -> dict:
     validate_delivery(record, record['video_sha256'])
     _require(isinstance(record.get('video_drive_id'),str) and
              isinstance(record.get('thumbnail_drive_id'),str), 'Drive assets not staged')
@@ -73,6 +139,8 @@ def safe_private_release(record: dict, publish) -> dict:
              'Private dry-run returned wrong channel, SHA or privacy')
     if dry.get('previously_uploaded_id'):
         # A SHA match alone does NOT prove current privacy or thumbnail.
+        if repair_existing is not None:
+            return repair_existing(record,dry['previously_uploaded_id'])
         return {'status':'DUPLICATE_VERIFY_REQUIRED','previously_uploaded_id':dry['previously_uploaded_id']}
     real=publish(record,True)
     _require(real.get('channel_id')==CHANNEL_ID and real.get('privacy')=='private' and
@@ -80,6 +148,8 @@ def safe_private_release(record: dict, publish) -> dict:
              'Private uploader receipt mismatch')
     status=real.get('status')
     if status=='uploaded_private_thumbnail_pending':
+        if repair_existing is not None:
+            return repair_existing(record,real.get('youtube_video_id'))
         return {'status':'THUMBNAIL_REPAIR_REQUIRED','youtube_video_id':real.get('youtube_video_id')}
     _require(status=='uploaded_private_ready_for_review' and
              isinstance(real.get('youtube_video_id'),str) and
@@ -105,7 +175,7 @@ def main() -> None:
     ap.add_argument('--receipt-dir',default='out/silent-factory-delivery')
     args=ap.parse_args()
     from silent_factory_drive_writer import build_drive_client, upload_verified_media
-    from youtube_multi_channel import validate_meta
+    from youtube_multi_channel import validate_meta, credentials, YT_SCOPES
     from silent_factory_release import run_uploader
     root=Path(__file__).resolve().parents[1]
     source=args.manifest.resolve()
@@ -121,6 +191,12 @@ def main() -> None:
              technical.get('fps')==30 and 180<=technical.get('duration_seconds',0)<=240,
              'Actual encoded technical QA evidence missing')
     validate_delivery(rec,digest)
+    story_ref=rec.get('story_path')
+    _require(isinstance(story_ref,str) and
+             re.fullmatch(r'config/silent-factory/jobs/[a-z0-9-]+\.json',story_ref),
+             'Missing matching committed story manifest')
+    story=json.loads((root/story_ref).read_text(encoding='utf-8'))
+    validate_reviewed_film(technical,rec,story)
     path=rec.get('metadata_path')
     _require(isinstance(path,str) and re.fullmatch(r'config/films/[a-z0-9-]+\.json',path),
              'Missing safe repository metadata path')
@@ -146,7 +222,11 @@ def main() -> None:
     (receipts/'drive-receipt.json').write_text(json.dumps(files,indent=2)+'\n')
     def publish(r,execute):
         return run_uploader(r,receipts/('youtube-private.json' if execute else 'preflight.json'),execute)
-    outcome=safe_private_release(rec,publish)
+    def repair(r,vid):
+        from googleapiclient.discovery import build
+        yt=build('youtube','v3',credentials=credentials(YT_SCOPES,os.environ['YOUTUBE_REFRESH_TOKEN']),cache_discovery=False)
+        return repair_existing_private_video(r,vid,yt,args.thumbnail)
+    outcome=safe_private_release(rec,publish,repair_existing=repair)
     (receipts/'delivery-result.json').write_text(json.dumps(outcome,indent=2)+'\n')
     print(json.dumps({'status':outcome.get('status'),'youtube_video_id':outcome.get('youtube_video_id'),
                       'video_drive_id':files['video_drive_id'],'thumbnail_drive_id':files['thumbnail_drive_id']}))
