@@ -50,9 +50,19 @@ class GitHubIssueStore:
             return json.loads(response.read())
 
     def _matches(self, run_key: str):
-        issues = self._request('GET', '/issues?state=all&labels=silent-factory-run&per_page=100', None)
         title = PREFIX + run_key
-        matches = [item for item in issues if item.get('title') == title and 'pull_request' not in item]
+        matches = []
+        # Never rely on the first 100 issues: otherwise next year's scheduled
+        # run may accidentally create a duplicate checkpoint for an old film.
+        for page in range(1, 21):
+            issues = self._request('GET', f'/issues?state=all&per_page=100&page={page}', None)
+            if not isinstance(issues, list):
+                raise ValueError('Unexpected GitHub Issues response')
+            matches.extend(item for item in issues if item.get('title') == title and 'pull_request' not in item)
+            if len(issues) < 100:
+                break
+        else:
+            raise ValueError('Issue pagination exceeded safe search limit; cannot confirm run-key uniqueness')
         if len(matches) > 1:
             raise ValueError('Found multiple GitHub issues for run key; operator reconciliation needed')
         return matches
