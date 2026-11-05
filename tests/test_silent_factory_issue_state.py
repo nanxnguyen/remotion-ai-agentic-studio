@@ -33,4 +33,18 @@ class IssueTests(unittest.TestCase):
         s=mod.GitHubIssueStore('nanxnguyen/remotion-ai-agentic-studio','token',transport=transport)
         with self.assertRaisesRegex(ValueError,'multiple'):
             s.load(record['run_key'])
+    def test_later_pages_do_not_create_duplicate_checkpoint_issue(self):
+        record={'run_key':'2026-11-06/unbroken-bridge','status':'CREATED','history':[]}
+        visited=[]
+        def transport(method,path,body):
+            visited.append(path)
+            if path.endswith('page=1'):
+                return [{'number':i,'title':'Other '+str(i),'body':'n/a'} for i in range(100)]
+            if path.endswith('page=2'):
+                return [{'number':202,'title':'Silent Factory: '+record['run_key'],'body':mod.serialize_issue(record)}]
+            return []
+        st=mod.GitHubIssueStore('nanxnguyen/remotion-ai-agentic-studio','token',transport=transport)
+        self.assertEqual(st.load(record['run_key']),record)
+        self.assertTrue(any('page=2' in p for p in visited))
+
 if __name__=='__main__':unittest.main()
