@@ -1,0 +1,106 @@
+name: Silent Animation Factory / native 2K render and technical QA
+
+# GitHub connector currently exposes file writes but not workflow_dispatch.
+# Adding ONE fresh manifest path creates a real push event and starts this job.
+on:
+  push:
+    branches:
+      - main
+      - fix/silent-factory-longform-executor-20261105
+    paths:
+      - 'config/silent-factory/jobs/*.json'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: silent-factory-render-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Resolve exact new or changed film manifest
+        shell: bash
+        run: |
+          set -euo pipefail
+          mapfile -t paths < <(git diff --name-only HEAD^ HEAD -- config/silent-factory/jobs/ | grep -E '^config/silent-factory/jobs/[a-z0-9-]+\.json$' || true)
+          if [[ "${#paths[@]}" -ne 1 ]]; then
+            echo "::error::Exactly one changed film job is required; found ${#paths[@]}"
+            exit 1
+          fi
+          echo "FILM_JOB=${paths[0]}" >> "$GITHUB_ENV"
+          echo "Selected ${paths[0]}"
+      - name: Validate full 210s shotlist and audit preflight
+        run: |
+          python scripts/silent_factory_executor.py validate --manifest "$FILM_JOB"
+          python -m unittest discover -s tests -p 'test_silent_factory_executor.py' -v
+      - name: Install Remotion dependencies
+        run: npm ci
+      - name: Verify TypeScript composition
+        run: npm run typecheck
+      - name: Install or verify FFmpeg
+        shell: bash
+        run: |
+          if ! command -v ffmpeg >/dev/null || ! command -v ffprobe >/dev/null; then
+            sudo apt-get update -qq
+            sudo apt-get install -y -qq ffmpeg
+          fi
+          ffprobe -version | head -1
+      - name: Render FULL native 2K film (NOT 2-second smoke test)
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p out/silent-factory
+          npx remotion render src/index.ts SilentFactoryLongform out/silent-factory/video-silent.mp4 \
+            --props="$FILM_JOB" --codec=h264 --crf=21 --concurrency=2 --log=error
+      - name: Original instrumental score and motivated SFX
+        run: python scripts/silent_factory_executor.py audio --out out/silent-factory/original-score.wav
+      - name: Mix and loudness-normalize to FINAL CANDIDATE
+        shell: bash
+        run: |
+          set -euo pipefail
+          ffmpeg -y -hide_banner -nostdin -loglevel error \
+            -i out/silent-factory/video-silent.mp4 \
+            -i out/silent-factory/original-score.wav \
+            -map 0:v:0 -map 1:a:0 -c:v copy -c:a aac -b:a 192k \
+            -af 'loudnorm=I=-14:TP=-1.5:LRA=9' -shortest \
+            out/silent-factory/silent-factory-2k-review.mp4
+      - name: Full-video + full-audio decode, SHA, contact sheet, metrics
+        shell: bash
+        run: |
+          set -euo pipefail
+          python scripts/silent_factory_executor.py qa \
+            --manifest "$FILM_JOB" \
+            --movie out/silent-factory/silent-factory-2k-review.mp4 \
+            --report out/silent-factory/technical-qa.json \
+            --sheet out/silent-factory/actual-encoded-36-shots.jpg
+          ffmpeg -y -hide_banner -nostdin -loglevel error -ss 18 \
+            -i out/silent-factory/silent-factory-2k-review.mp4 \
+            -frames:v 1 -vf scale=1280:720 \
+            out/silent-factory/thumbnail-draft.jpg
+      - name: Save actual full film for independent creative review
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: silent-factory-${{ github.run_id }}
+          path: |
+            out/silent-factory/silent-factory-2k-review.mp4
+            out/silent-factory/technical-qa.json
+            out/silent-factory/actual-encoded-36-shots.jpg
+            out/silent-factory/thumbnail-draft.jpg
+            out/silent-factory/original-score.wav
+          retention-days: 30
+          if-no-files-found: ignore
