@@ -114,4 +114,20 @@ class SemanticCoverageTests(unittest.TestCase):
         with self.assertRaisesRegex(d.DeliveryBlocked,'audio'):
             d.validate_reviewed_film(self.technical(),doc,self.film())
 
+class DirectScriptImportTests(unittest.TestCase):
+    def test_media_review_import_works_when_executed_as_script(self):
+        import subprocess, sys
+        script_dir = str(ROOT / 'scripts')
+        code = """import sys
+sys.path.insert(0, sys.argv[1])
+import silent_factory_delivery as d
+tech = {'movie_sha256': 'a'*64, 'all_video_frames_decoded': True, 'all_audio_decoded': True, 'width':2560, 'height':1440, 'fps':30, 'duration_seconds':210, 'caption_highlights_supplied':20}
+story = {'shots':[{'id':f'shot-{i:02d}'} for i in range(1,37)]}
+try: d.validate_reviewed_film(tech, {}, story)
+except d.DeliveryBlocked: pass
+else: raise AssertionError('An unavailable independent reviewer should block')
+"""
+        child=subprocess.run([sys.executable,'-I','-c',code,script_dir],capture_output=True,text=True,check=False)
+        self.assertEqual(child.returncode,0,child.stderr)
+
 if __name__=='__main__':unittest.main()
