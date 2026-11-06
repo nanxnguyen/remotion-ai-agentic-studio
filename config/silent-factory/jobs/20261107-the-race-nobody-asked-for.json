@@ -1,0 +1,309 @@
+{
+  "title": "The Race Nobody Asked For — A Silent Story About Choosing Your Own Pace",
+  "revision": 0,
+  "category": "stick-figure-motivational-short-film",
+  "stage": "TECHNICAL_RENDER_TEST_UNREVIEWED",
+  "creative_qa_approved": false,
+  "original_rights_accepted": true,
+  "shots": [
+    {
+      "id": "shot-01",
+      "scene": "city",
+      "action": "run",
+      "caption": "EVERYONE SEEMED AHEAD.",
+      "highlight": "AHEAD",
+      "palette": "cold"
+    },
+    {
+      "id": "shot-02",
+      "scene": "city",
+      "action": "run",
+      "caption": "",
+      "highlight": "",
+      "palette": "cold"
+    },
+    {
+      "id": "shot-03",
+      "scene": "bridge",
+      "action": "run",
+      "caption": "SO HE RAN FASTER.",
+      "highlight": "FASTER",
+      "palette": "cold"
+    },
+    {
+      "id": "shot-04",
+      "scene": "city",
+      "action": "stumble",
+      "caption": "",
+      "highlight": "",
+      "palette": "cold"
+    },
+    {
+      "id": "shot-05",
+      "scene": "stairs",
+      "action": "pause",
+      "caption": "BUT THE RUSH COST HIM.",
+      "highlight": "COST",
+      "palette": "cold"
+    },
+    {
+      "id": "shot-06",
+      "scene": "city",
+      "action": "rise",
+      "caption": "",
+      "highlight": "",
+      "palette": "cold"
+    },
+    {
+      "id": "shot-07",
+      "scene": "bridge",
+      "action": "run",
+      "caption": "HE NEVER SAW THE VIEW.",
+      "highlight": "NEVER SAW",
+      "palette": "cold"
+    },
+    {
+      "id": "shot-08",
+      "scene": "stairs",
+      "action": "stumble",
+      "caption": "",
+      "highlight": "",
+      "palette": "cold"
+    },
+    {
+      "id": "shot-09",
+      "scene": "city",
+      "action": "reach",
+      "caption": "THEN SOMEONE FELL.",
+      "highlight": "FELL",
+      "palette": "cold"
+    },
+    {
+      "id": "shot-10",
+      "scene": "workshop",
+      "action": "pause",
+      "caption": "",
+      "highlight": "",
+      "palette": "cold"
+    },
+    {
+      "id": "shot-11",
+      "scene": "city",
+      "action": "run",
+      "caption": "THE CROWD KEPT MOVING.",
+      "highlight": "KEPT MOVING",
+      "palette": "cold"
+    },
+    {
+      "id": "shot-12",
+      "scene": "stairs",
+      "action": "stumble",
+      "caption": "",
+      "highlight": "",
+      "palette": "cold"
+    },
+    {
+      "id": "shot-13",
+      "scene": "bridge",
+      "action": "pause",
+      "caption": "HE COULD STILL CATCH UP.",
+      "highlight": "CATCH UP",
+      "palette": "cold"
+    },
+    {
+      "id": "shot-14",
+      "scene": "workshop",
+      "action": "reach",
+      "caption": "",
+      "highlight": "",
+      "palette": "cold"
+    },
+    {
+      "id": "shot-15",
+      "scene": "city",
+      "action": "walk",
+      "caption": "HE CHOSE TO STOP.",
+      "highlight": "CHOSE",
+      "palette": "warm"
+    },
+    {
+      "id": "shot-16",
+      "scene": "bridge",
+      "action": "help",
+      "caption": "",
+      "highlight": "",
+      "palette": "warm"
+    },
+    {
+      "id": "shot-17",
+      "scene": "stairs",
+      "action": "reach",
+      "caption": "ONE HAND WAS NOT ENOUGH.",
+      "highlight": "NOT ENOUGH",
+      "palette": "warm"
+    },
+    {
+      "id": "shot-18",
+      "scene": "workshop",
+      "action": "repair",
+      "caption": "",
+      "highlight": "",
+      "palette": "warm"
+    },
+    {
+      "id": "shot-19",
+      "scene": "city",
+      "action": "pause",
+      "caption": "HE ASKED FOR HELP.",
+      "highlight": "HELP",
+      "palette": "warm"
+    },
+    {
+      "id": "shot-20",
+      "scene": "bridge",
+      "action": "help",
+      "caption": "",
+      "highlight": "",
+      "palette": "warm"
+    },
+    {
+      "id": "shot-21",
+      "scene": "workshop",
+      "action": "repair",
+      "caption": "THEY FIXED WHAT BROKE.",
+      "highlight": "FIXED",
+      "palette": "warm"
+    },
+    {
+      "id": "shot-22",
+      "scene": "stairs",
+      "action": "rise",
+      "caption": "",
+      "highlight": "",
+      "palette": "warm"
+    },
+    {
+      "id": "shot-23",
+      "scene": "city",
+      "action": "walk",
+      "caption": "THE RACE MOVED ON.",
+      "highlight": "MOVED ON",
+      "palette": "warm"
+    },
+    {
+      "id": "shot-24",
+      "scene": "workshop",
+      "action": "repair",
+      "caption": "",
+      "highlight": "",
+      "palette": "warm"
+    },
+    {
+      "id": "shot-25",
+      "scene": "bridge",
+      "action": "help",
+      "caption": "BUT SOMETHING ELSE BEGAN.",
+      "highlight": "BEGAN",
+      "palette": "hope"
+    },
+    {
+      "id": "shot-26",
+      "scene": "city",
+      "action": "walk",
+      "caption": "",
+      "highlight": "",
+      "palette": "hope"
+    },
+    {
+      "id": "shot-27",
+      "scene": "stairs",
+      "action": "help",
+      "caption": "OTHERS STARTED STOPPING.",
+      "highlight": "STARTED STOPPING",
+      "palette": "hope"
+    },
+    {
+      "id": "shot-28",
+      "scene": "bridge",
+      "action": "rise",
+      "caption": "",
+      "highlight": "",
+      "palette": "hope"
+    },
+    {
+      "id": "shot-29",
+      "scene": "workshop",
+      "action": "walk",
+      "caption": "HE WALKED, NOT RAN.",
+      "highlight": "WALKED",
+      "palette": "hope"
+    },
+    {
+      "id": "shot-30",
+      "scene": "city",
+      "action": "pause",
+      "caption": "",
+      "highlight": "",
+      "palette": "hope"
+    },
+    {
+      "id": "shot-31",
+      "scene": "bridge",
+      "action": "help",
+      "caption": "NO ONE WAS LEFT BEHIND.",
+      "highlight": "LEFT BEHIND",
+      "palette": "hope"
+    },
+    {
+      "id": "shot-32",
+      "scene": "stairs",
+      "action": "walk",
+      "caption": "",
+      "highlight": "",
+      "palette": "hope"
+    },
+    {
+      "id": "shot-33",
+      "scene": "dawn",
+      "action": "walk",
+      "caption": "THE FINISH LINE WAS EMPTY.",
+      "highlight": "EMPTY",
+      "palette": "hope"
+    },
+    {
+      "id": "shot-34",
+      "scene": "dawn",
+      "action": "help",
+      "caption": "THE WAY HOME WAS FULL.",
+      "highlight": "FULL",
+      "palette": "hope"
+    },
+    {
+      "id": "shot-35",
+      "scene": "dawn",
+      "action": "pause",
+      "caption": "HE HADN'T LOST HIS WAY.",
+      "highlight": "HADN'T LOST",
+      "palette": "hope"
+    },
+    {
+      "id": "shot-36",
+      "scene": "dawn",
+      "action": "rise",
+      "caption": "HE HAD FOUND HIS PACE.",
+      "highlight": "HIS PACE",
+      "palette": "hope"
+    }
+  ],
+  "creative_intent": {
+    "logline": "A runner chasing a race nobody invited him to joins strangers to help a fallen person, discovering a better destination.",
+    "hook": "The runner sprints while the city around him appears motionless; he stumbles trying to catch a finish line that no one can see.",
+    "theme": "Worth is measured by chosen actions, not other people's pace.",
+    "setup_payoff": "The unseen finish line at the beginning is contrasted with the visible community on the way home.",
+    "growth_hypothesis": "A silent high-contrast run-to-walk reversal may encourage shares among viewers tired of comparison; unvalidated.",
+    "source_evidence": [
+      "https://www.animaticmedia.com/the-lab/microdrama-audience-report-november-2026",
+      "https://startups.co.uk/news/social-media-trends-november-2026/"
+    ]
+  }
+}
