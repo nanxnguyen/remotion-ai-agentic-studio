@@ -1,0 +1,132 @@
+name: Nightmare Jar - frame-driven character animation with real Vbee
+on:
+  push:
+    branches: [feat/chiec-lo-dung-ac-mong-storyboard]
+    paths:
+      - '.github/workflows/nightmare-jar-vbee-animation.yml'
+      - 'docs/chiec-lo-dung-ac-mong/render_character_animation.py'
+      - 'docs/chiec-lo-dung-ac-mong/mix_and_qa.py'
+      - 'docs/chiec-lo-dung-ac-mong/vbee_batch_tts.py'
+      - 'docs/chiec-lo-dung-ac-mong/storyboard.json'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: nightmare-jar-vbee-animation
+  cancel-in-progress: false
+jobs:
+  film:
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    env:
+      VBEE_APP_ID: ${{ secrets.VBEE_APP_ID }}
+      VBEE_ACCESS_TOKEN: ${{ secrets.VBEE_ACCESS_TOKEN }}
+      VBEE_WEBHOOK_URL: https://iehmucsshklgjmxqyggp.supabase.co/functions/v1/vbee-batch-callback
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feat/chiec-lo-dung-ac-mong-storyboard
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install FFmpeg and Pillow/NumPy
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg fonts-dejavu-core
+          python3 -m pip install --disable-pip-version-check numpy pillow
+      - name: Verify screenplay and animation code
+        run: |
+          set -euo pipefail
+          python3 -m py_compile docs/chiec-lo-dung-ac-mong/render_character_animation.py docs/chiec-lo-dung-ac-mong/mix_and_qa.py docs/chiec-lo-dung-ac-mong/vbee_batch_tts.py
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('docs/chiec-lo-dung-ac-mong')
+          s=json.loads((p/'storyboard.json').read_text(encoding='utf-8'))
+          assert len(s['shots'])==12 and s['durationTargetSeconds']==45
+          assert s['shots'][0]['start_sec']==0
+          assert s['shots'][-1]['start_sec']+s['shots'][-1]['duration_sec']==45
+          print('Story structure present; independent screenplay review and canonical pipeline gates remain pending.')
+          PY
+      - name: Draw expressive original 2D puppet animation at 30 true FPS + score
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/nightmare-jar
+          python3 docs/chiec-lo-dung-ac-mong/render_character_animation.py \
+            --out /tmp/nightmare-jar/visual.mp4 \
+            --music /tmp/nightmare-jar/piano.wav
+          ffprobe -v error -show_entries format=duration,size:stream=codec_type,width,height,avg_frame_rate -of json /tmp/nightmare-jar/visual.mp4
+      - name: Make 6 natural Vbee Thanh Long narration segments
+        run: |
+          set -euo pipefail
+          test -n "$VBEE_APP_ID" && test -n "$VBEE_ACCESS_TOKEN"
+          python3 - <<'PY'
+          from pathlib import Path
+          import json
+          p=Path('docs/chiec-lo-dung-ac-mong')
+          beats=json.loads((p/'storyboard.json').read_text(encoding='utf-8'))['shots']
+          dest=Path('/tmp/nightmare-jar')
+          for i in range(6):
+              text=' '.join(beats[i*2+j]['narration'] for j in range(2))
+              (dest/f'beat{i}.txt').write_text(text,encoding='utf-8')
+              print('Beat',i+1,'syllables',len(text.split()))
+          PY
+          for i in 0 1 2 3 4 5; do
+            python3 docs/chiec-lo-dung-ac-mong/vbee_batch_tts.py \
+              --text-file "/tmp/nightmare-jar/beat$i.txt" \
+              --voice-code hn_male_thanhlong_talk_48k-fhg \
+              --speed 1.02 \
+              --output "/tmp/nightmare-jar/voice$i.mp3"
+            ffprobe -v error -show_entries format=duration -of default=nw=1 "/tmp/nightmare-jar/voice$i.mp3"
+          done
+      - name: Mix actual narration, music and timed effects, then technical QA
+        run: |
+          set -euo pipefail
+          mkdir -p docs/chiec-lo-dung-ac-mong/final
+          python3 docs/chiec-lo-dung-ac-mong/mix_and_qa.py \
+            --workdir /tmp/nightmare-jar \
+            --out docs/chiec-lo-dung-ac-mong/final/video-final.mp4
+          ffprobe -v error -show_entries format=duration,size:stream=codec_type,width,height,avg_frame_rate -of json docs/chiec-lo-dung-ac-mong/final/video-final.mp4
+      - name: Generate visual contact sheet evidence
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import subprocess
+          from pathlib import Path
+          from PIL import Image,ImageDraw,ImageFont
+          p=Path('docs/chiec-lo-dung-ac-mong')
+          m=p/'final/video-final.mp4'
+          times=[1.5,4.5,8,11.5,15,18.5,22,26,30,34,38,42.5]
+          sheet=Image.new('RGB',(300*4,570*3),(14,17,29))
+          d=ImageDraw.Draw(sheet)
+          for i,t in enumerate(times):
+              target=Path(f'/tmp/nightmare-jar/s{i:02}.png')
+              subprocess.run(['ffmpeg','-y','-hide_banner','-loglevel','error','-ss',str(t),'-i',str(m),'-frames:v','1',str(target)],check=True)
+              im=Image.open(target).convert('RGB').resize((280,498))
+              x=10+(i%4)*300;y=14+(i//4)*570
+              sheet.paste(im,(x,y))
+              d.text((x,y+504),f'S{i+1:02}  {t:.1f}s',fill=(247,204,129))
+          sheet.save(p/'contact-sheet.jpg',quality=88)
+          PY
+      - name: Commit original complete render and technical evidence on feature branch
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add docs/chiec-lo-dung-ac-mong/final/video-final.mp4 docs/chiec-lo-dung-ac-mong/final-QA.json docs/chiec-lo-dung-ac-mong/final-SHA256SUMS docs/chiec-lo-dung-ac-mong/contact-sheet.jpg
+          git diff --cached --quiet || git commit -m 'assets(nightmare-jar): 45s articulated 2D + genuine Vbee Thanh Long narration and piano'
+          git fetch origin feat/chiec-lo-dung-ac-mong-storyboard
+          git rebase origin/feat/chiec-lo-dung-ac-mong-storyboard
+          git push origin HEAD:feat/chiec-lo-dung-ac-mong-storyboard
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: nightmare-jar-vbee-2d-film-and-qa
+          path: |
+            docs/chiec-lo-dung-ac-mong/final/
+            docs/chiec-lo-dung-ac-mong/final-QA.json
+            docs/chiec-lo-dung-ac-mong/contact-sheet.jpg
+          if-no-files-found: ignore
+          retention-days: 14
