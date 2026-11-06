@@ -1,0 +1,63 @@
+{
+  "run_id": "2026-11-06-the-night-shift-that-wouldnt-end",
+  "stage": "EXECUTOR_BLOCKED",
+  "status": "BLOCKED",
+  "status_checked_at": "2026-11-06",
+  "project": {
+    "title": "She Said Yes to Everyone—Until She Could Barely Stand",
+    "slug": "the-night-shift-that-wouldnt-end",
+    "job_manifest": "config/silent-factory/jobs/20261106-the-night-shift-that-wouldnt-end.json",
+    "trigger_commit": "c25fbe31132f85bbf4e95afed76c0919d7684f52",
+    "render_target": {
+      "width": 2560,
+      "height": 1440,
+      "fps": 30,
+      "seconds": 210,
+      "shots": 36,
+      "caption_cues": 21
+    },
+    "script_audit": "INDEPENDENT_AUDIT_NOT_VERIFIED",
+    "creative_qa_approved": false
+  },
+  "github_actions": {
+    "workflow_run_id": 42249945008,
+    "workflow_url": "https://github.com/nanxnguyen/remotion-ai-agentic-studio/actions/runs/42249945008",
+    "job_id": 128002053575,
+    "status": "completed",
+    "conclusion": "failure",
+    "runner_id": 0,
+    "steps_started": 0,
+    "blocking_annotation": "The job was not started because your account is locked due to a billing issue."
+  },
+  "creative_qa_repair": {
+    "initial_evaluation_performed": false,
+    "repairs_performed": 0,
+    "max_repairs": 5,
+    "notes": "Do not fabricate repairs or QA without a full render."
+  },
+  "render": {
+    "mp4": null,
+    "sha256": null,
+    "technical_qa": null,
+    "independent_audiovisual_review": null
+  },
+  "storage": {
+    "drive_folder_id": null,
+    "drive_mp4_id": null,
+    "drive_thumbnail_id": null
+  },
+  "distribution": {
+    "channel_alias": "OLISE_MAN",
+    "channel_id": "UCY3n3Nlqyo6uI4GU8nuX-5g",
+    "privacy": "private",
+    "youtube_video_id": null,
+    "upload_attempted": false
+  },
+  "resume_requirements": [
+    "Restore GitHub Actions hosted-runner access or configure an approved self-hosted runner",
+    "Run native-2K movie, full decode and QA",
+    "Obtain independent full audiovisual review; if fails, conduct actual edits and rerenders",
+    "Only after all release hard gates pass, archive Drive and upload YouTube Private"
+  ],
+  "note": "Source manifest committed; no rendered film; do not treat this run as complete."
+}
