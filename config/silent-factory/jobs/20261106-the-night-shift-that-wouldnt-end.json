@@ -1,0 +1,314 @@
+{
+  "title": "She Said Yes to Everyone—Until She Could Barely Stand",
+  "revision": 0,
+  "category": "stick-figure-motivational-short-film",
+  "stage": "EDITORIAL_DRAFT_FOR_TECHNICAL_REVIEW",
+  "creative_qa_approved": false,
+  "original_rights_accepted": true,
+  "original_work": "Story, captions, simple geometric staging, and synthesized audio created for this run; no third-party artwork/music samples",
+  "audience": "English, 2D dialog-free motivational animation",
+  "story_slug": "the-night-shift-that-wouldnt-end",
+  "concept": "An exhausted repair-worker learns that accepting help and setting limits is not abandonment; the world continues when she rests.",
+  "sources_context": [
+    "2026-11-05 subreddit r/burnout activity counts (Syften)",
+    "2026-10-01 ISER longitudinal community-belonging research"
+  ],
+  "narrative_beats": [
+    "0-30s: she staggers at her workbench and another request arrives",
+    "30-70s: favors continue while she sacrifices her evenings",
+    "70-120s: fatigue costs her coordination; every new request feels heavier",
+    "120-157s: a helper reaches out; she actively accepts help for the first time",
+    "157-191s: the workshop work is shared; she goes home",
+    "191-210s: morning light, returns under her own terms"
+  ],
+  "shots": [
+    {
+      "id": "shot-01",
+      "scene": "workshop",
+      "action": "stumble",
+      "caption": "SHE FELL. THE REQUESTS KEPT COMING.",
+      "highlight": "KEPT COMING",
+      "palette": "cold"
+    },
+    {
+      "id": "shot-02",
+      "scene": "workshop",
+      "action": "help",
+      "caption": "",
+      "highlight": "",
+      "palette": "cold"
+    },
+    {
+      "id": "shot-03",
+      "scene": "workshop",
+      "action": "repair",
+      "caption": "HER ANSWER WAS ALWAYS YES.",
+      "highlight": "ALWAYS YES",
+      "palette": "warm"
+    },
+    {
+      "id": "shot-04",
+      "scene": "workshop",
+      "action": "repair",
+      "caption": "",
+      "highlight": "",
+      "palette": "warm"
+    },
+    {
+      "id": "shot-05",
+      "scene": "city",
+      "action": "run",
+      "caption": "SHE RAN FOR EVERYONE.",
+      "highlight": "EVERYONE",
+      "palette": "cold"
+    },
+    {
+      "id": "shot-06",
+      "scene": "workshop",
+      "action": "repair",
+      "caption": "BUT NEVER FOR HERSELF.",
+      "highlight": "NEVER",
+      "palette": "cold"
+    },
+    {
+      "id": "shot-07",
+      "scene": "stairs",
+      "action": "reach",
+      "caption": "",
+      "highlight": "",
+      "palette": "cold"
+    },
+    {
+      "id": "shot-08",
+      "scene": "workshop",
+      "action": "help",
+      "caption": "ONE MORE FAVOR.",
+      "highlight": "ONE MORE",
+      "palette": "cold"
+    },
+    {
+      "id": "shot-09",
+      "scene": "city",
+      "action": "run",
+      "caption": "",
+      "highlight": "",
+      "palette": "cold"
+    },
+    {
+      "id": "shot-10",
+      "scene": "workshop",
+      "action": "repair",
+      "caption": "ONE MORE LATE NIGHT.",
+      "highlight": "LATE NIGHT",
+      "palette": "cold"
+    },
+    {
+      "id": "shot-11",
+      "scene": "workshop",
+      "action": "pause",
+      "caption": "THE WORLD WENT HOME.",
+      "highlight": "WENT HOME",
+      "palette": "cold"
+    },
+    {
+      "id": "shot-12",
+      "scene": "bridge",
+      "action": "walk",
+      "caption": "",
+      "highlight": "",
+      "palette": "cold"
+    },
+    {
+      "id": "shot-13",
+      "scene": "workshop",
+      "action": "stumble",
+      "caption": "HER HANDS BEGAN TO SHAKE.",
+      "highlight": "SHAKE",
+      "palette": "cold"
+    },
+    {
+      "id": "shot-14",
+      "scene": "workshop",
+      "action": "repair",
+      "caption": "",
+      "highlight": "",
+      "palette": "cold"
+    },
+    {
+      "id": "shot-15",
+      "scene": "stairs",
+      "action": "stumble",
+      "caption": "SHE KEPT PUSHING.",
+      "highlight": "KEPT PUSHING",
+      "palette": "cold"
+    },
+    {
+      "id": "shot-16",
+      "scene": "workshop",
+      "action": "reach",
+      "caption": "",
+      "highlight": "",
+      "palette": "cold"
+    },
+    {
+      "id": "shot-17",
+      "scene": "workshop",
+      "action": "help",
+      "caption": "THEY STILL NEEDED HER.",
+      "highlight": "STILL",
+      "palette": "cold"
+    },
+    {
+      "id": "shot-18",
+      "scene": "workshop",
+      "action": "pause",
+      "caption": "SHE HAD NOTHING LEFT.",
+      "highlight": "NOTHING LEFT",
+      "palette": "cold"
+    },
+    {
+      "id": "shot-19",
+      "scene": "bridge",
+      "action": "walk",
+      "caption": "",
+      "highlight": "",
+      "palette": "cold"
+    },
+    {
+      "id": "shot-20",
+      "scene": "bridge",
+      "action": "pause",
+      "caption": "NOT EVEN A MOMENT TO BREATHE.",
+      "highlight": "BREATHE",
+      "palette": "cold"
+    },
+    {
+      "id": "shot-21",
+      "scene": "workshop",
+      "action": "reach",
+      "caption": "THEN SOMEONE REACHED BACK.",
+      "highlight": "REACHED BACK",
+      "palette": "warm"
+    },
+    {
+      "id": "shot-22",
+      "scene": "workshop",
+      "action": "help",
+      "caption": "",
+      "highlight": "",
+      "palette": "warm"
+    },
+    {
+      "id": "shot-23",
+      "scene": "workshop",
+      "action": "pause",
+      "caption": "THIS HAND ASKED FOR NOTHING.",
+      "highlight": "NOTHING",
+      "palette": "warm"
+    },
+    {
+      "id": "shot-24",
+      "scene": "workshop",
+      "action": "reach",
+      "caption": "",
+      "highlight": "",
+      "palette": "warm"
+    },
+    {
+      "id": "shot-25",
+      "scene": "workshop",
+      "action": "help",
+      "caption": "SHE CHOSE TO ACCEPT HELP.",
+      "highlight": "ACCEPT HELP",
+      "palette": "hope"
+    },
+    {
+      "id": "shot-26",
+      "scene": "workshop",
+      "action": "pause",
+      "caption": "",
+      "highlight": "",
+      "palette": "hope"
+    },
+    {
+      "id": "shot-27",
+      "scene": "workshop",
+      "action": "repair",
+      "caption": "ONE TASK BECAME TWO HANDS.",
+      "highlight": "TWO HANDS",
+      "palette": "hope"
+    },
+    {
+      "id": "shot-28",
+      "scene": "workshop",
+      "action": "help",
+      "caption": "",
+      "highlight": "",
+      "palette": "hope"
+    },
+    {
+      "id": "shot-29",
+      "scene": "stairs",
+      "action": "rise",
+      "caption": "SAYING NO MADE ROOM FOR YES.",
+      "highlight": "MADE ROOM",
+      "palette": "hope"
+    },
+    {
+      "id": "shot-30",
+      "scene": "city",
+      "action": "walk",
+      "caption": "",
+      "highlight": "",
+      "palette": "hope"
+    },
+    {
+      "id": "shot-31",
+      "scene": "bridge",
+      "action": "walk",
+      "caption": "SHE FINALLY WENT HOME.",
+      "highlight": "WENT HOME",
+      "palette": "hope"
+    },
+    {
+      "id": "shot-32",
+      "scene": "bridge",
+      "action": "pause",
+      "caption": "",
+      "highlight": "",
+      "palette": "hope"
+    },
+    {
+      "id": "shot-33",
+      "scene": "dawn",
+      "action": "walk",
+      "caption": "THE CITY KEPT MOVING.",
+      "highlight": "KEPT MOVING",
+      "palette": "hope"
+    },
+    {
+      "id": "shot-34",
+      "scene": "dawn",
+      "action": "help",
+      "caption": "",
+      "highlight": "",
+      "palette": "hope"
+    },
+    {
+      "id": "shot-35",
+      "scene": "dawn",
+      "action": "rise",
+      "caption": "THIS TIME, SO DID SHE.",
+      "highlight": "DID SHE",
+      "palette": "hope"
+    },
+    {
+      "id": "shot-36",
+      "scene": "dawn",
+      "action": "walk",
+      "caption": "CARE FOR OTHERS. NOT AT YOUR EXPENSE.",
+      "highlight": "NOT AT YOUR EXPENSE",
+      "palette": "hope"
+    }
+  ]
+}
