@@ -1,0 +1,35 @@
+{
+  "title": "Thành công đến từ những thói quen nhỏ — V5 Premium",
+  "duration_seconds": 25.333333,
+  "fps": 30,
+  "frame_count": 760,
+  "resolution": "1080x1920",
+  "center_square": {
+    "width": 640,
+    "height": 640,
+    "x": 220,
+    "y": 640
+  },
+  "codec_video": "h264",
+  "codec_audio": "aac",
+  "voice": "Vbee Ngọc Huyền",
+  "voice_run_id": 40022540961,
+  "source_visual": "User-supplied original 17.7s MP4 (edited/remastered, no external Mixkit/Pexels stock)",
+  "render_engine": "OpenCV + Pillow + FFmpeg",
+  "caption_focus_beats": 41,
+  "scene_chapters": 6,
+  "mean_audio_dbfs": -16.6,
+  "max_audio_dbfs": -1.2,
+  "filename": "Thanh_Cong_Tu_Thoi_Quen_Nho_V5_Premium.mp4",
+  "sha256": "47d09704bc825680f47a1ef99b887f2d98ef5e4bf6bdd36cd72eacae49abbb6d",
+  "file_bytes": 5678639,
+  "qa": {
+    "full_decode": true,
+    "ffprobe": true,
+    "contact_sheet": true,
+    "remotion_render": false,
+    "repo_pipeline_audit": false
+  },
+  "github_release_uploaded": false,
+  "github_video_url": null
+}
