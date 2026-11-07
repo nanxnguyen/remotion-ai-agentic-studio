@@ -1,0 +1,50 @@
+name: Room 707 V4 Authentic Dialogue
+on:
+  push:
+    branches: [feat/don-hang-707-final-vbee-20261031]
+    paths:
+      - '.github/workflows/don-hang-707-vbee.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'docs/room707-v4/voice-lines.json'
+      - 'scripts/gen-707-vbee.py'
+      - '.github/workflows/don-hang-707-vbee.yml'
+permissions:
+  contents: read
+jobs:
+  voice:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      VBEE_ACCESS_TOKEN: ${{ secrets.VBEE_ACCESS_TOKEN || secrets.VBEE_TOKEN || secrets.VBEE_API_KEY || secrets.VBEE_API_TOKEN }}
+      VBEE_APP_ID: ${{ secrets.VBEE_APP_ID || secrets.VBEE_APPID || secrets.VBEE_APPLICATION_ID }}
+      VBEE_WEBHOOK_URL: ${{ vars.VBEE_WEBHOOK_URL || 'https://example.com/room707-callback' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install ffprobe
+        run: sudo apt-get update -qq && sudo apt-get install -y ffmpeg
+      - name: Check credentials without logging secrets
+        run: |
+          if [[ -z "$VBEE_ACCESS_TOKEN" || -z "$VBEE_APP_ID" ]]; then
+            echo "::error::Missing Vbee token or App ID in GitHub Actions Secrets."
+            exit 1
+          fi
+      - name: Generate genuine Vbee Vietnamese narration
+        run: |
+          python3 scripts/gen-707-vbee.py \
+            --timeline docs/room707-v4/voice-lines.json \
+            --out-dir public/audio/room707-v4 \
+            --voice-code hn_male_phuthang_stor_24k-stl \
+            --speed 1.18 \
+            --webhook-url "$VBEE_WEBHOOK_URL"
+      - name: Upload real voice output and durations
+        uses: actions/upload-artifact@v4
+        with:
+          name: room707-v4-genuine-vbee
+          path: public/audio/room707-v4/
+          if-no-files-found: error
+          retention-days: 14
