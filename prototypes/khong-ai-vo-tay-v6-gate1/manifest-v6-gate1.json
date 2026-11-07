@@ -1,0 +1,17 @@
+{
+  "title": "Không Ai Vỗ Tay Cho Ngày Đầu Tiên",
+  "version": "V6 Gate 1",
+  "status": "REVIEW",
+  "duration_seconds": 15,
+  "resolution": "1920x1080",
+  "fps": 30,
+  "frames": 450,
+  "video_codec": "H.264 yuv420p",
+  "audio_codec": "AAC stereo 48000Hz",
+  "font": "Inter Display ExtraBold / Medium",
+  "language_on_screen": "English",
+  "hash_sha256": "57d777b48fe4f7cbcb0e189e02ca561ab1b05491d0f68ba90c4538cf792c019b",
+  "output_size_bytes": 1689545,
+  "is_final_140_seconds": false,
+  "render": "native Pillow/FFmpeg, not Remotion"
+}

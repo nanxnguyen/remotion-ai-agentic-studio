@@ -10,4 +10,5 @@ export const characterMotionLabVideo = defineVideo({
   width: 1920,
   height: 1080,
   testFrames: [0, 47, 96, 120, 180, 220, 299],
+  tags: ['demo', 'motion'],
 });

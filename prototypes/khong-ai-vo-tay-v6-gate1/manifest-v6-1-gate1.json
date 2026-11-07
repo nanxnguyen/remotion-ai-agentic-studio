@@ -1,0 +1,18 @@
+{
+  "title": "No One Applauds Day One",
+  "project": "Không Ai Vỗ Tay Cho Ngày Đầu Tiên",
+  "version": "V6.1 Gate1 Motion Fix",
+  "status": "REVIEW",
+  "is_final_140_seconds": false,
+  "duration_seconds": 15,
+  "width": 1920,
+  "height": 1080,
+  "fps": 30,
+  "video_frames": 450,
+  "codec": "H.264 yuv420p",
+  "audio": "AAC stereo 48kHz original score, no narration",
+  "language": "English on-screen",
+  "font": "Inter Display ExtraBold / Medium, system-provided",
+  "sha256": "aec0ae38fe2a2038cd68e1e53b2dfef76425f683416517acce22e998e1f86608",
+  "size_bytes": 1679299
+}
