@@ -1,0 +1,42 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "ray-tao-video-tam-ly-hoc",
+  "version": "1.0.1",
+  "description": "Create and quality-check original Vietnamese stick-figure psychology Shorts with source-grounded psychology, story-specific real Vbee narration, native Remotion animation, precise subtitles, YouTube safety gates and verified Google Drive delivery.",
+  "author": {
+    "name": "Ray Video Studio"
+  },
+  "keywords": [
+    "ray",
+    "tâm lý học",
+    "YouTube Shorts",
+    "psychology",
+    "stick figure",
+    "Remotion",
+    "Vbee",
+    "Vietnamese",
+    "animation",
+    "monetization safety"
+  ],
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Ray Tạo Video Tâm Lý Học",
+        "shortDescription": "Shorts người que tâm lý",
+        "longDescription": "Sản xuất video tâm lý người que nguyên bản: chọn chủ đề, kiểm chứng nhận định, viết kịch bản hấp dẫn, tuyển chọn giọng Vbee phù hợp, dựng Remotion SVG, đồng bộ phụ đề, kiểm tra chính sách YouTube và lưu bản REVIEW/FINAL kèm mã nguồn lên Drive.",
+        "developerName": "Ray Video Studio",
+        "category": "Productivity",
+        "capabilities": [
+          "Interactive"
+        ],
+        "defaultPrompt": [
+          "Hãy tạo một video Shorts người que về tâm lý con người, chọn chủ đề mới ít trùng lặp, dùng Vbee thật phù hợp và Remotion; xuất MP4 REVIEW để tôi xem.",
+          "Phân tích video Shorts tâm lý này, chỉ ra điểm yếu về retention, giọng đọc, chuyển động và đề xuất bản V2 có QA.",
+          "Lập danh sách chủ đề tâm lý nguyên bản cho series Ray, kiểm chứng thông tin và chọn 3 video nên sản xuất tiếp."
+        ],
+        "logo": "./assets/logo.svg",
+        "composerIcon": "./assets/logo.svg"
+      }
+    }
+  }
+}

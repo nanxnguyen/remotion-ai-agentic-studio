@@ -1,0 +1,38 @@
+{
+  "interface": {
+    "displayName": "Ray T\u1ea1o Video T\u00e2m L\u00fd H\u1ecdc",
+    "shortDescription": "Shorts ng\u01b0\u1eddi que t\u00e2m l\u00fd",
+    "longDescription": "S\u1ea3n xu\u1ea5t video t\u00e2m l\u00fd ng\u01b0\u1eddi que nguy\u00ean b\u1ea3n: ch\u1ecdn ch\u1ee7 \u0111\u1ec1, ki\u1ec3m ch\u1ee9ng nh\u1eadn \u0111\u1ecbnh, vi\u1ebft k\u1ecbch b\u1ea3n h\u1ea5p d\u1eabn, tuy\u1ec3n ch\u1ecdn gi\u1ecdng Vbee ph\u00f9 h\u1ee3p, d\u1ef1ng Remotion SVG, \u0111\u1ed3ng b\u1ed9 ph\u1ee5 \u0111\u1ec1, ki\u1ec3m tra ch\u00ednh s\u00e1ch YouTube v\u00e0 l\u01b0u b\u1ea3n REVIEW/FINAL k\u00e8m m\u00e3 ngu\u1ed3n l\u00ean Drive.",
+    "developerName": "Ray Video Studio",
+    "category": "Productivity",
+    "capabilities": [
+      "Interactive"
+    ],
+    "defaultPrompt": [
+      "H\u00e3y t\u1ea1o m\u1ed9t video Shorts ng\u01b0\u1eddi que v\u1ec1 t\u00e2m l\u00fd con ng\u01b0\u1eddi, ch\u1ecdn ch\u1ee7 \u0111\u1ec1 m\u1edbi \u00edt tr\u00f9ng l\u1eb7p, d\u00f9ng Vbee th\u1eadt ph\u00f9 h\u1ee3p v\u00e0 Remotion; xu\u1ea5t MP4 REVIEW \u0111\u1ec3 t\u00f4i xem.",
+      "Ph\u00e2n t\u00edch video Shorts t\u00e2m l\u00fd n\u00e0y, ch\u1ec9 ra \u0111i\u1ec3m y\u1ebfu v\u1ec1 retention, gi\u1ecdng \u0111\u1ecdc, chuy\u1ec3n \u0111\u1ed9ng v\u00e0 \u0111\u1ec1 xu\u1ea5t b\u1ea3n V2 c\u00f3 QA.",
+      "L\u1eadp danh s\u00e1ch ch\u1ee7 \u0111\u1ec1 t\u00e2m l\u00fd nguy\u00ean b\u1ea3n cho series Ray, ki\u1ec3m ch\u1ee9ng th\u00f4ng tin v\u00e0 ch\u1ecdn 3 video n\u00ean s\u1ea3n xu\u1ea5t ti\u1ebfp."
+    ],
+    "logo": "./assets/logo.svg",
+    "composerIcon": "./assets/logo.svg"
+  },
+  "name": "ray-tao-video-tam-ly-hoc",
+  "version": "1.0.1",
+  "description": "Create and quality-check original Vietnamese stick-figure psychology Shorts with source-grounded psychology, story-specific real Vbee narration, native Remotion animation, precise subtitles, YouTube safety gates and verified Google Drive delivery.",
+  "author": {
+    "name": "Ray Video Studio"
+  },
+  "keywords": [
+    "ray",
+    "t\u00e2m l\u00fd h\u1ecdc",
+    "YouTube Shorts",
+    "psychology",
+    "stick figure",
+    "Remotion",
+    "Vbee",
+    "Vietnamese",
+    "animation",
+    "monetization safety"
+  ],
+  "skills": "./skills"
+}
