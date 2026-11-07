@@ -13,8 +13,8 @@
   "stages": {
     "script": {
       "state": "blocked",
-      "at": "2026-11-07T10:00:12+07:00",
-      "note": "Independent script gate not yet passed; novelty overlap with previous own-voice stories; no media or publication"
+      "at": "2026-11-07T13:06:13+07:00",
+      "note": "Revision 4 failed independent script QA: 87/100, logic 12/15; allowed revisions exhausted"
     },
     "motion": {
       "state": "pending"
@@ -32,6 +32,14 @@
         "verdict": "revise",
         "report": "docs/chiec-bat-goi-ten/script-review.md",
         "note": ""
+      },
+      {
+        "at": "2026-11-07T13:06:13+07:00",
+        "reviewer": "retry_script_audit",
+        "score": 8.7,
+        "verdict": "revise",
+        "report": "docs/chiec-bat-goi-ten/script-review-v4.md",
+        "note": ""
       }
     ]
   },
@@ -45,7 +53,7 @@
     "audio": false,
     "motion": false
   },
-  "next": "Resolve novelty overlap and re-audit script before artwork or real Vbee; separately owner reauthorizes Drive archive scope",
+  "next": "Resolve climax causality if a new editorial round opens; owner to reauthorize Drive archive separately",
   "log": [
     {
       "t": "2026-11-07T09:54:20+07:00",
@@ -82,9 +90,21 @@
       "stage": "A",
       "who": "script-reviewer",
       "msg": "review 8.9/10 revise: script-review.md"
+    },
+    {
+      "t": "2026-11-07T13:06:13+07:00",
+      "stage": "script",
+      "who": "agent",
+      "msg": "script -> blocked: Revision 4 failed independent script QA: 87/100, logic 12/15; allowed revisions exhausted"
+    },
+    {
+      "t": "2026-11-07T13:06:13+07:00",
+      "stage": "A",
+      "who": "retry_script_audit",
+      "msg": "review 8.7/10 revise: script-review-v4.md"
     }
   ],
-  "updated": "2026-11-07T10:01:54+07:00",
+  "updated": "2026-11-07T13:06:13+07:00",
   "agents": {
     "script-reviewer": {
       "state": "done",
