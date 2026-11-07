@@ -1,0 +1,64 @@
+name: Laundry V6 opening challenge genuine Vbee
+
+on:
+  push:
+    branches:
+      - feat/tiem-giat-ui-nhan-do-tu-ngay-mai-v2
+    paths:
+      - .github/workflows/laundry-v6-opening-vbee.yml
+      - docs/tiem-giat-ui-nhan-do-tu-ngay-mai/v6/opening-challenge-vbee.json
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  opening-vbee:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      VBEE_ACCESS_TOKEN: ${{ secrets.VBEE_ACCESS_TOKEN || secrets.VBEE_TOKEN || secrets.VBEE_API_KEY || secrets.VBEE_API_TOKEN }}
+      VBEE_APP_ID: ${{ secrets.VBEE_APP_ID || secrets.VBEE_APPID || secrets.VBEE_APPLICATION_ID }}
+      VBEE_WEBHOOK_URL: ${{ vars.VBEE_WEBHOOK_URL || 'https://example.com/laundry-v6-opening' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install ffprobe and validate Vbee runtime
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y ffmpeg >/dev/null
+          command -v ffprobe
+          test -n "$VBEE_ACCESS_TOKEN"
+          test -n "$VBEE_APP_ID"
+      - name: Generate real Vbee intro voice
+        run: |
+          python3 scripts/gen-laundry-vbee.py \
+            --timeline docs/tiem-giat-ui-nhan-do-tu-ngay-mai/v6/opening-challenge-vbee.json \
+            --out-dir public/audio/laundry-v6-opening \
+            --voice-code hn_male_phuthang_stor_24k-stl \
+            --speed 1.08 \
+            --webhook-url "$VBEE_WEBHOOK_URL"
+      - name: Verify one MP3 fits three seconds
+        run: |
+          python3 - <<'PY'
+          import json,pathlib,hashlib
+          p=pathlib.Path("public/audio/laundry-v6-opening")
+          items=json.loads((p/"measured-timeline.json").read_text())
+          assert len(items)==1,items
+          x=items[0]
+          assert x["id"]==18
+          assert x["voice_code"]=="hn_male_phuthang_stor_24k-stl"
+          sound=p/x["audio_file"]
+          assert sound.is_file() and sound.stat().st_size>300
+          assert hashlib.sha256(sound.read_bytes()).hexdigest()==x["sha256"]
+          assert 0.5<float(x["audio_seconds"])<=2.65, f"Voice too long: {x['audio_seconds']} seconds"
+          print(f"Verified genuine Vbee opening: {x['audio_seconds']} s")
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: laundry-v6-opening-vbee-authentic
+          path: public/audio/laundry-v6-opening/
+          retention-days: 10
+          if-no-files-found: error

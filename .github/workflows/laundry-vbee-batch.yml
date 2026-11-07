@@ -1,0 +1,82 @@
+name: Laundry Horror - Genuine Vbee Batch narration
+
+on:
+  push:
+    branches:
+      - feat/tiem-giat-ui-nhan-do-tu-ngay-mai-v2
+    paths:
+      - .github/workflows/laundry-vbee-batch.yml
+      - scripts/gen-laundry-vbee.py
+      - docs/tiem-giat-ui-nhan-do-tu-ngay-mai/storyboard.json
+  workflow_dispatch:
+    inputs:
+      voice_code:
+        description: Genuine Vbee voice code (Anh Khoi)
+        required: false
+        default: hn_male_phuthang_stor_24k-stl
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  narration:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    env:
+      VBEE_ACCESS_TOKEN: ${{ secrets.VBEE_ACCESS_TOKEN || secrets.VBEE_TOKEN || secrets.VBEE_API_KEY || secrets.VBEE_API_TOKEN }}
+      VBEE_APP_ID: ${{ secrets.VBEE_APP_ID || secrets.VBEE_APPID || secrets.VBEE_APPLICATION_ID }}
+      VBEE_WEBHOOK_URL: ${{ vars.VBEE_WEBHOOK_URL || 'https://example.com/laundry-horror-vbee-callback' }}
+      VBEE_VOICE_CODE: ${{ inputs.voice_code || vars.VBEE_VOICE_CODE || 'hn_male_phuthang_stor_24k-stl' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Ensure ffprobe exists and map only secret names
+        shell: bash
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y ffmpeg >/dev/null
+          command -v ffprobe
+          if [[ -z "$VBEE_ACCESS_TOKEN" || -z "$VBEE_APP_ID" ]]; then
+            echo "::error::Missing Vbee GitHub Actions credentials (token/App ID)"
+            exit 1
+          fi
+      - name: Generate 16 actual Vbee Batch utterances (no TTS fallback)
+        shell: bash
+        run: |
+          python3 -m py_compile scripts/gen-laundry-vbee.py
+          python3 scripts/gen-laundry-vbee.py \
+            --timeline docs/tiem-giat-ui-nhan-do-tu-ngay-mai/storyboard.json \
+            --out-dir public/audio/tiem-giat-ui-vbee \
+            --voice-code "$VBEE_VOICE_CODE" \
+            --webhook-url "$VBEE_WEBHOOK_URL"
+      - name: Assert original audio files + measured voice durations
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import json,hashlib,pathlib,subprocess
+          root=pathlib.Path("public/audio/tiem-giat-ui-vbee")
+          scenes=json.loads(pathlib.Path("docs/tiem-giat-ui-nhan-do-tu-ngay-mai/storyboard.json").read_text())
+          meta=json.loads((root/"measured-timeline.json").read_text())
+          assert len(meta)==len(scenes)==16,(len(meta),len(scenes))
+          bad=[]
+          for item,scene in zip(meta,scenes):
+              fn=root/item["audio_file"]
+              assert fn.is_file() and fn.stat().st_size>800
+              assert hashlib.sha256(fn.read_bytes()).hexdigest()==item["sha256"]
+              end=float(scene["start_sec"])+float(scene["duration_sec"])
+              if float(item["audio_seconds"])>float(scene["duration_sec"])-.1:
+                  bad.append((item["id"],item["audio_seconds"],scene["duration_sec"]))
+          print("Vbee genuine segments:",len(meta))
+          print("Scene slots requiring editorial retime:",bad)
+          (root/"voice-slot-audit.json").write_text(json.dumps({"timing_pass":not bool(bad),"overlong":bad},indent=2))
+          PY
+      - name: Retain genuine Vbee source audio (private Action artifact)
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: laundry-horror-real-vbee-batch
+          path: public/audio/tiem-giat-ui-vbee/
+          retention-days: 10
+          if-no-files-found: error
