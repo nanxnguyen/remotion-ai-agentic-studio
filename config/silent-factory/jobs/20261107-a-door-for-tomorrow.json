@@ -1,0 +1,348 @@
+{
+  "title": "A Door for Tomorrow — The Key Was Never the Answer",
+  "revision": 0,
+  "category": "stick-figure-motivational-short-film",
+  "stage": "TECHNICAL_RENDER_TEST_UNREVIEWED",
+  "creative_qa_approved": false,
+  "original_rights_accepted": true,
+  "shots": [
+    {
+      "id": "shot-01",
+      "scene": "city",
+      "action": "walk",
+      "caption": "THE DOOR WAS ALWAYS LOCKED.",
+      "highlight": "LOCKED",
+      "palette": "cold"
+    },
+    {
+      "id": "shot-02",
+      "scene": "stairs",
+      "action": "stumble",
+      "caption": "",
+      "highlight": "",
+      "palette": "cold"
+    },
+    {
+      "id": "shot-03",
+      "scene": "city",
+      "action": "pause",
+      "caption": "SHE CAME BACK ANYWAY.",
+      "highlight": "CAME BACK",
+      "palette": "cold"
+    },
+    {
+      "id": "shot-04",
+      "scene": "bridge",
+      "action": "reach",
+      "caption": "",
+      "highlight": "",
+      "palette": "cold"
+    },
+    {
+      "id": "shot-05",
+      "scene": "city",
+      "action": "walk",
+      "caption": "NO ONE KNEW WHAT WAS INSIDE.",
+      "highlight": "NO ONE KNEW",
+      "palette": "cold"
+    },
+    {
+      "id": "shot-06",
+      "scene": "workshop",
+      "action": "repair",
+      "caption": "",
+      "highlight": "",
+      "palette": "cold"
+    },
+    {
+      "id": "shot-07",
+      "scene": "city",
+      "action": "stumble",
+      "caption": "SHE TRIED THE WRONG KEY.",
+      "highlight": "WRONG KEY",
+      "palette": "cold"
+    },
+    {
+      "id": "shot-08",
+      "scene": "stairs",
+      "action": "pause",
+      "caption": "",
+      "highlight": "",
+      "palette": "cold"
+    },
+    {
+      "id": "shot-09",
+      "scene": "workshop",
+      "action": "repair",
+      "caption": "SHE BUILT A NEW ONE.",
+      "highlight": "BUILT",
+      "palette": "cold"
+    },
+    {
+      "id": "shot-10",
+      "scene": "city",
+      "action": "walk",
+      "caption": "",
+      "highlight": "",
+      "palette": "cold"
+    },
+    {
+      "id": "shot-11",
+      "scene": "bridge",
+      "action": "reach",
+      "caption": "IT STILL WOULD NOT TURN.",
+      "highlight": "WOULD NOT",
+      "palette": "cold"
+    },
+    {
+      "id": "shot-12",
+      "scene": "workshop",
+      "action": "repair",
+      "caption": "",
+      "highlight": "",
+      "palette": "cold"
+    },
+    {
+      "id": "shot-13",
+      "scene": "stairs",
+      "action": "pause",
+      "caption": "MAYBE SHE WAS NOT READY.",
+      "highlight": "NOT READY",
+      "palette": "cold"
+    },
+    {
+      "id": "shot-14",
+      "scene": "city",
+      "action": "run",
+      "caption": "",
+      "highlight": "",
+      "palette": "cold"
+    },
+    {
+      "id": "shot-15",
+      "scene": "workshop",
+      "action": "stumble",
+      "caption": "THEN THE HANDLE BROKE.",
+      "highlight": "BROKE",
+      "palette": "cold"
+    },
+    {
+      "id": "shot-16",
+      "scene": "bridge",
+      "action": "pause",
+      "caption": "",
+      "highlight": "",
+      "palette": "cold"
+    },
+    {
+      "id": "shot-17",
+      "scene": "city",
+      "action": "reach",
+      "caption": "SHE COULD HAVE WALKED AWAY.",
+      "highlight": "WALKED AWAY",
+      "palette": "warm"
+    },
+    {
+      "id": "shot-18",
+      "scene": "stairs",
+      "action": "help",
+      "caption": "",
+      "highlight": "",
+      "palette": "warm"
+    },
+    {
+      "id": "shot-19",
+      "scene": "workshop",
+      "action": "repair",
+      "caption": "INSTEAD, SHE ASKED WHY.",
+      "highlight": "ASKED WHY",
+      "palette": "warm"
+    },
+    {
+      "id": "shot-20",
+      "scene": "city",
+      "action": "walk",
+      "caption": "",
+      "highlight": "",
+      "palette": "warm"
+    },
+    {
+      "id": "shot-21",
+      "scene": "stairs",
+      "action": "help",
+      "caption": "A STRANGER SHOWED HER THE HINGE.",
+      "highlight": "HINGE",
+      "palette": "warm"
+    },
+    {
+      "id": "shot-22",
+      "scene": "workshop",
+      "action": "repair",
+      "caption": "",
+      "highlight": "",
+      "palette": "warm"
+    },
+    {
+      "id": "shot-23",
+      "scene": "bridge",
+      "action": "reach",
+      "caption": "THE PROBLEM WAS NEVER THE KEY.",
+      "highlight": "NEVER THE KEY",
+      "palette": "warm"
+    },
+    {
+      "id": "shot-24",
+      "scene": "city",
+      "action": "help",
+      "caption": "",
+      "highlight": "",
+      "palette": "warm"
+    },
+    {
+      "id": "shot-25",
+      "scene": "workshop",
+      "action": "repair",
+      "caption": "THEY REPAIRED IT TOGETHER.",
+      "highlight": "TOGETHER",
+      "palette": "warm"
+    },
+    {
+      "id": "shot-26",
+      "scene": "stairs",
+      "action": "rise",
+      "caption": "",
+      "highlight": "",
+      "palette": "warm"
+    },
+    {
+      "id": "shot-27",
+      "scene": "bridge",
+      "action": "walk",
+      "caption": "THE DOOR FINALLY OPENED.",
+      "highlight": "OPENED",
+      "palette": "warm"
+    },
+    {
+      "id": "shot-28",
+      "scene": "workshop",
+      "action": "repair",
+      "caption": "",
+      "highlight": "",
+      "palette": "hope"
+    },
+    {
+      "id": "shot-29",
+      "scene": "city",
+      "action": "help",
+      "caption": "BUT THERE WAS NO PRIZE.",
+      "highlight": "NO PRIZE",
+      "palette": "hope"
+    },
+    {
+      "id": "shot-30",
+      "scene": "stairs",
+      "action": "walk",
+      "caption": "",
+      "highlight": "",
+      "palette": "hope"
+    },
+    {
+      "id": "shot-31",
+      "scene": "bridge",
+      "action": "help",
+      "caption": "ONLY A ROOM FULL OF TOOLS.",
+      "highlight": "TOOLS",
+      "palette": "hope"
+    },
+    {
+      "id": "shot-32",
+      "scene": "dawn",
+      "action": "walk",
+      "caption": "AND SPACE FOR SOMEONE ELSE.",
+      "highlight": "SOMEONE ELSE",
+      "palette": "hope"
+    },
+    {
+      "id": "shot-33",
+      "scene": "dawn",
+      "action": "help",
+      "caption": "SHE HELD THE DOOR OPEN.",
+      "highlight": "HELD",
+      "palette": "hope"
+    },
+    {
+      "id": "shot-34",
+      "scene": "dawn",
+      "action": "pause",
+      "caption": "OTHERS BEGAN TO BUILD.",
+      "highlight": "BEGAN",
+      "palette": "hope"
+    },
+    {
+      "id": "shot-35",
+      "scene": "dawn",
+      "action": "rise",
+      "caption": "THE ROOM BECAME A WORKSHOP.",
+      "highlight": "WORKSHOP",
+      "palette": "hope"
+    },
+    {
+      "id": "shot-36",
+      "scene": "dawn",
+      "action": "walk",
+      "caption": "SOME DOORS OPEN BOTH WAYS.",
+      "highlight": "BOTH WAYS",
+      "palette": "hope"
+    }
+  ],
+  "creative_intent": {
+    "logline": "A stick-figure maker spends days crafting a key for a locked door, then learns to fix its hinges and turn the empty room into a workshop for others.",
+    "hook": "A small stick figure tries a key on a giant locked door, and the handle breaks into her hands.",
+    "theme": "Progress comes from changing the problem, asking for help, and creating opportunity for others.",
+    "character_bible": "Lead: small circular-headed stick figure with yellow wrist band; helper: taller figure with blue scarf; keep articulated limbs and grounded prop contact.",
+    "narrative_beats": [
+      "0–42s: closed door, failed keys",
+      "42–84s: persistence and damage",
+      "84–126s: doubt, helper arrives",
+      "126–168s: hinges repaired and unexpected empty room",
+      "168–210s: communal workshop, open door"
+    ],
+    "thumbnail_concepts": [
+      "Tiny stick figure holding a broken key beneath a giant door",
+      "Two stick figures lifting a heavy door hinge together",
+      "Open door illuminating an empty workshop with many new makers"
+    ],
+    "title_alternatives": [
+      "A Door for Tomorrow — The Key Was Never the Answer",
+      "She Tried Every Key. Then She Changed the Door.",
+      "The Locked Door That Became a Beginning"
+    ],
+    "growth_hypotheses": [
+      "An instantly legible giant-door visual may improve first-five-second retention.",
+      "The key-versus-hinge reveal may create a satisfying rewatch.",
+      "An open-door communal payoff may support sharing; all hypotheses unvalidated."
+    ],
+    "trend_references": [
+      "https://videoideas.org/blogs/ai-video-trends-november-2026",
+      "https://www.theanimationblog.com/2026/10/",
+      "https://yoursocial.team/blog/trend-drops-october-part-one"
+    ],
+    "concept_selection": {
+      "candidates": [
+        {
+          "name": "A Door for Tomorrow",
+          "score": 88
+        },
+        {
+          "name": "The Empty Bench",
+          "score": 84
+        },
+        {
+          "name": "The Paper Star",
+          "score": 81
+        }
+      ],
+      "scores_are_editorial_estimates": true
+    }
+  }
+}
