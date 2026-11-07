@@ -1,0 +1,55 @@
+name: Retro TV - Cloud Sky Footage V2
+on:
+  push:
+    branches:
+      - feat/retro-ban-da-lon-len-clouds-v2-20261031
+    paths:
+      - .github/workflows/retro-ban-da-lon-len-clouds-v2.yml
+      - scripts/download-ban-da-lon-len-clouds-v2.py
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  download-sky-footage:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install media tools
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg
+          python -m pip install requests pillow
+      - name: Download and verify Pexels cloud-sky clips
+        run: python scripts/download-ban-da-lon-len-clouds-v2.py
+      - name: Create real-footage contact sheet
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from PIL import Image, ImageDraw
+          import subprocess
+          root=Path("build/retro-ban-da-lon-len-clouds-v2/assets")
+          files=sorted(root.glob("*.mp4"))
+          tiles=[]
+          for p in files:
+              thumb=root/(p.stem+".jpg")
+              subprocess.run(["ffmpeg","-y","-loglevel","error","-ss","2","-i",str(p),"-frames:v","1",str(thumb)],check=True)
+              im=Image.open(thumb).convert("RGB")
+              im.thumbnail((360,210))
+              tile=Image.new("RGB",(380,255),"#18130f")
+              tile.paste(im,((380-im.width)//2,8))
+              ImageDraw.Draw(tile).text((12,225),p.stem,fill="white")
+              tiles.append(tile)
+          sheet=Image.new("RGB",(380*2,255*((len(tiles)+1)//2)),"#0c0a08")
+          for i,t in enumerate(tiles):sheet.paste(t,((i%2)*380,(i//2)*255))
+          sheet.save(root/"clouds-contact-sheet.jpg",quality=90)
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: retro-ban-da-lon-len-clouds-v2
+          path: build/retro-ban-da-lon-len-clouds-v2/assets/
+          retention-days: 14
+          if-no-files-found: error

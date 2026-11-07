@@ -1,0 +1,27 @@
+[
+  {
+    "id": 1,
+    "narration": "Không ai vỗ tay cho những ngày bạn cố gắng trong im lặng.",
+    "act": "hook"
+  },
+  {
+    "id": 2,
+    "narration": "Có những buổi tối, bạn vẫn cười như không có gì, nhưng trong lòng đã mệt đến mức chỉ muốn biến mất khỏi mọi ồn ào.",
+    "act": "conflict"
+  },
+  {
+    "id": 3,
+    "narration": "Bạn tự học cách nuốt nước mắt, tự bước qua thất vọng, tự đứng dậy sau những lần chẳng ai đỡ mình. Và rồi, bạn lớn lên lúc nào… chính bạn cũng không để ý.",
+    "act": "turn"
+  },
+  {
+    "id": 4,
+    "narration": "Nên nếu hôm nay bạn thấy mình chưa đủ giỏi, hãy nhớ rằng: bạn đã trưởng thành rất nhiều trong những ngày không ai thấy.",
+    "act": "payoff"
+  },
+  {
+    "id": 5,
+    "narration": "Nếu câu chuyện này chạm đến bạn, hãy thả tim và đăng ký kênh nhé.",
+    "act": "cta"
+  }
+]
