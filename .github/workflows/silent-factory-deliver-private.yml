@@ -1,0 +1,118 @@
+name: Silent Animation Factory / durable reviewed Drive + Olise Private delivery
+
+# A REAL reviewed delivery manifest starts a complete, durable runner-side
+# artifact -> Drive -> YouTube journey. GITHUB_TOKEN pushes do not chain jobs.
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'config/silent-factory/deliveries/*.json'
+
+permissions:
+  contents: read
+  actions: read
+
+concurrency:
+  group: silent-factory-olise-private-delivery
+  cancel-in-progress: false
+
+jobs:
+  deliver-private:
+    if: github.repository == 'nanxnguyen/remotion-ai-agentic-studio'
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    env:
+      GH_TOKEN: ${{ github.token }}
+      YOUTUBE_CLIENT_ID: ${{ secrets.YOUTUBE_CLIENT_ID }}
+      YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
+      YOUTUBE_REFRESH_TOKEN: ${{ secrets.YOUTUBE_REFRESH_TOKEN_OLISE_MAN }}
+      DRIVE_REFRESH_TOKEN: ${{ secrets.DRIVE_REFRESH_TOKEN }}
+      DRIVE_WRITE_REFRESH_TOKEN: ${{ secrets.DRIVE_WRITE_REFRESH_TOKEN }}
+      YOUTUBE_UPLOAD_PRIVATE_ENABLED: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Resolve exactly one NEW approved delivery manifest
+        shell: bash
+        run: |
+          set -euo pipefail
+          mapfile -t paths < <(git diff --name-only HEAD^ HEAD -- config/silent-factory/deliveries/ | grep -E '^config/silent-factory/deliveries/[a-z0-9-]+\.json$' || true)
+          if [[ "${#paths[@]}" -ne 1 ]]; then
+            echo '::error::Exactly one reviewed delivery manifest required'
+            exit 1
+          fi
+          export DELIVERY_FILE="${paths[0]}"
+          echo "DELIVERY_FILE=$DELIVERY_FILE" >> "$GITHUB_ENV"
+          python - <<'PY'
+          import json,os,re
+          data=json.load(open(os.environ['DELIVERY_FILE'],encoding='utf-8'))
+          run_id=data.get('source_run_id')
+          if type(run_id) is not int or run_id<=0:
+              raise SystemExit('Missing immutable source_run_id')
+          if data.get('source_artifact_name')!=f'silent-factory-{run_id}':
+              raise SystemExit('Artifact name does not match source run')
+          with open(os.environ['GITHUB_ENV'],'a') as dest:
+              print(f'SOURCE_RUN_ID={run_id}',file=dest)
+              print(f'ARTIFACT_NAME=silent-factory-{run_id}',file=dest)
+          PY
+      - name: Fail closed when Drive-writing consent or uploader OAuth is missing
+        shell: bash
+        run: |
+          if [[ -z "${DRIVE_WRITE_REFRESH_TOKEN:-}" ]]; then
+            echo '::error::DRIVE_WRITE_CREDENTIAL_MISSING: authorize Drive write once; cannot reuse read-only token'
+            exit 1
+          fi
+          for name in YOUTUBE_CLIENT_ID YOUTUBE_CLIENT_SECRET YOUTUBE_REFRESH_TOKEN DRIVE_REFRESH_TOKEN; do
+            if [[ -z "${!name:-}" ]]; then
+              echo "::error::Required OAuth secret not configured: $name"
+              exit 1
+            fi
+          done
+      - name: Download EXACT GitHub render artifact (not ZIP-as-MP4)
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p out/silent-factory-encoded
+          gh run download "$SOURCE_RUN_ID" -R "$GITHUB_REPOSITORY" \
+            --name "$ARTIFACT_NAME" --dir out/silent-factory-encoded
+          for name in silent-factory-2k-review.mp4 technical-qa.json thumbnail-draft.jpg; do
+            test -s "out/silent-factory-encoded/$name" || { echo "::error::Missing encoded artifact: $name"; exit 1; }
+          done
+      - name: Install media inspection and Google API dependencies
+        shell: bash
+        run: |
+          set -euo pipefail
+          if ! command -v ffprobe >/dev/null 2>&1; then
+            sudo apt-get update -qq
+            sudo apt-get install -y -qq ffmpeg
+          fi
+          python -m pip install --disable-pip-version-check -r scripts/youtube-multi-requirements.txt
+      - name: Contract tests (fail-closed gates)
+        shell: bash
+        run: |
+          python -m unittest discover -s tests -p 'test_silent_factory_*.py' -v
+          python -m unittest discover -s tests -p 'test_youtube_multi_channel.py' -v
+      - name: Verify final review, upload real Drive MP4, release Olise PRIVATE
+        shell: bash
+        run: |
+          set -euo pipefail
+          python scripts/silent_factory_delivery.py \
+            --manifest "$DELIVERY_FILE" \
+            --video out/silent-factory-encoded/silent-factory-2k-review.mp4 \
+            --thumbnail out/silent-factory-encoded/thumbnail-draft.jpg \
+            --technical-qa out/silent-factory-encoded/technical-qa.json \
+            --destination-folder '1rtJF9zDWuFZ8_6IixdMew3WCZj8415-D' \
+            --receipt-dir out/silent-factory-delivery
+      - name: Preserve status, hashed Drive receipts and YouTube Private video ID
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: silent-factory-delivery-${{ github.run_id }}
+          path: out/silent-factory-delivery/
+          if-no-files-found: ignore
+          retention-days: 90
