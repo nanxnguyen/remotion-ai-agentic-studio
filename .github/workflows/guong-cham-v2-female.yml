@@ -15,8 +15,8 @@ jobs:
       VBEE_VOICE_CODE: hn_female_ngochuyen_full_48k-fhg
       VBEE_WEBHOOK_URL: ${{ vars.VBEE_WEBHOOK_URL || 'https://example.com/story-tts-webhook' }}
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: '3.12'
       - name: Generate distinct female character dialogue with genuine Vbee API
@@ -28,7 +28,7 @@ jobs:
             --voice-code "$VBEE_VOICE_CODE" \
             --speed 1.00 \
             --webhook-url "$VBEE_WEBHOOK_URL"
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v6
         with:
           name: guong-cham-v2-female-dialogue
           path: public/audio/guong-cham-ba-giay-female-v2/

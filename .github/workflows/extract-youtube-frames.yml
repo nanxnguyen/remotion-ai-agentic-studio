@@ -207,7 +207,7 @@ jobs:
           echo "Successfully extracted $count frames" >> "$GITHUB_STEP_SUMMARY"
 
       - name: Upload frame artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: youtube-reference-frames
           path: output/

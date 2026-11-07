@@ -23,8 +23,8 @@ jobs:
       YOUTUBE_UPLOAD_PRIVATE_ENABLED: '1'
 
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: '3.12'
       - name: Install media utilities
@@ -105,7 +105,7 @@ jobs:
           PY
       - name: Preserve receipts (never credentials)
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: ma-da-v3-youtube-private-receipts
           path: |

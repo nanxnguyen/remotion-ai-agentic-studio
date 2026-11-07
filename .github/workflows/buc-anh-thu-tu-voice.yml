@@ -30,8 +30,8 @@ jobs:
       VBEE_VOICE_CODE: ${{ inputs.voice_code || vars.VBEE_VOICE_CODE || 'hn_male_phuthang_stor_24k-stl' }}
       VBEE_WEBHOOK_URL: ${{ vars.VBEE_WEBHOOK_URL || 'https://example.com/story-tts-webhook' }}
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: '3.12'
       - name: Set up FFprobe
@@ -54,7 +54,7 @@ jobs:
             --speed 1.10 \
             --webhook-url "$VBEE_WEBHOOK_URL"
       - name: Store final voice tracks
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: buc-anh-thu-tu-vbee-voice
           path: public/audio/buc-anh-thu-tu/

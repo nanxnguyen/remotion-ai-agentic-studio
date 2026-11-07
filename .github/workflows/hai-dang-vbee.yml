@@ -17,8 +17,8 @@ jobs:
       VBEE_APP_ID: ${{ secrets.VBEE_APP_ID || secrets.VBEE_APPID || secrets.VBEE_APPLICATION_ID }}
       VBEE_WEBHOOK_URL: ${{ vars.VBEE_WEBHOOK_URL || 'https://example.com/story-tts-webhook' }}
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: '3.12'
       - name: Generate ten original Vbee lines
@@ -36,7 +36,7 @@ jobs:
               assert item['audio_seconds']<=5.90,f"Scene {item['id']} too long, needs rewrite"
               assert item["sha256"] and item["voice_code"]
           PY
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v6
         with:
           name: ngon-hai-dang-authentic-vbee
           path: public/audio/ngon-hai-dang/

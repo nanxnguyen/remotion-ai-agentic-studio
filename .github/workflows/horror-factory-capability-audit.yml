@@ -33,11 +33,11 @@ jobs:
       GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
       ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: '3.12'
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
           node-version: '22'
       - name: Install media tools used by the queue executor
@@ -51,7 +51,7 @@ jobs:
         run: python -m unittest discover -s tests -p 'test_horror*.py' -v
       - name: Inspect current phase capabilities without publishing
         run: python scripts/horror_factory_capabilities.py
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v6
         if: always()
         with:
           name: horror-factory-capability-report

@@ -18,10 +18,10 @@ jobs:
       VBEE_APP_ID: ${{ secrets.VBEE_APP_ID }}
       VBEE_WEBHOOK_URL: ${{ vars.VBEE_WEBHOOK_URL || 'https://example.com/horror-story-voice-callback' }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           fetch-depth: 2
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: '3.12'
       - name: Install original art renderer and media codecs
@@ -77,7 +77,7 @@ jobs:
           PY
       - name: Preserve rendered MP4 and both 9:16 thumbnail candidates
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: horror-factory-media-candidates
           path: out/horror-factory/

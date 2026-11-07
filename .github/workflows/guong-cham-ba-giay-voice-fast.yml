@@ -16,8 +16,8 @@ jobs:
       VBEE_VOICE_CODE: hn_male_phuthang_stor_24k-stl
       VBEE_WEBHOOK_URL: ${{ vars.VBEE_WEBHOOK_URL || 'https://example.com/story-tts-webhook' }}
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: '3.12'
       - name: Check Python runtime
@@ -31,7 +31,7 @@ jobs:
             --voice-code "$VBEE_VOICE_CODE" \
             --speed 1.12 \
             --webhook-url "$VBEE_WEBHOOK_URL"
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v6
         with:
           name: guong-cham-ba-giay-original-vbee-voice
           path: public/audio/guong-cham-ba-giay/
