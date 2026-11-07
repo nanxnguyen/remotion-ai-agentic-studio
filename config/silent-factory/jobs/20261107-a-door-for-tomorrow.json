@@ -1,8 +1,8 @@
 {
-  "title": "A Door for Tomorrow — The Key Was Never the Answer",
-  "revision": 0,
+  "title": "She Tried Every Key. Then She Changed the Door.",
+  "revision": 1,
   "category": "stick-figure-motivational-short-film",
-  "stage": "TECHNICAL_RENDER_TEST_UNREVIEWED",
+  "stage": "REPAIR_1_RENDER_UNREVIEWED",
   "creative_qa_approved": false,
   "original_rights_accepted": true,
   "shots": [
@@ -12,300 +12,408 @@
       "action": "walk",
       "caption": "THE DOOR WAS ALWAYS LOCKED.",
       "highlight": "LOCKED",
-      "palette": "cold"
+      "palette": "cold",
+      "beat": "WIDE: night stone wall, GIANT wooden door about five times her height: brass lock plate + keyhole + lever handle on the RIGHT edge, three big rusty hinges on the LEFT edge. Tiny Mira (yellow wristband + yellow satchel) walks in jingling a big ring of keys, stops, looks up. Slow push-in.",
+      "sfx": "keyring-jingle@0.5,step",
+      "set": "door"
     },
     {
       "id": "shot-02",
-      "scene": "stairs",
-      "action": "stumble",
+      "scene": "city",
+      "action": "reach",
       "caption": "",
       "highlight": "",
-      "palette": "cold"
+      "palette": "cold",
+      "beat": "CLOSE: Mira stands on tiptoe, pushes a key into the huge lock, twists with both hands; key bends with a clank; she shakes stung hand.",
+      "sfx": "clank@3.2",
+      "set": "door"
     },
     {
       "id": "shot-03",
       "scene": "city",
-      "action": "pause",
-      "caption": "SHE CAME BACK ANYWAY.",
-      "highlight": "CAME BACK",
-      "palette": "cold"
+      "action": "stumble",
+      "caption": "SHE TRIED EVERY KEY.",
+      "highlight": "EVERY KEY",
+      "palette": "cold",
+      "beat": "MEDIUM: rapid tries — key after key tossed onto a growing pile beside her; last throw makes her stumble back.",
+      "sfx": "clink@1.0,clink@2.0,clink@3.0,clink@4.0",
+      "set": "door"
     },
     {
       "id": "shot-04",
-      "scene": "bridge",
-      "action": "reach",
+      "scene": "city",
+      "action": "pause",
       "caption": "",
       "highlight": "",
-      "palette": "cold"
+      "palette": "cold",
+      "beat": "DETAIL/POV: keyhole close-up; a pale silver glimmer (moonlight from a window inside the room) flickers behind it. Mira's eye appears at the hole.",
+      "sfx": "shimmer@1.5",
+      "set": "door"
     },
     {
       "id": "shot-05",
-      "scene": "city",
-      "action": "walk",
-      "caption": "NO ONE KNEW WHAT WAS INSIDE.",
-      "highlight": "NO ONE KNEW",
-      "palette": "cold"
+      "scene": "workshop",
+      "action": "repair",
+      "caption": "SO SHE MADE HER OWN.",
+      "highlight": "MADE",
+      "palette": "warm",
+      "beat": "HOME BENCH: tiny room, desk lamp. Mira files a key blank clamped in a vise; bright metal shavings curl and fall; she wipes her brow.",
+      "sfx": "file@0.4,file@1.6,file@2.8,file@4.0",
+      "set": "home"
     },
     {
       "id": "shot-06",
       "scene": "workshop",
-      "action": "repair",
+      "action": "rise",
       "caption": "",
       "highlight": "",
-      "palette": "cold"
+      "palette": "warm",
+      "beat": "DETAIL: the finished golden key raised into lamp light; she blows dust off and smiles wide.",
+      "sfx": "chime@2.4",
+      "set": "home"
     },
     {
       "id": "shot-07",
-      "scene": "city",
-      "action": "stumble",
-      "caption": "SHE TRIED THE WRONG KEY.",
-      "highlight": "WRONG KEY",
-      "palette": "cold"
+      "scene": "bridge",
+      "action": "walk",
+      "caption": "",
+      "highlight": "",
+      "palette": "cold",
+      "beat": "WIDE TRACKING: Mira strides across a night bridge holding the shining key forward. In the background a tall figure in a BLUE scarf (Oto) is on a ladder oiling a squeaky lamp post, oil can in hand.",
+      "sfx": "step",
+      "set": "bridge"
     },
     {
       "id": "shot-08",
-      "scene": "stairs",
-      "action": "pause",
-      "caption": "",
-      "highlight": "",
-      "palette": "cold"
+      "scene": "city",
+      "action": "reach",
+      "caption": "IT STILL WOULD NOT TURN.",
+      "highlight": "WOULD NOT",
+      "palette": "cold",
+      "beat": "CLOSE: golden key in lock; she hangs her whole weight on it, feet lift off ground; nothing moves.",
+      "sfx": "strain@1.0,thud@4.5",
+      "set": "door"
     },
     {
       "id": "shot-09",
-      "scene": "workshop",
-      "action": "repair",
-      "caption": "SHE BUILT A NEW ONE.",
-      "highlight": "BUILT",
-      "palette": "cold"
+      "scene": "city",
+      "action": "stumble",
+      "caption": "THEN THE HANDLE BROKE.",
+      "highlight": "BROKE",
+      "palette": "cold",
+      "beat": "MEDIUM: she grips the door handle with both hands and leans back pulling; handle snaps off; she falls on her back clutching it.",
+      "sfx": "crack@2.6,thump@3.2",
+      "set": "door"
     },
     {
       "id": "shot-10",
       "scene": "city",
-      "action": "walk",
+      "action": "pause",
       "caption": "",
       "highlight": "",
-      "palette": "cold"
+      "palette": "cold",
+      "beat": "CLOSE FACE: sitting on ground, staring at broken handle in her hands; brows tilt, mouth turns down, one tear drop.",
+      "sfx": "sigh@1.0",
+      "set": "door"
     },
     {
       "id": "shot-11",
-      "scene": "bridge",
-      "action": "reach",
-      "caption": "IT STILL WOULD NOT TURN.",
-      "highlight": "WOULD NOT",
-      "palette": "cold"
+      "scene": "city",
+      "action": "pause",
+      "caption": "MAYBE IT WAS NOT HER DOOR.",
+      "highlight": "NOT HER DOOR",
+      "palette": "cold",
+      "beat": "HIGH WIDE: tiny figure slumped against the giant door, keys scattered, moon above.",
+      "sfx": "wind",
+      "set": "door"
     },
     {
       "id": "shot-12",
-      "scene": "workshop",
-      "action": "repair",
-      "caption": "",
-      "highlight": "",
-      "palette": "cold"
+      "scene": "city",
+      "action": "walk",
+      "caption": "SHE COULD HAVE WALKED AWAY.",
+      "highlight": "WALKED AWAY",
+      "palette": "cold",
+      "beat": "MEDIUM: she stands, drops the handle into her bag, walks away from the door; slows; stops mid-step.",
+      "sfx": "step",
+      "set": "door"
     },
     {
       "id": "shot-13",
-      "scene": "stairs",
+      "scene": "city",
       "action": "pause",
-      "caption": "MAYBE SHE WAS NOT READY.",
-      "highlight": "NOT READY",
-      "palette": "cold"
+      "caption": "",
+      "highlight": "",
+      "palette": "cold",
+      "beat": "MEDIUM: she turns back; head tilts; camera pans from her face to the LEFT edge of the door: the three rusty hinges she has never touched.",
+      "sfx": "creak@3.0",
+      "set": "door"
     },
     {
       "id": "shot-14",
       "scene": "city",
-      "action": "run",
-      "caption": "",
-      "highlight": "",
-      "palette": "cold"
+      "action": "reach",
+      "caption": "THEN SHE LOOKED AT THE HINGES.",
+      "highlight": "HINGES",
+      "palette": "warm",
+      "beat": "DETAIL: huge rusty lower hinge; her small finger touches it; rust flakes fall; its pin is jammed and sticks out.",
+      "sfx": "scrape@2.0",
+      "set": "door"
     },
     {
       "id": "shot-15",
-      "scene": "workshop",
-      "action": "stumble",
-      "caption": "THEN THE HANDLE BROKE.",
-      "highlight": "BROKE",
-      "palette": "cold"
+      "scene": "city",
+      "action": "reach",
+      "caption": "",
+      "highlight": "",
+      "palette": "warm",
+      "beat": "MEDIUM: she pushes the hinge side with her shoulder; door creaks a hair; dust trickles from above.",
+      "sfx": "creak@1.5,dust@2.5",
+      "set": "door"
     },
     {
       "id": "shot-16",
-      "scene": "bridge",
-      "action": "pause",
-      "caption": "",
-      "highlight": "",
-      "palette": "cold"
+      "scene": "city",
+      "action": "walk",
+      "caption": "A STRANGER STOPPED.",
+      "highlight": "STRANGER",
+      "palette": "warm",
+      "beat": "WIDE: Oto (the blue-scarf man from the bridge, ~1.35x taller) walks in from the right carrying his ladder and oil can, hearing the creaks; stops beside her.",
+      "sfx": "step,clank@4.0",
+      "set": "door"
     },
     {
       "id": "shot-17",
       "scene": "city",
-      "action": "reach",
-      "caption": "SHE COULD HAVE WALKED AWAY.",
-      "highlight": "WALKED AWAY",
-      "palette": "warm"
-    },
-    {
-      "id": "shot-18",
-      "scene": "stairs",
       "action": "help",
       "caption": "",
       "highlight": "",
-      "palette": "warm"
+      "palette": "warm",
+      "beat": "TWO-SHOT: Mira holds up the broken handle, then points up at the top hinge. Oto follows her finger, nods, and leans his ladder against the hinge side.",
+      "sfx": "pop@3.0",
+      "set": "door"
+    },
+    {
+      "id": "shot-18",
+      "scene": "city",
+      "action": "repair",
+      "caption": "HE BROUGHT THE OIL.",
+      "highlight": "OIL",
+      "palette": "warm",
+      "beat": "LOW ANGLE: Oto on the ladder oils the top and middle hinges (drips fall), then pulls both of their pins out; Mira steadies the ladder.",
+      "sfx": "squirt@1.5,squirt@3.0",
+      "set": "door"
     },
     {
       "id": "shot-19",
-      "scene": "workshop",
+      "scene": "city",
       "action": "repair",
-      "caption": "INSTEAD, SHE ASKED WHY.",
-      "highlight": "ASKED WHY",
-      "palette": "warm"
+      "caption": "SHE USED THE BROKEN HANDLE.",
+      "highlight": "BROKEN HANDLE",
+      "palette": "warm",
+      "beat": "CLOSE: Mira hammers the last, lowest hinge pin upward with the broken handle; tap, tap, tap; the pin slides out; she grins.",
+      "sfx": "tap@0.6,tap@1.6,tap@2.6,clunk@3.8",
+      "set": "door"
     },
     {
       "id": "shot-20",
       "scene": "city",
-      "action": "walk",
-      "caption": "",
-      "highlight": "",
-      "palette": "warm"
+      "action": "help",
+      "caption": "THEY PULLED TOGETHER.",
+      "highlight": "TOGETHER",
+      "palette": "warm",
+      "beat": "MEDIUM: with all hinge pins out, Mira and Oto grip the hinge edge and pull, legs braced; the door starts pivoting on its still-locked latch side.",
+      "sfx": "strain@1.0,creak@3.0",
+      "set": "door"
     },
     {
       "id": "shot-21",
-      "scene": "stairs",
-      "action": "help",
-      "caption": "A STRANGER SHOWED HER THE HINGE.",
-      "highlight": "HINGE",
-      "palette": "warm"
+      "scene": "dawn",
+      "action": "rise",
+      "caption": "THE DOOR OPENED THE OTHER WAY.",
+      "highlight": "OTHER WAY",
+      "palette": "hope",
+      "beat": "WIDE: the giant door swings open on the hinge side, pivoting around the lock; pale dawn light from a far window spills out; both lean back, shielding their eyes.",
+      "sfx": "boom@0.8,swell@1.0",
+      "set": "door"
     },
     {
       "id": "shot-22",
       "scene": "workshop",
-      "action": "repair",
-      "caption": "",
-      "highlight": "",
-      "palette": "warm"
+      "action": "pause",
+      "caption": "BUT THERE WAS NO PRIZE.",
+      "highlight": "NO PRIZE",
+      "palette": "cold",
+      "beat": "INSIDE: empty dusty room, cobwebs, a window with first dawn light, bare walls. Nothing glitters. Mira and Oto stand in the giant doorway.",
+      "sfx": "wind",
+      "set": "empty-room"
     },
     {
       "id": "shot-23",
-      "scene": "bridge",
-      "action": "reach",
-      "caption": "THE PROBLEM WAS NEVER THE KEY.",
-      "highlight": "NEVER THE KEY",
-      "palette": "warm"
+      "scene": "workshop",
+      "action": "pause",
+      "caption": "",
+      "highlight": "",
+      "palette": "cold",
+      "beat": "CLOSE FACE: Mira's disappointed face, shoulders drop; Oto's hand rests on her shoulder.",
+      "sfx": "sigh@1.5",
+      "set": "empty-room"
     },
     {
       "id": "shot-24",
-      "scene": "city",
-      "action": "help",
-      "caption": "",
-      "highlight": "",
-      "palette": "warm"
+      "scene": "workshop",
+      "action": "reach",
+      "caption": "ONLY A BOX OF OLD TOOLS.",
+      "highlight": "TOOLS",
+      "palette": "warm",
+      "beat": "MEDIUM: she walks to a corner, opens a dusty toolbox: hammer, saw, files glint.",
+      "sfx": "creak@1.2,chime@2.4",
+      "set": "empty-room"
     },
     {
       "id": "shot-25",
       "scene": "workshop",
-      "action": "repair",
-      "caption": "THEY REPAIRED IT TOGETHER.",
-      "highlight": "TOGETHER",
-      "palette": "warm"
-    },
-    {
-      "id": "shot-26",
-      "scene": "stairs",
       "action": "rise",
       "caption": "",
       "highlight": "",
-      "palette": "warm"
+      "palette": "warm",
+      "beat": "CLOSE: she lifts the hammer, looks back at the broken door handle and the old key pile; eyebrows rise; idea spark above head.",
+      "sfx": "chime@3.0",
+      "set": "empty-room"
+    },
+    {
+      "id": "shot-26",
+      "scene": "workshop",
+      "action": "repair",
+      "caption": "SO THEY GOT TO WORK.",
+      "highlight": "GOT TO WORK",
+      "palette": "warm",
+      "beat": "MEDIUM: Mira turns the stuck lock bolt open from the inside with the hammer and screws the broken handle onto the INSIDE of the door; Oto taps the oiled pins back into all three hinges; Oto hangs a lamp that lights the room. The door now swings normally on its hinges.",
+      "sfx": "tap@0.8,tap@1.8,tap@2.8,tap@3.8",
+      "set": "empty-room"
     },
     {
       "id": "shot-27",
-      "scene": "bridge",
-      "action": "walk",
-      "caption": "THE DOOR FINALLY OPENED.",
-      "highlight": "OPENED",
-      "palette": "warm"
+      "scene": "workshop",
+      "action": "repair",
+      "caption": "SHE KEPT THE DOOR OPEN.",
+      "highlight": "OPEN",
+      "palette": "hope",
+      "beat": "WIDE: Mira wedges a block under the open door so it can never shut; dusts hands.",
+      "sfx": "thunk@2.5",
+      "set": "empty-room"
     },
     {
       "id": "shot-28",
-      "scene": "workshop",
-      "action": "repair",
+      "scene": "dawn",
+      "action": "pause",
       "caption": "",
       "highlight": "",
-      "palette": "hope"
+      "palette": "hope",
+      "beat": "DOORWAY: a small kid stick figure (red cap) peeks around the door edge, shy.",
+      "sfx": "step",
+      "set": "empty-room"
     },
     {
       "id": "shot-29",
-      "scene": "city",
+      "scene": "workshop",
       "action": "help",
-      "caption": "BUT THERE WAS NO PRIZE.",
-      "highlight": "NO PRIZE",
-      "palette": "hope"
+      "caption": "AND MADE ROOM FOR SOMEONE ELSE.",
+      "highlight": "SOMEONE ELSE",
+      "palette": "hope",
+      "beat": "MEDIUM: Mira waves the kid in, kneels and hands her a small file and a key blank.",
+      "sfx": "chime@3.0",
+      "set": "empty-room"
     },
     {
       "id": "shot-30",
-      "scene": "stairs",
+      "scene": "dawn",
       "action": "walk",
-      "caption": "",
-      "highlight": "",
-      "palette": "hope"
+      "caption": "OTHERS BEGAN TO BUILD.",
+      "highlight": "BEGAN TO BUILD",
+      "palette": "hope",
+      "beat": "WIDE EXTERIOR at dawn: more figures walk through the open door carrying planks and boxes; the kid carries the old pile of failed keys inside.",
+      "sfx": "step",
+      "set": "door-dawn"
     },
     {
       "id": "shot-31",
-      "scene": "bridge",
-      "action": "help",
-      "caption": "ONLY A ROOM FULL OF TOOLS.",
-      "highlight": "TOOLS",
-      "palette": "hope"
+      "scene": "workshop",
+      "action": "repair",
+      "caption": "THE EMPTY ROOM BECAME A WORKSHOP.",
+      "highlight": "WORKSHOP",
+      "palette": "hope",
+      "beat": "WIDE INTERIOR: room alive — benches, lamps; five people working: Mira hammering, Oto sawing, the kid filing, two new makers carrying a plank and painting.",
+      "sfx": "tap@0.5,tap@1.5,saw@2.5,tap@3.5",
+      "set": "workshop"
     },
     {
       "id": "shot-32",
-      "scene": "dawn",
-      "action": "walk",
-      "caption": "AND SPACE FOR SOMEONE ELSE.",
-      "highlight": "SOMEONE ELSE",
-      "palette": "hope"
+      "scene": "workshop",
+      "action": "pause",
+      "caption": "",
+      "highlight": "",
+      "palette": "hope",
+      "beat": "DETAIL: the pile of failed keys now hangs as a wind chime by the window, Mira's golden key in the middle, tinkling in the breeze.",
+      "sfx": "windchime-signature@0.3",
+      "set": "workshop"
     },
     {
       "id": "shot-33",
-      "scene": "dawn",
+      "scene": "workshop",
       "action": "help",
-      "caption": "SHE HELD THE DOOR OPEN.",
-      "highlight": "HELD",
-      "palette": "hope"
+      "caption": "",
+      "highlight": "",
+      "palette": "hope",
+      "beat": "CLOSE: Mira and Oto nod to each other; she hands him a newly made key; he laughs and hangs it on the chime.",
+      "sfx": "chime@3.0",
+      "set": "workshop"
     },
     {
       "id": "shot-34",
-      "scene": "dawn",
-      "action": "pause",
-      "caption": "OTHERS BEGAN TO BUILD.",
-      "highlight": "BEGAN",
-      "palette": "hope"
+      "scene": "workshop",
+      "action": "help",
+      "caption": "",
+      "highlight": "",
+      "palette": "hope",
+      "beat": "MEDIUM: Mira sits with the kid at a bench teaching her to file a key; the kid holds up her finished key and it shines.",
+      "sfx": "file@1.0,file@2.5",
+      "set": "workshop"
     },
     {
       "id": "shot-35",
       "scene": "dawn",
       "action": "rise",
-      "caption": "THE ROOM BECAME A WORKSHOP.",
-      "highlight": "WORKSHOP",
-      "palette": "hope"
+      "caption": "SOME DOORS OPEN ANOTHER WAY.",
+      "highlight": "ANOTHER WAY",
+      "palette": "hope",
+      "beat": "WIDE EXTERIOR: dawn sun, the giant door wide open, lamps and figures inside; slow pull-back reveals, far down the street, another locked giant door with rusty hinges.",
+      "sfx": "swell@0.5",
+      "set": "door-dawn"
     },
     {
       "id": "shot-36",
       "scene": "dawn",
-      "action": "walk",
-      "caption": "SOME DOORS OPEN BOTH WAYS.",
-      "highlight": "BOTH WAYS",
-      "palette": "hope"
+      "action": "pause",
+      "caption": "WHICH DOOR ARE YOU STILL PUSHING?",
+      "highlight": "WHICH DOOR",
+      "palette": "hope",
+      "beat": "END CARD: glowing open-door outline, Mira and the kid silhouetted in it; small 'LIKE & SUBSCRIBE' tag under the question; music resolves.",
+      "sfx": "keyring-jingle@0.2,windchime-signature@1.0,swell@0.2",
+      "set": "endcard"
     }
   ],
   "creative_intent": {
-    "logline": "A stick-figure maker spends days crafting a key for a locked door, then learns to fix its hinges and turn the empty room into a workshop for others.",
-    "hook": "A small stick figure tries a key on a giant locked door, and the handle breaks into her hands.",
-    "theme": "Progress comes from changing the problem, asking for help, and creating opportunity for others.",
-    "character_bible": "Lead: small circular-headed stick figure with yellow wrist band; helper: taller figure with blue scarf; keep articulated limbs and grounded prop contact.",
+    "logline": "Over one night a tiny stick-figure maker tries every key on a giant locked door, breaks its handle, then notices the rusty hinges; with a stranger's oil and her broken handle she opens the door the other way, finds only an empty room and old tools, and turns it into a workshop with an open door for others.",
+    "hook": "0-5s: a tiny stick figure with a jingling ring of keys walks up to a giant door about five times her height and looks up.",
+    "theme": "When pushing harder on the same lock fails, look at the problem from another side, accept help, and keep the door open for others.",
+    "character_bible": "Mira (lead): small, round head, thin dark-ink-outlined off-white stick body, signature YELLOW wristband on right wrist + small yellow tool satchel. Oto (helper): ~1.35x taller, BLUE scarf with trailing end, slower heavier gait. Kid: smallest, RED cap. Single-tone limbs, no ghost far-side layers.",
     "narrative_beats": [
-      "0–42s: closed door, failed keys",
-      "42–84s: persistence and damage",
-      "84–126s: doubt, helper arrives",
-      "126–168s: hinges repaired and unexpected empty room",
-      "168–210s: communal workshop, open door"
+      "0-41s (s01-07): giant locked door, every key fails, she forges her own key",
+      "41-82s (s08-14): golden key fails, handle snaps, despair, almost leaves, notices rusty hinge",
+      "82-123s (s15-21): stranger Oto helps oil hinge, she hammers pin with the broken handle, door opens the OTHER way",
+      "123-163s (s22-28): empty room, no prize, only tools; they repair, she props door open, kid peeks in",
+      "163-210s (s29-36): she welcomes kid, others build, room becomes workshop, keys become wind chime, CTA"
     ],
     "thumbnail_concepts": [
       "Tiny stick figure holding a broken key beneath a giant door",
@@ -343,6 +451,9 @@
         }
       ],
       "scores_are_editorial_estimates": true
-    }
-  }
+    },
+    "sonic_signature": "Recurring channel sound motif: key-ring jingle opens the film (s01) and the key wind chime closes it (s32, s36).",
+    "series_hook": "s35 reveals a second locked giant door down the street; end-card question invites comments about viewers' own 'doors'."
+  },
+  "film": "a-door-for-tomorrow"
 }
