@@ -7,14 +7,14 @@ export type Shot = {from: number; duration: number; sec: number; voice: string};
 
 // [key, measuredSec, holdFrames] - measuredSec from voice-durations.ts (gTTS placeholder)
 const raw: [string, number, number][] = [
-  ['s1', 2.544, 15],   // HOOK - phone message reveal
-  ['s2', 5.496, 0],    // cold dinner, empty chairs
-  ['s3', 7.728, 0],    // husband returns, daughter shows drawing
-  ['s4', 9.096, 0],    // RE-HOOK - drawing missing father
-  ['s5', 9.192, 0],    // wife's calm confrontation
-  ['s6', 8.616, 0],    // CLIMAX - phone revealed, apology
-  ['s7', 7.416, 0],    // wife leaves with child
-  ['s8', 0.744, 30],   // ENDING - empty space in drawing, hold
+  ['s1', 2.544, 15], // HOOK - phone message reveal
+  ['s2', 5.496, 0], // cold dinner, empty chairs
+  ['s3', 7.728, 0], // husband returns, daughter shows drawing
+  ['s4', 9.096, 0], // RE-HOOK - drawing missing father
+  ['s5', 9.192, 0], // wife's calm confrontation
+  ['s6', 8.616, 0], // CLIMAX - phone revealed, apology
+  ['s7', 7.416, 0], // wife leaves with child
+  ['s8', 0.744, 30], // ENDING - empty space in drawing, hold
 ];
 
 let acc = 0;

@@ -14,8 +14,8 @@ jobs:
       VBEE_APP_ID: ${{ secrets.VBEE_APP_ID || secrets.VBEE_APPID || secrets.VBEE_APPLICATION_ID }}
       VBEE_WEBHOOK_URL: ${{ vars.VBEE_WEBHOOK_URL || 'https://example.com/story-tts-webhook' }}
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: '3.12'
       - name: Synthesize genuine Vbee Anh Khoi narration
@@ -26,7 +26,7 @@ jobs:
             --out-dir public/audio/cuoc-goi-tu-tang-ham \
             --voice-code hn_male_phuthang_stor_24k-stl \
             --speed 1.12
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v6
         with:
           name: basement-call-real-vbee-voice
           path: public/audio/cuoc-goi-tu-tang-ham/

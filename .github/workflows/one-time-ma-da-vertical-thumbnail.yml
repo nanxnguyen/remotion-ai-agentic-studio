@@ -22,8 +22,8 @@ jobs:
       DRIVE_REFRESH_TOKEN: ${{ secrets.DRIVE_REFRESH_TOKEN }}
 
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: '3.12'
       - name: Install verified API and image libraries
@@ -137,7 +137,7 @@ jobs:
           PY
       - name: Preserve safe result receipt
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: ma-da-vertical-thumbnail-receipt
           path: ma-da-vertical-thumbnail-receipt.json

@@ -69,7 +69,7 @@ jobs:
       ARTIFACT_NAME: ${{ inputs.artifact_name }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: Install FFprobe
         run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
       - name: Verify IDs and download approved artifact
@@ -188,7 +188,7 @@ jobs:
           print(f"Verified GitHub archive: {release_url}")
           PY
       - name: Preserve verified GitHub links as Actions artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: github-video-links-${{ inputs.video_slug }}
           path: ${{ runner.temp }}/github-video-links.json

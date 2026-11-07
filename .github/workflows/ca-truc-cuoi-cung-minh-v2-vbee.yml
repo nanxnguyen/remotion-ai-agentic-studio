@@ -17,8 +17,8 @@ jobs:
       VBEE_APP_ID: ${{ secrets.VBEE_APP_ID || secrets.VBEE_APPID || secrets.VBEE_APPLICATION_ID }}
       VBEE_WEBHOOK_URL: ${{ vars.VBEE_WEBHOOK_URL || 'https://example.com/story-tts-webhook' }}
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: '3.12'
       - name: Verify authorized secrets exist without revealing values
@@ -42,7 +42,7 @@ jobs:
               print(f"Scene {s['id']}: {s['audio_seconds']:.3f}s")
               assert s["audio_seconds"] <= 5.80, f"Voice too long for scene {s['id']}; rewrite phrase rather than trimming it"
           PY
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v6
         with:
           name: ca-truc-cuoi-cung-minh-v2-genuine-vbee
           path: public/audio/ca-truc-cuoi-cung-minh-v2/

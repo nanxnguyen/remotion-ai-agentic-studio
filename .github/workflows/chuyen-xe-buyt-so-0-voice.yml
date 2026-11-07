@@ -16,8 +16,8 @@ jobs:
       VBEE_APP_ID: ${{ secrets.VBEE_APP_ID || secrets.VBEE_APPID || secrets.VBEE_APPLICATION_ID }}
       VBEE_WEBHOOK_URL: ${{ vars.VBEE_WEBHOOK_URL || 'https://example.com/story-tts-webhook' }}
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: '3.12'
       - name: Generate authentic Vbee Anh Khoi narrator
@@ -28,7 +28,7 @@ jobs:
             --out-dir public/audio/chuyen-xe-buyt-so-0/narrator \
             --voice-code hn_male_phuthang_stor_24k-stl \
             --speed 1.12
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v6
         with:
           name: chuyen-xe-buyt-so-0-vbee-anh-khoi
           path: public/audio/chuyen-xe-buyt-so-0/narrator/
@@ -42,8 +42,8 @@ jobs:
       VBEE_APP_ID: ${{ secrets.VBEE_APP_ID || secrets.VBEE_APPID || secrets.VBEE_APPLICATION_ID }}
       VBEE_WEBHOOK_URL: ${{ vars.VBEE_WEBHOOK_URL || 'https://example.com/story-tts-webhook' }}
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: '3.12'
       - name: Generate authentic Vbee female dialogue
@@ -54,7 +54,7 @@ jobs:
             --out-dir public/audio/chuyen-xe-buyt-so-0/grandmother \
             --voice-code hn_female_ngochuyen_full_48k-fhg \
             --speed 0.94
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v6
         with:
           name: chuyen-xe-buyt-so-0-vbee-grandmother
           path: public/audio/chuyen-xe-buyt-so-0/grandmother/

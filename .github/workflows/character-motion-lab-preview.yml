@@ -14,8 +14,8 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
         with:
           node-version: 22
           cache: npm
@@ -28,7 +28,7 @@ jobs:
         run: npx remotion render src/index.ts CharacterMotionLab out/character-motion-lab.mp4 --concurrency=2
       - name: Verify output is nonempty
         run: test -s out/character-motion-lab.mp4
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v6
         with:
           name: character-motion-lab-preview
           path: out/character-motion-lab.mp4

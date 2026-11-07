@@ -48,8 +48,8 @@ jobs:
       EXECUTE: ${{ inputs.execute }}
 
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: '3.12'
       - name: Ensure ffprobe
@@ -78,7 +78,7 @@ jobs:
           "${cmd[@]}"
       - name: Upload non-secret receipt
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: youtube-horror-shorts-private-receipt
           path: youtube-horror-shorts-private-receipt.json

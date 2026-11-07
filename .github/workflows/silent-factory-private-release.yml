@@ -29,10 +29,10 @@ jobs:
       DRIVE_REFRESH_TOKEN: ${{ secrets.DRIVE_REFRESH_TOKEN }}
       YOUTUBE_UPLOAD_PRIVATE_ENABLED: '1'
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           fetch-depth: 2
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: '3.12'
       - name: Resolve exact new reviewed release manifest
@@ -63,7 +63,7 @@ jobs:
           python scripts/silent_factory_release.py --release "$RELEASE_FILE" --execute
       - name: Preserve actual PRIVATE upload receipt
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: silent-factory-private-receipt-${{ github.run_id }}
           path: out/silent-factory-release/

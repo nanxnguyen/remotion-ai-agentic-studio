@@ -15,8 +15,8 @@ jobs:
       VBEE_APP_ID: ${{ secrets.VBEE_APP_ID || secrets.VBEE_APPID || secrets.VBEE_APPLICATION_ID }}
       VBEE_WEBHOOK_URL: ${{ vars.VBEE_WEBHOOK_URL || 'https://example.com/story-tts-webhook' }}
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: '3.12'
       - name: Verify authorized Vbee credentials presence
@@ -30,7 +30,7 @@ jobs:
             --voice-code hn_male_phuthang_stor_24k-stl \
             --speed 1.12 \
             --webhook-url "$VBEE_WEBHOOK_URL"
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v6
         with:
           name: suat-chieu-cuoi-cung-authentic-vbee
           path: public/audio/suat-chieu-cuoi-cung/
