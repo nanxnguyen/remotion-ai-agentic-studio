@@ -1,0 +1,46 @@
+name: Bao Loc - genuine Vbee narration
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - production/bao-loc-three-girls-short
+    paths:
+      - .github/workflows/bao-loc-vbee.yml
+permissions:
+  contents: read
+concurrency:
+  group: bao-loc-vbee-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  vbee-narration:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    env:
+      VBEE_ACCESS_TOKEN: ${{ secrets.VBEE_ACCESS_TOKEN || secrets.VBEE_TOKEN || secrets.VBEE_API_KEY || secrets.VBEE_API_TOKEN }}
+      VBEE_APP_ID: ${{ secrets.VBEE_APP_ID || secrets.VBEE_APPID || secrets.VBEE_APPLICATION_ID }}
+      VBEE_WEBHOOK_URL: ${{ vars.VBEE_WEBHOOK_URL || 'https://example.com/bao-loc-vbee-callback' }}
+      VBEE_VOICE_CODE: ${{ vars.VBEE_VOICE_CODE || 'hn_male_phuthang_stor_24k-stl' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install ffprobe
+        run: sudo apt-get update && sudo apt-get install -y ffmpeg
+      - name: Confirm credentials configured (no secret values logged)
+        run: |
+          if [[ -z "$VBEE_ACCESS_TOKEN" || -z "$VBEE_APP_ID" ]]; then
+            echo "::error::Missing Vbee credentials in Actions secrets"
+            exit 1
+          fi
+      - name: Generate genuine Vbee Batch clips
+        run: |
+          python3 -m py_compile scripts/gen-bao-loc-vbee.py
+          python3 scripts/gen-bao-loc-vbee.py --timeline docs/ba-co-gai-vay-xe-deo-bao-loc/vbee-timeline.json --out-dir public/audio/bao-loc-vbee --voice-code "$VBEE_VOICE_CODE" --webhook-url "$VBEE_WEBHOOK_URL" --speed 1.05
+      - name: Upload audio clips and measured manifest
+        uses: actions/upload-artifact@v4
+        with:
+          name: bao-loc-vbee-narration
+          path: public/audio/bao-loc-vbee/
+          if-no-files-found: error
+          retention-days: 14

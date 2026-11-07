@@ -1,0 +1,32 @@
+{
+  "slug": "ba-co-gai-vay-xe-deo-bao-loc",
+  "title": "Ba Cô Gái Vẫy Xe Lúc Nửa Đêm",
+  "format": {"width": 1080, "height": 1920, "fps": 30, "max_duration_sec": 60},
+  "style": {"genre": "folklore supernatural mystery", "palette": ["#08090C", "#11151E", "#F7F1E8", "#F5C467", "#ED3E4C"], "transition": "soft crossfade 0.35-0.55s", "motion": "smooth cinematic 2.5D"},
+  "characters": {
+    "loan": {"description": "Vietnamese young woman, long black hair, white ao dai, black backpack"},
+    "hoa": {"description": "Vietnamese young woman, shoulder-length black hair, white ao dai, brown backpack"},
+    "thao": {"description": "Vietnamese young woman, low-tied black hair, white ao dai, dark blue backpack"},
+    "driver": {"description": "Vietnamese man, early-to-mid 40s, dark jacket, cap"},
+    "caretaker": {"description": "elderly Vietnamese woman, gray-black hair tied back, plain dark blouse"}
+  },
+  "shots": [
+    {"id":"s01","start_sec":0,"duration_sec":2,"phase":"HOOK","voice":"Nếu gặp họ giữa đèo… bạn có dừng xe?","visual":"Three white silhouettes in headlights on wet mountain road; first-frame anomaly must be unmistakable.","camera":"wide POV through windshield, low angle","action":"three silhouettes hold position; one hand is raised","sfx":"low engine + wind","caption":"DÁM DỪNG XE?","asset_status":"pending"},
+    {"id":"s02","start_sec":2,"duration_sec":2,"phase":"HOOK","voice":"Ba cô gái đang vẫy xe lúc nửa đêm.","visual":"Driver's startled eyes and tight grip on steering wheel.","camera":"extreme close-up, driver's side","action":"eyes widen; fingers tighten","sfx":"subtle seat/hand movement","caption":"BA CÔ GÁI ÁO TRẮNG","asset_status":"pending"},
+    {"id":"s03","start_sec":4,"duration_sec":2,"phase":"HOOK","voice":"Nhưng lời đồn nói họ đã chết từ lâu.","visual":"Rear-view mirror reflects three figures behind the vehicle.","camera":"insert mirror shot","action":"mirror reflection reveals figures","sfx":"thin metallic drone","caption":"HỌ ĐÃ CHẾT TỪ LÂU?","asset_status":"pending"},
+    {"id":"s04","start_sec":6,"duration_sec":6,"phase":"BODY","voice":"Chuyện kể rằng Loan, Hòa và Thảo từng gặp tai nạn trên đèo Bảo Lộc.","visual":"Warm flashback of the three friends walking, then cut to an abandoned motorbike at a wet bend.","camera":"medium group shot to wide roadside insert","action":"three walk together; later the bike lies on its side","sfx":"rain + distant tire hiss","caption":"LOAN · HÒA · THẢO","asset_status":"pending"},
+    {"id":"s05","start_sec":12,"duration_sec":6,"phase":"BODY","voice":"Sau biến cố ấy, người ta nhắc đến miếu Ba Cô, nơi tưởng nhớ những người xấu số.","visual":"Small roadside shrine, incense and candles in dark forest.","camera":"slow push-in establishing shot","action":"incense smoke curls; candle flames move gently","sfx":"soft bell + night insects","caption":"MIẾU BA CÔ","asset_status":"pending"},
+    {"id":"s06","start_sec":18,"duration_sec":6,"phase":"BODY","voice":"Rồi những lời truyền miệng bắt đầu lan ra giữa các tài xế đường đêm.","visual":"A bus rounds a foggy curve; driver glances toward shoulder.","camera":"long-lens exterior then interior over-shoulder","action":"bus advances through fog; gaze shifts roadside","sfx":"diesel engine + wet tires","caption":"LỜI ĐỒN TRÊN ĐÈO","asset_status":"pending"},
+    {"id":"s07","start_sec":24,"duration_sec":6,"phase":"BODY","voice":"Có người kể đã thấy ba cô gái áo trắng đứng vẫy xe.","visual":"The same three girls appear at the guardrail; one raises her hand.","camera":"wide roadside shot to medium hand insert","action":"one girl raises hand; others remain still","sfx":"wind rises","caption":"BA BÓNG NGƯỜI BÊN ĐƯỜNG","asset_status":"pending"},
+    {"id":"s08","start_sec":30,"duration_sec":6,"phase":"CLIMAX","voice":"Dưới chân họ… là ba chiếc ba lô và vài cuốn sách.","visual":"Three distinct backpacks and old books on wet shoulder.","camera":"ground-level detail insert","action":"rain droplets hit the books; camera reveals three bags","sfx":"rain drops + low pulse","caption":"BA CHIẾC BA LÔ","asset_status":"pending"},
+    {"id":"s09","start_sec":36,"duration_sec":6,"phase":"CLIMAX","voice":"Tài xế vừa định dừng lại… ánh đèn pha quét thẳng qua màn sương.","visual":"Driver eases off; headlight beam sweeps across figures.","camera":"driver POV, then frontal beam shot","action":"hand moves toward gear; light sweeps from left to right","sfx":"engine drops + tire hiss","caption":"ÁNH ĐÈN PHA QUÉT QUA","asset_status":"pending"},
+    {"id":"s10","start_sec":42,"duration_sec":6,"phase":"CLIMAX","voice":"Và khi nhìn lại… con đường đã trống không.","visual":"Figures fade into fog; empty wet road remains.","camera":"locked wide road shot with gradual fog drift","action":"three figures fade away; road is empty","sfx":"wind only, then brief silence","caption":"KHÔNG CÒN AI Ở ĐÓ","asset_status":"pending"},
+    {"id":"s11","start_sec":48,"duration_sec":5,"phase":"PAYOFF","voice":"Người trông miếu từng phủ nhận chuyện oan hồn hiện về. Nhưng lời đồn vẫn còn.","visual":"Caretaker beside shrine; cut to incense smoke and shrine sign.","camera":"medium portrait then shrine detail","action":"caretaker looks toward road; smoke curls","sfx":"candle crackle + low ambient","caption":"LỜI ĐỒN VẪN CÒN","asset_status":"pending"},
+    {"id":"s12","start_sec":53,"duration_sec":7,"phase":"PAYOFF","voice":"Bạn nghĩ sao về câu chuyện này? Thả tim và theo dõi Hẻm Chuyện Lạ nhé.","visual":"Moonlit empty pass; understated brand close.","camera":"slow aerial-like drift forward","action":"road disappears into fog; title fades in","sfx":"wind fades to silence","caption":"THẢ TIM · THEO DÕI HẺM CHUYỆN LẠ","asset_status":"pending","cta_role":"outro"}
+  ],
+  "review_status": "pending",
+  "voice_status": "not_generated",
+  "render_status": "not_started",
+  "qa_status": "not_started",
+  "notes": ["This JSON is a production planning artifact, not a pipeline-approved manifest.", "All shots require separate clean source assets; storyboard collage must not be used as footage.", "Replace provisional time slots with actual measured Vbee Batch utterance durations."]
+}

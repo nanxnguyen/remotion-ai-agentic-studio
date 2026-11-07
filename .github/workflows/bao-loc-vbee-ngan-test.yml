@@ -1,0 +1,44 @@
+name: Bao Loc - test Ngạn Kể Chuyện voice
+on:
+  push:
+    branches:
+      - production/bao-loc-three-girls-short
+    paths:
+      - .github/workflows/bao-loc-vbee-ngan-test.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: bao-loc-vbee-ngan-test
+  cancel-in-progress: false
+jobs:
+  test-one-utterance:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      VBEE_ACCESS_TOKEN: ${{ secrets.VBEE_ACCESS_TOKEN || secrets.VBEE_TOKEN || secrets.VBEE_API_KEY || secrets.VBEE_API_TOKEN }}
+      VBEE_APP_ID: ${{ secrets.VBEE_APP_ID || secrets.VBEE_APPID || secrets.VBEE_APPLICATION_ID }}
+      VBEE_WEBHOOK_URL: ${{ vars.VBEE_WEBHOOK_URL || 'https://example.com/bao-loc-vbee-callback' }}
+      VBEE_VOICE_CODE: vbee_n_hn_male_ngankechuyen_ytstable
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install ffprobe
+        run: sudo apt-get update && sudo apt-get install -y ffmpeg
+      - name: Validate Vbee secrets are configured
+        run: |
+          test -n "$VBEE_ACCESS_TOKEN" || (echo "::error::Missing Vbee access token secret"; exit 1)
+          test -n "$VBEE_APP_ID" || (echo "::error::Missing Vbee App ID secret"; exit 1)
+      - name: Generate one test utterance with Ngạn Kể Chuyện
+        run: |
+          python3 -m py_compile scripts/gen-bao-loc-vbee.py
+          python3 scripts/gen-bao-loc-vbee.py --timeline docs/ba-co-gai-vay-xe-deo-bao-loc/vbee-ngan-timeline.json --out-dir public/audio/bao-loc-vbee-ngan-test --voice-code "$VBEE_VOICE_CODE" --webhook-url "$VBEE_WEBHOOK_URL" --speed 1.0 --limit 1
+      - name: Upload test MP3 and voice manifest
+        uses: actions/upload-artifact@v4
+        with:
+          name: bao-loc-vbee-ngan-test
+          path: public/audio/bao-loc-vbee-ngan-test/
+          if-no-files-found: error
+          retention-days: 14
