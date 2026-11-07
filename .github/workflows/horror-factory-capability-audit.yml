@@ -10,6 +10,9 @@ on:
       - 'scripts/horror_factory_run.py'
       - 'scripts/gen-story-vbee-batch.py'
       - 'scripts/youtube_multi_channel.py'
+      - 'scripts/horror_archive_oauth.py'
+      - 'scripts/youtube_oauth_setup.py'
+      - 'tests/test_horror_archive_oauth.py'
       - 'tests/test_horror_factory_capabilities.py'
 
 permissions:
@@ -45,7 +48,7 @@ jobs:
             sudo apt-get install -y -qq ffmpeg
           fi
       - name: Verify readiness regression tests
-        run: python -m unittest discover -s tests -p 'test_horror_factory_capabilities.py' -v
+        run: python -m unittest discover -s tests -p 'test_horror*.py' -v
       - name: Inspect current phase capabilities without publishing
         run: python scripts/horror_factory_capabilities.py
       - uses: actions/upload-artifact@v4

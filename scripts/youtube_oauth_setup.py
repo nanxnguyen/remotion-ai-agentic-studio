@@ -10,7 +10,8 @@ from pathlib import Path
 from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
 
-from youtube_multi_channel import ROOT, DRIVE_SCOPES, YT_SCOPES, read_target, resolve_channel
+from youtube_multi_channel import ROOT, YT_SCOPES, read_target, resolve_channel
+from horror_archive_oauth import provider_options
 
 
 def private_file(path: Path, content: str) -> None:
@@ -25,12 +26,13 @@ def private_file(path: Path, content: str) -> None:
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--client-secret", required=True, help="OAuth Desktop JSON from Google Cloud")
-    parser.add_argument("--provider", choices=["youtube", "drive"], required=True)
+    parser.add_argument("--provider", choices=["youtube", "drive", "drive-archive"], required=True)
     parser.add_argument("--channel", default="OLISE_MAN", help="Used when provider=youtube")
     parser.add_argument("--repo", default="nanxnguyen/remotion-ai-agentic-studio")
     args = parser.parse_args()
     target = read_target(ROOT / "config" / "youtube-channel-targets.json", args.channel) if args.provider == "youtube" else None
-    flow = InstalledAppFlow.from_client_secrets_file(args.client_secret, YT_SCOPES if target else DRIVE_SCOPES)
+    scopes = YT_SCOPES if target else provider_options(args.provider)[0]
+    flow = InstalledAppFlow.from_client_secrets_file(args.client_secret, scopes)
     credentials = flow.run_local_server(port=0, access_type="offline", prompt="consent")
     if not credentials.refresh_token:
         raise RuntimeError("No refresh token returned; revoke the old consent and authorize again")
@@ -41,9 +43,10 @@ def main():
         print(f"VERIFIED channel: {actual['snippet']['title']} ({actual['id']}) = {target['handle']}")
         print(f"Tip: pin channel_id={actual['id']} in config/youtube-channel-targets.json")
     else:
-        secret_name = "DRIVE_REFRESH_TOKEN"
+        _, secret_name, _ = provider_options(args.provider)
     base = Path.home() / ".config" / "ray-youtube-uploader"
-    location = base / (secret_name + ".txt")
+    filename = secret_name + ".txt" if target else provider_options(args.provider)[2]
+    location = base / filename
     private_file(location, credentials.refresh_token)
     # Client credentials are identical across all channel grants. Write once.
     for name, value in (("YOUTUBE_CLIENT_ID", credentials.client_id), ("YOUTUBE_CLIENT_SECRET", credentials.client_secret)):
