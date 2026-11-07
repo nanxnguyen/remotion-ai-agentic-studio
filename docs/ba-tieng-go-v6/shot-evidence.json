@@ -1,0 +1,150 @@
+{
+  "duration_sec": 55,
+  "media": "cinematic 2D/2.5D",
+  "shots": [
+    {
+      "shot": 1,
+      "window": "00-03",
+      "visible_action": "Clock reads 2:17, three knocks",
+      "speaker": "narrator",
+      "asset": "shot_01.jpg",
+      "render_review": "Full MP4 sampled",
+      "frame_evidence_time_seconds": 1.3
+    },
+    {
+      "shot": 2,
+      "window": "03-06",
+      "visible_action": "Mud-covered hand grasps Huy ankle",
+      "speaker": "Huy",
+      "asset": "shot_02.jpg",
+      "render_review": "Full MP4 sampled",
+      "frame_evidence_time_seconds": 4.3
+    },
+    {
+      "shot": 3,
+      "window": "06-09",
+      "visible_action": "Entity whispers; Huy recoils",
+      "speaker": "entity",
+      "asset": "shot_03.jpg",
+      "render_review": "Full MP4 sampled",
+      "frame_evidence_time_seconds": 7.2
+    },
+    {
+      "shot": 4,
+      "window": "09-12",
+      "visible_action": "Wet hand marks persist on floor",
+      "speaker": "narrator",
+      "asset": "shot_04.jpg",
+      "render_review": "Full MP4 sampled",
+      "frame_evidence_time_seconds": 10.6
+    },
+    {
+      "shot": 5,
+      "window": "12-16",
+      "visible_action": "Phone caller MOM warns about fourth knock",
+      "speaker": "mother",
+      "asset": "shot_05.jpg",
+      "render_review": "Full MP4 sampled",
+      "frame_evidence_time_seconds": 13.3
+    },
+    {
+      "shot": 6,
+      "window": "16-19",
+      "visible_action": "Three knocks from bedroom door",
+      "speaker": "foley",
+      "asset": "shot_06.jpg",
+      "render_review": "Full MP4 sampled",
+      "frame_evidence_time_seconds": 17
+    },
+    {
+      "shot": 7,
+      "window": "19-22",
+      "visible_action": "Door knob rotates at fourth knock, light fades",
+      "speaker": "foley",
+      "asset": "shot_07.jpg",
+      "render_review": "Full MP4 sampled",
+      "frame_evidence_time_seconds": 20.2
+    },
+    {
+      "shot": 8,
+      "window": "22-26",
+      "visible_action": "Fake mother whispers behind door",
+      "speaker": "fake_mother",
+      "asset": "shot_08.jpg",
+      "render_review": "Full MP4 sampled",
+      "frame_evidence_time_seconds": 23.4
+    },
+    {
+      "shot": 9,
+      "window": "26-29",
+      "visible_action": "Read warning on mobile phone 'MẸ ĐANG Ở MỘ CON.'",
+      "speaker": "message",
+      "asset": "shot_09.jpg",
+      "render_review": "Full MP4 sampled",
+      "frame_evidence_time_seconds": 27.3
+    },
+    {
+      "shot": 10,
+      "window": "29-32",
+      "visible_action": "Huy screams at locked door",
+      "speaker": "Huy",
+      "asset": "shot_10.jpg",
+      "render_review": "Full MP4 sampled",
+      "frame_evidence_time_seconds": 30.3
+    },
+    {
+      "shot": 11,
+      "window": "32-36",
+      "visible_action": "Dirt gathers under door, entity confesses",
+      "speaker": "entity",
+      "asset": "shot_11.jpg",
+      "render_review": "Full MP4 sampled",
+      "frame_evidence_time_seconds": 34.2
+    },
+    {
+      "shot": 12,
+      "window": "36-40",
+      "visible_action": "Soil wall swallows Huy, he calls mother",
+      "speaker": "Huy",
+      "asset": "shot_12.jpg",
+      "render_review": "Full MP4 sampled",
+      "frame_evidence_time_seconds": 37.8
+    },
+    {
+      "shot": 13,
+      "window": "40-44",
+      "visible_action": "Rattling muddy coffin in rain, Huy inside",
+      "speaker": "Huy",
+      "asset": "shot_13.jpg",
+      "render_review": "Full MP4 sampled",
+      "frame_evidence_time_seconds": 42
+    },
+    {
+      "shot": 14,
+      "window": "44-48",
+      "visible_action": "Mourning mother touches coffin, first twist",
+      "speaker": "mother",
+      "asset": "shot_14.jpg",
+      "render_review": "Full MP4 sampled",
+      "frame_evidence_time_seconds": 45.4
+    },
+    {
+      "shot": 15,
+      "window": "48-52",
+      "visible_action": "Three knocks and fourth, coffin lid opens",
+      "speaker": "mother",
+      "asset": "shot_15.jpg",
+      "render_review": "Full MP4 sampled",
+      "frame_evidence_time_seconds": 50.4
+    },
+    {
+      "shot": 16,
+      "window": "52-55",
+      "visible_action": "Entity eyes emerge, whisper CTA, black fade",
+      "speaker": "entity",
+      "asset": "shot_16.jpg",
+      "render_review": "Full MP4 sampled",
+      "frame_evidence_time_seconds": 53.5
+    }
+  ]
+}
