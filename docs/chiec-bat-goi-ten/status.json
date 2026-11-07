@@ -1,0 +1,96 @@
+{
+  "workflow_version": 4,
+  "name": "chiec-bat-goi-ten",
+  "comp": "ChiecBatGoiTenReel",
+  "voice": "vbee-ngan",
+  "profile": "story",
+  "paths": {
+    "audio": "chiec-bat-goi-ten",
+    "out": "chiec-bat-goi-ten-vbee-ngan",
+    "qa": "chiec-bat-goi-ten"
+  },
+  "gates": [],
+  "stages": {
+    "script": {
+      "state": "blocked",
+      "at": "2026-11-07T10:00:12+07:00",
+      "note": "Independent script gate not yet passed; novelty overlap with previous own-voice stories; no media or publication"
+    },
+    "motion": {
+      "state": "pending"
+    },
+    "qa": {
+      "state": "pending"
+    }
+  },
+  "reviews": {
+    "A": [
+      {
+        "at": "2026-11-07T10:01:54+07:00",
+        "reviewer": "script-reviewer",
+        "score": 8.9,
+        "verdict": "revise",
+        "report": "docs/chiec-bat-goi-ten/script-review.md",
+        "note": ""
+      }
+    ]
+  },
+  "review_valid": {
+    "A": true,
+    "D": false,
+    "E": false,
+    "B": false,
+    "C": false,
+    "content": false,
+    "audio": false,
+    "motion": false
+  },
+  "next": "Resolve novelty overlap and re-audit script before artwork or real Vbee; separately owner reauthorizes Drive archive scope",
+  "log": [
+    {
+      "t": "2026-11-07T09:54:20+07:00",
+      "stage": "-",
+      "who": "agent",
+      "msg": "status initialised"
+    },
+    {
+      "t": "2026-11-07T09:54:27+07:00",
+      "stage": "script",
+      "who": "script-reviewer",
+      "msg": "script-reviewer running: Independent script audit, no fabricated scores"
+    },
+    {
+      "t": "2026-11-07T09:54:28+07:00",
+      "stage": "script",
+      "who": "agent",
+      "msg": "script -> in_progress"
+    },
+    {
+      "t": "2026-11-07T10:00:12+07:00",
+      "stage": "script",
+      "who": "agent",
+      "msg": "script -> blocked: Independent script gate not yet passed; novelty overlap with previous own-voice stories; no media or publication"
+    },
+    {
+      "t": "2026-11-07T10:00:13+07:00",
+      "stage": "agent",
+      "who": "script-reviewer",
+      "msg": "script-reviewer done: Independent reviews recorded, revise verdict is not a passed gate"
+    },
+    {
+      "t": "2026-11-07T10:01:54+07:00",
+      "stage": "A",
+      "who": "script-reviewer",
+      "msg": "review 8.9/10 revise: script-review.md"
+    }
+  ],
+  "updated": "2026-11-07T10:01:54+07:00",
+  "agents": {
+    "script-reviewer": {
+      "state": "done",
+      "at": "2026-11-07T10:00:13+07:00",
+      "note": "Independent reviews recorded, revise verdict is not a passed gate",
+      "stage": ""
+    }
+  }
+}
