@@ -67,7 +67,7 @@ jobs:
           npx remotion render src/index.ts SilentFactoryLongform out/silent-factory/video-silent.mp4 \
             --props="$FILM_JOB" --codec=h264 --crf=21 --concurrency=2 --log=error
       - name: Original instrumental score and motivated SFX
-        run: python scripts/silent_factory_executor.py audio --out out/silent-factory/original-score.wav
+        run: python scripts/silent_factory_executor.py audio --manifest "$FILM_JOB" --out out/silent-factory/original-score.wav
       - name: Mix and loudness-normalize to FINAL CANDIDATE
         shell: bash
         run: |

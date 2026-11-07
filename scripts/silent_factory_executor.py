@@ -115,6 +115,144 @@ def create_original_audio(path: Path) -> None:
         wav.writeframes(b"")
 
 
+SFX_RE = re.compile(r"^([a-z-]+)@(\d+(?:\.\d+)?)$")
+
+
+def _sfx_events(data: dict) -> list[tuple[float, str]]:
+    """Parse per-shot `sfx` cues like "clank@3.2,tap@1.0" into absolute times."""
+    shot_seconds = FRAMES_PER_SHOT / FPS
+    events = []
+    for i, shot in enumerate(data["shots"]):
+        for cue in str(shot.get("sfx", "")).split(","):
+            m = SFX_RE.match(cue.strip())
+            if m:
+                at = float(m.group(2))
+                if 0 <= at < shot_seconds:
+                    events.append((i * shot_seconds + at, m.group(1)))
+    return sorted(events)
+
+
+def create_cued_audio(path: Path, data: dict) -> None:
+    """Original synthesized score with an act-based intensity arc plus story-cued SFX.
+
+    Pure synthesis (no samples, no vocals). Intensity per shot follows the film's
+    five acts; SFX are placed exactly at the manifest's per-shot cue times.
+    """
+    path.parent.mkdir(parents=True, exist_ok=True)
+    sr = 24000
+    duration = 210
+    n_total = sr * duration
+    buf = [0.0] * n_total
+    shot_seconds = FRAMES_PER_SHOT / FPS
+    # Act chords: night tension, effort, doubt, discovery/reveal, warm hope.
+    acts = [
+        (0, (146.83, 174.61, 220.00)),   # D minor
+        (7, (130.81, 155.56, 196.00)),   # C minor
+        (10, (116.54, 146.83, 174.61)),  # Bb, low doubt
+        (13, (146.83, 185.00, 220.00)),  # D major lift: hinges
+        (21, (130.81, 164.81, 196.00)),  # C major reveal
+        (22, (110.00, 130.81, 164.81)),  # A minor empty room
+        (25, (130.81, 164.81, 196.00)),  # C major idea
+        (29, (174.61, 220.00, 261.63)),  # F major community
+    ]
+    # Per-shot intensity (0..1): quiet after setbacks, swells on decisions/reveal.
+    intensity = [0.45, 0.5, 0.6, 0.4, 0.55, 0.6, 0.65, 0.7, 0.8, 0.25, 0.2, 0.3,
+                 0.4, 0.5, 0.55, 0.6, 0.6, 0.65, 0.7, 0.85, 1.0, 0.3, 0.25, 0.4,
+                 0.55, 0.6, 0.65, 0.6, 0.7, 0.8, 0.9, 0.6, 0.7, 0.65, 0.85, 0.75]
+
+    def chord_for(shot: int):
+        c = acts[0][1]
+        for start, ch in acts:
+            if shot >= start:
+                c = ch
+        return c
+
+    two_pi = 2 * math.pi
+    for n in range(n_total):
+        t = n / sr
+        shot = min(35, int(t / shot_seconds))
+        local = (t - shot * shot_seconds) / shot_seconds
+        nxt = min(35, shot + 1)
+        k = 0.5 - 0.5 * math.cos(math.pi * min(1.0, max(0.0, (local - 0.85) / 0.15)))
+        amp = intensity[shot] * (1 - k) + intensity[nxt] * k
+        f = chord_for(shot)
+        pad = (0.22 * math.sin(two_pi * f[0] * t + 0.2 * math.sin(t * 0.5))
+               + 0.14 * math.sin(two_pi * f[1] * t)
+               + 0.12 * math.sin(two_pi * f[2] * t)
+               + 0.12 * math.sin(two_pi * f[0] * 0.5 * t))
+        beat_rate = 1.0 + amp * 1.2
+        ph = (t * beat_rate) % 1
+        note = f[int(t * beat_rate) % 3] * 2
+        pluck = 0.09 * amp * math.exp(-7 * ph) * math.sin(two_pi * note * t)
+        env = max(0.0, min(1.0, t / 2.0, (duration - t) / 3.0))
+        buf[n] = (pad * (0.25 + 0.55 * amp) + pluck) * env
+
+    def add(at: float, length: float, gen):
+        start = int(at * sr)
+        for i in range(int(length * sr)):
+            j = start + i
+            if 0 <= j < n_total:
+                buf[j] += gen(i / sr)
+
+    seed = [12345]
+
+    def noise() -> float:
+        seed[0] = (1103515245 * seed[0] + 12345) & 0x7FFFFFFF
+        return seed[0] / 0x3FFFFFFF - 1.0
+
+    def metal(freqs, decay, level):
+        return lambda x: level * math.exp(-decay * x) * sum(math.sin(two_pi * q * x) for q in freqs) / len(freqs)
+
+    def thump(freq, decay, level, grit=0.3):
+        return lambda x: level * math.exp(-decay * x) * (math.sin(two_pi * freq * x * (1 - 0.4 * x)) + grit * noise())
+
+    def scrape(level, length, rate):
+        return lambda x: level * math.sin(math.pi * min(1.0, x / length)) * noise() * (0.6 + 0.4 * math.sin(two_pi * rate * x))
+
+    for at, name in _sfx_events(data):
+        if name in ("jingle", "keyring-jingle"):
+            for j in range(6):
+                add(at + j * 0.07, 0.6, metal((2900 + j * 210, 4100 + j * 170, 5300), 9, 0.10))
+        elif name in ("clink", "chime", "chimes", "windchime-signature", "shimmer"):
+            count = 7 if name in ("chimes", "windchime-signature") else 1
+            for j in range(count):
+                add(at + j * 0.23, 1.6, metal((1568 + 131 * (j % 4), 2349 + 97 * j, 3136), 3.2, 0.11))
+        elif name in ("clank", "clunk", "crack"):
+            add(at, 0.5, metal((420, 910, 1730), 14, 0.22))
+            add(at, 0.25, thump(140, 22, 0.25))
+        elif name in ("thump", "thud", "thunk", "boom"):
+            big = 1.6 if name == "boom" else 1.0
+            add(at, 0.8, thump(62 if name == "boom" else 90, 7 / big, 0.38 * big, 0.2))
+        elif name in ("creak", "scrape", "file", "saw"):
+            rate = {"creak": 9, "scrape": 25, "file": 40, "saw": 18}[name]
+            add(at, 0.9, scrape(0.07, 0.9, rate))
+            if name == "creak":
+                add(at, 0.9, lambda x: 0.06 * math.sin(math.pi * min(1.0, x / 0.9)) * math.sin(two_pi * (180 + 60 * math.sin(7 * x)) * x))
+        elif name in ("tap", "pop", "squirt"):
+            add(at, 0.15, thump(520 if name == "tap" else 820, 40, 0.22, 0.5))
+        elif name in ("swell",):
+            add(at, 3.0, lambda x: 0.12 * math.sin(math.pi * x / 3.0) * (math.sin(two_pi * 523.25 * x) + math.sin(two_pi * 659.25 * x)))
+        elif name in ("dust", "wind"):
+            add(at, 2.0, scrape(0.03, 2.0, 0.7))
+        # "step", "strain", "sigh" have no synthesized layer: no vocal-like sounds.
+
+    peak = max(1e-9, max(abs(v) for v in buf))
+    gain = 0.89 / peak
+    with wave.open(str(path), "wb") as wav:
+        wav.setnchannels(1)
+        wav.setsampwidth(2)
+        wav.setframerate(sr)
+        chunk = bytearray()
+        for v in buf:
+            chunk += struct.pack("<h", int(max(-1.0, min(1.0, v * gain)) * 32000))
+            if len(chunk) >= 65536:
+                wav.writeframesraw(chunk)
+                chunk.clear()
+        if chunk:
+            wav.writeframesraw(chunk)
+        wav.writeframes(b"")
+
+
 def run(command: list[str], *, capture: bool = False) -> subprocess.CompletedProcess[str]:
     p = subprocess.run(command, text=True, capture_output=capture, check=False)
     if p.returncode:
@@ -206,7 +344,11 @@ def main() -> None:
     elif args.operation == "audio":
         if not args.out:
             cli.error("audio requires --out")
-        create_original_audio(args.out)
+        doc = manifest(args.manifest) if args.manifest else None
+        if doc and any(shot.get("sfx") for shot in doc["shots"]):
+            create_cued_audio(args.out, doc)
+        else:
+            create_original_audio(args.out)
         print(json.dumps({"audio": str(args.out), "bytes": args.out.stat().st_size, "copyright": "original synthesis"}))
     else:
         if not all([args.manifest, args.movie, args.report, args.sheet]):

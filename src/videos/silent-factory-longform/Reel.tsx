@@ -3,6 +3,7 @@ import {AbsoluteFill, useCurrentFrame} from 'remotion';
 import {CharacterPuppet} from '../../animation/CharacterPuppet';
 import {locomotionPose, solveTwoBone} from '../../animation/character-motion';
 import type {CharacterPose, Point} from '../../animation/character-motion';
+import {DoorFilm} from './door/DoorFilm';
 
 export const SHOT_FRAMES = 175;
 export const FILM_FPS = 30;
@@ -27,7 +28,7 @@ export type FilmShot = {
   highlight: string;
   palette?: 'cold' | 'warm' | 'hope';
 };
-export type FilmProps = {title: string; shots: FilmShot[]};
+export type FilmProps = {title: string; shots: FilmShot[]; film?: string};
 const W = 1920;
 const H = 1080;
 const FLOOR = 865;
@@ -239,7 +240,12 @@ const Caption: React.FC<{shot: FilmShot; local: number}> = ({shot, local}) => {
   );
 };
 
-export const SilentFactoryReel: React.FC<FilmProps> = ({shots}) => {
+export const SilentFactoryReel: React.FC<FilmProps> = ({shots, film}) => {
+  if (film === 'a-door-for-tomorrow') return <DoorFilm shots={shots} />;
+  return <GenericReel shots={shots} title="" />;
+};
+
+const GenericReel: React.FC<FilmProps> = ({shots}) => {
   const frame = useCurrentFrame();
   const index = Math.min(FILM_SHOTS - 1, Math.floor(frame / SHOT_FRAMES));
   const shot = shots[index] || shots[0];
