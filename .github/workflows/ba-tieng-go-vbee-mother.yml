@@ -1,0 +1,52 @@
+name: Ba Tieng Go V4 - Real Mother Voice Vbee
+on:
+  push:
+    branches:
+      - film/ba-tieng-go-trong-dem-v4-20261025
+    paths:
+      - .github/workflows/ba-tieng-go-vbee-mother.yml
+permissions:
+  contents: read
+jobs:
+  mother:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    env:
+      VBEE_ACCESS_TOKEN: ${{ secrets.VBEE_ACCESS_TOKEN || secrets.VBEE_TOKEN || secrets.VBEE_API_KEY || secrets.VBEE_API_TOKEN }}
+      VBEE_APP_ID: ${{ secrets.VBEE_APP_ID || secrets.VBEE_APPID || secrets.VBEE_APPLICATION_ID }}
+      VBEE_WEBHOOK_URL: ${{ vars.VBEE_WEBHOOK_URL || 'https://example.com/story-tts-webhook' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install FFprobe
+        run: sudo apt-get update -qq && sudo apt-get install -y ffmpeg
+      - name: Extract mom's dialogue only (original cue IDs preserved in map)
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          cues=json.loads(Path('docs/ba-tieng-go-trong-dem-v4/vbee-voice-cues.json').read_text())['scenes']
+          selected=[x for x in cues if x['speaker'] in ('me','gia_giong_me')]
+          Path('/tmp/mother-map.json').write_text(json.dumps([{'original_id':x['id'],'start_sec':x['start_sec'],'end_sec':x['end_sec'],'text':x['narration']} for x in selected],ensure_ascii=False,indent=2))
+          Path('/tmp/mother-tts.json').write_text(json.dumps([{'id':i+1,'narration':s['narration']} for i,s in enumerate(selected)],ensure_ascii=False))
+          print('Mother/replica lines',len(selected))
+          PY
+      - name: Generate verified female Vbee MP3s
+        run: |
+          test -n "$VBEE_ACCESS_TOKEN" && test -n "$VBEE_APP_ID"
+          python3 scripts/gen-story-vbee-batch.py \
+            --timeline /tmp/mother-tts.json \
+            --out-dir /tmp/ba-tieng-go-vbee-mother \
+            --voice-code hn_female_ngochuyen_full_48k-fhg \
+            --speed 1.12 \
+            --webhook-url "$VBEE_WEBHOOK_URL"
+          cp /tmp/mother-map.json /tmp/ba-tieng-go-vbee-mother/source-map.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ba-tieng-go-v4-mother-vbee-original
+          path: /tmp/ba-tieng-go-vbee-mother/
+          retention-days: 14
+          if-no-files-found: warn
