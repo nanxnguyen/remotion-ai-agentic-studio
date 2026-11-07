@@ -1,0 +1,115 @@
+{
+  "title": "Ba Tiếng Gõ Trong Đêm V6",
+  "duration_seconds": 55,
+  "male_voice": "hn_male_phuthang_stor_24k-stl",
+  "female_voice": "hn_female_ngochuyen_full_48k-fhg",
+  "male": [
+    {
+      "id": 1,
+      "narration": "Hai giờ mười bảy.",
+      "shot": 1,
+      "start_sec": 0.15,
+      "end_sec": 2.7,
+      "speaker": "narrator"
+    },
+    {
+      "id": 2,
+      "narration": "Buông ra!",
+      "shot": 2,
+      "start_sec": 3.85,
+      "end_sec": 5.85,
+      "speaker": "huy"
+    },
+    {
+      "id": 3,
+      "narration": "Cuối cùng... tao cũng tìm thấy mày.",
+      "shot": 3,
+      "start_sec": 6.05,
+      "end_sec": 8.95,
+      "speaker": "entity"
+    },
+    {
+      "id": 4,
+      "narration": "Bàn tay biến mất. Chỉ còn vết bùn.",
+      "shot": 4,
+      "start_sec": 9,
+      "end_sec": 11.95,
+      "speaker": "narrator"
+    },
+    {
+      "id": 5,
+      "narration": "Mày là ai?!",
+      "shot": 10,
+      "start_sec": 29,
+      "end_sec": 31.95,
+      "speaker": "huy"
+    },
+    {
+      "id": 6,
+      "narration": "Tao... nằm dưới mộ thay mày.",
+      "shot": 11,
+      "start_sec": 32,
+      "end_sec": 35.95,
+      "speaker": "entity"
+    },
+    {
+      "id": 7,
+      "narration": "Mẹ ơi! Cứu con!",
+      "shot": 12,
+      "start_sec": 36,
+      "end_sec": 39.95,
+      "speaker": "huy"
+    },
+    {
+      "id": 8,
+      "narration": "Mẹ! Con chưa chết!",
+      "shot": 13,
+      "start_sec": 40,
+      "end_sec": 43.95,
+      "speaker": "huy"
+    },
+    {
+      "id": 9,
+      "narration": "Thả tim... đăng ký... trước khi nó đến.",
+      "shot": 16,
+      "start_sec": 52,
+      "end_sec": 54.97,
+      "speaker": "entity"
+    }
+  ],
+  "female": [
+    {
+      "id": 1,
+      "narration": "Huy! Đừng mở cửa khi nghe tiếng gõ thứ tư!",
+      "shot": 5,
+      "start_sec": 12,
+      "end_sec": 15.98,
+      "speaker": "mother"
+    },
+    {
+      "id": 2,
+      "narration": "Huy... mở cửa đi. Mẹ lạnh lắm...",
+      "shot": 8,
+      "start_sec": 22,
+      "end_sec": 25.98,
+      "speaker": "fake_mother"
+    },
+    {
+      "id": 3,
+      "narration": "Không... con tôi chết bảy ngày rồi.",
+      "shot": 14,
+      "start_sec": 44,
+      "end_sec": 47.98,
+      "speaker": "mother"
+    },
+    {
+      "id": 4,
+      "narration": "Ba tiếng là Huy... tiếng thứ tư là nó!",
+      "shot": 15,
+      "start_sec": 48,
+      "end_sec": 51.98,
+      "speaker": "mother"
+    }
+  ],
+  "notes": "Actual Vbee Batch voices, timed to 16 user-approved story shots; never overlay review timecodes onto final MP4; use clean independent vertical assets, subtitle and SFX layers."
+}

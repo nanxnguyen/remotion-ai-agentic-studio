@@ -1,0 +1,39 @@
+name: Ba Tieng Go V10 - Opening Challenge Vbee
+on:
+  push:
+    branches: [feat/ba-tieng-go-v10-opening-challenge]
+    paths: [.github/workflows/ba-tieng-go-v10-opening-vbee.yml]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  authentic-vbee-intro:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      VBEE_ACCESS_TOKEN: ${{ secrets.VBEE_ACCESS_TOKEN || secrets.VBEE_TOKEN || secrets.VBEE_API_KEY || secrets.VBEE_API_TOKEN }}
+      VBEE_APP_ID: ${{ secrets.VBEE_APP_ID || secrets.VBEE_APPID || secrets.VBEE_APPLICATION_ID }}
+      VBEE_WEBHOOK_URL: ${{ vars.VBEE_WEBHOOK_URL || 'https://example.com/story-tts-webhook' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Extract authentic Vbee text
+        run: |
+          python3 - <<'PY'
+          import json
+          o=json.load(open('docs/ba-tieng-go-v10/opening-challenge-vbee.json'))
+          json.dump(o['lines'],open('/tmp/opening-text.json','w'),ensure_ascii=False)
+          PY
+      - name: Create original Vbee Batch dialogue
+        run: |
+          test -n "$VBEE_ACCESS_TOKEN" && test -n "$VBEE_APP_ID"
+          python3 scripts/gen-story-vbee-batch.py --timeline /tmp/opening-text.json --out-dir /tmp/ba-tieng-go-v10-opening-vbee --voice-code hn_male_phuthang_stor_24k-stl --speed 1.17 --webhook-url "$VBEE_WEBHOOK_URL"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ba-tieng-go-v10-opening-vbee
+          path: /tmp/ba-tieng-go-v10-opening-vbee/
+          if-no-files-found: warn
+          retention-days: 14
