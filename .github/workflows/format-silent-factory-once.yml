@@ -1,0 +1,23 @@
+name: Temporary Silent Factory Prettier Fix
+on:
+  push:
+    paths:
+      - ".format-silent-factory-trigger"
+permissions:
+  contents: read
+jobs:
+  format:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npx prettier --write src/videos/silent-factory-longform/Reel.tsx
+      - uses: actions/upload-artifact@v6
+        with:
+          name: silent-factory-prettier-fixed
+          path: src/videos/silent-factory-longform/Reel.tsx
+          retention-days: 1
