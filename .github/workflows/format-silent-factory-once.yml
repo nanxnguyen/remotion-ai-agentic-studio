@@ -2,9 +2,9 @@ name: Temporary Silent Factory Prettier Fix
 on:
   push:
     paths:
-      - ".format-silent-factory-trigger"
+      - ".format-silent-factory-trigger2"
 permissions:
-  contents: read
+  contents: write
 jobs:
   format:
     runs-on: ubuntu-latest
@@ -16,6 +16,15 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npx prettier --write src/videos/silent-factory-longform/Reel.tsx
+      - name: Commit formatted composition
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/videos/silent-factory-longform/Reel.tsx
+          if ! git diff --cached --quiet; then
+            git commit -m "style(silent-factory): apply Prettier formatting"
+            git push origin HEAD:main
+          fi
       - uses: actions/upload-artifact@v6
         with:
           name: silent-factory-prettier-fixed
