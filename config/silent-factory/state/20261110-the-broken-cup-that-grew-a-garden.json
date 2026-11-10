@@ -1,0 +1,272 @@
+{
+  "run_id": "2026-11-10-the-broken-cup-that-grew-a-garden",
+  "checked_at": "2026-11-10T08:20:37+07:00",
+  "status": "BLOCKED_PRIVATE_RELEASE",
+  "stage": "EXECUTOR_BLOCKED",
+  "repository": "nanxnguyen/remotion-ai-agentic-studio",
+  "branch": "main",
+  "project_context": {
+    "requested_project": "AI Edition Video",
+    "prior_context_retrieved": true,
+    "project_binding_via_runtime_api": false,
+    "note": "Used retrieved prior project decisions and current repository documentation; the automation was not proven to be attached to the Project workspace.",
+    "model": "GPT-6",
+    "requested_thinking_effort": "EXTRA_HIGH",
+    "runtime_effort_locked": false,
+    "note_effort": "The automation runtime exposes no model/thinking-effort assignment API; Extra High remains a request, not a verified runtime setting."
+  },
+  "plugin": {
+    "requested": "Silent Animation Factory V1.7.0+",
+    "skills_list_available": [],
+    "skill_read": false,
+    "references_10_read": false,
+    "references_11_read": false,
+    "animation_script_audit_available": false,
+    "qa_repair_controller_available": false,
+    "repository_unattended_executor_doc_read": true,
+    "repository_doc_version": "V1.6",
+    "note": "The current conversation exposes no installed skill URI; do not claim V1.7 creative/audit execution."
+  },
+  "concept_research": {
+    "window_start": "2026-10-11",
+    "window_end": "2026-11-10",
+    "sources": [
+      {
+        "url": "https://blog.youtube/culture-and-trends/the-evolution-of-web-series-on-youtube-microdramas/",
+        "published": "2026-10-27",
+        "finding": "YouTube reported 6.5B microdrama views in H1 2026 and over 50% year-over-year watch-time growth; its examples emphasize fast emotional hooks and serialized visual storytelling. Directional evidence only; vertical microdramas are not identical to this 16:9 film."
+      },
+      {
+        "url": "https://www.veedio.co/trending/youtube-shorts/stick-figure",
+        "updated": "2026-11-08",
+        "methodology": "Weekly YouTube Shorts search over the last 45 days, re-ranked by views/day; 24 videos in this snapshot.",
+        "finding": "Examples included 'Overthinker vs Doer: Same Stone' at 1.1M views/day and 'Taking Off a Band-Aid' at 388K views/day. Directional signal for simple visual metaphors and immediately legible action, not a forecast for this film."
+      },
+      {
+        "url": "https://trendreport.com/trends/youtube-trends-report-2026/",
+        "updated": "2026-11-09",
+        "finding": "Across 25,796 tracked channels, Shorts were 67.7% of Jan-Oct uploads; the 2-3 minute Shorts share rose from 6.1% in Q1 to 7.3% in the last three months. The report does not isolate motivational animation."
+      },
+      {
+        "url": "https://www.tia-tech.com/videos/the-canyon/",
+        "published": "2026-10-18",
+        "finding": "A recent animated short uses a simple visual metaphor: one figure changes how a crowd thinks, opening a path across a canyon."
+      }
+    ],
+    "candidates": [
+      {
+        "name": "The Broken Cup That Grew a Garden",
+        "score": 92,
+        "breakdown": {
+          "hook_5s": 14,
+          "emotion": 14,
+          "agency": 15,
+          "twist": 14,
+          "retention": 13,
+          "thumbnail_title": 13,
+          "technical": 9
+        },
+        "logline": "A figure repurposes a leaking cracked cup as a planter; a single sprout inspires a shared garden.",
+        "selected": true
+      },
+      {
+        "name": "The Quiet Apology",
+        "score": 85,
+        "breakdown": {
+          "hook_5s": 12,
+          "emotion": 15,
+          "agency": 13,
+          "twist": 13,
+          "retention": 12,
+          "thumbnail_title": 12,
+          "technical": 8
+        },
+        "logline": "Two estranged stick figures repair a shared object through small, visible acts rather than words.",
+        "selected": false
+      },
+      {
+        "name": "The Paper Kite That Carried Everyone Home",
+        "score": 84,
+        "breakdown": {
+          "hook_5s": 13,
+          "emotion": 13,
+          "agency": 14,
+          "twist": 12,
+          "retention": 12,
+          "thumbnail_title": 12,
+          "technical": 8
+        },
+        "logline": "A torn kite is rebuilt from scraps into a chain of small kites that guides stranded neighbors home.",
+        "selected": false
+      }
+    ],
+    "scoring_note": "Editorial estimates only; no measured CTR, views, retention or viral prediction.",
+    "duplicate_avoidance": "Prior project context identifies 'The Last Light' as already present in Drive on 2026-10-29, so it was excluded from fresh selection. A live Drive duplicate search was not possible in this runtime."
+  },
+  "production": {
+    "title": "The Broken Cup That Grew a Garden",
+    "manifest": "config/silent-factory/jobs/20261110-the-broken-cup-that-grew-a-garden.json",
+    "revision": 1,
+    "commits": [
+      {
+        "sha": "36794be996ae94763b236d1e6b0f3ca7a1862616",
+        "role": "new story manifest / baseline revision 0"
+      },
+      {
+        "sha": "c7e890b0fdd8e1f26084f1bb760425e1ce3e371e",
+        "role": "revision 1 physical acting, helper, tipped cup, rain and procedural SFX"
+      }
+    ],
+    "target": {
+      "aspect_ratio": "16:9",
+      "width": 2560,
+      "height": 1440,
+      "fps": 30,
+      "duration_seconds": 210,
+      "frames": 6300,
+      "shots": 36,
+      "caption_cues": 20,
+      "voiceover": false
+    },
+    "attempts": [
+      {
+        "attempt": "attempt_00",
+        "revision": 0,
+        "workflow_run_id": 42732748109,
+        "workflow_url": "https://github.com/nanxnguyen/remotion-ai-agentic-studio/actions/runs/42732748109",
+        "artifact_id": 13726181216,
+        "artifact_name": "silent-factory-42732748109",
+        "run_conclusion": "success",
+        "movie_sha256": "16ed6841688c35ccad7416a6f3706f764a23c4c260a66582bc6ca82f77992250",
+        "movie_bytes": 17315238,
+        "technical_qa": "passed",
+        "full_video_decode_runner": "passed",
+        "full_audio_decode_runner": "passed",
+        "creative_qa": "not completed"
+      },
+      {
+        "attempt": "attempt_01",
+        "revision": 1,
+        "workflow_run_id": 42734050888,
+        "workflow_url": "https://github.com/nanxnguyen/remotion-ai-agentic-studio/actions/runs/42734050888",
+        "artifact_id": 13726278615,
+        "artifact_name": "silent-factory-42734050888",
+        "run_conclusion": "success",
+        "movie_sha256": "b58ef8be2aaedb5f31b923982f5ca6c567e551300fbb42341c8e81a2578df9ad",
+        "movie_bytes": 18563159,
+        "codec_video": "h264",
+        "codec_audio": "aac",
+        "audio_sample_rate_hz": 96000,
+        "audio_channels": 1,
+        "fps": 30,
+        "duration_seconds": 210,
+        "width": 2560,
+        "height": 1440,
+        "decoded_frames": 6300,
+        "caption_highlights_supplied": 20,
+        "integrated_lufs": -13.9,
+        "loudness_range_lu": 2.2,
+        "true_peak_dbfs": -2.6,
+        "full_video_decode_runner": "passed",
+        "full_audio_decode_runner": "passed",
+        "local_audio_decode": "passed",
+        "local_video_frame_count": "6300 via ffprobe -count_frames",
+        "local_full_video_decode": "timed out at 120s; runner's full-decode step passed",
+        "technical_qa": "passed",
+        "creative_qa": "not completed"
+      }
+    ],
+    "music_rights": "Five-phase original procedural instrumental and procedurally synthesized SFX; no third-party samples identified in executor code.",
+    "note": "This scheduled run resumed the already committed Nov 10 film and its real baseline/repair renders rather than creating a duplicate third film."
+  },
+  "creative_review": {
+    "independent_full_movie_review_complete": false,
+    "creative_qa_passed": false,
+    "review_evidence": "Contact sheets and sampled frames from the actual encoded MP4 only; not a full independent audiovisual review.",
+    "observed_concerns": [
+      "The flat 2D stick-figure design is consistent with the rendered film.",
+      "Revision 1 visibly adds rain and improves prop-contact/planting poses relative to baseline.",
+      "Several shots retain similar framing and static background layouts; full-motion acting, pacing and emotional arc remain unverified."
+    ],
+    "repair_rounds_completed": 1,
+    "max_repair_rounds": 5,
+    "do_not_claim": "Do not mark creative QA PASS or use the five-round override; only attempt_00 and attempt_01 are evidenced."
+  },
+  "thumbnail": {
+    "candidate_status": "LOCAL_CANDIDATE_NOT_DRIVE_FINAL",
+    "source": "Actual encoded MP4 frame at 190 seconds, with restrained text overlay; style matches the flat 2D stick-figure render.",
+    "container_path": "/mnt/data/the-broken-cup-thumbnail-1280x720.jpg",
+    "width": 1280,
+    "height": 720,
+    "bytes": 76568,
+    "sha256": "4f7e80c700786c5e4781c55e9fdaf68ad5e762390e8b8ea03767918bf54951e7",
+    "text": "BROKEN / NOT USELESS",
+    "thumbnail_ideas": [
+      "Close-up of the cracked cup leaking while the lead reaches for it.",
+      "Before/after transformation from cracked cup to flower garden.",
+      "Lead and helper planting broken cups together; selected visual uses the actual film's first-flower frame to preserve exact character style."
+    ],
+    "drive_file_id": null
+  },
+  "metadata_draft": {
+    "selected_title": "The Broken Cup That Grew a Garden",
+    "title_alternatives": [
+      "She Couldn’t Fix the Cup—So She Gave It a New Purpose",
+      "A Cracked Cup, One Seed, and a New Beginning"
+    ],
+    "description": "A cracked cup seems useless until one small seed gives it a new purpose. In this silent 2D stick-figure story, one figure turns a leaking cup into a planter, then inspires a shared garden. Told through action with an original instrumental score and no voiceover.",
+    "tags": [
+      "stick figure animation",
+      "silent animation",
+      "motivational short film",
+      "inspirational animation",
+      "2D animation",
+      "life lesson",
+      "new beginnings",
+      "resilience",
+      "kindness",
+      "growth",
+      "animated story",
+      "no dialogue"
+    ],
+    "growth_hypotheses": [
+      "The leaking cup in the opening five seconds may make the conflict legible without dialogue; validate with retention at 0:05.",
+      "The cup-to-flower transformation may improve completion or rewatch; validate with average percentage viewed and retention dips.",
+      "The shared garden payoff may increase shares; validate with shares per view and qualitative comments."
+    ],
+    "qa_approved": false,
+    "creative_qa_passed": false,
+    "creative_qa_override": false
+  },
+  "release": {
+    "channel_alias": "OLISE_MAN",
+    "channel_handle": "@olise-man",
+    "channel_id": "UCY3n3Nlqyo6uI4GU8nuX-5g",
+    "privacy": "private",
+    "release_manifest_created": false,
+    "drive_video_id": null,
+    "drive_thumbnail_id": null,
+    "youtube_video_id": null,
+    "youtube_url": null,
+    "status": "BLOCKED_NOT_UPLOADED",
+    "reason": "No Drive-write connector is available; repository documentation states DRIVE_REFRESH_TOKEN is read-only. No independent full-film reviewer/evidence is available. The release workflow requires both verified Drive IDs and full-media reviewer evidence."
+  },
+  "blockers": [
+    "EXECUTOR_BLOCKED_PLUGIN: Silent Animation Factory V1.7 skill and references are not available in this runtime; skills__list returned no installed skills.",
+    "EXECUTOR_BLOCKED_REVIEW: No independent reviewer/tool can inspect the complete encoded MP4 and audio; contact sheets and sampled frames do not satisfy this gate.",
+    "DRIVE_BRIDGE_BLOCKED: No Google Drive connector/write action is exposed; repository documentation says the existing Drive refresh token is read-only. No Drive IDs were fabricated.",
+    "YOUTUBE_RELEASE_BLOCKED: The push-trigger private-release workflow requires verified MP4 and thumbnail Drive IDs plus full-review evidence; no release manifest was created and no upload was attempted.",
+    "RUNTIME_CONFIGURATION_UNVERIFIED: Extra High thinking effort cannot be assigned through the available automation API; Project AI Edition Video attachment cannot be verified through an API."
+  ],
+  "github_ci": {
+    "renderer_workflow_run": "42734050888",
+    "renderer_workflow_conclusion": "success",
+    "separate_ci_run": "42734880413",
+    "separate_ci_conclusion": "failure_on_pre_format_commit",
+    "failure": "npm run verify stopped at Prettier check for src/videos/silent-factory-longform/Reel.tsx.",
+    "formatter_commit": "532758d7b073cba3d9298e51d6aa77b828b44402",
+    "formatter_workflow": "https://github.com/nanxnguyen/remotion-ai-agentic-studio/actions/runs/42734879982",
+    "formatter_conclusion": "success",
+    "note": "A Prettier formatting commit is now on main; no CI result for that exact post-format commit was observed in this run."
+  }
+}
