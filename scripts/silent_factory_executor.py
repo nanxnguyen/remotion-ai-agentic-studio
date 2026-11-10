@@ -26,7 +26,7 @@ EXPECTED_FRAMES = FPS * 210
 WIDTH, HEIGHT = 2560, 1440
 SCENES = {"city", "stairs", "workshop", "bridge", "dawn", "garden"}
 ACTIONS = {"walk", "run", "stumble", "reach", "repair", "help", "rise", "pause", "plant", "water", "offer"}
-PROPS = {None, "cracked_cup", "leaking_cup", "empty_cup", "seed", "soil_cup", "planted_cup", "sprout_cup", "flower_cup", "cup_garden"}
+PROPS = {None, "cracked_cup", "leaking_cup", "empty_cup", "seed", "soil_cup", "planted_cup", "sprout_cup", "flower_cup", "cup_garden", "tipped_cup"}
 PALETTES = {"cold", "warm", "hope"}
 
 
@@ -49,6 +49,8 @@ def manifest(path: Path) -> dict:
             raise ValueError(f"invalid scene/action for {sid}")
         if shot.get("prop") not in PROPS:
             raise ValueError(f"invalid story prop for {sid}: {shot.get('prop')!r}")
+        if shot.get("weather") not in {None, "rain"}:
+            raise ValueError(f"invalid weather cue for {sid}")
         caption, highlight = shot.get("caption"), shot.get("highlight")
         if not isinstance(caption, str) or len(caption) > 100 or "\\n" in caption:
             raise ValueError(f"invalid English micro-caption for {sid}")
@@ -68,8 +70,8 @@ def manifest(path: Path) -> dict:
     return data
 
 
-def create_original_audio(path: Path) -> None:
-    """Purely generated synthesis, no third-party samples or copyrighted tracks."""
+def create_original_audio(path: Path, data: dict | None = None) -> None:
+    """Purely generated five-phase score and procedural SFX; no third-party samples."""
     path.parent.mkdir(parents=True, exist_ok=True)
     sample_rate = 24000
     duration = 210
@@ -107,7 +109,27 @@ def create_original_audio(path: Path) -> None:
             hit_phase = t % (175 / FPS)
             tap = 0.05 * math.exp(-37 * hit_phase) * math.sin(2 * math.pi * 82 * hit_phase)
             section_dynamic = 0.5 + 0.18 * math.sin(phase * math.pi)
-            sample = (pad * section_dynamic + pluck + tap) * envelope
+            sfx = 0.0
+            if data:
+                shot_index = min(EXPECTED_SHOTS - 1, int(t * FPS / FRAMES_PER_SHOT))
+                shot = data["shots"][shot_index]
+                local = t - shot_index * FRAMES_PER_SHOT / FPS
+                if shot.get("prop") in {"cracked_cup", "leaking_cup"}:
+                    drop_phase = local % 1.35
+                    if drop_phase < 0.18:
+                        sfx += 0.065 * math.exp(-42 * drop_phase) * math.sin(2 * math.pi * 1120 * drop_phase)
+                if shot.get("action") in {"plant", "water"}:
+                    soil_phase = local % 1.1
+                    if soil_phase < 0.12:
+                        sfx += 0.028 * math.exp(-32 * soil_phase) * math.sin(2 * math.pi * 165 * soil_phase)
+                if shot.get("weather") == "rain":
+                    rain = (
+                        math.sin(2 * math.pi * 1700 * t)
+                        + 0.6 * math.sin(2 * math.pi * 2310 * t + 0.7)
+                        + 0.35 * math.sin(2 * math.pi * 2870 * t + 1.4)
+                    )
+                    sfx += 0.006 * rain
+            sample = (pad * section_dynamic + pluck + tap + sfx) * envelope
             v = int(max(-1, min(1, sample)) * 19000)
             chunk += struct.pack("<h", v)
             if len(chunk) >= 65536:
@@ -209,8 +231,9 @@ def main() -> None:
     elif args.operation == "audio":
         if not args.out:
             cli.error("audio requires --out")
-        create_original_audio(args.out)
-        print(json.dumps({"audio": str(args.out), "bytes": args.out.stat().st_size, "copyright": "original synthesis"}))
+        doc = manifest(args.manifest) if args.manifest else None
+        create_original_audio(args.out, doc)
+        print(json.dumps({"audio": str(args.out), "bytes": args.out.stat().st_size, "copyright": "original synthesis + procedural SFX"}))
     else:
         if not all([args.manifest, args.movie, args.report, args.sheet]):
             cli.error("qa requires --manifest, --movie, --report and --sheet")
