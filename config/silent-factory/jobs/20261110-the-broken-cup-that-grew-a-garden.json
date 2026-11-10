@@ -1,8 +1,8 @@
 {
   "title": "The Broken Cup That Grew a Garden",
-  "revision": 0,
+  "revision": 1,
   "category": "silent-stick-figure-motivational-short-film",
-  "stage": "BASELINE_ATTEMPT_00_UNREVIEWED",
+  "stage": "REPAIR_ATTEMPT_01_UNREVIEWED",
   "creative_qa_approved": false,
   "original_rights_accepted": true,
   "format": {
@@ -128,16 +128,16 @@
       "action": "stumble",
       "caption": "THE WIND KNOCKED IT DOWN.",
       "highlight": "KNOCKED IT DOWN",
-      "prop": "planted_cup",
+      "prop": "tipped_cup",
       "palette": "warm"
     },
     {
       "id": "shot-14",
       "scene": "bridge",
-      "action": "reach",
+      "action": "plant",
       "caption": "",
       "highlight": "",
-      "prop": "planted_cup",
+      "prop": "tipped_cup",
       "palette": "warm"
     },
     {
@@ -237,7 +237,8 @@
       "caption": "SHE CAME BACK IN THE RAIN.",
       "highlight": "IN THE RAIN",
       "prop": "planted_cup",
-      "palette": "hope"
+      "palette": "hope",
+      "weather": "rain"
     },
     {
       "id": "shot-26",
@@ -345,7 +346,7 @@
     "theme": "A thing does not need to return to its old shape to become useful again.",
     "emotional_turn": "The cracked cup that could not hold water becomes the first pot in a community garden.",
     "character_bible": "Lead: white round-headed 2D stick figure with articulated limbs, expressive face and a persistent yellow wristband. Helper: same visual construction and scale family, distinguished by a blue scarf. No realistic humans, anime, or character redesign between shots.",
-    "prop_bible": "One pale ceramic cup with a visible zig-zag crack; soil, a single seed, then a sprout and flower. The same cup remains identifiable as it changes function. Every prop must be visibly positioned near a hand or grounded on the floor.",
+    "prop_bible": "One pale ceramic cup with a visible zig-zag crack; soil, a single seed, then a sprout and flower. The same cup remains identifiable as it changes function. During the wind beat it visibly tips onto its side; planting and watering use crouched two-hand contact poses.",
     "narrative_beats": [
       "0–30s: cup leaks immediately; lead tries to patch the crack; visual hook and failure.",
       "30–60s: the cup is discarded; a seed rolls into frame and changes the lead's attention.",
@@ -452,7 +453,7 @@
     },
     "audio_plan": {
       "music": "Original procedural instrumental in five emotional phases: leak/tension, failed repair, discovery, collaboration, bloom/payoff.",
-      "sfx": "Procedurally synthesized ceramic tap, water drops, seed roll, soil pour, rain and soft bloom accent; no third-party samples or existing songs."
+      "sfx": "Procedurally synthesized ceramic taps, timed water drops, seed movement, soil taps and rain hiss, generated from each shot cue; no third-party samples or existing songs."
     }
   },
   "technical_expectations": {
@@ -463,5 +464,39 @@
     "full_decode": true,
     "sha256": true,
     "independent_full_movie_review_required": true
-  }
+  },
+  "repair_history": [
+    {
+      "attempt": "attempt_00",
+      "movie_sha256": "16ed6841688c35ccad7416a6f3706f764a23c4c260a66582bc6ca82f77992250",
+      "result": "CREATIVE_QA_FAILED",
+      "reviewed_evidence": [
+        "encoded 36-shot contact sheet",
+        "actual timeline samples at 25s, 62s, 68s, 80s, 110s, 130s, 165s and 190s",
+        "technical QA report and full-decode flags",
+        "original 210-second procedural score waveform and five harmonic sections"
+      ],
+      "defects": [
+        "plant/water gestures did not visibly contact the cup; hand targets were too far from the prop",
+        "the helper was absent during the offer/soil beat",
+        "the wind caption had no visibly tipped cup",
+        "the rain caption had no visible rain",
+        "procedural audio lacked shot-specific water/soil/rain cues"
+      ],
+      "limitations": [
+        "the available runtime cannot provide an independent human auditory playback review; signal-level checks only"
+      ]
+    },
+    {
+      "attempt": "attempt_01",
+      "changes": [
+        "IK hand targets moved to cup rim for plant/water",
+        "crouch now recomputes knees while feet remain grounded",
+        "helper with blue scarf appears during offer as well as help",
+        "cup tips during wind beat",
+        "rain particles appear in the garden rain beat",
+        "audio generator receives manifest and synthesizes water/soil/rain SFX"
+      ]
+    }
+  ]
 }
