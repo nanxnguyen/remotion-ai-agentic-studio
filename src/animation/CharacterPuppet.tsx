@@ -44,8 +44,35 @@ export const CharacterPuppet: React.FC<{pose: CharacterPose; shadow?: boolean; a
       {seg(pose.knees[0], pose.feet[0], 32, shade)}
       {seg(leftShoulder, pose.elbows[0], 30, shade)}
       {seg(pose.elbows[0], pose.hands[0], 26, shade)}
-      {accessory === 'scarf' && <><path d={`M ${pose.shoulder.x - 44} ${pose.shoulder.y + 10} Q ${pose.shoulder.x} ${pose.shoulder.y + 52} ${pose.shoulder.x + 46} ${pose.shoulder.y + 8}`} stroke={accent} strokeWidth={25} fill="none" strokeLinecap="round"/><path d={`M ${pose.shoulder.x + 34} ${pose.shoulder.y + 20} L ${pose.shoulder.x + 82} ${pose.shoulder.y + 105}`} stroke={accent} strokeWidth={19} fill="none" strokeLinecap="round"/></>}
-      {accessory === 'wristband' && <path d={`M ${pose.hands[0].x - 13} ${pose.hands[0].y - 8} L ${pose.hands[0].x + 13} ${pose.hands[0].y + 8}`} stroke={accent} strokeWidth={16} strokeLinecap="round"/>}
+      {accessory === 'scarf' && (
+        <>
+          <path
+            d={`M ${pose.shoulder.x - 44} ${pose.shoulder.y + 10} Q ${pose.shoulder.x} ${pose.shoulder.y + 52} ${pose.shoulder.x + 46} ${pose.shoulder.y + 8}`}
+            stroke={accent}
+            strokeWidth={32}
+            fill="none"
+            strokeLinecap="round"
+          />
+          <path
+            d={`M ${pose.shoulder.x + 34} ${pose.shoulder.y + 20} L ${pose.shoulder.x + 98} ${pose.shoulder.y + 112}`}
+            stroke={accent}
+            strokeWidth={25}
+            fill="none"
+            strokeLinecap="round"
+          />
+        </>
+      )}
+      {accessory === 'wristband' && (
+        <line
+          x1={pose.elbows[0].x * 0.45 + pose.hands[0].x * 0.55 - 10}
+          y1={pose.elbows[0].y * 0.45 + pose.hands[0].y * 0.55 - 10}
+          x2={pose.elbows[0].x * 0.45 + pose.hands[0].x * 0.55 + 10}
+          y2={pose.elbows[0].y * 0.45 + pose.hands[0].y * 0.55 + 10}
+          stroke={accent}
+          strokeWidth={24}
+          strokeLinecap="round"
+        />
+      )}
       {seg(rightHip, pose.knees[1], 38)}
       {seg(pose.knees[1], pose.feet[1], 34)}
       {seg(pose.hip, pose.shoulder, 70)}
