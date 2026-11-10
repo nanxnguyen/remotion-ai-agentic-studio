@@ -24,8 +24,9 @@ FRAMES_PER_SHOT = 175
 EXPECTED_SHOTS = 36
 EXPECTED_FRAMES = FPS * 210
 WIDTH, HEIGHT = 2560, 1440
-SCENES = {"city", "stairs", "workshop", "bridge", "dawn"}
-ACTIONS = {"walk", "run", "stumble", "reach", "repair", "help", "rise", "pause"}
+SCENES = {"city", "stairs", "workshop", "bridge", "dawn", "garden"}
+ACTIONS = {"walk", "run", "stumble", "reach", "repair", "help", "rise", "pause", "plant", "water", "offer"}
+PROPS = {None, "cracked_cup", "leaking_cup", "empty_cup", "seed", "soil_cup", "planted_cup", "sprout_cup", "flower_cup", "cup_garden"}
 PALETTES = {"cold", "warm", "hope"}
 
 
@@ -46,6 +47,8 @@ def manifest(path: Path) -> dict:
         ids.add(sid)
         if shot.get("action") not in ACTIONS or shot.get("scene") not in SCENES:
             raise ValueError(f"invalid scene/action for {sid}")
+        if shot.get("prop") not in PROPS:
+            raise ValueError(f"invalid story prop for {sid}: {shot.get('prop')!r}")
         caption, highlight = shot.get("caption"), shot.get("highlight")
         if not isinstance(caption, str) or len(caption) > 100 or "\\n" in caption:
             raise ValueError(f"invalid English micro-caption for {sid}")
