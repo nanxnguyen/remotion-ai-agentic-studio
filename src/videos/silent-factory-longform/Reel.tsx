@@ -334,15 +334,7 @@ const CupProp: React.FC<{
         stroke="#718797"
         strokeWidth={9}
       />
-      <ellipse
-        cx={0}
-        cy={-126}
-        rx={62}
-        ry={14}
-        fill="#E4E9E8"
-        stroke="#718797"
-        strokeWidth={8}
-      />
+      <ellipse cx={0} cy={-126} rx={62} ry={14} fill="#E4E9E8" stroke="#718797" strokeWidth={8} />
       <path
         d="M -8 -116 L 8 -90 L -5 -71 L 13 -48 L 2 -28"
         stroke="#8D665C"
@@ -401,12 +393,7 @@ const CupProp: React.FC<{
           fill="#A77A42"
           transform={`rotate(${-25 + Math.sin(time * 3) * 12} 0 0)`}
         />
-        <path
-          d="M -8 -5 Q 0 -18 12 -12"
-          stroke="#D5B27B"
-          strokeWidth={4}
-          fill="none"
-        />
+        <path d="M -8 -5 Q 0 -18 12 -12" stroke="#D5B27B" strokeWidth={4} fill="none" />
       </g>
     );
   }
@@ -425,13 +412,7 @@ const CupProp: React.FC<{
   return (
     <g
       transform={
-        'translate(' +
-        x +
-        ' ' +
-        y +
-        ') rotate(' +
-        (kind === 'tipped_cup' ? 62 : 0) +
-        ' 0 -70)'
+        'translate(' + x + ' ' + y + ') rotate(' + (kind === 'tipped_cup' ? 62 : 0) + ' 0 -70)'
       }
     >
       {kind === 'cup_garden' ? (
@@ -449,9 +430,7 @@ const CupProp: React.FC<{
           <circle cx={300} cy={-42} r={8} />
         </g>
       )}
-      {kind === 'tipped_cup' && (
-        <ellipse cx={-80} cy={-18} rx={40} ry={12} fill="#6A4C3A" />
-      )}
+      {kind === 'tipped_cup' && <ellipse cx={-80} cy={-18} rx={40} ry={12} fill="#6A4C3A" />}
     </g>
   );
 };
