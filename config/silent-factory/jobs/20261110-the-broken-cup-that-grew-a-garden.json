@@ -1,0 +1,467 @@
+{
+  "title": "The Broken Cup That Grew a Garden",
+  "revision": 0,
+  "category": "silent-stick-figure-motivational-short-film",
+  "stage": "BASELINE_ATTEMPT_00_UNREVIEWED",
+  "creative_qa_approved": false,
+  "original_rights_accepted": true,
+  "format": {
+    "aspect_ratio": "16:9",
+    "width": 2560,
+    "height": 1440,
+    "fps": 30,
+    "duration_seconds": 210,
+    "voiceover": false,
+    "character_style": "2D articulated stick figures only"
+  },
+  "shots": [
+    {
+      "id": "shot-01",
+      "scene": "city",
+      "action": "stumble",
+      "caption": "IT LEAKED BEFORE THE FIRST SIP.",
+      "highlight": "FIRST SIP",
+      "prop": "cracked_cup",
+      "palette": "cold"
+    },
+    {
+      "id": "shot-02",
+      "scene": "city",
+      "action": "pause",
+      "caption": "",
+      "highlight": "",
+      "prop": "leaking_cup",
+      "palette": "cold"
+    },
+    {
+      "id": "shot-03",
+      "scene": "workshop",
+      "action": "repair",
+      "caption": "SHE PATCHED THE CRACK.",
+      "highlight": "PATCHED",
+      "prop": "cracked_cup",
+      "palette": "cold"
+    },
+    {
+      "id": "shot-04",
+      "scene": "workshop",
+      "action": "repair",
+      "caption": "",
+      "highlight": "",
+      "palette": "cold"
+    },
+    {
+      "id": "shot-05",
+      "scene": "city",
+      "action": "reach",
+      "caption": "THE WATER FOUND ANOTHER WAY.",
+      "highlight": "ANOTHER WAY",
+      "prop": "leaking_cup",
+      "palette": "cold"
+    },
+    {
+      "id": "shot-06",
+      "scene": "city",
+      "action": "pause",
+      "caption": "",
+      "highlight": "",
+      "prop": "empty_cup",
+      "palette": "cold"
+    },
+    {
+      "id": "shot-07",
+      "scene": "stairs",
+      "action": "walk",
+      "caption": "THE CUP WAS LEFT BEHIND.",
+      "highlight": "LEFT BEHIND",
+      "prop": "empty_cup",
+      "palette": "cold"
+    },
+    {
+      "id": "shot-08",
+      "scene": "city",
+      "action": "pause",
+      "caption": "",
+      "highlight": "",
+      "prop": "seed",
+      "palette": "cold"
+    },
+    {
+      "id": "shot-09",
+      "scene": "city",
+      "action": "reach",
+      "caption": "THEN A SEED ROLLED PAST.",
+      "highlight": "SEED",
+      "prop": "seed",
+      "palette": "cold"
+    },
+    {
+      "id": "shot-10",
+      "scene": "workshop",
+      "action": "plant",
+      "caption": "",
+      "highlight": "",
+      "prop": "soil_cup",
+      "palette": "cold"
+    },
+    {
+      "id": "shot-11",
+      "scene": "workshop",
+      "action": "plant",
+      "caption": "SHE GAVE THE CUP A NEW JOB.",
+      "highlight": "NEW JOB",
+      "prop": "planted_cup",
+      "palette": "warm"
+    },
+    {
+      "id": "shot-12",
+      "scene": "workshop",
+      "action": "water",
+      "caption": "",
+      "highlight": "",
+      "prop": "planted_cup",
+      "palette": "warm"
+    },
+    {
+      "id": "shot-13",
+      "scene": "bridge",
+      "action": "stumble",
+      "caption": "THE WIND KNOCKED IT DOWN.",
+      "highlight": "KNOCKED IT DOWN",
+      "prop": "planted_cup",
+      "palette": "warm"
+    },
+    {
+      "id": "shot-14",
+      "scene": "bridge",
+      "action": "reach",
+      "caption": "",
+      "highlight": "",
+      "prop": "planted_cup",
+      "palette": "warm"
+    },
+    {
+      "id": "shot-15",
+      "scene": "workshop",
+      "action": "plant",
+      "caption": "SHE TRIED AGAIN, MORE GENTLY.",
+      "highlight": "MORE GENTLY",
+      "prop": "planted_cup",
+      "palette": "warm"
+    },
+    {
+      "id": "shot-16",
+      "scene": "workshop",
+      "action": "pause",
+      "caption": "",
+      "highlight": "",
+      "prop": "seed",
+      "palette": "warm"
+    },
+    {
+      "id": "shot-17",
+      "scene": "workshop",
+      "action": "water",
+      "caption": "THE CRACK LET THE WATER THROUGH.",
+      "highlight": "WATER THROUGH",
+      "prop": "planted_cup",
+      "palette": "warm"
+    },
+    {
+      "id": "shot-18",
+      "scene": "city",
+      "action": "help",
+      "caption": "",
+      "highlight": "",
+      "prop": "planted_cup",
+      "palette": "warm"
+    },
+    {
+      "id": "shot-19",
+      "scene": "city",
+      "action": "offer",
+      "caption": "A STRANGER BROUGHT SOME SOIL.",
+      "highlight": "SOME SOIL",
+      "prop": "planted_cup",
+      "palette": "warm"
+    },
+    {
+      "id": "shot-20",
+      "scene": "workshop",
+      "action": "plant",
+      "caption": "",
+      "highlight": "",
+      "prop": "planted_cup",
+      "palette": "warm"
+    },
+    {
+      "id": "shot-21",
+      "scene": "workshop",
+      "action": "help",
+      "caption": "THEY PLANTED IT TOGETHER.",
+      "highlight": "TOGETHER",
+      "prop": "planted_cup",
+      "palette": "warm"
+    },
+    {
+      "id": "shot-22",
+      "scene": "workshop",
+      "action": "water",
+      "caption": "",
+      "highlight": "",
+      "prop": "planted_cup",
+      "palette": "warm"
+    },
+    {
+      "id": "shot-23",
+      "scene": "city",
+      "action": "pause",
+      "caption": "NOTHING GREW THAT DAY.",
+      "highlight": "THAT DAY",
+      "prop": "planted_cup",
+      "palette": "warm"
+    },
+    {
+      "id": "shot-24",
+      "scene": "city",
+      "action": "walk",
+      "caption": "",
+      "highlight": "",
+      "prop": "planted_cup",
+      "palette": "warm"
+    },
+    {
+      "id": "shot-25",
+      "scene": "garden",
+      "action": "water",
+      "caption": "SHE CAME BACK IN THE RAIN.",
+      "highlight": "IN THE RAIN",
+      "prop": "planted_cup",
+      "palette": "hope"
+    },
+    {
+      "id": "shot-26",
+      "scene": "garden",
+      "action": "pause",
+      "caption": "",
+      "highlight": "",
+      "prop": "sprout_cup",
+      "palette": "hope"
+    },
+    {
+      "id": "shot-27",
+      "scene": "garden",
+      "action": "reach",
+      "caption": "A GREEN TIP BROKE THROUGH.",
+      "highlight": "BROKE THROUGH",
+      "prop": "sprout_cup",
+      "palette": "hope"
+    },
+    {
+      "id": "shot-28",
+      "scene": "garden",
+      "action": "water",
+      "caption": "",
+      "highlight": "",
+      "prop": "sprout_cup",
+      "palette": "hope"
+    },
+    {
+      "id": "shot-29",
+      "scene": "garden",
+      "action": "help",
+      "caption": "OTHERS BROUGHT THEIR BROKEN CUPS.",
+      "highlight": "BROKEN CUPS",
+      "prop": "cup_garden",
+      "palette": "hope"
+    },
+    {
+      "id": "shot-30",
+      "scene": "garden",
+      "action": "walk",
+      "caption": "",
+      "highlight": "",
+      "prop": "cup_garden",
+      "palette": "hope"
+    },
+    {
+      "id": "shot-31",
+      "scene": "garden",
+      "action": "offer",
+      "caption": "THEY MADE ROOM FOR EVERY SEED.",
+      "highlight": "EVERY SEED",
+      "prop": "cup_garden",
+      "palette": "hope"
+    },
+    {
+      "id": "shot-32",
+      "scene": "garden",
+      "action": "pause",
+      "caption": "",
+      "highlight": "",
+      "prop": "cup_garden",
+      "palette": "hope"
+    },
+    {
+      "id": "shot-33",
+      "scene": "garden",
+      "action": "rise",
+      "caption": "THE FIRST FLOWER OPENED.",
+      "highlight": "FLOWER OPENED",
+      "prop": "flower_cup",
+      "palette": "hope"
+    },
+    {
+      "id": "shot-34",
+      "scene": "garden",
+      "action": "help",
+      "caption": "THE CUP HAD NOT BEEN USELESS.",
+      "highlight": "NOT BEEN USELESS",
+      "prop": "cup_garden",
+      "palette": "hope"
+    },
+    {
+      "id": "shot-35",
+      "scene": "garden",
+      "action": "walk",
+      "caption": "IT HAD BECOME A PLACE TO GROW.",
+      "highlight": "PLACE TO GROW",
+      "prop": "cup_garden",
+      "palette": "hope"
+    },
+    {
+      "id": "shot-36",
+      "scene": "dawn",
+      "action": "pause",
+      "caption": "SOME THINGS BLOOM THROUGH THE CRACKS.",
+      "highlight": "BLOOM THROUGH THE CRACKS",
+      "prop": "flower_cup",
+      "palette": "hope"
+    }
+  ],
+  "creative_intent": {
+    "logline": "A stick-figure woman cannot stop a cracked cup from leaking, so she gives it a new purpose as a planter; one small sprout inspires a shared garden of imperfect vessels.",
+    "hook": "A cup leaks its water before the first sip; the figure tries to patch it while every drop escapes.",
+    "theme": "A thing does not need to return to its old shape to become useful again.",
+    "emotional_turn": "The cracked cup that could not hold water becomes the first pot in a community garden.",
+    "character_bible": "Lead: white round-headed 2D stick figure with articulated limbs, expressive face and a persistent yellow wristband. Helper: same visual construction and scale family, distinguished by a blue scarf. No realistic humans, anime, or character redesign between shots.",
+    "prop_bible": "One pale ceramic cup with a visible zig-zag crack; soil, a single seed, then a sprout and flower. The same cup remains identifiable as it changes function. Every prop must be visibly positioned near a hand or grounded on the floor.",
+    "narrative_beats": [
+      "0–30s: cup leaks immediately; lead tries to patch the crack; visual hook and failure.",
+      "30–60s: the cup is discarded; a seed rolls into frame and changes the lead's attention.",
+      "60–90s: lead repurposes the cup as a planter; wind knocks it down; she tries again.",
+      "90–120s: a stranger with a blue scarf offers soil; both plant and water the seed.",
+      "120–150s: no immediate result; lead returns through rain; a green tip appears.",
+      "150–180s: others bring broken cups; a tiny shared garden forms.",
+      "180–210s: first flower opens; lead offers it to the helper; the original crack remains visible."
+    ],
+    "concept_selection": {
+      "scoring_scale": "0-100 weighted editorial assessment; not measured audience performance",
+      "weights": {
+        "hook_5s": 15,
+        "emotion": 15,
+        "agency": 15,
+        "twist": 15,
+        "retention": 15,
+        "thumbnail_title": 15,
+        "technical": 10
+      },
+      "candidates": [
+        {
+          "name": "The Broken Cup That Grew a Garden",
+          "score": 92,
+          "breakdown": {
+            "hook_5s": 14,
+            "emotion": 14,
+            "agency": 15,
+            "twist": 14,
+            "retention": 13,
+            "thumbnail_title": 13,
+            "technical": 9
+          },
+          "reason": "One instantly legible leaking prop evolves into a flower and a shared garden; action-led and technically achievable with the existing 2D puppet rig."
+        },
+        {
+          "name": "The Last Light on the Block",
+          "score": 88,
+          "breakdown": {
+            "hook_5s": 13,
+            "emotion": 14,
+            "agency": 14,
+            "twist": 13,
+            "retention": 13,
+            "thumbnail_title": 13,
+            "technical": 8
+          },
+          "reason": "A lone figure relights street lamps for strangers, then discovers the final lamp illuminates their own dark window."
+        },
+        {
+          "name": "The Quiet Apology",
+          "score": 85,
+          "breakdown": {
+            "hook_5s": 12,
+            "emotion": 15,
+            "agency": 13,
+            "twist": 13,
+            "retention": 12,
+            "thumbnail_title": 12,
+            "technical": 8
+          },
+          "reason": "A paper note passes between two estranged figures through visible actions, ending with a repaired shared object."
+        }
+      ],
+      "selected": "The Broken Cup That Grew a Garden",
+      "scores_are_editorial_estimates": true
+    },
+    "thumbnail_concepts": [
+      "A giant cracked white cup leaks blue water while a tiny yellow-wristband stick figure reaches for it; dark navy background and one bright green sprout.",
+      "A split transformation: empty cracked cup on the left, flower-filled cup garden on the right, the two stick figures meeting in the middle.",
+      "Close-up of a blue-scarf helper and yellow-wristband lead placing soil into the cracked cup as the first flower opens behind them."
+    ],
+    "title_alternatives": [
+      "The Broken Cup That Grew a Garden",
+      "She Couldn’t Fix the Cup—So She Gave It a New Purpose",
+      "A Cracked Cup, One Seed, and a New Beginning"
+    ],
+    "description_angle": "A silent 2D stick-figure short film about changing purpose instead of giving up on something imperfect. Told through physical action, with original instrumental music and no voiceover.",
+    "growth_hypotheses": [
+      "The immediate leak in the first five seconds may make the conflict understandable without dialogue; validate using audience retention at 0:05.",
+      "The cup-to-flower transformation may improve completion and rewatch; validate against average percentage viewed and retention dips.",
+      "The two-character garden payoff may invite sharing; validate with shares per view and qualitative comments."
+    ],
+    "trend_research": {
+      "checked_at": "2026-11-10",
+      "sources": [
+        {
+          "url": "https://blog.youtube/culture-and-trends/the-evolution-of-web-series-on-youtube-microdramas/",
+          "published": "2026-10-27",
+          "finding": "YouTube reports 6.5B microdrama views in H1 2026 and over 70% year-over-year growth in APAC-related views; evidence supports concise emotional serial storytelling, not a guarantee for this 16:9 film."
+        },
+        {
+          "url": "https://trendreport.com/topic/stickman-animation/",
+          "published": "2026-11-07",
+          "finding": "Third-party weekly tracker shows stickman animation demand at 2.93M on-topic views/day for week 2026-11-06, down 18% versus 30 days earlier; category is crowded and broad demand is soft."
+        },
+        {
+          "url": "https://trendreport.com/topic/inspiring-animated-films/",
+          "published": "2026-11-03",
+          "finding": "Third-party weekly tracker shows inspiring animated films at 386K on-topic views/day, down 12% versus 28 days earlier; a distinct visual metaphor is preferable to a generic motivational message."
+        }
+      ],
+      "conclusion": "Do not chase generic stickman volume. Use a specific visual metaphor, a fast emotional hook, and a satisfying object transformation."
+    },
+    "audio_plan": {
+      "music": "Original procedural instrumental in five emotional phases: leak/tension, failed repair, discovery, collaboration, bloom/payoff.",
+      "sfx": "Procedurally synthesized ceramic tap, water drops, seed roll, soil pour, rain and soft bloom accent; no third-party samples or existing songs."
+    }
+  },
+  "technical_expectations": {
+    "duration_seconds": 210,
+    "frames": 6300,
+    "shots": 36,
+    "captions": 20,
+    "full_decode": true,
+    "sha256": true,
+    "independent_full_movie_review_required": true
+  }
+}
