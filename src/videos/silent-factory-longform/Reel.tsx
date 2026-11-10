@@ -38,7 +38,9 @@ export type FilmShot = {
     | 'planted_cup'
     | 'sprout_cup'
     | 'flower_cup'
-    | 'cup_garden';
+    | 'cup_garden'
+    | 'tipped_cup';
+  weather?: 'rain';
 };
 export type FilmProps = {title: string; shots: FilmShot[]};
 const W = 1920;
@@ -66,22 +68,33 @@ function expressivePose(action: StickAction, time: number, index: number): Chara
   const shoulder = point(base.shoulder, lean, drop + crouch);
   const hip = point(base.hip, lean * 0.3, drop * 0.55 + crouch * 0.65);
   const head = point(base.head, lean, drop + crouch);
-  const arm = (side: 0 | 1): Point => {
+  const handTarget = (side: 0 | 1): Point => {
+    if (action === 'plant' || action === 'water') {
+      return {
+        x: hip.x + (side === 0 ? 55 : 150),
+        y: FLOOR - (action === 'water' && side === 1 ? 155 : 125),
+      };
+    }
+    if (action === 'offer') {
+      return {x: hip.x + (side === 0 ? 105 : 160), y: hip.y + 15};
+    }
     const dir = side === 0 ? -1 : 1;
-    const rise =
-      action === 'reach' || action === 'help' || action === 'offer' ? 185 * lift : 0;
-    const lower = action === 'plant' || action === 'water' ? 105 * lift : 0;
+    const rise = action === 'reach' || action === 'help' ? 185 * lift : 0;
     const activity = action === 'repair' ? 110 * (0.5 + 0.5 * Math.sin(time * 8)) : 0;
-    const offer = action === 'help' || action === 'offer' ? 78 : 0;
+    const offer = action === 'help' ? 78 : 0;
     return point(
       base.hands[side],
       dir * (activity * 0.3 + offer) + lean,
-      -rise + lower + activity * 0.45 + drop * 0.3,
+      -rise + activity * 0.45 + drop * 0.3,
     );
   };
-  const hands: readonly [Point, Point] = [arm(0), arm(1)];
-  const left = solveTwoBone(point(shoulder, -28, 0), hands[0], 103, 100, -1);
-  const right = solveTwoBone(point(shoulder, 28, 0), hands[1], 103, 100, 1);
+  const targets: readonly [Point, Point] = [handTarget(0), handTarget(1)];
+  const left = solveTwoBone(point(shoulder, -28, 0), targets[0], 103, 100, -1);
+  const right = solveTwoBone(point(shoulder, 28, 0), targets[1], 103, 100, 1);
+  const knees: readonly [Point, Point] = [
+    solveTwoBone(point(hip, -22, 0), base.feet[0], 153, 150, -1).joint,
+    solveTwoBone(point(hip, 22, 0), base.feet[1], 153, 150, -1).joint,
+  ];
   return {
     ...base,
     shoulder,
@@ -89,6 +102,7 @@ function expressivePose(action: StickAction, time: number, index: number): Chara
     head,
     hands: [left.end, right.end],
     elbows: [left.joint, right.joint],
+    knees,
     expression:
       action === 'stumble' || action === 'pause'
         ? 'tired'
@@ -97,12 +111,12 @@ function expressivePose(action: StickAction, time: number, index: number): Chara
           : 'calm',
   };
 }
-
-const Backdrop: React.FC<{scene: StickScene; index: number; time: number}> = ({
-  scene,
-  index,
-  time,
-}) => {
+const Backdrop: React.FC<{
+  scene: StickScene;
+  index: number;
+  time: number;
+  weather?: FilmShot['weather'];
+}> = ({scene, index, time, weather}) => {
   const dawn = scene === 'dawn';
   const garden = scene === 'garden';
   const warm = dawn || scene === 'workshop' || garden;
@@ -244,6 +258,15 @@ const Backdrop: React.FC<{scene: StickScene; index: number; time: number}> = ({
           />
         </g>
       )}
+      {weather === 'rain' && (
+        <g stroke="#B8DCE9" strokeWidth={5} opacity={0.45}>
+          {Array.from({length: 70}, (_, i) => {
+            const x = (i * 127 + time * 380) % W;
+            const y = (i * 83) % 760;
+            return <line key={i} x1={x} y1={y} x2={x - 35} y2={y + 76} />;
+          })}
+        </g>
+      )}
     </>
   );
 };
@@ -369,7 +392,7 @@ const CupProp: React.FC<{
   );
   if (kind === 'seed') {
     return (
-      <g transform={'translate(' + (x - 120) + ' ' + (y - 18) + ')'}>
+      <g transform={'translate(' + (x - 70) + ' ' + (y - 18) + ')'}>
         <ellipse
           cx={0}
           cy={0}
@@ -400,7 +423,17 @@ const CupProp: React.FC<{
               ? 'flower'
               : 'soil';
   return (
-    <g transform={'translate(' + x + ' ' + y + ')'}>
+    <g
+      transform={
+        'translate(' +
+        x +
+        ' ' +
+        y +
+        ') rotate(' +
+        (kind === 'tipped_cup' ? 62 : 0) +
+        ' 0 -70)'
+      }
+    >
       {kind === 'cup_garden' ? (
         <>
           {pot(-210, 'flower')}
@@ -415,6 +448,9 @@ const CupProp: React.FC<{
           <circle cx={-300} cy={-36} r={8} />
           <circle cx={300} cy={-42} r={8} />
         </g>
+      )}
+      {kind === 'tipped_cup' && (
+        <ellipse cx={-80} cy={-18} rx={40} ry={12} fill="#6A4C3A" />
       )}
     </g>
   );
@@ -439,13 +475,13 @@ export const SilentFactoryReel: React.FC<FilmProps> = ({shots}) => {
         height="100%"
         preserveAspectRatio="xMidYMid slice"
       >
-        <Backdrop scene={shot.scene} index={index} time={time} />
+        <Backdrop scene={shot.scene} index={index} time={time} weather={shot.weather} />
         <g
           transform={
             'translate(' + dx + ' 0) translate(960 540) scale(' + zoom + ') translate(-960 -540)'
           }
         >
-          <CupProp kind={shot.prop} x={hero.hip.x + 150} y={FLOOR - 8} time={time} />
+          <CupProp kind={shot.prop} x={hero.hip.x + 100} y={FLOOR - 8} time={time} />
           <CharacterPuppet pose={hero} accessory="wristband" accent="#F2C46E" />
           {shot.action === 'repair' && (
             <g opacity={0.9 + 0.1 * wave}>
@@ -468,7 +504,7 @@ export const SilentFactoryReel: React.FC<FilmProps> = ({shots}) => {
               />
             </g>
           )}
-          {shot.action === 'help' && (
+          {(shot.action === 'help' || shot.action === 'offer') && (
             <g transform={'translate(360 80) scale(0.70)'}>
               <CharacterPuppet
                 pose={expressivePose('help', time * 0.5, index + 2)}
