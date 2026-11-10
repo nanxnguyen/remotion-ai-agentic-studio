@@ -17,8 +17,11 @@ export type StickAction =
   | 'repair'
   | 'help'
   | 'rise'
-  | 'pause';
-export type StickScene = 'city' | 'stairs' | 'workshop' | 'bridge' | 'dawn';
+  | 'pause'
+  | 'plant'
+  | 'water'
+  | 'offer';
+export type StickScene = 'city' | 'stairs' | 'workshop' | 'bridge' | 'dawn' | 'garden';
 export type FilmShot = {
   id: string;
   action: StickAction;
@@ -26,6 +29,7 @@ export type FilmShot = {
   caption: string;
   highlight: string;
   palette?: 'cold' | 'warm' | 'hope';
+  prop?: 'cracked_cup' | 'leaking_cup' | 'empty_cup' | 'seed' | 'soil_cup' | 'planted_cup' | 'sprout_cup' | 'flower_cup' | 'cup_garden';
 };
 export type FilmProps = {title: string; shots: FilmShot[]};
 const W = 1920;
@@ -47,20 +51,22 @@ function expressivePose(action: StickAction, time: number, index: number): Chara
     mode: action === 'run' ? 'run' : 'walk',
   });
   const lift = Math.sin(clamp(time / 5.83) * Math.PI);
+  const crouch = action === 'plant' || action === 'water' ? 92 * lift : 0;
   const drop = action === 'stumble' ? 95 * lift : action === 'pause' ? 25 * lift : 0;
   const lean = action === 'stumble' ? 90 * lift : action === 'reach' ? 24 * lift : 0;
-  const shoulder = point(base.shoulder, lean, drop);
-  const hip = point(base.hip, lean * 0.3, drop * 0.55);
-  const head = point(base.head, lean, drop);
+  const shoulder = point(base.shoulder, lean, drop + crouch);
+  const hip = point(base.hip, lean * 0.3, drop * 0.55 + crouch * 0.65);
+  const head = point(base.head, lean, drop + crouch);
   const arm = (side: 0 | 1): Point => {
     const dir = side === 0 ? -1 : 1;
-    const rise = action === 'reach' || action === 'help' ? 185 * lift : 0;
+    const rise = action === 'reach' || action === 'help' || action === 'offer' ? 185 * lift : 0;
+    const lower = action === 'plant' || action === 'water' ? 105 * lift : 0;
     const activity = action === 'repair' ? 110 * (0.5 + 0.5 * Math.sin(time * 8)) : 0;
-    const offer = action === 'help' ? 78 : 0;
+    const offer = action === 'help' || action === 'offer' ? 78 : 0;
     return point(
       base.hands[side],
       dir * (activity * 0.3 + offer) + lean,
-      -rise + activity * 0.45 + drop * 0.3,
+      -rise + lower + activity * 0.45 + drop * 0.3,
     );
   };
   const hands: readonly [Point, Point] = [arm(0), arm(1)];
@@ -76,7 +82,7 @@ function expressivePose(action: StickAction, time: number, index: number): Chara
     expression:
       action === 'stumble' || action === 'pause'
         ? 'tired'
-        : ['repair', 'run', 'reach'].includes(action)
+        : ['repair', 'run', 'reach', 'plant', 'water'].includes(action)
           ? 'focused'
           : 'calm',
   };
@@ -88,9 +94,10 @@ const Backdrop: React.FC<{scene: StickScene; index: number; time: number}> = ({
   time,
 }) => {
   const dawn = scene === 'dawn';
-  const warm = dawn || scene === 'workshop';
-  const sky = dawn ? '#456079' : warm ? '#253244' : '#0C172A';
-  const ground = warm ? '#263B4B' : '#14243A';
+  const garden = scene === 'garden';
+  const warm = dawn || scene === 'workshop' || garden;
+  const sky = dawn ? '#456079' : garden ? '#314B59' : warm ? '#253244' : '#0C172A';
+  const ground = garden ? '#304B3E' : warm ? '#263B4B' : '#14243A';
   const parallax = Math.sin(time * 0.23 + index * 0.2) * 24;
   return (
     <>
@@ -187,6 +194,14 @@ const Backdrop: React.FC<{scene: StickScene; index: number; time: number}> = ({
           opacity={0.5}
         />
       )}
+      {garden && (
+        <g>
+          <path d="M 0 760 Q 420 700 860 760 T 1920 735 L 1920 865 L 0 865 Z" fill="#466B4F" opacity={0.8}/>
+          {Array.from({length: 18}, (_, i) => <path key={i} d={`M ${i * 118 + 20} 865 q -18 -44 -2 -72 q 22 26 2 72 q 18 -35 40 -42`} stroke="#8FC58A" strokeWidth={8} fill="none" strokeLinecap="round" opacity={0.8}/>)}
+          <rect x={120} y={805} width={410} height={65} rx={18} fill="#725847" stroke="#B28B69" strokeWidth={8}/>
+          <rect x={1380} y={805} width={410} height={65} rx={18} fill="#725847" stroke="#B28B69" strokeWidth={8}/>
+        </g>
+      )}
     </>
   );
 };
@@ -239,6 +254,27 @@ const Caption: React.FC<{shot: FilmShot; local: number}> = ({shot, local}) => {
   );
 };
 
+const CupProp: React.FC<{kind?: FilmShot['prop']; x: number; y: number; time: number}> = ({kind, x, y, time}) => {
+  if (!kind) return null;
+  const pot = (offset: number, stage: string) => (
+    <g transform={'translate(' + offset + ' 0)'}>
+      <path d="M -62 -126 L 62 -126 L 47 -10 Q 0 13 -47 -10 Z" fill="#C9D2D5" stroke="#718797" strokeWidth={9}/>
+      <ellipse cx={0} cy={-126} rx={62} ry={14} fill="#E4E9E8" stroke="#718797" strokeWidth={8}/>
+      <path d="M -8 -116 L 8 -90 L -5 -71 L 13 -48 L 2 -28" stroke="#8D665C" strokeWidth={8} fill="none" strokeLinecap="round"/>
+      {stage === 'leak' && <g fill="#8BD6E7" opacity={0.9}><path d={'M 42 -18 q 18 18 0 34 q -18 -16 0 -34'} transform={'translate(0 ' + (Math.sin(time * 4) * 7) + ')'} /><path d={'M -44 -2 q 13 14 0 25 q -13 -12 0 -25'} transform={'translate(0 ' + (Math.sin(time * 3 + 1) * 8) + ')'} /></g>}
+      {(stage === 'soil' || stage === 'sprout' || stage === 'flower') && <ellipse cx={0} cy={-126} rx={55} ry={11} fill="#6A4C3A"/>}
+      {(stage === 'sprout' || stage === 'flower') && <g stroke="#77B77A" strokeWidth={9} fill="none" strokeLinecap="round"><path d="M 0 -132 Q -4 -174 0 -205"/><path d="M -2 -166 Q -43 -198 -56 -175"/><path d="M 2 -183 Q 42 -218 58 -193"/></g>}
+      {stage === 'flower' && <g transform="translate(0 -214)"><circle r={13} fill="#F2C46E"/>{Array.from({length:6},(_,i)=><ellipse key={i} cx={0} cy={-24} rx={13} ry={23} fill="#E99AAB" transform={'rotate('+(i*60)+' 0 0)'}/>)}</g>}
+      {stage === 'seed' && <ellipse cx={0} cy={-140} rx={12} ry={7} fill="#A77A42" transform="rotate(-28 0 -140)"/>}
+    </g>
+  );
+  const stage = kind === 'leaking_cup' || kind === 'cracked_cup' ? 'leak' : kind === 'seed' ? 'seed' : kind === 'soil_cup' || kind === 'planted_cup' ? 'soil' : kind === 'sprout_cup' ? 'sprout' : kind === 'flower_cup' ? 'flower' : 'soil';
+  return <g transform={'translate(' + x + ' ' + y + ')'}>
+    {kind === 'cup_garden' ? <>{pot(-210, 'flower')}{pot(0, 'sprout')}{pot(210, 'flower')}</> : pot(0, stage)}
+    {kind === 'cup_garden' && <g fill="#F0C66F"><circle cx={-300} cy={-36} r={8}/><circle cx={300} cy={-42} r={8}/></g>}
+  </g>;
+};
+
 export const SilentFactoryReel: React.FC<FilmProps> = ({shots}) => {
   const frame = useCurrentFrame();
   const index = Math.min(FILM_SHOTS - 1, Math.floor(frame / SHOT_FRAMES));
@@ -264,7 +300,8 @@ export const SilentFactoryReel: React.FC<FilmProps> = ({shots}) => {
             'translate(' + dx + ' 0) translate(960 540) scale(' + zoom + ') translate(-960 -540)'
           }
         >
-          <CharacterPuppet pose={hero} />
+          <CupProp kind={shot.prop} x={hero.hip.x + 150} y={FLOOR - 8} time={time} />
+          <CharacterPuppet pose={hero} accessory="wristband" accent="#F2C46E" />
           {shot.action === 'repair' && (
             <g opacity={0.9 + 0.1 * wave}>
               <rect
@@ -289,8 +326,10 @@ export const SilentFactoryReel: React.FC<FilmProps> = ({shots}) => {
           {shot.action === 'help' && (
             <g transform={'translate(360 80) scale(0.70)'}>
               <CharacterPuppet
-                pose={expressivePose('pause', time * 0.5, index + 2)}
+                pose={expressivePose('help', time * 0.5, index + 2)}
                 shadow={false}
+                accessory="scarf"
+                accent="#78BDE8"
               />
             </g>
           )}
