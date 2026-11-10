@@ -268,7 +268,8 @@ const CupProp: React.FC<{kind?: FilmShot['prop']; x: number; y: number; time: nu
       {stage === 'seed' && <ellipse cx={0} cy={-140} rx={12} ry={7} fill="#A77A42" transform="rotate(-28 0 -140)"/>}
     </g>
   );
-  const stage = kind === 'leaking_cup' || kind === 'cracked_cup' ? 'leak' : kind === 'seed' ? 'seed' : kind === 'soil_cup' || kind === 'planted_cup' ? 'soil' : kind === 'sprout_cup' ? 'sprout' : kind === 'flower_cup' ? 'flower' : 'soil';
+  if (kind === 'seed') return <g transform={'translate(' + (x - 120) + ' ' + (y - 18) + ')'}><ellipse cx={0} cy={0} rx={17} ry={10} fill="#A77A42" transform={`rotate(${-25 + Math.sin(time * 3) * 12} 0 0)`}/><path d="M -8 -5 Q 0 -18 12 -12" stroke="#D5B27B" strokeWidth={4} fill="none"/></g>;
+  const stage = kind === 'leaking_cup' || kind === 'cracked_cup' ? 'leak' : kind === 'empty_cup' ? 'empty' : kind === 'soil_cup' || kind === 'planted_cup' ? 'soil' : kind === 'sprout_cup' ? 'sprout' : kind === 'flower_cup' ? 'flower' : 'soil';
   return <g transform={'translate(' + x + ' ' + y + ')'}>
     {kind === 'cup_garden' ? <>{pot(-210, 'flower')}{pot(0, 'sprout')}{pot(210, 'flower')}</> : pot(0, stage)}
     {kind === 'cup_garden' && <g fill="#F0C66F"><circle cx={-300} cy={-36} r={8}/><circle cx={300} cy={-42} r={8}/></g>}
