@@ -1,0 +1,23 @@
+{
+  "slug": "retro-tv-v6",
+  "title": "Thành Công Từ Thói Quen Nhỏ — Retro TV Edition",
+  "file": "Thanh_Cong_Tu_Thoi_Quen_Nho_Retro_TV_V6.mp4",
+  "duration": 25.333333,
+  "frames": 760,
+  "resolution": "1080x1920",
+  "fps": 30,
+  "video_codec": "h264",
+  "audio_codec": "aac",
+  "file_size_bytes": 7238440,
+  "sha256": "5280b2dd7f3da2e5e093e24834b7fc1713609cdc5782ddbed681f387df76658c",
+  "voice": "Existing genuine Vbee Ngọc Huyền narration from V5.1",
+  "render_method": "FFmpeg curved CRT matte compositing",
+  "qa": {
+    "full_decode": true,
+    "ffprobe": true,
+    "contact_sheet": true,
+    "remotion_render": false
+  },
+  "github_release_uploaded": false,
+  "github_video_url": null
+}
