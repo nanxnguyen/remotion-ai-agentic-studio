@@ -1,0 +1,68 @@
+name: Laundry CTA genuine Vbee (Luxury Cinematic)
+
+on:
+  push:
+    branches:
+      - feat/tiem-giat-ui-nhan-do-tu-ngay-mai-v2
+    paths:
+      - .github/workflows/laundry-v6-luxury-cta-vbee.yml
+      - docs/tiem-giat-ui-nhan-do-tu-ngay-mai/v6/cta-vbee-scene.json
+      - scripts/gen-laundry-vbee.py
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  cta-narration:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      VBEE_ACCESS_TOKEN: ${{ secrets.VBEE_ACCESS_TOKEN || secrets.VBEE_TOKEN || secrets.VBEE_API_KEY || secrets.VBEE_API_TOKEN }}
+      VBEE_APP_ID: ${{ secrets.VBEE_APP_ID || secrets.VBEE_APPID || secrets.VBEE_APPLICATION_ID }}
+      VBEE_WEBHOOK_URL: ${{ vars.VBEE_WEBHOOK_URL || 'https://example.com/laundry-v6-luxury-cta' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install ffprobe and check required credentials
+        shell: bash
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y ffmpeg >/dev/null
+          test -n "$VBEE_ACCESS_TOKEN"
+          test -n "$VBEE_APP_ID"
+      - name: Generate single Vbee Batch CTA clip, no fallback voice
+        shell: bash
+        run: |
+          python3 -m py_compile scripts/gen-laundry-vbee.py
+          python3 scripts/gen-laundry-vbee.py \
+            --timeline docs/tiem-giat-ui-nhan-do-tu-ngay-mai/v6/cta-vbee-scene.json \
+            --out-dir public/audio/tiem-giat-ui-v6-cta \
+            --voice-code hn_male_phuthang_stor_24k-stl \
+            --speed 0.98 \
+            --webhook-url "$VBEE_WEBHOOK_URL"
+      - name: Validate genuine CTA and duration
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import json, hashlib, pathlib
+          p=pathlib.Path("public/audio/tiem-giat-ui-v6-cta")
+          entries=json.loads((p/"measured-timeline.json").read_text())
+          assert len(entries)==1
+          item=entries[0]
+          assert item["id"]==17 and item["voice_code"]=="hn_male_phuthang_stor_24k-stl"
+          audio=p/item["audio_file"]
+          assert audio.stat().st_size>1000
+          assert hashlib.sha256(audio.read_bytes()).hexdigest()==item["sha256"]
+          assert 1<float(item["audio_seconds"])<=4.7, f"CTA exceeds five-second window with safety buffer: {item['audio_seconds']}"
+          print(f"Genuine Vbee CTA verified: {item['audio_seconds']} seconds.")
+          PY
+      - name: Upload verified original narration
+        uses: actions/upload-artifact@v4
+        with:
+          name: laundry-v6-luxury-cta-vbee
+          path: public/audio/tiem-giat-ui-v6-cta/
+          retention-days: 10
+          if-no-files-found: error
