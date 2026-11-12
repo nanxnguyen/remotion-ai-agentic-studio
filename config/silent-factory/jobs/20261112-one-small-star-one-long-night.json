@@ -1,0 +1,550 @@
+{
+  "title": "One Small Star, One Long Night",
+  "revision": 0,
+  "category": "original-silent-2d-stick-figure-motivational-film",
+  "stage": "BASELINE_RENDER_PENDING_UNREVIEWED",
+  "creative_qa_approved": false,
+  "qa_approved": false,
+  "creative_qa_passed": false,
+  "creative_qa_override": false,
+  "original_rights_accepted": true,
+  "format": {
+    "aspect_ratio": "16:9",
+    "width": 2560,
+    "height": 1440,
+    "fps": 30,
+    "duration_seconds": 210,
+    "total_frames": 6300,
+    "shots": 36,
+    "frames_per_shot": 175,
+    "voiceover": false,
+    "dialogue": false,
+    "caption_burn_in": true,
+    "character_style": "2D articulated stick figures only"
+  },
+  "runtime_constraints": {
+    "model": "GPT-6 requested",
+    "thinking_effort": "EXTRA HIGH requested; not enforceable through the available Automations API and not verified at runtime",
+    "project_context": "AI Edition Video Project attachment could not be verified or changed through an API; used accessible repository documentation and prior project context",
+    "plugin_requirement": "Silent Animation Factory V1.7.0+ requested; skills registry returned no installed skills and repository main does not contain the plugin package/references. V1.7 compliance is therefore not claimed; executor work follows the repository's V1.6 contract."
+  },
+  "shots": [
+    {
+      "id": "shot-01",
+      "scene": "city",
+      "action": "reach",
+      "caption": "A STAR FELL INTO THE DARK.",
+      "highlight": "FELL INTO THE DARK",
+      "prop": "falling_star",
+      "palette": "cold"
+    },
+    {
+      "id": "shot-02",
+      "scene": "city",
+      "action": "reach",
+      "caption": "",
+      "highlight": "",
+      "prop": "paper_star",
+      "palette": "cold"
+    },
+    {
+      "id": "shot-03",
+      "scene": "stairs",
+      "action": "walk",
+      "caption": "SHE CAUGHT IT BEFORE IT HIT.",
+      "highlight": "CAUGHT IT",
+      "prop": "paper_star",
+      "palette": "cold"
+    },
+    {
+      "id": "shot-04",
+      "scene": "city",
+      "action": "pause",
+      "caption": "",
+      "highlight": "",
+      "prop": "torn_star",
+      "palette": "cold"
+    },
+    {
+      "id": "shot-05",
+      "scene": "bridge",
+      "action": "stumble",
+      "caption": "THE STORM TORE IT APART.",
+      "highlight": "TORE IT APART",
+      "prop": "torn_star",
+      "palette": "cold",
+      "weather": "rain"
+    },
+    {
+      "id": "shot-06",
+      "scene": "workshop",
+      "action": "repair",
+      "caption": "",
+      "highlight": "",
+      "prop": "blank_page",
+      "palette": "cold"
+    },
+    {
+      "id": "shot-07",
+      "scene": "workshop",
+      "action": "repair",
+      "caption": "SHE FOLDED ANOTHER FROM SCRATCH.",
+      "highlight": "FROM SCRATCH",
+      "prop": "blank_page",
+      "palette": "cold"
+    },
+    {
+      "id": "shot-08",
+      "scene": "workshop",
+      "action": "repair",
+      "caption": "",
+      "highlight": "",
+      "prop": "folded_star",
+      "palette": "cold"
+    },
+    {
+      "id": "shot-09",
+      "scene": "workshop",
+      "action": "stumble",
+      "caption": "ONE POINT KEPT COLLAPSING.",
+      "highlight": "KEPT COLLAPSING",
+      "prop": "torn_star",
+      "palette": "cold"
+    },
+    {
+      "id": "shot-10",
+      "scene": "city",
+      "action": "walk",
+      "caption": "",
+      "highlight": "",
+      "prop": "paper_star",
+      "palette": "cold"
+    },
+    {
+      "id": "shot-11",
+      "scene": "stairs",
+      "action": "reach",
+      "caption": "SHE CARRIED IT ABOVE THE STREET.",
+      "highlight": "ABOVE THE STREET",
+      "prop": "paper_star",
+      "palette": "cold"
+    },
+    {
+      "id": "shot-12",
+      "scene": "bridge",
+      "action": "walk",
+      "caption": "",
+      "highlight": "",
+      "prop": "paper_star",
+      "palette": "cold"
+    },
+    {
+      "id": "shot-13",
+      "scene": "bridge",
+      "action": "stumble",
+      "caption": "THE STRING SNAPPED AGAIN.",
+      "highlight": "SNAPPED AGAIN",
+      "prop": "torn_star",
+      "palette": "cold",
+      "weather": "rain"
+    },
+    {
+      "id": "shot-14",
+      "scene": "stairs",
+      "action": "pause",
+      "caption": "",
+      "highlight": "",
+      "prop": "torn_star",
+      "palette": "cold"
+    },
+    {
+      "id": "shot-15",
+      "scene": "workshop",
+      "action": "repair",
+      "caption": "SHE ALMOST STOPPED TRYING.",
+      "highlight": "STOPPED TRYING",
+      "prop": "blank_page",
+      "palette": "cold"
+    },
+    {
+      "id": "shot-16",
+      "scene": "workshop",
+      "action": "pause",
+      "caption": "",
+      "highlight": "",
+      "prop": "blank_page",
+      "palette": "cold"
+    },
+    {
+      "id": "shot-17",
+      "scene": "workshop",
+      "action": "help",
+      "caption": "THEN SOMEONE HELD THE PAPER STILL.",
+      "highlight": "HELD THE PAPER STILL",
+      "prop": "blank_page",
+      "palette": "warm"
+    },
+    {
+      "id": "shot-18",
+      "scene": "workshop",
+      "action": "repair",
+      "caption": "",
+      "highlight": "",
+      "prop": "folded_star",
+      "palette": "warm"
+    },
+    {
+      "id": "shot-19",
+      "scene": "workshop",
+      "action": "help",
+      "caption": "THEY FOLDED ONE TOGETHER.",
+      "highlight": "TOGETHER",
+      "prop": "paper_star",
+      "palette": "warm"
+    },
+    {
+      "id": "shot-20",
+      "scene": "bridge",
+      "action": "walk",
+      "caption": "",
+      "highlight": "",
+      "prop": "paper_star",
+      "palette": "warm"
+    },
+    {
+      "id": "shot-21",
+      "scene": "bridge",
+      "action": "offer",
+      "caption": "THEN THEY MADE A SECOND.",
+      "highlight": "MADE A SECOND",
+      "prop": "star_chain",
+      "palette": "warm"
+    },
+    {
+      "id": "shot-22",
+      "scene": "bridge",
+      "action": "walk",
+      "caption": "",
+      "highlight": "",
+      "prop": "star_chain",
+      "palette": "warm"
+    },
+    {
+      "id": "shot-23",
+      "scene": "city",
+      "action": "offer",
+      "caption": "A STRING CONNECTED THE STARS.",
+      "highlight": "CONNECTED THE STARS",
+      "prop": "star_chain",
+      "palette": "warm"
+    },
+    {
+      "id": "shot-24",
+      "scene": "city",
+      "action": "pause",
+      "caption": "",
+      "highlight": "",
+      "prop": "star_chain",
+      "palette": "warm"
+    },
+    {
+      "id": "shot-25",
+      "scene": "stairs",
+      "action": "reach",
+      "caption": "THE FIRST WINDOW LIT UP.",
+      "highlight": "LIT UP",
+      "prop": "star_chain",
+      "palette": "hope"
+    },
+    {
+      "id": "shot-26",
+      "scene": "city",
+      "action": "pause",
+      "caption": "",
+      "highlight": "",
+      "prop": "window_stars",
+      "palette": "hope"
+    },
+    {
+      "id": "shot-27",
+      "scene": "city",
+      "action": "reach",
+      "caption": "A SECOND WINDOW ANSWERED.",
+      "highlight": "SECOND WINDOW",
+      "prop": "window_stars",
+      "palette": "hope"
+    },
+    {
+      "id": "shot-28",
+      "scene": "bridge",
+      "action": "walk",
+      "caption": "",
+      "highlight": "",
+      "prop": "star_chain",
+      "palette": "hope"
+    },
+    {
+      "id": "shot-29",
+      "scene": "city",
+      "action": "offer",
+      "caption": "THE STREET WAS STILL DARK.",
+      "highlight": "STILL DARK",
+      "prop": "window_stars",
+      "palette": "hope"
+    },
+    {
+      "id": "shot-30",
+      "scene": "city",
+      "action": "pause",
+      "caption": "",
+      "highlight": "",
+      "prop": "window_stars",
+      "palette": "hope"
+    },
+    {
+      "id": "shot-31",
+      "scene": "dawn",
+      "action": "walk",
+      "caption": "BUT NO LONGER EMPTY.",
+      "highlight": "NO LONGER EMPTY",
+      "prop": "window_stars",
+      "palette": "hope"
+    },
+    {
+      "id": "shot-32",
+      "scene": "dawn",
+      "action": "help",
+      "caption": "",
+      "highlight": "",
+      "prop": "star_chain",
+      "palette": "hope"
+    },
+    {
+      "id": "shot-33",
+      "scene": "dawn",
+      "action": "offer",
+      "caption": "SHE LEFT ONE FOR THE NEXT HAND.",
+      "highlight": "NEXT HAND",
+      "prop": "paper_star",
+      "palette": "hope"
+    },
+    {
+      "id": "shot-34",
+      "scene": "dawn",
+      "action": "pause",
+      "caption": "",
+      "highlight": "",
+      "prop": "blank_page",
+      "palette": "hope"
+    },
+    {
+      "id": "shot-35",
+      "scene": "dawn",
+      "action": "reach",
+      "caption": "",
+      "highlight": "",
+      "prop": "paper_star",
+      "palette": "hope"
+    },
+    {
+      "id": "shot-36",
+      "scene": "dawn",
+      "action": "pause",
+      "caption": "ONE SMALL LIGHT CAN TRAVEL WHEN WE SHARE IT.",
+      "highlight": "SHARE IT",
+      "prop": "window_stars",
+      "palette": "hope"
+    }
+  ],
+  "creative_intent": {
+    "logline": "In a city where every window is dark, a lone stick figure catches a falling paper star, struggles to keep it intact, then learns to build a string of stars with a stranger. One small light becomes a shared signal that the night is not empty.",
+    "hook": "A single paper star drops through a dark city. The yellow-wristband figure reaches up and catches it just before it hits the pavement.",
+    "hook_candidates": [
+      "A paper star falls through a dark city; a stick figure catches it before it hits the street.",
+      "The only bright thing in the city tears apart in the wind.",
+      "A tiny paper star lights one window—and a second window answers."
+    ],
+    "selected_hook": 1,
+    "theme": "You do not have to brighten the whole world. One small act can help someone else take the next step.",
+    "emotional_turn": "The protagonist's solo attempt keeps failing; a blue-scarf stranger steadies the paper, and the final star chain becomes a shared signal across two dark windows.",
+    "ending_payoff": "The lead leaves one blank sheet by the window for the next person to fold, turning the ending into an invitation rather than a lecture.",
+    "character_bible": "Lead: white round-headed 2D stick figure, expressive dot eyes and mouth, thin articulated arms and legs, consistent rig and one yellow wristband. Secondary: same white stick-figure construction and scale family, distinguished only by a blue scarf. Both remain 2D articulated stick figures; no anime, photoreal people, or redesign.",
+    "prop_bible": "A small cream paper star with visible fold creases, a torn version, blank square paper, a short string, a three-star chain, and a dark window that becomes a warm star-lit window. Paper-star props are attached near the lead's active hand; the window prop is staged separately in the city background.",
+    "narrative_beats": [
+      "0–30s: a paper star falls through a dark city; the lead catches it, but the wind tears it",
+      "30–60s: the lead tries to fold and hang a replacement; one point collapses and the string snaps",
+      "60–90s: the lead nearly quits, then starts again with a clean sheet",
+      "90–120s: a blue-scarf stranger holds the paper steady; they fold a star together",
+      "120–150s: they make a second star and connect both with a short string",
+      "150–180s: the first window glows; another window answers while most of the street remains dark",
+      "180–210s: the lead leaves a blank sheet for the next person; the shared light becomes the final emotional image"
+    ],
+    "concept_selection": {
+      "scoring_scale": "0-100 weighted editorial estimate, not measured audience performance",
+      "weights": {
+        "hook_5s": 15,
+        "emotion": 15,
+        "agency": 15,
+        "twist": 15,
+        "retention": 15,
+        "thumbnail_title": 15,
+        "technical": 10
+      },
+      "candidates": [
+        {
+          "name": "One Small Star, One Long Night",
+          "score": 93,
+          "breakdown": {
+            "hook_5s": 14,
+            "emotion": 15,
+            "agency": 15,
+            "twist": 14,
+            "retention": 14,
+            "thumbnail_title": 13,
+            "technical": 8
+          },
+          "reason": "Immediate falling-object hook, clear physical struggle, a meaningful helper entrance, and a visual city-wide payoff; new paper-star prop work adds moderate implementation risk."
+        },
+        {
+          "name": "The Coat Left in the Rain",
+          "score": 88,
+          "breakdown": {
+            "hook_5s": 13,
+            "emotion": 14,
+            "agency": 14,
+            "twist": 13,
+            "retention": 13,
+            "thumbnail_title": 13,
+            "technical": 8
+          },
+          "reason": "A solitary figure leaves their only warm coat for someone stranded in a storm; strong emotional reversal but requires a new cloth prop and more complex contact."
+        },
+        {
+          "name": "The Unsent Letter at Dawn",
+          "score": 86,
+          "breakdown": {
+            "hook_5s": 13,
+            "emotion": 14,
+            "agency": 13,
+            "twist": 13,
+            "retention": 12,
+            "thumbnail_title": 13,
+            "technical": 8
+          },
+          "reason": "A character repeatedly rewrites an apology, then chooses a concrete act instead of sending words; intimate but visually less immediate."
+        }
+      ],
+      "selected": "One Small Star, One Long Night",
+      "selected_score": 93,
+      "scores_are_editorial_estimates": true
+    },
+    "thumbnail_concepts": [
+      "Lead reaches for one glowing cream paper star against a dark navy city; the blue-scarf helper is a small silhouette in a warm window.",
+      "Close-up of a torn paper star between two articulated stick-figure hands, with a snapped string and storm-dark windows behind.",
+      "Two stick figures hold a short string of three gold paper stars between two newly lit windows; the rest of the street stays dark."
+    ],
+    "selected_thumbnail_direction": 1,
+    "title_alternatives": [
+      "One Small Star, One Long Night",
+      "The Star We Shared",
+      "A Little Light Can Travel Far"
+    ],
+    "description_candidate": "A paper star falls into a dark city. One stick figure tries to keep it whole, but the wind keeps pulling it apart. When a stranger lends a steady hand, one small star becomes a light they can share. An original silent 2D stick-figure story about hope, persistence, and the quiet power of helping someone begin again. No dialogue or voiceover.",
+    "tags_candidate": [
+      "silent animation",
+      "stick figure animation",
+      "motivational short film",
+      "2D animation",
+      "hope",
+      "kindness",
+      "resilience",
+      "short story animation"
+    ],
+    "audio_plan": {
+      "rights": "Original procedural instrumental synthesis and procedural SFX generated in the repository executor; no third-party samples.",
+      "phases": [
+        {
+          "time": "0-42s",
+          "mood": "minor, sparse piano-like pad; falling-star shimmer and storm texture"
+        },
+        {
+          "time": "42-84s",
+          "mood": "steady pulse with paper-fold rustle and restrained tension"
+        },
+        {
+          "time": "84-126s",
+          "mood": "warm chord change as the helper enters; soft paper handling"
+        },
+        {
+          "time": "126-168s",
+          "mood": "gentle lift and string shimmer as the star chain forms"
+        },
+        {
+          "time": "168-210s",
+          "mood": "open major resolution with a quiet sustained final note"
+        }
+      ],
+      "sfx": [
+        "procedural paper-fold rustle",
+        "soft paper tear transient",
+        "rain ambience during storm shots",
+        "original bell-like star shimmer",
+        "soft contact taps"
+      ],
+      "voiceover": false
+    },
+    "growth_hypotheses": [
+      "The falling paper star may make the 0–5s conflict legible without sound; validate using audience retention at 0:05.",
+      "The helper's entrance near the middle may reduce the retention dip around 90–110s; validate with the actual retention graph.",
+      "The two-window payoff may encourage completion and rewatch; validate average percentage viewed and end-of-video retention.",
+      "The final blank sheet may invite comments about a small act of kindness; validate comments and shares per view."
+    ],
+    "script_audit": {
+      "status": "NOT_RUN_PLUGIN_UNAVAILABLE",
+      "manual_preflight_estimate": {
+        "quality": 89,
+        "growth": 41,
+        "hook": 14,
+        "logic": 14
+      },
+      "scores_are_not_independent_or_plugin_audit": true,
+      "blocker": "The requested Silent Animation Factory V1.7 plugin and animation-script-audit reference are not available in the installed skill registry or repository main."
+    },
+    "trend_research": {
+      "checked_at": "2026-11-12",
+      "sources": [
+        {
+          "url": "https://www.veedio.co/trending/youtube-shorts/stick-figure",
+          "published": "2026-11-08",
+          "finding": "A weekly ranking based on 24 YouTube-returned stick-figure Shorts; current examples include action-led comparison and survival-story formats. Ranking is a directional snapshot, not a verified channel-wide trend census."
+        },
+        {
+          "url": "https://trendreport.com/topic/stickman-animation/",
+          "published": "2026-11-11",
+          "finding": "Third-party tracker estimates 5.37M views/day for videos matching stickman animation on 11 Nov, versus 2.58M/day on 14 Oct. Treat as a vendor estimate and broad-category demand signal, not official YouTube analytics."
+        },
+        {
+          "url": "https://www.socialmediatoday.com/news/youtube-adds-microdrama-subscriptions/872982/",
+          "published": "2026-10-27",
+          "finding": "Reports YouTube's statement that microdramas received more than 6.5B views in H1 2026 and that the platform is expanding episodic discovery and monetization."
+        },
+        {
+          "url": "https://www.reuters.com/commentary/breakingviews/microdramas-are-set-to-upstage-hollywoods-a-list-2026-10-16/",
+          "published": "2026-10-16",
+          "finding": "Reports growth in short episodic drama distribution across YouTube, TikTok and Instagram; supports action-led compact emotional arcs, not a guarantee for this film."
+        }
+      ],
+      "interpretation": "The current evidence supports testing a simple visual hook and a compact emotional arc. It does not establish that a 210-second horizontal film will go viral."
+    }
+  },
+  "thumbnail_status": "CANDIDATE_NOT_YET_GENERATED",
+  "independent_audiovisual_review": {
+    "status": "NOT_STARTED",
+    "required_full_duration_seconds": 210,
+    "required_shots": 36,
+    "required_audio_review": true
+  },
+  "drive_status": "BLOCKED_UNVERIFIED_NO_DRIVE_WRITE_CONNECTOR",
+  "youtube_status": "NOT_UPLOADED_PRIVATE_ONLY",
+  "release_authorized": false
+}
