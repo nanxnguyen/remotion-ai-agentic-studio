@@ -1,0 +1,64 @@
+{
+  "project_slug": "retro-tv-vi-du",
+  "title": "Tên video",
+  "version": "v1.0",
+  "production_date_local": "YYYY-MM-DD",
+  "format": "shorts-vertical",
+  "target_seconds": 35,
+  "fps": 30,
+  "resolution": "1080x1920",
+  "voice": {
+    "provider": "Vbee",
+    "voice_code": "hn_female_ngochuyen_full_48k-fhg",
+    "measured": false,
+    "source_status": "PENDING"
+  },
+  "script": {
+    "hook": "",
+    "body": "",
+    "climax": "",
+    "reflection": ""
+  },
+  "render": {
+    "status": "PENDING",
+    "file": "video-final.mp4",
+    "bytes": null,
+    "sha256": null
+  },
+  "thumbnail": {
+    "status": "PENDING",
+    "file": "thumbnail-shorts-1080x1920.png",
+    "width": 1080,
+    "height": 1920
+  },
+  "youtube": {
+    "title": "",
+    "description": "",
+    "hashtags": [],
+    "metadata_file": "youtube-title-description.txt"
+  },
+  "drive": {
+    "root_folder_id": "1rtJF9zDWuFZ8_6IixdMew3WCZj8415-D",
+    "sequence_no": null,
+    "folder_name": null,
+    "folder_id": null,
+    "video_url": null,
+    "thumbnail_url": null,
+    "metadata_url": null,
+    "verified": false
+  },
+  "github": {
+    "repo": "nanxnguyen/remotion-ai-agentic-studio",
+    "release_tag": null,
+    "asset_url": null,
+    "verified_sha256": false
+  },
+  "qa": {
+    "ffprobe": false,
+    "full_decode": false,
+    "voice_sync": false,
+    "captions": false,
+    "thumbnail": false,
+    "archive": false
+  }
+}
