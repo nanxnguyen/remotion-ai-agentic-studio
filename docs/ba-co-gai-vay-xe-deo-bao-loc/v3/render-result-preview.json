@@ -1,0 +1,39 @@
+{
+  "video_slug": "ba-co-gai-vay-xe-deo-bao-loc",
+  "version": "V3-preview",
+  "category": "cinematic-horror-motion-comic-preview",
+  "completion_status": "playable_preview_not_final_picture_lock",
+  "drive_folder_id": "1wz_yyZRQJpGXwBNN7srZvxSqUpT7QmW4",
+  "drive_file_id": "1n28fODJ3hiMsr1AwobB_eA--SoAs2bUm",
+  "drive_video_url": "https://drive.google.com/file/d/1n28fODJ3hiMsr1AwobB_eA--SoAs2bUm/view?usp=drivesdk",
+  "filename": "video-V3-preview-animatic.mp4",
+  "mime_type": "video/mp4",
+  "byte_size": 13061284,
+  "sha256": "2e9e5cf4e798547110de1fb64f546383a02d3f7653b41fe58f1fd320c55ac671",
+  "codec_video": "h264",
+  "codec_audio": "aac",
+  "dimensions": {
+    "width": 1080,
+    "height": 1920
+  },
+  "fps": 30,
+  "duration_seconds": 53.7,
+  "voice": {
+    "provider": "Vbee Batch",
+    "voice_code": "n_hn_male_ngankechuyen_ytstable_vc",
+    "utterances": 10,
+    "voice_total_seconds": 49.632,
+    "runner_url": "https://github.com/nanxnguyen/remotion-ai-agentic-studio/actions/runs/41438762676",
+    "sha256_verified": true
+  },
+  "qa": {
+    "decode": "pass",
+    "ffprobe": "pass",
+    "sampled_frames": 18,
+    "manual_listening": "pending",
+    "photoreal_acting": "not_achieved",
+    "remotion_canonical_review": "pending",
+    "youtube_publish": "not_authorized"
+  },
+  "archive_policy": "Drive media only, GitHub production docs and QA. No Release."
+}

@@ -1,0 +1,127 @@
+{
+  "voice_code": "n_hn_male_ngankechuyen_ytstable_vc",
+  "measured": false,
+  "lines": [
+    {
+      "id": 1,
+      "scene_id": 1,
+      "start_sec": 0,
+      "end_sec": 6,
+      "narration": "Ba cô gái áo trắng... đang vẫy xe. Giữa đèo Bảo Lộc... lúc nửa đêm. Nhưng không ai nhìn rõ mặt họ.",
+      "speaker": "narrator",
+      "voice_code": "n_hn_male_ngankechuyen_ytstable_vc",
+      "audio_path": "audio/v3/s1.mp3",
+      "audio_status": "pending",
+      "measured_duration_sec": null
+    },
+    {
+      "id": 2,
+      "scene_id": 2,
+      "start_sec": 6,
+      "end_sec": 12,
+      "narration": "Chuyện kể, Loan, Hòa và Thảo từng gặp nạn trên cung đường này.",
+      "speaker": "narrator",
+      "voice_code": "n_hn_male_ngankechuyen_ytstable_vc",
+      "audio_path": "audio/v3/s2.mp3",
+      "audio_status": "pending",
+      "measured_duration_sec": null
+    },
+    {
+      "id": 3,
+      "scene_id": 3,
+      "start_sec": 12,
+      "end_sec": 18,
+      "narration": "Đêm ấy, mưa phủ kín khúc cua. Chỉ còn một chiếc xe nằm nghiêng bên đường.",
+      "speaker": "narrator",
+      "voice_code": "n_hn_male_ngankechuyen_ytstable_vc",
+      "audio_path": "audio/v3/s3.mp3",
+      "audio_status": "pending",
+      "measured_duration_sec": null
+    },
+    {
+      "id": 4,
+      "scene_id": 4,
+      "start_sec": 18,
+      "end_sec": 24,
+      "narration": "Người qua đèo ghé miếu Ba Cô thắp nhang cầu bình an. Nhưng lời đồn vẫn chưa tắt.",
+      "speaker": "narrator",
+      "voice_code": "n_hn_male_ngankechuyen_ytstable_vc",
+      "audio_path": "audio/v3/s4.mp3",
+      "audio_status": "pending",
+      "measured_duration_sec": null
+    },
+    {
+      "id": 5,
+      "scene_id": 5,
+      "start_sec": 24,
+      "end_sec": 30,
+      "narration": "Có tài xế kể, giữa sương dày... ba cô gái lại đứng sát vệ đường, lặng lẽ vẫy xe.",
+      "speaker": "narrator",
+      "voice_code": "n_hn_male_ngankechuyen_ytstable_vc",
+      "audio_path": "audio/v3/s5.mp3",
+      "audio_status": "pending",
+      "measured_duration_sec": null
+    },
+    {
+      "id": 6,
+      "scene_id": 6,
+      "start_sec": 30,
+      "end_sec": 36,
+      "narration": "Dưới chân họ... ba chiếc ba lô cũ. Bên cạnh là mấy cuốn vở ướt mưa.",
+      "speaker": "narrator",
+      "voice_code": "n_hn_male_ngankechuyen_ytstable_vc",
+      "audio_path": "audio/v3/s6.mp3",
+      "audio_status": "pending",
+      "measured_duration_sec": null
+    },
+    {
+      "id": 7,
+      "scene_id": 7,
+      "start_sec": 36,
+      "end_sec": 42,
+      "narration": "Tài xế giảm ga. Tay ông siết chặt vô lăng... đèn pha quét thẳng về phía họ.",
+      "speaker": "narrator",
+      "voice_code": "n_hn_male_ngankechuyen_ytstable_vc",
+      "audio_path": "audio/v3/s7.mp3",
+      "audio_status": "pending",
+      "measured_duration_sec": null
+    },
+    {
+      "id": 8,
+      "scene_id": 8,
+      "start_sec": 42,
+      "end_sec": 48,
+      "narration": "Chớp mắt... cả ba biến mất. Chỉ còn con đường ướt loang dưới ánh đèn.",
+      "speaker": "narrator",
+      "voice_code": "n_hn_male_ngankechuyen_ytstable_vc",
+      "audio_path": "audio/v3/s8.mp3",
+      "audio_status": "pending",
+      "measured_duration_sec": null
+    },
+    {
+      "id": 9,
+      "scene_id": 9,
+      "start_sec": 48,
+      "end_sec": 56,
+      "narration": "Ông nhìn gương chiếu hậu... ba bóng áo trắng vẫn đứng phía sau xe. Người trông miếu từng phủ nhận chuyện oan hồn.",
+      "speaker": "narrator",
+      "voice_code": "n_hn_male_ngankechuyen_ytstable_vc",
+      "audio_path": "audio/v3/s9.mp3",
+      "audio_status": "pending",
+      "measured_duration_sec": null
+    },
+    {
+      "id": 10,
+      "scene_id": 9,
+      "start_sec": 56,
+      "end_sec": 60,
+      "narration": "Nếu còn dám nhìn lại... thả tim và theo dõi nhé.",
+      "speaker": "narrator",
+      "voice_code": "n_hn_male_ngankechuyen_ytstable_vc",
+      "audio_path": "audio/v3/s10.mp3",
+      "audio_status": "pending",
+      "measured_duration_sec": null,
+      "cta": true
+    }
+  ]
+}

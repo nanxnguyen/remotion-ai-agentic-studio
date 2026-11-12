@@ -1,0 +1,42 @@
+name: Bao Loc V3 - Ngạn Kể Chuyện Vbee Batch
+on:
+  push:
+    branches:
+      - production/bao-loc-three-girls-short
+    paths:
+      - .github/workflows/bao-loc-v3-vbee.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: bao-loc-v3-vbee
+  cancel-in-progress: false
+jobs:
+  generate-narration:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    env:
+      VBEE_ACCESS_TOKEN: ${{ secrets.VBEE_ACCESS_TOKEN || secrets.VBEE_TOKEN || secrets.VBEE_API_KEY || secrets.VBEE_API_TOKEN }}
+      VBEE_APP_ID: ${{ secrets.VBEE_APP_ID || secrets.VBEE_APPID || secrets.VBEE_APPLICATION_ID }}
+      VBEE_WEBHOOK_URL: ${{ vars.VBEE_WEBHOOK_URL || 'https://example.com/bao-loc-v3-vbee-callback' }}
+      VBEE_VOICE_CODE: n_hn_male_ngankechuyen_ytstable_vc
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install FFmpeg
+        run: sudo apt-get update && sudo apt-get install -y ffmpeg
+      - name: Check presence of Vbee secrets
+        run: |
+          test -n "$VBEE_ACCESS_TOKEN" || (echo "::error::Missing token"; exit 1)
+          test -n "$VBEE_APP_ID" || (echo "::error::Missing app-id"; exit 1)
+      - name: Generate exact V3 narration
+        run: |
+          python3 scripts/gen-bao-loc-vbee.py --timeline docs/ba-co-gai-vay-xe-deo-bao-loc/v3/vbee-batch-timeline.json --out-dir private/bao-loc-v3-vbee --voice-code "$VBEE_VOICE_CODE" --webhook-url "$VBEE_WEBHOOK_URL" --speed 1.05
+      - uses: actions/upload-artifact@v4
+        with:
+          name: bao-loc-v3-ngan-narration
+          path: private/bao-loc-v3-vbee/
+          retention-days: 14
+          if-no-files-found: error
