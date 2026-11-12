@@ -1,0 +1,72 @@
+[
+  {
+    "id": 1,
+    "narration": "Bạn không thất bại.",
+    "visual": "intimate portrait before sunrise",
+    "duration": 2.2,
+    "visual_start_seconds": 0
+  },
+  {
+    "id": 2,
+    "narration": "Điều bạn gieo... chỉ chưa kịp nở hoa.",
+    "visual": "seed in dark soil",
+    "duration": 3.4,
+    "visual_start_seconds": 2.2
+  },
+  {
+    "id": 3,
+    "narration": "Thành công không đến sau một đêm. Nó lớn lên từ những việc rất nhỏ.",
+    "visual": "roots grow under earth",
+    "duration": 4.4,
+    "visual_start_seconds": 5.6
+  },
+  {
+    "id": 4,
+    "narration": "Một trang sách.",
+    "visual": "closeup book",
+    "duration": 2.1,
+    "visual_start_seconds": 10
+  },
+  {
+    "id": 5,
+    "narration": "Mười phút rèn luyện.",
+    "visual": "runner's feet",
+    "duration": 2.1,
+    "visual_start_seconds": 12.1
+  },
+  {
+    "id": 6,
+    "narration": "Một lần cố thêm... khi đã mệt.",
+    "visual": "hand writing at desk",
+    "duration": 3,
+    "visual_start_seconds": 14.2
+  },
+  {
+    "id": 7,
+    "narration": "Có những ngày, chẳng ai thấy bạn thay đổi. Ngay cả bạn... cũng vậy.",
+    "visual": "alone under city rain",
+    "duration": 5.1,
+    "visual_start_seconds": 17.2
+  },
+  {
+    "id": 8,
+    "narration": "Nhưng dưới mặt đất im lặng, từng chiếc rễ vẫn đang lớn lên.",
+    "visual": "tiny seedling, deep roots",
+    "duration": 5.1,
+    "visual_start_seconds": 22.299999999999997
+  },
+  {
+    "id": 9,
+    "narration": "Rồi một ngày... bạn nhận ra mình đã khác.",
+    "visual": "first sunlight in mountain",
+    "duration": 4.3,
+    "visual_start_seconds": 27.4
+  },
+  {
+    "id": 10,
+    "narration": "Thành công là điều nhỏ bé... được lặp lại đủ lâu.",
+    "visual": "blossom in sunrise",
+    "duration": 4.2,
+    "visual_start_seconds": 31.7
+  }
+]
