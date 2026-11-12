@@ -1,0 +1,86 @@
+[
+  {
+    "id": 1,
+    "start": 0,
+    "end": 2,
+    "shot": "Pale watch-wearing hand grabs food bag through door 707",
+    "audio": "s1.mp3"
+  },
+  {
+    "id": 2,
+    "start": 2,
+    "end": 5,
+    "shot": "Rider checks recipient named Nam",
+    "audio": "s2.mp3"
+  },
+  {
+    "id": 3,
+    "start": 5,
+    "end": 8,
+    "shot": "Security guard reveals sealed room",
+    "audio": "s3.mp3"
+  },
+  {
+    "id": 4,
+    "start": 8,
+    "end": 10,
+    "shot": "Nam's own voice warns from behind door",
+    "audio": "s4.mp3"
+  },
+  {
+    "id": 5,
+    "start": 10,
+    "end": 14,
+    "shot": "Rider and guard inspect phone camera",
+    "audio": "s5.mp3"
+  },
+  {
+    "id": 6,
+    "start": 14,
+    "end": 19,
+    "shot": "CCTV shows five minutes into the future",
+    "audio": "s5.mp3"
+  },
+  {
+    "id": 7,
+    "start": 19,
+    "end": 22,
+    "shot": "CCTV close-up: scratched silver watch",
+    "audio": "s6.mp3"
+  },
+  {
+    "id": 8,
+    "start": 22,
+    "end": 24,
+    "shot": "Nam compares his watch",
+    "audio": "s6.mp3"
+  },
+  {
+    "id": 9,
+    "start": 24,
+    "end": 30,
+    "shot": "Future Nam revealed on CCTV",
+    "audio": "s7.mp3"
+  },
+  {
+    "id": 10,
+    "start": 30,
+    "end": 33,
+    "shot": "Door opens and pulls Nam inside",
+    "audio": "s8.mp3"
+  },
+  {
+    "id": 11,
+    "start": 33,
+    "end": 34,
+    "shot": "Nam is behind the door",
+    "audio": null
+  },
+  {
+    "id": 12,
+    "start": 34,
+    "end": 35,
+    "shot": "Hand reaches out and takes bag, match-cut opening",
+    "audio": null
+  }
+]
