@@ -1,0 +1,33 @@
+name: Ba Tieng Go V7 - Sinister CTA Vbee
+on:
+  push:
+    branches: [feat/ba-tieng-go-v6-vbee-55s]
+    paths:
+      - .github/workflows/ba-tieng-go-v7-cta.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  cta:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      VBEE_ACCESS_TOKEN: ${{ secrets.VBEE_ACCESS_TOKEN || secrets.VBEE_TOKEN || secrets.VBEE_API_KEY || secrets.VBEE_API_TOKEN }}
+      VBEE_APP_ID: ${{ secrets.VBEE_APP_ID || secrets.VBEE_APPID || secrets.VBEE_APPLICATION_ID }}
+      VBEE_WEBHOOK_URL: ${{ vars.VBEE_WEBHOOK_URL || 'https://example.com/story-tts-webhook' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Generate original male Vbee voice for 3-second ending
+        run: |
+          test -n "$VBEE_ACCESS_TOKEN" && test -n "$VBEE_APP_ID"
+          python3 scripts/gen-story-vbee-batch.py --timeline docs/ba-tieng-go-v6/cta-v7-vbee.json --out-dir /tmp/ba-tieng-go-v7-cta --voice-code hn_male_phuthang_stor_24k-stl --speed 1.25 --webhook-url "$VBEE_WEBHOOK_URL"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ba-tieng-go-v7-original-vbee-cta
+          path: /tmp/ba-tieng-go-v7-cta/
+          retention-days: 14
+          if-no-files-found: warn
