@@ -12,6 +12,7 @@ on:
 
 permissions:
   contents: read
+  issues: write
 
 concurrency:
   group: silent-factory-render-${{ github.ref }}
@@ -47,6 +48,11 @@ jobs:
         run: |
           python scripts/silent_factory_executor.py validate --manifest "$FILM_JOB"
           python -m unittest discover -s tests -p 'test_silent_factory_executor.py' -v
+          python -m unittest discover -s tests -p 'test_silent_factory_*.py' -v
+      - name: Checkpoint genuine independent script audit and rendering start
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python -m scripts.silent_factory_checkpoint --phase start --job "$FILM_JOB"
       - name: Install Remotion dependencies
         run: npm ci
       - name: Verify TypeScript composition
@@ -92,6 +98,7 @@ jobs:
             -frames:v 1 -vf scale=1280:720 \
             out/silent-factory/thumbnail-draft.jpg
       - name: Save actual full film for independent creative review
+        id: archive
         if: always()
         uses: actions/upload-artifact@v6
         with:
@@ -104,3 +111,15 @@ jobs:
             out/silent-factory/original-score.wav
           retention-days: 30
           if-no-files-found: ignore
+
+      - name: Checkpoint SHA of actual full video and uploaded artifact
+        if: ${{ success() && steps.archive.outputs.artifact-id != '' }}
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m scripts.silent_factory_checkpoint --phase complete \
+            --job "$FILM_JOB" \
+            --report out/silent-factory/technical-qa.json \
+            --artifact-id "${{ steps.archive.outputs.artifact-id }}"
