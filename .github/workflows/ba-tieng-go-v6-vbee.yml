@@ -1,0 +1,70 @@
+name: BA TIENG GO V6 - Real Vbee Cast (55s)
+on:
+  push:
+    branches: [feat/ba-tieng-go-v6-vbee-55s]
+    paths:
+      - .github/workflows/ba-tieng-go-v6-vbee.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  male:
+    runs-on: ubuntu-latest
+    timeout-minutes: 50
+    env:
+      VBEE_ACCESS_TOKEN: ${{ secrets.VBEE_ACCESS_TOKEN || secrets.VBEE_TOKEN || secrets.VBEE_API_KEY || secrets.VBEE_API_TOKEN }}
+      VBEE_APP_ID: ${{ secrets.VBEE_APP_ID || secrets.VBEE_APPID || secrets.VBEE_APPLICATION_ID }}
+      VBEE_WEBHOOK_URL: ${{ vars.VBEE_WEBHOOK_URL || 'https://example.com/story-tts-webhook' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Prepare male voice lines
+        run: |
+          python3 - <<'PY'
+          import json
+          src=json.load(open('docs/ba-tieng-go-v6/vbee-casting-timing.json'))
+          json.dump([dict(id=x['id'],narration=x['narration']) for x in src['male']],open('/tmp/v6-male.json','w'),ensure_ascii=False)
+          PY
+      - name: Synthesize authentic Vbee Anh Khoi
+        run: |
+          test -n "$VBEE_ACCESS_TOKEN" && test -n "$VBEE_APP_ID"
+          python3 scripts/gen-story-vbee-batch.py --timeline /tmp/v6-male.json --out-dir /tmp/v6-male-vbee --voice-code hn_male_phuthang_stor_24k-stl --speed 1.19 --webhook-url "$VBEE_WEBHOOK_URL"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ba-tieng-go-v6-male-vbee
+          path: /tmp/v6-male-vbee/
+          if-no-files-found: warn
+          retention-days: 14
+  female:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      VBEE_ACCESS_TOKEN: ${{ secrets.VBEE_ACCESS_TOKEN || secrets.VBEE_TOKEN || secrets.VBEE_API_KEY || secrets.VBEE_API_TOKEN }}
+      VBEE_APP_ID: ${{ secrets.VBEE_APP_ID || secrets.VBEE_APPID || secrets.VBEE_APPLICATION_ID }}
+      VBEE_WEBHOOK_URL: ${{ vars.VBEE_WEBHOOK_URL || 'https://example.com/story-tts-webhook' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Prepare female voice lines
+        run: |
+          python3 - <<'PY'
+          import json
+          src=json.load(open('docs/ba-tieng-go-v6/vbee-casting-timing.json'))
+          json.dump([dict(id=x['id'],narration=x['narration']) for x in src['female']],open('/tmp/v6-female.json','w'),ensure_ascii=False)
+          PY
+      - name: Synthesize authentic Vbee Ngoc Huyen
+        run: |
+          test -n "$VBEE_ACCESS_TOKEN" && test -n "$VBEE_APP_ID"
+          python3 scripts/gen-story-vbee-batch.py --timeline /tmp/v6-female.json --out-dir /tmp/v6-female-vbee --voice-code hn_female_ngochuyen_full_48k-fhg --speed 1.13 --webhook-url "$VBEE_WEBHOOK_URL"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ba-tieng-go-v6-female-vbee
+          path: /tmp/v6-female-vbee/
+          if-no-files-found: warn
+          retention-days: 14
