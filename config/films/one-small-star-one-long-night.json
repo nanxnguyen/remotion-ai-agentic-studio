@@ -1,0 +1,141 @@
+{
+  "schema_version": 1,
+  "slug": "one-small-star-one-long-night",
+  "status": "FINAL_CANDIDATE_NOT_RELEASED",
+  "title": "One Small Star, One Long Night",
+  "title_options": [
+    "One Small Star, One Long Night",
+    "She Couldn't Light the City—So She Shared One Star",
+    "A Paper Star for a Dark City"
+  ],
+  "description": "A paper star falls into a dark city. One stick figure catches it, tries and fails to rebuild it, then accepts help from a stranger. Together, they connect two windows with a string of stars. A silent 2D story about small acts of kindness and shared light.",
+  "tags": [
+    "stick figure animation",
+    "silent animation",
+    "2D animation",
+    "motivational short film",
+    "inspirational story",
+    "kindness",
+    "hope",
+    "paper star",
+    "emotional animation",
+    "no dialogue"
+  ],
+  "format": {
+    "aspect_ratio": "16:9",
+    "width": 2560,
+    "height": 1440,
+    "fps": 30,
+    "duration_seconds": 210,
+    "frames": 6300,
+    "shots": 36,
+    "caption_cues": 18,
+    "voiceover": false,
+    "dialogue": false
+  },
+  "channel": {
+    "name": "Olise",
+    "handle": "@olise-man",
+    "alias": "OLISE_MAN",
+    "channel_id": "UCY3n3Nlqyo6uI4GU8nuX-5g",
+    "privacy_target": "private"
+  },
+  "qa_approved": false,
+  "creative_qa_passed": false,
+  "creative_qa_override": false,
+  "release_authorized": false,
+  "upload_status": "NOT_UPLOADED",
+  "source": {
+    "run_id": 43134010987,
+    "run_url": "https://github.com/nanxnguyen/remotion-ai-agentic-studio/actions/runs/43134010987",
+    "artifact_id": 13906218517,
+    "artifact_name": "silent-factory-43134010987",
+    "movie_sha256": "e5073776df6a1d29617924f88fb74cf827730642d7918b1442e8b3ded84fe5a1",
+    "movie_bytes": 21612595
+  },
+  "thumbnail_candidate": {
+    "path": "/mnt/data/one-small-star-thumbnail-1280x720.jpg",
+    "source": "actual encoded film frame at 201 seconds with authored title overlay",
+    "width": 1280,
+    "height": 720,
+    "bytes": 57821,
+    "sha256": "77fc4869cf5f4befd3b1525be8c96a0d29cab710bb3a39aac91c9f0aa37a5efb",
+    "status": "LOCAL_CANDIDATE_NOT_DRIVE_FINAL"
+  },
+  "thumbnail_concepts": [
+    {
+      "name": "One star in a dark city",
+      "description": "Lead figure holding a single gold paper star against the navy city; chosen because the prop and character read clearly at small size"
+    },
+    {
+      "name": "The torn star",
+      "description": "Close-up of the torn paper star between two articulated hands, with a snapped string behind"
+    },
+    {
+      "name": "Two windows answer",
+      "description": "Two star-lit windows connected by a short string, with both stick figures sharing the frame"
+    }
+  ],
+  "growth_hypotheses": [
+    "A falling paper star caught within the opening seconds may make the story promise legible without dialogue.",
+    "Repeated failed attempts followed by a helper entering around the midpoint may sustain curiosity and provide an emotional re-hook.",
+    "The two lit windows may make the shared-kindness payoff easy to understand and share; this is unvalidated until real channel analytics exist."
+  ],
+  "trend_research": {
+    "window": "2026-10-13 through 2026-11-12",
+    "sources": [
+      {
+        "url": "https://blog.youtube/culture-and-trends/the-evolution-of-web-series-on-youtube-microdramas/",
+        "published": "2026-10-27",
+        "finding": "YouTube reported more than 6.5 billion microdrama views in H1 2026 and over 50% year-over-year watch-time growth; this is directional storytelling evidence, not a direct metric for 16:9 silent stick-figure films."
+      },
+      {
+        "url": "https://trendreport.com/topic/stickman-animation/",
+        "updated": "2026-11-11",
+        "finding": "Third-party trend aggregator reported about 5.37 million daily views across ranked stickman-animation videos for the week of Nov 11, up 108% versus 28 days earlier; methodology and niche fit are not independently audited here."
+      }
+    ],
+    "candidates": [
+      {
+        "name": "One Small Star, One Long Night",
+        "score": 93,
+        "breakdown": {
+          "hook_5s": 14,
+          "emotion": 15,
+          "agency": 15,
+          "twist": 14,
+          "retention": 14,
+          "thumbnail_title": 13,
+          "technical": 8
+        }
+      },
+      {
+        "name": "The Coat Left in the Rain",
+        "score": 88,
+        "breakdown": {
+          "hook_5s": 13,
+          "emotion": 14,
+          "agency": 14,
+          "twist": 13,
+          "retention": 13,
+          "thumbnail_title": 13,
+          "technical": 8
+        }
+      },
+      {
+        "name": "The Unsent Letter at Dawn",
+        "score": 86,
+        "breakdown": {
+          "hook_5s": 13,
+          "emotion": 14,
+          "agency": 13,
+          "twist": 13,
+          "retention": 12,
+          "thumbnail_title": 13,
+          "technical": 8
+        }
+      }
+    ],
+    "score_note": "Editorial estimates only; not plugin audit scores or audience-performance measurements."
+  }
+}
