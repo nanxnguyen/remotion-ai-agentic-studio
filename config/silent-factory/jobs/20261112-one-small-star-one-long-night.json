@@ -1,8 +1,8 @@
 {
   "title": "One Small Star, One Long Night",
-  "revision": 0,
+  "revision": 1,
   "category": "original-silent-2d-stick-figure-motivational-film",
-  "stage": "BASELINE_RENDER_PENDING_UNREVIEWED",
+  "stage": "REVISION_1_RENDER_PENDING_UNREVIEWED",
   "creative_qa_approved": false,
   "qa_approved": false,
   "creative_qa_passed": false,
@@ -244,16 +244,16 @@
       "action": "pause",
       "caption": "",
       "highlight": "",
-      "prop": "star_chain",
+      "prop": "dark_window",
       "palette": "warm"
     },
     {
       "id": "shot-25",
-      "scene": "stairs",
+      "scene": "city",
       "action": "reach",
       "caption": "THE FIRST WINDOW LIT UP.",
       "highlight": "LIT UP",
-      "prop": "star_chain",
+      "prop": "window_stars",
       "palette": "hope"
     },
     {
@@ -271,7 +271,7 @@
       "action": "reach",
       "caption": "A SECOND WINDOW ANSWERED.",
       "highlight": "SECOND WINDOW",
-      "prop": "window_stars",
+      "prop": "two_window_stars",
       "palette": "hope"
     },
     {
@@ -289,7 +289,7 @@
       "action": "offer",
       "caption": "THE STREET WAS STILL DARK.",
       "highlight": "STILL DARK",
-      "prop": "window_stars",
+      "prop": "two_window_stars",
       "palette": "hope"
     },
     {
@@ -307,7 +307,7 @@
       "action": "walk",
       "caption": "BUT NO LONGER EMPTY.",
       "highlight": "NO LONGER EMPTY",
-      "prop": "window_stars",
+      "prop": "two_window_stars",
       "palette": "hope"
     },
     {
@@ -349,10 +349,10 @@
     {
       "id": "shot-36",
       "scene": "dawn",
-      "action": "pause",
+      "action": "offer",
       "caption": "ONE SMALL LIGHT CAN TRAVEL WHEN WE SHARE IT.",
       "highlight": "SHARE IT",
-      "prop": "window_stars",
+      "prop": "two_window_stars",
       "palette": "hope"
     }
   ],
@@ -539,12 +539,41 @@
   },
   "thumbnail_status": "CANDIDATE_NOT_YET_GENERATED",
   "independent_audiovisual_review": {
-    "status": "NOT_STARTED",
+    "status": "NOT_AVAILABLE_PLUGIN_AND_INDEPENDENT_REVIEWER_MISSING",
     "required_full_duration_seconds": 210,
     "required_shots": 36,
     "required_audio_review": true
   },
   "drive_status": "BLOCKED_UNVERIFIED_NO_DRIVE_WRITE_CONNECTOR",
   "youtube_status": "NOT_UPLOADED_PRIVATE_ONLY",
-  "release_authorized": false
+  "release_authorized": false,
+  "repair_history": [
+    {
+      "attempt": "attempt_00",
+      "run_id": 43132222460,
+      "movie_sha256": "0f5c881ac7a3a1947033ac6e25d5d38d23d5670b716ff2ebdde91dacad2b779d",
+      "technical_qa": "PASS",
+      "creative_qa": "FAIL/PENDING_REVIEW",
+      "observed_defects": [
+        "At 145s, caption THE FIRST WINDOW LIT UP appears over a stairs scene with only a small star chain; no window is visible.",
+        "At 209s, the lead remains sad and alone; the ending does not visually demonstrate sharing.",
+        "The torn-star prop is still too close to an intact star; paper props are partly occluded by the character because they render behind the puppet.",
+        "The window prop is too small and isolated to read as two connected windows."
+      ],
+      "evidence": "Actual encoded 36-shot contact sheet and keyframes at 0s, 29s, 58s, 93s, 145s, 174s and 209s were inspected; this is a creator-side visual spot review, not an independent full-film audiovisual review."
+    },
+    {
+      "attempt": "attempt_01",
+      "type": "manual_targeted_revision",
+      "changes": [
+        "Render paper props after the character so the active hand visibly contacts them.",
+        "Increase star and chain scale; split torn star into separated halves.",
+        "Add dark_window and two_window_stars states to show before/after and the second window answering.",
+        "Move first-window and second-window captions onto city/window scenes; end with offer action to bring the blue-scarf helper into frame."
+      ],
+      "controller": "NOT_RUN_QA_REPAIR_CONTROLLER_MISSING",
+      "independent_review": "NOT_AVAILABLE",
+      "status": "RENDER_PENDING"
+    }
+  ]
 }
