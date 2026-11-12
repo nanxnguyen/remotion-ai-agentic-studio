@@ -1,0 +1,19 @@
+{
+  "title": "No One Applauded on Day One",
+  "version": "V4",
+  "durationSeconds": 140,
+  "fps": 30,
+  "frameCount": 4200,
+  "dimensions": {"width": 1920, "height": 1080},
+  "videoCodec": "H264",
+  "audioCodec": "AAC",
+  "audioSampleRate": 48000,
+  "onScreenTextLanguage": "English",
+  "character": "Monochrome ivory stickman, no clothing, red workout headband",
+  "source": "Pillow/Python source archive stored on Google Drive; Remotion port pending",
+  "driveFile": "https://drive.google.com/file/d/1cHfoGbWQJNso7PQMnqnOCiyzo4An4Gno/view?usp=drivesdk",
+  "sourceArchive": "https://drive.google.com/file/d/1-8zSHfrakIF_fXdk3jvry3ZQaP1o0x38/view?usp=drivesdk",
+  "sha256": "5b5d39d68a62e15d00de500a605f4bcc1eb9cbeae43bbafc436454b7063345ca",
+  "fileBytes": 45450933,
+  "manualArtReview": "pending"
+}
