@@ -26,7 +26,7 @@ EXPECTED_FRAMES = FPS * 210
 WIDTH, HEIGHT = 2560, 1440
 SCENES = {"city", "stairs", "workshop", "bridge", "dawn", "garden"}
 ACTIONS = {"walk", "run", "stumble", "reach", "repair", "help", "rise", "pause", "plant", "water", "offer"}
-PROPS = {None, "cracked_cup", "leaking_cup", "empty_cup", "seed", "soil_cup", "planted_cup", "sprout_cup", "flower_cup", "cup_garden", "tipped_cup", "falling_star", "blank_page", "folded_star", "torn_star", "paper_star", "star_chain", "window_stars"}
+PROPS = {None, "cracked_cup", "leaking_cup", "empty_cup", "seed", "soil_cup", "planted_cup", "sprout_cup", "flower_cup", "cup_garden", "tipped_cup", "falling_star", "blank_page", "folded_star", "torn_star", "paper_star", "star_chain", "window_stars", "dark_window", "two_window_stars"}
 PALETTES = {"cold", "warm", "hope"}
 
 
@@ -136,7 +136,7 @@ def create_original_audio(path: Path, data: dict | None = None) -> None:
                             math.sin(2 * math.pi * 680 * paper_phase)
                             + 0.35 * math.sin(2 * math.pi * 1040 * paper_phase)
                         )
-                if shot.get("prop") in {"falling_star", "window_stars"}:
+                if shot.get("prop") in {"falling_star", "window_stars", "two_window_stars"}:
                     shimmer_phase = local % 2.0
                     if shimmer_phase < 0.24:
                         sfx += 0.014 * math.exp(-20 * shimmer_phase) * math.sin(2 * math.pi * 980 * shimmer_phase)
