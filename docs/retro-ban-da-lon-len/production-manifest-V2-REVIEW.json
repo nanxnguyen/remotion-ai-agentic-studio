@@ -1,0 +1,43 @@
+{
+  "topic": "Bạn đã lớn lên trong những ngày không ai thấy",
+  "version": "V2",
+  "status": "REVIEW",
+  "format": "9:16",
+  "resolution": [
+    1080,
+    1920
+  ],
+  "fps": 30,
+  "duration_sec": 25.67,
+  "voice": "genuine Vbee Ngọc Huyền; original V1 MP3 segments unchanged",
+  "voice_starts": [
+    0,
+    2.69,
+    8.29,
+    16.48,
+    21.91
+  ],
+  "inter_act_gap_sec": 0.2,
+  "outro_sec": 0.66,
+  "crossfade_sec": 0.42,
+  "caption_source": "V1 phrase-level caption alignment; not phoneme-certified",
+  "font": "Be Vietnam Pro ExtraBold authentic TTF",
+  "engine": "FFmpeg + Pillow review render",
+  "output": "Ban_Da_Lon_Len_V2_MAY_TROI_REVIEW_9x16.mp4",
+  "technical_qa": {
+    "video_codec": "H.264",
+    "pixel_format": "yuv420p",
+    "audio_codec": "AAC",
+    "audio_sample_rate_hz": 48000,
+    "audio_channels": 2,
+    "integrated_loudness_lufs": -16.2,
+    "full_decode": "PASS"
+  },
+  "visual_qa": {
+    "sampled_frames": 10,
+    "source_clips": 5,
+    "scene_segments": 9,
+    "semantic_human_review": "PENDING"
+  },
+  "note": "V2 replaces V1 indoor/tea/rain/forest footage with sky/cloud/mountain footage. REVIEW only; do not claim 100% word/scene sync."
+}
