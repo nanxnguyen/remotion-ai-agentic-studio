@@ -38,6 +38,14 @@ class ManifestTests(unittest.TestCase):
         doc = self.read(sample())
         self.assertEqual(len(doc["shots"]) * module.FRAMES_PER_SHOT, 6300)
 
+    def test_accepts_new_paper_star_story_props(self):
+        doc = sample()
+        for index, prop in enumerate(("falling_star", "blank_page", "folded_star", "torn_star", "paper_star", "star_chain", "window_stars")):
+            doc["shots"][index]["prop"] = prop
+        parsed = self.read(doc)
+        self.assertEqual(parsed["shots"][0]["prop"], "falling_star")
+        self.assertEqual(parsed["shots"][6]["prop"], "window_stars")
+
     def test_reject_two_second_preview(self):
         doc = sample()
         doc["shots"] = doc["shots"][:1]
