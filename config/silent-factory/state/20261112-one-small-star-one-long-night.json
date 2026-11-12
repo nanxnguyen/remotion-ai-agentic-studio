@@ -1,0 +1,159 @@
+{
+  "run_key": "2026-11-12-one-small-star-one-long-night",
+  "checked_at": "2026-11-12T08:34:00+07:00",
+  "status": "BLOCKED_PRIVATE_RELEASE",
+  "stage": "EXECUTOR_BLOCKED",
+  "repository": "nanxnguyen/remotion-ai-agentic-studio",
+  "branch": "main",
+  "runtime": {
+    "model": "GPT-6 requested",
+    "thinking_effort": "EXTRA_HIGH requested; no automation API to lock it, runtime effort unverified",
+    "project_context": "Prior AI Edition Video project context retrieved; Project attachment via runtime API not verified",
+    "plugin_requested": "Silent Animation Factory V1.7.0+",
+    "skills_registry": [],
+    "plugin_v1_7_read": false,
+    "reference_10_read": false,
+    "reference_11_read": false,
+    "reference_09_read": false,
+    "repo_executor_doc_read": true,
+    "repo_executor_doc_version": "V1.6",
+    "qa_repair_controller_available": false,
+    "independent_reviewer_available": false
+  },
+  "research": {
+    "period": "2026-10-13 to 2026-11-12",
+    "public_youtube_duplicate_search": {
+      "channel_id": "UCY3n3Nlqyo6uI4GU8nuX-5g",
+      "query": "One Small Star One Long Night",
+      "results": []
+    },
+    "general_youtube_duplicate_search": {
+      "query": "One Small Star One Long Night paper star silent animation",
+      "results": []
+    },
+    "limitations": "Search returned no public indexed match; private channel videos and live Google Drive archive could not be exhaustively checked because no Drive connector is exposed."
+  },
+  "production": {
+    "title": "One Small Star, One Long Night",
+    "manifest": "config/silent-factory/jobs/20261112-one-small-star-one-long-night.json",
+    "current_revision": 1,
+    "shots": 36,
+    "captions": 18,
+    "duration_seconds": 210,
+    "target": {
+      "width": 2560,
+      "height": 1440,
+      "fps": 30,
+      "frames": 6300,
+      "aspect_ratio": "16:9",
+      "voiceover": false,
+      "dialogue": false
+    },
+    "attempts": [
+      {
+        "attempt": "attempt_00",
+        "revision": 0,
+        "run_id": 43132222460,
+        "run_url": "https://github.com/nanxnguyen/remotion-ai-agentic-studio/actions/runs/43132222460",
+        "artifact_id": 13905667779,
+        "artifact_name": "silent-factory-43132222460",
+        "movie_sha256": "0f5c881ac7a3a1947033ac6e25d5d38d23d5670b716ff2ebdde91dacad2b779d",
+        "movie_bytes": 20896770,
+        "technical_qa": "PASS",
+        "local_full_decode": "PASS",
+        "creative_independent_review": "NOT_COMPLETED",
+        "observed_defects": [
+          "First-window caption appeared before a visible window.",
+          "Ending did not clearly demonstrate sharing; lead looked alone.",
+          "Torn-star and paper props were too small/occluded.",
+          "Window connection was too small to read."
+        ]
+      },
+      {
+        "attempt": "attempt_01",
+        "revision": 1,
+        "run_id": 43134010987,
+        "run_url": "https://github.com/nanxnguyen/remotion-ai-agentic-studio/actions/runs/43134010987",
+        "run_status": "completed_success",
+        "artifact_id": 13906218517,
+        "artifact_name": "silent-factory-43134010987",
+        "artifact_zip_bytes": 30115565,
+        "movie_sha256": "e5073776df6a1d29617924f88fb74cf827730642d7918b1442e8b3ded84fe5a1",
+        "movie_bytes": 21612595,
+        "video_codec": "h264",
+        "audio_codec": "aac",
+        "width": 2560,
+        "height": 1440,
+        "fps": 30,
+        "duration_seconds": 210,
+        "frames": 6300,
+        "caption_cues": 18,
+        "runner_full_video_decode": "PASS",
+        "runner_full_audio_decode": "PASS",
+        "local_full_decode": "PASS",
+        "local_ffprobe_count_frames": 6300,
+        "audio": {
+          "integrated_lufs": -13.9,
+          "loudness_range_lu": 2.2,
+          "true_peak_dbfs": -2.6,
+          "score": "original five-phase procedural instrumental plus synthesized paper/shimmer/rain/tap SFX; no third-party samples identified in executor source"
+        },
+        "technical_qa": "PASS",
+        "creative_independent_review": "NOT_COMPLETED",
+        "final_certified": false,
+        "upload_authorized": false
+      }
+    ],
+    "creator_side_visual_review": {
+      "evidence": "Actual encoded 36-shot contact sheet and sampled frames at 4, 88, 115, 146, 158, 188, 198, 201, 205 seconds; not an independent full-film audiovisual review.",
+      "observations": [
+        "The visual style remains flat 2D articulated stick figures and is consistent across shots.",
+        "Revision 1 improves star visibility, torn-star separation, window states, and the final helper/window payoff.",
+        "Several shots still reuse similar wide framing and city/bridge layouts; cinematic shot variety and emotional acting need a separate full review.",
+        "At selected frames, prop/hand contact and the overlap between the two figures are not always unambiguous."
+      ]
+    },
+    "repair_history": [
+      {
+        "attempt": "attempt_00",
+        "status": "RENDERED_TECHNICAL_PASS_CREATIVE_REVIEW_PENDING",
+        "run_id": 43132222460,
+        "movie_sha256": "0f5c881ac7a3a1947033ac6e25d5d38d23d5670b716ff2ebdde91dacad2b779d"
+      },
+      {
+        "attempt": "attempt_01",
+        "status": "RENDERED_TECHNICAL_PASS_CREATIVE_REVIEW_PENDING",
+        "run_id": 43134010987,
+        "movie_sha256": "e5073776df6a1d29617924f88fb74cf827730642d7918b1442e8b3ded84fe5a1",
+        "revision": 1
+      }
+    ]
+  },
+  "assets": {
+    "movie_local_path": "/mnt/data/one-star-attempt01/silent-factory-2k-review.mp4",
+    "thumbnail_local_path": "/mnt/data/one-small-star-thumbnail-1280x720.jpg",
+    "thumbnail": {
+      "width": 1280,
+      "height": 720,
+      "bytes": 57821,
+      "sha256": "77fc4869cf5f4befd3b1525be8c96a0d29cab710bb3a39aac91c9f0aa37a5efb",
+      "status": "LOCAL_CANDIDATE_NOT_DRIVE_FINAL"
+    }
+  },
+  "blockers": {
+    "plugin": "V1.7 skill and required references are not installed in the current skill registry; repository main contains V1.6 executor contract only.",
+    "independent_review": "No independent full-duration audiovisual reviewer/tool is available; creator-side spot checks cannot satisfy this gate.",
+    "repair_controller": "tools/qa_repair_controller.py and references/09-five-round-quality-repair.md are not present in the current skill/repository context.",
+    "drive": "No Google Drive connector or verified Drive-write bridge is exposed; no Drive IDs, MIME/bytes readback or links exist.",
+    "youtube": "No release manifest was created and no YouTube upload occurred. Private release workflow requires verified Drive assets and independent review."
+  },
+  "release": {
+    "manifest_created": false,
+    "drive_video_id": null,
+    "drive_thumbnail_id": null,
+    "youtube_video_id": null,
+    "youtube_url": null,
+    "privacy": "private_only",
+    "public_or_unlisted": false
+  }
+}
