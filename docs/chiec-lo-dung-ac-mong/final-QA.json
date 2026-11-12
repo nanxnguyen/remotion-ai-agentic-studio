@@ -1,0 +1,78 @@
+{
+  "status": "TECHNICAL_AUDIO_VIDEO_PASS",
+  "durationSeconds": 45.0,
+  "videoCodec": "h264",
+  "audioCodec": "aac",
+  "dimensions": [
+    1080,
+    1920
+  ],
+  "fps": 30,
+  "beats": [
+    {
+      "beat": 1,
+      "start": 0,
+      "sourceDurationSeconds": 5.642,
+      "availableSeconds": 5.83,
+      "appliedTempo": 1,
+      "maxVoiceDb": -1.5,
+      "provider": "Vbee Batch"
+    },
+    {
+      "beat": 2,
+      "start": 6,
+      "sourceDurationSeconds": 5.224,
+      "availableSeconds": 6.83,
+      "appliedTempo": 1,
+      "maxVoiceDb": -1.9,
+      "provider": "Vbee Batch"
+    },
+    {
+      "beat": 3,
+      "start": 13,
+      "sourceDurationSeconds": 6.478,
+      "availableSeconds": 6.83,
+      "appliedTempo": 1,
+      "maxVoiceDb": -1.1,
+      "provider": "Vbee Batch"
+    },
+    {
+      "beat": 4,
+      "start": 20,
+      "sourceDurationSeconds": 6.896,
+      "availableSeconds": 7.83,
+      "appliedTempo": 1,
+      "maxVoiceDb": -0.8,
+      "provider": "Vbee Batch"
+    },
+    {
+      "beat": 5,
+      "start": 28,
+      "sourceDurationSeconds": 6.635,
+      "availableSeconds": 7.83,
+      "appliedTempo": 1,
+      "maxVoiceDb": -0.9,
+      "provider": "Vbee Batch"
+    },
+    {
+      "beat": 6,
+      "start": 36,
+      "sourceDurationSeconds": 9.169,
+      "availableSeconds": 8.83,
+      "appliedTempo": 1.0384,
+      "maxVoiceDb": -1.2,
+      "provider": "Vbee Batch"
+    }
+  ],
+  "sha256": "bda251984d729a5ea6449993a237c8422fa460eb69478129ee412c1dbfcf072c",
+  "bytes": 2564265,
+  "VbeeProvenance": "real Batch API, 6 actual mp3 files synthesized via secrets",
+  "originalScore": "procedural piano + timed SFX",
+  "animationTechnique": "frame-driven original 2D puppet motion, NOT original CGI/3D or AI video",
+  "visualSubjectiveReview": "NOT VERIFIED by watching full final video",
+  "narratorListeningReview": "NOT VERIFIED by listening to final MP4",
+  "canonicalRemotionPipelineGates": "NOT CERTIFIED",
+  "retentionMetrics": "not available before platform publish",
+  "YouTubePublished": false,
+  "TikTokPublished": false
+}
