@@ -395,7 +395,13 @@ const PaperStarProp: React.FC<{
             strokeWidth={4}
             transform="translate(15 0) rotate(10 15 0)"
           />
-          <path d="M -4 -38 L 7 -15 L -5 3 L 10 20" stroke="#8D6B5A" strokeWidth={5} fill="none" strokeLinecap="round" />
+          <path
+            d="M -4 -38 L 7 -15 L -5 3 L 10 20"
+            stroke="#8D6B5A"
+            strokeWidth={5}
+            fill="none"
+            strokeLinecap="round"
+          />
         </g>
       )}
       {kind === 'paper_star' && star(0, 0, 1.25, Math.sin(time * 1.2) * 3, '#F7F0DC')}
@@ -409,14 +415,32 @@ const PaperStarProp: React.FC<{
       )}
       {kind === 'dark_window' && (
         <g>
-          <rect x="-170" y="-140" width="340" height="280" rx="12" fill="#101A2A" stroke="#AAB6C4" strokeWidth="13" />
+          <rect
+            x="-170"
+            y="-140"
+            width="340"
+            height="280"
+            rx="12"
+            fill="#101A2A"
+            stroke="#AAB6C4"
+            strokeWidth="13"
+          />
           <path d="M 0 -132 V 132 M -162 0 H 162" stroke="#8296AA" strokeWidth="9" />
           <rect x="-154" y="-124" width="308" height="248" fill="#081321" opacity="0.55" />
         </g>
       )}
       {kind === 'window_stars' && (
         <g>
-          <rect x="-170" y="-140" width="340" height="280" rx="12" fill="#17243A" stroke="#AAB6C4" strokeWidth="13" />
+          <rect
+            x="-170"
+            y="-140"
+            width="340"
+            height="280"
+            rx="12"
+            fill="#17243A"
+            stroke="#AAB6C4"
+            strokeWidth="13"
+          />
           <path d="M 0 -132 V 132 M -162 0 H 162" stroke="#8296AA" strokeWidth="9" />
           <circle cx="0" cy="0" r="112" fill="#EFCB78" opacity={0.42 + 0.06 * Math.sin(time * 2)} />
           {star(-78, -48, 0.68, -6, '#F4D98C')}
@@ -426,13 +450,43 @@ const PaperStarProp: React.FC<{
       )}
       {kind === 'two_window_stars' && (
         <g>
-          <rect x="-285" y="-112" width="210" height="224" rx="10" fill="#17243A" stroke="#AAB6C4" strokeWidth="12" />
+          <rect
+            x="-285"
+            y="-112"
+            width="210"
+            height="224"
+            rx="10"
+            fill="#17243A"
+            stroke="#AAB6C4"
+            strokeWidth="12"
+          />
           <path d="M -180 -106 V 106 M -279 0 H -81" stroke="#8296AA" strokeWidth="8" />
-          <rect x="75" y="-112" width="210" height="224" rx="10" fill="#17243A" stroke="#AAB6C4" strokeWidth="12" />
+          <rect
+            x="75"
+            y="-112"
+            width="210"
+            height="224"
+            rx="10"
+            fill="#17243A"
+            stroke="#AAB6C4"
+            strokeWidth="12"
+          />
           <path d="M 180 -106 V 106 M 81 0 H 279" stroke="#8296AA" strokeWidth="8" />
           <path d="M -75 4 Q 0 -35 75 4" stroke="#D8C59B" strokeWidth="7" fill="none" />
-          <circle cx="-180" cy="0" r="82" fill="#EFCB78" opacity={0.38 + 0.05 * Math.sin(time * 2)} />
-          <circle cx="180" cy="0" r="82" fill="#EFCB78" opacity={0.38 + 0.05 * Math.sin(time * 2)} />
+          <circle
+            cx="-180"
+            cy="0"
+            r="82"
+            fill="#EFCB78"
+            opacity={0.38 + 0.05 * Math.sin(time * 2)}
+          />
+          <circle
+            cx="180"
+            cy="0"
+            r="82"
+            fill="#EFCB78"
+            opacity={0.38 + 0.05 * Math.sin(time * 2)}
+          />
           {star(-180, 0, 0.76, -5, '#F4D98C')}
           {star(180, 0, 0.76, 5, '#F4D98C')}
         </g>
@@ -459,7 +513,21 @@ const CupProp: React.FC<{
   y: number;
   time: number;
 }> = ({kind, x, y, time}) => {
-  if (!kind || ['falling_star', 'blank_page', 'folded_star', 'torn_star', 'paper_star', 'star_chain', 'window_stars', 'dark_window', 'two_window_stars'].includes(kind)) return null;
+  if (
+    !kind ||
+    [
+      'falling_star',
+      'blank_page',
+      'folded_star',
+      'torn_star',
+      'paper_star',
+      'star_chain',
+      'window_stars',
+      'dark_window',
+      'two_window_stars',
+    ].includes(kind)
+  )
+    return null;
   const pot = (offset: number, stage: string) => (
     <g transform={'translate(' + offset + ' 0)'}>
       <path
