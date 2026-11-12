@@ -39,7 +39,14 @@ export type FilmShot = {
     | 'sprout_cup'
     | 'flower_cup'
     | 'cup_garden'
-    | 'tipped_cup';
+    | 'tipped_cup'
+    | 'falling_star'
+    | 'blank_page'
+    | 'folded_star'
+    | 'torn_star'
+    | 'paper_star'
+    | 'star_chain'
+    | 'window_stars';
   weather?: 'rain';
 };
 export type FilmProps = {title: string; shots: FilmShot[]};
@@ -319,13 +326,74 @@ const Caption: React.FC<{shot: FilmShot; local: number}> = ({shot, local}) => {
   );
 };
 
+const PaperStarProp: React.FC<{
+  kind?: FilmShot['prop'];
+  x: number;
+  y: number;
+  time: number;
+}> = ({kind, x, y, time}) => {
+  const starKinds = ['falling_star', 'blank_page', 'folded_star', 'torn_star', 'paper_star', 'star_chain', 'window_stars'];
+  if (!kind || !starKinds.includes(kind)) return null;
+  const starPoints = '0,-42 10,-13 42,-13 17,6 26,38 0,20 -26,38 -17,6 -42,-13 -10,-13';
+  const star = (sx: number, sy: number, scale: number, rotation: number, fill: string) => (
+    <g transform={'translate(' + sx + ' ' + sy + ') rotate(' + rotation + ') scale(' + scale + ')'}>
+      <polygon points={starPoints} fill={fill} stroke="#D9B56F" strokeWidth={4} />
+      <path d="M 0 -30 L 0 15 M -27 -8 L 27 -8" stroke="#B68B50" strokeWidth={3} opacity={0.55} fill="none" />
+    </g>
+  );
+  const fall = kind === 'falling_star' ? -150 + Math.min(145, time * 30) : Math.sin(time * 2.1) * 4;
+  return (
+    <g transform={'translate(' + x + ' ' + (y + fall) + ')'}>
+      {kind === 'blank_page' && (
+        <g>
+          <path d="M -54 -40 L 36 -40 L 54 -22 L 54 42 L -54 42 Z" fill="#F5F0E5" stroke="#A8B4C0" strokeWidth={5} />
+          <path d="M 36 -40 L 36 -22 L 54 -22 M -34 -12 L 28 -12 M -34 5 L 28 5 M -34 22 L 12 22" stroke="#B8B6AA" strokeWidth={3} fill="none" />
+        </g>
+      )}
+      {kind === 'folded_star' && star(0, 0, 0.82, Math.sin(time * 1.5) * 4, '#F7F0DC')}
+      {kind === 'torn_star' && (
+        <g>
+          <polygon points={starPoints} fill="#F1E7D5" stroke="#D9B56F" strokeWidth={4} transform="translate(-9 0)" />
+          <path d="M -5 -39 L 7 -15 L -3 2 L 11 19" stroke="#8D6B5A" strokeWidth={5} fill="none" strokeLinecap="round" />
+          <path d="M 9 -9 L 22 -2" stroke="#F7F0DC" strokeWidth={8} />
+        </g>
+      )}
+      {kind === 'paper_star' && star(0, 0, 1, Math.sin(time * 1.2) * 3, '#F7F0DC')}
+      {kind === 'star_chain' && (
+        <g>
+          <path d="M -115 -4 Q 0 26 115 -4" stroke="#D8C59B" strokeWidth={5} fill="none" />
+          {star(-92, 0, 0.58, -8, '#F7F0DC')}
+          {star(0, 17, 0.72, 4, '#F7F0DC')}
+          {star(92, 0, 0.58, 8, '#F7F0DC')}
+        </g>
+      )}
+      {kind === 'window_stars' && (
+        <g>
+          <rect x="-145" y="-118" width="290" height="236" rx="10" fill="#101A2A" stroke="#AAB6C4" strokeWidth="12" />
+          <path d="M 0 -112 V 112 M -139 0 H 139" stroke="#8296AA" strokeWidth="8" />
+          <circle cx="0" cy="0" r="92" fill="#EFCB78" opacity={0.12 + 0.05 * Math.sin(time * 2)} />
+          {star(-72, -48, 0.48, -6, '#F4D98C')}
+          {star(58, -40, 0.42, 8, '#F4D98C')}
+          {star(0, 62, 0.36, 0, '#F4D98C')}
+        </g>
+      )}
+      {kind === 'falling_star' && (
+        <g>
+          <path d="M -78 -28 L -22 -10" stroke="#F4D98C" strokeWidth={8} strokeLinecap="round" opacity={0.5} />
+          {star(0, 0, 0.9, Math.sin(time * 2) * 8, '#F7F0DC')}
+        </g>
+      )}
+    </g>
+  );
+};
+
 const CupProp: React.FC<{
   kind?: FilmShot['prop'];
   x: number;
   y: number;
   time: number;
 }> = ({kind, x, y, time}) => {
-  if (!kind) return null;
+  if (!kind || ['falling_star', 'blank_page', 'folded_star', 'torn_star', 'paper_star', 'star_chain', 'window_stars'].includes(kind)) return null;
   const pot = (offset: number, stage: string) => (
     <g transform={'translate(' + offset + ' 0)'}>
       <path
@@ -461,6 +529,12 @@ export const SilentFactoryReel: React.FC<FilmProps> = ({shots}) => {
           }
         >
           <CupProp kind={shot.prop} x={hero.hip.x + 100} y={FLOOR - 8} time={time} />
+          <PaperStarProp
+            kind={shot.prop}
+            x={shot.prop === 'window_stars' ? 1480 : shot.prop === 'star_chain' ? hero.hip.x + 180 : hero.hands[1].x + 28}
+            y={shot.prop === 'window_stars' ? 610 : shot.prop === 'star_chain' ? FLOOR - 230 : hero.hands[1].y - 8}
+            time={time}
+          />
           <CharacterPuppet pose={hero} accessory="wristband" accent="#F2C46E" />
           {shot.action === 'repair' && (
             <g opacity={0.9 + 0.1 * wave}>
