@@ -1,0 +1,497 @@
+{
+  "title": "Walk Beside Me",
+  "revision": 0,
+  "category": "original-silent-2d-stick-figure-motivational-film",
+  "stage": "RENDER_PENDING_UNREVIEWED",
+  "creative_qa_approved": false,
+  "qa_approved": false,
+  "creative_qa_passed": false,
+  "creative_qa_override": false,
+  "original_rights_accepted": true,
+  "format": {
+    "aspect_ratio": "16:9",
+    "width": 2560,
+    "height": 1440,
+    "fps": 30,
+    "duration_seconds": 210,
+    "total_frames": 6300,
+    "shots": 36,
+    "caption_cues": 18,
+    "voiceover": false,
+    "dialogue": false,
+    "caption_burn_in": true,
+    "character_style": "2D articulated stick figures only"
+  },
+  "runtime_constraints": {
+    "model": "GPT-6 requested",
+    "thinking_effort": "EXTRA HIGH requested; not enforceable through the available Automations API and not verified at runtime",
+    "project_context": "AI Edition Video Project attachment could not be verified or changed through an API; accessible repository documentation and prior project context were used",
+    "plugin_requirement": "Silent Animation Factory V1.7.0+ requested; skills registry returned no installed skills and repository main does not contain the plugin package or references. V1.7 compliance is not claimed; render contract follows the repository V1.6 executor documentation."
+  },
+  "characters": {
+    "lead": "White round-headed 2D stick figure, articulated arms and legs, expressive face, persistent yellow wristband; initially crosses the bridge, notices someone frozen, then turns back.",
+    "companion": "Same white stick-figure family and proportions at the renderer's smaller companion scale, distinguished by one blue scarf; initially afraid, later steadies the lead when the bridge shakes.",
+    "continuity": "No anime, photoreal people, 3D characters, or character redesign."
+  },
+  "shots": [
+    {
+      "id": "shot-01",
+      "scene": "bridge",
+      "action": "walk",
+      "caption": "TEN STEPS. ONE IMPOSSIBLE CROSSING.",
+      "highlight": "IMPOSSIBLE",
+      "palette": "cold",
+      "weather": "rain"
+    },
+    {
+      "id": "shot-02",
+      "scene": "bridge",
+      "action": "walk",
+      "caption": "",
+      "highlight": "",
+      "palette": "cold",
+      "weather": "rain"
+    },
+    {
+      "id": "shot-03",
+      "scene": "bridge",
+      "action": "pause",
+      "caption": "THE RAIN MADE THE BRIDGE SWAY.",
+      "highlight": "BRIDGE SWAY",
+      "palette": "cold",
+      "weather": "rain"
+    },
+    {
+      "id": "shot-04",
+      "scene": "bridge",
+      "action": "walk",
+      "caption": "",
+      "highlight": "",
+      "palette": "cold",
+      "weather": "rain"
+    },
+    {
+      "id": "shot-05",
+      "scene": "bridge",
+      "action": "pause",
+      "caption": "THEIR FEET WOULD NOT MOVE.",
+      "highlight": "WOULD NOT MOVE",
+      "palette": "cold",
+      "weather": "rain"
+    },
+    {
+      "id": "shot-06",
+      "scene": "bridge",
+      "action": "walk",
+      "caption": "",
+      "highlight": "",
+      "palette": "cold",
+      "weather": "rain"
+    },
+    {
+      "id": "shot-07",
+      "scene": "bridge",
+      "action": "walk",
+      "caption": "EVERYONE ELSE HAD CROSSED.",
+      "highlight": "HAD CROSSED",
+      "palette": "cold",
+      "weather": "rain"
+    },
+    {
+      "id": "shot-08",
+      "scene": "bridge",
+      "action": "pause",
+      "caption": "",
+      "highlight": "",
+      "palette": "cold",
+      "weather": "rain"
+    },
+    {
+      "id": "shot-09",
+      "scene": "bridge",
+      "action": "walk",
+      "caption": "NO ONE SAW THEM TURN BACK.",
+      "highlight": "TURN BACK",
+      "palette": "warm",
+      "weather": "rain"
+    },
+    {
+      "id": "shot-10",
+      "scene": "bridge",
+      "action": "walk",
+      "caption": "",
+      "highlight": "",
+      "palette": "cold",
+      "weather": "rain"
+    },
+    {
+      "id": "shot-11",
+      "scene": "bridge",
+      "action": "help",
+      "caption": "THEN ONE FIGURE RETURNED.",
+      "highlight": "RETURNED",
+      "palette": "warm",
+      "weather": "rain"
+    },
+    {
+      "id": "shot-12",
+      "scene": "bridge",
+      "action": "offer",
+      "caption": "",
+      "highlight": "",
+      "palette": "cold",
+      "weather": "rain"
+    },
+    {
+      "id": "shot-13",
+      "scene": "bridge",
+      "action": "offer",
+      "caption": "NO ONE PULLED. THEY WAITED.",
+      "highlight": "THEY WAITED",
+      "palette": "warm",
+      "weather": "rain"
+    },
+    {
+      "id": "shot-14",
+      "scene": "bridge",
+      "action": "help",
+      "caption": "",
+      "highlight": "",
+      "palette": "cold",
+      "weather": "rain"
+    },
+    {
+      "id": "shot-15",
+      "scene": "bridge",
+      "action": "help",
+      "caption": "ONE STEP. THEN A BREATH.",
+      "highlight": "A BREATH",
+      "palette": "warm",
+      "weather": "rain"
+    },
+    {
+      "id": "shot-16",
+      "scene": "bridge",
+      "action": "walk",
+      "caption": "",
+      "highlight": "",
+      "palette": "cold",
+      "weather": "rain"
+    },
+    {
+      "id": "shot-17",
+      "scene": "bridge",
+      "action": "stumble",
+      "caption": "HALFWAY, THE BRIDGE SHOOK.",
+      "highlight": "BRIDGE SHOOK",
+      "palette": "cold",
+      "weather": "rain"
+    },
+    {
+      "id": "shot-18",
+      "scene": "bridge",
+      "action": "pause",
+      "caption": "",
+      "highlight": "",
+      "palette": "cold",
+      "weather": "rain"
+    },
+    {
+      "id": "shot-19",
+      "scene": "bridge",
+      "action": "pause",
+      "caption": "THE BRAVE ONE FROZE TOO.",
+      "highlight": "FROZE TOO",
+      "palette": "cold",
+      "weather": "rain"
+    },
+    {
+      "id": "shot-20",
+      "scene": "bridge",
+      "action": "help",
+      "caption": "",
+      "highlight": "",
+      "palette": "cold",
+      "weather": "rain"
+    },
+    {
+      "id": "shot-21",
+      "scene": "bridge",
+      "action": "offer",
+      "caption": "A SMALL HAND REACHED FIRST.",
+      "highlight": "REACHED FIRST",
+      "palette": "warm",
+      "weather": "rain"
+    },
+    {
+      "id": "shot-22",
+      "scene": "bridge",
+      "action": "help",
+      "caption": "",
+      "highlight": "",
+      "palette": "cold",
+      "weather": "rain"
+    },
+    {
+      "id": "shot-23",
+      "scene": "bridge",
+      "action": "help",
+      "caption": "COURAGE CHANGED SIDES.",
+      "highlight": "CHANGED SIDES",
+      "palette": "warm"
+    },
+    {
+      "id": "shot-24",
+      "scene": "bridge",
+      "action": "walk",
+      "caption": "",
+      "highlight": "",
+      "palette": "cold"
+    },
+    {
+      "id": "shot-25",
+      "scene": "bridge",
+      "action": "help",
+      "caption": "THEY MOVED AT THE SAME PACE.",
+      "highlight": "SAME PACE",
+      "palette": "hope"
+    },
+    {
+      "id": "shot-26",
+      "scene": "bridge",
+      "action": "walk",
+      "caption": "",
+      "highlight": "",
+      "palette": "cold"
+    },
+    {
+      "id": "shot-27",
+      "scene": "bridge",
+      "action": "reach",
+      "caption": "THE FAR SIDE WAS CLOSER NOW.",
+      "highlight": "CLOSER NOW",
+      "palette": "hope"
+    },
+    {
+      "id": "shot-28",
+      "scene": "bridge",
+      "action": "walk",
+      "caption": "",
+      "highlight": "",
+      "palette": "cold"
+    },
+    {
+      "id": "shot-29",
+      "scene": "city",
+      "action": "pause",
+      "caption": "THE RAIN BEGAN TO EASE.",
+      "highlight": "BEGAN TO EASE",
+      "palette": "hope"
+    },
+    {
+      "id": "shot-30",
+      "scene": "city",
+      "action": "help",
+      "caption": "THEY HAD CROSSED TOGETHER.",
+      "highlight": "CROSSED TOGETHER",
+      "palette": "hope"
+    },
+    {
+      "id": "shot-31",
+      "scene": "city",
+      "action": "walk",
+      "caption": "",
+      "highlight": "",
+      "palette": "cold"
+    },
+    {
+      "id": "shot-32",
+      "scene": "dawn",
+      "action": "pause",
+      "caption": "",
+      "highlight": "",
+      "palette": "cold"
+    },
+    {
+      "id": "shot-33",
+      "scene": "dawn",
+      "action": "offer",
+      "caption": "NO ONE HAD TO BE FEARLESS.",
+      "highlight": "BE FEARLESS",
+      "palette": "hope"
+    },
+    {
+      "id": "shot-34",
+      "scene": "dawn",
+      "action": "walk",
+      "caption": "",
+      "highlight": "",
+      "palette": "cold"
+    },
+    {
+      "id": "shot-35",
+      "scene": "dawn",
+      "action": "help",
+      "caption": "",
+      "highlight": "",
+      "palette": "cold"
+    },
+    {
+      "id": "shot-36",
+      "scene": "dawn",
+      "action": "rise",
+      "caption": "NO ONE HAS TO CROSS ALONE.",
+      "highlight": "CROSS ALONE",
+      "palette": "hope"
+    }
+  ],
+  "creative_intent": {
+    "logline": "A confident stick figure crosses a rain-soaked footbridge, notices a blue-scarf stranger frozen at the far end, and turns back. Halfway across together, the bridge shakes and the confident one freezes too; the stranger they helped reaches back first.",
+    "hook": "A ten-step bridge sways in heavy rain. One figure crosses, then stops when they see another figure unable to take the first step.",
+    "theme": "Courage is not the absence of fear. Sometimes it is simply choosing to stay beside someone.",
+    "emotional_turn": "The helper freezes halfway across; the once-frightened companion steadies them, reversing the roles without dialogue.",
+    "ending_payoff": "Both reach the far side together. The lead looks back and leaves an open hand toward the bridge, suggesting the next person will not have to cross alone.",
+    "character_bible": "Lead: white round head, small expressive face, articulated thin arms and legs, yellow wristband. Companion: same simple 2D stick-figure rig, slightly smaller, one blue scarf. Preserve silhouettes and accessories in every shot.",
+    "environment_bible": "One narrow pedestrian bridge with visible rails over a dark river, cold navy/teal storm palette, rain streaks and reflected highlights; city lights behind the bridge; warm dawn at the final beat.",
+    "narrative_beats": [
+      "0–30s: establish the narrow bridge and rain; the lead crosses, notices the companion frozen at the far end.",
+      "30–60s: the lead turns back; other movement continues around them, but they choose to wait rather than pull.",
+      "60–90s: the companion takes one step at a time; the lead matches their pace.",
+      "90–120s: the bridge shakes; the lead stumbles and freezes, revealing that courage was never effortless.",
+      "120–150s: the companion reaches first and steadies the lead; the power dynamic reverses.",
+      "150–180s: they continue at one pace and reach the far side together.",
+      "180–210s: the rain eases; they pause in the dawn light and leave an open hand toward the next person."
+    ],
+    "concept_selection": {
+      "scoring_scale": "0-100 weighted editorial estimate; not an audience-performance measurement or plugin audit",
+      "weights": {
+        "hook_5s": 15,
+        "emotion": 15,
+        "agency": 15,
+        "twist": 15,
+        "retention": 15,
+        "thumbnail_title": 15,
+        "technical": 10
+      },
+      "candidates": [
+        {
+          "name": "Walk Beside Me",
+          "score": 93,
+          "breakdown": {
+            "hook_5s": 14,
+            "emotion": 15,
+            "agency": 14,
+            "twist": 14,
+            "retention": 14,
+            "thumbnail_title": 14,
+            "technical": 8
+          },
+          "reason": "A clear physical obstacle, a visible choice to turn back, and a role-reversal at the midpoint create an action-led emotional arc."
+        },
+        {
+          "name": "The First One Back",
+          "score": 89,
+          "breakdown": {
+            "hook_5s": 13,
+            "emotion": 14,
+            "agency": 14,
+            "twist": 13,
+            "retention": 13,
+            "thumbnail_title": 14,
+            "technical": 8
+          },
+          "reason": "A runner returns to help someone left behind, but its rescue structure is less distinctive."
+        },
+        {
+          "name": "The Quiet Wait",
+          "score": 85,
+          "breakdown": {
+            "hook_5s": 12,
+            "emotion": 14,
+            "agency": 13,
+            "twist": 12,
+            "retention": 13,
+            "thumbnail_title": 13,
+            "technical": 8
+          },
+          "reason": "A figure pauses for a stranger at a city crossing; intimate but with a softer visual hook."
+        }
+      ],
+      "selected": "Walk Beside Me",
+      "scores_are_editorial_estimates": true
+    },
+    "thumbnail_concepts": [
+      "Two white stick figures on a narrow rain-soaked bridge, one yellow wristband reaching back toward a blue-scarf companion; chosen for immediate emotional readability.",
+      "Close crop of two articulated hands almost touching above dark water, with the bridge rails converging behind them.",
+      "Wide dawn silhouette of both figures crossing together as rain clouds open over the city."
+    ],
+    "selected_thumbnail_concept": "Two white stick figures on a narrow rain-soaked bridge, one yellow wristband reaching back toward a blue-scarf companion.",
+    "title_alternatives": [
+      "Walk Beside Me | A Silent Story About Courage",
+      "The Bridge Between Us | A 2D Stick Figure Story",
+      "Courage Is a Step You Take Together"
+    ],
+    "description": "A rain-soaked bridge becomes a test of courage. One figure freezes at the far end, and another turns back instead of rushing them. Halfway across, the bridge shakes—and the person who seemed brave needs help too. A silent 2D stick-figure story about patience, shared courage, and taking the next step together. Original instrumental score and procedural sound effects; no dialogue or voiceover.",
+    "tags": [
+      "stick figure animation",
+      "silent animation",
+      "2D animation",
+      "motivational short film",
+      "courage",
+      "kindness",
+      "resilience",
+      "emotional animation",
+      "no dialogue",
+      "walk beside me"
+    ],
+    "growth_hypotheses": [
+      "A visible hesitation on a narrow bridge in the first five seconds may make the conflict legible without dialogue; validate retention at 0:05.",
+      "The helper's return around 0:55 may create a second emotional hook; inspect the 0:45–1:15 retention curve.",
+      "The midpoint role reversal may reduce the usual drop after the initial rescue; inspect retention around 1:35–2:05.",
+      "The final open-hand image may invite comments about times someone stayed beside the viewer; validate through comments and shares rather than assuming virality."
+    ],
+    "trend_research": {
+      "checked_at": "2026-11-14",
+      "window": "2026-10-15 through 2026-11-14",
+      "sources": [
+        {
+          "url": "https://blog.youtube/culture-and-trends/the-evolution-of-web-series-on-youtube-microdramas/",
+          "published": "2026-10-27",
+          "finding": "YouTube reported 6.5 billion microdrama views in H1 2026 and over 50% year-over-year watch-time growth; this is a storytelling-format signal, not a direct forecast for a 210-second 16:9 film."
+        },
+        {
+          "url": "https://kreogrid.ai/shorts-trends/motivation",
+          "updated": "2026-11-13",
+          "finding": "A third-party weekly motivation Shorts tracker listed action-oriented topics such as talent becoming serious, earned success, and work behind dreams; rankings are not official YouTube analytics."
+        },
+        {
+          "url": "https://www.veedio.co/trending/youtube-shorts/stick-figure",
+          "updated": "2026-11-08",
+          "finding": "A third-party stick-figure Shorts ranking showed active recent demand for action-led stick-figure stories and explainers; its sample is limited to the videos returned for its query."
+        }
+      ],
+      "conclusion": "Use a fast visual conflict and a role-reversal emotional beat; do not copy trend scripts or treat third-party rankings as guaranteed audience demand."
+    },
+    "audio_plan": {
+      "music": "Original procedural instrumental in five emotional phases: storm tension, hesitation, cautious movement, role reversal, dawn release.",
+      "sfx": "Generated five-phase instrumental with procedural rain hiss and timed footstep/wood taps. No third-party samples or existing songs; the encoded audio still requires listening review."
+    },
+    "audit_status": "CREATOR_DRAFT_ONLY; animation-script-audit plugin unavailable in this runtime."
+  },
+  "technical_expectations": {
+    "duration_seconds": 210,
+    "frames": 6300,
+    "shots": 36,
+    "captions": 18,
+    "full_decode": true,
+    "sha256": true,
+    "independent_full_movie_review_required": true
+  },
+  "release": {
+    "channel": "OLISE_MAN",
+    "channel_id": "UCY3n3Nlqyo6uI4GU8nuX-5g",
+    "privacy": "private_only",
+    "manifest_created": false,
+    "upload_status": "NOT_UPLOADED"
+  }
+}
