@@ -1,8 +1,8 @@
 {
   "title": "Walk Beside Me",
-  "revision": 0,
+  "revision": 1,
   "category": "original-silent-2d-stick-figure-motivational-film",
-  "stage": "RENDER_PENDING_UNREVIEWED",
+  "stage": "REVISION_1_RENDER_PENDING",
   "creative_qa_approved": false,
   "qa_approved": false,
   "creative_qa_passed": false,
@@ -30,7 +30,7 @@
   },
   "characters": {
     "lead": "White round-headed 2D stick figure, articulated arms and legs, expressive face, persistent yellow wristband; initially crosses the bridge, notices someone frozen, then turns back.",
-    "companion": "Same white stick-figure family and proportions at the renderer's smaller companion scale, distinguished by one blue scarf; initially afraid, later steadies the lead when the bridge shakes.",
+    "companion": "Same 2D stick-figure family, slightly smaller rig, one blue scarf; visible from shot 01, initially paused, then offers/walks/helps as the story progresses. Renderer mirrors the companion toward the lead and aligns both rigs to the same bridge deck baseline.",
     "continuity": "No anime, photoreal people, 3D characters, or character redesign."
   },
   "shots": [
@@ -41,7 +41,8 @@
       "caption": "TEN STEPS. ONE IMPOSSIBLE CROSSING.",
       "highlight": "IMPOSSIBLE",
       "palette": "cold",
-      "weather": "rain"
+      "weather": "rain",
+      "companion_action": "pause"
     },
     {
       "id": "shot-02",
@@ -50,7 +51,8 @@
       "caption": "",
       "highlight": "",
       "palette": "cold",
-      "weather": "rain"
+      "weather": "rain",
+      "companion_action": "pause"
     },
     {
       "id": "shot-03",
@@ -59,7 +61,8 @@
       "caption": "THE RAIN MADE THE BRIDGE SWAY.",
       "highlight": "BRIDGE SWAY",
       "palette": "cold",
-      "weather": "rain"
+      "weather": "rain",
+      "companion_action": "pause"
     },
     {
       "id": "shot-04",
@@ -68,7 +71,8 @@
       "caption": "",
       "highlight": "",
       "palette": "cold",
-      "weather": "rain"
+      "weather": "rain",
+      "companion_action": "pause"
     },
     {
       "id": "shot-05",
@@ -77,7 +81,8 @@
       "caption": "THEIR FEET WOULD NOT MOVE.",
       "highlight": "WOULD NOT MOVE",
       "palette": "cold",
-      "weather": "rain"
+      "weather": "rain",
+      "companion_action": "pause"
     },
     {
       "id": "shot-06",
@@ -86,7 +91,8 @@
       "caption": "",
       "highlight": "",
       "palette": "cold",
-      "weather": "rain"
+      "weather": "rain",
+      "companion_action": "pause"
     },
     {
       "id": "shot-07",
@@ -95,7 +101,8 @@
       "caption": "EVERYONE ELSE HAD CROSSED.",
       "highlight": "HAD CROSSED",
       "palette": "cold",
-      "weather": "rain"
+      "weather": "rain",
+      "companion_action": "pause"
     },
     {
       "id": "shot-08",
@@ -104,7 +111,8 @@
       "caption": "",
       "highlight": "",
       "palette": "cold",
-      "weather": "rain"
+      "weather": "rain",
+      "companion_action": "pause"
     },
     {
       "id": "shot-09",
@@ -113,7 +121,8 @@
       "caption": "NO ONE SAW THEM TURN BACK.",
       "highlight": "TURN BACK",
       "palette": "warm",
-      "weather": "rain"
+      "weather": "rain",
+      "companion_action": "pause"
     },
     {
       "id": "shot-10",
@@ -122,7 +131,8 @@
       "caption": "",
       "highlight": "",
       "palette": "cold",
-      "weather": "rain"
+      "weather": "rain",
+      "companion_action": "pause"
     },
     {
       "id": "shot-11",
@@ -131,7 +141,8 @@
       "caption": "THEN ONE FIGURE RETURNED.",
       "highlight": "RETURNED",
       "palette": "warm",
-      "weather": "rain"
+      "weather": "rain",
+      "companion_action": "offer"
     },
     {
       "id": "shot-12",
@@ -140,7 +151,8 @@
       "caption": "",
       "highlight": "",
       "palette": "cold",
-      "weather": "rain"
+      "weather": "rain",
+      "companion_action": "offer"
     },
     {
       "id": "shot-13",
@@ -149,7 +161,8 @@
       "caption": "NO ONE PULLED. THEY WAITED.",
       "highlight": "THEY WAITED",
       "palette": "warm",
-      "weather": "rain"
+      "weather": "rain",
+      "companion_action": "pause"
     },
     {
       "id": "shot-14",
@@ -158,7 +171,8 @@
       "caption": "",
       "highlight": "",
       "palette": "cold",
-      "weather": "rain"
+      "weather": "rain",
+      "companion_action": "pause"
     },
     {
       "id": "shot-15",
@@ -167,7 +181,8 @@
       "caption": "ONE STEP. THEN A BREATH.",
       "highlight": "A BREATH",
       "palette": "warm",
-      "weather": "rain"
+      "weather": "rain",
+      "companion_action": "walk"
     },
     {
       "id": "shot-16",
@@ -176,7 +191,8 @@
       "caption": "",
       "highlight": "",
       "palette": "cold",
-      "weather": "rain"
+      "weather": "rain",
+      "companion_action": "walk"
     },
     {
       "id": "shot-17",
@@ -185,7 +201,8 @@
       "caption": "HALFWAY, THE BRIDGE SHOOK.",
       "highlight": "BRIDGE SHOOK",
       "palette": "cold",
-      "weather": "rain"
+      "weather": "rain",
+      "companion_action": "pause"
     },
     {
       "id": "shot-18",
@@ -194,7 +211,8 @@
       "caption": "",
       "highlight": "",
       "palette": "cold",
-      "weather": "rain"
+      "weather": "rain",
+      "companion_action": "pause"
     },
     {
       "id": "shot-19",
@@ -203,7 +221,8 @@
       "caption": "THE BRAVE ONE FROZE TOO.",
       "highlight": "FROZE TOO",
       "palette": "cold",
-      "weather": "rain"
+      "weather": "rain",
+      "companion_action": "pause"
     },
     {
       "id": "shot-20",
@@ -212,7 +231,8 @@
       "caption": "",
       "highlight": "",
       "palette": "cold",
-      "weather": "rain"
+      "weather": "rain",
+      "companion_action": "help"
     },
     {
       "id": "shot-21",
@@ -221,7 +241,8 @@
       "caption": "A SMALL HAND REACHED FIRST.",
       "highlight": "REACHED FIRST",
       "palette": "warm",
-      "weather": "rain"
+      "weather": "rain",
+      "companion_action": "help"
     },
     {
       "id": "shot-22",
@@ -230,7 +251,8 @@
       "caption": "",
       "highlight": "",
       "palette": "cold",
-      "weather": "rain"
+      "weather": "rain",
+      "companion_action": "help"
     },
     {
       "id": "shot-23",
@@ -238,7 +260,8 @@
       "action": "help",
       "caption": "COURAGE CHANGED SIDES.",
       "highlight": "CHANGED SIDES",
-      "palette": "warm"
+      "palette": "warm",
+      "companion_action": "help"
     },
     {
       "id": "shot-24",
@@ -246,7 +269,8 @@
       "action": "walk",
       "caption": "",
       "highlight": "",
-      "palette": "cold"
+      "palette": "cold",
+      "companion_action": "walk"
     },
     {
       "id": "shot-25",
@@ -254,7 +278,8 @@
       "action": "help",
       "caption": "THEY MOVED AT THE SAME PACE.",
       "highlight": "SAME PACE",
-      "palette": "hope"
+      "palette": "hope",
+      "companion_action": "walk"
     },
     {
       "id": "shot-26",
@@ -262,7 +287,8 @@
       "action": "walk",
       "caption": "",
       "highlight": "",
-      "palette": "cold"
+      "palette": "cold",
+      "companion_action": "walk"
     },
     {
       "id": "shot-27",
@@ -270,7 +296,8 @@
       "action": "reach",
       "caption": "THE FAR SIDE WAS CLOSER NOW.",
       "highlight": "CLOSER NOW",
-      "palette": "hope"
+      "palette": "hope",
+      "companion_action": "walk"
     },
     {
       "id": "shot-28",
@@ -278,7 +305,8 @@
       "action": "walk",
       "caption": "",
       "highlight": "",
-      "palette": "cold"
+      "palette": "cold",
+      "companion_action": "walk"
     },
     {
       "id": "shot-29",
@@ -286,7 +314,8 @@
       "action": "pause",
       "caption": "THE RAIN BEGAN TO EASE.",
       "highlight": "BEGAN TO EASE",
-      "palette": "hope"
+      "palette": "hope",
+      "companion_action": "walk"
     },
     {
       "id": "shot-30",
@@ -294,7 +323,8 @@
       "action": "help",
       "caption": "THEY HAD CROSSED TOGETHER.",
       "highlight": "CROSSED TOGETHER",
-      "palette": "hope"
+      "palette": "hope",
+      "companion_action": "walk"
     },
     {
       "id": "shot-31",
@@ -302,7 +332,8 @@
       "action": "walk",
       "caption": "",
       "highlight": "",
-      "palette": "cold"
+      "palette": "cold",
+      "companion_action": "walk"
     },
     {
       "id": "shot-32",
@@ -310,7 +341,8 @@
       "action": "pause",
       "caption": "",
       "highlight": "",
-      "palette": "cold"
+      "palette": "cold",
+      "companion_action": "pause"
     },
     {
       "id": "shot-33",
@@ -318,7 +350,8 @@
       "action": "offer",
       "caption": "NO ONE HAD TO BE FEARLESS.",
       "highlight": "BE FEARLESS",
-      "palette": "hope"
+      "palette": "hope",
+      "companion_action": "pause"
     },
     {
       "id": "shot-34",
@@ -326,7 +359,8 @@
       "action": "walk",
       "caption": "",
       "highlight": "",
-      "palette": "cold"
+      "palette": "cold",
+      "companion_action": "walk"
     },
     {
       "id": "shot-35",
@@ -334,15 +368,17 @@
       "action": "help",
       "caption": "",
       "highlight": "",
-      "palette": "cold"
+      "palette": "cold",
+      "companion_action": "help"
     },
     {
       "id": "shot-36",
       "scene": "dawn",
-      "action": "rise",
+      "action": "offer",
       "caption": "NO ONE HAS TO CROSS ALONE.",
       "highlight": "CROSS ALONE",
-      "palette": "hope"
+      "palette": "hope",
+      "companion_action": "pause"
     }
   ],
   "creative_intent": {
@@ -421,11 +457,11 @@
       "scores_are_editorial_estimates": true
     },
     "thumbnail_concepts": [
-      "Two white stick figures on a narrow rain-soaked bridge, one yellow wristband reaching back toward a blue-scarf companion; chosen for immediate emotional readability.",
-      "Close crop of two articulated hands almost touching above dark water, with the bridge rails converging behind them.",
-      "Wide dawn silhouette of both figures crossing together as rain clouds open over the city."
+      "Two white stick figures on a narrow rain-soaked bridge over visible dark water; the yellow-wristband lead reaches back toward the blue-scarf companion, with a strong hand-to-hand focal point.",
+      "Close crop of two articulated hands almost touching above moving dark water, bridge rails converging behind them.",
+      "Wide dawn silhouette of both stick figures crossing together as rain clouds open over the city."
     ],
-    "selected_thumbnail_concept": "Two white stick figures on a narrow rain-soaked bridge, one yellow wristband reaching back toward a blue-scarf companion.",
+    "selected_thumbnail_concept": "Two white stick figures on a narrow rain-soaked bridge over visible dark water; the yellow-wristband lead reaches back toward the blue-scarf companion, with a strong hand-to-hand focal point.",
     "title_alternatives": [
       "Walk Beside Me | A Silent Story About Courage",
       "The Bridge Between Us | A 2D Stick Figure Story",
@@ -476,7 +512,34 @@
       "music": "Original procedural instrumental in five emotional phases: storm tension, hesitation, cautious movement, role reversal, dawn release.",
       "sfx": "Generated five-phase instrumental with procedural rain hiss and timed footstep/wood taps. No third-party samples or existing songs; the encoded audio still requires listening review."
     },
-    "audit_status": "CREATOR_DRAFT_ONLY; animation-script-audit plugin unavailable in this runtime."
+    "audit_status": "CREATOR_DRAFT_ONLY; animation-script-audit plugin unavailable in this runtime.",
+    "story_review": {
+      "scope": "Creator-side review of the actual encoded 36-shot contact sheet only; not a full-film audiovisual independent review.",
+      "attempt_00_run_id": 43538212099,
+      "attempt_00_sha256": "057ab6b7b9dbb6a2f26c10fd852543bd8256ce8be5d4c1bd5438bbefa6134b1f",
+      "defects": [
+        {
+          "timecode": "00:00-00:58",
+          "severity": "MAJOR",
+          "issue": "Companion absent in shots 01-10 while captions describe another figure whose feet cannot move; the second character and the emotional conflict are not visually established."
+        },
+        {
+          "timecode": "00:58-02:20",
+          "severity": "MAJOR",
+          "issue": "The helper used a fixed translate(360,80) scale(0.70) transform, floating above the bridge deck and overlapping the lead instead of making grounded contact."
+        },
+        {
+          "timecode": "02:20-03:30",
+          "severity": "MAJOR",
+          "issue": "Companion disappeared in shots where the lead action was not help/offer, breaking character continuity during the crossing and ending."
+        },
+        {
+          "timecode": "throughout bridge scenes",
+          "severity": "MINOR",
+          "issue": "The bridge had railings but no visible water or motion, so the caption about the bridge swaying was not sufficiently supported by the background."
+        }
+      ]
+    }
   },
   "technical_expectations": {
     "duration_seconds": 210,
@@ -493,5 +556,48 @@
     "privacy": "private_only",
     "manifest_created": false,
     "upload_status": "NOT_UPLOADED"
-  }
+  },
+  "repair_history": [
+    {
+      "attempt": "attempt_00",
+      "run_id": 43538212099,
+      "run_url": "https://github.com/nanxnguyen/remotion-ai-agentic-studio/actions/runs/43538212099",
+      "source_commit": "ffe7e41ae16d2d8ed8661dc32500215a6be8badc",
+      "movie_sha256": "057ab6b7b9dbb6a2f26c10fd852543bd8256ce8be5d4c1bd5438bbefa6134b1f",
+      "movie_bytes": 49221100,
+      "duration_seconds": 210,
+      "width": 2560,
+      "height": 1440,
+      "fps": 30,
+      "frames": 6300,
+      "shots": 36,
+      "caption_cues": 18,
+      "integrated_lufs": -13.9,
+      "all_video_frames_decoded": true,
+      "all_audio_decoded": true,
+      "technical_qa": "PASS",
+      "creative_independent_review_complete": false,
+      "creative_qa_passed": false,
+      "video_final_certified": false,
+      "upload_authorized": false
+    },
+    {
+      "attempt": "revision_1",
+      "status": "PENDING_RENDER",
+      "renderer_commit": "b67e529df093d3cb3f5c16558f32efc27b4a0ac8",
+      "renderer_prettier_commit": "00454a2a9f49d7066f9e9ffbb540a2679fe2aa73",
+      "validator_tests_commit": "340d4e626115ba3502eb151cc4791c9941567ba7",
+      "ci_verification_commit": "662da41aefb5e31957872be29708d48ddcacbb0b",
+      "changes": [
+        "Add a companion_action cue so the blue-scarf character is present and animated in all 36 shots.",
+        "Mirror and position the companion toward the lead; align the companion feet to the same bridge deck baseline to remove floating and overlap.",
+        "Add visible moving water beneath the bridge and subtle rail sway to support the bridge-shake beat.",
+        "Change the final lead action to offer so the ending shows an open hand toward the next unseen traveler."
+      ],
+      "technical_render_and_qa": "NOT_RUN",
+      "independent_full_movie_review": "NOT_AVAILABLE"
+    }
+  ],
+  "thumbnail_status": "CANDIDATE_PENDING_REVISION_1",
+  "audit_status": "CREATOR_DRAFT_ONLY; animation-script-audit and Silent Animation Factory V1.7 plugin skill are unavailable in this runtime."
 }
