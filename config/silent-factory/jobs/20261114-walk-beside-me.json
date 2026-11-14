@@ -1,8 +1,8 @@
 {
   "title": "Walk Beside Me",
-  "revision": 1,
+  "revision": 2,
   "category": "original-silent-2d-stick-figure-motivational-film",
-  "stage": "REVISION_1_RENDER_PENDING",
+  "stage": "REVISION_2_RENDER_PENDING",
   "creative_qa_approved": false,
   "qa_approved": false,
   "creative_qa_passed": false,
@@ -583,21 +583,69 @@
     },
     {
       "attempt": "revision_1",
+      "status": "RENDERED_TECHNICAL_QA_PASS_CREATIVE_REVIEW_PENDING",
+      "run_id": 43540238879,
+      "run_url": "https://github.com/nanxnguyen/remotion-ai-agentic-studio/actions/runs/43540238879",
+      "source_commit": "2500ec137130b1ef4e18b4dd8d6e85773646d1cf",
+      "movie_sha256": "f7683dd6b7ba1ce8166a3b9c267e9841bf31e740e5124f3bbe74222c80cde89e",
+      "movie_bytes": 52923465,
+      "duration_seconds": 210,
+      "width": 2560,
+      "height": 1440,
+      "fps": 30,
+      "frames": 6300,
+      "shots": 36,
+      "caption_cues": 18,
+      "integrated_lufs": -13.9,
+      "loudness_range_lu": 2.2,
+      "true_peak_dbfs": -2.6,
+      "all_video_frames_decoded": true,
+      "all_audio_decoded": true,
+      "technical_qa": "PASS",
+      "creative_independent_review_complete": false,
+      "creative_qa_passed": false,
+      "video_final_certified": false,
+      "upload_authorized": false,
+      "review_scope": "Creator-side visual inspection of the actual encoded 36-shot contact sheet and six sampled frames at 40, 70, 115, 150, 180 and 198 seconds. This is not a full-film independent audiovisual review.",
+      "defects": [
+        {
+          "timecode": "00:00-03:30",
+          "severity": "MAJOR",
+          "issue": "The contact sheet remains dominated by one wide bridge composition; emotional beats and two-character interaction are not yet clearly emphasized by framing."
+        },
+        {
+          "timecode": "00:00-03:30",
+          "severity": "MAJOR",
+          "issue": "Revision 1 rendered before the follow-up companion-position commit e6ef6a59; its companion placement is therefore not the latest main-branch composition."
+        }
+      ]
+    },
+    {
+      "attempt": "revision_2",
       "status": "PENDING_RENDER",
-      "renderer_commit": "b67e529df093d3cb3f5c16558f32efc27b4a0ac8",
-      "renderer_prettier_commit": "00454a2a9f49d7066f9e9ffbb540a2679fe2aa73",
-      "validator_tests_commit": "340d4e626115ba3502eb151cc4791c9941567ba7",
-      "ci_verification_commit": "662da41aefb5e31957872be29708d48ddcacbb0b",
+      "manifest_revision": 2,
+      "renderer_position_commit": "e6ef6a59ae5ac324f1669f7742d220c00daeef30",
+      "renderer_camera_commit": "8e4f0e7b6f722480046b5491182ce34dbf637111",
       "changes": [
-        "Add a companion_action cue so the blue-scarf character is present and animated in all 36 shots.",
-        "Mirror and position the companion toward the lead; align the companion feet to the same bridge deck baseline to remove floating and overlap.",
-        "Add visible moving water beneath the bridge and subtle rail sway to support the bridge-shake beat.",
-        "Change the final lead action to offer so the ending shows an open hand toward the next unseen traveler."
+        "Use the latest companion placement so the blue-scarf figure is on the opposite side of the lead, facing inward.",
+        "Add action-aware close-up framing for reach/help/offer/stumble beats and center both characters during those emotional actions.",
+        "Keep the same 36-shot story and 18 captions; this revision targets blocking and visual emphasis rather than changing the narrative."
       ],
-      "technical_render_and_qa": "NOT_RUN",
-      "independent_full_movie_review": "NOT_AVAILABLE"
+      "technical_render_and_qa": "PENDING_RENDER",
+      "independent_full_movie_review": "NOT_AVAILABLE",
+      "creative_qa_passed": false
     }
   ],
-  "thumbnail_status": "CANDIDATE_PENDING_REVISION_1",
-  "audit_status": "CREATOR_DRAFT_ONLY; animation-script-audit and Silent Animation Factory V1.7 plugin skill are unavailable in this runtime."
+  "thumbnail_status": "CANDIDATE_READY_FROM_REVISION_1_FRAME_70S_NOT_ARCHIVED",
+  "audit_status": "CREATOR_DRAFT_ONLY; animation-script-audit and Silent Animation Factory V1.7 skill/references unavailable in this runtime.",
+  "thumbnail_candidate": {
+    "file_name": "walk-beside-me-thumbnail-1280x720.jpg",
+    "width": 1280,
+    "height": 720,
+    "bytes": 87490,
+    "source_frame_seconds": 70,
+    "source_movie_sha256": "f7683dd6b7ba1ce8166a3b9c267e9841bf31e740e5124f3bbe74222c80cde89e",
+    "status": "CANDIDATE_ONLY_NOT_DRIVE_ARCHIVED",
+    "design": "Actual encoded film frame with title overlay; no generated characters or unrelated imagery."
+  }
 }
