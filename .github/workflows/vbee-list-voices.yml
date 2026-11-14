@@ -1,0 +1,30 @@
+name: Vbee - list Vietnamese voices
+on:
+  workflow_dispatch:
+  push:
+    branches: [feat/cam-giac-bi-con-trung-dot]
+    paths:
+      - .github/workflows/vbee-list-voices.yml
+      - scripts/vbee-list-voices.py
+permissions:
+  contents: read
+jobs:
+  list:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      VBEE_ACCESS_TOKEN: ${{ secrets.VBEE_ACCESS_TOKEN || secrets.VBEE_TOKEN || secrets.VBEE_API_KEY || secrets.VBEE_API_TOKEN }}
+      VBEE_APP_ID: ${{ secrets.VBEE_APP_ID || secrets.VBEE_APPID || secrets.VBEE_APPLICATION_ID }}
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: List voices
+        run: python3 scripts/vbee-list-voices.py --out out/vbee-voices --language vi-VN --ownership VBEE COMMUNITY PERSONAL
+      - uses: actions/upload-artifact@v6
+        with:
+          name: vbee-voices
+          path: out/vbee-voices/
+          retention-days: 7
+          if-no-files-found: error
