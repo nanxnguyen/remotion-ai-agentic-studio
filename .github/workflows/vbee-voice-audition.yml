@@ -1,0 +1,44 @@
+name: Vbee - cartoon voice audition
+on:
+  workflow_dispatch:
+  push:
+    branches: [feat/cam-giac-bi-con-trung-dot]
+    paths:
+      - .github/workflows/vbee-voice-audition.yml
+      - docs/vbee-voice-audition/**
+permissions:
+  contents: read
+jobs:
+  audition:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    env:
+      VBEE_ACCESS_TOKEN: ${{ secrets.VBEE_ACCESS_TOKEN || secrets.VBEE_TOKEN || secrets.VBEE_API_KEY || secrets.VBEE_API_TOKEN }}
+      VBEE_APP_ID: ${{ secrets.VBEE_APP_ID || secrets.VBEE_APPID || secrets.VBEE_APPLICATION_ID }}
+      VBEE_WEBHOOK_URL: ${{ vars.VBEE_WEBHOOK_URL || 'https://example.com/story-tts-webhook' }}
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Install ffprobe
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+      - name: Synthesize the same line with every candidate voice
+        run: |
+          set -u
+          D=docs/vbee-voice-audition
+          grep -vE '^\s*(#|$)' $D/voices.txt | while read -r code speed; do
+            if python3 scripts/gen-story-vbee-batch.py --timeline $D/line.json --out-dir "out/aud/$code" \
+                 --voice-code "$code" --speed "$speed" --webhook-url "$VBEE_WEBHOOK_URL" > "out-$code.log" 2>&1; then
+              echo "ok   $code"
+            else
+              echo "FAIL $code: $(tail -1 "out-$code.log")"
+            fi
+          done | tee summary.txt
+          mkdir -p out/aud && cp summary.txt out/aud/
+      - uses: actions/upload-artifact@v6
+        with:
+          name: vbee-voice-audition
+          path: out/aud/
+          retention-days: 7
+          if-no-files-found: error

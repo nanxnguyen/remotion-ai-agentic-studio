@@ -1,0 +1,19 @@
+# code speed  -- one per line; blank/# ignored
+hn_male_thanhlong_talk_48k-fhg 1.0
+hn_male_vietbach_child_22k-vc 1.0
+hn_female_nganha_child_22k-vc 1.0
+hn_female_hermer_stor_48k-fhg 1.0
+hn_female_lenka_stor_48k-phg 1.0
+hn_male_phuthang_stor80dt_48k-fhg 1.0
+hn_male_minhquan_yt_24k-pre 1.0
+hn_male_quochuy_yt_24k-pre 1.0
+sg_female_thanhmai_yt_24k-pre 1.0
+sg_male_anhtu_yt_24k-pre 1.0
+sg_female_tuongvy_call_44k-fhg 1.0
+hn_female_ngochuyen_full_24k-st 1.0
+s_hochiminh_female_hanhanvani_children_vc 1.0
+n_ninhbinh_female_emthudayy_children_vc 1.0
+n_hanoi_female_thaomaii_children_vc 1.0
+n_hanoi_female_hatmit02_children_vc 1.0
+s_hochiminh_female_cutiejennie_children_vc 1.0
+n_laocai_male_phuocpro_children_vc 1.0
