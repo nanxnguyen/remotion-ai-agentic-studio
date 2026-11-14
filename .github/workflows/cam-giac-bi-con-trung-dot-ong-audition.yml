@@ -22,13 +22,11 @@ jobs:
           python-version: '3.12'
       - name: Install ffprobe
         run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
-      - name: Generate the same lines with three voice settings
+      - name: Generate an ong / ông minimal pair with the production voice
         run: |
           set -eu
           L=docs/cam-giac-bi-con-trung-dot/voice/ong-audition.json
           python3 scripts/gen-story-vbee-batch.py --timeline $L --out-dir out/ong/thanhlong-106 --voice-code hn_male_thanhlong_talk_48k-fhg --speed 1.06 --webhook-url "$VBEE_WEBHOOK_URL"
-          python3 scripts/gen-story-vbee-batch.py --timeline $L --out-dir out/ong/thanhlong-095 --voice-code hn_male_thanhlong_talk_48k-fhg --speed 0.95 --webhook-url "$VBEE_WEBHOOK_URL"
-          python3 scripts/gen-story-vbee-batch.py --timeline $L --out-dir out/ong/phuthang-106 --voice-code hn_male_phuthang_stor_24k-stl --speed 1.06 --webhook-url "$VBEE_WEBHOOK_URL"
       - uses: actions/upload-artifact@v6
         with:
           name: ong-audition
