@@ -1,10 +1,11 @@
 name: Auto Video Producer Vbee Narration
 on:
   push:
-    branches: [feat/hieu-ung-con-nhim]
+    branches: [feat/hieu-ung-con-nhim, feat/top-5-luc-can-manh-nhat]
     paths:
       - .github/workflows/auto-video-vbee.yml
       - docs/hieu-ung-con-nhim/shotlist.json
+      - docs/top-5-luc-can-manh-nhat/shotlist.json
   workflow_dispatch:
     inputs:
       slug:
@@ -40,11 +41,12 @@ jobs:
         run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
       - name: Generate Vbee batch narration
         run: |
+          SLUG="${{ inputs.slug || (github.ref_name == 'feat/top-5-luc-can-manh-nhat' && 'top-5-luc-can-manh-nhat') || 'hieu-ung-con-nhim' }}"
           python3 scripts/gen-story-vbee-batch.py \
-            --timeline "docs/${{ inputs.slug || 'hieu-ung-con-nhim' }}/shotlist.json" \
-            --out-dir "public/audio/${{ inputs.slug || 'hieu-ung-con-nhim' }}" \
+            --timeline "docs/${SLUG}/shotlist.json" \
+            --out-dir "public/audio/${SLUG}" \
             --voice-code "${{ inputs.voice_code || 'hn_male_phuthang_stor_24k-stl' }}" \
-            --speed "${{ inputs.speed || '1.05' }}" \
+            --speed "${{ inputs.speed || '1.08' }}" \
             --webhook-url "$VBEE_WEBHOOK_URL"
       - name: Verify 100% narration match & measured durations
         run: |
@@ -52,7 +54,7 @@ jobs:
           import json
           from pathlib import Path
 
-          slug = "${{ inputs.slug || 'hieu-ung-con-nhim' }}"
+          slug = "${{ inputs.slug || (github.ref_name == 'feat/top-5-luc-can-manh-nhat' && 'top-5-luc-can-manh-nhat') || 'hieu-ung-con-nhim' }}"
           shots = {s["id"]: s for s in json.loads(Path(f"docs/{slug}/shotlist.json").read_text())}
           measured = json.loads(Path(f"public/audio/{slug}/measured-timeline.json").read_text())
           assert len(measured) == len(shots), f"Clip count {len(measured)} != shot count {len(shots)}"
@@ -64,7 +66,7 @@ jobs:
           PY
       - uses: actions/upload-artifact@v6
         with:
-          name: ${{ inputs.slug || 'hieu-ung-con-nhim' }}-vbee
-          path: public/audio/${{ inputs.slug || 'hieu-ung-con-nhim' }}/
+          name: ${{ inputs.slug || (github.ref_name == 'feat/top-5-luc-can-manh-nhat' && 'top-5-luc-can-manh-nhat') || 'hieu-ung-con-nhim' }}-vbee
+          path: public/audio/${{ inputs.slug || (github.ref_name == 'feat/top-5-luc-can-manh-nhat' && 'top-5-luc-can-manh-nhat') || 'hieu-ung-con-nhim' }}/
           retention-days: 20
           if-no-files-found: error

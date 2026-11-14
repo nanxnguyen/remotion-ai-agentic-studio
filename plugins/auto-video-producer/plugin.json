@@ -1,7 +1,10 @@
 {
   "name": "auto-video-producer",
-  "version": "1.0.0",
-  "description": "End-to-end automated Remotion video production skill: 100% Vbee voice sync via GitHub Actions, expressive stickman/2D visuals, FullHD H.264 render, and Google Drive Videos-shorts delivery.",
+  "version": "1.1.0",
+  "description": "End-to-end automated video production skill mandating plugins/thanh-hai-learn-ai-2d-studio (cinematic 2.5D stickman/mascot rig, Vietnamese lip-sync, 36 SFX), 100% Vbee voice sync via GitHub Actions, FullHD H.264 render, and Google Drive Videos-shorts delivery.",
+  "dependencies": [
+    "thanh-hai-learn-ai-2d-studio"
+  ],
   "skills": [
     "skills/auto-video-producer"
   ]
