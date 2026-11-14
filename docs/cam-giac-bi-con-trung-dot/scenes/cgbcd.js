@@ -29,7 +29,8 @@ function tallyNow(gt) {
   if (r01e && gt >= r01e.start + 0.7 && gt < r01e.start + 1.1) return { count: 1, since: gt - r01e.start - 0.7 };
   return { count: past.length, since };
 }
-const hud = (g, info) => { const { count, since } = tallyNow(info.globalT); tally(g, { label: 'Số lần bị đốt', count, since, y: V(128, 260) }); };
+let NOHUD = false;   // set while a punch-in part draws its parent shot zoomed; the HUD is drawn once, unzoomed
+const hud = (g, info) => { if (NOHUD) return; const { count, since } = tallyNow(info.globalT); tally(g, { label: 'Số lần bị đốt', count, since, y: V(128, 260) }); };
 
 // ---------- creatures (y = ground, facing +x, ~200 units long at s = 1) ----------
 const ell = (g, x, y, rx, ry, c, rot = 0) => { g.fillStyle = c; g.beginPath(); g.ellipse(x, y, rx, ry, rot, 0, Math.PI * 2); g.fill(); };
@@ -440,7 +441,7 @@ const DRAW = {
     g.fillStyle = `rgba(255,190,110,${0.35 * Math.sin(u * Math.PI)})`; g.fillRect(-E.W, -E.H, E.W * 3, E.H * 3);
     const sx = lerp(-100, E.W + 100, u), sy = E.H * 0.4 - Math.sin(u * Math.PI) * E.H * 0.3; FX.sun(g, sx, sy, 60, '#fff1d6', '#ffcf8f', 4);
     layer(g, { z: 1.12 }, 1, g => { host(g, t, info, M, { x: CX() - 60, pose: boilPose(POSES.sad, t, 1.4), expr: t < kk ? 'cry' : 'smile' }); swollenHeel(g, CX() - 40, GY() - 10, 1 + 0.05 * Math.sin(t * 6)); });
-    const hrs = [[0, 'GIỜ 1'], [kk * 0.28, 'GIỜ 6'], [kk * 0.58, 'GIỜ 24']]; hrs.forEach(([at, s], i) => { if (t >= at && (i === 2 || t < hrs[i + 1][0])) pop(g, t, at, (g, k) => { g.translate(E.W * 0.78, E.H * 0.2); g.scale(k, k); big(g, s, 0, 0, { size: 84 }); }); });
+    const hrs = [[0, 'GIỜ 1'], [kk * 0.28, 'GIỜ 6'], [kk * 0.58, 'GIỜ 24']]; hrs.forEach(([at, s], i) => { if (t >= at && (i === 2 || t < hrs[i + 1][0])) pop(g, t, at, (g, k) => { g.translate(E.W * 0.74, E.H * 0.36); g.scale(k, k); big(g, s, 0, 0, { size: 84 }); }); });
     if (t > kk) pop(g, t, kk, (g, k) => { g.translate(CX() + 380, GY() - 120); g.scale(k, k); rr(g, -150, -50, 300, 100, 50); g.fillStyle = '#ffd6e0'; g.fill(); text(g, 'BÉ ĐINH', 0, 4, { size: 52, color: '#7a1a3a', font: FONTS.ui, weight: 900 }); });
     hud(g, info);
   },
@@ -495,5 +496,20 @@ function statCard(g, t, info, place, name, stats, creature, words = []) {
   hud(g, info);
 }
 
-for (const sh of E.shots) { const fn = DRAW[sh.id]; if (fn) registerShot(sh.id, { draw: fn }); }
+for (const sh of E.shots) {
+  const p = sh.params || {};
+  if (p.of) {          // punch-in part: continue the parent's animation, reframed around p.focus
+    const fn = DRAW[p.of], start = sh.start - p.off, end = start + p.full;
+    registerShot(sh.id, { draw(g, t, info) {
+      const pinfo = { ...info, dur: p.full, shot: { ...sh, id: p.of, start, end } };
+      const fx = p.focus[0] * E.W, fy = p.focus[1] * E.H, z = p.zoom + 0.02 * t;
+      g.save(); g.translate(fx, fy); g.scale(z, z); g.translate(-fx, -fy);
+      NOHUD = true; try { fn(g, t + p.off, pinfo); } finally { NOHUD = false; }
+      g.restore(); hud(g, info);
+    } });
+  } else if (DRAW[sh.id]) {
+    const fn = DRAW[sh.id];
+    registerShot(sh.id, { draw: p.full ? (g, t, info) => fn(g, t, { ...info, dur: p.full, shot: { ...sh, end: sh.start + p.full } }) : fn });
+  }
+}
 export { ant, rainforest, swollenHeel, bandage, DOG, big };

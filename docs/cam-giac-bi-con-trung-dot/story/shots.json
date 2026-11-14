@@ -487,7 +487,42 @@
       "s": 0.0,
       "e": 6.24
      }
-    ]
+    ],
+    "full": 6.66
+   },
+   "end": 69.63
+  },
+  {
+   "id": "r02g_2",
+   "start": 69.63,
+   "line": "Nói nghiêm túc nha: với người bị dị ứng, một vết ong đốt có thể rất nguy hiểm. Sưng mặt, khó thở là phải đi cấp cứu ngay.",
+   "scene": "Allergy warning",
+   "set": "studio",
+   "size": "close",
+   "in": {
+    "type": "cut"
+   },
+   "sfx": [],
+   "amb": {
+    "name": "roomtone",
+    "gain": -28
+   },
+   "params": {
+    "keys": [
+     {
+      "k": "r02g",
+      "s": 0.0,
+      "e": 6.24
+     }
+    ],
+    "of": "r02g",
+    "off": 3.4,
+    "zoom": 1.22,
+    "focus": [
+     0.38,
+     0.62
+    ],
+    "full": 6.66
    },
    "end": 72.89
   },
@@ -599,7 +634,43 @@
       "s": 5.39,
       "e": 6.76
      }
-    ]
+    ],
+    "full": 7.18
+   },
+   "end": 89.52
+  },
+  {
+   "id": "r03d_2",
+   "start": 89.52,
+   "line": "Còn loài kiến thợ gặt Maricopa, ông tả: sau tám tiếng khoan không ngừng, bạn phát hiện mũi khoan… bị kẹt luôn trong ngón chân.",
+   "scene": "8 hours, drill stuck",
+   "set": "dryfield",
+   "size": "close",
+   "in": {
+    "type": "cut"
+   },
+   "sfx": [],
+   "params": {
+    "keys": [
+     {
+      "k": "r03d",
+      "s": 0.0,
+      "e": 4.99
+     },
+     {
+      "k": "r03e",
+      "s": 5.39,
+      "e": 6.76
+     }
+    ],
+    "of": "r03d",
+    "off": 3.0,
+    "zoom": 1.25,
+    "focus": [
+     0.34,
+     0.62
+    ],
+    "full": 7.18
    },
    "end": 93.7
   },
@@ -746,7 +817,47 @@
       "s": 4.6,
       "e": 7.8
      }
-    ]
+    ],
+    "full": 8.22
+   },
+   "end": 115.28
+  },
+  {
+   "id": "r04c_2",
+   "start": 115.28,
+   "line": "Nó đốt cho nhện tê liệt, kéo về hang, rồi đẻ một quả trứng lên đó làm đồ ăn cho con. Một con ong mà dám đi săn nhện. Tôi bắt đầu thấy mình hơi nhỏ bé.",
+   "scene": "Drags the tarantula",
+   "set": "desert",
+   "size": "close",
+   "in": {
+    "type": "cut"
+   },
+   "sfx": [],
+   "amb": {
+    "name": "wind",
+    "gain": -28
+   },
+   "params": {
+    "keys": [
+     {
+      "k": "r04c",
+      "s": 0.0,
+      "e": 4.38
+     },
+     {
+      "k": "r04d",
+      "s": 4.6,
+      "e": 7.8
+     }
+    ],
+    "of": "r04c",
+    "off": 4.6,
+    "zoom": 1.3,
+    "focus": [
+     0.28,
+     0.68
+    ],
+    "full": 8.22
    },
    "end": 118.9
   },
@@ -937,9 +1048,37 @@
      "at": 0.5,
      "name": "impact",
      "gain": -4
-    },
+    }
+   ],
+   "amb": {
+    "name": "wind",
+    "gain": -26
+   },
+   "params": {
+    "keys": [
+     {
+      "k": "r05c",
+      "s": 0.0,
+      "e": 6.72
+     }
+    ],
+    "full": 7.12
+   },
+   "end": 144.36
+  },
+  {
+   "id": "r05c_2",
+   "start": 144.36,
+   "line": "Nhưng Schmidt tả nó thế này: đau nguyên chất, dữ dội, sáng loá. Như bước trên than hồng, với cây đinh dài bảy phân rưỡi cắm vào gót chân.",
+   "scene": "Sting + coals and nail insert",
+   "set": "rainforest",
+   "size": "close",
+   "in": {
+    "type": "cut"
+   },
+   "sfx": [
     {
-     "at": 3.6,
+     "at": 0.0,
      "name": "riser",
      "gain": -12,
      "dur": 0.8
@@ -956,7 +1095,15 @@
       "s": 0.0,
       "e": 6.72
      }
-    ]
+    ],
+    "of": "r05c",
+    "off": 3.6,
+    "zoom": 1.15,
+    "focus": [
+     0.66,
+     0.4
+    ],
+    "full": 7.12
    },
    "end": 147.88
   },
@@ -1131,7 +1278,47 @@
       "s": 6.98,
       "e": 7.44
      }
-    ]
+    ],
+    "full": 8.14
+   },
+   "end": 172.82
+  },
+  {
+   "id": "r05j_2",
+   "start": 172.82,
+   "line": "Giờ thứ nhất: đau. Giờ thứ sáu: vẫn đau. Giờ thứ hai mươi bốn: tôi đặt tên cho cơn đau luôn rồi. Nó tên là… Bé Đinh.",
+   "scene": "Timelapse, Bé Đinh",
+   "set": "rainforest",
+   "size": "close",
+   "in": {
+    "type": "cut"
+   },
+   "sfx": [],
+   "amb": {
+    "name": "wind",
+    "gain": -26
+   },
+   "params": {
+    "keys": [
+     {
+      "k": "r05j",
+      "s": 0.0,
+      "e": 6.38
+     },
+     {
+      "k": "r05k",
+      "s": 6.98,
+      "e": 7.44
+     }
+    ],
+    "of": "r05j",
+    "off": 4.0,
+    "zoom": 1.15,
+    "focus": [
+     0.78,
+     0.25
+    ],
+    "full": 8.14
    },
    "end": 176.96
   },
@@ -1153,6 +1340,7 @@
      "dur": 3.0
     }
    ],
+   "notes": "hold: ranking reveals one row at a time",
    "amb": {
     "name": "roomtone",
     "gain": -28

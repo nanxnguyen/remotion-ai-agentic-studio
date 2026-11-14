@@ -40,6 +40,10 @@ SHOTS = [  # shot id, keys, size, set (for the record), scene note
     ("z99", ["z99", "z99b"], "end", "meadow", "CTA + sixth sting"),
 ]
 GAP_IN, GAP_OUT, LEAD, TAIL = 0.22, 0.42, 0.15, 1.6
+SPLITS = {  # shot -> (cut at seconds into the shot, zoom, focus x, focus y as fractions of the frame)
+    "r02g": (3.4, 1.22, 0.38, 0.62), "r03d": (3.0, 1.25, 0.34, 0.62), "r04c": ("r04d", 1.3, 0.28, 0.68),
+    "r05c": (3.6, 1.15, 0.66, 0.4), "r05j": (4.0, 1.15, 0.78, 0.25),
+}
 GAP_AFTER = {"c00a": 0.55, "t00d": 0.5, "r02d": 0.45, "r03d": 0.4, "r04e": 0.45, "r04g": 0.5, "r05c": 0.4, "r05d": 0.45, "r05h": 0.45,
              "r05j": 0.6, "z99": 1.9, "r01d": 0.3, "r02f": 0.5, "r03g": 0.5, "r04h": 0.6, "r05k": 0.7, "z91": 0.5, "t00e": 0.5}
 LEAD_IN = {"r01a": 0.45, "r02a": 0.45, "r03a": 0.45, "r04a": 0.45, "r05a": 0.6, "z90": 0.3}
@@ -129,10 +133,27 @@ def main():
             t += dur[k] + (GAP_AFTER.get(k, GAP_IN if j < len(keys) - 1 else GAP_OUT))
         shots.append({"id": sid, "start": round(start, 3), "line": " ".join(by_key[k]["text"] for k in keys), "scene": note, "set": place, "size": size,
                       "in": {"type": "cut"} if sid[-1] != "a" or sid.startswith("t") else {"type": "flash", "dur": 0.25},
-                      "sfx": SFX.get(sid, []), **({"amb": AMB[place]} if place in AMB else {}), "params": {"keys": rel}})
+                      "sfx": SFX.get(sid, []), **({"notes": "hold: ranking reveals one row at a time"} if sid == "z90" else {}), **({"amb": AMB[place]} if place in AMB else {}), "params": {"keys": rel}})
     total = round(t + TAIL, 3)
     for s, nxt in zip(shots, shots[1:] + [None]):
         s["end"] = nxt["start"] if nxt else total
+    # punch-in cuts inside long shots: the "_2" part continues the same animation, reframed (scenes: params.of/off)
+    out = []
+    for s in shots:
+        out.append(s)
+        if s["id"] not in SPLITS:
+            continue
+        off, zoom, fx, fy = SPLITS[s["id"]]
+        if isinstance(off, str):  # cut where that voice key starts
+            off = next(k["s"] for k in s["params"]["keys"] if k["k"] == off)
+        child = {**s, "id": s["id"] + "_2", "size": "close", "start": round(s["start"] + off, 3), "end": s["end"], "in": {"type": "cut"},
+                 "sfx": [{**c, "at": round(c["at"] - off, 3)} for c in s["sfx"] if c["at"] >= off],
+                 "params": {**s["params"], "of": s["id"], "off": off, "zoom": zoom, "focus": [fx, fy], "full": round(s["end"] - s["start"], 3)}}
+        s["sfx"] = [c for c in s["sfx"] if c["at"] < off]
+        s["params"] = {**s["params"], "full": round(s["end"] - s["start"], 3)}
+        s["end"] = child["start"]
+        out.append(child)
+    shots = out
     st = {s["id"]: s["start"] for s in shots}
     music = [{"start": 0, "end": st["r01a"], "mood": "playful", "intensity": 0.45},
              {"start": st["r01a"], "end": st["r04a"], "mood": "playful", "intensity": 0.6},
