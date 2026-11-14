@@ -1,0 +1,309 @@
+{
+ "title": "Sự tiến hoá của loài người (hoạt hình)",
+ "duration": 26.0,
+ "evolution": {
+  "kind": "species",
+  "counter": "ago"
+ },
+ "shots": [
+  {
+   "id": "e00",
+   "start": 0,
+   "end": 2.4,
+   "size": "close",
+   "line": "",
+   "params": {
+    "hook": true
+   },
+   "scene": "HOOK: the final stage (Người tinh khôn) hits first, then a hard cut back to the start: 'from THIS…'",
+   "in": {
+    "type": "cut"
+   },
+   "sfx": [
+    {
+     "at": 0.0,
+     "name": "stinger",
+     "gain": -8
+    }
+   ],
+   "notes": "beat: hook"
+  },
+  {
+   "id": "e01",
+   "start": 2.4,
+   "end": 4.673,
+   "size": "medium",
+   "line": "",
+   "params": {
+    "stage": 0,
+    "value": 3500000000,
+    "title": "Tế bào đầu tiên"
+   },
+   "scene": "Deep ocean, god rays, bubbles; a single cell pulses at centre",
+   "in": {
+    "type": "cut"
+   },
+   "sfx": [
+    {
+     "at": 0.0,
+     "name": "pop",
+     "gain": -12
+    }
+   ],
+   "notes": ""
+  },
+  {
+   "id": "e02",
+   "start": 4.673,
+   "end": 6.945,
+   "size": "wide",
+   "line": "",
+   "params": {
+    "stage": 1,
+    "value": 530000000,
+    "title": "Cá nguyên thuỷ"
+   },
+   "scene": "Ocean: a primitive fish swims across, bubbles",
+   "in": {
+    "type": "flash",
+    "dur": 0.25
+   },
+   "sfx": [
+    {
+     "at": 0.0,
+     "name": "whoosh",
+     "gain": -10
+    },
+    {
+     "at": 0.05,
+     "name": "pop",
+     "gain": -14
+    }
+   ],
+   "notes": ""
+  },
+  {
+   "id": "e03",
+   "start": 6.945,
+   "end": 9.218,
+   "size": "medium",
+   "line": "",
+   "params": {
+    "stage": 2,
+    "value": 375000000,
+    "title": "Lưỡng cư lên bờ"
+   },
+   "scene": "Dusk shoreline: an amphibian crawls out of the water",
+   "in": {
+    "type": "flash",
+    "dur": 0.25
+   },
+   "sfx": [
+    {
+     "at": 0.0,
+     "name": "whoosh",
+     "gain": -10
+    },
+    {
+     "at": 0.05,
+     "name": "pop",
+     "gain": -14
+    }
+   ],
+   "notes": ""
+  },
+  {
+   "id": "e04",
+   "start": 9.218,
+   "end": 11.491,
+   "size": "close",
+   "line": "",
+   "params": {
+    "stage": 3,
+    "value": 310000000,
+    "title": "Bò sát"
+   },
+   "scene": "Golden fern desert: a reptile walks past ferns",
+   "in": {
+    "type": "flash",
+    "dur": 0.25
+   },
+   "sfx": [
+    {
+     "at": 0.0,
+     "name": "whoosh",
+     "gain": -10
+    },
+    {
+     "at": 0.05,
+     "name": "pop",
+     "gain": -14
+    }
+   ],
+   "notes": ""
+  },
+  {
+   "id": "e05",
+   "start": 11.491,
+   "end": 13.764,
+   "size": "medium",
+   "line": "",
+   "params": {
+    "stage": 4,
+    "value": 200000000,
+    "title": "Thú có vú đầu tiên"
+   },
+   "scene": "Night forest, moon and stars: a small mammal scurries",
+   "in": {
+    "type": "flash",
+    "dur": 0.25
+   },
+   "sfx": [
+    {
+     "at": 0.0,
+     "name": "whoosh",
+     "gain": -10
+    },
+    {
+     "at": 0.05,
+     "name": "pop",
+     "gain": -14
+    }
+   ],
+   "notes": ""
+  },
+  {
+   "id": "e06",
+   "start": 13.764,
+   "end": 16.491,
+   "size": "wide",
+   "line": "",
+   "params": {
+    "stage": 5,
+    "value": 7000000,
+    "title": "Vượn cổ"
+   },
+   "scene": "Savanna at sunset: an ape knuckle-walks",
+   "in": {
+    "type": "flash",
+    "dur": 0.25
+   },
+   "sfx": [
+    {
+     "at": 0.0,
+     "name": "whoosh",
+     "gain": -10
+    },
+    {
+     "at": 0.05,
+     "name": "pop",
+     "gain": -14
+    }
+   ],
+   "notes": ""
+  },
+  {
+   "id": "e07",
+   "start": 16.491,
+   "end": 19.218,
+   "size": "medium",
+   "line": "",
+   "params": {
+    "stage": 6,
+    "value": 2000000,
+    "title": "Người đứng thẳng"
+   },
+   "scene": "Savanna: a hominid walks upright with a stick",
+   "in": {
+    "type": "flash",
+    "dur": 0.25
+   },
+   "sfx": [
+    {
+     "at": 0.0,
+     "name": "whoosh",
+     "gain": -10
+    },
+    {
+     "at": 0.05,
+     "name": "pop",
+     "gain": -14
+    }
+   ],
+   "notes": ""
+  },
+  {
+   "id": "e08",
+   "start": 19.218,
+   "end": 22.4,
+   "size": "close",
+   "line": "",
+   "params": {
+    "stage": 7,
+    "value": 300000,
+    "title": "Người tinh khôn"
+   },
+   "scene": "Cave with a fire: Homo sapiens stands, handprints on the wall",
+   "in": {
+    "type": "flash",
+    "dur": 0.25
+   },
+   "sfx": [
+    {
+     "at": 0.0,
+     "name": "whoosh",
+     "gain": -10
+    },
+    {
+     "at": 0.05,
+     "name": "pop",
+     "gain": -14
+    }
+   ],
+   "notes": ""
+  },
+  {
+   "id": "e99",
+   "start": 22.4,
+   "end": 26.0,
+   "size": "end",
+   "line": "",
+   "params": {
+    "outro": true
+   },
+   "scene": "PAYOFF: every stage lined up left→right (or top→bottom in 9:16) + a one-line question; last frame matches the first stage so the Short loops",
+   "in": {
+    "type": "dip",
+    "dur": 0.4
+   },
+   "sfx": [
+    {
+     "at": 0.1,
+     "name": "shimmer",
+     "gain": -10
+    }
+   ],
+   "notes": ""
+  }
+ ],
+ "music": [
+  {
+   "start": 0,
+   "end": 2.4,
+   "mood": "mystery",
+   "intensity": 0.5
+  },
+  {
+   "start": 2.4,
+   "end": 14.4,
+   "mood": "wonder",
+   "intensity": 0.6
+  },
+  {
+   "start": 14.4,
+   "end": 26.0,
+   "mood": "epic",
+   "intensity": 0.8
+  }
+ ]
+}

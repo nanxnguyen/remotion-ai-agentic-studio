@@ -1,0 +1,23 @@
+{
+ "title": "What If Your Reaction Time Was 10x Faster?",
+ "aspect": "16:9",
+ "resolution": "720p",
+ "fps": 24,
+ "style": "dusk",
+ "voiceover": "input/voiceover.mp3",
+ "script": "input/script.txt",
+ "duration": 46.002,
+ "captions": false,
+ "bars": null,
+ "fadeIn": 0.5,
+ "fadeOut": 0.8,
+ "music": {
+  "enabled": true,
+  "gainDb": -20
+ },
+ "sfx": {
+  "enabled": true,
+  "gainDb": -6
+ },
+ "loudness": -14
+}
