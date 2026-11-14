@@ -1,7 +1,7 @@
 {
   "date": "2026-11-14",
   "title": "Walk Beside Me",
-  "stage": "BLOCKED_PRIVATE_RELEASE_PENDING_RENDER_REVISIONS_AND_EXTERNAL_GATES",
+  "stage": "BLOCKED_PRIVATE_RELEASE_PENDING_REVISION_3_AND_EXTERNAL_GATES",
   "manifest_path": "config/silent-factory/jobs/20261114-walk-beside-me.json",
   "manifest_revision": 3,
   "concept_selection": {
@@ -42,14 +42,33 @@
       "run_id": 43541503964,
       "run_url": "https://github.com/nanxnguyen/remotion-ai-agentic-studio/actions/runs/43541503964",
       "source_sha": "53f9943b32c6c2f58cff3b6f9fd7de569da3fbf0",
-      "status": "IN_PROGRESS_AT_RENDER_STEP_NO_ARTIFACT_YET"
+      "status": "COMPLETED_TECHNICAL_QA_PASS_CREATIVE_REVIEW_PENDING",
+      "movie_sha256": "89510f4d2ff197cb81e405be2ec0fa66a2a565c947be6acb5b8dd762fa596fb8",
+      "movie_bytes": 53370527,
+      "duration_seconds": 210,
+      "width": 2560,
+      "height": 1440,
+      "fps": 30,
+      "frames": 6300,
+      "shots": 36,
+      "captions": 18,
+      "integrated_lufs": -13.9,
+      "technical_qa": "PASS",
+      "all_video_frames_decoded": true,
+      "all_audio_decoded": true,
+      "creative_independent_review_complete": false,
+      "creative_qa_passed": false,
+      "video_final_certified": false,
+      "upload_authorized": false,
+      "review_scope": "Creator-side inspection of the encoded 36-shot contact sheet and six sampled frames; not a full independent audiovisual review.",
+      "observed_defect": "The action-aware framing still places the pair off-center because the focus calculation used the SVG group translation instead of the rendered companion anchor; revision 3 corrects the anchor."
     },
     {
       "attempt": "revision_3",
       "run_id": 43541787883,
       "run_url": "https://github.com/nanxnguyen/remotion-ai-agentic-studio/actions/runs/43541787883",
       "source_sha": "e761775dbde8e2f11892ce05a48ff6feb2abf680",
-      "status": "PENDING_BEHIND_REVISION_2"
+      "status": "IN_PROGRESS_AT_RENDER_STEP"
     }
   ],
   "thumbnail_candidate": {
@@ -84,5 +103,11 @@
     "project_attachment": "AI Edition Video context used only where accessible; explicit Project attachment not verified",
     "automation_environment_selection": "inherited",
     "automation_environments": null
+  },
+  "last_verified_main_commit": "b8c86243992ee301b65caa29d2bdf6e5f7796e3b",
+  "formatter_workflow": {
+    "run_id": 43542265379,
+    "status": "SUCCESS",
+    "run_url": "https://github.com/nanxnguyen/remotion-ai-agentic-studio/actions/runs/43542265379"
   }
 }
