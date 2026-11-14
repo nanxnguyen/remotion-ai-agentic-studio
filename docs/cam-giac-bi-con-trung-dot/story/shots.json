@@ -1,0 +1,1264 @@
+{
+ "title": "Cảm giác bị côn trùng đốt là như thế nào?",
+ "duration": 205.61,
+ "shots": [
+  {
+   "id": "c00",
+   "start": 0.0,
+   "line": "AAAA! Cái đinh! Ai rút giùm tôi cái đinh khỏi gót chân với?! Khoan. Làm gì có cái đinh nào.",
+   "scene": "Cold open: swollen heel, CÁI ĐINH?!",
+   "set": "rainforest",
+   "size": "close",
+   "in": {
+    "type": "cut"
+   },
+   "sfx": [
+    {
+     "at": 0.1,
+     "name": "impact",
+     "gain": -6
+    },
+    {
+     "at": 0.3,
+     "name": "pop",
+     "gain": -10
+    }
+   ],
+   "amb": {
+    "name": "wind",
+    "gain": -26
+   },
+   "params": {
+    "keys": [
+     {
+      "k": "c00a",
+      "s": 0.15,
+      "e": 3.61
+     },
+     {
+      "k": "c00b",
+      "s": 4.16,
+      "e": 5.77
+     }
+    ]
+   },
+   "end": 6.19
+  },
+  {
+   "id": "t00",
+   "start": 6.19,
+   "line": "Tôi là Cún Lú. Hôm nay, năm loài côn trùng sẽ lần lượt đốt tôi, từ nhẹ nhất tới đau nhất thế giới.",
+   "scene": "Title card, host intro",
+   "set": "studio",
+   "size": "title",
+   "in": {
+    "type": "cut"
+   },
+   "sfx": [
+    {
+     "at": 0.0,
+     "name": "whoosh",
+     "gain": -10
+    },
+    {
+     "at": 0.6,
+     "name": "shimmer",
+     "gain": -14
+    }
+   ],
+   "amb": {
+    "name": "roomtone",
+    "gain": -28
+   },
+   "params": {
+    "keys": [
+     {
+      "k": "t00a",
+      "s": 0.0,
+      "e": 5.06
+     }
+    ]
+   },
+   "end": 11.67
+  },
+  {
+   "id": "t01",
+   "start": 11.67,
+   "line": "Cái đinh lúc nãy á? Để dành tới cuối video.",
+   "scene": "Re-hook: nail saved for the end",
+   "set": "studio",
+   "size": "medium",
+   "in": {
+    "type": "cut"
+   },
+   "sfx": [
+    {
+     "at": 0.3,
+     "name": "swish",
+     "gain": -10
+    },
+    {
+     "at": 1.0,
+     "name": "pop",
+     "gain": -12
+    }
+   ],
+   "amb": {
+    "name": "roomtone",
+    "gain": -28
+   },
+   "params": {
+    "keys": [
+     {
+      "k": "t00b",
+      "s": 0.0,
+      "e": 2.33
+     }
+    ]
+   },
+   "end": 14.42
+  },
+  {
+   "id": "t02",
+   "start": 14.42,
+   "line": "Thước đo là thang đau Schmidt, từ một tới bốn, của một nhà khoa học đã để hơn bảy mươi loài ong và kiến đốt mình.",
+   "scene": "Schmidt scale 1-4",
+   "set": "studio",
+   "size": "data",
+   "in": {
+    "type": "cut"
+   },
+   "sfx": [
+    {
+     "at": 0.5,
+     "name": "blip",
+     "gain": -14
+    },
+    {
+     "at": 0.85,
+     "name": "blip",
+     "gain": -14
+    },
+    {
+     "at": 1.2,
+     "name": "blip",
+     "gain": -14
+    },
+    {
+     "at": 1.55,
+     "name": "blip",
+     "gain": -12
+    }
+   ],
+   "amb": {
+    "name": "roomtone",
+    "gain": -28
+   },
+   "params": {
+    "keys": [
+     {
+      "k": "t00c",
+      "s": 0.0,
+      "e": 5.36
+     }
+    ]
+   },
+   "end": 20.2
+  },
+  {
+   "id": "t03",
+   "start": 20.2,
+   "line": "Ông ấy làm vì khoa học. Còn tôi… lỡ ký hợp đồng rồi.",
+   "scene": "Science vs contract",
+   "set": "studio",
+   "size": "medium",
+   "in": {
+    "type": "cut"
+   },
+   "sfx": [],
+   "amb": {
+    "name": "roomtone",
+    "gain": -28
+   },
+   "params": {
+    "keys": [
+     {
+      "k": "t00d",
+      "s": 0.0,
+      "e": 1.75
+     },
+     {
+      "k": "t00e",
+      "s": 2.25,
+      "e": 3.26
+     }
+    ]
+   },
+   "end": 23.96
+  },
+  {
+   "id": "r01a",
+   "start": 23.96,
+   "line": "Vòng một: kiến lửa đỏ!",
+   "scene": "#1 fire ant",
+   "set": "meadow",
+   "size": "title",
+   "in": {
+    "type": "flash",
+    "dur": 0.25
+   },
+   "sfx": [
+    {
+     "at": 0.0,
+     "name": "whoosh",
+     "gain": -8
+    }
+   ],
+   "params": {
+    "keys": [
+     {
+      "k": "r01a",
+      "s": 0.45,
+      "e": 1.78
+     }
+    ]
+   },
+   "end": 26.16
+  },
+  {
+   "id": "r01b",
+   "start": 26.16,
+   "line": "Điểm đau: một. Thấp nhất bảng. Schmidt tả nó là: sắc, đột ngột, hơi giật mình. Thường chỉ đau chừng năm phút.",
+   "scene": "Stat card",
+   "set": "meadow",
+   "size": "data",
+   "in": {
+    "type": "cut"
+   },
+   "sfx": [],
+   "params": {
+    "keys": [
+     {
+      "k": "r01b",
+      "s": 0.0,
+      "e": 5.92
+     }
+    ]
+   },
+   "end": 32.5
+  },
+  {
+   "id": "r01c",
+   "start": 32.5,
+   "line": "Một điểm á? Dễ ợt. Để tôi đứng hẳn lên tổ cho các bạn xem.",
+   "scene": "Steps onto the mound",
+   "set": "meadow",
+   "size": "wide",
+   "in": {
+    "type": "cut"
+   },
+   "sfx": [],
+   "params": {
+    "keys": [
+     {
+      "k": "r01c",
+      "s": 0.0,
+      "e": 3.31
+     }
+    ]
+   },
+   "end": 36.23
+  },
+  {
+   "id": "r01d",
+   "start": 36.23,
+   "line": "Ơ, sao lên đông thế này? Mỗi con chỉ một điểm thôi, nhưng mà một điểm nhân với cả đàn!",
+   "scene": "Swarmed, tally 47",
+   "set": "meadow",
+   "size": "medium",
+   "in": {
+    "type": "cut"
+   },
+   "sfx": [
+    {
+     "at": 0.5,
+     "name": "hit",
+     "gain": -8
+    },
+    {
+     "at": 0.5,
+     "name": "counter",
+     "gain": -14,
+     "dur": 1.6
+    }
+   ],
+   "params": {
+    "keys": [
+     {
+      "k": "r01d",
+      "s": 0.0,
+      "e": 4.49
+     }
+    ]
+   },
+   "end": 41.02
+  },
+  {
+   "id": "r01e",
+   "start": 41.02,
+   "line": "Thôi thôi, tính là một lần.",
+   "scene": "Counts as one",
+   "set": "meadow",
+   "size": "medium",
+   "in": {
+    "type": "cut"
+   },
+   "sfx": [],
+   "params": {
+    "keys": [
+     {
+      "k": "r01e",
+      "s": 0.0,
+      "e": 1.37
+     }
+    ]
+   },
+   "end": 42.81
+  },
+  {
+   "id": "r02a",
+   "start": 42.81,
+   "line": "Vòng hai: ong mật!",
+   "scene": "#2 honey bee",
+   "set": "garden",
+   "size": "title",
+   "in": {
+    "type": "flash",
+    "dur": 0.25
+   },
+   "sfx": [
+    {
+     "at": 0.0,
+     "name": "whoosh",
+     "gain": -8
+    }
+   ],
+   "params": {
+    "keys": [
+     {
+      "k": "r02a",
+      "s": 0.45,
+      "e": 1.5
+     }
+    ]
+   },
+   "end": 44.73
+  },
+  {
+   "id": "r02b",
+   "start": 44.73,
+   "line": "Đây là cột mốc của cả bảng. Ong mật được chấm đúng hai điểm, và mọi loài khác đều đem ra so với nó.",
+   "scene": "Anchor of the scale",
+   "set": "garden",
+   "size": "data",
+   "in": {
+    "type": "cut"
+   },
+   "sfx": [],
+   "params": {
+    "keys": [
+     {
+      "k": "r02b",
+      "s": 0.0,
+      "e": 5.23
+     }
+    ]
+   },
+   "end": 50.38
+  },
+  {
+   "id": "r02c",
+   "start": 50.38,
+   "line": "Schmidt tả: nóng rát, như bị ăn mòn, nhưng mà chịu được. Đau chừng năm tới mười phút.",
+   "scene": "Sting on the nose",
+   "set": "garden",
+   "size": "close",
+   "in": {
+    "type": "cut"
+   },
+   "sfx": [
+    {
+     "at": 0.0,
+     "name": "buzz",
+     "gain": -14,
+     "dur": 0.6
+    },
+    {
+     "at": 0.6,
+     "name": "hit",
+     "gain": -7
+    }
+   ],
+   "params": {
+    "keys": [
+     {
+      "k": "r02c",
+      "s": 0.0,
+      "e": 4.5
+     }
+    ]
+   },
+   "end": 55.3
+  },
+  {
+   "id": "r02d",
+   "start": 55.3,
+   "line": "Ngòi ong mật có gai ngược, giống lưỡi câu. Đốt xong, ngòi kẹt lại trong da, và con ong… hy sinh luôn.",
+   "scene": "Barbed stinger, bee dies",
+   "set": "garden",
+   "size": "insert",
+   "in": {
+    "type": "cut"
+   },
+   "sfx": [],
+   "params": {
+    "keys": [
+     {
+      "k": "r02d",
+      "s": 0.0,
+      "e": 4.99
+     },
+     {
+      "k": "r02e",
+      "s": 5.44,
+      "e": 6.12
+     }
+    ]
+   },
+   "end": 61.84
+  },
+  {
+   "id": "r02f",
+   "start": 61.84,
+   "line": "Tức là nó chấp nhận chết, chỉ để tôi đau mười phút. Tôi chưa thấy ai ghét tôi đến vậy.",
+   "scene": "Swollen face, bee with halo",
+   "set": "garden",
+   "size": "close",
+   "in": {
+    "type": "cut"
+   },
+   "sfx": [
+    {
+     "at": 0.6,
+     "name": "slowmo",
+     "gain": -14
+    }
+   ],
+   "params": {
+    "keys": [
+     {
+      "k": "r02f",
+      "s": 0.0,
+      "e": 3.89
+     }
+    ]
+   },
+   "end": 66.23
+  },
+  {
+   "id": "r02g",
+   "start": 66.23,
+   "line": "Nói nghiêm túc nha: với người bị dị ứng, một vết ong đốt có thể rất nguy hiểm. Sưng mặt, khó thở là phải đi cấp cứu ngay.",
+   "scene": "Allergy warning",
+   "set": "studio",
+   "size": "medium",
+   "in": {
+    "type": "cut"
+   },
+   "sfx": [],
+   "amb": {
+    "name": "roomtone",
+    "gain": -28
+   },
+   "params": {
+    "keys": [
+     {
+      "k": "r02g",
+      "s": 0.0,
+      "e": 6.24
+     }
+    ]
+   },
+   "end": 72.89
+  },
+  {
+   "id": "r03a",
+   "start": 72.89,
+   "line": "Vòng ba: kiến thợ gặt!",
+   "scene": "#3 harvester ant",
+   "set": "dryfield",
+   "size": "title",
+   "in": {
+    "type": "flash",
+    "dur": 0.25
+   },
+   "sfx": [
+    {
+     "at": 0.0,
+     "name": "whoosh",
+     "gain": -8
+    }
+   ],
+   "params": {
+    "keys": [
+     {
+      "k": "r03a",
+      "s": 0.45,
+      "e": 1.71
+     }
+    ]
+   },
+   "end": 75.02
+  },
+  {
+   "id": "r03b",
+   "start": 75.02,
+   "line": "Ba điểm rồi đấy. Kiến thợ gặt sống khắp châu Mỹ, nhiều nhất ở vùng khô hạn, chuyên tha hạt giống về tổ làm lương thực.",
+   "scene": "Seed carriers",
+   "set": "dryfield",
+   "size": "data",
+   "in": {
+    "type": "cut"
+   },
+   "sfx": [],
+   "params": {
+    "keys": [
+     {
+      "k": "r03b",
+      "s": 0.0,
+      "e": 5.84
+     }
+    ]
+   },
+   "end": 81.28
+  },
+  {
+   "id": "r03c",
+   "start": 81.28,
+   "line": "Schmidt tả một loài trong số đó: như có ai cầm máy khoan, khoan vào cái móng chân mọc ngược của bạn.",
+   "scene": "Drill sting",
+   "set": "dryfield",
+   "size": "medium",
+   "in": {
+    "type": "cut"
+   },
+   "sfx": [
+    {
+     "at": 0.5,
+     "name": "hit",
+     "gain": -7
+    },
+    {
+     "at": 0.9,
+     "name": "buzz",
+     "gain": -16,
+     "dur": 1.5
+    }
+   ],
+   "params": {
+    "keys": [
+     {
+      "k": "r03c",
+      "s": 0.0,
+      "e": 4.82
+     }
+    ]
+   },
+   "end": 86.52
+  },
+  {
+   "id": "r03d",
+   "start": 86.52,
+   "line": "Còn loài kiến thợ gặt Maricopa, ông tả: sau tám tiếng khoan không ngừng, bạn phát hiện mũi khoan… bị kẹt luôn trong ngón chân.",
+   "scene": "8 hours, drill stuck",
+   "set": "dryfield",
+   "size": "medium",
+   "in": {
+    "type": "cut"
+   },
+   "sfx": [],
+   "params": {
+    "keys": [
+     {
+      "k": "r03d",
+      "s": 0.0,
+      "e": 4.99
+     },
+     {
+      "k": "r03e",
+      "s": 5.39,
+      "e": 6.76
+     }
+    ]
+   },
+   "end": 93.7
+  },
+  {
+   "id": "r03f",
+   "start": 93.7,
+   "line": "Tôi thử lấy cây tăm chọc ngược lại cái máy khoan. Kết quả: cây tăm gãy. Máy khoan thắng.",
+   "scene": "Toothpick vs drill",
+   "set": "dryfield",
+   "size": "medium",
+   "in": {
+    "type": "cut"
+   },
+   "sfx": [
+    {
+     "at": 0.0,
+     "name": "buzz",
+     "gain": -18,
+     "dur": 2.0
+    }
+   ],
+   "params": {
+    "keys": [
+     {
+      "k": "r03f",
+      "s": 0.0,
+      "e": 4.5
+     }
+    ]
+   },
+   "end": 98.62
+  },
+  {
+   "id": "r03g",
+   "start": 98.62,
+   "line": "Tôi đâu có bị móng chân mọc ngược. Nhưng giờ thì tôi thấy như có rồi.",
+   "scene": "Bandaged toe",
+   "set": "dryfield",
+   "size": "wide",
+   "in": {
+    "type": "cut"
+   },
+   "sfx": [],
+   "params": {
+    "keys": [
+     {
+      "k": "r03g",
+      "s": 0.0,
+      "e": 3.28
+     }
+    ]
+   },
+   "end": 102.4
+  },
+  {
+   "id": "r04a",
+   "start": 102.4,
+   "line": "Vòng bốn: ong săn nhện tarantula!",
+   "scene": "#4 tarantula hawk",
+   "set": "desert",
+   "size": "title",
+   "in": {
+    "type": "flash",
+    "dur": 0.25
+   },
+   "sfx": [
+    {
+     "at": 0.0,
+     "name": "whoosh",
+     "gain": -8
+    },
+    {
+     "at": 0.0,
+     "name": "buzz",
+     "gain": -16,
+     "dur": 1.2
+    }
+   ],
+   "amb": {
+    "name": "wind",
+    "gain": -28
+   },
+   "params": {
+    "keys": [
+     {
+      "k": "r04a",
+      "s": 0.45,
+      "e": 2.72
+     }
+    ]
+   },
+   "end": 105.54
+  },
+  {
+   "id": "r04b",
+   "start": 105.54,
+   "line": "Bốn điểm. Mức cao nhất. Con ong này dài khoảng năm phân, và nó đi săn nhện tarantula.",
+   "scene": "Stat card, size",
+   "set": "desert",
+   "size": "data",
+   "in": {
+    "type": "cut"
+   },
+   "sfx": [],
+   "amb": {
+    "name": "wind",
+    "gain": -28
+   },
+   "params": {
+    "keys": [
+     {
+      "k": "r04b",
+      "s": 0.0,
+      "e": 4.72
+     }
+    ]
+   },
+   "end": 110.68
+  },
+  {
+   "id": "r04c",
+   "start": 110.68,
+   "line": "Nó đốt cho nhện tê liệt, kéo về hang, rồi đẻ một quả trứng lên đó làm đồ ăn cho con. Một con ong mà dám đi săn nhện. Tôi bắt đầu thấy mình hơi nhỏ bé.",
+   "scene": "Drags the tarantula",
+   "set": "desert",
+   "size": "wide",
+   "in": {
+    "type": "cut"
+   },
+   "sfx": [],
+   "amb": {
+    "name": "wind",
+    "gain": -28
+   },
+   "params": {
+    "keys": [
+     {
+      "k": "r04c",
+      "s": 0.0,
+      "e": 4.38
+     },
+     {
+      "k": "r04d",
+      "s": 4.6,
+      "e": 7.8
+     }
+    ]
+   },
+   "end": 118.9
+  },
+  {
+   "id": "r04e",
+   "start": 118.9,
+   "line": "Schmidt tả cú đốt: chói cả mắt, dữ dội, như bị điện giật. Lời khuyên của ông? Nằm xuống, và hét.",
+   "scene": "Lie down and scream",
+   "set": "desert",
+   "size": "medium",
+   "in": {
+    "type": "cut"
+   },
+   "sfx": [
+    {
+     "at": 0.0,
+     "name": "buzz",
+     "gain": -18,
+     "dur": 2.5
+    }
+   ],
+   "amb": {
+    "name": "wind",
+    "gain": -28
+   },
+   "params": {
+    "keys": [
+     {
+      "k": "r04e",
+      "s": 0.0,
+      "e": 4.12
+     },
+     {
+      "k": "r04f",
+      "s": 4.57,
+      "e": 5.8
+     }
+    ]
+   },
+   "end": 125.12
+  },
+  {
+   "id": "r04g",
+   "start": 125.12,
+   "line": "Tin tốt là cơn đau chỉ chừng năm phút. AAAAAAA!",
+   "scene": "ZAP",
+   "set": "desert",
+   "size": "close",
+   "in": {
+    "type": "cut"
+   },
+   "sfx": [
+    {
+     "at": 0.25,
+     "name": "impact",
+     "gain": -5
+    },
+    {
+     "at": 0.25,
+     "name": "glitch",
+     "gain": -10
+    }
+   ],
+   "amb": {
+    "name": "wind",
+    "gain": -28
+   },
+   "params": {
+    "keys": [
+     {
+      "k": "r04g",
+      "s": 0.0,
+      "e": 3.0
+     }
+    ]
+   },
+   "end": 128.62
+  },
+  {
+   "id": "r04h",
+   "start": 128.62,
+   "line": "Năm phút. Năm phút dài nhất đời một chú chó. Tôi đã kịp hối hận mọi quyết định trong đời.",
+   "scene": "Longest five minutes",
+   "set": "desert",
+   "size": "medium",
+   "in": {
+    "type": "cut"
+   },
+   "sfx": [
+    {
+     "at": 0.2,
+     "name": "clock",
+     "gain": -14,
+     "dur": 3.0
+    }
+   ],
+   "amb": {
+    "name": "wind",
+    "gain": -28
+   },
+   "params": {
+    "keys": [
+     {
+      "k": "r04h",
+      "s": 0.0,
+      "e": 4.46
+     }
+    ]
+   },
+   "end": 133.68
+  },
+  {
+   "id": "r05a",
+   "start": 133.68,
+   "line": "Vòng cuối: kiến đạn!",
+   "scene": "#5 bullet ant",
+   "set": "rainforest",
+   "size": "title",
+   "in": {
+    "type": "flash",
+    "dur": 0.25
+   },
+   "sfx": [
+    {
+     "at": 0.0,
+     "name": "whoosh",
+     "gain": -8
+    },
+    {
+     "at": 0.0,
+     "name": "stinger",
+     "gain": -8
+    }
+   ],
+   "amb": {
+    "name": "wind",
+    "gain": -26
+   },
+   "params": {
+    "keys": [
+     {
+      "k": "r05a",
+      "s": 0.6,
+      "e": 1.77
+     }
+    ]
+   },
+   "end": 135.87
+  },
+  {
+   "id": "r05b",
+   "start": 135.87,
+   "line": "Kiến đạn sống trong rừng mưa vùng thấp ở Trung và Nam Mỹ. Bốn điểm, bằng con ong lúc nãy.",
+   "scene": "Stat card",
+   "set": "rainforest",
+   "size": "data",
+   "in": {
+    "type": "cut"
+   },
+   "sfx": [],
+   "amb": {
+    "name": "wind",
+    "gain": -26
+   },
+   "params": {
+    "keys": [
+     {
+      "k": "r05b",
+      "s": 0.0,
+      "e": 4.47
+     }
+    ]
+   },
+   "end": 140.76
+  },
+  {
+   "id": "r05c",
+   "start": 140.76,
+   "line": "Nhưng Schmidt tả nó thế này: đau nguyên chất, dữ dội, sáng loá. Như bước trên than hồng, với cây đinh dài bảy phân rưỡi cắm vào gót chân.",
+   "scene": "Sting + coals and nail insert",
+   "set": "rainforest",
+   "size": "medium",
+   "in": {
+    "type": "cut"
+   },
+   "sfx": [
+    {
+     "at": 0.5,
+     "name": "impact",
+     "gain": -4
+    },
+    {
+     "at": 3.6,
+     "name": "riser",
+     "gain": -12,
+     "dur": 0.8
+    }
+   ],
+   "amb": {
+    "name": "wind",
+    "gain": -26
+   },
+   "params": {
+    "keys": [
+     {
+      "k": "r05c",
+      "s": 0.0,
+      "e": 6.72
+     }
+    ]
+   },
+   "end": 147.88
+  },
+  {
+   "id": "r05d",
+   "start": 147.88,
+   "line": "Đó. Cái đinh lúc đầu video đó. Không có cái đinh nào… nhưng cái đau thì có thật.",
+   "scene": "Callback to the cold open",
+   "set": "rainforest",
+   "size": "freeze",
+   "in": {
+    "type": "cut"
+   },
+   "sfx": [
+    {
+     "at": 0.0,
+     "name": "freeze",
+     "gain": -10
+    }
+   ],
+   "amb": {
+    "name": "wind",
+    "gain": -26
+   },
+   "params": {
+    "keys": [
+     {
+      "k": "r05d",
+      "s": 0.0,
+      "e": 2.91
+     },
+     {
+      "k": "r05e",
+      "s": 3.36,
+      "e": 4.51
+     }
+    ]
+   },
+   "end": 152.81
+  },
+  {
+   "id": "r05f",
+   "start": 152.81,
+   "line": "Và đây là chỗ khác biệt: con ong lúc nãy đau năm phút. Kiến đạn thì đau từng đợt, có khi kéo dài tới khoảng một ngày.",
+   "scene": "5 min vs 24 h",
+   "set": "studio",
+   "size": "data",
+   "in": {
+    "type": "cut"
+   },
+   "sfx": [
+    {
+     "at": 1.0,
+     "name": "pop",
+     "gain": -10
+    },
+    {
+     "at": 3.0,
+     "name": "stinger",
+     "gain": -9
+    }
+   ],
+   "amb": {
+    "name": "roomtone",
+    "gain": -28
+   },
+   "params": {
+    "keys": [
+     {
+      "k": "r05f",
+      "s": 0.0,
+      "e": 5.61
+     }
+    ]
+   },
+   "end": 158.84
+  },
+  {
+   "id": "r05g",
+   "start": 158.84,
+   "line": "Thủ phạm là chất độc poneratoxin. Nó khiến dây thần kinh cứ bắn tín hiệu đau liên tục, không chịu tắt.",
+   "scene": "Poneratoxin switch",
+   "set": "studio",
+   "size": "blueprint",
+   "in": {
+    "type": "cut"
+   },
+   "sfx": [],
+   "amb": {
+    "name": "roomtone",
+    "gain": -28
+   },
+   "params": {
+    "keys": [
+     {
+      "k": "r05g",
+      "s": 0.0,
+      "e": 4.87
+     }
+    ]
+   },
+   "end": 164.13
+  },
+  {
+   "id": "r05h",
+   "start": 164.13,
+   "line": "Tôi thử tìm nút tắt rồi. Bấm cả trăm lần. Cái công tắc này… không có nút tắt.",
+   "scene": "No OFF switch",
+   "set": "studio",
+   "size": "medium",
+   "in": {
+    "type": "cut"
+   },
+   "sfx": [
+    {
+     "at": 0.2,
+     "name": "tick",
+     "gain": -12,
+     "dur": 2.0
+    }
+   ],
+   "amb": {
+    "name": "roomtone",
+    "gain": -28
+   },
+   "params": {
+    "keys": [
+     {
+      "k": "r05h",
+      "s": 0.0,
+      "e": 3.08
+     },
+     {
+      "k": "r05i",
+      "s": 3.53,
+      "e": 4.27
+     }
+    ]
+   },
+   "end": 168.82
+  },
+  {
+   "id": "r05j",
+   "start": 168.82,
+   "line": "Giờ thứ nhất: đau. Giờ thứ sáu: vẫn đau. Giờ thứ hai mươi bốn: tôi đặt tên cho cơn đau luôn rồi. Nó tên là… Bé Đinh.",
+   "scene": "Timelapse, Bé Đinh",
+   "set": "rainforest",
+   "size": "medium",
+   "in": {
+    "type": "cut"
+   },
+   "sfx": [
+    {
+     "at": 0.0,
+     "name": "whoosh",
+     "gain": -12
+    }
+   ],
+   "amb": {
+    "name": "wind",
+    "gain": -26
+   },
+   "params": {
+    "keys": [
+     {
+      "k": "r05j",
+      "s": 0.0,
+      "e": 6.38
+     },
+     {
+      "k": "r05k",
+      "s": 6.98,
+      "e": 7.44
+     }
+    ]
+   },
+   "end": 176.96
+  },
+  {
+   "id": "z90",
+   "start": 176.96,
+   "line": "Tổng kết nào! Hạng năm: kiến lửa, một điểm. Hạng tư: ong mật, hai điểm. Hạng ba: kiến thợ gặt, ba điểm. Á quân: ong săn nhện, bốn điểm, đau ngắn mà chói. Vô địch: kiến đạn, bốn điểm, có khi đau cả ngày!",
+   "scene": "Ranking",
+   "set": "studio",
+   "size": "data",
+   "in": {
+    "type": "cut"
+   },
+   "sfx": [
+    {
+     "at": 0.6,
+     "name": "counter",
+     "gain": -16,
+     "dur": 3.0
+    }
+   ],
+   "amb": {
+    "name": "roomtone",
+    "gain": -28
+   },
+   "params": {
+    "keys": [
+     {
+      "k": "z90",
+      "s": 0.3,
+      "e": 12.63
+     }
+    ]
+   },
+   "end": 190.01
+  },
+  {
+   "id": "z91",
+   "start": 190.01,
+   "line": "À, thang Schmidt dựa trên cảm nhận của ông và vài đồng nghiệp, nên chỉ để so sánh cho vui thôi nhé.",
+   "scene": "Subjectivity caveat",
+   "set": "studio",
+   "size": "medium",
+   "in": {
+    "type": "cut"
+   },
+   "sfx": [],
+   "amb": {
+    "name": "roomtone",
+    "gain": -28
+   },
+   "params": {
+    "keys": [
+     {
+      "k": "z91",
+      "s": 0.0,
+      "e": 4.98
+     }
+    ]
+   },
+   "end": 195.49
+  },
+  {
+   "id": "z99",
+   "start": 195.49,
+   "line": "Tập sau tôi nên thử gì: sứa hộp, hay rắn hổ mang chúa? Bình luận cho tôi nhé. Và tuyệt đối đừng thử ở nhà! Sáu.",
+   "scene": "CTA + sixth sting",
+   "set": "meadow",
+   "size": "end",
+   "in": {
+    "type": "cut"
+   },
+   "sfx": [],
+   "params": {
+    "keys": [
+     {
+      "k": "z99",
+      "s": 0.0,
+      "e": 5.78
+     },
+     {
+      "k": "z99b",
+      "s": 7.68,
+      "e": 8.1
+     }
+    ]
+   },
+   "end": 205.61
+  }
+ ],
+ "music": [
+  {
+   "start": 0,
+   "end": 23.96,
+   "mood": "playful",
+   "intensity": 0.45
+  },
+  {
+   "start": 23.96,
+   "end": 102.4,
+   "mood": "playful",
+   "intensity": 0.6
+  },
+  {
+   "start": 102.4,
+   "end": 133.68,
+   "mood": "tension",
+   "intensity": 0.6
+  },
+  {
+   "start": 133.68,
+   "end": 176.96,
+   "mood": "dark",
+   "intensity": 0.65
+  },
+  {
+   "start": 176.96,
+   "end": 195.49,
+   "mood": "triumph",
+   "intensity": 0.55
+  },
+  {
+   "start": 195.49,
+   "end": 205.61,
+   "mood": "playful",
+   "intensity": 0.45
+  }
+ ],
+ "sfx": []
+}
