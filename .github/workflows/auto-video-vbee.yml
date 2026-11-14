@@ -42,11 +42,13 @@ jobs:
       - name: Generate Vbee batch narration
         run: |
           SLUG="${{ inputs.slug || (github.ref_name == 'feat/top-5-luc-can-manh-nhat' && 'top-5-luc-can-manh-nhat') || 'hieu-ung-con-nhim' }}"
+          VOICE="${{ inputs.voice_code || (github.ref_name == 'feat/top-5-luc-can-manh-nhat' && 'hn_male_thanhlong_talk_48k-fhg') || 'hn_male_phuthang_stor_24k-stl' }}"
+          SPEED="${{ inputs.speed || (github.ref_name == 'feat/top-5-luc-can-manh-nhat' && '1.10') || '1.08' }}"
           python3 scripts/gen-story-vbee-batch.py \
             --timeline "docs/${SLUG}/shotlist.json" \
             --out-dir "public/audio/${SLUG}" \
-            --voice-code "${{ inputs.voice_code || 'hn_male_phuthang_stor_24k-stl' }}" \
-            --speed "${{ inputs.speed || '1.08' }}" \
+            --voice-code "$VOICE" \
+            --speed "$SPEED" \
             --webhook-url "$VBEE_WEBHOOK_URL"
       - name: Verify 100% narration match & measured durations
         run: |
