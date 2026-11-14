@@ -1,0 +1,27 @@
+{
+  "name": "thanh-hai-learn-ai-2d-studio",
+  "version": "0.5.0",
+  "description": "Thanh Hai Learn AI 2D Studio: biến giọng đọc thành video hoạt hình người que điện ảnh, vẽ bằng code (2D + 3D). Nhân vật diễn theo nguyên lý hoạt hình, khẩu hình tiếng Việt, bàn tay, nét vẽ tay, kiểm tra hook. Skill riêng: video \"Sự tiến hoá của…\" kiểu diarymation và video giải thích có linh vật kiểu Dumb Doggo. Whisper, 5 phong cách, nhạc và hiệu ứng tự tạo, 16:9 hoặc 9:16 đến 4K.",
+  "author": {
+    "name": "Thanh Hai Learn AI"
+  },
+  "keywords": [
+    "video",
+    "animation",
+    "faceless youtube",
+    "stick figure",
+    "explainer",
+    "whisper",
+    "three.js",
+    "motion graphics",
+    "vietnamese",
+    "thanh hai learn ai",
+    "lip sync",
+    "animation principles",
+    "evolution",
+    "diarymation",
+    "shorts",
+    "mascot",
+    "explainer"
+  ]
+}

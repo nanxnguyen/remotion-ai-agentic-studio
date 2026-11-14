@@ -1,0 +1,11 @@
+{
+"title": "Motion Lab: nguyên lý hoạt hình v0.3",
+"duration": 14,
+"shots": [
+ {"id": "m01", "start": 0, "end": 3.6, "size": "wide", "line": "", "scene": "Wide lab: Nova walks in (ponytail swings), stops, points at the board with anticipation + overshoot", "in": {"type": "cut"}},
+ {"id": "m02", "start": 3.6, "end": 6.6, "size": "medium", "line": "Chào mừng bạn đến phòng thí nghiệm", "scene": "Medium two-shot: Nova talks (visemes, open hands, arc gesture), Max listens with eye darts", "in": {"type": "cut"}},
+ {"id": "m03", "start": 6.6, "end": 8.6, "size": "close", "line": "Ồ, tuyệt vời!", "scene": "bigFace Max: beat hold, neutral -> shocked cross-fade, visemes", "bars": "scope", "in": {"type": "cut"}},
+ {"id": "m04", "start": 8.6, "end": 11.6, "size": "medium", "line": "", "scene": "Max jumps for joy: stretch, squash on landing, line boil, motion blur", "mblur": 6, "in": {"type": "flash", "dur": 0.3}},
+ {"id": "m05", "start": 11.6, "end": 14, "size": "medium", "line": "", "scene": "Both give a thumbs up, settle with springy overshoot, held on twos", "timing": "twos", "in": {"type": "cut"}}
+]
+}

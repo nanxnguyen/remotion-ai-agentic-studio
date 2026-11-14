@@ -1,0 +1,26 @@
+{
+"title": "What If Your Reaction Time Was 10x Faster?",
+"duration": 47.36,
+"shots": [
+ {"id": "s001", "start": 0, "end": 3.4, "line": "A fly buzzes past your face.", "scene": "cafe wide, fly passes Max", "bars": null, "in": {"type": "cut"}, "sfx": [{"at": 0.4, "name": "buzz", "gain": -10}], "notes": "", "amb": {"name": "murmur", "gain": -26}},
+ {"id": "s002", "start": 3.4, "end": 4.9, "line": "You don't even think.", "scene": "bigFace Max determined", "bars": "scope", "in": {"type": "cut"}, "sfx": [], "notes": ""},
+ {"id": "s003", "start": 4.9, "end": 7.2, "line": "You just catch it.", "scene": "hand snatches fly", "bars": null, "in": {"type": "cut"}, "sfx": [{"at": 0.32, "name": "swish", "gain": -6}, {"at": 0.5, "name": "hit", "gain": -12}, {"at": 0.95, "name": "pop", "gain": -10}], "notes": ""},
+ {"id": "s004", "start": 7.2, "end": 10.4, "line": "", "scene": "wide: fist up, Jake shocked", "bars": null, "in": {"type": "cut"}, "sfx": [], "notes": "", "amb": {"name": "murmur", "gain": -26}},
+ {"id": "s005", "start": 10.4, "end": 13.5, "line": "Your friend knocks his coffee off the table.", "scene": "elbow knocks cup", "bars": null, "in": {"type": "cut"}, "sfx": [{"at": 1.0, "name": "hit", "gain": -16, "pitch": 1.6}, {"at": 1.9, "name": "slowmo", "gain": -6}], "notes": "", "amb": {"name": "murmur", "gain": -28}},
+ {"id": "s006", "start": 13.5, "end": 16.2, "line": "The cup hasn't even started to fall,", "scene": "TIME FREEZE cup in air", "bars": "scope", "in": {"type": "flash", "dur": 0.4}, "sfx": [{"at": 0.0, "name": "freeze", "gain": -5}], "notes": ""},
+ {"id": "s007", "start": 16.2, "end": 19.6, "line": "and your hand is already under it.", "scene": "hand under the cup", "bars": null, "in": {"type": "cut"}, "sfx": [{"at": 2.3, "name": "pop", "gain": -8}], "notes": ""},
+ {"id": "s008", "start": 19.6, "end": 23.05, "line": "", "scene": "3D orbit cafe table", "bars": null, "in": {"type": "cut"}, "sfx": [{"at": 0.0, "name": "whoosh", "gain": -14}], "notes": "", "amb": {"name": "murmur", "gain": -24}},
+ {"id": "s009", "start": 23.05, "end": 27.2, "line": "\"How? How did you do that?\"", "scene": "bigFace Jake: How?", "bars": null, "in": {"type": "cut"}, "sfx": [], "notes": "", "amb": {"name": "murmur", "gain": -28}},
+ {"id": "s010", "start": 27.2, "end": 31.3, "line": "A normal human reacts in about a quarter of a second.", "scene": "blueprint NORMAL 0.25 s", "bars": null, "in": {"type": "dip", "dur": 0.6}, "sfx": [{"at": 0.5, "name": "counter", "gain": -16}], "notes": ""},
+ {"id": "s011", "start": 31.3, "end": 34.1, "line": "You react in 2.5 hundredths.", "scene": "blueprint YOU 0.025 s", "bars": null, "in": {"type": "cut"}, "sfx": [{"at": 0.3, "name": "ding", "gain": -10}], "notes": ""},
+ {"id": "s012", "start": 34.1, "end": 39.8, "line": "So what if your reaction time was 10x faster?", "scene": "TITLE CARD", "bars": "scope", "in": {"type": "fade", "dur": 0.6}, "sfx": [{"at": 0.05, "name": "stinger", "gain": -6}], "notes": "", "captions": false},
+ {"id": "s013", "start": 39.8, "end": 42.2, "line": "Here's how it works.", "scene": "lab: Doc presents", "bars": null, "in": {"type": "whip", "dur": 0.35}, "sfx": [{"at": 0.0, "name": "swish", "gain": -10}], "notes": "", "amb": {"name": "roomtone", "gain": -16}},
+ {"id": "s014", "start": 42.2, "end": 47.36, "line": "Your eyes see. Your brain decides. Your muscles move.", "scene": "blueprint pipeline see/decide/move", "bars": null, "in": {"type": "zoom", "dur": 0.5}, "sfx": [{"at": 0.1, "name": "pop", "gain": -10}, {"at": 1.55, "name": "pop", "gain": -10, "pitch": 1.2}, {"at": 2.6, "name": "pop", "gain": -10, "pitch": 1.4}], "notes": ""}
+],
+"music": [
+ {"start": 0, "end": 10.4, "mood": "hopeful", "intensity": 0.45},
+ {"start": 10.4, "end": 23.05, "mood": "tension", "intensity": 0.6},
+ {"start": 23.05, "end": 34.1, "mood": "mystery", "intensity": 0.5},
+ {"start": 34.1, "end": 47.36, "mood": "wonder", "intensity": 0.75}
+]
+}

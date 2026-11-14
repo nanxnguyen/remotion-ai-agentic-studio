@@ -1,0 +1,16 @@
+{
+ "title": "Motion Lab: nguyên lý hoạt hình v0.3",
+ "lang": "vi",
+ "aspect": "16:9",
+ "resolution": "720p",
+ "fps": 24,
+ "style": "dusk",
+ "duration": 14,
+ "captions": false,
+ "bars": null,
+ "fadeIn": 0.3,
+ "fadeOut": 0.6,
+ "music": { "enabled": false },
+ "sfx": { "enabled": false },
+ "loudness": -14
+}

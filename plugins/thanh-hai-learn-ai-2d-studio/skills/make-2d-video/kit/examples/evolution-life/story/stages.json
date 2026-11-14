@@ -1,0 +1,15 @@
+{
+ "title": "Hành trình của một cầu thủ (hoạt hình)",
+ "lang": "vi", "kind": "life", "counter": "age",
+ "hook": { "dur": 2.6 }, "outro": { "dur": 3.4 },
+ "stages": [
+  { "value": 0, "title": "Chào đời", "scene": "Moonlit bedroom: the baby sits on the floor next to a small ball" },
+  { "value": 5, "title": "Quả bóng đầu tiên", "scene": "Dusk alley: the kid kicks the ball against a wall, again and again" },
+  { "value": 12, "title": "Đội bóng của trường", "scene": "School field by day: juggling the ball, knee up on every touch" },
+  { "value": 17, "title": "Học viện bóng đá", "scene": "Night training under floodlights: sprinting past cones" },
+  { "value": 22, "title": "Trận ra mắt", "scene": "Packed stadium at night: first goal celebration, crowd erupts" },
+  { "value": 30, "title": "Đỉnh cao", "scene": "Golden confetti: lifting the trophy", "weight": 1.3 },
+  { "value": 38, "title": "Giải nghệ", "scene": "Empty stadium at golden hour: waving goodbye" },
+  { "value": 60, "title": "Người thầy", "scene": "Training field by day: the old coach, stooped, points the way for two kids", "weight": 1.2 }
+ ]
+}

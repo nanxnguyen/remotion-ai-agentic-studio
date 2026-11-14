@@ -1,0 +1,309 @@
+{
+ "title": "Hành trình của một cầu thủ (hoạt hình)",
+ "duration": 30.0,
+ "evolution": {
+  "kind": "life",
+  "counter": "age"
+ },
+ "shots": [
+  {
+   "id": "e00",
+   "start": 0,
+   "end": 2.6,
+   "size": "close",
+   "line": "",
+   "params": {
+    "hook": true
+   },
+   "scene": "HOOK: the final stage (Người thầy) hits first, then a hard cut back to the start: 'from THIS…'",
+   "in": {
+    "type": "cut"
+   },
+   "sfx": [
+    {
+     "at": 0.0,
+     "name": "stinger",
+     "gain": -8
+    }
+   ],
+   "notes": "beat: hook"
+  },
+  {
+   "id": "e01",
+   "start": 2.6,
+   "end": 5.424,
+   "size": "medium",
+   "line": "",
+   "params": {
+    "stage": 0,
+    "value": 0,
+    "title": "Chào đời"
+   },
+   "scene": "Moonlit bedroom: the baby sits on the floor next to a small ball",
+   "in": {
+    "type": "cut"
+   },
+   "sfx": [
+    {
+     "at": 0.0,
+     "name": "pop",
+     "gain": -12
+    }
+   ],
+   "notes": ""
+  },
+  {
+   "id": "e02",
+   "start": 5.424,
+   "end": 8.247,
+   "size": "wide",
+   "line": "",
+   "params": {
+    "stage": 1,
+    "value": 5,
+    "title": "Quả bóng đầu tiên"
+   },
+   "scene": "Dusk alley: the kid kicks the ball against a wall, again and again",
+   "in": {
+    "type": "flash",
+    "dur": 0.25
+   },
+   "sfx": [
+    {
+     "at": 0.0,
+     "name": "whoosh",
+     "gain": -10
+    },
+    {
+     "at": 0.05,
+     "name": "pop",
+     "gain": -14
+    }
+   ],
+   "notes": ""
+  },
+  {
+   "id": "e03",
+   "start": 8.247,
+   "end": 11.071,
+   "size": "medium",
+   "line": "",
+   "params": {
+    "stage": 2,
+    "value": 12,
+    "title": "Đội bóng của trường"
+   },
+   "scene": "School field by day: juggling the ball, knee up on every touch",
+   "in": {
+    "type": "flash",
+    "dur": 0.25
+   },
+   "sfx": [
+    {
+     "at": 0.0,
+     "name": "whoosh",
+     "gain": -10
+    },
+    {
+     "at": 0.05,
+     "name": "pop",
+     "gain": -14
+    }
+   ],
+   "notes": ""
+  },
+  {
+   "id": "e04",
+   "start": 11.071,
+   "end": 13.894,
+   "size": "close",
+   "line": "",
+   "params": {
+    "stage": 3,
+    "value": 17,
+    "title": "Học viện bóng đá"
+   },
+   "scene": "Night training under floodlights: sprinting past cones",
+   "in": {
+    "type": "flash",
+    "dur": 0.25
+   },
+   "sfx": [
+    {
+     "at": 0.0,
+     "name": "whoosh",
+     "gain": -10
+    },
+    {
+     "at": 0.05,
+     "name": "pop",
+     "gain": -14
+    }
+   ],
+   "notes": ""
+  },
+  {
+   "id": "e05",
+   "start": 13.894,
+   "end": 16.718,
+   "size": "medium",
+   "line": "",
+   "params": {
+    "stage": 4,
+    "value": 22,
+    "title": "Trận ra mắt"
+   },
+   "scene": "Packed stadium at night: first goal celebration, crowd erupts",
+   "in": {
+    "type": "flash",
+    "dur": 0.25
+   },
+   "sfx": [
+    {
+     "at": 0.0,
+     "name": "whoosh",
+     "gain": -10
+    },
+    {
+     "at": 0.05,
+     "name": "pop",
+     "gain": -14
+    }
+   ],
+   "notes": ""
+  },
+  {
+   "id": "e06",
+   "start": 16.718,
+   "end": 20.388,
+   "size": "wide",
+   "line": "",
+   "params": {
+    "stage": 5,
+    "value": 30,
+    "title": "Đỉnh cao"
+   },
+   "scene": "Golden confetti: lifting the trophy",
+   "in": {
+    "type": "flash",
+    "dur": 0.25
+   },
+   "sfx": [
+    {
+     "at": 0.0,
+     "name": "whoosh",
+     "gain": -10
+    },
+    {
+     "at": 0.05,
+     "name": "pop",
+     "gain": -14
+    }
+   ],
+   "notes": ""
+  },
+  {
+   "id": "e07",
+   "start": 20.388,
+   "end": 23.212,
+   "size": "medium",
+   "line": "",
+   "params": {
+    "stage": 6,
+    "value": 38,
+    "title": "Giải nghệ"
+   },
+   "scene": "Empty stadium at golden hour: waving goodbye",
+   "in": {
+    "type": "flash",
+    "dur": 0.25
+   },
+   "sfx": [
+    {
+     "at": 0.0,
+     "name": "whoosh",
+     "gain": -10
+    },
+    {
+     "at": 0.05,
+     "name": "pop",
+     "gain": -14
+    }
+   ],
+   "notes": ""
+  },
+  {
+   "id": "e08",
+   "start": 23.212,
+   "end": 26.6,
+   "size": "close",
+   "line": "",
+   "params": {
+    "stage": 7,
+    "value": 60,
+    "title": "Người thầy"
+   },
+   "scene": "Training field by day: the old coach, stooped, points the way for two kids",
+   "in": {
+    "type": "flash",
+    "dur": 0.25
+   },
+   "sfx": [
+    {
+     "at": 0.0,
+     "name": "whoosh",
+     "gain": -10
+    },
+    {
+     "at": 0.05,
+     "name": "pop",
+     "gain": -14
+    }
+   ],
+   "notes": ""
+  },
+  {
+   "id": "e99",
+   "start": 26.6,
+   "end": 30.0,
+   "size": "end",
+   "line": "",
+   "params": {
+    "outro": true
+   },
+   "scene": "PAYOFF: every stage lined up left→right (or top→bottom in 9:16) + a one-line question; last frame matches the first stage so the Short loops",
+   "in": {
+    "type": "dip",
+    "dur": 0.4
+   },
+   "sfx": [
+    {
+     "at": 0.1,
+     "name": "shimmer",
+     "gain": -10
+    }
+   ],
+   "notes": ""
+  }
+ ],
+ "music": [
+  {
+   "start": 0,
+   "end": 2.6,
+   "mood": "mystery",
+   "intensity": 0.5
+  },
+  {
+   "start": 2.6,
+   "end": 17.0,
+   "mood": "hopeful",
+   "intensity": 0.6
+  },
+  {
+   "start": 17.0,
+   "end": 30.0,
+   "mood": "triumph",
+   "intensity": 0.8
+  }
+ ]
+}

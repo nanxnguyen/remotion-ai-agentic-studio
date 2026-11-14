@@ -1,0 +1,27 @@
+{
+ "title": "Sự tiến hoá của loài người (hoạt hình)",
+ "lang": "vi",
+ "aspect": "16:9",
+ "resolution": "720p",
+ "fps": 24,
+ "style": "dusk",
+ "voiceover": null,
+ "duration": 26.0,
+ "captions": false,
+ "bars": null,
+ "fadeIn": 0.2,
+ "fadeOut": 0.6,
+ "music": {
+  "enabled": true,
+  "gainDb": -17
+ },
+ "sfx": {
+  "enabled": true,
+  "gainDb": -6
+ },
+ "loudness": -14,
+ "evolution": {
+  "kind": "species",
+  "counter": "ago"
+ }
+}

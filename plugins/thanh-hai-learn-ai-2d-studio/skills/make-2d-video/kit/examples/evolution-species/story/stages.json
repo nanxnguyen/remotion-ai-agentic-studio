@@ -1,0 +1,15 @@
+{
+ "title": "Sự tiến hoá của loài người (hoạt hình)",
+ "lang": "vi", "kind": "species", "counter": "ago",
+ "hook": { "dur": 2.4 }, "outro": { "dur": 3.6 },
+ "stages": [
+  { "value": 3500000000, "title": "Tế bào đầu tiên", "scene": "Deep ocean, god rays, bubbles; a single cell pulses at centre" },
+  { "value": 530000000, "title": "Cá nguyên thuỷ", "scene": "Ocean: a primitive fish swims across, bubbles" },
+  { "value": 375000000, "title": "Lưỡng cư lên bờ", "scene": "Dusk shoreline: an amphibian crawls out of the water" },
+  { "value": 310000000, "title": "Bò sát", "scene": "Golden fern desert: a reptile walks past ferns" },
+  { "value": 200000000, "title": "Thú có vú đầu tiên", "scene": "Night forest, moon and stars: a small mammal scurries" },
+  { "value": 7000000, "title": "Vượn cổ", "scene": "Savanna at sunset: an ape knuckle-walks", "weight": 1.2 },
+  { "value": 2000000, "title": "Người đứng thẳng", "scene": "Savanna: a hominid walks upright with a stick", "weight": 1.2 },
+  { "value": 300000, "title": "Người tinh khôn", "scene": "Cave with a fire: Homo sapiens stands, handprints on the wall", "weight": 1.4 }
+ ]
+}
