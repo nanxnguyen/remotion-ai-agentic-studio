@@ -1,5 +1,10 @@
 name: Auto Video Producer Vbee Narration
 on:
+  push:
+    branches: [feat/hieu-ung-con-nhim]
+    paths:
+      - .github/workflows/auto-video-vbee.yml
+      - docs/hieu-ung-con-nhim/shotlist.json
   workflow_dispatch:
     inputs:
       slug:
@@ -36,10 +41,10 @@ jobs:
       - name: Generate Vbee batch narration
         run: |
           python3 scripts/gen-story-vbee-batch.py \
-            --timeline "docs/${{ inputs.slug }}/shotlist.json" \
-            --out-dir "public/audio/${{ inputs.slug }}" \
-            --voice-code "${{ inputs.voice_code }}" \
-            --speed "${{ inputs.speed }}" \
+            --timeline "docs/${{ inputs.slug || 'hieu-ung-con-nhim' }}/shotlist.json" \
+            --out-dir "public/audio/${{ inputs.slug || 'hieu-ung-con-nhim' }}" \
+            --voice-code "${{ inputs.voice_code || 'hn_male_phuthang_stor_24k-stl' }}" \
+            --speed "${{ inputs.speed || '1.05' }}" \
             --webhook-url "$VBEE_WEBHOOK_URL"
       - name: Verify 100% narration match & measured durations
         run: |
@@ -47,7 +52,7 @@ jobs:
           import json
           from pathlib import Path
 
-          slug = "${{ inputs.slug }}"
+          slug = "${{ inputs.slug || 'hieu-ung-con-nhim' }}"
           shots = {s["id"]: s for s in json.loads(Path(f"docs/{slug}/shotlist.json").read_text())}
           measured = json.loads(Path(f"public/audio/{slug}/measured-timeline.json").read_text())
           assert len(measured) == len(shots), f"Clip count {len(measured)} != shot count {len(shots)}"
@@ -59,7 +64,7 @@ jobs:
           PY
       - uses: actions/upload-artifact@v6
         with:
-          name: ${{ inputs.slug }}-vbee
-          path: public/audio/${{ inputs.slug }}/
+          name: ${{ inputs.slug || 'hieu-ung-con-nhim' }}-vbee
+          path: public/audio/${{ inputs.slug || 'hieu-ung-con-nhim' }}/
           retention-days: 20
           if-no-files-found: error
