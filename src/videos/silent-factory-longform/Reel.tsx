@@ -216,7 +216,24 @@ const Backdrop: React.FC<{
               return (
                 <path
                   key={i}
-                  d={'M ' + (drift - 80) + ' ' + y + ' Q ' + (400 + drift) + ' ' + (y - 8) + ' ' + (800 + drift) + ' ' + y + ' T ' + (1680 + drift) + ' ' + y}
+                  d={
+                    'M ' +
+                    (drift - 80) +
+                    ' ' +
+                    y +
+                    ' Q ' +
+                    (400 + drift) +
+                    ' ' +
+                    (y - 8) +
+                    ' ' +
+                    (800 + drift) +
+                    ' ' +
+                    y +
+                    ' T ' +
+                    (1680 + drift) +
+                    ' ' +
+                    y
+                  }
                 />
               );
             })}
@@ -670,10 +687,14 @@ export const SilentFactoryReel: React.FC<FilmProps> = ({shots}) => {
   const time = local / FILM_FPS;
   const wave = Math.sin(time * 2.2 + index);
   const hero = expressivePose(shot.action, time, index);
-  const companionAction = shot.companion_action ?? ((shot.action === 'help' || shot.action === 'offer') ? 'help' : undefined);
-  const companionPose = companionAction ? expressivePose(companionAction, time * 0.5, index + 2) : null;
-  const companionTranslateX = companionPose ? hero.hip.x - 230 + companionPose.hip.x * 0.70 : 0;
-  const companionTranslateY = companionPose ? FLOOR - companionPose.hip.y * 0.70 : 0;
+  const companionAction =
+    shot.companion_action ??
+    (shot.action === 'help' || shot.action === 'offer' ? 'help' : undefined);
+  const companionPose = companionAction
+    ? expressivePose(companionAction, time * 0.5, index + 2)
+    : null;
+  const companionTranslateX = companionPose ? hero.hip.x - 230 + companionPose.hip.x * 0.7 : 0;
+  const companionTranslateY = companionPose ? FLOOR - companionPose.hip.y * 0.7 : 0;
   const viewVariant = index % 5;
   const zoom = viewVariant === 0 ? 1.09 : viewVariant === 3 ? 0.94 : 1;
   const dx = viewVariant === 2 ? -92 : viewVariant === 4 ? 100 : 0;
@@ -739,7 +760,11 @@ export const SilentFactoryReel: React.FC<FilmProps> = ({shots}) => {
           {companionPose && (
             <g
               transform={
-                'translate(' + companionTranslateX + ' ' + companionTranslateY + ') scale(-0.70 0.70)'
+                'translate(' +
+                companionTranslateX +
+                ' ' +
+                companionTranslateY +
+                ') scale(-0.70 0.70)'
               }
             >
               <CharacterPuppet
