@@ -5,6 +5,16 @@ description: "Use when making or revising Vietnamese storytelling Shorts/reels: 
 
 # Ray Phim Kể Chuyện — production workflow
 
+## NO_CARTOON_ART_V1 — highest-priority visual rule (owner decision 2026-11-07)
+
+**Flat 2D cartoon / vector / clip-art illustration is BANNED for every Ray Phim Kể Chuyện film and storyboard.** This includes hand-coded SVG or CSS-drawn characters (simple oval faces, dot eyes, flat-fill coats, geometric props), comic/anime/chibi styles and stick figures. The owner rejected such a board for *Thang máy dừng ở tầng 13* ("loại bỏ loại hoạt hình này").
+
+- Required look: **cinematic photoreal horror frames** (rainy noir realism, real skin/fabric/material texture, practical tungsten + cold blue light, film grain, haze), matching the approved *Căn Phòng 404*, *Bức Ảnh Thứ Tư* and *Cuộc Gọi Từ Tầng Hầm* boards.
+- Source frames must come from a real image model (e.g. ChatGPT image, Gemini/Imagen, or another approved generator) or licensed photographic footage, with the character bible repeated in every prompt for face/costume/prop continuity. If no image model is available in the current runtime, **stop at the prompt pack** (one prompt per panel + character/environment bible) and report the visual stage as **blocked**; never substitute code-drawn cartoon art "for now", not even for a review board.
+- "2D/2.5D motion" elsewhere in this skill means camera/parallax/lighting motion applied to these photoreal frames (layer separation, Ken Burns, depth masks), not drawn animation.
+- In-frame text (TV lower thirds, seals, phone screens) may be composited afterwards; Vietnamese captions stay native Remotion text.
+- QA: a board or MP4 whose frames read as cartoon/vector illustration FAILS design review regardless of story quality.
+
 ## VOICE_VISUAL_RETENTION_QA_V1 — mandatory after lighthouse V3→V4 QA (2026-10-25)
 
 **Highest-priority latest production gate for EVERY new Ray video:** Before rendering, build a story-specific `voice-visual-evidence.json` from measured Vbee/voice timing; for every voiced *action, clue, change, reaction and twist*, identify what actually becomes visible, asset ID, rendered frame proof and timestamp. Read [the v0.2.9 standard](references/voice-visual-retention-qa-v029.md) and [example manifest](templates/voice-visual-evidence.example.json), then run `python scripts/validate_voice_visual_evidence.py voice-visual-evidence.json --assets-root <production_dir>` after visual checking. A narration line, storyboard caption, generic fear portrait, or unrelated photo is NOT proof the narrated action happened. A `visually_verified` flag must be granted only after actually inspecting the rendered frame; automated schema validation cannot inspect pixels. If narration describes water rising, an opening door, a hand gesture or light beam, **show the physical event with a distinct before → action → result** through properly authored 2D/2.5D composite or video clip; do not pretend a static Ken Burns zoom is independent acting.

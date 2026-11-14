@@ -1,0 +1,83 @@
+[
+  {
+    "id": 1,
+    "start": 0.0,
+    "end": 3.2,
+    "duration_sec": 3.2,
+    "pose": "slumped",
+    "caption": "Muốn được thương nhưng lại đẩy ra?",
+    "narration": "Bạn khao khát được yêu thương, nhưng cứ ai bước tới là bạn lại đẩy ra?"
+  },
+  {
+    "id": 2,
+    "start": 3.2,
+    "end": 8.0,
+    "duration_sec": 4.8,
+    "pose": "presenting",
+    "caption": "Hiệu ứng Con Nhím trong tâm lý học",
+    "narration": "Tâm lý học gọi đây là Hiệu ứng Con Nhím. Càng muốn sưởi ấm, gai nhọn càng làm nhau đau."
+  },
+  {
+    "id": 3,
+    "start": 8.0,
+    "end": 13.0,
+    "duration_sec": 5.0,
+    "pose": "shocked",
+    "caption": "Quy tắc ngầm sau lần tổn thương đầu",
+    "narration": "Nó bắt đầu từ một quy tắc ngầm não bạn tự viết ra sau lần tổn thương đầu tiên:"
+  },
+  {
+    "id": 4,
+    "start": 13.0,
+    "end": 16.5,
+    "duration_sec": 3.5,
+    "pose": "thinking",
+    "caption": "Gần gũi đồng nghĩa với nguy hiểm",
+    "narration": "Gần gũi đồng nghĩa với nguy hiểm."
+  },
+  {
+    "id": 5,
+    "start": 16.5,
+    "end": 22.5,
+    "duration_sec": 6.0,
+    "pose": "slumped",
+    "caption": "Bạn dựng tường để tự bảo vệ mình",
+    "narration": "Thế là bạn dựng lên bức tường. Tập làm quen với hai chữ ổn mà, tập rời đi trước khi bị bỏ lại."
+  },
+  {
+    "id": 6,
+    "start": 22.5,
+    "end": 28.0,
+    "duration_sec": 5.5,
+    "pose": "argue",
+    "caption": "An toàn... nhưng đổi bằng cô độc",
+    "narration": "Bạn bảo vệ mình khỏi bị tổn thương, nhưng cái giá phải trả là sự cô độc kéo dài."
+  },
+  {
+    "id": 7,
+    "start": 28.0,
+    "end": 33.0,
+    "duration_sec": 5.0,
+    "pose": "idle",
+    "caption": "An toàn thật không nằm sau bức tường",
+    "narration": "Sự an toàn thật sự không nằm sau những bức tường đóng kín."
+  },
+  {
+    "id": 8,
+    "start": 33.0,
+    "end": 39.0,
+    "duration_sec": 6.0,
+    "pose": "presenting",
+    "caption": "Khoảng cách vừa đủ để không làm đau",
+    "narration": "Mà là tìm được một người đủ kiên nhẫn, cùng bạn giữ khoảng cách vừa đủ để không làm đau nhau."
+  },
+  {
+    "id": 9,
+    "start": 39.0,
+    "end": 43.0,
+    "duration_sec": 4.0,
+    "pose": "celebrate",
+    "caption": "Bạn có đang giấu gai với ai không?",
+    "narration": "Bạn có đang giữ gai nhọn với ai đó không?"
+  }
+]

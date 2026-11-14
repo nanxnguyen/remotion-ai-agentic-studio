@@ -1,0 +1,8 @@
+{
+  "name": "auto-video-producer",
+  "version": "1.0.0",
+  "description": "End-to-end automated Remotion video production skill: 100% Vbee voice sync via GitHub Actions, expressive stickman/2D visuals, FullHD H.264 render, and Google Drive Videos-shorts delivery.",
+  "skills": [
+    "skills/auto-video-producer"
+  ]
+}

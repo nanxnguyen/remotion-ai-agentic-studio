@@ -1,0 +1,50 @@
+name: Thang May Tang 13 Vbee Narration
+on:
+  push:
+    branches: [feat/thang-may-tang-13]
+    paths:
+      - .github/workflows/thang-may-tang-13-vbee.yml
+      - docs/thang-may-tang-13/shotlist.json
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  voice:
+    runs-on: ubuntu-latest
+    timeout-minutes: 70
+    env:
+      VBEE_ACCESS_TOKEN: ${{ secrets.VBEE_ACCESS_TOKEN || secrets.VBEE_TOKEN || secrets.VBEE_API_KEY || secrets.VBEE_API_TOKEN }}
+      VBEE_APP_ID: ${{ secrets.VBEE_APP_ID || secrets.VBEE_APPID || secrets.VBEE_APPLICATION_ID }}
+      VBEE_WEBHOOK_URL: ${{ vars.VBEE_WEBHOOK_URL || 'https://example.com/story-tts-webhook' }}
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Install ffprobe
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+      - name: Generate thirteen original Vbee lines
+        run: |
+          python3 scripts/gen-story-vbee-batch.py --timeline docs/thang-may-tang-13/shotlist.json --out-dir public/audio/thang-may-tang-13 --voice-code hn_male_phuthang_stor_24k-stl --speed 1.1 --webhook-url "$VBEE_WEBHOOK_URL"
+      - name: Check every clip fits its slot and has provenance
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          shots = {s["id"]: s for s in json.loads(Path("docs/thang-may-tang-13/shotlist.json").read_text())}
+          data = json.loads(Path("public/audio/thang-may-tang-13/measured-timeline.json").read_text())
+          assert len(data) == len(shots) == 13
+          for item in data:
+              slot = shots[item["id"]]["duration_sec"]
+              print(item["id"], item["audio_seconds"], "slot", slot)
+              assert item["text"] == shots[item["id"]]["narration"]
+              assert item["sha256"] and item["voice_code"]
+              if item["audio_seconds"] > slot - 0.08:
+                  print(f"::warning::s{item['id']} {item['audio_seconds']}s exceeds slot {slot}s; re-time at Join or rewrite")
+          PY
+      - uses: actions/upload-artifact@v6
+        with:
+          name: thang-may-tang-13-vbee
+          path: public/audio/thang-may-tang-13/
+          retention-days: 20
+          if-no-files-found: error

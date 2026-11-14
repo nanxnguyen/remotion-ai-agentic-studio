@@ -1,0 +1,254 @@
+{
+  "version": 3,
+  "canonicalText": "docs/thang-may-tang-13/voice.proposed.json",
+  "engine": {
+    "name": "Vbee Batch (mode=async) via GitHub Actions Secrets",
+    "voiceCode": "hn_male_phuthang_stor_24k-stl",
+    "supportedControls": [
+      "voiceCode",
+      "speed_rate",
+      "audio_type",
+      "bitrate"
+    ],
+    "plannedSpeedRate": 1.05,
+    "unsupportedControls": [
+      "seed",
+      "directEmotion",
+      "actingCue",
+      "pitch-per-word",
+      "rate-per-phrase"
+    ],
+    "limitations": "Vbee has no seed and no per-word emotion control; seed is null by design. intent/emotion/tempo are narrator direction metadata; pauseAfterSec becomes a timeline gap (silence) after the clip, never a post-stretch. Each phrases array joined with one ASCII space equals the canonical text byte-for-byte. If a measured clip overflows its slot, rewrite text and re-run Gate A."
+  },
+  "shots": {
+    "s1": {
+      "phrases": [
+        "Chung cư nhà Linh chỉ có mười hai tầng."
+      ],
+      "intent": "State the rule the picture is already breaking.",
+      "emotion": "bình thản, kể sự thật, hơi thấp",
+      "characterState": "Linh (off-screen): tired, unaware",
+      "accentWords": [
+        "mười hai tầng"
+      ],
+      "tempo": "even",
+      "pauseBeforeSec": 0.0,
+      "pauseAfterSec": 0.0,
+      "seed": null,
+      "targetSlotSeconds": 2.8
+    },
+    "s2": {
+      "phrases": [
+        "Vậy mà đêm nay, thang máy dừng ở tầng mười ba."
+      ],
+      "intent": "Break the rule; land hard on 'mười ba'.",
+      "emotion": "căng dần, nhấn mạnh cuối câu",
+      "characterState": "Linh: confusion turning to alarm",
+      "accentWords": [
+        "đêm nay",
+        "mười ba"
+      ],
+      "tempo": "brisk then firm",
+      "pauseBeforeSec": 0.0,
+      "pauseAfterSec": 0.0,
+      "seed": null,
+      "targetSlotSeconds": 3.2
+    },
+    "s3": {
+      "phrases": [
+        "Linh bấm đóng cửa liên tục.",
+        "Cửa không nhúc nhích.",
+        "Đèn trong thang tắt phụt."
+      ],
+      "intent": "Three short facts, each heavier.",
+      "emotion": "gấp ở câu đầu, chậm và nặng dần",
+      "characterState": "Linh: panic; darkness pushes her out",
+      "accentWords": [
+        "liên tục",
+        "không nhúc nhích",
+        "tắt phụt"
+      ],
+      "tempo": "brisk / slow / slow",
+      "pauseBeforeSec": 0.0,
+      "pauseAfterSec": 0.0,
+      "seed": null,
+      "targetSlotSeconds": 4.6
+    },
+    "s4": {
+      "phrases": [
+        "Hành lang giống hệt tầng nhà cô… nhưng cửa nào cũng dán giấy niêm phong."
+      ],
+      "intent": "Recognition, then reveal after the pause.",
+      "emotion": "thì thầm quan sát, ngừng ở dấu ba chấm",
+      "characterState": "Linh: wary recognition",
+      "accentWords": [
+        "giống hệt",
+        "niêm phong"
+      ],
+      "tempo": "natural, unhurried",
+      "pauseBeforeSec": 0.0,
+      "pauseAfterSec": 0.0,
+      "seed": null,
+      "targetSlotSeconds": 5.2
+    },
+    "s5": {
+      "phrases": [
+        "Ngày ghi trên giấy… là một năm trước, cũng lúc nửa đêm."
+      ],
+      "intent": "Re-hook: slow, low on 'một năm trước'.",
+      "emotion": "chậm, thấp, lạnh",
+      "characterState": "Linh: chill realization",
+      "accentWords": [
+        "một năm trước"
+      ],
+      "tempo": "natural, unhurried",
+      "pauseBeforeSec": 0.0,
+      "pauseAfterSec": 0.0,
+      "seed": null,
+      "targetSlotSeconds": 4.2
+    },
+    "s6": {
+      "phrases": [
+        "Chỉ một cánh cửa hé mở.",
+        "Căn mười hai không năm… nhà của cô."
+      ],
+      "intent": "Quiet first sentence; number clear; 'nhà của cô' falls.",
+      "emotion": "nhẹ, nghẹn ở 'nhà của cô'",
+      "characterState": "Linh: dread, pulled toward home",
+      "accentWords": [
+        "hé mở",
+        "mười hai không năm"
+      ],
+      "tempo": "even then slow",
+      "pauseBeforeSec": 0.0,
+      "pauseAfterSec": 0.0,
+      "seed": null,
+      "targetSlotSeconds": 5.0
+    },
+    "s7": {
+      "phrases": [
+        "Bên trong, tivi đang bật.",
+        "Mùi nhang phảng phất.",
+        "Trên ghế, có người ngồi quay lưng."
+      ],
+      "intent": "Hushed, as if the person inside might hear.",
+      "emotion": "rất khẽ, nín thở",
+      "characterState": "Linh: held breath",
+      "accentWords": [
+        "tivi đang bật",
+        "quay lưng"
+      ],
+      "tempo": "natural, unhurried",
+      "pauseBeforeSec": 0.0,
+      "pauseAfterSec": 0.0,
+      "seed": null,
+      "targetSlotSeconds": 5.0
+    },
+    "s8": {
+      "phrases": [
+        "Trên màn hình là bản tin cũ:",
+        "chính chung cư này cháy lúc nửa đêm.",
+        "Một cô gái không thoát ra."
+      ],
+      "intent": "Newsreader-flat, last sentence lower.",
+      "emotion": "đều như đọc tin, câu cuối hạ thấp",
+      "characterState": "Linh: denial",
+      "accentWords": [
+        "chính chung cư này",
+        "không thoát ra"
+      ],
+      "tempo": "even / slow",
+      "pauseBeforeSec": 0.0,
+      "pauseAfterSec": 0.0,
+      "seed": null,
+      "targetSlotSeconds": 6.4
+    },
+    "s9": {
+      "phrases": [
+        "Ảnh nạn nhân hiện lên."
+      ],
+      "intent": "Plain statement, then real silence before s10.",
+      "emotion": "chậm, lặng",
+      "characterState": "Linh: dread",
+      "accentWords": [
+        "nạn nhân"
+      ],
+      "tempo": "natural",
+      "pauseBeforeSec": 0.0,
+      "pauseAfterSec": 0.7,
+      "seed": null,
+      "targetSlotSeconds": 2.4
+    },
+    "s10": {
+      "phrases": [
+        "Là Linh."
+      ],
+      "intent": "Two words, quiet and final.",
+      "emotion": "rất khẽ, dứt khoát",
+      "characterState": "Linh: horror recognition",
+      "accentWords": [
+        "Linh"
+      ],
+      "tempo": "natural, unhurried",
+      "pauseBeforeSec": 0.0,
+      "pauseAfterSec": 0.0,
+      "seed": null,
+      "targetSlotSeconds": 2.4
+    },
+    "s11": {
+      "phrases": [
+        "Người trên ghế quay lại.",
+        "Là mẹ.",
+        "Sau lưng bà… di ảnh của Linh."
+      ],
+      "intent": "Soft on 'Là mẹ', heavy on 'di ảnh của Linh'.",
+      "emotion": "dịu xuống, nặng ở cuối",
+      "characterState": "Mẹ: grief, gentle; Linh: shock",
+      "accentWords": [
+        "Là mẹ",
+        "di ảnh của Linh"
+      ],
+      "tempo": "natural, unhurried",
+      "pauseBeforeSec": 0.0,
+      "pauseAfterSec": 0.0,
+      "seed": null,
+      "targetSlotSeconds": 6.8
+    },
+    "s12": {
+      "phrases": [
+        "Mẹ thì thầm:",
+        "hôm nay giỗ đầu con… con về ăn cơm với mẹ nhé."
+      ],
+      "intent": "Callback to the phone message; tender near-whisper.",
+      "emotion": "dịu, nghẹn, gần thì thầm",
+      "characterState": "Linh: understanding, sorrow; Mẹ: tender",
+      "accentWords": [
+        "giỗ đầu",
+        "về ăn cơm"
+      ],
+      "tempo": "natural, unhurried",
+      "pauseBeforeSec": 0.0,
+      "pauseAfterSec": 0.0,
+      "seed": null,
+      "targetSlotSeconds": 5.8
+    },
+    "s13": {
+      "phrases": [
+        "Trên bàn thờ, bát cơm vẫn đầy.",
+        "Đôi đũa vẫn chờ Linh về."
+      ],
+      "intent": "Final image line; slow, no lift; 0.8 s silence after.",
+      "emotion": "chậm, buồn, không kịch",
+      "characterState": "Absence",
+      "accentWords": [
+        "vẫn đầy",
+        "chờ Linh về"
+      ],
+      "tempo": "natural, settled",
+      "pauseBeforeSec": 0.0,
+      "pauseAfterSec": 0.8,
+      "seed": null,
+      "targetSlotSeconds": 6.2
+    }
+  }
+}

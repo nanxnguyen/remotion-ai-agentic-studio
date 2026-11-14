@@ -1,0 +1,709 @@
+[
+  {
+    "id": 1,
+    "phase": "HOOK",
+    "start_sec": 0.0,
+    "duration_sec": 2.8,
+    "narration": "Chung cư nhà Linh chỉ có mười hai tầng.",
+    "speaker": "narrator:Vbee-Anh-Khoi(hn_male_phuthang_stor_24k-stl)",
+    "visual": "P01 (ECU insert): Frame 0 (cover): button panel 1-12 lit, no 13 button; red display above reads 12 and at 1.5 s flips to 13",
+    "emotion": "Linh (off-screen): tired, unaware",
+    "action": "P01: Display 12 flips to 13 at 1.5 s while the panel still ends at 12",
+    "camera": "ECU on display + panel, locked, slow 3% push",
+    "motion": "Digit flip 12->13 at 1.5 s on the word 'mười hai tầng' (eased segment cross-fade 4 frames); panel LEDs steady; cable hum",
+    "caption_beats": [
+      {
+        "start": 0.0,
+        "end": 1.5,
+        "text": "CHUNG CƯ CHỈ CÓ 12 TẦNG",
+        "color": "white"
+      },
+      {
+        "start": 1.5,
+        "end": 2.8,
+        "text": "TẦNG 13",
+        "color": "amber"
+      }
+    ],
+    "action_beats": [
+      {
+        "start": 0,
+        "end": 1.5,
+        "voice_cue": "chỉ có mười hai tầng",
+        "action": "Panel 1-12 and display 12 visible from frame 0",
+        "emotion": "neutral"
+      },
+      {
+        "start": 1.5,
+        "end": 2.8,
+        "voice_cue": "mười hai tầng (end)",
+        "action": "Display flips to 13",
+        "emotion": "unease"
+      }
+    ],
+    "sfx": "elevator hum; soft ding on the flip",
+    "transition_out": "soft-fade-0.3s",
+    "panels": [
+      {
+        "id": "P01",
+        "shot": "ECU insert",
+        "visual": "Frame 0 (cover): button panel 1-12 lit, no 13 button; red display above reads 12 and at 1.5 s flips to 13",
+        "action": "Display 12 flips to 13 at 1.5 s while the panel still ends at 12"
+      }
+    ],
+    "image_path": "assets/p01.png"
+  },
+  {
+    "id": 2,
+    "phase": "HOOK",
+    "start_sec": 2.8,
+    "duration_sec": 3.2,
+    "narration": "Vậy mà đêm nay, thang máy dừng ở tầng mười ba.",
+    "speaker": "narrator:Vbee-Anh-Khoi(hn_male_phuthang_stor_24k-stl)",
+    "visual": "P03 (MCU reaction): Linh in mustard raincoat looks up at the display, pulls out an earbud; her phone lock screen shows 'Mẹ: Về ăn cơm nhé con' and the time 00:12 (no date); the mirror wall at left shows the steel car but no reflection of her (subtle, rewatch clue) | P02 (Wide insert): Display holds 13; steel doors slide open onto a dark corridor; cold light slit widens",
+    "emotion": "Linh: confusion turning to alarm",
+    "action": "P03: Linh removes an earbud, phone lights up with Mẹ's message | P02: Doors part from a slit to half-open",
+    "camera": "MCU push on Linh (P03), then locked insert on the doors (P02)",
+    "motion": "Door slide eased over 1.2 s; phone screen wakes (opacity ramp); Linh head tilt via 2.5D layers; mirror region static and empty",
+    "caption_beats": [
+      {
+        "start": 0.0,
+        "end": 1.4,
+        "text": "VẬY MÀ ĐÊM NAY…",
+        "color": "white"
+      },
+      {
+        "start": 1.4,
+        "end": 3.2,
+        "text": "THANG MÁY DỪNG Ở TẦNG 13",
+        "color": "amber"
+      }
+    ],
+    "action_beats": [
+      {
+        "start": 0,
+        "end": 1.4,
+        "voice_cue": "đêm nay",
+        "action": "Linh looks up at the 13, pulls out an earbud; phone shows Mẹ's message",
+        "emotion": "alarm"
+      },
+      {
+        "start": 1.4,
+        "end": 3.2,
+        "voice_cue": "tầng mười ba",
+        "action": "Doors slide open onto the dark corridor",
+        "emotion": "dread"
+      }
+    ],
+    "sfx": "door slide, phone buzz",
+    "transition_out": "soft-fade-0.4s",
+    "panels": [
+      {
+        "id": "P03",
+        "shot": "MCU reaction",
+        "visual": "Linh in mustard raincoat looks up at the display, pulls out an earbud; her phone lock screen shows 'Mẹ: Về ăn cơm nhé con' and the time 00:12 (no date); the mirror wall at left shows the steel car but no reflection of her (subtle, rewatch clue)",
+        "action": "Linh removes an earbud, phone lights up with Mẹ's message"
+      },
+      {
+        "id": "P02",
+        "shot": "Wide insert",
+        "visual": "Display holds 13; steel doors slide open onto a dark corridor; cold light slit widens",
+        "action": "Doors part from a slit to half-open"
+      }
+    ],
+    "image_path": "assets/p03.png"
+  },
+  {
+    "id": 3,
+    "phase": "BODY",
+    "start_sec": 6.0,
+    "duration_sec": 4.6,
+    "narration": "Linh bấm đóng cửa liên tục. Cửa không nhúc nhích. Đèn trong thang tắt phụt.",
+    "speaker": "narrator:Vbee-Anh-Khoi(hn_male_phuthang_stor_24k-stl)",
+    "visual": "P04 (Insert hands): Linh's finger hammering the door-close button; doors stay open; the cabin ceiling light dies so only the corridor tube light remains",
+    "emotion": "Linh: panic; darkness pushes her out",
+    "action": "P04: Repeated presses -> doors unmoved -> cabin goes dark",
+    "camera": "Insert on panel with corridor behind",
+    "motion": "Finger press cycle x4 on frame grid; LED pulse; at 3.2 s cabin light ramps 100->5% over 6 frames (no flash); corridor light becomes the only source",
+    "caption_beats": [
+      {
+        "start": 0.0,
+        "end": 1.6,
+        "text": "BẤM ĐÓNG CỬA…",
+        "color": "white"
+      },
+      {
+        "start": 1.6,
+        "end": 3.0,
+        "text": "CỬA KHÔNG NHÚC NHÍCH",
+        "color": "white"
+      },
+      {
+        "start": 3.0,
+        "end": 4.6,
+        "text": "ĐÈN TRONG THANG TẮT PHỤT",
+        "color": "white"
+      }
+    ],
+    "action_beats": [
+      {
+        "start": 0,
+        "end": 1.6,
+        "voice_cue": "bấm đóng cửa",
+        "action": "Finger presses close button repeatedly",
+        "emotion": "panic"
+      },
+      {
+        "start": 1.6,
+        "end": 3.0,
+        "voice_cue": "không nhúc nhích",
+        "action": "Doors stay open",
+        "emotion": "helpless"
+      },
+      {
+        "start": 3.0,
+        "end": 4.6,
+        "voice_cue": "tắt phụt",
+        "action": "Cabin goes dark, corridor light remains",
+        "emotion": "fear"
+      }
+    ],
+    "sfx": "rapid clicks, relay clunk, light-off thunk",
+    "transition_out": "soft-fade-0.45s",
+    "panels": [
+      {
+        "id": "P04",
+        "shot": "Insert hands",
+        "visual": "Linh's finger hammering the door-close button; doors stay open; the cabin ceiling light dies so only the corridor tube light remains",
+        "action": "Repeated presses -> doors unmoved -> cabin goes dark"
+      }
+    ],
+    "image_path": "assets/p04.png"
+  },
+  {
+    "id": 4,
+    "phase": "BODY",
+    "start_sec": 10.6,
+    "duration_sec": 5.2,
+    "narration": "Hành lang giống hệt tầng nhà cô… nhưng cửa nào cũng dán giấy niêm phong.",
+    "speaker": "narrator:Vbee-Anh-Khoi(hn_male_phuthang_stor_24k-stl)",
+    "visual": "P05 (Wide): Floor-13 corridor identical to floor 12 (shoe racks, plant), soot on the ceiling, white paper seals with red stamps crossed on every door; Linh steps out of the dark elevator toward the only light",
+    "emotion": "Linh: wary recognition",
+    "action": "P05: Linh steps out; tube flicker reveals seals door by door",
+    "camera": "Wide from corridor end, slow dolly in",
+    "motion": "Linh layer steps forward (eased translate + scale); flicker passes down the corridor revealing seals",
+    "caption_beats": [
+      {
+        "start": 0.0,
+        "end": 2.2,
+        "text": "GIỐNG HỆT TẦNG NHÀ CÔ",
+        "color": "white"
+      },
+      {
+        "start": 2.2,
+        "end": 5.2,
+        "text": "CỬA NÀO CŨNG BỊ NIÊM PHONG",
+        "color": "amber"
+      }
+    ],
+    "action_beats": [
+      {
+        "start": 0,
+        "end": 2.2,
+        "voice_cue": "giống hệt",
+        "action": "Linh steps into a familiar corridor",
+        "emotion": "recognition"
+      },
+      {
+        "start": 2.2,
+        "end": 5.2,
+        "voice_cue": "giấy niêm phong",
+        "action": "Light reveals a seal on every door",
+        "emotion": "dread"
+      }
+    ],
+    "sfx": "footsteps on tile, paper flutter",
+    "transition_out": "soft-fade-0.45s",
+    "panels": [
+      {
+        "id": "P05",
+        "shot": "Wide",
+        "visual": "Floor-13 corridor identical to floor 12 (shoe racks, plant), soot on the ceiling, white paper seals with red stamps crossed on every door; Linh steps out of the dark elevator toward the only light",
+        "action": "Linh steps out; tube flicker reveals seals door by door"
+      }
+    ],
+    "image_path": "assets/p05.png"
+  },
+  {
+    "id": 5,
+    "phase": "BODY",
+    "start_sec": 15.8,
+    "duration_sec": 4.2,
+    "narration": "Ngày ghi trên giấy… là một năm trước, cũng lúc nửa đêm.",
+    "speaker": "narrator:Vbee-Anh-Khoi(hn_male_phuthang_stor_24k-stl)",
+    "visual": "P06 (ECU insert): Seal close-up: yellowed, aged paper with faded stamp ink, red stamp, handwritten '00:12' with day and month only (no year), edge lifting in a draft; Linh's fingertip tracing the date",
+    "emotion": "Linh: chill realization",
+    "action": "P06: Finger traces the date; seal edge flutters",
+    "camera": "ECU rack focus stamp -> date",
+    "motion": "Fingertip slide; paper flutter loop; blur-interpolated rack focus",
+    "caption_beats": [
+      {
+        "start": 0.0,
+        "end": 1.6,
+        "text": "NGÀY NIÊM PHONG:",
+        "color": "white"
+      },
+      {
+        "start": 1.6,
+        "end": 4.2,
+        "text": "MỘT NĂM TRƯỚC",
+        "color": "amber"
+      }
+    ],
+    "action_beats": [
+      {
+        "start": 0,
+        "end": 1.6,
+        "voice_cue": "ngày ghi",
+        "action": "Finger finds the date",
+        "emotion": "curiosity"
+      },
+      {
+        "start": 1.6,
+        "end": 4.2,
+        "voice_cue": "một năm trước",
+        "action": "Date in focus",
+        "emotion": "chill"
+      }
+    ],
+    "sfx": "paper rustle, low drone swell",
+    "transition_out": "soft-fade-0.4s",
+    "panels": [
+      {
+        "id": "P06",
+        "shot": "ECU insert",
+        "visual": "Seal close-up: yellowed, aged paper with faded stamp ink, red stamp, handwritten '00:12' with day and month only (no year), edge lifting in a draft; Linh's fingertip tracing the date",
+        "action": "Finger traces the date; seal edge flutters"
+      }
+    ],
+    "image_path": "assets/p06.png"
+  },
+  {
+    "id": 6,
+    "phase": "BODY",
+    "start_sec": 20.0,
+    "duration_sec": 5.0,
+    "narration": "Chỉ một cánh cửa hé mở. Căn mười hai không năm… nhà của cô.",
+    "speaker": "narrator:Vbee-Anh-Khoi(hn_male_phuthang_stor_24k-stl)",
+    "visual": "P07 (Medium): End of corridor: door 1205 with its seal torn and hanging, warm amber light leaking from the gap; Linh's shadow on the floor",
+    "emotion": "Linh: dread, pulled toward home",
+    "action": "P07: Door creaks wider on its own",
+    "camera": "Medium, slow push to the number plate",
+    "motion": "Door gap widens with eased hinge; light wedge grows; torn seal sways",
+    "caption_beats": [
+      {
+        "start": 0.0,
+        "end": 1.8,
+        "text": "MỘT CÁNH CỬA HÉ MỞ",
+        "color": "white"
+      },
+      {
+        "start": 1.8,
+        "end": 5.0,
+        "text": "CĂN 1205 — NHÀ CỦA CÔ",
+        "color": "amber"
+      }
+    ],
+    "action_beats": [
+      {
+        "start": 0,
+        "end": 1.8,
+        "voice_cue": "hé mở",
+        "action": "Door swings wider, light spills",
+        "emotion": "dread"
+      },
+      {
+        "start": 1.8,
+        "end": 5.0,
+        "voice_cue": "mười hai không năm",
+        "action": "Push to plate 1205",
+        "emotion": "recognition"
+      }
+    ],
+    "sfx": "door creak, distant TV murmur",
+    "transition_out": "soft-fade-0.45s",
+    "panels": [
+      {
+        "id": "P07",
+        "shot": "Medium",
+        "visual": "End of corridor: door 1205 with its seal torn and hanging, warm amber light leaking from the gap; Linh's shadow on the floor",
+        "action": "Door creaks wider on its own"
+      }
+    ],
+    "image_path": "assets/p07.png"
+  },
+  {
+    "id": 7,
+    "phase": "BODY",
+    "start_sec": 25.0,
+    "duration_sec": 5.0,
+    "narration": "Bên trong, tivi đang bật. Mùi nhang phảng phất. Trên ghế, có người ngồi quay lưng.",
+    "speaker": "narrator:Vbee-Anh-Khoi(hn_male_phuthang_stor_24k-stl)",
+    "visual": "P08 (Insert hand): Linh's hand in the amber sleeve pushes the door; blue TV light already washing the doorway | P09 (Wide interior): Dim living room: TV already on (blue glow), sofa facing away, silhouette with a grey bun; altar glimpsed at right edge with its portrait unreadable (darkened/defocused, no legible face before s10); wall calendar with no highlighted day",
+    "emotion": "Linh: held breath",
+    "action": "P08: Hand pushes door; it swings in | P09: Silhouette sits motionless in TV light",
+    "camera": "Insert on hand, then over-shoulder wide",
+    "motion": "Door rotation eased; TV glow pulse; silhouette deliberately still",
+    "caption_beats": [
+      {
+        "start": 0.0,
+        "end": 1.8,
+        "text": "TIVI ĐANG BẬT",
+        "color": "white"
+      },
+      {
+        "start": 1.8,
+        "end": 5.0,
+        "text": "CÓ NGƯỜI NGỒI QUAY LƯNG",
+        "color": "white"
+      }
+    ],
+    "action_beats": [
+      {
+        "start": 0,
+        "end": 1.8,
+        "voice_cue": "tivi đang bật",
+        "action": "Door opens onto a room lit by a running TV",
+        "emotion": "held breath"
+      },
+      {
+        "start": 1.8,
+        "end": 5.0,
+        "voice_cue": "mùi nhang / quay lưng",
+        "action": "Incense smoke drifts across the TV glow; silhouette on sofa, back to Linh",
+        "emotion": "dread"
+      }
+    ],
+    "sfx": "door swing, TV news bed",
+    "transition_out": "soft-fade-0.45s",
+    "panels": [
+      {
+        "id": "P08",
+        "shot": "Insert hand",
+        "visual": "Linh's hand in the amber sleeve pushes the door; blue TV light already washing the doorway",
+        "action": "Hand pushes door; it swings in"
+      },
+      {
+        "id": "P09",
+        "shot": "Wide interior",
+        "visual": "Dim living room: TV already on (blue glow), sofa facing away, silhouette with a grey bun; altar glimpsed at right edge with its portrait unreadable (darkened/defocused, no legible face before s10); wall calendar with no highlighted day",
+        "action": "Silhouette sits motionless in TV light"
+      }
+    ],
+    "image_path": "assets/p08.png"
+  },
+  {
+    "id": 8,
+    "phase": "CLIMAX",
+    "start_sec": 30.0,
+    "duration_sec": 6.4,
+    "narration": "Trên màn hình là bản tin cũ: chính chung cư này cháy lúc nửa đêm. Một cô gái không thoát ra.",
+    "speaker": "narrator:Vbee-Anh-Khoi(hn_male_phuthang_stor_24k-stl)",
+    "visual": "P10 (Insert TV): TV news: a 12-floor tower burning at night; lower third 'CHÁY CHUNG CƯ 12 TẦNG — 00:12' (no year); the tower silhouette matches the building Linh lives in (same rooftop water tank)",
+    "emotion": "Linh: denial",
+    "action": "P10: Fire footage plays; ticker scrolls",
+    "camera": "Insert on TV, slow push into the screen",
+    "motion": "Fire loop on TV, ticker scroll, CRT scanline drift",
+    "caption_beats": [
+      {
+        "start": 0.0,
+        "end": 3.2,
+        "text": "CHÍNH CHUNG CƯ NÀY CHÁY",
+        "color": "white"
+      },
+      {
+        "start": 3.2,
+        "end": 6.4,
+        "text": "MỘT CÔ GÁI KHÔNG THOÁT RA",
+        "color": "white"
+      }
+    ],
+    "action_beats": [
+      {
+        "start": 0,
+        "end": 3.2,
+        "voice_cue": "chính chung cư này",
+        "action": "Burning 12-floor tower, timestamp 00:12",
+        "emotion": "shock"
+      },
+      {
+        "start": 3.2,
+        "end": 6.4,
+        "voice_cue": "không thoát ra",
+        "action": "Ticker: 1 victim",
+        "emotion": "denial"
+      }
+    ],
+    "sfx": "newsreader murmur (non-verbal), crackle",
+    "transition_out": "soft-fade-0.45s",
+    "panels": [
+      {
+        "id": "P10",
+        "shot": "Insert TV",
+        "visual": "TV news: a 12-floor tower burning at night; lower third 'CHÁY CHUNG CƯ 12 TẦNG — 00:12' (no year); the tower silhouette matches the building Linh lives in (same rooftop water tank)",
+        "action": "Fire footage plays; ticker scrolls"
+      }
+    ],
+    "image_path": "assets/p10.png"
+  },
+  {
+    "id": 9,
+    "phase": "CLIMAX",
+    "start_sec": 36.4,
+    "duration_sec": 2.4,
+    "narration": "Ảnh nạn nhân hiện lên.",
+    "speaker": "narrator:Vbee-Anh-Khoi(hn_male_phuthang_stor_24k-stl)",
+    "visual": "P11 (Insert TV): Victim portrait slides onto the TV: Linh, same bob and mustard raincoat collar; caption 'Nạn nhân: L., 26 tuổi — căn 1205'",
+    "emotion": "Linh: dread",
+    "action": "P11: Portrait slides in",
+    "camera": "Locked insert on TV",
+    "motion": "Portrait slide-in eased 0.5 s",
+    "caption_beats": [
+      {
+        "start": 0.0,
+        "end": 2.4,
+        "text": "ẢNH NẠN NHÂN…",
+        "color": "white"
+      }
+    ],
+    "action_beats": [
+      {
+        "start": 0,
+        "end": 2.4,
+        "voice_cue": "hiện lên",
+        "action": "Portrait slides onto TV",
+        "emotion": "dread"
+      }
+    ],
+    "sfx": "sub-bass swell",
+    "transition_out": "soft-fade-0.4s (the 0.7 s silence is the tail of s9's own slot)",
+    "panels": [
+      {
+        "id": "P11",
+        "shot": "Insert TV",
+        "visual": "Victim portrait slides onto the TV: Linh, same bob and mustard raincoat collar; caption 'Nạn nhân: L., 26 tuổi — căn 1205'",
+        "action": "Portrait slides in"
+      }
+    ],
+    "image_path": "assets/p11.png"
+  },
+  {
+    "id": 10,
+    "phase": "CLIMAX",
+    "start_sec": 38.8,
+    "duration_sec": 2.4,
+    "narration": "Là Linh.",
+    "speaker": "narrator:Vbee-Anh-Khoi(hn_male_phuthang_stor_24k-stl)",
+    "visual": "P12 (CU reaction): Linh's face lit blue by the TV, eyes wide, hand over mouth, stepping back",
+    "emotion": "Linh: horror recognition",
+    "action": "P12: Linh steps back, hand to mouth",
+    "camera": "CU with slight pull-back as she retreats",
+    "motion": "Linh layer retreats 40 px eased; TV flicker on face",
+    "caption_beats": [
+      {
+        "start": 0.3,
+        "end": 2.4,
+        "text": "LÀ LINH",
+        "color": "red"
+      }
+    ],
+    "action_beats": [
+      {
+        "start": 0,
+        "end": 2.4,
+        "voice_cue": "là Linh",
+        "action": "Linh steps back, hand over mouth",
+        "emotion": "horror"
+      }
+    ],
+    "sfx": "heartbeat x2 (no flash)",
+    "transition_out": "soft-fade-0.5s",
+    "panels": [
+      {
+        "id": "P12",
+        "shot": "CU reaction",
+        "visual": "Linh's face lit blue by the TV, eyes wide, hand over mouth, stepping back",
+        "action": "Linh steps back, hand to mouth"
+      }
+    ],
+    "image_path": "assets/p12.png"
+  },
+  {
+    "id": 11,
+    "phase": "CLIMAX",
+    "start_sec": 41.2,
+    "duration_sec": 6.8,
+    "narration": "Người trên ghế quay lại. Là mẹ. Sau lưng bà… di ảnh của Linh.",
+    "speaker": "narrator:Vbee-Anh-Khoi(hn_male_phuthang_stor_24k-stl)",
+    "visual": "P13 (MCU): Mother turns on the sofa: grey bun, maroon cardigan, red-rimmed eyes, three lit incense sticks | P14 (Insert altar): Altar behind her: framed portrait of Linh, incense smoke, a full bowl of rice with chopsticks set for one, two candles",
+    "emotion": "Mẹ: grief, gentle; Linh: shock",
+    "action": "P13: Mother turns head and shoulders toward Linh | P14: Tilt up from the rice bowl to Linh's portrait",
+    "camera": "MCU on mother turning, then tilt-up on altar",
+    "motion": "Limited motion: back-of-head plate (crop of P09) crossfades 0.4 s into the P13 face plate (no warping of the photo); smoke drift; tilt-up reveal on P14",
+    "caption_beats": [
+      {
+        "start": 0.0,
+        "end": 2.6,
+        "text": "LÀ MẸ CÔ",
+        "color": "white"
+      },
+      {
+        "start": 2.6,
+        "end": 6.8,
+        "text": "DI ẢNH CỦA LINH",
+        "color": "red"
+      }
+    ],
+    "action_beats": [
+      {
+        "start": 0,
+        "end": 2.6,
+        "voice_cue": "là mẹ",
+        "action": "Mother turns toward Linh",
+        "emotion": "shock"
+      },
+      {
+        "start": 2.6,
+        "end": 6.8,
+        "voice_cue": "di ảnh của Linh",
+        "action": "Tilt up to the portrait",
+        "emotion": "grief"
+      }
+    ],
+    "sfx": "sofa creak, incense crackle, low choir pad",
+    "transition_out": "soft-fade-0.6s",
+    "panels": [
+      {
+        "id": "P13",
+        "shot": "MCU",
+        "visual": "Mother turns on the sofa: grey bun, maroon cardigan, red-rimmed eyes, three lit incense sticks",
+        "action": "Mother turns head and shoulders toward Linh"
+      },
+      {
+        "id": "P14",
+        "shot": "Insert altar",
+        "visual": "Altar behind her: framed portrait of Linh, incense smoke, a full bowl of rice with chopsticks set for one, two candles",
+        "action": "Tilt up from the rice bowl to Linh's portrait"
+      }
+    ],
+    "image_path": "assets/p13.png"
+  },
+  {
+    "id": 12,
+    "phase": "ENDING",
+    "start_sec": 48.0,
+    "duration_sec": 5.8,
+    "narration": "Mẹ thì thầm: hôm nay giỗ đầu con… con về ăn cơm với mẹ nhé.",
+    "speaker": "narrator:Vbee-Anh-Khoi(hn_male_phuthang_stor_24k-stl)",
+    "visual": "P15 (Two-shot): Mother in background (soft focus) whispering toward the doorway, incense raised; foreground: Linh's open hands with fingertips turning to grey ash that drifts toward the altar",
+    "emotion": "Linh: understanding, sorrow; Mẹ: tender",
+    "action": "P15: Mother whispers; Linh's fingertips crumble into floating ash",
+    "camera": "High-angle over-shoulder two-shot, slow push",
+    "motion": "Ash particles detach per frame; hands fade 100->40%; mother's lips/incense subtle motion; warm lamp flicker",
+    "caption_beats": [
+      {
+        "start": 0.0,
+        "end": 2.4,
+        "text": "“HÔM NAY GIỖ ĐẦU CON…”",
+        "color": "red"
+      },
+      {
+        "start": 2.4,
+        "end": 5.8,
+        "text": "“CON VỀ ĂN CƠM VỚI MẸ NHÉ”",
+        "color": "white"
+      }
+    ],
+    "action_beats": [
+      {
+        "start": 0,
+        "end": 2.4,
+        "voice_cue": "giỗ đầu con",
+        "action": "Mother whispers; Linh looks at her hands",
+        "emotion": "realization"
+      },
+      {
+        "start": 2.4,
+        "end": 5.8,
+        "voice_cue": "về ăn cơm với mẹ",
+        "action": "Fingertips turn to ash and drift",
+        "emotion": "sorrow"
+      }
+    ],
+    "sfx": "whispered room tone, ash hiss, choir pad",
+    "transition_out": "soft-fade-0.6s",
+    "panels": [
+      {
+        "id": "P15",
+        "shot": "Two-shot",
+        "visual": "Mother in background (soft focus) whispering toward the doorway, incense raised; foreground: Linh's open hands with fingertips turning to grey ash that drifts toward the altar",
+        "action": "Mother whispers; Linh's fingertips crumble into floating ash"
+      }
+    ],
+    "image_path": "assets/p15.png"
+  },
+  {
+    "id": 13,
+    "phase": "ENDING",
+    "start_sec": 53.8,
+    "duration_sec": 6.2,
+    "narration": "Trên bàn thờ, bát cơm vẫn đầy. Đôi đũa vẫn chờ Linh về.",
+    "speaker": "narrator:Vbee-Anh-Khoi(hn_male_phuthang_stor_24k-stl)",
+    "visual": "P16 (Insert altar): Full rice bowl and untouched chopsticks on the altar; the last ash motes settle beside it; Linh is gone; candle flames still; final 0.8 s hold then fade to black",
+    "emotion": "Absence",
+    "action": "P16: Ash settles; nobody eats; hold",
+    "camera": "Locked insert, imperceptible push",
+    "motion": "Ash motes settle and stop; incense smoke thins; 0.8 s hold before fade",
+    "caption_beats": [
+      {
+        "start": 0.0,
+        "end": 2.8,
+        "text": "BÁT CƠM VẪN ĐẦY",
+        "color": "white"
+      },
+      {
+        "start": 2.8,
+        "end": 5.4,
+        "text": "ĐÔI ĐŨA VẪN CHỜ LINH VỀ",
+        "color": "amber"
+      }
+    ],
+    "action_beats": [
+      {
+        "start": 0,
+        "end": 2.8,
+        "voice_cue": "bát cơm vẫn đầy",
+        "action": "Full untouched bowl",
+        "emotion": "grief"
+      },
+      {
+        "start": 2.8,
+        "end": 6.2,
+        "voice_cue": "chờ Linh về",
+        "action": "Chopsticks untouched, ash settles, hold",
+        "emotion": "lingering ache"
+      }
+    ],
+    "sfx": "silence, one candle crackle",
+    "transition_out": "fade-to-black",
+    "panels": [
+      {
+        "id": "P16",
+        "shot": "Insert altar",
+        "visual": "Full rice bowl and untouched chopsticks on the altar; the last ash motes settle beside it; Linh is gone; candle flames still; final 0.8 s hold then fade to black",
+        "action": "Ash settles; nobody eats; hold"
+      }
+    ],
+    "image_path": "assets/p16.png"
+  }
+]

@@ -18,6 +18,7 @@ import {khoangTrongTrongBucTranhVideo} from './khoang-trong-trong-buc-tranh';
 import {soNoiKhongVideo} from './so-bi-xem-la-ich-ky-khi-noi-khong';
 import {characterMotionLabVideo} from './character-motion-lab';
 import {silentFactoryLongformVideo} from './silent-factory-longform';
+import {thangMayTang13ReelVideo} from './thang-may-tang-13';
 // video:new imports -- keep this marker
 
 export const videoRegistry: readonly AnyVideoDefinition[] = [
@@ -39,6 +40,7 @@ export const videoRegistry: readonly AnyVideoDefinition[] = [
   soNoiKhongVideo,
   characterMotionLabVideo,
   silentFactoryLongformVideo,
+  thangMayTang13ReelVideo,
   // video:new entries -- keep this marker
 ];
 

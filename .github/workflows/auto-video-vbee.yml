@@ -1,0 +1,65 @@
+name: Auto Video Producer Vbee Narration
+on:
+  workflow_dispatch:
+    inputs:
+      slug:
+        description: 'Video slug (folder under docs/<slug>/ and public/audio/<slug>/)'
+        required: true
+        default: 'hieu-ung-con-nhim'
+      voice_code:
+        description: 'Vbee voice code'
+        required: true
+        default: 'hn_male_phuthang_stor_24k-stl'
+      speed:
+        description: 'Narration speed (0.25 - 1.9)'
+        required: true
+        default: '1.05'
+
+permissions:
+  contents: read
+
+jobs:
+  vbee-voice:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    env:
+      VBEE_ACCESS_TOKEN: ${{ secrets.VBEE_ACCESS_TOKEN || secrets.VBEE_TOKEN || secrets.VBEE_API_KEY || secrets.VBEE_API_TOKEN }}
+      VBEE_APP_ID: ${{ secrets.VBEE_APP_ID || secrets.VBEE_APPID || secrets.VBEE_APPLICATION_ID }}
+      VBEE_WEBHOOK_URL: ${{ vars.VBEE_WEBHOOK_URL || 'https://example.com/story-tts-webhook' }}
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Install FFmpeg / FFprobe
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+      - name: Generate Vbee batch narration
+        run: |
+          python3 scripts/gen-story-vbee-batch.py \
+            --timeline "docs/${{ inputs.slug }}/shotlist.json" \
+            --out-dir "public/audio/${{ inputs.slug }}" \
+            --voice-code "${{ inputs.voice_code }}" \
+            --speed "${{ inputs.speed }}" \
+            --webhook-url "$VBEE_WEBHOOK_URL"
+      - name: Verify 100% narration match & measured durations
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+
+          slug = "${{ inputs.slug }}"
+          shots = {s["id"]: s for s in json.loads(Path(f"docs/{slug}/shotlist.json").read_text())}
+          measured = json.loads(Path(f"public/audio/{slug}/measured-timeline.json").read_text())
+          assert len(measured) == len(shots), f"Clip count {len(measured)} != shot count {len(shots)}"
+          for item in measured:
+              slot = shots[item["id"]]["duration_sec"]
+              assert item["text"] == shots[item["id"]]["narration"], f"Text mismatch at {item['id']}"
+              assert item["sha256"] and item["voice_code"], f"Missing provenance at {item['id']}"
+              print(f"[{item['id']}] {item['audio_seconds']:.2f}s (slot {slot:.2f}s)")
+          PY
+      - uses: actions/upload-artifact@v6
+        with:
+          name: ${{ inputs.slug }}-vbee
+          path: public/audio/${{ inputs.slug }}/
+          retention-days: 20
+          if-no-files-found: error

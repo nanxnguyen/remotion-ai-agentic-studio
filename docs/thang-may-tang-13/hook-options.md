@@ -1,0 +1,11 @@
+# Hook options — thang-may-tang-13
+
+Winning candidate: **H1** (referenced in `script.md` and `brief.md`). Syllables counted on the spoken words that fall inside 0–3 s.
+
+| ID | First frame + safe-zone text | Spoken 0–3 s (syllables) · muted legibility | Tension | Payoff before 8 s · final payoff | Clickbait risk · decision |
+|---|---|---|---|---|---|
+| **H1** visual surprise | Elevator button panel 1–12 (no 13) + red display "12"; caption "CHUNG CƯ CHỈ CÓ 12 TẦNG" from frame 0, centred in the upper-safe zone (y 18–30 %); display flips to **13** at 1.5 s, amber "TẦNG 13" by 1.5 s | "Chung cư nhà Linh chỉ có mười hai tầng." (9) · muted: a 12-button panel under a display that reads 13 is understood without sound | Impossible floor in an ordinary place | By 6 s doors open on floor 13 and Linh reacts; by 8 s the doors refuse to close. Final payoff: floor 13 is the in-between floor of her own burned home on her first death anniversary | Low: the film is entirely about floor 13. **Chosen** |
+| H2 mystery | Paper seal with red stamp across a door; caption "CỬA NÀO CŨNG BỊ NIÊM PHONG" | "Cả hành lang… cửa nào cũng bị niêm phong." (10) · muted: seals legible, but no protagonist or "why tonight" | Something happened here | By 8 s, date one year ago. Final: fire anniversary | Low, but no human stake in 2 s; kept as BODY beat s4–s5. Rejected as opener |
+| H3 contradiction | Linh inside the elevator, mirror wall shows an empty car; caption "GƯƠNG KHÔNG CÓ CÔ" | "Linh không thấy mình trong gương." (8) · muted: readable only if the viewer studies the mirror | She might not be alive | Twist given away in 2 s; nothing left to discover | Medium (spoils twist). Rejected; the empty mirror survives only as a subtle rewatch clue in P03 |
+| H4 (research #3) emotional contradiction | Mother cooking for two; caption "MẸ VẪN NẤU CƠM CHỜ LINH" | "Mẹ vẫn nấu cơm chờ Linh về…" (8) · muted: ordinary domestic image, no anomaly | Mild | Reveals grief frame at once | High spoiler, weak stop power. Rejected |
+| H5 (research #5) sound-led | Dark corridor, TV glow under a sealed door | "Nửa đêm, căn hộ bị niêm phong bật tivi." (10) · muted: fails, the hook is a sound | Who is inside? | TV news by 8 s | Low, but muted viewers lose it. Rejected |

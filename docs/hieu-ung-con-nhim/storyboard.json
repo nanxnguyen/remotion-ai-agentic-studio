@@ -1,0 +1,59 @@
+{
+  "styleId": "classic-bw",
+  "shots": [
+    {
+      "start": 0.0,
+      "end": 3.2,
+      "pose": "slumped",
+      "caption": "Muốn được thương nhưng lại đẩy ra?"
+    },
+    {
+      "start": 3.2,
+      "end": 8.0,
+      "pose": "presenting",
+      "caption": "Hiệu ứng Con Nhím trong tâm lý học"
+    },
+    {
+      "start": 8.0,
+      "end": 13.0,
+      "pose": "shocked",
+      "caption": "Quy tắc ngầm sau lần tổn thương đầu"
+    },
+    {
+      "start": 13.0,
+      "end": 16.5,
+      "pose": "thinking",
+      "caption": "Gần gũi đồng nghĩa với nguy hiểm"
+    },
+    {
+      "start": 16.5,
+      "end": 22.5,
+      "pose": "slumped",
+      "caption": "Bạn dựng tường để tự bảo vệ mình"
+    },
+    {
+      "start": 22.5,
+      "end": 28.0,
+      "pose": "argue",
+      "caption": "An toàn... nhưng đổi bằng cô độc"
+    },
+    {
+      "start": 28.0,
+      "end": 33.0,
+      "pose": "idle",
+      "caption": "An toàn thật không nằm sau bức tường"
+    },
+    {
+      "start": 33.0,
+      "end": 39.0,
+      "pose": "presenting",
+      "caption": "Khoảng cách vừa đủ để không làm đau"
+    },
+    {
+      "start": 39.0,
+      "end": 43.0,
+      "pose": "celebrate",
+      "caption": "Bạn có đang giấu gai với ai không?"
+    }
+  ]
+}

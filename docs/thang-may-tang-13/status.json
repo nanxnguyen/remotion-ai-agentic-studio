@@ -1,0 +1,223 @@
+{
+  "workflow_version": 4,
+  "name": "thang-may-tang-13",
+  "comp": "ThangMayTang13Reel",
+  "voice": "anh-khoi",
+  "profile": "story",
+  "paths": {
+    "audio": "thang-may-tang-13",
+    "out": "thang-may-tang-13-anh-khoi",
+    "qa": "thang-may-tang-13"
+  },
+  "gates": [],
+  "stages": {
+    "research": {
+      "state": "done",
+      "at": "2026-11-07T21:19:56+07:00"
+    },
+    "motion": {
+      "state": "pending"
+    },
+    "qa": {
+      "state": "pending"
+    },
+    "brief": {
+      "state": "in_progress",
+      "at": "2026-11-07T21:17:30+07:00"
+    },
+    "script": {
+      "state": "in_progress",
+      "at": "2026-11-07T21:17:30+07:00"
+    }
+  },
+  "reviews": {
+    "A": [
+      {
+        "at": "2026-11-07T21:29:46+07:00",
+        "reviewer": "script-reviewer",
+        "score": 7.7,
+        "verdict": "revise",
+        "report": "docs/thang-may-tang-13/script-review.md",
+        "note": ""
+      },
+      {
+        "at": "2026-11-07T21:45:16+07:00",
+        "reviewer": "script-reviewer-2",
+        "score": 8.3,
+        "verdict": "revise",
+        "report": "docs/thang-may-tang-13/script-review.md",
+        "note": ""
+      },
+      {
+        "at": "2026-11-08T00:55:00+07:00",
+        "reviewer": "script-reviewer-3",
+        "score": 8.8,
+        "verdict": "revise",
+        "report": "docs/thang-may-tang-13/script-review.md",
+        "note": ""
+      },
+      {
+        "at": "2026-11-08T01:04:14+07:00",
+        "reviewer": "script-reviewer-4",
+        "score": 8.9,
+        "verdict": "revise",
+        "report": "docs/thang-may-tang-13/script-review.md",
+        "note": ""
+      }
+    ]
+  },
+  "review_valid": {
+    "A": true,
+    "D": false,
+    "E": false,
+    "B": false,
+    "C": false,
+    "content": false,
+    "audio": false,
+    "motion": false
+  },
+  "next": "",
+  "log": [
+    {
+      "t": "2026-11-07T21:16:13+07:00",
+      "stage": "-",
+      "who": "agent",
+      "msg": "status initialised"
+    },
+    {
+      "t": "2026-11-07T21:17:30+07:00",
+      "stage": "research",
+      "who": "agent",
+      "msg": "research -> in_progress"
+    },
+    {
+      "t": "2026-11-07T21:17:30+07:00",
+      "stage": "brief",
+      "who": "agent",
+      "msg": "brief -> in_progress"
+    },
+    {
+      "t": "2026-11-07T21:17:30+07:00",
+      "stage": "script",
+      "who": "agent",
+      "msg": "script -> in_progress"
+    },
+    {
+      "t": "2026-11-07T21:19:56+07:00",
+      "stage": "research",
+      "who": "agent",
+      "msg": "research -> done (evidence: 1 file(s): docs/thang-may-tang-13/research.md)"
+    },
+    {
+      "t": "2026-11-07T21:19:56+07:00",
+      "stage": "script",
+      "who": "script-reviewer",
+      "msg": "script-reviewer running: Gate A round 1"
+    },
+    {
+      "t": "2026-11-07T21:29:46+07:00",
+      "stage": "A",
+      "who": "script-reviewer",
+      "msg": "review 7.7/10 revise: script-review.md"
+    },
+    {
+      "t": "2026-11-07T21:29:46+07:00",
+      "stage": "agent",
+      "who": "script-reviewer",
+      "msg": "script-reviewer done: review A -> revise"
+    },
+    {
+      "t": "2026-11-07T21:34:30+07:00",
+      "stage": "script",
+      "who": "script-reviewer-2",
+      "msg": "script-reviewer-2 running: Gate A round 2"
+    },
+    {
+      "t": "2026-11-07T21:45:16+07:00",
+      "stage": "A",
+      "who": "script-reviewer-2",
+      "msg": "review 8.3/10 revise: script-review.md"
+    },
+    {
+      "t": "2026-11-07T21:45:16+07:00",
+      "stage": "agent",
+      "who": "script-reviewer-2",
+      "msg": "script-reviewer-2 done: review A -> revise"
+    },
+    {
+      "t": "2026-11-08T00:42:16+07:00",
+      "stage": "script",
+      "who": "script-reviewer-3",
+      "msg": "script-reviewer-3 running: Gate A round 3"
+    },
+    {
+      "t": "2026-11-08T00:55:00+07:00",
+      "stage": "A",
+      "who": "script-reviewer-3",
+      "msg": "review 8.8/10 revise: script-review.md"
+    },
+    {
+      "t": "2026-11-08T00:55:00+07:00",
+      "stage": "agent",
+      "who": "script-reviewer-3",
+      "msg": "script-reviewer-3 done: review A -> revise"
+    },
+    {
+      "t": "2026-11-08T00:55:48+07:00",
+      "stage": "script",
+      "who": "script-reviewer-4",
+      "msg": "script-reviewer-4 running: Gate A round 4"
+    },
+    {
+      "t": "2026-11-08T01:04:14+07:00",
+      "stage": "A",
+      "who": "script-reviewer-4",
+      "msg": "review 8.9/10 revise: script-review.md"
+    },
+    {
+      "t": "2026-11-08T01:04:14+07:00",
+      "stage": "agent",
+      "who": "script-reviewer-4",
+      "msg": "script-reviewer-4 done: review A -> revise"
+    },
+    {
+      "t": "2026-11-08T01:04:14+07:00",
+      "stage": "script",
+      "who": "script-reviewer-5",
+      "msg": "script-reviewer-5 running: Gate A round 5"
+    }
+  ],
+  "updated": "2026-11-08T01:04:14+07:00",
+  "agents": {
+    "script-reviewer": {
+      "state": "done",
+      "at": "2026-11-07T21:29:46+07:00",
+      "note": "review A -> revise",
+      "stage": ""
+    },
+    "script-reviewer-2": {
+      "state": "done",
+      "at": "2026-11-07T21:45:16+07:00",
+      "note": "review A -> revise",
+      "stage": ""
+    },
+    "script-reviewer-3": {
+      "state": "done",
+      "at": "2026-11-08T00:55:00+07:00",
+      "note": "review A -> revise",
+      "stage": ""
+    },
+    "script-reviewer-4": {
+      "state": "done",
+      "at": "2026-11-08T01:04:14+07:00",
+      "note": "review A -> revise",
+      "stage": ""
+    },
+    "script-reviewer-5": {
+      "state": "running",
+      "at": "2026-11-08T01:04:14+07:00",
+      "note": "Gate A round 5",
+      "stage": "script"
+    }
+  }
+}
