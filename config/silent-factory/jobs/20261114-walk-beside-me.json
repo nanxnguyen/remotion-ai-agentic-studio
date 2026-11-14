@@ -1,8 +1,8 @@
 {
   "title": "Walk Beside Me",
-  "revision": 2,
+  "revision": 3,
   "category": "original-silent-2d-stick-figure-motivational-film",
-  "stage": "REVISION_2_RENDER_PENDING",
+  "stage": "REVISION_3_RENDER_PENDING",
   "creative_qa_approved": false,
   "qa_approved": false,
   "creative_qa_passed": false,
@@ -622,7 +622,7 @@
     },
     {
       "attempt": "revision_2",
-      "status": "PENDING_RENDER",
+      "status": "RENDER_IN_PROGRESS",
       "manifest_revision": 2,
       "renderer_position_commit": "e6ef6a59ae5ac324f1669f7742d220c00daeef30",
       "renderer_camera_commit": "8e4f0e7b6f722480046b5491182ce34dbf637111",
@@ -630,6 +630,22 @@
         "Use the latest companion placement so the blue-scarf figure is on the opposite side of the lead, facing inward.",
         "Add action-aware close-up framing for reach/help/offer/stumble beats and center both characters during those emotional actions.",
         "Keep the same 36-shot story and 18 captions; this revision targets blocking and visual emphasis rather than changing the narrative."
+      ],
+      "technical_render_and_qa": "IN_PROGRESS",
+      "independent_full_movie_review": "NOT_AVAILABLE",
+      "creative_qa_passed": false,
+      "run_id": 43541503964,
+      "run_url": "https://github.com/nanxnguyen/remotion-ai-agentic-studio/actions/runs/43541503964",
+      "source_commit": "53f9943b32c6c2f58cff3b6f9fd7de569da3fbf0"
+    },
+    {
+      "attempt": "revision_3",
+      "status": "PENDING_RENDER",
+      "manifest_revision": 3,
+      "renderer_camera_anchor_commit": "e8b79853d6f240684d6918bcb1cfeffccc17bd0b",
+      "changes": [
+        "Correct the action-close-up focus calculation to use the companion's actual rendered anchor (hero hip + half the 260px companion offset), rather than the SVG group translation.",
+        "Retain action-aware close-up framing for reach/help/offer/stumble beats and the latest opposite-side companion placement."
       ],
       "technical_render_and_qa": "PENDING_RENDER",
       "independent_full_movie_review": "NOT_AVAILABLE",
