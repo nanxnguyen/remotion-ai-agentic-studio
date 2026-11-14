@@ -1,0 +1,22 @@
+{
+ "title": "Cảm giác bị côn trùng đốt là như thế nào?",
+ "lang": "vi", "format": "what-its-like",
+ "cold_open": { "dur": 5 }, "title_card": { "dur": 14 }, "recap": { "dur": 20 }, "cta": { "dur": 10 },
+ "rounds": [
+  { "name": "Kiến lửa đỏ", "cue": "kiến", "weight": 0.75,
+    "stats": [ {"label": "Điểm đau", "v": 0.25, "text": "1/4"}, {"label": "Thời gian", "v": 0.1, "text": "≤ 5 phút"} ],
+    "gag": "cả đàn kiến tràn lên chân", "scene": "Sunny field: Cún Lú stands on a fire-ant mound" },
+  { "name": "Ong mật", "cue": "ong", "weight": 1,
+    "stats": [ {"label": "Điểm đau", "v": 0.5, "text": "2/4"}, {"label": "Thời gian", "v": 0.2, "text": "5–10 phút"} ],
+    "gag": "mũi sưng to, con ong đội mũ thiên thần", "scene": "Flower garden with a beehive" },
+  { "name": "Kiến thợ gặt", "cue": "kiến", "weight": 0.9,
+    "stats": [ {"label": "Điểm đau", "v": 0.75, "text": "3/4"}, {"label": "Kiểu đau", "v": 0.6, "text": "như máy khoan"} ],
+    "gag": "ngón chân băng to như củ khoai", "scene": "Dry grassland, seed-carrying ants" },
+  { "name": "Ong săn nhện", "cue": "ong", "weight": 1,
+    "stats": [ {"label": "Điểm đau", "v": 1.0, "text": "4/4"}, {"label": "Thời gian", "v": 0.1, "text": "~5 phút"} ],
+    "gag": "nằm sấp hét, đồng hồ cát chạy chậm", "scene": "Desert at noon, a huge blue-black wasp and a tarantula" },
+  { "name": "Kiến đạn", "cue": "kiến", "weight": 1.25,
+    "stats": [ {"label": "Điểm đau", "v": 1.0, "text": "4/4"}, {"label": "Thời gian", "v": 1.0, "text": "tới ~24 giờ"} ],
+    "gag": "timelapse cả ngày, đặt tên cơn đau là Đạn", "scene": "Rainforest at night, the cold-open frame" }
+ ]
+}

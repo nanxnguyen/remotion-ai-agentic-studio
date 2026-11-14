@@ -1,0 +1,54 @@
+name: Cam Giac Bi Con Trung Dot - Vbee Thanh Long narration
+on:
+  push:
+    branches: [feat/cam-giac-bi-con-trung-dot]
+    paths:
+      - .github/workflows/cam-giac-bi-con-trung-dot-vbee.yml
+      - docs/cam-giac-bi-con-trung-dot/voice/voice-lines.json
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  voice:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    env:
+      VBEE_ACCESS_TOKEN: ${{ secrets.VBEE_ACCESS_TOKEN || secrets.VBEE_TOKEN || secrets.VBEE_API_KEY || secrets.VBEE_API_TOKEN }}
+      VBEE_APP_ID: ${{ secrets.VBEE_APP_ID || secrets.VBEE_APPID || secrets.VBEE_APPLICATION_ID }}
+      VBEE_WEBHOOK_URL: ${{ vars.VBEE_WEBHOOK_URL || 'https://example.com/story-tts-webhook' }}
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Verify authorized secrets exist without revealing values
+        run: test -n "$VBEE_ACCESS_TOKEN" && test -n "$VBEE_APP_ID"
+      - name: Install ffprobe
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+      - name: Generate one real Vbee clip per script line
+        run: |
+          python3 scripts/gen-story-vbee-batch.py \
+            --timeline docs/cam-giac-bi-con-trung-dot/voice/voice-lines.json \
+            --out-dir out/cam-giac-bi-con-trung-dot-voice \
+            --voice-code hn_male_thanhlong_talk_48k-fhg \
+            --speed 1.06 \
+            --webhook-url "$VBEE_WEBHOOK_URL"
+      - name: Check every clip matches its line and has provenance
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          lines = json.loads(Path("docs/cam-giac-bi-con-trung-dot/voice/voice-lines.json").read_text())
+          data = json.loads(Path("out/cam-giac-bi-con-trung-dot-voice/measured-timeline.json").read_text())
+          assert len(data) == len(lines), (len(data), len(lines))
+          for line, item in zip(lines, data):
+              assert item["text"] == line["narration"] and item["sha256"] and item["voice_code"]
+              print(line["key"], item["audio_seconds"])
+          print("total", round(sum(i["audio_seconds"] for i in data), 2))
+          PY
+      - uses: actions/upload-artifact@v6
+        with:
+          name: cam-giac-bi-con-trung-dot-vbee
+          path: out/cam-giac-bi-con-trung-dot-voice/
+          retention-days: 20
+          if-no-files-found: error
