@@ -693,7 +693,7 @@ export const SilentFactoryReel: React.FC<FilmProps> = ({shots}) => {
   const companionPose = companionAction
     ? expressivePose(companionAction, time * 0.5, index + 2)
     : null;
-  const companionTranslateX = companionPose ? hero.hip.x - 230 + companionPose.hip.x * 0.7 : 0;
+  const companionTranslateX = companionPose ? hero.hip.x + 260 + companionPose.hip.x * 0.7 : 0;
   const companionTranslateY = companionPose ? FLOOR - companionPose.hip.y * 0.7 : 0;
   const viewVariant = index % 5;
   const zoom = viewVariant === 0 ? 1.09 : viewVariant === 3 ? 0.94 : 1;
