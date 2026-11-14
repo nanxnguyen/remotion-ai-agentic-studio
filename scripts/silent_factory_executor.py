@@ -51,6 +51,8 @@ def manifest(path: Path) -> dict:
             raise ValueError(f"invalid story prop for {sid}: {shot.get('prop')!r}")
         if shot.get("weather") not in {None, "rain"}:
             raise ValueError(f"invalid weather cue for {sid}")
+        if shot.get("companion_action") not in ({None} | ACTIONS):
+            raise ValueError(f"invalid companion action for {sid}: {shot.get('companion_action')!r}")
         caption, highlight = shot.get("caption"), shot.get("highlight")
         if not isinstance(caption, str) or len(caption) > 100 or "\\n" in caption:
             raise ValueError(f"invalid English micro-caption for {sid}")

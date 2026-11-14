@@ -48,6 +48,20 @@ class ManifestTests(unittest.TestCase):
         self.assertEqual(parsed["shots"][7]["prop"], "dark_window")
         self.assertEqual(parsed["shots"][8]["prop"], "two_window_stars")
 
+    def test_accepts_companion_action(self):
+        doc = sample()
+        doc["shots"][0]["companion_action"] = "pause"
+        doc["shots"][1]["companion_action"] = "offer"
+        parsed = self.read(doc)
+        self.assertEqual(parsed["shots"][0]["companion_action"], "pause")
+        self.assertEqual(parsed["shots"][1]["companion_action"], "offer")
+
+    def test_reject_invalid_companion_action(self):
+        doc = sample()
+        doc["shots"][0]["companion_action"] = "photo-slide"
+        with self.assertRaisesRegex(ValueError, "companion action"):
+            self.read(doc)
+
     def test_reject_two_second_preview(self):
         doc = sample()
         doc["shots"] = doc["shots"][:1]
