@@ -1,0 +1,88 @@
+{
+  "date": "2026-11-14",
+  "title": "Walk Beside Me",
+  "stage": "BLOCKED_PRIVATE_RELEASE_PENDING_RENDER_REVISIONS_AND_EXTERNAL_GATES",
+  "manifest_path": "config/silent-factory/jobs/20261114-walk-beside-me.json",
+  "manifest_revision": 3,
+  "concept_selection": {
+    "selected": "Walk Beside Me",
+    "score": 93,
+    "score_type": "editorial_estimate_not_plugin_audit"
+  },
+  "technical_runs": [
+    {
+      "attempt": "attempt_00",
+      "run_id": 43538212099,
+      "run_url": "https://github.com/nanxnguyen/remotion-ai-agentic-studio/actions/runs/43538212099",
+      "source_sha": "ffe7e41ae16d2d8ed8661dc32500215a6be8badc",
+      "movie_sha256": "057ab6b7b9dbb6a2f26c10fd852543bd8256ce8be5d4c1bd5438bbefa6134b1f",
+      "status": "COMPLETED_TECHNICAL_QA_PASS_CREATIVE_REVIEW_FAILED"
+    },
+    {
+      "attempt": "revision_1",
+      "run_id": 43540238879,
+      "run_url": "https://github.com/nanxnguyen/remotion-ai-agentic-studio/actions/runs/43540238879",
+      "source_sha": "2500ec137130b1ef4e18b4dd8d6e85773646d1cf",
+      "movie_sha256": "f7683dd6b7ba1ce8166a3b9c267e9841bf31e740e5124f3bbe74222c80cde89e",
+      "movie_bytes": 52923465,
+      "duration_seconds": 210,
+      "width": 2560,
+      "height": 1440,
+      "fps": 30,
+      "frames": 6300,
+      "shots": 36,
+      "captions": 18,
+      "integrated_lufs": -13.9,
+      "loudness_range_lu": 2.2,
+      "true_peak_dbfs": -2.6,
+      "status": "COMPLETED_TECHNICAL_QA_PASS_CREATIVE_REVIEW_PENDING"
+    },
+    {
+      "attempt": "revision_2",
+      "run_id": 43541503964,
+      "run_url": "https://github.com/nanxnguyen/remotion-ai-agentic-studio/actions/runs/43541503964",
+      "source_sha": "53f9943b32c6c2f58cff3b6f9fd7de569da3fbf0",
+      "status": "IN_PROGRESS_AT_RENDER_STEP_NO_ARTIFACT_YET"
+    },
+    {
+      "attempt": "revision_3",
+      "run_id": 43541787883,
+      "run_url": "https://github.com/nanxnguyen/remotion-ai-agentic-studio/actions/runs/43541787883",
+      "source_sha": "e761775dbde8e2f11892ce05a48ff6feb2abf680",
+      "status": "PENDING_BEHIND_REVISION_2"
+    }
+  ],
+  "thumbnail_candidate": {
+    "file_name": "walk-beside-me-thumbnail-1280x720.jpg",
+    "local_path": "/mnt/data/walk-beside-me-thumbnail-1280x720.jpg",
+    "width": 1280,
+    "height": 720,
+    "bytes": 87490,
+    "source_frame_seconds": 70,
+    "source_movie_sha256": "f7683dd6b7ba1ce8166a3b9c267e9841bf31e740e5124f3bbe74222c80cde89e",
+    "status": "CANDIDATE_ONLY_NOT_DRIVE_ARCHIVED"
+  },
+  "blockers": [
+    "Silent Animation Factory V1.7 skill and references 09/10/11 are not available in the current skill registry/repository; animation-script-audit and qa_repair_controller.py could not be run.",
+    "No independent reviewer/tool available to review the complete 210-second encoded MP4 and full audio.",
+    "No Google Drive write/readback connector available; no Drive folder/file IDs.",
+    "No release manifest or YouTube upload permitted without full-film QA and verified Drive assets."
+  ],
+  "release": {
+    "channel": "OLISE_MAN",
+    "channel_id": "UCY3n3Nlqyo6uI4GU8nuX-5g",
+    "privacy": "private_only",
+    "qa_approved": false,
+    "creative_qa_passed": false,
+    "creative_qa_override": false,
+    "manifest_created": false,
+    "upload_status": "NOT_UPLOADED"
+  },
+  "runtime_constraints": {
+    "model": "GPT-6",
+    "extra_high_effort": "REQUESTED_BUT_NOT_LOCKED_OR_VERIFIABLE_IN_AUTOMATION_RUNTIME",
+    "project_attachment": "AI Edition Video context used only where accessible; explicit Project attachment not verified",
+    "automation_environment_selection": "inherited",
+    "automation_environments": null
+  }
+}
