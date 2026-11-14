@@ -61,7 +61,9 @@
       "video_final_certified": false,
       "upload_authorized": false,
       "review_scope": "Creator-side inspection of the encoded 36-shot contact sheet and six sampled frames; not a full independent audiovisual review.",
-      "observed_defect": "The action-aware framing still places the pair off-center because the focus calculation used the SVG group translation instead of the rendered companion anchor; revision 3 corrects the anchor."
+      "observed_defect": "The action-aware framing still places the pair off-center because the focus calculation used the SVG group translation instead of the rendered companion anchor; revision 3 corrects the anchor.",
+      "true_peak_dbfs": -2.6,
+      "loudness_range_lu": 2.2
     },
     {
       "attempt": "revision_3",
@@ -72,14 +74,15 @@
     }
   ],
   "thumbnail_candidate": {
-    "file_name": "walk-beside-me-thumbnail-1280x720.jpg",
-    "local_path": "/mnt/data/walk-beside-me-thumbnail-1280x720.jpg",
+    "file_name": "walk-beside-me-thumbnail-rev2-1280x720.jpg",
+    "local_path": "/mnt/data/walk-beside-me-thumbnail-rev2-1280x720.jpg",
     "width": 1280,
     "height": 720,
-    "bytes": 87490,
-    "source_frame_seconds": 70,
-    "source_movie_sha256": "f7683dd6b7ba1ce8166a3b9c267e9841bf31e740e5124f3bbe74222c80cde89e",
-    "status": "CANDIDATE_ONLY_NOT_DRIVE_ARCHIVED"
+    "bytes": 92211,
+    "source_frame_seconds": 115,
+    "source_movie_sha256": "89510f4d2ff197cb81e405be2ec0fa66a2a565c947be6acb5b8dd762fa596fb8",
+    "status": "CANDIDATE_ONLY_NOT_DRIVE_ARCHIVED",
+    "design": "Actual encoded revision 2 frame with title overlay; matches the film's flat 2D stick-figure style."
   },
   "blockers": [
     "Silent Animation Factory V1.7 skill and references 09/10/11 are not available in the current skill registry/repository; animation-script-audit and qa_repair_controller.py could not be run.",
@@ -109,5 +112,6 @@
     "run_id": 43542265379,
     "status": "SUCCESS",
     "run_url": "https://github.com/nanxnguyen/remotion-ai-agentic-studio/actions/runs/43542265379"
-  }
+  },
+  "thumbnail_candidate_previous": null
 }
