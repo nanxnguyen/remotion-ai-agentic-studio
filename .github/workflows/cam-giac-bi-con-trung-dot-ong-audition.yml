@@ -1,0 +1,37 @@
+name: Cam Giac Bi Con Trung Dot - Vbee "ong" pronunciation audition
+on:
+  push:
+    branches: [feat/cam-giac-bi-con-trung-dot]
+    paths:
+      - .github/workflows/cam-giac-bi-con-trung-dot-ong-audition.yml
+      - docs/cam-giac-bi-con-trung-dot/voice/ong-audition.json
+permissions:
+  contents: read
+jobs:
+  audition:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    env:
+      VBEE_ACCESS_TOKEN: ${{ secrets.VBEE_ACCESS_TOKEN || secrets.VBEE_TOKEN || secrets.VBEE_API_KEY || secrets.VBEE_API_TOKEN }}
+      VBEE_APP_ID: ${{ secrets.VBEE_APP_ID || secrets.VBEE_APPID || secrets.VBEE_APPLICATION_ID }}
+      VBEE_WEBHOOK_URL: ${{ vars.VBEE_WEBHOOK_URL || 'https://example.com/story-tts-webhook' }}
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Install ffprobe
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+      - name: Generate the same lines with three voice settings
+        run: |
+          set -eu
+          L=docs/cam-giac-bi-con-trung-dot/voice/ong-audition.json
+          python3 scripts/gen-story-vbee-batch.py --timeline $L --out-dir out/ong/thanhlong-106 --voice-code hn_male_thanhlong_talk_48k-fhg --speed 1.06 --webhook-url "$VBEE_WEBHOOK_URL"
+          python3 scripts/gen-story-vbee-batch.py --timeline $L --out-dir out/ong/thanhlong-095 --voice-code hn_male_thanhlong_talk_48k-fhg --speed 0.95 --webhook-url "$VBEE_WEBHOOK_URL"
+          python3 scripts/gen-story-vbee-batch.py --timeline $L --out-dir out/ong/phuthang-106 --voice-code hn_male_phuthang_stor_24k-stl --speed 1.06 --webhook-url "$VBEE_WEBHOOK_URL"
+      - uses: actions/upload-artifact@v6
+        with:
+          name: ong-audition
+          path: out/ong/
+          retention-days: 7
+          if-no-files-found: error
