@@ -1,11 +1,12 @@
 name: Auto Video Producer Vbee Narration
 on:
   push:
-    branches: [feat/hieu-ung-con-nhim, feat/top-5-luc-can-manh-nhat]
+    branches: [feat/hieu-ung-con-nhim, feat/top-5-luc-can-manh-nhat, feat/khong-ngu-11-ngay]
     paths:
       - .github/workflows/auto-video-vbee.yml
       - docs/hieu-ung-con-nhim/shotlist.json
       - docs/top-5-luc-can-manh-nhat/shotlist.json
+      - docs/khong-ngu-11-ngay/shotlist.json
   workflow_dispatch:
     inputs:
       slug:
@@ -41,9 +42,9 @@ jobs:
         run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
       - name: Generate Vbee batch narration
         run: |
-          SLUG="${{ inputs.slug || (github.ref_name == 'feat/top-5-luc-can-manh-nhat' && 'top-5-luc-can-manh-nhat') || 'hieu-ung-con-nhim' }}"
-          VOICE="${{ inputs.voice_code || (github.ref_name == 'feat/top-5-luc-can-manh-nhat' && 'hn_male_thanhlong_talk_48k-fhg') || 'hn_male_phuthang_stor_24k-stl' }}"
-          SPEED="${{ inputs.speed || (github.ref_name == 'feat/top-5-luc-can-manh-nhat' && '1.10') || '1.08' }}"
+          SLUG="${{ inputs.slug || (github.ref_name == 'feat/khong-ngu-11-ngay' && 'khong-ngu-11-ngay') || (github.ref_name == 'feat/top-5-luc-can-manh-nhat' && 'top-5-luc-can-manh-nhat') || 'hieu-ung-con-nhim' }}"
+          VOICE="${{ inputs.voice_code || (github.ref_name == 'feat/khong-ngu-11-ngay' && 'hn_male_thanhlong_talk_48k-fhg') || (github.ref_name == 'feat/top-5-luc-can-manh-nhat' && 'hn_male_thanhlong_talk_48k-fhg') || 'hn_male_phuthang_stor_24k-stl' }}"
+          SPEED="${{ inputs.speed || ((github.ref_name == 'feat/top-5-luc-can-manh-nhat' || github.ref_name == 'feat/khong-ngu-11-ngay') && '1.10') || '1.08' }}"
           python3 scripts/gen-story-vbee-batch.py \
             --timeline "docs/${SLUG}/shotlist.json" \
             --out-dir "public/audio/${SLUG}" \
@@ -56,7 +57,7 @@ jobs:
           import json
           from pathlib import Path
 
-          slug = "${{ inputs.slug || (github.ref_name == 'feat/top-5-luc-can-manh-nhat' && 'top-5-luc-can-manh-nhat') || 'hieu-ung-con-nhim' }}"
+          slug = "${{ inputs.slug || (github.ref_name == 'feat/khong-ngu-11-ngay' && 'khong-ngu-11-ngay') || (github.ref_name == 'feat/top-5-luc-can-manh-nhat' && 'top-5-luc-can-manh-nhat') || 'hieu-ung-con-nhim' }}"
           shots = {s["id"]: s for s in json.loads(Path(f"docs/{slug}/shotlist.json").read_text())}
           measured = json.loads(Path(f"public/audio/{slug}/measured-timeline.json").read_text())
           assert len(measured) == len(shots), f"Clip count {len(measured)} != shot count {len(shots)}"
@@ -68,7 +69,7 @@ jobs:
           PY
       - uses: actions/upload-artifact@v6
         with:
-          name: ${{ inputs.slug || (github.ref_name == 'feat/top-5-luc-can-manh-nhat' && 'top-5-luc-can-manh-nhat') || 'hieu-ung-con-nhim' }}-vbee
-          path: public/audio/${{ inputs.slug || (github.ref_name == 'feat/top-5-luc-can-manh-nhat' && 'top-5-luc-can-manh-nhat') || 'hieu-ung-con-nhim' }}/
+          name: ${{ inputs.slug || (github.ref_name == 'feat/khong-ngu-11-ngay' && 'khong-ngu-11-ngay') || (github.ref_name == 'feat/top-5-luc-can-manh-nhat' && 'top-5-luc-can-manh-nhat') || 'hieu-ung-con-nhim' }}-vbee
+          path: public/audio/${{ inputs.slug || (github.ref_name == 'feat/khong-ngu-11-ngay' && 'khong-ngu-11-ngay') || (github.ref_name == 'feat/top-5-luc-can-manh-nhat' && 'top-5-luc-can-manh-nhat') || 'hieu-ung-con-nhim' }}/
           retention-days: 20
           if-no-files-found: error

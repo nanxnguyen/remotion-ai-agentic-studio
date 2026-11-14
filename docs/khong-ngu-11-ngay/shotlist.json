@@ -1,0 +1,86 @@
+[
+  {
+    "id": 1,
+    "duration_sec": 7.5,
+    "shot_type": "c00",
+    "narration": "Ê khoan! Nếu bạn thấy tôi mắt thâm như gấu trúc bên mười lăm ly cà phê thế này, thì đây là kết quả sau hai trăm sáu mươi bốn giờ thức trắng liên tiếp!"
+  },
+  {
+    "id": 2,
+    "duration_sec": 8.0,
+    "shot_type": "t00",
+    "narration": "Nghe đồn kỷ lục thế giới từng có người thức suốt mười một ngày không chợp mắt. Vậy chuyện gì thật sự xảy ra bên trong cơ thể bạn qua từng mốc giờ?"
+  },
+  {
+    "id": 3,
+    "duration_sec": 8.0,
+    "shot_type": "r01a",
+    "narration": "Mốc hai mươi bốn giờ: Pin não bộ tụt xuống tám mươi phần trăm. Phản xạ lúc này chậm ngang ngửa một người đang say rượu với nồng độ cồn không phẩy một phần trăm."
+  },
+  {
+    "id": 4,
+    "duration_sec": 6.5,
+    "shot_type": "r01b",
+    "narration": "Tôi định rót thêm ly cà phê cho tỉnh, ai ngờ tay run quá rót trượt thẳng ra ngoài bàn luôn!"
+  },
+  {
+    "id": 5,
+    "duration_sec": 8.5,
+    "shot_type": "r02a",
+    "narration": "Mốc bốn mươi tám giờ: Hệ miễn dịch bắt đầu sụt giảm nghiêm trọng. Tế bào bạch cầu mất phương hướng, tạo cơ hội cho vi khuẩn và cảm cúm tấn công ồ ạt."
+  },
+  {
+    "id": 6,
+    "duration_sec": 8.0,
+    "shot_type": "r03a",
+    "narration": "Mốc bảy mươi hai giờ: Cơ thể rơi vào trạng thái vi giấc ngủ. Não bộ tự động sập nguồn ba đến năm giây ngay cả khi mắt bạn vẫn đang mở to!"
+  },
+  {
+    "id": 7,
+    "duration_sec": 6.5,
+    "shot_type": "r03b",
+    "narration": "Đang nói chuyện bình thường tự dưng tôi ngáy khò khò ba giây rồi giật mình tỉnh dậy, mém chút nữa rớt luôn cái ly!"
+  },
+  {
+    "id": 8,
+    "duration_sec": 8.5,
+    "shot_type": "r04a",
+    "narration": "Mốc một trăm hai mươi giờ, tức năm ngày thức trắng: Não thiếu ngủ sinh ra ảo giác thị giác. Mọi đồ vật bình thường bắt đầu méo mó như quái vật."
+  },
+  {
+    "id": 9,
+    "duration_sec": 6.5,
+    "shot_type": "r04b",
+    "narration": "Tôi tưởng cái ghế trước mặt biến thành con quái vật ba mắt nên hét toáng lên, hàng xóm tưởng nhà có biến!"
+  },
+  {
+    "id": 10,
+    "duration_sec": 8.5,
+    "shot_type": "r05a",
+    "narration": "Mốc bảy ngày không ngủ: Trí nhớ ngắn hạn gần như xóa sạch, nói năng lắp bắp và cơ thể bắt đầu tự phá hủy mô cơ để kiếm năng lượng."
+  },
+  {
+    "id": 11,
+    "duration_sec": 8.5,
+    "shot_type": "r05b",
+    "narration": "Và tại mốc mười một ngày, hai trăm sáu mươi bốn giờ: Pin não chỉ còn một phần trăm. Hệ thần kinh đứng trước nguy cơ sụp đổ hoàn toàn."
+  },
+  {
+    "id": 12,
+    "duration_sec": 9.0,
+    "shot_type": "z80",
+    "narration": "Trong thí nghiệm có thật năm một nghìn chín trăm sáu mươi tư của Randy Gardner, sau mười một ngày thức trắng, cậu ấy đã ngủ bù liền mười bốn tiếng bốn mươi phút mới hồi phục."
+  },
+  {
+    "id": 13,
+    "duration_sec": 9.0,
+    "shot_type": "z90",
+    "narration": "Từ hai mươi bốn giờ say rượu đến mười một ngày cạn pin hoàn toàn, giấc ngủ chính là nút sạc sinh tồn mà bạn tuyệt đối không thể bỏ qua."
+  },
+  {
+    "id": 14,
+    "duration_sec": 7.5,
+    "shot_type": "z99",
+    "narration": "Kỷ lục thức khuya nhất của bạn từng đạt là bao nhiêu tiếng? Bình luận bên dưới cho tôi biết với nhé!"
+  }
+]
