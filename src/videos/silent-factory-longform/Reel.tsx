@@ -50,6 +50,7 @@ export type FilmShot = {
     | 'dark_window'
     | 'two_window_stars';
   weather?: 'rain';
+  companion_action?: StickAction;
 };
 export type FilmProps = {title: string; shots: FilmShot[]};
 const W = 1920;
@@ -202,12 +203,36 @@ const Backdrop: React.FC<{
         </g>
       )}
       {scene === 'bridge' && (
-        <g stroke="#72879B" strokeWidth={12} opacity={0.72}>
-          <path d="M 0 640 H 1920 M 0 725 H 1920" />
-          {Array.from({length: 16}, (_, i) => (
-            <path key={i} d={'M ' + i * 125 + ' 640 L ' + (i * 125 + 70) + ' 865'} />
-          ))}
-        </g>
+        <>
+          <path
+            d="M 0 750 Q 320 724 640 750 T 1280 750 T 1920 750 L 1920 865 L 0 865 Z"
+            fill="#0B2C43"
+            opacity={0.88}
+          />
+          <g stroke="#5D93A5" strokeWidth={5} opacity={0.42} fill="none">
+            {Array.from({length: 8}, (_, i) => {
+              const y = 770 + i * 13;
+              const drift = Math.sin(time * 1.5 + i * 0.7) * 18;
+              return (
+                <path
+                  key={i}
+                  d={'M ' + (drift - 80) + ' ' + y + ' Q ' + (400 + drift) + ' ' + (y - 8) + ' ' + (800 + drift) + ' ' + y + ' T ' + (1680 + drift) + ' ' + y}
+                />
+              );
+            })}
+          </g>
+          <g
+            transform={'rotate(' + Math.sin(time * 3 + index) * 0.75 + ' 960 740)'}
+            stroke="#72879B"
+            strokeWidth={12}
+            opacity={0.72}
+          >
+            <path d="M 0 640 H 1920 M 0 725 H 1920" />
+            {Array.from({length: 16}, (_, i) => (
+              <path key={i} d={'M ' + i * 125 + ' 640 L ' + (i * 125 + 70) + ' 865'} />
+            ))}
+          </g>
+        </>
       )}
       {scene === 'city' &&
         Array.from({length: 10}, (_, i) => (
@@ -645,6 +670,10 @@ export const SilentFactoryReel: React.FC<FilmProps> = ({shots}) => {
   const time = local / FILM_FPS;
   const wave = Math.sin(time * 2.2 + index);
   const hero = expressivePose(shot.action, time, index);
+  const companionAction = shot.companion_action ?? ((shot.action === 'help' || shot.action === 'offer') ? 'help' : undefined);
+  const companionPose = companionAction ? expressivePose(companionAction, time * 0.5, index + 2) : null;
+  const companionTranslateX = companionPose ? hero.hip.x - 230 + companionPose.hip.x * 0.70 : 0;
+  const companionTranslateY = companionPose ? FLOOR - companionPose.hip.y * 0.70 : 0;
   const viewVariant = index % 5;
   const zoom = viewVariant === 0 ? 1.09 : viewVariant === 3 ? 0.94 : 1;
   const dx = viewVariant === 2 ? -92 : viewVariant === 4 ? 100 : 0;
@@ -707,10 +736,14 @@ export const SilentFactoryReel: React.FC<FilmProps> = ({shots}) => {
               />
             </g>
           )}
-          {(shot.action === 'help' || shot.action === 'offer') && (
-            <g transform={'translate(360 80) scale(0.70)'}>
+          {companionPose && (
+            <g
+              transform={
+                'translate(' + companionTranslateX + ' ' + companionTranslateY + ') scale(-0.70 0.70)'
+              }
+            >
               <CharacterPuppet
-                pose={expressivePose('help', time * 0.5, index + 2)}
+                pose={companionPose}
                 shadow={false}
                 accessory="scarf"
                 accent="#78BDE8"
