@@ -695,9 +695,27 @@ export const SilentFactoryReel: React.FC<FilmProps> = ({shots}) => {
     : null;
   const companionTranslateX = companionPose ? hero.hip.x + 260 + companionPose.hip.x * 0.7 : 0;
   const companionTranslateY = companionPose ? FLOOR - companionPose.hip.y * 0.7 : 0;
-  const viewVariant = index % 5;
-  const zoom = viewVariant === 0 ? 1.09 : viewVariant === 3 ? 0.94 : 1;
-  const dx = viewVariant === 2 ? -92 : viewVariant === 4 ? 100 : 0;
+  const viewVariant = index % 6;
+  const actionCloseup =
+    ['reach', 'help', 'offer', 'stumble'].includes(shot.action) ||
+    ['reach', 'help', 'offer'].includes(companionAction ?? '');
+  const focusX = companionPose ? (hero.hip.x + companionTranslateX) / 2 : hero.hip.x;
+  const zoom = actionCloseup
+    ? 1.18
+    : viewVariant === 0
+      ? 1.08
+      : viewVariant === 3
+        ? 0.92
+        : viewVariant === 5
+          ? 1.02
+          : 1;
+  const dx = actionCloseup
+    ? zoom * (960 - focusX)
+    : viewVariant === 2
+      ? -92
+      : viewVariant === 4
+        ? 100
+        : 0;
   return (
     <AbsoluteFill style={{overflow: 'hidden', background: '#0B1728'}}>
       <svg
