@@ -8,6 +8,7 @@
 //   sign(g, x, y, text)                      hand-held placard for gags ("ĐỪNG THỬ Ở NHÀ")
 //   bug(g, kind, o)                          beetle, spider, crab, flytrap silhouettes in the house style
 import { E, V, S, clamp, lerp, ease, prog, circle, seg, rr, alpha, shade, glow, text, FONTS } from './core.js';
+import { inked } from './mascot.js';
 
 const ui = () => S().ui;
 const STROKE = { stroke: 10, strokeColor: 'rgba(10,6,14,.55)' };
@@ -129,4 +130,153 @@ export function bug(g, kind, o = {}) {
   g.fillStyle = 'rgba(0,0,0,.28)'; g.beginPath(); g.ellipse(x, y + 2, 80 * s, 8 * s, 0, 0, Math.PI * 2); g.fill();
   if (o.rim) { const w = (o.rim.w || S().rimWidth || 4) * 1.2; pass(o.rim.dir[0] * w, o.rim.dir[1] * w, o.rim.color, null); }
   pass(0, 0, ink, acc);
+}
+
+// ---------- animals, fossils and Shorts UI (v0.6) ----------
+//   critter(g, kind, {x, y, s, facing, t, peck, color, mouth, walk})   chicken ostrich eagle croc whale trex hippo dolphin pakicetus
+//     (hippo: mouth 0..1 opens the jaw; pakicetus: walk = gait speed; whale/dolphin float, so set y at the water line)
+//   femur(g, x, y, len, {rot, color, blur})                    a fossil leg bone (blur > 0 = hidden behind frosted glass)
+//   answerCards(g, t, {items:[{key, label, draw?}], reveal, pick})  quiz cards that pop in one by one; reveal flips card `pick`
+//   subscribeButton(g, t, x, y, {label, clicked})              a red subscribe button that bounces in, then turns grey with a cursor click
+export const CRITTERS = ['chicken', 'ostrich', 'eagle', 'croc', 'whale', 'trex', 'hippo', 'dolphin', 'pakicetus'];
+const CR = {
+  chicken(g, t, o) {
+    const body = o.color || '#f6f1e6', peck = o.peck || 0, bob = Math.sin(t * 7) * 2;
+    seg(g, [[-10, -40], [-14, 0]], 6, '#e8a33a'); seg(g, [[12, -40], [16, 0]], 6, '#e8a33a'); seg(g, [[-24, 0], [-4, 0]], 5, '#e8a33a'); seg(g, [[6, 0], [26, 0]], 5, '#e8a33a');
+    ell(g, 0, -78 + bob, 62, 46, body);
+    for (const [dx, dy, r] of [[-56, -110], [-70, -92], [-60, -74]]) ell(g, dx, dy + bob, 22, 12, shade(body, -0.12), -0.7);   // tail feathers
+    ell(g, -10, -78 + bob, 30, 20, shade(body, -0.08), 0.2);                                                                      // wing
+    g.save(); g.translate(40, -118 + bob); g.rotate(peck * 0.9);
+    seg(g, [[-6, 30], [0, 0]], 30, body); circle(g, 0, -6, 26, body);
+    for (const [dx, dy, r] of [[-8, -34, 9], [2, -38, 10], [12, -34, 9]]) circle(g, dx, dy, r, '#e2412f');                    // comb
+    ell(g, 16, 14, 7, 11, '#e2412f');                                                                                         // wattle
+    g.fillStyle = '#f2a72e'; g.beginPath(); g.moveTo(22, -10); g.lineTo(44, -2); g.lineTo(22, 4); g.closePath(); g.fill();      // beak
+    circle(g, 10, -10, 5, '#1a1622'); g.restore();
+  },
+  ostrich(g, t, o) {
+    const c = o.color || '#3a3036';
+    seg(g, [[-12, -110], [-16, -50], [-12, 0]], 9, '#d9a07a'); seg(g, [[14, -110], [18, -50], [22, 0]], 9, '#d9a07a');
+    ell(g, 0, -140, 70, 46, c); ell(g, -60, -150, 24, 18, '#f2ece2');
+    seg(g, [[46, -150], [60, -230], [56, -290]], 12, '#d9a07a'); circle(g, 60, -300, 18, '#d9a07a'); circle(g, 66, -304, 4, '#1a1622');
+    g.fillStyle = '#e8c49a'; g.beginPath(); g.moveTo(74, -304); g.lineTo(92, -298); g.lineTo(74, -292); g.closePath(); g.fill();
+  },
+  eagle(g, t, o) {
+    const c = o.color || '#5a3a26', flap = Math.sin(t * 5) * 0.4;
+    for (const s of [-1, 1]) { g.save(); g.translate(0, -90); g.rotate(s * (0.5 + flap) - Math.PI / 2 * (s > 0 ? 0 : 0)); ell(g, s * 70, -10, 80, 22, shade(c, -0.1), s * -0.3); g.restore(); }
+    ell(g, 0, -80, 40, 52, c); circle(g, 8, -142, 26, '#f6f1e6'); circle(g, 16, -146, 5, '#1a1622');
+    g.fillStyle = '#f2b02e'; g.beginPath(); g.moveTo(30, -150); g.quadraticCurveTo(52, -146, 42, -128); g.lineTo(30, -136); g.closePath(); g.fill();
+    seg(g, [[-8, -30], [-10, 0]], 6, '#f2b02e'); seg(g, [[10, -30], [12, 0]], 6, '#f2b02e');
+  },
+  croc(g, t, o) {
+    const c = o.color || '#4f7a3a', jaw = Math.max(0, Math.sin(t * 3)) * 0.25;
+    seg(g, [[-130, -30], [-200, -16]], 26, c); ell(g, -30, -40, 110, 34, c);
+    for (let i = 0; i < 6; i++) { g.fillStyle = shade(c, -0.25); g.beginPath(); g.moveTo(-110 + i * 30, -70); g.lineTo(-98 + i * 30, -86); g.lineTo(-86 + i * 30, -70); g.fill(); }
+    rr(g, 60, -64, 120, 30, 14); g.fillStyle = c; g.fill();
+    g.save(); g.translate(64, -36); g.rotate(jaw); rr(g, 0, -4, 112, 20, 10); g.fillStyle = shade(c, 0.15); g.fill(); g.restore();
+    for (let i = 0; i < 6; i++) { g.fillStyle = '#fbf6ea'; g.beginPath(); g.moveTo(80 + i * 16, -36); g.lineTo(88 + i * 16, -24); g.lineTo(96 + i * 16, -36); g.fill(); }
+    circle(g, 70, -70, 12, c); circle(g, 72, -72, 5, '#f2d23a');
+    for (const dx of [-80, -20, 30]) seg(g, [[dx, -20], [dx + 6, 0]], 14, shade(c, -0.15));
+  },
+  whale(g, t, o) {
+    const c = o.color || '#3d6fa8';
+    ell(g, 0, -80, 150, 70, c); ell(g, 10, -50, 120, 34, shade(c, 0.35));
+    g.fillStyle = c; g.beginPath(); g.moveTo(-140, -90); g.lineTo(-230, -150 + Math.sin(t * 3) * 10); g.lineTo(-200, -80); g.lineTo(-230, -20 + Math.sin(t * 3) * 10); g.closePath(); g.fill();
+    circle(g, 90, -100, 8, '#1a1622'); seg(g, [[80, -150], [70, -200], [60, -215]], 5, alpha('#cfe8ff', 0.8)); seg(g, [[80, -150], [92, -205], [104, -215]], 5, alpha('#cfe8ff', 0.8));
+  },
+  hippo(g, t, o) {   // side view facing +x; o.mouth 0..1 opens the famous gape
+    const c = o.color || '#8f7fa3', d = shade(c, -0.18), m = clamp(o.mouth || 0), br = Math.sin(t * 2) * 2;
+    for (const dx of [-90, -40, 40, 90]) { rr(g, dx - 18, -60, 36, 60, 14); g.fillStyle = dx < 0 ? d : c; g.fill(); }
+    ell(g, 0, -110 + br, 140, 82, c); ell(g, 10, -80 + br, 110, 40, shade(c, 0.12));
+    if (m > 0.05) {   // the open gape: pink mouth between the jaws, tusks on the lower jaw
+      const a1 = m * 0.6, a2 = m * 0.45, px = 112, py = -122 + br;
+      g.fillStyle = '#c94f6a'; g.beginPath(); g.moveTo(px, py); g.lineTo(px + 112 * Math.cos(-a1), py - 8 + 112 * Math.sin(-a1)); g.lineTo(px + 120 * Math.cos(a2), py + 14 + 120 * Math.sin(a2)); g.closePath(); g.fill();
+      ell(g, px + 70, py + 6 + 30 * m, 26, 12, '#e98aa0');   // tongue
+    }
+    g.save(); g.translate(120, -150 + br); g.rotate(-m * 0.6);
+    rr(g, -10, -50, 130, 76, 34); g.fillStyle = c; g.fill();                                   // upper head + snout
+    circle(g, 22, -50, 18, c); circle(g, 22, -50, 8, '#f6f1e6'); circle(g, 25, -51, 4, '#1a1622');   // eye on top
+    circle(g, -4, -62, 10, d); circle(g, 100, -30, 5, d); circle(g, 86, -32, 5, d);              // ear, nostrils
+    g.restore();
+    g.save(); g.translate(112, -110 + br); g.rotate(m * 0.45);
+    rr(g, -6, 0, 130, 34, 16); g.fillStyle = d; g.fill();
+    if (m > 0.05) for (const tx of [22, 104]) { g.fillStyle = '#fbf6ea'; g.beginPath(); g.moveTo(tx - 8, 4); g.lineTo(tx + 8, 4); g.lineTo(tx, 4 - 44 * m); g.closePath(); g.fill(); }
+    g.restore();
+    seg(g, [[-138, -120 + br], [-160, -100 + br]], 8, d);                                       // stubby tail
+  },
+  dolphin(g, t, o) {
+    const c = o.color || '#7d9bb5', sw = Math.sin(t * 4) * 0.1;
+    g.save(); g.rotate(sw * 0.3);
+    g.fillStyle = c; g.beginPath(); g.moveTo(-150, -60); g.quadraticCurveTo(-40, -150, 110, -96); g.quadraticCurveTo(140, -90, 170, -82); g.quadraticCurveTo(130, -70, 100, -66);
+    g.quadraticCurveTo(0, -30, -150, -60); g.closePath(); g.fill();
+    ell(g, 10, -72, 80, 14, shade(c, 0.35));
+    g.beginPath(); g.moveTo(-20, -128); g.lineTo(-50, -170); g.lineTo(10, -132); g.closePath(); g.fill();         // dorsal fin
+    g.beginPath(); g.moveTo(-150, -60); g.lineTo(-200, -96 + sw * 80); g.lineTo(-176, -60); g.lineTo(-200, -26 - sw * 80); g.closePath(); g.fill();   // flukes
+    circle(g, 96, -94, 6, '#1a1622'); g.restore();
+  },
+  pakicetus(g, t, o) {   // a wolf-sized early whale ancestor that walked on land (≈ 50 million years ago)
+    const c = o.color || '#9a6b45', d = shade(c, -0.2), w = (o.walk ?? 6) * t;
+    const leg = (x, ph, col) => { const a = Math.sin(w + ph) * 0.45; seg(g, [[x, -70], [x + Math.sin(a) * 30, -36], [x + Math.sin(a) * 44, 0]], 10, col); };
+    leg(-50, Math.PI, d); leg(50, 0, d);
+    seg(g, [[-80, -84], [-160, -70], [-220, -40]], 12, c);                                    // long tail
+    ell(g, 0, -86, 92, 32, c); leg(-40, 0, c); leg(60, Math.PI, c);
+    seg(g, [[78, -96], [110, -126]], 26, c); rr(g, 96, -150, 104, 38, 18); g.fillStyle = c; g.fill();   // neck + long snout
+    circle(g, 118, -140, 6, '#1a1622'); circle(g, 104, -152, 9, d);
+    for (let i = 0; i < 4; i++) { g.fillStyle = '#fbf6ea'; g.beginPath(); g.moveTo(140 + i * 14, -114); g.lineTo(146 + i * 14, -104); g.lineTo(152 + i * 14, -114); g.fill(); }
+  },
+  trex(g, t, o) {   // a big adult T-rex for size comparisons (≈ 4x the chicken)
+    const c = o.color || '#4e8a3e', d = shade(c, -0.2), step = Math.sin(t * 2) * 6;
+    seg(g, [[-30, -150], [-40, -70], [-30 + step, 0]], 34, d); seg(g, [[-30 + step, 0], [10 + step, 0]], 20, d);
+    g.fillStyle = c; g.beginPath(); g.moveTo(-60, -220); g.quadraticCurveTo(-200, -230, -330, -170); g.quadraticCurveTo(-200, -170, -60, -140); g.closePath(); g.fill();   // tail
+    ell(g, 0, -190, 110, 70, c, -0.25);
+    seg(g, [[50, -150], [44, -80], [56 - step, 0]], 36, c); seg(g, [[56 - step, 0], [96 - step, 0]], 22, c);
+    seg(g, [[80, -230], [130, -300]], 70, c);
+    rr(g, 90, -380, 170, 90, 40); g.fillStyle = c; g.fill(); rr(g, 110, -310, 140, 34, 16); g.fillStyle = shade(c, 0.2); g.fill();
+    for (let i = 0; i < 6; i++) { g.fillStyle = '#fbf6ea'; g.beginPath(); g.moveTo(130 + i * 20, -312); g.lineTo(138 + i * 20, -296); g.lineTo(146 + i * 20, -312); g.fill(); }
+    circle(g, 150, -350, 10, '#1a1622'); seg(g, [[100, -170], [124, -156], [130, -146]], 10, d);   // the famous tiny arm
+  },
+};
+export function critter(g, kind, o = {}) {
+  const fn = CR[kind]; if (!fn) throw new Error(`critter: unknown kind "${kind}" (use ${CRITTERS.join(', ')})`);
+  const { x = E.W / 2, y = E.H * 0.8, s = 1, facing = 1, t = 0 } = o;
+  g.fillStyle = 'rgba(0,0,0,.28)'; g.beginPath(); g.ellipse(x, y + 2, 90 * s, 9 * s, 0, 0, Math.PI * 2); g.fill();
+  if (o.ink === false) { g.save(); g.translate(x, y); g.scale(facing * s, s); fn(g, t, o); g.restore(); return; }
+  inked(g, g2 => { g2.save(); g2.translate(x, y); g2.scale(facing * s, s); fn(g2, t, o); g2.restore(); }, { w: o.inkW ?? 4 });   // v0.7: one outline + volume
+}
+export function femur(g, x, y, len, o = {}) {
+  const { rot = 0, color = '#e9dcc0', blur = 0 } = o;
+  g.save(); g.translate(x, y); g.rotate(rot); if (blur) g.filter = `blur(${blur}px)`;
+  const w = len * 0.13, ink = shade(color, -0.35);
+  rr(g, -len / 2, -w / 2, len, w, w / 2); g.fillStyle = color; g.fill();
+  for (const s of [-1, 1]) { circle(g, s * len / 2, -w * 0.55, w * 0.85, color); circle(g, s * len / 2, w * 0.55, w * 0.75, color); }
+  g.strokeStyle = alpha(ink, 0.6); g.lineWidth = Math.max(2, len * 0.008); g.beginPath(); g.moveTo(-len * 0.3, -w * 0.15); g.lineTo(len * 0.25, -w * 0.1); g.stroke();
+  for (const [dx, dy] of [[-0.1, 0.2], [0.15, -0.25], [0.3, 0.1]]) circle(g, dx * len, dy * w, w * 0.08, alpha(ink, 0.5));
+  g.restore();
+}
+export function answerCards(g, t, o = {}) {
+  const { items = [], y = V(E.H * 0.62, E.H * 0.58), w = V(300, 300), h = V(300, 330), gap = V(40, 26), reveal = -1, pick = items.length - 1, step = 0.25 } = o;
+  const total = items.length * w + (items.length - 1) * gap, x0 = E.W / 2 - total / 2;
+  items.forEach((it, i) => {
+    const k = ease.outBack(prog(t, i * step, i * step + 0.3)); if (k < 1e-3) return;
+    const cx = x0 + i * (w + gap) + w / 2, flip = i === pick && reveal >= 0 ? prog(reveal, 0, 0.35) : 0, sx = Math.abs(Math.cos(flip * Math.PI)), back = flip > 0.5;
+    const dim = reveal >= 0 && i !== pick ? 0.45 : 1;
+    g.save(); g.globalAlpha *= dim; g.translate(cx, y); g.scale(k * Math.max(sx, 0.02), k);
+    rr(g, -w / 2, -h / 2, w, h, 26); g.fillStyle = back ? ui().gold : ui().card; g.fill(); g.strokeStyle = back ? '#fff6d8' : ui().cardLine; g.lineWidth = 4; g.stroke();
+    const shown = back ? (it.back || it) : it;
+    text(g, shown.key || '', 0, -h / 2 + 52, { size: 54, color: back ? '#2a160c' : ui().gold, font: FONTS.ui, weight: 900 });
+    if (shown.draw) { g.save(); g.translate(0, h * 0.18); shown.draw(g); g.restore(); }
+    text(g, shown.label || '', 0, h / 2 - 34, { size: V(40, 42), color: back ? '#2a160c' : ui().cream, font: FONTS.ui, weight: 900 });
+    g.restore();
+  });
+}
+export function subscribeButton(g, t, x, y, o = {}) {
+  const { label = 'ĐĂNG KÝ', clicked = 9, scale = 1 } = o;
+  const k = ease.outBack(prog(t, 0, 0.35)), done = t >= clicked, press = t > clicked - 0.12 && t < clicked + 0.12 ? 0.9 : 1, w = 380, h = 110;
+  if (k < 1e-3) return;
+  g.save(); g.translate(x, y); g.scale(k * press * scale, k * press * scale);
+  rr(g, -w / 2, -h / 2, w, h, h / 2); g.fillStyle = done ? '#55505c' : '#e5262b'; g.fill();
+  if (!done) glow(g, 0, 0, w * 0.6, '#ff3b3b', 0.25 + 0.15 * Math.sin(t * 6));
+  text(g, done ? 'ĐÃ ĐĂNG KÝ ✓' : label, 0, 4, { size: 46, color: '#ffffff', font: FONTS.ui, weight: 900 });
+  const cp = ease.inOut(prog(t, clicked - 0.7, clicked - 0.1)), cx = lerp(w * 0.8, w * 0.12, cp), cy = lerp(h * 1.4, h * 0.15, cp);
+  if (t > clicked - 0.7 && t < clicked + 1) { g.fillStyle = '#ffffff'; g.strokeStyle = '#1a1622'; g.lineWidth = 4; g.beginPath(); g.moveTo(cx, cy); g.lineTo(cx, cy + 56); g.lineTo(cx + 15, cy + 42); g.lineTo(cx + 28, cy + 66); g.lineTo(cx + 38, cy + 61); g.lineTo(cx + 26, cy + 38); g.lineTo(cx + 44, cy + 38); g.closePath(); g.fill(); g.stroke(); }
+  g.restore();
 }

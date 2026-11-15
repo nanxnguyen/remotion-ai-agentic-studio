@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { setStyle, visemeAt, E } from '../../engine/core.js';
-import { drawFigure, face, bigFace, POSES, HANDS, VISEMES } from '../../engine/rig2d.js';
+import { drawFigure, face, bigFace, POSES, HANDS, VISEMES, SPECIES } from '../../engine/rig2d.js';
 import { mockCtx } from './mockctx.mjs';
 
 setStyle('dusk');
@@ -87,4 +87,17 @@ test('mascot species heads (dog, cat, bear) add ears/snout in both the rim and b
     const b = mockCtx(); bigFace(b, 0, 0, 300, { outfit: { species: sp }, expr: 'happy' }); assert.ok(b.log.length > 10);
   }
   assert.equal(sigs.size, 3);
+});
+
+test('dino species: spikes, muzzle and a tail; shortArms pulls the hands toward the shoulder; scarf draws', () => {
+  assert.ok(SPECIES.includes('dino'));
+  const o = { x: 500, y: 800, s: 1.6, pose: POSES.point, outfit: { top: 'none', species: 'dog', fur: '#63b84f' }, rim: { color: '#ffc68a', dir: [0, -1] } };
+  const dog = ops(o), dino = ops({ ...o, outfit: { ...o.outfit, species: 'dino' } });
+  assert.notDeepEqual(dog, dino);
+  assert.ok(dino.some(c => c[0] === 'quadraticCurveTo'), 'tail curve');
+  const xs = log => log.filter(c => c[0] === 'lineTo').map(c => c[1]);
+  const long = ops({ ...o, outfit: { ...o.outfit, species: 'dino' }, rim: false }), short = ops({ ...o, outfit: { ...o.outfit, species: 'dino', shortArms: 0.4 }, rim: false });
+  assert.ok(Math.max(...xs(short)) < Math.max(...xs(long)), 'pointing hand reaches less far');
+  assert.ok(ops({ ...o, outfit: { ...o.outfit, species: 'dino', scarf: '#f28c28' } }).length > dino.length);
+  const b = mockCtx(); bigFace(b, 0, 0, 300, { outfit: { species: 'dino', fur: '#63b84f', scarf: '#f28c28' }, expr: 'awe' }); assert.ok(b.log.length > 20);
 });

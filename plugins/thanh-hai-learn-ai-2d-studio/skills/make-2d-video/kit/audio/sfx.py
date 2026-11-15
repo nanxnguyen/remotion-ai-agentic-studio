@@ -287,6 +287,42 @@ def buzz(dur=1.5, seed=35, **_):
     return normalize(np.stack([x * l, x * r], 1).astype(np.float32), -6)
 
 
+@sfx("cartoon dinosaur roar (growly, cracks at the end for a comic voice-break)", 1.6)
+def roar(dur=1.6, seed=36, pitch=1.0, crack=True, **_):
+    n = secs(dur); t = t_axis(n); u = np.linspace(0, 1, n)
+    f = (95 + 40 * np.sin(np.pi * np.clip(u * 1.4, 0, 1)) + 8 * np.sin(2 * np.pi * 23 * t)) * pitch
+    if crack: f = np.where(u > 0.72, f * (1.9 + 0.4 * np.sin(2 * np.pi * 9 * t)), f)   # the roar squeaks out
+    body = lp(osc("saw", f, n), 1400) * (0.7 + 0.3 * np.abs(np.sin(2 * np.pi * 31 * t)))
+    breath = bp(noise(n, seed), 250, 2200) * 0.45
+    x = (body + breath) * env_adsr(n, 0.08, 0.2, 0.85, 0.35)
+    return normalize(reverb(fade(stereo(x, 0, 0.3)), 0.9, 0.18, seed), -1)
+
+
+@sfx("rooster crow (cock-a-doodle-doo), loud and proud", 1.8)
+def crow(dur=1.8, seed=37, pitch=1.0, **_):
+    n = secs(dur); t = t_axis(n); x = np.zeros(n, np.float32)
+    notes = [(0.00, 0.18, 620, 700), (0.20, 0.16, 760, 820), (0.40, 0.18, 820, 880), (0.62, 0.95, 900, 640)]
+    for st, ln, f0, f1 in notes:
+        a, m = secs(st), secs(ln); m = min(m, n - a)
+        if m <= 0: continue
+        uu = np.linspace(0, 1, m); f = (f0 + (f1 - f0) * uu ** 1.5) * (1 + 0.012 * np.sin(2 * np.pi * 28 * np.arange(m) / SR)) * pitch
+        tone = osc("saw", f, m) * 0.6 + sine(f * 2, m) * 0.3
+        x[a:a + m] += bp(tone, 500, 4200) * (np.sin(np.pi * uu) ** 0.6)
+    x += bp(noise(n, seed), 1500, 5000) * 0.05 * np.exp(-t / 1.2)
+    return normalize(reverb(fade(stereo(x, 0.1, 0.3)), 1.1, 0.15, seed), -1)
+
+
+@sfx("chicken clucks (bok bok bok)", 1.0)
+def cluck(dur=1.0, seed=38, pitch=1.0, count=3, **_):
+    n = secs(dur); x = np.zeros(n, np.float32); r = rng(seed)
+    for i in range(int(count)):
+        a = secs(0.05 + i * 0.22 + r.uniform(0, 0.04)); m = min(secs(0.11), n - a)
+        if m <= 0: break
+        uu = np.linspace(0, 1, m); f = (520 - 180 * uu) * pitch * (1.25 if i == count - 1 else 1)
+        x[a:a + m] += bp(osc("saw", f, m), 400, 3000) * np.exp(-uu * 4) * (1 - np.exp(-uu * 60))
+    return normalize(reverb(fade(stereo(x, -0.1, 0.2)), 0.5, 0.12, seed), -2)
+
+
 def make(name, **kw):
     if name not in LIB: raise KeyError(f"unknown sfx '{name}'. Available: {', '.join(LIB)}")
     k = {"dur": LIB[name]["dur"], **{a: b for a, b in kw.items() if b is not None}}

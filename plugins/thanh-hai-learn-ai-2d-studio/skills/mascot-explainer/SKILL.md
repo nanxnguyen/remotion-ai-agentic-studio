@@ -2,7 +2,7 @@
 name: mascot-explainer
 description: "This skill should be used when the user wants a funny, high-energy explainer video hosted by an animal mascot who personally tries every fact and suffers for it (the Dumb Doggo-style format), e.g. \"what it's like to fight the deadliest spiders\", \"every way you can be fossilized\", \"a journey through the digestive system\", \"make a Dumb Doggo style video\", \"mascot explainer\", and Vietnamese requests such as \"làm video kiểu Dumb Doggo\", \"cảm giác bị … là thế nào\", \"đánh nhau với các loài bọ\", \"video giải thích có linh vật chó\", \"hành trình qua hệ tiêu hoá\". It plans cold open → rounds with stat cards and gags → recap → CTA and builds it with the Thanh Hai 2D kit."
 metadata:
-  version: "0.5.0"
+  version: "0.7.0"
   author: Thanh Hai Learn AI
 ---
 
@@ -13,7 +13,7 @@ One recurring animal host (an ORIGINAL mascot, never a copy of another channel's
 ## Golden rules
 1. **Ask the video language first** (Stage 0 of `../make-2d-video/SKILL.md`).
 2. **Facts are real, the host's suffering is the joke.** Research every number on a stat card (size, venom, force, speed) with web search, open the pages, write `story/sources.md`. Round with words like "khoảng", "một trong những" where sources disagree. Never invent danger.
-3. **An original mascot of your own.** Pick species (`dog`, `cat`, `bear`), fur colour, shirt colour and one accessory, write them into `story/bible.md`, and reuse them in every episode of the channel. Never draw another channel's character, name or signature look; do not call the video "Dumb Doggo".
+3. **An original mascot of your own.** Pick species (`dog`, `cat`, `bear`, `dino`), fur colour, shirt colour and one accessory, write them into `story/bible.md`, and reuse them in every episode of the channel. Never draw another channel's character, name or signature look; do not call the video "Dumb Doggo".
 4. **The host is in every shot and reacts to every fact** (`exprAt` on the key word, `act` for gestures, lip-sync with `viseme`). Gore stays cartoon: no blood, cut away or use a comic burst (`ouch`) for the hit, swelling and bandages instead of wounds. Keep it suitable for a general audience.
 5. **Hook = the worst moment first.** The cold open shows the host mid-disaster from the last round, then the title. End on a recap ranking and a comment question.
 6. **Voice:** this format is narrated by the host. Use a voiceover (Vbee or the user's own) whenever possible; a captions-only cut is a fallback.

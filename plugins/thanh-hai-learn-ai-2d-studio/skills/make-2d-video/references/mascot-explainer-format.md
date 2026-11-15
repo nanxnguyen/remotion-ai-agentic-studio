@@ -31,4 +31,4 @@ Running gag: one counter (times bitten / pinched / died) that ticks up across th
 - [ ] Cold open is the worst moment; recap + comment question at the end.
 
 ## Engine quick reference (engine/explainer.js + rig)
-`roundTitle`, `dangerCard` (returns bar widths), `tally`, `sizeCompare`, `ouch`, `sign`, `bug(g, 'beetle'|'spider'|'crab'|'flytrap', …)`. Mascot: `drawFigure`/`bigFace` with `outfit: { species: 'dog'|'cat'|'bear', fur: '#c98a4b', top, color }`. Tool: `tools/explainer_plan.py`. Captions break at sentence ends and pauses (`captionGroup`). Example: `examples/mascot-explainer`.
+`roundTitle`, `dangerCard` (returns bar widths), `tally`, `sizeCompare`, `ouch`, `sign`, `bug(g, 'beetle'|'spider'|'crab'|'flytrap', …)`. Mascot: `drawFigure`/`bigFace` with `outfit: { species: 'dog'|'cat'|'bear'|'dino', fur: '#c98a4b', top, color }`. Tool: `tools/explainer_plan.py`. Captions break at sentence ends and pauses (`captionGroup`). Example: `examples/mascot-explainer`.
