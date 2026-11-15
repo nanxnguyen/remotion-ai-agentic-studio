@@ -8,6 +8,7 @@
 //   sign(g, x, y, text)                      hand-held placard for gags ("ĐỪNG THỬ Ở NHÀ")
 //   bug(g, kind, o)                          beetle, spider, crab, flytrap silhouettes in the house style
 import { E, V, S, clamp, lerp, ease, prog, circle, seg, rr, alpha, shade, glow, text, FONTS } from './core.js';
+import { inked } from './mascot.js';
 
 const ui = () => S().ui;
 const STROKE = { stroke: 10, strokeColor: 'rgba(10,6,14,.55)' };
@@ -132,11 +133,12 @@ export function bug(g, kind, o = {}) {
 }
 
 // ---------- animals, fossils and Shorts UI (v0.6) ----------
-//   critter(g, kind, {x, y, s, facing, t, peck, color})   chicken ostrich eagle croc whale trex: coloured, friendly, ≈ 200 units at s = 1
+//   critter(g, kind, {x, y, s, facing, t, peck, color, mouth, walk})   chicken ostrich eagle croc whale trex hippo dolphin pakicetus
+//     (hippo: mouth 0..1 opens the jaw; pakicetus: walk = gait speed; whale/dolphin float, so set y at the water line)
 //   femur(g, x, y, len, {rot, color, blur})                    a fossil leg bone (blur > 0 = hidden behind frosted glass)
 //   answerCards(g, t, {items:[{key, label, draw?}], reveal, pick})  quiz cards that pop in one by one; reveal flips card `pick`
 //   subscribeButton(g, t, x, y, {label, clicked})              a red subscribe button that bounces in, then turns grey with a cursor click
-export const CRITTERS = ['chicken', 'ostrich', 'eagle', 'croc', 'whale', 'trex'];
+export const CRITTERS = ['chicken', 'ostrich', 'eagle', 'croc', 'whale', 'trex', 'hippo', 'dolphin', 'pakicetus'];
 const CR = {
   chicken(g, t, o) {
     const body = o.color || '#f6f1e6', peck = o.peck || 0, bob = Math.sin(t * 7) * 2;
@@ -181,6 +183,46 @@ const CR = {
     g.fillStyle = c; g.beginPath(); g.moveTo(-140, -90); g.lineTo(-230, -150 + Math.sin(t * 3) * 10); g.lineTo(-200, -80); g.lineTo(-230, -20 + Math.sin(t * 3) * 10); g.closePath(); g.fill();
     circle(g, 90, -100, 8, '#1a1622'); seg(g, [[80, -150], [70, -200], [60, -215]], 5, alpha('#cfe8ff', 0.8)); seg(g, [[80, -150], [92, -205], [104, -215]], 5, alpha('#cfe8ff', 0.8));
   },
+  hippo(g, t, o) {   // side view facing +x; o.mouth 0..1 opens the famous gape
+    const c = o.color || '#8f7fa3', d = shade(c, -0.18), m = clamp(o.mouth || 0), br = Math.sin(t * 2) * 2;
+    for (const dx of [-90, -40, 40, 90]) { rr(g, dx - 18, -60, 36, 60, 14); g.fillStyle = dx < 0 ? d : c; g.fill(); }
+    ell(g, 0, -110 + br, 140, 82, c); ell(g, 10, -80 + br, 110, 40, shade(c, 0.12));
+    if (m > 0.05) {   // the open gape: pink mouth between the jaws, tusks on the lower jaw
+      const a1 = m * 0.6, a2 = m * 0.45, px = 112, py = -122 + br;
+      g.fillStyle = '#c94f6a'; g.beginPath(); g.moveTo(px, py); g.lineTo(px + 112 * Math.cos(-a1), py - 8 + 112 * Math.sin(-a1)); g.lineTo(px + 120 * Math.cos(a2), py + 14 + 120 * Math.sin(a2)); g.closePath(); g.fill();
+      ell(g, px + 70, py + 6 + 30 * m, 26, 12, '#e98aa0');   // tongue
+    }
+    g.save(); g.translate(120, -150 + br); g.rotate(-m * 0.6);
+    rr(g, -10, -50, 130, 76, 34); g.fillStyle = c; g.fill();                                   // upper head + snout
+    circle(g, 22, -50, 18, c); circle(g, 22, -50, 8, '#f6f1e6'); circle(g, 25, -51, 4, '#1a1622');   // eye on top
+    circle(g, -4, -62, 10, d); circle(g, 100, -30, 5, d); circle(g, 86, -32, 5, d);              // ear, nostrils
+    g.restore();
+    g.save(); g.translate(112, -110 + br); g.rotate(m * 0.45);
+    rr(g, -6, 0, 130, 34, 16); g.fillStyle = d; g.fill();
+    if (m > 0.05) for (const tx of [22, 104]) { g.fillStyle = '#fbf6ea'; g.beginPath(); g.moveTo(tx - 8, 4); g.lineTo(tx + 8, 4); g.lineTo(tx, 4 - 44 * m); g.closePath(); g.fill(); }
+    g.restore();
+    seg(g, [[-138, -120 + br], [-160, -100 + br]], 8, d);                                       // stubby tail
+  },
+  dolphin(g, t, o) {
+    const c = o.color || '#7d9bb5', sw = Math.sin(t * 4) * 0.1;
+    g.save(); g.rotate(sw * 0.3);
+    g.fillStyle = c; g.beginPath(); g.moveTo(-150, -60); g.quadraticCurveTo(-40, -150, 110, -96); g.quadraticCurveTo(140, -90, 170, -82); g.quadraticCurveTo(130, -70, 100, -66);
+    g.quadraticCurveTo(0, -30, -150, -60); g.closePath(); g.fill();
+    ell(g, 10, -72, 80, 14, shade(c, 0.35));
+    g.beginPath(); g.moveTo(-20, -128); g.lineTo(-50, -170); g.lineTo(10, -132); g.closePath(); g.fill();         // dorsal fin
+    g.beginPath(); g.moveTo(-150, -60); g.lineTo(-200, -96 + sw * 80); g.lineTo(-176, -60); g.lineTo(-200, -26 - sw * 80); g.closePath(); g.fill();   // flukes
+    circle(g, 96, -94, 6, '#1a1622'); g.restore();
+  },
+  pakicetus(g, t, o) {   // a wolf-sized early whale ancestor that walked on land (≈ 50 million years ago)
+    const c = o.color || '#9a6b45', d = shade(c, -0.2), w = (o.walk ?? 6) * t;
+    const leg = (x, ph, col) => { const a = Math.sin(w + ph) * 0.45; seg(g, [[x, -70], [x + Math.sin(a) * 30, -36], [x + Math.sin(a) * 44, 0]], 10, col); };
+    leg(-50, Math.PI, d); leg(50, 0, d);
+    seg(g, [[-80, -84], [-160, -70], [-220, -40]], 12, c);                                    // long tail
+    ell(g, 0, -86, 92, 32, c); leg(-40, 0, c); leg(60, Math.PI, c);
+    seg(g, [[78, -96], [110, -126]], 26, c); rr(g, 96, -150, 104, 38, 18); g.fillStyle = c; g.fill();   // neck + long snout
+    circle(g, 118, -140, 6, '#1a1622'); circle(g, 104, -152, 9, d);
+    for (let i = 0; i < 4; i++) { g.fillStyle = '#fbf6ea'; g.beginPath(); g.moveTo(140 + i * 14, -114); g.lineTo(146 + i * 14, -104); g.lineTo(152 + i * 14, -114); g.fill(); }
+  },
   trex(g, t, o) {   // a big adult T-rex for size comparisons (≈ 4x the chicken)
     const c = o.color || '#4e8a3e', d = shade(c, -0.2), step = Math.sin(t * 2) * 6;
     seg(g, [[-30, -150], [-40, -70], [-30 + step, 0]], 34, d); seg(g, [[-30 + step, 0], [10 + step, 0]], 20, d);
@@ -197,7 +239,8 @@ export function critter(g, kind, o = {}) {
   const fn = CR[kind]; if (!fn) throw new Error(`critter: unknown kind "${kind}" (use ${CRITTERS.join(', ')})`);
   const { x = E.W / 2, y = E.H * 0.8, s = 1, facing = 1, t = 0 } = o;
   g.fillStyle = 'rgba(0,0,0,.28)'; g.beginPath(); g.ellipse(x, y + 2, 90 * s, 9 * s, 0, 0, Math.PI * 2); g.fill();
-  g.save(); g.translate(x, y); g.scale(facing * s, s); fn(g, t, o); g.restore();
+  if (o.ink === false) { g.save(); g.translate(x, y); g.scale(facing * s, s); fn(g, t, o); g.restore(); return; }
+  inked(g, g2 => { g2.save(); g2.translate(x, y); g2.scale(facing * s, s); fn(g2, t, o); g2.restore(); }, { w: o.inkW ?? 4 });   // v0.7: one outline + volume
 }
 export function femur(g, x, y, len, o = {}) {
   const { rot = 0, color = '#e9dcc0', blur = 0 } = o;

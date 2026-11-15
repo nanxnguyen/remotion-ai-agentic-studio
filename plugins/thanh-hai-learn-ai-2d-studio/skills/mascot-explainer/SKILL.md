@@ -2,7 +2,7 @@
 name: mascot-explainer
 description: "This skill should be used when the user wants a funny, high-energy explainer video hosted by an animal mascot who personally tries every fact and suffers for it (the Dumb Doggo-style format), e.g. \"what it's like to fight the deadliest spiders\", \"every way you can be fossilized\", \"a journey through the digestive system\", \"make a Dumb Doggo style video\", \"mascot explainer\", and Vietnamese requests such as \"làm video kiểu Dumb Doggo\", \"cảm giác bị … là thế nào\", \"đánh nhau với các loài bọ\", \"video giải thích có linh vật chó\", \"hành trình qua hệ tiêu hoá\". It plans cold open → rounds with stat cards and gags → recap → CTA and builds it with the Thanh Hai 2D kit."
 metadata:
-  version: "0.6.0"
+  version: "0.7.0"
   author: Thanh Hai Learn AI
 ---
 

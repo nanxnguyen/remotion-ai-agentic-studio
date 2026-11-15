@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.7.0 (2026-11-16)
+- **engine/mascot.js**: full-body cartoon mascot (bean torso, belly, thick legs, attached tail with spikes, short arms, scarf that flutters) with 10 poses, 10 expressions, viseme jaw, and `mascotFace` close-ups.
+- **inked layer**: `inked(g, fn)` draws a character into an offscreen layer and composites it with one clean outline around the whole silhouette plus a shadow side; every `critter` now uses it (`ink: false` opts out).
+- **captions**: optional `bg` backing pill in `captionStyle`.
+- critters: hippo (jaw opens with a real gape), dolphin, pakicetus.
+- 43 JS unit tests; golden set unchanged (34 frames).
+
 ## 0.6.0 (2026-11-15)
 - **rig**: dinosaur mascot `outfit.species: 'dino'` (muzzle with teeth, back spikes, tail) on drawFigure and bigFace; `outfit.shortArms` and `outfit.scarf`.
 - **engine/explainer.js**: `critter` (chicken, ostrich, eagle, croc, whale, trex), `femur`, `answerCards` (opening quiz challenge with a flip reveal), `subscribeButton`.

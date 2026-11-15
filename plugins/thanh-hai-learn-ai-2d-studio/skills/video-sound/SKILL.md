@@ -2,7 +2,7 @@
 name: video-sound
 description: "This skill should be used when the user runs /video-sound or asks to \"add music\", \"add sound effects\", \"design the sound\", \"change the music mood\", \"use my own music\", \"the music is too loud/quiet\", \"remix the audio\", or \"redo the soundtrack\" for an Thanh Hai Learn AI 2D Studio video. It plans mood-based generated music, places SFX and ambience cues on the shot list, mixes them under the voiceover with ducking and loudness normalisation, and muxes the final MP4.\n"
 metadata:
-  version: "0.6.0"
+  version: "0.7.0"
   author: Thanh Hai Learn AI
 ---
 

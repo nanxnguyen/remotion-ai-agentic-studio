@@ -2,7 +2,7 @@
 name: new-video
 description: "This skill should be used when the user runs /new-video or asks to \"start a new 2D video\", \"set up a video from this voiceover\", \"timestamp my voiceover\", \"transcribe and time my narration\", \"import my SRT/timestamped script\", or \"plan the shots for my script\" in the Thanh Hai Learn AI 2D Studio. It covers intake, installing or checking the studio, creating the project, building word-level timestamps (Whisper or the user's timestamped script), and the story breakdown with the shot list.\n"
 metadata:
-  version: "0.6.0"
+  version: "0.7.0"
   author: Thanh Hai Learn AI
 ---
 

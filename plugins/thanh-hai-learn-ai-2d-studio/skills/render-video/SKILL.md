@@ -2,7 +2,7 @@
 name: render-video
 description: "This skill should be used when the user runs /render-video or asks to \"build the scenes\", \"check the shots\", \"show me a contact sheet\", \"preview the video\", \"render the video\", \"render in 4K / 9:16\", \"re-render after a fix\", or \"export the final MP4\" for an Thanh Hai Learn AI 2D Studio project. It writes or repairs shot code in batches with contact-sheet QC, makes preview clips, runs the full frame-by-frame render, and muxes the final video with sound.\n"
 metadata:
-  version: "0.6.0"
+  version: "0.7.0"
   author: Thanh Hai Learn AI
 ---
 

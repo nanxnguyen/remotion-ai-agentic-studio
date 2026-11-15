@@ -2,7 +2,7 @@
 name: video-styles
 description: "This skill should be used when the user runs /video-styles or asks to \"show me style options\", \"compare the looks\", \"pick a visual style\", \"make it warmer / darker / more neon\", \"create a custom style\", or \"change the colour grade\" for an Thanh Hai Learn AI 2D Studio video. It renders the same shots of the user's story in five preset styles (dusk, midnight, golden, neon, storybook) as a comparison grid, records the choice, and builds custom styles.\n"
 metadata:
-  version: "0.6.0"
+  version: "0.7.0"
   author: Thanh Hai Learn AI
 ---
 
