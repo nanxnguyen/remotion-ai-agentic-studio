@@ -2,7 +2,7 @@
 name: evolution-video
 description: "This skill should be used when the user wants an \"Evolution of X\" animated video in the Thanh Hai Learn AI 2D style (the diarymation-style format): one subject transforming stage by stage with a rolling year/age counter and a timeline, e.g. \"make an evolution of a cat video\", \"evolution animation like diarymation\", \"human evolution animated short\", \"from baby to old age animation\", \"the evolution of the phone\", and Vietnamese requests such as \"làm video sự tiến hoá của…\", \"video tiến hoá kiểu diarymation\", \"hành trình từ bé đến lớn\", \"từ sơ sinh đến già\", \"tiến hoá loài người hoạt hình\", \"điện thoại qua các thời kỳ\". It researches the stages, plans hook → stages → payoff, builds the stage scenes with engine/evolve.js, renders 9:16 Shorts or 16:9, with or without a voiceover."
 metadata:
-  version: "0.5.0"
+  version: "0.6.0"
   author: Thanh Hai Learn AI
 ---
 

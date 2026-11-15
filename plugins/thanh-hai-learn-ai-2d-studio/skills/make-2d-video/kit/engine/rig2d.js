@@ -135,9 +135,18 @@ export function face(g, hx, hy, r, o = {}) {
   g.restore();
 }
 
-// ---------- mascot heads (outfit.species: 'dog' | 'cat' | 'bear') — an animal host on the same stick body ----------
-export const SPECIES = ['dog', 'cat', 'bear'];
+// ---------- mascot heads (outfit.species: 'dog' | 'cat' | 'bear' | 'dino') — an animal host on the same stick body ----------
+// dino: long toothy muzzle, back spikes and a tail; pair with outfit.shortArms for the T-rex gag and outfit.scarf for a neck accessory
+export const SPECIES = ['dog', 'cat', 'bear', 'dino'];
+export const SNOUTED = ['dog', 'bear', 'dino'];
 function speciesBack(g, sp, hx, hy, r, col, front) {
+  if (sp === 'dino') {   // a row of back spikes over the skull
+    g.fillStyle = col; const n = 4;
+    for (let i = 0; i < n; i++) { const a = front ? Math.PI * (1.28 + i * 0.15) : Math.PI * (1.12 + i * 0.13), b = 0.13, hgt = r * (front ? 0.46 : 0.5 - i * 0.04);
+      const x0 = hx + Math.cos(a - b) * r * 0.9, y0 = hy + Math.sin(a - b) * r * 0.9, x1 = hx + Math.cos(a + b) * r * 0.9, y1 = hy + Math.sin(a + b) * r * 0.9;
+      g.beginPath(); g.moveTo(x0, y0); g.lineTo(hx + Math.cos(a) * (r * 0.9 + hgt), hy + Math.sin(a) * (r * 0.9 + hgt)); g.lineTo(x1, y1); g.closePath(); g.fill(); }
+    return;
+  }
   const E2 = (x, y, rx, ry, rot) => { g.fillStyle = col; g.beginPath(); g.ellipse(x, y, rx, ry, rot, 0, Math.PI * 2); g.fill(); };
   const T = (pts) => { g.fillStyle = col; g.beginPath(); g.moveTo(...pts[0]); g.lineTo(...pts[1]); g.lineTo(...pts[2]); g.closePath(); g.fill(); };
   if (sp === 'dog') { if (front) { E2(hx - r * 0.95, hy + r * 0.05, r * 0.3, r * 0.68, 0.3); E2(hx + r * 0.95, hy + r * 0.05, r * 0.3, r * 0.68, -0.3); } else E2(hx - r * 0.5, hy - r * 0.05, r * 0.32, r * 0.72, 0.35); }
@@ -145,8 +154,19 @@ function speciesBack(g, sp, hx, hy, r, col, front) {
   if (sp === 'cat') { if (front) { T([[hx - r * 0.85, hy - r * 0.4], [hx - r * 0.75, hy - r * 1.35], [hx - r * 0.2, hy - r * 0.9]]); T([[hx + r * 0.85, hy - r * 0.4], [hx + r * 0.75, hy - r * 1.35], [hx + r * 0.2, hy - r * 0.9]]); }
     else { T([[hx - r * 0.75, hy - r * 0.5], [hx - r * 0.6, hy - r * 1.4], [hx - r * 0.05, hy - r * 0.92]]); T([[hx - r * 0.05, hy - r * 0.95], [hx + r * 0.3, hy - r * 1.45], [hx + r * 0.6, hy - r * 0.7]]); } }
 }
-function speciesFront(g, sp, hx, hy, r, col, nose, front, sil) {
+function speciesFront(g, sp, hx, hy, r, col, nose, front, sil, head) {
   const E2 = (x, y, rx, ry, c) => { g.fillStyle = c; g.beginPath(); g.ellipse(x, y, rx, ry, 0, 0, Math.PI * 2); g.fill(); };
+  if (sp === 'dino') {   // muzzle in the head colour (not lighter), a lighter jaw line, teeth and nostrils
+    const hc = head || col;
+    if (front) { E2(hx, hy + r * 0.4, r * 0.7, r * 0.42, hc); if (!sil) { E2(hx, hy + r * 0.56, r * 0.6, r * 0.2, col);
+        for (const s of [-1, 1]) circle(g, hx + s * r * 0.18, hy + r * 0.2, r * 0.06, nose);
+        for (let i = -3; i <= 3; i++) { const tx = hx + i * r * 0.15; g.fillStyle = '#fbf6ea'; g.beginPath(); g.moveTo(tx - r * 0.06, hy + r * 0.44); g.lineTo(tx + r * 0.06, hy + r * 0.44); g.lineTo(tx, hy + r * 0.56); g.closePath(); g.fill(); } } }
+    else { rr(g, hx - r * 0.1, hy - r * 0.18, r * 1.62, r * 0.82, r * 0.38); g.fillStyle = hc; g.fill();
+      if (!sil) { rr(g, hx + r * 0.1, hy + r * 0.34, r * 1.36, r * 0.28, r * 0.14); g.fillStyle = col; g.fill();
+        circle(g, hx + r * 1.32, hy - r * 0.02, r * 0.07, nose);
+        for (let i = 0; i < 5; i++) { const tx = hx + r * (0.5 + i * 0.2); g.fillStyle = '#fbf6ea'; g.beginPath(); g.moveTo(tx - r * 0.07, hy + r * 0.3); g.lineTo(tx + r * 0.07, hy + r * 0.3); g.lineTo(tx, hy + r * 0.44); g.closePath(); g.fill(); } } }
+    return;
+  }
   if (sp === 'dog' || sp === 'bear') {
     const big = sp === 'dog' ? 1 : 0.78, sx = front ? hx : hx + r * 0.7 * big, sy = hy + r * (front ? 0.34 : 0.24);
     E2(sx, sy, r * (front ? 0.42 : 0.5) * big, r * 0.32 * big, col);
@@ -280,6 +300,12 @@ function body(g, o, p, s, f, of, ink, far, rim, flat) {
 }
 function parts(g, o, p, of, ink, far, pass, grow = 0) {
   const sil = pass === 'sil', L = 12.5 + grow, A = 11 + grow, T = 15 + grow, HR = 26 + grow * 0.6;
+  if (of.shortArms) { const k = typeof of.shortArms === 'number' ? of.shortArms : 0.42, sh = p.sh, m = (q) => [sh[0] + (q[0] - sh[0]) * k, sh[1] + (q[1] - sh[1]) * k];
+    p = { ...p, eF: m(p.eF), hF: m(p.hF), eB: m(p.eB), hB: m(p.hB) }; }
+  if (of.species === 'dino') {   // tail behind everything, swinging with o.swing
+    const [hx, hy] = p.hip, sw = (o.swing || 0) * 40, c = sil ? ink : of.fur ? shade(of.fur, -0.12) : ink;
+    g.fillStyle = c; g.beginPath(); g.moveTo(hx + 6, hy - 22 - grow); g.quadraticCurveTo(hx - 40, hy - 34, hx - 92 - grow, hy + 8 + sw * 0.4);
+    g.quadraticCurveTo(hx - 40, hy + 10 + grow, hx + 6, hy + 10 + grow); g.closePath(); g.fill(); }
   const sl = sleeve(of);
   // far leg + far arm
   seg(g, [p.hip, p.kB, p.fB, [p.fB[0] + 12, p.fB[1]]], L - 1, sil ? ink : of.legs ? shade(of.legs, -0.35) : far);
@@ -306,10 +332,11 @@ function parts(g, o, p, of, ink, far, pass, grow = 0) {
   const fur = !sil && of.fur ? of.fur : null;   // mascot colour: head = fur, ears darker, muzzle lighter
   if (of.species) speciesBack(g, of.species, p.head[0], p.head[1], HR, fur ? shade(fur, -0.35) : ink, false);
   circle(g, p.head[0], p.head[1], HR, fur || ink);
-  if (of.species) speciesFront(g, of.species, p.head[0], p.head[1], HR, fur ? shade(fur, 0.55) : ink, fur ? ink : S().feature, false, sil);
+  if (of.species) speciesFront(g, of.species, p.head[0], p.head[1], HR, fur ? shade(fur, 0.55) : ink, fur ? ink : S().feature, false, sil, fur || ink);
+  if (of.scarf) { const [sx, sy] = p.sh, c = sil ? ink : of.scarf; seg(g, [[sx - 14, sy - 6], [sx + 14, sy - 6]], 12 + grow, c); seg(g, [[sx - 10, sy - 4], [sx - 22 - (o.swing || 0) * 20, sy + 26]], 10 + grow, sil ? ink : shade(of.scarf, -0.15)); }
   if (!['ponytail', 'bun', 'hood', 'none', undefined].includes(of.head)) drawHeadwear(g, of, p.head[0], p.head[1], HR, pass);
   if (sil) return;
-  face(g, p.head[0], p.head[1], HR, { expr: o.expr, talk: o.talk, blink: o.blink, look: o.look, override: o.face, viseme: o.viseme, snout: of.species === 'dog' || of.species === 'bear', mouthColor: of.fur && of.species ? ink : null });
+  face(g, p.head[0], p.head[1], HR, { expr: o.expr, talk: o.talk, blink: o.blink, look: o.look, override: o.face, viseme: o.viseme, snout: SNOUTED.includes(of.species), mouthColor: of.fur && of.species ? ink : null });
   if (of.face === 'glasses') { const c = S().feature; g.strokeStyle = c; g.lineWidth = 2.4; for (const dx of [-6.5, 10]) { g.beginPath(); g.arc(p.head[0] + 9 + dx, p.head[1] - 4, 7, 0, Math.PI * 2); g.stroke(); } seg(g, [[p.head[0] + 9.5, p.head[1] - 4], [p.head[0] + 12.5, p.head[1] - 4]], 2, c); }
   if (of.face === 'sunglasses') { g.fillStyle = '#05060a'; rr(g, p.head[0] - 1, p.head[1] - 10, 16, 11, 4); g.fill(); rr(g, p.head[0] + 17, p.head[1] - 10, 15, 11, 4); g.fill(); seg(g, [[p.head[0] - 4, p.head[1] - 7], [p.head[0] + 33, p.head[1] - 7]], 2.5, '#05060a'); g.fillStyle = '#9fe8ff'; g.fillRect(p.head[0] + 2, p.head[1] - 8, 4, 2); g.fillRect(p.head[0] + 20, p.head[1] - 8, 4, 2); }
   if (of.head === 'hood') { g.strokeStyle = shade(of.headColor || of.color || '#d64a33', 0.15); g.lineWidth = 5; g.beginPath(); g.arc(p.head[0] - 6, p.head[1] + 2, HR * 1.18, Math.PI * 0.9, Math.PI * 1.75); g.stroke(); }
@@ -351,9 +378,10 @@ export function bigFace(g, cx, cy, r, o = {}) {
   const fur = of.fur || null;
   if (of.species) speciesBack(g, of.species, 0, 0, r, fur ? shade(fur, -0.35) : ink, true);
   circle(g, 0, 0, r, fur || ink);
-  if (of.species) speciesFront(g, of.species, 0, 0, r, fur ? shade(fur, 0.55) : ink, fur ? ink : st.feature, true, false);
+  if (of.species) speciesFront(g, of.species, 0, 0, r, fur ? shade(fur, 0.55) : ink, fur ? ink : st.feature, true, false, fur || ink);
+  if (of.scarf) { g.fillStyle = of.scarf; rr(g, -r * 0.8, r * 0.92, r * 1.6, r * 0.32, r * 0.16); g.fill(); }
   if (of.head && !['hood', 'none'].includes(of.head)) drawHeadwear(g, { ...of, _ink: ink }, 0, 0, r, 'main');
-  face(g, 0, 0, r, { expr: o.expr, talk: o.talk, blink: o.blink, look: o.look, front: true, override: o.face, viseme: o.viseme, snout: of.species === 'dog' || of.species === 'bear', mouthColor: of.fur && of.species ? ink : null });
+  face(g, 0, 0, r, { expr: o.expr, talk: o.talk, blink: o.blink, look: o.look, front: true, override: o.face, viseme: o.viseme, snout: SNOUTED.includes(of.species), mouthColor: of.fur && of.species ? ink : null });
   if (of.face === 'glasses') { g.strokeStyle = st.feature; g.lineWidth = r * 0.06; for (const dx of [-0.34, 0.34]) { g.beginPath(); g.arc(dx * r, -r * 0.16, r * 0.26, 0, Math.PI * 2); g.stroke(); } }
   if (of.face === 'sunglasses') { g.fillStyle = '#05060a'; rr(g, -r * 0.66, -r * 0.34, r * 0.6, r * 0.4, r * 0.12); g.fill(); rr(g, r * 0.06, -r * 0.34, r * 0.6, r * 0.4, r * 0.12); g.fill(); g.fillStyle = 'rgba(160,230,255,.6)'; g.fillRect(-r * 0.55, -r * 0.28, r * 0.12, r * 0.05); }
   g.restore();

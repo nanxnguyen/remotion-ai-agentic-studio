@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.6.0 (2026-11-15)
+- **rig**: dinosaur mascot `outfit.species: 'dino'` (muzzle with teeth, back spikes, tail) on drawFigure and bigFace; `outfit.shortArms` and `outfit.scarf`.
+- **engine/explainer.js**: `critter` (chicken, ostrich, eagle, croc, whale, trex), `femur`, `answerCards` (opening quiz challenge with a flip reveal), `subscribeButton`.
+- **sfx**: `roar` (cracks into a squeak), `crow` (rooster), `cluck`.
+- 39 JS unit tests.
+
 ## 0.5.0 (2026-11-14)
 - **New skill `mascot-explainer`** (Dumb Doggo-style mascot-host explainers) + `references/mascot-explainer-format.md`.
 - **rig**: mascot heads `outfit.species` dog/cat/bear with `outfit.fur`, on drawFigure and bigFace.

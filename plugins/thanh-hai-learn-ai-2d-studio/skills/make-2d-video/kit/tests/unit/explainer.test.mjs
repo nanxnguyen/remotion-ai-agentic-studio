@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { setStyle } from '../../engine/core.js';
-import { roundTitle, dangerCard, tally, sizeCompare, ouch, sign, bug, BUGS } from '../../engine/explainer.js';
+import { roundTitle, dangerCard, tally, sizeCompare, ouch, sign, bug, BUGS, critter, CRITTERS, femur, answerCards, subscribeButton } from '../../engine/explainer.js';
 import { mockCtx } from './mockctx.mjs';
 
 setStyle('dusk');
@@ -52,4 +52,24 @@ test('caption groups break at sentence ends and pauses, max 4 words', async () =
   const P = [{ word: 'a', start: 0, end: 0.2 }, { word: 'b', start: 0.3, end: 0.5 }, { word: 'c', start: 1.5, end: 1.7 }];
   assert.deepEqual(captionGroup(P, 2, 4), [2, 3]);          // a 1 s pause splits too
   assert.deepEqual(captionGroup(P, 0, 4), [0, 2]);
+});
+
+test('critters: every kind draws something different; unknown kind throws', () => {
+  const sigs = new Set();
+  for (const k of CRITTERS) { const g = mockCtx(); critter(g, k, { x: 500, y: 800, s: 1, t: 0.3 }); assert.ok(g.log.length > 8, k); sigs.add(JSON.stringify(g.log)); }
+  assert.equal(sigs.size, CRITTERS.length);
+  assert.throws(() => critter(mockCtx(), 'dragon'));
+});
+
+test('answerCards pop in one by one and the picked card flips to its back', () => {
+  const items = [{ key: 'A', label: 'ĐẠI BÀNG' }, { key: 'B', label: 'CÁ SẤU' }, { key: 'C', label: '???', back: { key: 'C', label: 'GÀ!!' } }];
+  const early = mockCtx(); answerCards(early, 0.1, { items }); assert.ok(texts(early).includes('ĐẠI BÀNG')); assert.ok(!texts(early).includes('CÁ SẤU'));
+  const all = mockCtx(); answerCards(all, 2, { items }); assert.ok(texts(all).includes('???'));
+  const flipped = mockCtx(); answerCards(flipped, 2, { items, reveal: 1, pick: 2 }); assert.ok(texts(flipped).includes('GÀ!!'));
+});
+
+test('subscribeButton turns into "đã đăng ký" after the click; femur draws', () => {
+  const a = mockCtx(); subscribeButton(a, 1, 500, 500, { clicked: 2 }); assert.ok(texts(a).includes('ĐĂNG KÝ'));
+  const b = mockCtx(); subscribeButton(b, 2.5, 500, 500, { clicked: 2 }); assert.ok(texts(b).some(s => s.startsWith('ĐÃ ĐĂNG KÝ')));
+  const f = mockCtx(); femur(f, 500, 500, 400, { rot: 0.2 }); assert.ok(f.log.length > 10);
 });
