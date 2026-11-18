@@ -14,30 +14,30 @@
 2. **Hook B (Time-Pressure):** *"Bạn có 15 phút để chạy khỏi ngày tận thế..."* (Rejected: delays concrete fish/glass visual anomaly past 2s).
 3. **Hook C (Classroom Question):** *"Bí ẩn hóa thạch Bắc Dakota..."* (Rejected: textbook feel).
 
-### Beat Breakdown (`196` Vbee words, `~51s` total)
+### Beat Breakdown (`188` Vbee words, `~50s` total)
 
 | Time | Spoken Vbee Line (Clean TTS 1.1x) | 9:16 Center Action (`y=380..1200`) | Safe-Zone Label (`y=220..360`) |
 |---|---|---|---|
-| `0:00–0:06` | Con cá này chết đúng mười lăm phút sau khi thiên thạch hủy diệt khủng long lao xuống Trái Đất. Và bên trong mang của nó vẫn còn kẹt đầy hạt thủy tinh nóng chảy rơi từ bầu trời. | `0:00`: Extreme zoom into translucent gill glowing amber spherules -> whip back to stunned Tí Hon beside Tanis river. | `15–30 PHÚT SAU VA CHẠM` |
-| `0:06–0:14` | Nghe vô lý đúng không. Bãi biển thiên thạch rơi tận I u ca tan bên Mê hi cô, còn con cá này bơi cách đó những ba nghìn ki lô mét tận Bắc Đa cô ta cơ mà. | Vertical split map: Yucatán crater bottom vs Dakota river top linked by red `3.000 km` laser arc. | `XA TÂM 3.000 km (TANIS)` |
-| `0:14–0:23` | Nhưng các nhà khoa học nghiên cứu vùng hóa thạch Ta nít phát hiện ra một điều rùng mình. Sóng địa chấn chạy xuyên qua vỏ Trái Đất nhanh hơn nhiều so với gió hay sóng biển. | Seismic wave rings tear upward beneath calm river; Tí Hon hops wildly as riverbed pebbles vibrate. | `SÓNG ĐỊA CHẤN TRUYỀN QUA ĐẤT` |
-| `0:23–0:32` | Chỉ mười lăm đến ba mươi phút sau va chạm, cơn rung lắc dựng đứng một bức tường sóng dội ngược cuộn trào ngược vào lòng sông, hất tung và chôn sống cả đàn cá. | `[3D vertical cut]` Mud-wall seiche wave surges uphill burying paddlefish while Tí Hon clings to branch. | `SÓNG ĐỘI NGƯỢC CHÔN SỐNG CÁ` |
-| `0:32–0:41` | Đúng lúc đó, hàng triệu giọt đá nóng chảy bị hất lên không trung nguội lại thành hạt thủy tinh trút rào rào xuống mặt nước như mưa đá, gõ lộp độp lên mũ bảo hiểm của tớ. | Glowing amber hail slams `LỘP ĐỘP` off Tí Hon's yellow helmet; fish open gills breathing spherules in cutaway. | `MƯA THỦY TINH TRÚT XUỐNG MŨ` |
-| `0:41–0:51` | Xa tận ba nghìn ki lô mét mà còn mất mạng trong hai mươi phút. Vậy tớ phải trốn ở đâu trong bảy chỗ mới sống nổi qua năm đó. Bấm vào video dài bên dưới xem đáp án nhé. | Tí Hon holds museum gill-spherule badge (`During 2022 / DePalma 2019`), tail points directly at YouTube Related Video link. | `TRỐN Ở ĐÂU MỚI SỐNG?!` |
+| `0:00–0:06` | Con cá này chết đúng mười lăm phút sau khi thiên thạch rơi xuống Trái Đất. Trong mang nó vẫn kẹt đầy hạt thủy tinh nóng chảy rơi từ bầu trời. | `0:00`: Extreme zoom into translucent gill glowing amber spherules -> whip back to stunned Tí Hon beside Tanis river. | `15–30 PHÚT SAU VA CHẠM` |
+| `0:06–0:14` | Nghe vô lý đúng không. Thiên thạch rơi tận I u ca tan bên Mê hi cô, còn con cá này bơi cách đó ba nghìn ki lô mét ở Bắc Đa cô ta. | Vertical split map: Yucatán crater bottom vs Dakota river top linked by red `3.000 km` laser arc. | `XA TÂM 3.000 km (TANIS)` |
+| `0:14–0:23` | Nhưng các nhà khoa học tại vùng Ta nít phát hiện sự thật rùng mình. Sóng địa chấn chạy xuyên vỏ Trái Đất nhanh hơn gió và sóng biển. | Seismic wave rings tear upward beneath calm river; Tí Hon hops wildly as riverbed pebbles vibrate. | `SÓNG ĐỊA CHẤN TRUYỀN QUA ĐẤT` |
+| `0:23–0:32` | Chỉ mười lăm đến ba mươi phút sau va chạm, cơn rung lắc dựng bức tường sóng dội ngược cuộn vào lòng sông, chôn sống cả đàn cá. | `[3D vertical cut]` Mud-wall seiche wave surges uphill burying paddlefish while Tí Hon clings to branch. | `SÓNG ĐỘI NGƯỢC CHÔN SỐNG CÁ` |
+| `0:32–0:41` | Đúng lúc đó, hàng triệu giọt đá nóng chảy nguội lại thành hạt thủy tinh trút xuống như mưa đá, gõ lộp độp lên mũ bảo hiểm của tớ. | Glowing amber hail slams `LỘP ĐỘP` off Tí Hon's yellow helmet; fish open gills breathing spherules in cutaway. | `MƯA THỦY TINH TRÚT XUỐNG MŨ` |
+| `0:41–0:51` | Xa tận ba nghìn ki lô mét mà mất mạng chỉ sau hai mươi phút. Vậy trốn ở đâu trong bảy chỗ mới sống hết năm đó. Bấm vào tập dài bên dưới xem đáp án nhé. | Tí Hon holds museum gill-spherule badge (`During 2022 / DePalma 2019`), tail points directly at YouTube Related Video link. | `TRỐN Ở ĐÂU MỚI SỐNG?!` |
 
 **Copy-Paste Vbee 1.1x Block (Short 1):**
 ```text
-Con cá này chết đúng mười lăm phút sau khi thiên thạch hủy diệt khủng long lao xuống Trái Đất. Và bên trong mang của nó vẫn còn kẹt đầy hạt thủy tinh nóng chảy rơi từ bầu trời.
+Con cá này chết đúng mười lăm phút sau khi thiên thạch rơi xuống Trái Đất. Trong mang nó vẫn kẹt đầy hạt thủy tinh nóng chảy rơi từ bầu trời.
 
-Nghe vô lý đúng không. Bãi biển thiên thạch rơi tận I u ca tan bên Mê hi cô, còn con cá này bơi cách đó những ba nghìn ki lô mét tận Bắc Đa cô ta cơ mà.
+Nghe vô lý đúng không. Thiên thạch rơi tận I u ca tan bên Mê hi cô, còn con cá này bơi cách đó ba nghìn ki lô mét ở Bắc Đa cô ta.
 
-Nhưng các nhà khoa học nghiên cứu vùng hóa thạch Ta nít phát hiện ra một điều rùng mình. Sóng địa chấn chạy xuyên qua vỏ Trái Đất nhanh hơn nhiều so với gió hay sóng biển.
+Nhưng các nhà khoa học tại vùng Ta nít phát hiện sự thật rùng mình. Sóng địa chấn chạy xuyên vỏ Trái Đất nhanh hơn gió và sóng biển.
 
-Chỉ mười lăm đến ba mươi phút sau va chạm, cơn rung lắc dựng đứng một bức tường sóng dội ngược cuộn trào ngược vào lòng sông, hất tung và chôn sống cả đàn cá.
+Chỉ mười lăm đến ba mươi phút sau va chạm, cơn rung lắc dựng bức tường sóng dội ngược cuộn vào lòng sông, chôn sống cả đàn cá.
 
-Đúng lúc đó, hàng triệu giọt đá nóng chảy bị hất lên không trung nguội lại thành hạt thủy tinh trút rào rào xuống mặt nước như mưa đá, gõ lộp độp lên mũ bảo hiểm của tớ.
+Đúng lúc đó, hàng triệu giọt đá nóng chảy nguội lại thành hạt thủy tinh trút xuống như mưa đá, gõ lộp độp lên mũ bảo hiểm của tớ.
 
-Xa tận ba nghìn ki lô mét mà còn mất mạng trong hai mươi phút. Vậy tớ phải trốn ở đâu trong bảy chỗ mới sống nổi qua năm đó. Bấm vào video dài bên dưới xem đáp án nhé.
+Xa tận ba nghìn ki lô mét mà mất mạng chỉ sau hai mươi phút. Vậy trốn ở đâu trong bảy chỗ mới sống hết năm đó. Bấm vào tập dài bên dưới xem đáp án nhé.
 ```
 
 ---
@@ -49,7 +49,7 @@ Xa tận ba nghìn ki lô mét mà còn mất mạng trong hai mươi phút. V�
 2. **Hook B (Map Distance):** *"Nếu bạn đứng cách thiên thạch 1.500 km..."* (Rejected: slower visual grab).
 3. **Hook C (Thermometer):** Rising red thermometer bar (Rejected: abstract without character contrast).
 
-### Beat Breakdown (`192` Vbee words, `~50s` total)
+### Beat Breakdown (`191` Vbee words, `~50s` total)
 
 | Time | Spoken Vbee Line (Clean TTS 1.1x) | 9:16 Center Action (`y=380..1200`) | Safe-Zone Label (`y=220..360`) |
 |---|---|---|---|
@@ -84,7 +84,7 @@ Cách một nghìn năm trăm ki lô mét chỉ sống nổi vài giây. Vậy r
 2. **Hook B (Museum Skeleton):** Slow zoom onto a dinosaur bone (Rejected: misses immediate food shock).
 3. **Hook C (Science Statement):** *"Chim là khủng long..."* (Rejected: dry opening without visual comedy).
 
-### Beat Breakdown (`198` Vbee words, `~51s` total)
+### Beat Breakdown (`191` Vbee words, `~50s` total)
 
 | Time | Spoken Vbee Line (Clean TTS 1.1x) | 9:16 Center Action (`y=380..1200`) | Safe-Zone Label (`y=220..360`) |
 |---|---|---|---|
