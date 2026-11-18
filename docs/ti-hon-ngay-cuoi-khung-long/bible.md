@@ -45,6 +45,7 @@
   - Visually preserves the exact Ep 2 `"VỀ NHÀ"` red helmet button.
   - Segment `#1` includes 1 fast comedic line showing Tí Hon flipped a side toggle on the helmet button from `"Về hiện tại"` to **`"Tua lại sáng hôm nay"`**, armed with an **automatic emergency rewind trigger at `00:00` vaporization**.
   - Whenever an extreme failure vaporizes or instantly kills Tí Hon (e.g., Spot #1 at `00:00`), the helmet auto-triggers the rewind before plasma impact completes — closing any plot hole about pressing a button after turning to ash.
+  - **Cartoon-Only Harm Rule:** All catastrophic hazards resolve through stylized cartoon-only harm (flash-freeze silhouette, soot puffs, melting popsicle, tumbling wash, `00:00` auto-rewind zip) — zero gore, graphic trauma, or realistic injury.
 - **Episode 3 Props & Costume States:**
   - Lightweight explorer backpack strap (no shovel in thumbnail or burrow entry — the Late Cretaceous burrowing mammal dug the shelter).
   - Scene props: melting popsicle (`#3`), helmet deflection sparks from falling tektite glass hail (`#4`), tiny backup float & goggles (`#5`), damp sweatband/smoke cough (`#6`), tight scarf wrap & frost breath (`#7`), helmet headlamp cone + muddy snout / earthworm prop (`#8`), reading glasses & pointer (`#9`), cross bandage / warm morning scarf (`#10–#11`).
@@ -65,7 +66,7 @@
 | `#4` | Chỗ 3: Sông Tanis (`3.000 km`) | `00:15 -> 00:30` | `MƯA ĐÁ THỦY TINH` |
 | `#5` | Chỗ 4: Hố va chạm (`>30 phút`) | `00:30 -> 01:00+` | `XOÁY NƯỚC: CỰC ĐẠI` |
 | `#6` | Chỗ 5: Rừng rậm (`1–3 giờ`) | `01:00 -> 03:00` | `NHIỆT: LÒ NUNG 17x` |
-| `#7` | Chỗ 6: Châu Á -> Mùa đông | `GIỜ 1 -> NĂM 1–3` | `TRỜI TẮT NẮNG / -26°C+` |
+| `#7` | Chỗ 6: Châu Á -> Mùa đông | `GIỜ 1 -> NĂM 1–3` | `TRỜI TẮT NẮNG / GIẢM ≥26°C` |
 | `#8` | Chỗ 7: Hang thú nhỏ (Climax) | `NGÀY 1 -> 365+ -> ∞` | `CHỖ TRỐN: SỐNG SÓT` |
 | `#9` | Leaderboard Recap | `∞` (locked) | `XẾP HẠNG: 7 CHỖ` |
 | `#10` | Epilogue: Chim / Đĩa ăn | `HIỆN TẠI` | `HẬU DUỆ: CÒN SỐNG` |
@@ -79,7 +80,7 @@ Every scene, HUD overlay, upper-1/3 label, mid-canvas card, and subtitle MUST ob
 
 | Band | Exact Coordinates | Allowed Elements & Guardrails |
 |---|---|---|
-| **Top HUD Band** | `y=28..146` | Top-left `SurvivalClock` (`x = 36..360, y = 28..146`); optional top-center `chapterTag` (`y = 24..70`); top-right anti-spoiler status badge (`x >= 1450`, `y = 28..120`, concise text staying clear of center). |
+| **Top HUD Band** | `y=28..146` | Top-left `SurvivalClock` (`x = 36..360, y = 28..146`); optional top-center `chapterTag` (`y = 28..70`, strictly inside `y=28..146`); top-right anti-spoiler status badge (`x >= 1450`, `y = 28..120`, concise text staying clear of center). |
 | **Upper-1/3 Labels** | `160 <= y <= 360` | Distance badges (`0 km`, `1.500 km`, `3.000 km`), `T+HH:MM` clock stamps, and one-line locked numerical stats (`10–12 km`, `180–200 km`, `130 m`, `>30 phút`, `15–30 phút`, `1–3 giờ`, `ít nhất 26°C`, `75%`). Strictly inside `160 <= y <= 360` — zero collision with Top HUD or Mid Cards. |
 | **Mid Cards & Stage** | `360 <= y <= 850` | `dangerCard` (~400px tall), scale comparison silhouettes (impactor vs Mt. Everest, Tí Hon vs 1.7m adult), regional maps, burrow cutaway stage, and Mascot/environment action. |
 | **Bottom Captions** | `y >= 940` | Reserved solely for burned-in Vietnamese captions (`baseline y ≈ 1005`) backed by a soft dark gradient scrim (`940..1080`). All props, scale bars, and cards stay at `y <= 915` (`<= 850` for primary cards). |
@@ -137,7 +138,7 @@ No two consecutive spots or narrative blocks share the same color palette or lig
 | `5` | `forest_oven` | `#6` (Chỗ 5 — `1–3 giờ`) | Superheated copper-crimson canopy & charcoal ash (`#7f1d1d` / `#ef4444` / `#1c1917`), choking backlit ember drift. | Burning Dread (hot-pot -> wildfire) |
 | `6` | `asia_winter` | `#7` (Chỗ 6 — Winter) | Opens in eerie bruised violet-amber Hour-1 dusk (`#581c87` / `#d97706`), plunging into desaturated ice-slate & soot-black starless gloom (`#020617` / `#334155` / `#cbd5e1`). | Uncanny Calm -> Sub-Zero Tragedy |
 | `7` | `burrow_earth` | `#8` (Chỗ 7 — Burrow) | Deep warm chocolate-umber soil cutaway (`#451a03` / `#78350f`), cozy amber headlamp cone & subtle pale fungal accents (`#fde68a` / `#a3e635`). | Quiet Shelter -> Cozy Burrow Relief |
-| `8` | `new_spring` | `#9`, `#10`, `#11` | Clean studio indigo-slate (`#1e1b4b` / `#6366f1`) for `#9` Leaderboard, transitioning to sunlit pastel sky & fresh emerald meadow (`#e0f2fe` / `#86efac` / `#fef9c3`). | Crisp Recap -> Wonder Twist -> Upbeat Ep 2 Hand-off |
+| `8` | `new_spring` | `#9` (`new_spring_recap`), `#10–#11` (`new_spring_dawn`) | Sub-variant `new_spring_recap` (`#9`): clean studio indigo-slate (`#1e1b4b` / `#6366f1`) for Leaderboard flip. Sub-variant `new_spring_dawn` (`#10–#11`): sunlit pastel sky & fresh emerald meadow (`#e0f2fe` / `#86efac` / `#fef9c3`). | Crisp Recap -> Wonder Twist -> Upbeat Ep 2 Hand-off |
 
 ---
 
