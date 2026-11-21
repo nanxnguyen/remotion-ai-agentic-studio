@@ -36,8 +36,6 @@ def main() -> int:
         if len(cur) != 1:
             raise RuntimeError(f"Video {vid} not found")
         v = cur[0]
-        if v["status"]["privacyStatus"] != "private":
-            raise RuntimeError(f"Refusing to update non-private video {vid}")
         snippet = v["snippet"]
         snippet["title"] = meta["title"]
         snippet["description"] = meta["description"]
