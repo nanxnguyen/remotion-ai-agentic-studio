@@ -244,6 +244,19 @@ def run(args) -> dict:
     page = graph("GET", f"{GRAPH}/{page_id}?fields=id,name", token)
     if page.get("id") != page_id:
         raise PreflightError("Token does not resolve to FB_PAGE_ID - wrong Page token")
+    if args.video_id:
+        if not args.thumbnail_drive_id:
+            raise PreflightError("--thumbnail-drive-id is required when updating an existing --video-id")
+        from googleapiclient.discovery import build
+        drive = build("drive", "v3", credentials=credentials(DRIVE_SCOPES, os.environ.get("DRIVE_REFRESH_TOKEN", "")),
+                      cache_discovery=False)
+        with tempfile.TemporaryDirectory() as tmp:
+            thumb_path = Path(tmp) / "thumbnail.png"
+            download_drive(drive, drive_id(args.thumbnail_drive_id), thumb_path, {"image/png", "image/jpeg"})
+            receipt = {"page": page, "video_id": args.video_id, "has_thumbnail": True, "executed": bool(args.execute)}
+            if args.execute:
+                receipt["thumbnail_result"] = upload_thumbnail(args.video_id, token, thumb_path)
+            return receipt
     if not args.video_drive_id:
         validate_meta(meta, execute=args.execute, mode="video" if requested_mode == "video" else "reel")
         return {"page": page, "ping": "ok", "executed": False}
@@ -296,6 +309,7 @@ def run(args) -> dict:
 def main() -> int:
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("--video-drive-id", default="", help="Empty = ping only (verify Page token)")
+    p.add_argument("--video-id", default="", help="Existing Facebook video/reel ID to attach thumbnail only")
     p.add_argument("--thumbnail-drive-id", default="", help="Optional Drive file ID for custom cover thumbnail")
     p.add_argument("--metadata", required=True)
     p.add_argument("--mode", default="reel", help="reel (default), video, or auto")
