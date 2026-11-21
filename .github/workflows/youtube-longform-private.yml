@@ -21,6 +21,14 @@ on:
         required: true
         default: 'config/youtube-longform-metadata.example.json'
         type: string
+      profile:
+        description: 'Upload validation profile'
+        required: false
+        default: 'LONGFORM_EN'
+        type: choice
+        options:
+          - LONGFORM_EN
+          - LONGFORM_VI
       execute:
         description: 'FALSE = dry-run. TRUE = upload PRIVATE after QA approval'
         required: true
@@ -49,6 +57,7 @@ jobs:
       VIDEO_DRIVE_ID: ${{ inputs.video_drive_id }}
       THUMBNAIL_DRIVE_ID: ${{ inputs.thumbnail_drive_id }}
       METADATA_PATH: ${{ inputs.metadata_path }}
+      PROFILE: ${{ inputs.profile || 'LONGFORM_EN' }}
       EXECUTE: ${{ inputs.execute }}
     steps:
       - uses: actions/checkout@v5
@@ -75,6 +84,7 @@ jobs:
           set -euo pipefail
           cmd=(python scripts/youtube_multi_channel.py
             --channel "$CHANNEL"
+            --profile "$PROFILE"
             --video-drive-id "$VIDEO_DRIVE_ID"
             --thumbnail-drive-id "$THUMBNAIL_DRIVE_ID"
             --metadata "$METADATA_PATH"
