@@ -28,7 +28,7 @@ GRAPH_VERSION = os.environ.get("FB_GRAPH_VERSION", "v27.0")
 GRAPH = f"https://graph.facebook.com/{GRAPH_VERSION}"
 GRAPH_VIDEO = f"https://graph-video.facebook.com/{GRAPH_VERSION}"
 RUPLOAD = f"https://rupload.facebook.com/video-upload/{GRAPH_VERSION}"
-STATES = {"DRAFT", "PUBLISHED"}
+STATES = {"DRAFT", "PUBLISHED", "SCHEDULED"}
 MODES = {"reel", "video", "auto"}
 CHUNK_BYTES = 16 * 1024 * 1024
 
@@ -135,7 +135,20 @@ def validate_meta(meta: dict, *, execute: bool, mode: str = "reel") -> None:
         raise PreflightError("Metadata not approved (qa_approved must be true) - upload blocked")
 
 
-def upload_reel(page_id: str, token: str, path: Path, description: str, state: str) -> str:
+def validate_schedule(state: str, scheduled_ts: int | None, now: int | None = None) -> None:
+    if state != "SCHEDULED":
+        return
+    if not scheduled_ts:
+        raise PreflightError("SCHEDULED state requires --scheduled-publish-time (Unix timestamp)")
+    cur = int(time.time()) if now is None else now
+    if scheduled_ts < cur + 600:
+        raise PreflightError("scheduled_publish_time must be at least 10 minutes in the future")
+    if scheduled_ts > cur + 30 * 86400:
+        raise PreflightError("scheduled_publish_time must be within 30 days")
+
+
+def upload_reel(page_id: str, token: str, path: Path, description: str, state: str,
+                scheduled_ts: int | None = None) -> str:
     start = graph("POST", f"{GRAPH}/{page_id}/video_reels", token, {"upload_phase": "start"})
     video_id = start["video_id"]
     size = path.stat().st_size
@@ -143,14 +156,17 @@ def upload_reel(page_id: str, token: str, path: Path, description: str, state: s
                  headers={"offset": "0", "file_size": str(size), "Content-Type": "application/octet-stream"})
     if not sent.get("success"):
         raise PreflightError(f"Binary upload not accepted: {sent}")
-    done = graph("POST", f"{GRAPH}/{page_id}/video_reels", token,
-                 {"upload_phase": "finish", "video_id": video_id, "video_state": state, "description": description})
+    finish_params = {"upload_phase": "finish", "video_id": video_id, "video_state": state, "description": description}
+    if state == "SCHEDULED" and scheduled_ts:
+        finish_params["scheduled_publish_time"] = str(scheduled_ts)
+    done = graph("POST", f"{GRAPH}/{page_id}/video_reels", token, finish_params)
     if not done.get("success"):
         raise PreflightError(f"Finish phase failed: {done}")
     return video_id
 
 
-def upload_page_video(page_id: str, token: str, path: Path, title: str, description: str, state: str) -> str:
+def upload_page_video(page_id: str, token: str, path: Path, title: str, description: str, state: str,
+                      scheduled_ts: int | None = None) -> str:
     """Upload a regular/long-form Page Video using resumable chunked upload on graph-video."""
     size = path.stat().st_size
     start = graph("POST", f"{GRAPH_VIDEO}/{page_id}/videos", token,
@@ -176,6 +192,8 @@ def upload_page_video(page_id: str, token: str, path: Path, title: str, descript
         "description": description,
         "published": "true" if state == "PUBLISHED" else "false",
     }
+    if state == "SCHEDULED" and scheduled_ts:
+        finish_params["scheduled_publish_time"] = str(scheduled_ts)
     done = graph("POST", f"{GRAPH_VIDEO}/{page_id}/videos", token, finish_params)
     if not done.get("success"):
         raise PreflightError(f"Video finish phase failed: {done}")
@@ -212,6 +230,8 @@ def run(args) -> dict:
     state = args.state.upper()
     if state not in STATES:
         raise PreflightError(f"--state must be one of {sorted(STATES)}")
+    scheduled_ts = int(args.scheduled_publish_time) if str(args.scheduled_publish_time).strip() else None
+    validate_schedule(state, scheduled_ts)
     requested_mode = args.mode.lower()
     if requested_mode not in MODES:
         raise PreflightError(f"--mode must be one of {sorted(MODES)}")
@@ -259,11 +279,12 @@ def run(args) -> dict:
         }
         if args.execute:
             if mode == "reel":
-                vid = upload_reel(page_id, token, video, meta["description"], state)
+                vid = upload_reel(page_id, token, video, meta["description"], state, scheduled_ts)
             else:
                 title = (meta.get("title") or meta["description"].splitlines()[0])[:255]
-                vid = upload_page_video(page_id, token, video, title, meta["description"], state)
+                vid = upload_page_video(page_id, token, video, title, meta["description"], state, scheduled_ts)
             receipt["video_id"] = vid
+            receipt["scheduled_publish_time"] = scheduled_ts
             receipt["executed"] = True
             if thumb_path is not None:
                 receipt["thumbnail_result"] = upload_thumbnail(vid, token, thumb_path)
@@ -278,7 +299,8 @@ def main() -> int:
     p.add_argument("--thumbnail-drive-id", default="", help="Optional Drive file ID for custom cover thumbnail")
     p.add_argument("--metadata", required=True)
     p.add_argument("--mode", default="reel", help="reel (default), video, or auto")
-    p.add_argument("--state", default="DRAFT", help="DRAFT (default) or PUBLISHED")
+    p.add_argument("--state", default="DRAFT", help="DRAFT (default), SCHEDULED, or PUBLISHED")
+    p.add_argument("--scheduled-publish-time", default="", help="Unix timestamp for SCHEDULED state")
     p.add_argument("--receipt", default="facebook-reel-receipt.json")
     p.add_argument("--execute", action="store_true", help="Actually upload; otherwise dry-run")
     args = p.parse_args()

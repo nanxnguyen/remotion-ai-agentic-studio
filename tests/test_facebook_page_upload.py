@@ -4,7 +4,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
 
-from facebook_page_upload import PreflightError, check_reel, check_video, encode_multipart, resolve_mode, validate_meta  # noqa: E402
+from facebook_page_upload import PreflightError, check_reel, check_video, encode_multipart, resolve_mode, validate_meta, validate_schedule  # noqa: E402
 
 OK = {"width": 1080, "height": 1920, "fps": 30.0, "duration": 45.0, "vcodec": "h264", "acodec": "aac"}
 OK_LANDSCAPE = {"width": 1920, "height": 1080, "fps": 24.0, "duration": 135.0, "vcodec": "h264", "acodec": "aac"}
@@ -45,6 +45,14 @@ class MetaTest(unittest.TestCase):
         body, ctype = encode_multipart({"is_preferred": "true"}, {"source": ("a.png", b"PNG", "image/png")})
         self.assertIn("multipart/form-data; boundary=", ctype)
         self.assertIn(b"is_preferred", body)
+
+    def test_schedule_validation(self):
+        validate_schedule("DRAFT", None, now=1000)
+        with self.assertRaises(PreflightError):
+            validate_schedule("SCHEDULED", None, now=1000)
+        with self.assertRaises(PreflightError):
+            validate_schedule("SCHEDULED", 1200, now=1000)
+        validate_schedule("SCHEDULED", 2000, now=1000)
 
 
 if __name__ == "__main__":
