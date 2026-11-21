@@ -1,0 +1,82 @@
+name: Facebook Page Reels upload
+
+on:
+  workflow_dispatch:
+    inputs:
+      page:
+        description: 'Target Fanpage (secrets FB_PAGE_ID_<PAGE> + FB_PAGE_ACCESS_TOKEN_<PAGE>)'
+        required: true
+        type: choice
+        options: [KHUNG_LONG_TI_HON, HEM_CHUYEN_LA, MOT_CHUT_SUY_NGHI, RAY_AI]
+      video_drive_id:
+        description: 'Verified 9:16 MP4 Drive file ID (3-90 s)'
+        required: true
+        type: string
+      metadata_path:
+        description: 'Committed metadata JSON (description + qa_approved)'
+        required: true
+        default: 'config/facebook-reels-metadata.example.json'
+        type: string
+      state:
+        description: 'DRAFT = review in Meta Business Suite first; PUBLISHED = live now'
+        required: true
+        default: DRAFT
+        type: choice
+        options: [DRAFT, PUBLISHED]
+      execute:
+        description: 'FALSE = dry-run (token + video checks only); TRUE = upload'
+        required: true
+        default: false
+        type: boolean
+
+permissions:
+  contents: read
+
+concurrency:
+  group: facebook-reels-${{ inputs.page }}-${{ inputs.video_drive_id }}
+  cancel-in-progress: false
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      FB_PAGE_ID: ${{ secrets[format('FB_PAGE_ID_{0}', inputs.page)] }}
+      FB_PAGE_ACCESS_TOKEN: ${{ secrets[format('FB_PAGE_ACCESS_TOKEN_{0}', inputs.page)] }}
+      YOUTUBE_CLIENT_ID: ${{ secrets.YOUTUBE_CLIENT_ID }}
+      YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
+      DRIVE_REFRESH_TOKEN: ${{ secrets.DRIVE_REFRESH_TOKEN }}
+      VIDEO_DRIVE_ID: ${{ inputs.video_drive_id }}
+      METADATA_PATH: ${{ inputs.metadata_path }}
+      STATE: ${{ inputs.state }}
+      EXECUTE: ${{ inputs.execute }}
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Ensure ffprobe
+        run: command -v ffprobe >/dev/null || { sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg; }
+      - name: Install Drive API dependencies
+        run: python -m pip install --disable-pip-version-check -r scripts/youtube-multi-requirements.txt
+      - name: Unit tests (no remote calls)
+        run: python -m unittest discover -s tests -p 'test_facebook_page_upload.py' -v
+      - name: Verify and optionally upload
+        shell: bash
+        run: |
+          set -euo pipefail
+          cmd=(python scripts/facebook_page_upload.py
+            --video-drive-id "$VIDEO_DRIVE_ID"
+            --metadata "$METADATA_PATH"
+            --state "$STATE"
+            --receipt facebook-reel-receipt.json)
+          if [[ "$EXECUTE" == "true" ]]; then cmd+=(--execute); fi
+          "${cmd[@]}"
+      - name: Upload receipt
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: facebook-reel-receipt
+          path: facebook-reel-receipt.json
+          if-no-files-found: ignore
+          retention-days: 30
