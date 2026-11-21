@@ -291,6 +291,11 @@ def run(args) -> dict:
             "executed": False,
         }
         if args.execute:
+            if args.delete_video_id:
+                try:
+                    receipt["deleted_old"] = graph("DELETE", f"{GRAPH}/{args.delete_video_id}", token)
+                except PreflightError as exc:
+                    receipt["deleted_old_warning"] = str(exc)
             if mode == "reel":
                 vid = upload_reel(page_id, token, video, meta["description"], state, scheduled_ts)
             else:
@@ -310,6 +315,7 @@ def main() -> int:
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("--video-drive-id", default="", help="Empty = ping only (verify Page token)")
     p.add_argument("--video-id", default="", help="Existing Facebook video/reel ID to attach thumbnail only")
+    p.add_argument("--delete-video-id", default="", help="Optional old Facebook video/reel ID to delete before upload")
     p.add_argument("--thumbnail-drive-id", default="", help="Optional Drive file ID for custom cover thumbnail")
     p.add_argument("--metadata", required=True)
     p.add_argument("--mode", default="reel", help="reel (default), video, or auto")

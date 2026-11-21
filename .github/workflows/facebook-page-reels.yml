@@ -18,6 +18,11 @@ on:
         required: false
         default: ''
         type: string
+      delete_video_id:
+        description: 'Optional old FB video/reel ID to delete before scheduled upload'
+        required: false
+        default: ''
+        type: string
       thumbnail_drive_id:
         description: 'Optional Drive file ID for custom cover thumbnail'
         required: false
@@ -70,6 +75,7 @@ jobs:
       DRIVE_REFRESH_TOKEN: ${{ secrets.DRIVE_REFRESH_TOKEN }}
       VIDEO_DRIVE_ID: ${{ inputs.video_drive_id }}
       VIDEO_ID: ${{ inputs.video_id }}
+      DELETE_VIDEO_ID: ${{ inputs.delete_video_id }}
       THUMBNAIL_DRIVE_ID: ${{ inputs.thumbnail_drive_id }}
       METADATA_PATH: ${{ inputs.metadata_path }}
       MODE: ${{ inputs.mode }}
@@ -100,6 +106,7 @@ jobs:
             --scheduled-publish-time "$SCHEDULED_PUBLISH_TIME"
             --receipt facebook-reel-receipt.json)
           if [[ -n "$VIDEO_ID" ]]; then cmd+=(--video-id "$VIDEO_ID"); fi
+          if [[ -n "$DELETE_VIDEO_ID" ]]; then cmd+=(--delete-video-id "$DELETE_VIDEO_ID"); fi
           if [[ "$EXECUTE" == "true" ]]; then cmd+=(--execute); fi
           "${cmd[@]}"
       - name: Upload receipt
