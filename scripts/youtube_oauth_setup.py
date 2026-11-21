@@ -14,10 +14,15 @@ from youtube_multi_channel import ROOT, YT_SCOPES, read_target, resolve_channel
 from horror_archive_oauth import provider_options
 
 
-def private_file(path: Path, content: str) -> None:
+YT_COMMENT_SCOPES = [*YT_SCOPES, "https://www.googleapis.com/auth/youtube.force-ssl"]
+
+
+def private_file(path: Path, content: str, overwrite: bool = False) -> None:
     path.parent.mkdir(mode=0o700, parents=True, exist_ok=True)
     if path.exists():
-        raise RuntimeError(f"Refusing to overwrite existing credential file: {path}")
+        if not overwrite:
+            raise RuntimeError(f"Refusing to overwrite existing credential file: {path}")
+        path.unlink()
     descriptor = os.open(str(path), os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600)
     with os.fdopen(descriptor, "w", encoding="utf-8") as stream:
         stream.write(content + "\n")
@@ -25,14 +30,34 @@ def private_file(path: Path, content: str) -> None:
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--client-secret", required=True, help="OAuth Desktop JSON from Google Cloud")
+    parser.add_argument("--client-secret", help="OAuth Desktop JSON from Google Cloud")
+    parser.add_argument("--use-saved-client", action="store_true", help="Use saved YOUTUBE_CLIENT_ID.txt / YOUTUBE_CLIENT_SECRET.txt from ~/.config/ray-youtube-uploader")
     parser.add_argument("--provider", choices=["youtube", "drive", "drive-archive"], required=True)
     parser.add_argument("--channel", default="OLISE_MAN", help="Used when provider=youtube")
     parser.add_argument("--repo", default="nanxnguyen/remotion-ai-agentic-studio")
+    parser.add_argument("--comments", action="store_true", help="Include youtube.force-ssl scope for reading/posting comments")
+    parser.add_argument("--overwrite", action="store_true", help="Overwrite existing token file if present")
     args = parser.parse_args()
+    base = Path.home() / ".config" / "ray-youtube-uploader"
     target = read_target(ROOT / "config" / "youtube-channel-targets.json", args.channel) if args.provider == "youtube" else None
-    scopes = YT_SCOPES if target else provider_options(args.provider)[0]
-    flow = InstalledAppFlow.from_client_secrets_file(args.client_secret, scopes)
+    scopes = (YT_COMMENT_SCOPES if args.comments else YT_SCOPES) if target else provider_options(args.provider)[0]
+    if args.use_saved_client:
+        cid = (base / "YOUTUBE_CLIENT_ID.txt").read_text(encoding="utf-8").strip()
+        csec = (base / "YOUTUBE_CLIENT_SECRET.txt").read_text(encoding="utf-8").strip()
+        flow = InstalledAppFlow.from_client_config(
+            {"installed": {
+                "client_id": cid,
+                "client_secret": csec,
+                "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+                "token_uri": "https://oauth2.googleapis.com/token",
+                "redirect_uris": ["http://localhost"],
+            }},
+            scopes,
+        )
+    else:
+        if not args.client_secret:
+            raise RuntimeError("Provide --client-secret or --use-saved-client")
+        flow = InstalledAppFlow.from_client_secrets_file(args.client_secret, scopes)
     credentials = flow.run_local_server(port=0, access_type="offline", prompt="consent")
     if not credentials.refresh_token:
         raise RuntimeError("No refresh token returned; revoke the old consent and authorize again")
@@ -47,7 +72,7 @@ def main():
     base = Path.home() / ".config" / "ray-youtube-uploader"
     filename = secret_name + ".txt" if target else provider_options(args.provider)[2]
     location = base / filename
-    private_file(location, credentials.refresh_token)
+    private_file(location, credentials.refresh_token, overwrite=args.overwrite)
     # Client credentials are identical across all channel grants. Write once.
     for name, value in (("YOUTUBE_CLIENT_ID", credentials.client_id), ("YOUTUBE_CLIENT_SECRET", credentials.client_secret)):
         if not (base / (name + ".txt")).exists():
