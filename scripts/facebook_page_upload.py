@@ -113,6 +113,8 @@ def run(args) -> dict:
     page = graph("GET", f"{GRAPH}/{page_id}?fields=id,name", token)
     if page.get("id") != page_id:
         raise PreflightError("Token does not resolve to FB_PAGE_ID - wrong Page token")
+    if not args.video_drive_id:
+        return {"page": page, "ping": "ok", "executed": False}
 
     from googleapiclient.discovery import build
     drive = build("drive", "v3", credentials=credentials(DRIVE_SCOPES, os.environ.get("DRIVE_REFRESH_TOKEN", "")),
@@ -131,7 +133,7 @@ def run(args) -> dict:
 
 def main() -> int:
     p = argparse.ArgumentParser(description=__doc__)
-    p.add_argument("--video-drive-id", required=True)
+    p.add_argument("--video-drive-id", default="", help="Empty = ping only (verify Page token)")
     p.add_argument("--metadata", required=True)
     p.add_argument("--state", default="DRAFT", help="DRAFT (default) or PUBLISHED")
     p.add_argument("--receipt", default="facebook-reel-receipt.json")

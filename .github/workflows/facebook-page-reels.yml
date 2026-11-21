@@ -9,8 +9,9 @@ on:
         type: choice
         options: [KHUNG_LONG_TI_HON, HEM_CHUYEN_LA, MOT_CHUT_SUY_NGHI, RAY_AI]
       video_drive_id:
-        description: 'Verified 9:16 MP4 Drive file ID (3-90 s)'
-        required: true
+        description: 'Verified 9:16 MP4 Drive file ID (3-90 s); empty = ping Page token only'
+        required: false
+        default: ''
         type: string
       metadata_path:
         description: 'Committed metadata JSON (description + qa_approved)'
