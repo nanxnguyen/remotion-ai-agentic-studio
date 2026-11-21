@@ -1,29 +1,36 @@
 #!/usr/bin/env python3
-"""Upload a verified 9:16 MP4 from Google Drive to a Facebook Page as a Reel.
+"""Upload a verified MP4 from Google Drive to a Facebook Page as a Reel or Page Video.
 
 Dry-run by default: verifies the Page token, downloads and inspects the video,
 validates metadata. Only --execute uploads. Default state is DRAFT.
+Supports optional custom thumbnail (--thumbnail-drive-id) and first comment (meta.comment).
 Facebook's API cannot post to personal profiles; Pages only.
 """
 from __future__ import annotations
 
 import argparse
 import json
+import mimetypes
 import os
 import subprocess
 import sys
 import tempfile
+import time
 import urllib.error
 import urllib.parse
 import urllib.request
+import uuid
 from pathlib import Path
 
 from youtube_multi_channel import DRIVE_SCOPES, PreflightError, credentials, download_drive, drive_id
 
 GRAPH_VERSION = os.environ.get("FB_GRAPH_VERSION", "v27.0")
 GRAPH = f"https://graph.facebook.com/{GRAPH_VERSION}"
+GRAPH_VIDEO = f"https://graph-video.facebook.com/{GRAPH_VERSION}"
 RUPLOAD = f"https://rupload.facebook.com/video-upload/{GRAPH_VERSION}"
 STATES = {"DRAFT", "PUBLISHED"}
+MODES = {"reel", "video", "auto"}
+CHUNK_BYTES = 16 * 1024 * 1024
 
 
 def graph(method: str, url: str, token: str, params: dict | None = None,
@@ -44,6 +51,28 @@ def graph(method: str, url: str, token: str, params: dict | None = None,
                              f"(type={err.get('type')}, code={err.get('code')})") from None
 
 
+def encode_multipart(fields: dict[str, str], files: dict[str, tuple[str, bytes, str]]) -> tuple[bytes, str]:
+    """Encode form fields and binary files as multipart/form-data."""
+    boundary = f"----AntigravityFB{uuid.uuid4().hex}"
+    parts: list[bytes] = []
+    for name, value in fields.items():
+        parts.append(
+            f"--{boundary}\r\n"
+            f'Content-Disposition: form-data; name="{name}"\r\n\r\n'
+            f"{value}\r\n".encode("utf-8")
+        )
+    for name, (filename, payload, content_type) in files.items():
+        parts.append(
+            f"--{boundary}\r\n"
+            f'Content-Disposition: form-data; name="{name}"; filename="{filename}"\r\n'
+            f"Content-Type: {content_type}\r\n\r\n".encode("utf-8")
+            + payload
+            + b"\r\n"
+        )
+    parts.append(f"--{boundary}--\r\n".encode("utf-8"))
+    return b"".join(parts), f"multipart/form-data; boundary={boundary}"
+
+
 def check_reel(info: dict) -> None:
     """Facebook Reels spec: 9:16, at least 540x960, 3-90 s, 24-60 fps, H.264/AAC."""
     w, h = info["width"], info["height"]
@@ -55,6 +84,27 @@ def check_reel(info: dict) -> None:
         raise PreflightError(f"Reel must be 24-60 fps, got {info['fps']}")
     if info["vcodec"] != "h264" or info["acodec"] != "aac":
         raise PreflightError("Expected H.264 video and AAC audio")
+
+
+def check_video(info: dict) -> None:
+    """Facebook Page Video spec: >=480x360, >=3 s, H.264/AAC."""
+    w, h = info["width"], info["height"]
+    if w < 480 or h < 360:
+        raise PreflightError(f"Video must be >=480x360, got {w}x{h}")
+    if info["duration"] < 3:
+        raise PreflightError(f"Video must be >=3 s, got {info['duration']} s")
+    if info["vcodec"] != "h264" or info["acodec"] != "aac":
+        raise PreflightError("Expected H.264 video and AAC audio")
+
+
+def resolve_mode(requested: str, info: dict) -> str:
+    """Resolve 'auto' to 'reel' for 9:16 <=90s videos, else 'video'."""
+    if requested != "auto":
+        return requested
+    w, h = info["width"], info["height"]
+    if w * 16 == h * 9 and w >= 540 and 3 <= info["duration"] <= 90:
+        return "reel"
+    return "video"
 
 
 def probe(path: Path) -> dict:
@@ -74,12 +124,13 @@ def probe(path: Path) -> dict:
         raise PreflightError(f"Invalid MP4 or missing video/audio stream: {type(e).__name__}") from e
 
 
-def validate_meta(meta: dict, *, execute: bool) -> None:
+def validate_meta(meta: dict, *, execute: bool, mode: str = "reel") -> None:
     desc = meta.get("description")
     if not isinstance(desc, str) or not desc.strip():
         raise PreflightError("Metadata needs a non-empty 'description'")
-    if len(desc) > 2200:
-        raise PreflightError("Description longer than 2200 characters")
+    max_len = 2200 if mode == "reel" else 63206
+    if len(desc) > max_len:
+        raise PreflightError(f"Description longer than {max_len} characters")
     if execute and meta.get("qa_approved") is not True:
         raise PreflightError("Metadata not approved (qa_approved must be true) - upload blocked")
 
@@ -99,42 +150,134 @@ def upload_reel(page_id: str, token: str, path: Path, description: str, state: s
     return video_id
 
 
+def upload_page_video(page_id: str, token: str, path: Path, title: str, description: str, state: str) -> str:
+    """Upload a regular/long-form Page Video using resumable chunked upload on graph-video."""
+    size = path.stat().st_size
+    start = graph("POST", f"{GRAPH_VIDEO}/{page_id}/videos", token,
+                  {"upload_phase": "start", "file_size": str(size)})
+    session_id = start["upload_session_id"]
+    video_id = start["video_id"]
+    with path.open("rb") as stream:
+        offset = 0
+        while offset < size:
+            chunk = stream.read(CHUNK_BYTES)
+            if not chunk:
+                break
+            body, ctype = encode_multipart(
+                {"upload_phase": "transfer", "upload_session_id": str(session_id), "start_offset": str(offset)},
+                {"video_file_chunk": ("chunk.mp4", chunk, "application/octet-stream")},
+            )
+            res = graph("POST", f"{GRAPH_VIDEO}/{page_id}/videos", token, body=body, headers={"Content-Type": ctype})
+            offset = int(res.get("start_offset", offset + len(chunk)))
+    finish_params = {
+        "upload_phase": "finish",
+        "upload_session_id": str(session_id),
+        "title": title,
+        "description": description,
+        "published": "true" if state == "PUBLISHED" else "false",
+    }
+    done = graph("POST", f"{GRAPH_VIDEO}/{page_id}/videos", token, finish_params)
+    if not done.get("success"):
+        raise PreflightError(f"Video finish phase failed: {done}")
+    return str(video_id)
+
+
+def upload_thumbnail(video_id: str, token: str, thumb_path: Path) -> dict:
+    """Attach a preferred custom thumbnail to a Reel or Page Video (retries while ingesting)."""
+    mime = mimetypes.guess_type(thumb_path.name)[0] or "image/png"
+    payload = thumb_path.read_bytes()
+    last_err: Exception | None = None
+    for delay in (2, 5, 10, 15):
+        time.sleep(delay)
+        try:
+            body, ctype = encode_multipart(
+                {"is_preferred": "true"},
+                {"source": (thumb_path.name, payload, mime)},
+            )
+            return graph("POST", f"{GRAPH}/{video_id}/thumbnails", token, body=body, headers={"Content-Type": ctype})
+        except PreflightError as exc:
+            last_err = exc
+    return {"warning": f"thumbnail_not_applied: {last_err}"}
+
+
+def post_comment(video_id: str, token: str, message: str) -> dict:
+    """Post an initial comment on a published video/reel."""
+    try:
+        return graph("POST", f"{GRAPH}/{video_id}/comments", token, {"message": message})
+    except PreflightError as exc:
+        return {"warning": f"comment_not_posted: {exc}"}
+
+
 def run(args) -> dict:
     state = args.state.upper()
     if state not in STATES:
         raise PreflightError(f"--state must be one of {sorted(STATES)}")
+    requested_mode = args.mode.lower()
+    if requested_mode not in MODES:
+        raise PreflightError(f"--mode must be one of {sorted(MODES)}")
     page_id = os.environ.get("FB_PAGE_ID", "").strip()
     token = os.environ.get("FB_PAGE_ACCESS_TOKEN", "").strip()
     if not page_id or not token:
         raise PreflightError("Missing FB_PAGE_ID or FB_PAGE_ACCESS_TOKEN")
     meta = json.loads(Path(args.metadata).read_text(encoding="utf-8"))
-    validate_meta(meta, execute=args.execute)
 
     page = graph("GET", f"{GRAPH}/{page_id}?fields=id,name", token)
     if page.get("id") != page_id:
         raise PreflightError("Token does not resolve to FB_PAGE_ID - wrong Page token")
     if not args.video_drive_id:
+        validate_meta(meta, execute=args.execute, mode="video" if requested_mode == "video" else "reel")
         return {"page": page, "ping": "ok", "executed": False}
 
     from googleapiclient.discovery import build
     drive = build("drive", "v3", credentials=credentials(DRIVE_SCOPES, os.environ.get("DRIVE_REFRESH_TOKEN", "")),
                   cache_discovery=False)
     with tempfile.TemporaryDirectory() as tmp:
-        video = Path(tmp) / "reel.mp4"
+        tmp_dir = Path(tmp)
+        video = tmp_dir / "video.mp4"
         download_drive(drive, drive_id(args.video_drive_id), video, {"video/mp4"})
         info = probe(video)
-        check_reel(info)
-        receipt = {"page": page, "video": info, "state": state, "executed": False}
+        mode = resolve_mode(requested_mode, info)
+        if mode == "reel":
+            check_reel(info)
+        else:
+            check_video(info)
+        validate_meta(meta, execute=args.execute, mode=mode)
+
+        thumb_path: Path | None = None
+        if args.thumbnail_drive_id:
+            thumb_path = tmp_dir / "thumbnail.png"
+            download_drive(drive, drive_id(args.thumbnail_drive_id), thumb_path, {"image/png", "image/jpeg"})
+
+        receipt = {
+            "page": page,
+            "mode": mode,
+            "video": info,
+            "has_thumbnail": thumb_path is not None,
+            "has_comment": bool(meta.get("comment")),
+            "state": state,
+            "executed": False,
+        }
         if args.execute:
-            receipt["video_id"] = upload_reel(page_id, token, video, meta["description"], state)
+            if mode == "reel":
+                vid = upload_reel(page_id, token, video, meta["description"], state)
+            else:
+                title = (meta.get("title") or meta["description"].splitlines()[0])[:255]
+                vid = upload_page_video(page_id, token, video, title, meta["description"], state)
+            receipt["video_id"] = vid
             receipt["executed"] = True
+            if thumb_path is not None:
+                receipt["thumbnail_result"] = upload_thumbnail(vid, token, thumb_path)
+            if state == "PUBLISHED" and meta.get("comment"):
+                receipt["comment_result"] = post_comment(vid, token, meta["comment"])
     return receipt
 
 
 def main() -> int:
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("--video-drive-id", default="", help="Empty = ping only (verify Page token)")
+    p.add_argument("--thumbnail-drive-id", default="", help="Optional Drive file ID for custom cover thumbnail")
     p.add_argument("--metadata", required=True)
+    p.add_argument("--mode", default="reel", help="reel (default), video, or auto")
     p.add_argument("--state", default="DRAFT", help="DRAFT (default) or PUBLISHED")
     p.add_argument("--receipt", default="facebook-reel-receipt.json")
     p.add_argument("--execute", action="store_true", help="Actually upload; otherwise dry-run")

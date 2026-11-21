@@ -9,15 +9,26 @@ on:
         type: choice
         options: [KHUNG_LONG_TI_HON, HEM_CHUYEN_LA, MOT_CHUT_SUY_NGHI, RAY_AI]
       video_drive_id:
-        description: 'Verified 9:16 MP4 Drive file ID (3-90 s); empty = ping Page token only'
+        description: 'Verified MP4 Drive file ID; empty = ping Page token only'
+        required: false
+        default: ''
+        type: string
+      thumbnail_drive_id:
+        description: 'Optional Drive file ID for custom cover thumbnail (PNG/JPG)'
         required: false
         default: ''
         type: string
       metadata_path:
-        description: 'Committed metadata JSON (description + qa_approved)'
+        description: 'Committed metadata JSON (description + qa_approved + optional title/comment)'
         required: true
         default: 'config/facebook-reels-metadata.example.json'
         type: string
+      mode:
+        description: 'reel (9:16 <=90s), video (16:9/longform), or auto'
+        required: true
+        default: reel
+        type: choice
+        options: [reel, video, auto]
       state:
         description: 'DRAFT = review in Meta Business Suite first; PUBLISHED = live now'
         required: true
@@ -48,7 +59,9 @@ jobs:
       YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
       DRIVE_REFRESH_TOKEN: ${{ secrets.DRIVE_REFRESH_TOKEN }}
       VIDEO_DRIVE_ID: ${{ inputs.video_drive_id }}
+      THUMBNAIL_DRIVE_ID: ${{ inputs.thumbnail_drive_id }}
       METADATA_PATH: ${{ inputs.metadata_path }}
+      MODE: ${{ inputs.mode }}
       STATE: ${{ inputs.state }}
       EXECUTE: ${{ inputs.execute }}
     steps:
@@ -69,8 +82,10 @@ jobs:
           cmd=(python scripts/facebook_page_upload.py
             --video-drive-id "$VIDEO_DRIVE_ID"
             --metadata "$METADATA_PATH"
+            --mode "$MODE"
             --state "$STATE"
             --receipt facebook-reel-receipt.json)
+          if [[ -n "$THUMBNAIL_DRIVE_ID" ]]; then cmd+=(--thumbnail-drive-id "$THUMBNAIL_DRIVE_ID"); fi
           if [[ "$EXECUTE" == "true" ]]; then cmd+=(--execute); fi
           "${cmd[@]}"
       - name: Upload receipt

@@ -4,9 +4,10 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
 
-from facebook_page_upload import PreflightError, check_reel, validate_meta  # noqa: E402
+from facebook_page_upload import PreflightError, check_reel, check_video, encode_multipart, resolve_mode, validate_meta  # noqa: E402
 
 OK = {"width": 1080, "height": 1920, "fps": 30.0, "duration": 45.0, "vcodec": "h264", "acodec": "aac"}
+OK_LANDSCAPE = {"width": 1920, "height": 1080, "fps": 24.0, "duration": 135.0, "vcodec": "h264", "acodec": "aac"}
 
 
 class CheckReelTest(unittest.TestCase):
@@ -18,6 +19,12 @@ class CheckReelTest(unittest.TestCase):
                     {"fps": 15.0}, {"vcodec": "hevc"}, {"width": 360, "height": 640}):
             with self.subTest(bad=bad), self.assertRaises(PreflightError):
                 check_reel({**OK, **bad})
+
+    def test_valid_video_and_auto_mode(self):
+        check_video(OK_LANDSCAPE)
+        self.assertEqual(resolve_mode("auto", OK), "reel")
+        self.assertEqual(resolve_mode("auto", OK_LANDSCAPE), "video")
+        self.assertEqual(resolve_mode("auto", {**OK, "duration": 120.0}), "video")
 
 
 class MetaTest(unittest.TestCase):
@@ -32,6 +39,12 @@ class MetaTest(unittest.TestCase):
     def test_empty_description_blocked(self):
         with self.assertRaises(PreflightError):
             validate_meta({"description": "  "}, execute=False)
+
+    def test_video_mode_allows_longer_description_and_multipart(self):
+        validate_meta({"description": "x" * 2500, "qa_approved": True}, execute=True, mode="video")
+        body, ctype = encode_multipart({"is_preferred": "true"}, {"source": ("a.png", b"PNG", "image/png")})
+        self.assertIn("multipart/form-data; boundary=", ctype)
+        self.assertIn(b"is_preferred", body)
 
 
 if __name__ == "__main__":
