@@ -175,6 +175,26 @@ class ChannelTests(unittest.TestCase):
             mod.write_receipt(output, {"channel_key": "OLISE_MAN", "status": "dry_run"})
             self.assertEqual(json.loads(output.read_text())["status"], "dry_run")
 
+    def test_longform_vi_accepts_1080p_24fps_and_thumbnail(self):
+        from PIL import Image
+        payload = {"streams": [
+            {"codec_type": "video", "codec_name": "h264", "width": 1920,
+             "height": 1080, "avg_frame_rate": "24/1"},
+            {"codec_type": "audio", "codec_name": "aac"}
+        ], "format": {"duration": "1165.296"}}
+        with unittest.mock.patch.object(mod.subprocess, "run", return_value=Mock(
+                returncode=0, stdout=json.dumps(payload), stderr="")):
+            stats = mod.inspect_video(pathlib.Path("video.mp4"), profile="LONGFORM_VI")
+            self.assertEqual(stats["width"], 1920)
+            self.assertEqual(stats["fps"], 24.0)
+        with tempfile.TemporaryDirectory() as temp:
+            p = pathlib.Path(temp) / "thumb.png"
+            Image.new("RGB", (1920, 1080), "black").save(p)
+            mod.inspect_thumbnail(p, profile="LONGFORM_VI")
+        meta = json.loads((ROOT / "config" / "youtube-longform-metadata.example.json").read_text())
+        meta["language"] = "vi"
+        mod.validate_meta(meta, require_approval=False, profile="LONGFORM_VI")
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -76,7 +76,7 @@ def validate_meta(meta: dict, *, require_approval: bool, profile: str = "LONGFOR
         raise PreflightError("Title must contain 5–100 characters")
     if not isinstance(desc, str) or not 1 <= len(desc) <= 5000:
         raise PreflightError("Description must contain 1–5000 characters")
-    expected_language = {"LONGFORM_EN": "en", "SHORTS_VI": "vi"}.get(profile)
+    expected_language = {"LONGFORM_EN": "en", "LONGFORM_VI": "vi", "SHORTS_VI": "vi"}.get(profile)
     if not expected_language:
         raise PreflightError("Unknown upload profile")
     if meta.get("language") != expected_language:
@@ -165,6 +165,9 @@ def inspect_video(path: Path, profile: str = "LONGFORM_EN") -> dict:
     if profile == "LONGFORM_EN":
         if dimensions != (2560, 1440) or abs(n / d - 30) > 0.05 or not 180 <= duration <= 240.5:
             raise PreflightError("Expected 2560x1440 at 30 FPS and 3–4 minutes")
+    elif profile == "LONGFORM_VI":
+        if dimensions not in {(1920, 1080), (2560, 1440)} or not (23.9 <= n / d <= 30.05) or not 180 <= duration <= 3600:
+            raise PreflightError("Expected 1920x1080 or 2560x1440 at 24–30 FPS and 3–60 minutes")
     elif profile == "SHORTS_VI":
         if dimensions != (1080, 1920) or abs(n / d - 30) > 0.05 or not 10 <= duration <= 60.05:
             raise PreflightError("Expected 1080x1920 at 30 FPS and 10–60 seconds")
@@ -179,7 +182,7 @@ def inspect_thumbnail(path: Path, profile: str = "LONGFORM_EN") -> None:
     """Video thumbnails are profile-specific: Shorts are genuinely 9:16."""
     from PIL import Image
     size = path.stat().st_size
-    if profile == "LONGFORM_EN":
+    if profile in {"LONGFORM_EN", "LONGFORM_VI"}:
         if size > 2 * 1024 * 1024:
             raise PreflightError("Thumbnail must be 2 MiB or smaller")
     elif profile == "SHORTS_VI":
@@ -195,6 +198,9 @@ def inspect_thumbnail(path: Path, profile: str = "LONGFORM_EN") -> None:
         if profile == "LONGFORM_EN":
             if (width, height) != (1280, 720):
                 raise PreflightError("LONGFORM_EN thumbnail must be 1280x720")
+        elif profile == "LONGFORM_VI":
+            if (width, height) not in {(1280, 720), (1920, 1080)}:
+                raise PreflightError("LONGFORM_VI thumbnail must be 1280x720 or 1920x1080")
         elif (width >= height or height < 640 or
               abs(width / height - 9 / 16) > 0.015):
             raise PreflightError("SHORTS_VI thumbnail must be vertical 9:16, min height 640")
@@ -267,7 +273,7 @@ def write_receipt(path: Path, doc: dict) -> None:
 def run(args) -> dict:
     profile = getattr(args, "profile", "LONGFORM_EN")
     public = bool(getattr(args, "public", False))
-    if profile not in {"LONGFORM_EN", "SHORTS_VI"}:
+    if profile not in {"LONGFORM_EN", "LONGFORM_VI", "SHORTS_VI"}:
         raise PreflightError("Unknown upload profile")
     target = read_target(Path(args.config), args.channel)
     if public and (profile != "SHORTS_VI" or target["key"] != "HEM_CHUYEN_LA" or
@@ -382,7 +388,7 @@ def run(args) -> dict:
 def main():
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--channel", default="OLISE_MAN", help="Allowlisted channel key, e.g. OLISE_MAN")
-    ap.add_argument("--profile", choices=("LONGFORM_EN", "SHORTS_VI"), default="LONGFORM_EN",
+    ap.add_argument("--profile", choices=("LONGFORM_EN", "LONGFORM_VI", "SHORTS_VI"), default="LONGFORM_EN",
                     help="Strict media and metadata profile; default keeps Olise longform safeguards")
     ap.add_argument("--config", default=str(ROOT / "config" / "youtube-channel-targets.json"))
     ap.add_argument("--video-drive-id", required=True)
