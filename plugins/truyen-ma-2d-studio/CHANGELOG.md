@@ -1,0 +1,24 @@
+# Changelog
+
+## 0.3.0 — 2026-11-22
+- **Engine synced with Thanh Hai Learn AI 2D Studio 0.5.2:** `core.js` font stacks (Be Vietnam Pro → Inter → Nunito fallbacks for sharper Vietnamese diacritics) and `explainer.js` widgets (`pill`, `stamp`, `popText`, `subtitleScrim`, `spotTracker`). Horror code goes through `text()`/`FONTS`, so nothing else changed.
+- **Golden test now covers the horror layer:** 17 new frames from `examples/hem-demo` (9) and `examples/ditap-demo` (8); 51/51 frames match and re-render identically. Previously 16 of 34 inherited frames failed because the kit lagged the upstream engine.
+- **New tests:** `tests/unit/horror.test.mjs` (flicker/presence/punch/hush/creep/dollyZoom/dread timing, scareFlash window, ghost kinds × reveal and shadowFigure in 16:9 and 9:16 with finite coordinates) and `tests/py/test_scare_lint.py` (hook, ending, scare-without-hush rules, bundled examples clean). Totals: 68 JS + 26 Python tests.
+- **No hard-coded Google Drive folder:** delivery steps use `$VIDEOS_SHORTS_FOLDER_ID`, taken from the environment or the workspace's own instructions; the skill asks once and skips the upload if neither defines it.
+- **Pacing from measurements, not guesses:** `horror-story-engine.md`, `make-horror-video`, `voice.md` and `ditap-playbook.md` now give measured Vbee rates (~183 words/min at speed 1.0–1.05 including pauses; Shorts 140–160 words → 45–55 s; ~130–150 words/min only for a slow 0.9 read) and tell the agent to voice the first paragraph and recompute.
+- Documents what shipped after 0.2.0 without a changelog line: `engine/puppet2d.js` (2.5D illustrated-puppet helpers: cover transform, blink + capped eye glint with per-eye lid colour, breathing, dialogue-range mouth), `tools/make_thumb.py --vertical/--project-aspect` for 9:16 thumbnails, and the Option A (`make-horror-video-code`) and Option B (`make-horror-video-illustrated`) skills.
+
+## 0.2.0 — 2026-11-21
+- Added **Option C (`make-horror-video-ditap`)** skill and `references/ditap-playbook.md` for producing 25–35 minute Vietnamese folklore horror videos in the `@DạHànhDịTạp` style (*Thần Trùng*, *Bùa Lỗ Ban*, *Thiên Linh Cái*): 8-beat retention script architecture (0:00–1:00 cold-open rule/count anomaly, 1:00 black title card, folk specialist + 3 taboos, 3 escalations with modern-tech mirror trap, false ritual climax, post-climax subtle wrongness clues, 90% perspective-flip identity twist, and 4th-wall dark-screen ending), 30-minute zero-PNG modular production budget, minimal title formula, split-color thumbnail formula, pinned community comment template, and mandatory Google Drive `Videos-shorts` (`<slug>-final.mp4`) delivery.
+- Added `engine/ditap.js` (`ditapFigure`, `ditapBigFace`, `ditapAltar`, `ditapVillageStreet`, `ditapTitleCard`, `ditapSubtitle`, `ditapTimedSubtitle`, `ditapThumbText`) and unit test suite `tests/unit/ditap.test.mjs`: pill-body 2D characters with thick dark strokes (`#111216`), white mourning headband (`khanTang`), brow scar (`scar`), opaque milky blind eye (`blindEye`), faceless mode (`faceless: true`), blurred 2.5D ancestor altar with `德流光` plaque and white-veiled mirrors, rural village street set, and crisp black-outlined white burn-in subtitles without dark background boxes.
+- Added reference showcase project `examples/ditap-demo` (8 shots, 24s, style `nhang`, strict `shot_lint.py` and `scare_lint.py` compliant, plus `thumb` and `thumb2` split-color thumbnails).
+- Updated `make-horror-video`, `horror-engine-api.md`, `horror-story-writer`, and `horror-package` to integrate Option C (`make-horror-video-ditap`) and `/engine/ditap.js`.
+
+## 0.1.0 — 2026-11-19
+- First release, built on Thanh Hai Learn AI 2D Studio v0.5 (kit 1.1.0).
+- `engine/horror.js`: ghosts (woman/child/bride/old) with reveal, reach, glitch; shadow figure with eyes-through-darkness; eyes in dark; hand reach; handprints; breath fog; darkness with light holes and flashlight cones; flicker; heartbeat vignette; scare flash; punch/creep/dolly-zoom/dread/hush timing; 2.5D planes; Vietnamese props (altar, incense, candle, banyan, well, lantern, paper money, water, old house); the "hẻm" alley set; VHS + static overlays; horror title, rule card, clock stamp, chapter tag, thumbnail text/arrow/circle.
+- Styles `amhon nhang huyet vhs giayma`; moods `ghostNight altarRoom moonRiver hospital bloodMoon`.
+- 14 horror SFX, 5 horror music moods, `hush` ducking in `audio/mix.py`.
+- Tools: `scare_lint.py`, `vbee_tts.py`, `make_thumb.py`; `new_project.py` defaults to `--lang vi --style amhon`.
+- Example project `examples/hem-demo` with rendered MP4 and thumbnail.
+- Skills: `make-horror-video`, `horror-story-writer`, `horror-package`; references on trends (Nov 2026 channel data), story engine, folklore bank, horror style bible, engine API, sound, voice, packaging.

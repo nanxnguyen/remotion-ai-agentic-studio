@@ -1,0 +1,9 @@
+{
+  "name": "truyen-ma-2d-studio",
+  "version": "0.3.0",
+  "description": "Truyện Ma 2D Studio: làm video truyện ma / kinh dị / dị văn dân gian Việt Nam bằng nhân vật 2D–2.5D vẽ bằng code (Option A code nâng cấp, Option B ảnh minh họa + 2.5D, Option C phong cách Dạ Hành Dị Tạp 25–35 phút), xây trên Thanh Hai Learn AI 2D Studio. Từ ý tưởng → kịch bản gốc 8 hồi (hook đếm số, 3 tầng cấm kỵ, bẫy công nghệ, im lặng rồi hù, twist lật vai, kết phá bức tường thứ 4) → giọng Vbee hoặc giọng tự thu → nhân vật dáng pill viền đậm, khăn tang, mắt đục, mặt không ngũ quan, ma lướt, gian thờ hậu cảnh mờ, phố quê xưa, hẻm 02:17 → phụ đề burn-in viền đen sắc nét không hộp nền → âm thanh kinh dị tự tạo → render 16:9 hoặc 9:16 → thumbnail chữ tách màu, tiêu đề tối giản, mô tả và giao Google Drive Videos-shorts.",
+  "author": {
+    "name": "Ray"
+  },
+  "keywords": ["horror", "truyen ma", "kinh di", "da hanh di tap", "ditap", "dan gian", "ghost story", "animated horror", "2d", "2.5d", "youtube", "shorts", "vietnamese", "vbee", "thanh hai learn ai", "hem chuyen la"]
+}

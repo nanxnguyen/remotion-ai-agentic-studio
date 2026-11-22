@@ -31,7 +31,7 @@ Write the mapping in `design-spec.md`:
 
 ## 3. Prototype and frames
 - Build the hook in `src/videos/<slug>/proto/` **from the copied demo TSX** (and `SC/demos/_fixtures/` / `SC/assets/lib/` components copied in, not imported across), re-skinned with the brief tokens. Never rewrite a card from its name.
-- Three finished style frames (hook, turn, ending). **Cover** = frame 0 of the hook: hook subject + hook text already visible, readable as a small thumbnail.
+- Three finished style frames (hook, turn, ending). **Cover / Thumbnail** = frame 0 of the hook (or dedicated `thumbnail-youtube.png`): hook subject + concise thumbnail text (≤ 3–4 words, aligned with `yt-package` and `title.py` so thumbnail text complements rather than repeats the YouTube title), readable as a small thumbnail.
 - **Storyboard**: one low-fi frame per shot (composition, staging, key prop, caption position), tiled into one sheet labelled with shot id + card name.
 - Text size (Q11, measured on the final pixels, adapted to 1080 px width): captions ≥ 54 px glyph height, auxiliary text ≥ 32 px. Safe zone: text above bottom 210 px, captions at `bottom: 224`.
 - Frame-driven only (no `Date.now()`, `Math.random()`); demo pseudo-random stays seeded from indices.

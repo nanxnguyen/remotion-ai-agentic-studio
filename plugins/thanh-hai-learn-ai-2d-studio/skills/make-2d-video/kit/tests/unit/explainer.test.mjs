@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { setStyle } from '../../engine/core.js';
-import { roundTitle, dangerCard, tally, sizeCompare, ouch, sign, bug, BUGS } from '../../engine/explainer.js';
+import { roundTitle, dangerCard, tally, sizeCompare, ouch, sign, pill, stamp, popText, subtitleScrim, spotTracker, bug, BUGS } from '../../engine/explainer.js';
 import { mockCtx } from './mockctx.mjs';
 
 setStyle('dusk');
@@ -52,4 +52,26 @@ test('caption groups break at sentence ends and pauses, max 4 words', async () =
   const P = [{ word: 'a', start: 0, end: 0.2 }, { word: 'b', start: 0.3, end: 0.5 }, { word: 'c', start: 1.5, end: 1.7 }];
   assert.deepEqual(captionGroup(P, 2, 4), [2, 3]);          // a 1 s pause splits too
   assert.deepEqual(captionGroup(P, 0, 4), [0, 2]);
+});
+
+test('dangerCard normalizes tuple rows and new v0.5.1 helpers render labels cleanly', () => {
+  const g = mockCtx();
+  const w = dangerCard(g, 2, { name: 'LIVYATAN', stats: [['Chiều dài', 0.9, '17 m']] });
+  assert.ok(w.length === 1 && w[0] > 0);
+  assert.ok(!texts(g).includes('undefined'), JSON.stringify(texts(g)));
+  assert.ok(texts(g).includes('Chiều dài') && texts(g).includes('17 m'));
+
+  const gp = mockCtx();
+  pill(gp, 500, 300, 'NHÃN MẪU');
+  stamp(gp, 500, 500, 'THẬT ✓');
+  popText(gp, 500, 700, 'RẮC!');
+  subtitleScrim(gp);
+  for (const s of ['NHÃN MẪU', 'THẬT ✓', 'RẮC!']) assert.ok(texts(gp).includes(s), s);
+});
+
+test('spotTracker renders failed, active, pending, and win states cleanly', () => {
+  const g = mockCtx();
+  spotTracker(g, { current: 2, statuses: ['failed', 'failed', 'active', 'pending', 'win'], labels: ['0s', '1s', '', '', '∞'], count: 5, t: 1.2 });
+  const drawn = texts(g);
+  for (const expected of ['0s', '1s', '#3', '?', '∞']) assert.ok(drawn.includes(expected), JSON.stringify(drawn));
 });

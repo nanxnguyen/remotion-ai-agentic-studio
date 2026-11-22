@@ -75,6 +75,13 @@ Write every piece of on-screen text (title cards, labels, units, signs, chart ca
 No realism, gradients on characters, thick outlines, photos, emoji, clip-art or flat white backgrounds (except flashes). No static shots. No figures without rim light in lit scenes. No narrator lip-sync. No walls of text. No more than ~4 characters in focus at once (crowds are fine). No floating figures. No outfit colour changes. No centring everything (use thirds; the face close-up is the exception). No hard-coded colours that ignore `mood()`/`S()`. No `Math.random()` or `Date.now()` in scenes (they break determinism; use `rng(seed)` and `t`).
 
 
+## Custom 2.5D mascots & multi-plane depth (v0.5.1)
+When a project builds a custom illustrated animal mascot or creature cast (`mascot-explainer`) instead of pure black stick figures:
+- **Volumetric 2.5D shading:** shade bodies, helmets, vehicles, and predators with directional `linGrad`/`radGrad` stops aligned to the key light plus a crisp `4–5 px` rim highlight and surface details (gill slits, fin rays, armored bevels, specular tooth/eye glints). Never flatten custom hero rigs into single-tone fills.
+- **3-plane DoF staging:** pair background sets (with animated `caustics` / `FX.godRays`) and midground actors (`depth = 1`) with an out-of-focus foreground pass drawn **after** actors via `blurLayer(g, 9–12, fg => { ... }, cam, 1.65)` (swaying kelp, coral, boulders, railing corners, foreground jaws, wave spray). Remember `blurLayer` passes offscreen `fg` into your callback.
+- **Dynamic framing variety:** never stack >2 consecutive flat side-profile `"host left + subject right"` shots. Mix `ots` (blurred shoulder/fin fg), `close` (`bigFace` over `blurLayer` backdrop), `submerge` (`cam.y` crossing waterlines), inside-mouth / bottom-up `POV`, `insert` calipers, `freeze`, `blueprint` diagrams, and `three-kit.js` 3D anchor shots (~1 per 1–2 min in long episodes) paired with crisp 2D `overlay(g)`.
+- **Caption legibility on bright sets:** draw `subtitleScrim(g)` cleanly along the bottom 150 px before captions on sand, studio, snow, or desert backgrounds, and keep callouts above `y = 870` and below top HUDs (`y <= 135`).
+
 ## 9:16 vertical rules
 The logical stage is 1080×1920 (`E.vertical === true`). Use `V(landscape, vertical)` for every size and position that depends on the aspect.
 - **Closer framing:** medium shots and close-ups dominate. Wides become tall stacks (sky → building → ground), with figures in the middle third.

@@ -1,0 +1,18 @@
+{
+  "title": "Chiếc Khăn Tang Thứ 32 — Dạ Hành Dị Tạp demo",
+  "lang": "vi",
+  "aspect": "16:9",
+  "resolution": "720p",
+  "fps": 24,
+  "style": "nhang",
+  "voiceover": null,
+  "script": null,
+  "duration": 24.0,
+  "captions": false,
+  "bars": "none",
+  "fadeIn": 0.3,
+  "fadeOut": 0.8,
+  "music": { "enabled": true, "gainDb": -16 },
+  "sfx": { "enabled": true, "gainDb": -6 },
+  "loudness": -14
+}

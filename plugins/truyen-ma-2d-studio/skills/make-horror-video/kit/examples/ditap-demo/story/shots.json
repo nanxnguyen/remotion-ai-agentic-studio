@@ -1,0 +1,108 @@
+{
+  "title": "Chiếc Khăn Tang Thứ 32 — Dạ Hành Dị Tạp demo",
+  "duration": 24.0,
+  "shots": [
+    {
+      "id": "d01",
+      "start": 0,
+      "end": 3,
+      "size": "wide",
+      "beat": "hook",
+      "fear": 0.45,
+      "set": "village",
+      "line": "Ba mươi mốt người đưa tang, nhưng trên xà nhà lại có ba mươi hai chiếc khăn xô.",
+      "scene": "wide establishing village street at dusk; Nam in mourning robe holding a red-sealed jar",
+      "sfx": [{ "at": 0.1, "name": "wind", "gain": -14 }],
+      "amb": { "name": "drone", "gain": -20 }
+    },
+    {
+      "id": "d02",
+      "start": 3,
+      "end": 6,
+      "size": "title",
+      "beat": "setup",
+      "fear": 0.3,
+      "set": "black",
+      "line": "",
+      "scene": "pure black folk-horror title card after the 3s hook",
+      "sfx": [{ "at": 0.05, "name": "templebell", "gain": -10 }]
+    },
+    {
+      "id": "d03",
+      "start": 6,
+      "end": 9,
+      "size": "medium",
+      "beat": "setup",
+      "fear": 0.4,
+      "set": "village",
+      "line": "Thầy Tư mắt đục chỉ gậy dặn: sau nửa đêm đừng đếm lại số khăn.",
+      "scene": "medium two-shot on rural village street: blind-eyed folk specialist warns Nam",
+      "sfx": [{ "at": 0.4, "name": "footstep", "gain": -14 }]
+    },
+    {
+      "id": "d04",
+      "start": 9,
+      "end": 12,
+      "size": "insert",
+      "beat": "dread",
+      "fear": 0.65,
+      "set": "altar",
+      "line": "Trên bàn thờ, tấm vải trắng che gương bỗng khẽ rung dù cửa đóng kín.",
+      "scene": "insert blurred ancestor hall with hoanh phi, veiled mirrors, candles; hush before scare",
+      "amb": { "name": "chime", "gain": -22 },
+      "hush": true
+    },
+    {
+      "id": "d05",
+      "start": 12,
+      "end": 15,
+      "size": "close",
+      "beat": "scare",
+      "fear": 0.95,
+      "set": "altar",
+      "line": "Bóng người đứng ngay sau lưng không hề có mắt mũi!",
+      "scene": "close-up scare: faceless ghost appears with zoom punch and flash",
+      "sfx": [{ "at": 0.08, "name": "scare", "gain": -4 }]
+    },
+    {
+      "id": "d06",
+      "start": 15,
+      "end": 18,
+      "size": "ots",
+      "beat": "dread",
+      "fear": 0.72,
+      "set": "altar",
+      "line": "Ánh sáng điện thoại soi vào chiếc gương rơi vải — phản chiếu sai sự thật.",
+      "scene": "ots modern-tech phone glow reveals glowing red eyes behind the slipped mirror veil",
+      "sfx": [{ "at": 1.1, "name": "whisper", "gain": -10 }]
+    },
+    {
+      "id": "d07",
+      "start": 18,
+      "end": 21,
+      "size": "close",
+      "beat": "twist",
+      "fear": 0.92,
+      "set": "altar",
+      "line": "Chiếc khăn tang thứ ba mươi hai chính là phần dành cho kẻ đang kể chuyện.",
+      "scene": "close identity twist: scarred blind-eyed elder with eerie smirk",
+      "sfx": [{ "at": 0.1, "name": "stinger", "gain": -6 }]
+    },
+    {
+      "id": "d08",
+      "start": 21,
+      "end": 24,
+      "size": "end",
+      "beat": "cta",
+      "fear": 0.55,
+      "set": "black",
+      "line": "Khi màn hình tắt thành mặt kính đen, đừng đếm xem sau lưng có mấy người.",
+      "scene": "end screen 4th-wall black-mirror reflection tease with subtle watching eyes",
+      "sfx": [{ "at": 0.3, "name": "templebell", "gain": -10 }]
+    }
+  ],
+  "music": [
+    { "start": 0, "end": 12, "mood": "dread", "intensity": 0.45 },
+    { "start": 12, "end": 24, "mood": "folk", "intensity": 0.55 }
+  ]
+}

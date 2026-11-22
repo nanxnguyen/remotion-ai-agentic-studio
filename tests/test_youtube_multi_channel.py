@@ -32,6 +32,29 @@ class ChannelTests(unittest.TestCase):
         with self.assertRaisesRegex(mod.PreflightError, "Unknown channel"):
             mod.read_target(cfg, "NOT_CONFIGURED")
 
+    def test_build_video_body_uses_channel_upload_defaults(self):
+        meta = {
+            "title": "Test",
+            "description": "Desc",
+            "tags": ["a"],
+            "language": "vi",
+            "made_for_kids": False,
+            "contains_synthetic_media": True,
+        }
+        defaults = {
+            "category_id": "27",
+            "public_stats_viewable": False,
+            "embeddable": True,
+            "license": "youtube",
+            "default_audio_language": "vi",
+        }
+        body = mod.build_video_body(meta, "saf-123", privacy="private", channel_defaults=defaults)
+        self.assertEqual(body["snippet"]["categoryId"], "27")
+        self.assertEqual(body["snippet"]["defaultAudioLanguage"], "vi")
+        self.assertIs(body["status"]["publicStatsViewable"], False)
+        self.assertIs(body["status"]["embeddable"], True)
+        self.assertEqual(body["status"]["license"], "youtube")
+
     def test_invalid_alias_blocked(self):
         with self.assertRaises(mod.PreflightError):
             mod.read_target(ROOT / "config" / "youtube-channel-targets.json", "../../HACK")
@@ -101,6 +124,17 @@ class ChannelTests(unittest.TestCase):
             self.assertEqual(mod.inspect_video(pathlib.Path("video.mp4"), profile="SHORTS_VI")["duration"], 60)
             with self.assertRaisesRegex(mod.PreflightError, "2560x1440"):
                 mod.inspect_video(pathlib.Path("video.mp4"), profile="LONGFORM_EN")
+
+    def test_shorts_vi_accepts_24fps_vertical_video(self):
+        payload = {"streams": [
+            {"codec_type": "video", "codec_name": "h264", "width": 1080,
+             "height": 1920, "avg_frame_rate": "24/1"},
+            {"codec_type": "audio", "codec_name": "aac"}
+        ], "format": {"duration": "37.128"}}
+        with unittest.mock.patch.object(mod.subprocess, "run", return_value=Mock(
+                returncode=0, stdout=json.dumps(payload), stderr="")):
+            res = mod.inspect_video(pathlib.Path("video.mp4"), profile="SHORTS_VI")
+            self.assertEqual(res["fps"], 24.0)
 
     def test_shorts_vi_rejects_duration_over_sixty(self):
         payload = {"streams": [

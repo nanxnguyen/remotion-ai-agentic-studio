@@ -12,10 +12,10 @@
 
 ## One video = exactly one new sequentially numbered folder
 
-Before saving a **new** video's deliverables, list the direct children of this exact parent using the connected Google Drive API (paginate or continue as necessary; a short or partial listing is not sufficient if more children exist).
+Before saving a **new** video's deliverables, list **ALL** direct children of this exact parent using `gdrive readonly ls 1rtJF9zDWuFZ8_6IixdMew3WCZj8415-D --max 0 --json` (ALWAYS pass `--max 0` for unlimited results — never rely on the default 20-item page limit, which causes duplicate folder numbers).
 
-1. Consider only **direct child folders** whose names match `^([1-9][0-9]*)\.\s+(.+)\s+-\s+(\d{4}-\d{2}-\d{2})$`. Ignore standalone documents, numbers found inside video titles and nested folders.
-2. Parse their leading integer IDs. Set the next folder number to **max(existing IDs) + 1**; use 1 if none. Never reuse an ID, including when there are gaps. Re-check the folder listing immediately before folder creation to avoid a naming collision.
+1. Consider all **direct child folders** whose names match `^([1-9][0-9]*)\.\s+(.+)`. Ignore standalone documents, numbers found inside video titles, and nested folders.
+2. Parse their leading integer IDs across the entire folder list. Set the next folder number to **max(existing IDs) + 1** (e.g., if `50.` exists, the next folder MUST be `51.`); use 1 if none. Never reuse or duplicate an existing ID, including when there are gaps. Re-check with `--max 0` immediately before folder creation to avoid any collision.
 3. Create the new folder **inside that exact parent ID** using:
    `<N>. <Video title> - <YYYY-MM-DD>`
    Example: `3. Bức Ảnh Duy Nhất Không Có Mẹ - 2026-10-24` **only if 3 is still available and that is the actual local production date**.
@@ -57,6 +57,8 @@ OPTIONAL PINNED COMMENT:
 - Default to a dramatic, cinematic and memorable look tailored to the genre; stay truthful to the story (do not add fake events or unrelated horror).
 - Optimize for a small mobile preview; avoid clutter, huge text blocks, cropped main faces or critical props under UI overlays.
 - For **Shorts: vertical 9:16**; for **long-form: landscape 16:9**. Verify exported dimensions and image bytes. Thumbnail must be a separate real image file, never a screenshot/contact sheet placeholder.
+- **NEVER use a raw video screenshot or a frame containing bottom subtitles** as `thumbnail-youtube.png`. Always build a dedicated high-CTR thumbnail composition.
+- **Million-view CTR formula:** close-up dramatic framing (characters/threat fill 60–75% of the canvas), extreme facial emotion, **2–4 punchy hook words max** in bold/black typography with thick dark outline (e.g. `4,000 PSI!!`), high-contrast red/yellow danger glow + pointing arrow, and keep the bottom-right corner clear of key text (YouTube duration badge).
 - **Approval is not assumed** from generation; visual inspection is required. Avoid claiming "guaranteed million views."
 
 ## Required upload and verification
@@ -67,7 +69,7 @@ OPTIONAL PINNED COMMENT:
 4. Fetch this Drive parent's live ID/metadata and list children; choose correct `N`. Create or reuse the intended video's folder.
 5. Upload **real bytes for all three files** into the numbered folder using authorized Drive upload actions. Do not upload a GitHub text pointer, missing binary, test footage, mock image or a signed URL in place of an actual asset.
 6. Read back the folder and file metadata: all 3 assets, exact parent ID, MIME, nonzero file sizes, accessible Drive file links. If possible, verify checksum/bytes against source files. If any operation fails, report which file or gate is missing and do **not** mark delivery complete.
-7. Return **Drive folder URL** plus individually verified final MP4, thumbnail and title-description file URLs; include exact sequential folder name, media metadata and relevant GitHub/vidIQ durable IDs when available.
+7. **Immediately upon finishing the Drive upload (do not wait to be asked)**, return **directly clickable Google Drive URLs** (bare `https://drive.google.com/...` links or clickable Markdown links — never bare file IDs or backtick-wrapped unclickable strings) for the **Drive folder** plus all three verified assets (`video-final.mp4`, `thumbnail-youtube.png`, and `youtube-title-description.txt`); include exact sequential folder name, media metadata (byte sizes, resolution, FPS, duration, loudness), and relevant GitHub/vidIQ durable IDs when available.
 8. Upload/archive is not permission to publish to YouTube or TikTok. Do not change Drive sharing permissions without authorization.
 
 ## Relationship to other production conventions

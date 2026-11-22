@@ -2,7 +2,7 @@
 name: make-2d-video
 description: "This skill should be used when the user wants a narrated animated video in the Thanh Hai Learn AI 2D style (cinematic stick figures with rim light, moody 2.5D sets, giant face close-ups, freeze-frames, data overlays, blueprint diagrams and low-poly 3D shots), e.g. \"make a 2D video from this voiceover\", \"animate my script\", \"turn this narration into a stick figure video\", \"make a What If video\", \"create an animated explainer from my audio\", or \"do the whole video\", and Vietnamese requests such as \"làm video 2D\", \"làm video người que\", \"dựng video hoạt hình từ giọng đọc\", \"làm video What If\". It runs the full pipeline: install, timestamps (Whisper), story breakdown, style choice, scene building, rendering, music, SFX and final MP4 in 16:9 or 9:16 at 720p to 4K.\n"
 metadata:
-  version: "0.5.0"
+  version: "0.5.1"
   author: Thanh Hai Learn AI
 ---
 

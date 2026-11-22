@@ -26,6 +26,7 @@ Append `## Round N` to `docs/<vid>/content-pack-review.md` only.
 - **Emphasis**: accent words match the 3 highlight beats; CTA separate from the climax.
 - **Credibility**: every shown claim has a source URL and the right fact/inference tag; every recreated UI/diagram labelled `minh hoạ`.
 - **User constraints**: each quoted requirement checked one by one.
+- **YouTube Packaging & SEO (`youtube-agent-skill`)**: when title, thumbnail text, or YouTube description is present, verify `yt-package` (`python3 .claude/skills/yt-package/title.py --title "..." --thumb "..."`: no word duplication between title and thumbnail, ≤ 3–4 words on thumbnail, clear mobile/desktop truncation) and `yt-seo` (honest query-matched description, no unverified claims).
 
 **pass** only if mean ≥ 9, no item below 8, and no `Cao`/`Trung` ticket open. A problem in a spoken line is a ticket for `script-agent` (reopens gate A); everything else goes to `content-agent`.
 

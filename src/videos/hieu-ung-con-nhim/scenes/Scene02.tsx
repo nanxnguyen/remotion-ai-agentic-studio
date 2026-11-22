@@ -52,10 +52,23 @@ export const Scene02: React.FC = () => {
         >
           HIỆU ỨNG CON NHÍM
         </text>
-        <KineticStroke kind="underline" x={270} y={450} width={540} startFrame={6} durationFrames={22} />
+        <KineticStroke
+          kind="underline"
+          x={270}
+          y={450}
+          width={540}
+          startFrame={6}
+          durationFrames={22}
+        />
         <line x1={120} y1={GROUND_Y} x2={960} y2={GROUND_Y} stroke="#2B2B32" strokeWidth={4} />
         <DefenseSpikes cx={leftX} cy={GROUND_Y - 250} progress={spikeFactor} outerR={175} />
-        <DefenseSpikes cx={rightX} cy={GROUND_Y - 250} progress={spikeFactor} outerR={175} color="#8E8E98" />
+        <DefenseSpikes
+          cx={rightX}
+          cy={GROUND_Y - 250}
+          progress={spikeFactor}
+          outerR={175}
+          color="#8E8E98"
+        />
         <DirectorCharacter pose={leftPose} styleId={STYLE_ID} />
         <DirectorCharacter pose={rightPose} styleId={STYLE_ID} accessory="beanie" />
       </DirectorStage>

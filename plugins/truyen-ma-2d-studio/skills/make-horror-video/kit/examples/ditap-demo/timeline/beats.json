@@ -1,0 +1,58 @@
+[
+  {
+    "i": 0,
+    "start": 0.0,
+    "speechStart": 0.1,
+    "speechEnd": 2.8,
+    "text": "Ba mươi mốt người đưa tang, nhưng trên xà nhà lại có ba mươi hai chiếc khăn xô.",
+    "end": 2.95
+  },
+  {
+    "i": 1,
+    "start": 6.1,
+    "speechStart": 6.2,
+    "speechEnd": 8.8,
+    "text": "Thầy Tư mắt đục chỉ gậy dặn: sau nửa đêm đừng đếm lại số khăn.",
+    "end": 8.95
+  },
+  {
+    "i": 2,
+    "start": 9.1,
+    "speechStart": 9.2,
+    "speechEnd": 11.8,
+    "text": "Trên bàn thờ, tấm vải trắng che gương bỗng khẽ rung dù cửa đóng kín.",
+    "end": 11.95
+  },
+  {
+    "i": 3,
+    "start": 12.15,
+    "speechStart": 12.2,
+    "speechEnd": 14.8,
+    "text": "Bóng người đứng ngay sau lưng không hề có mắt mũi!",
+    "end": 14.95
+  },
+  {
+    "i": 4,
+    "start": 15.1,
+    "speechStart": 15.2,
+    "speechEnd": 17.8,
+    "text": "Ánh sáng điện thoại soi vào chiếc gương rơi vải — phản chiếu sai sự thật.",
+    "end": 17.95
+  },
+  {
+    "i": 5,
+    "start": 18.1,
+    "speechStart": 18.2,
+    "speechEnd": 20.8,
+    "text": "Chiếc khăn tang thứ ba mươi hai chính là phần dành cho kẻ đang kể chuyện.",
+    "end": 20.95
+  },
+  {
+    "i": 6,
+    "start": 21.1,
+    "speechStart": 21.2,
+    "speechEnd": 23.8,
+    "text": "Khi màn hình tắt thành mặt kính đen, đừng đếm xem sau lưng có mấy người.",
+    "end": 23.95
+  }
+]

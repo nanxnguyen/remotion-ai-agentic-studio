@@ -1,14 +1,13 @@
-// Measured or estimated Vbee voice clip durations (in seconds).
-// Re-generate after downloading Vbee artifacts via:
-//   npm run voice:measure -- hieu-ung-con-nhim --out src/videos/hieu-ung-con-nhim/voice-durations.ts
+// Exact ffprobe-measured Vbee voice clip durations (in seconds)
+// Source: public/audio/hieu-ung-con-nhim/measured-timeline.json (run 43622580866)
 export const VOICE_SECONDS = {
-  s1: 3.2,
-  s2: 4.8,
-  s3: 5.0,
-  s4: 3.5,
-  s5: 6.0,
-  s6: 5.5,
-  s7: 5.0,
-  s8: 6.0,
-  s9: 4.0,
+  s1: 4.08,
+  s2: 5.136,
+  s3: 4.32,
+  s4: 2.232,
+  s5: 5.832,
+  s6: 4.752,
+  s7: 3.504,
+  s8: 5.016,
+  s9: 2.64,
 } as const;

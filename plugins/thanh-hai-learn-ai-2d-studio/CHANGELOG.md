@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.5.2 (2026-11-21)
+- **engine/explainer.js + unit test**: Added `spotTracker(g, { x, y, current, statuses, labels, count, t })` centered in the top HUD band (`y = 92..130`, safely below title pills `y = 36..84` and above `y >= 162` callouts), plus `/engine/tihon.js` v3.0 mascot documentation in `engine-api.md` and `mascot-explainer-format.md`.
+- **Algorithmic Retention & Vbee-First Blueprint (`mascot-explainer`, `story-breakdown.md`, `mascot-explainer-format.md`)**: Codified the `<= 28 s` Golden Intro Gate (`<= 110` VI words across 0–5s Visual Hook, 5–15s Promise + Open Loop, 15–28s Stakes/Rules), Chained Open Loops eliminating section cliffs, 1–2 False Victories + named Mid-Video Wager, slapstick-free `0.02` Silence Drops, Binge Outro into `15–20 s` animated End Screens (`end01..end02` with `notes: "hold"`), Script-to-Rig prop continuity checks, and Vietnamese Vbee-First 1-pass TTS rules (`<= 25` words/sentence, no English loanwords or unspelled digits).
+- **1440p Speed & HUD QC (`render-qc.md`, `render-video`)**: Standardized `--format jpeg --preset veryfast` (2.5–3× faster 1440p rendering), 2-pass/strict `-14.0 ± 0.4 LUFS` (`TP <= -1.0 dBTP`) `loudnorm` audio mastering, `x >= 52, y >= 36` outer HUD margins, `>= 30 px` dark-pill callouts (`y <= 860`), and `hero3d` dispatch resilience for `00_3d_hero.js`.
+
+## 0.5.1 (2026-11-18)
+- **engine/explainer.js**: `dangerCard` now normalizes tuple rows (`[label, v, text]`) safely without `"undefined"`; added `pill`, `stamp`, `popText` (persistent comic burst), and `subtitleScrim` (bottom caption contrast gradient) with `measure()`-based widths so bold Vietnamese diacritics/emojis never clip.
+- **2.5D Cinematography & Mascot Polish (`style-bible.md`, `mascot-explainer`)**: documented multi-stop volumetric gradients, anatomical rim/surface detail, 3-plane `blurLayer` foreground DoF framing (with offscreen `fg` callback clarification), POV/submerge/OTS/freeze/3D shot rotation, geographic map checks, and `"bars": "none"` HUD/subtitle safe zones.
+- **API Safeguards & Long-Render Recovery (`engine-api.md`, `render-qc.md`, `render-video`)**: documented `radGrad` 6-arg signature, `rng(seed)()` invocation trap (`NaN` vanishing boil bug), `boilPose` dict rule, `--stills` inspection for 3D/POV shots, partial `--from/--to` chunk splice recovery, and full FFmpeg `blackdetect`/`freezedetect`/`silencedetect` + 16-frame final MP4 montage QC.
+
 ## 0.5.0 (2026-11-14)
 - **New skill `mascot-explainer`** (Dumb Doggo-style mascot-host explainers) + `references/mascot-explainer-format.md`.
 - **rig**: mascot heads `outfit.species` dog/cat/bear with `outfit.fur`, on drawFigure and bigFace.

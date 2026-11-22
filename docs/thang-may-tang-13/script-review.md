@@ -435,3 +435,167 @@ Trung bình (9+9+9+9+9+9+9+9+9+8)/10 = **8.9**. Điều kiện pass: overall ≥
 ### Điều kiện pass Round 5
 
 Đóng A34 bằng cách xoá hoặc sửa voice-direction.md:49 theo acceptance. Nếu chỉ thay đổi đúng vậy, mục 10 lên 9, trung bình 9.0, không còn Cao/Trung, và gate A pass. Nên làm luôn các Thấp A20b, A27, A36, A39 vì mỗi cái chỉ là sửa một dòng. Không cần viết lại lời. Nếu nhận W1 hoặc W2 thì phải đếm lại âm tiết và kiểm lại join. Không re-litigate A1–A33, A35, A37, A38 đã đóng.
+
+## Round 5
+
+Reviewer: `script-reviewer-5`, context sạch, độc lập: không viết các file này và không làm Round 1–4. Ngày 2026-11-08.
+Đầu vào đã đọc: `brief.md`, `research.md`, `hook-options.md`, `script.md`, `shotlist.json`, `voice.proposed.json`, `voice-direction.md`, `voice-performance.proposed.json`, `HANDOFF.md`, Round 1–4 của file này, `.agents/rules/01-status-truth.md`, `.agents/skills/ray-pineline-worflow-agent/references/hook-engineering.md`, `.claude/skills/ray-phim-ke-chuyen/SKILL.md` (SOFT_FADE :213–217), `status.json` (grep). Tôi mở ba plate: `public/images/thang-may-tang-13/p01.jpg` (cover), `p11.jpg` (ảnh nạn nhân trên TV), `p14.jpg` (di ảnh). Glob xác nhận đủ 16 frame trong `frames/` và 16 plate trong `public/images/thang-may-tang-13/`. Lời thoại **không đổi** so với Round 4: 13 key, 162 âm tiết. Phần trau chuốt hình thuộc gate D, ở đây không tính điểm.
+
+### Kết luận: **9.0/10 — pass** · specificity/cảm xúc **9/10** · hook **9/10**
+
+A34, ticket Trung cuối cùng, đã đóng đúng acceptance. Ba ticket Thấp A20b, A27, A36 cũng đã đóng. Tôi chấm lại cả 10 mục từ đầu, mục nào cũng đạt 9 kèm bằng chứng mới. Không còn ticket Cao hay Trung nào mở.
+
+Còn bốn việc Thấp, không chặn pass:
+- A32 bị **regression**: bảng gap ở script.md:115–118 chỉ còn dòng header, mất hết các dòng dữ liệu.
+- A39 mới đóng một phần (HANDOFF thuộc director).
+- Header của script.md đã cũ (A42).
+- Một đề xuất cho caption hook khi tắt tiếng (A41).
+
+Gate A **pass**. Các ticket Thấp nên làm trước khi đưa owner duyệt storyboard, và không cần một vòng gate A nữa.
+
+### Bảng điểm
+
+| # | Mục | Điểm | Bằng chứng |
+|---|---|---|---|
+| 1 | Fidelity (owner) | 9 | Đủ năm beat owner nêu ở brief.md:16: thang dừng tầng 13 (s1–s2, id1–2), hành lang giống hệt có niêm phong (s4, id4), cửa nhà Linh hé (s6, id6), có người xem tin cháy (s7–s8, id7–8), ảnh nạn nhân là Linh (s9–s10, id9–10). Owner không bắt buộc câu nguyên văn nào; các beat đều được dựng thành cảnh. Voice không đọc disclaimer (script.md:56). Route photoreal ghi nhất quán ở script.md:60 và HANDOFF.md:10. Nhịp đọc tự nhiên, hơi nhanh (speed_rate 1.05, brief.md:19), đúng memory owner |
+| 2 | **Hook** | **9** | Frame 0 (id1 visual) là panel 1–12 với đồng hồ "12", caption trắng "CHUNG CƯ CHỈ CÓ 12 TẦNG" hiện từ 0.0. Ở 1.5 s đồng hồ lật sang 13 kèm "ding", caption amber "TẦNG 13", trùng lúc lời đọc "mười hai tầng" (âm tiết 7–9, ≈1.5–2.2 s ở 4.1 syl/s). Từ 2.8 s là phản ứng của Linh (P03), từ 4.2 s là cửa mở (P02). Payoff đầu tiên đến trước 8 s. Chi tiết ở mục Hook gate |
+| 3 | Clarity | 9 | Kể lại được trong một câu: "Đêm giỗ đầu, hồn Linh, cô gái chết trong vụ cháy chung cư một năm trước, được thang máy đưa về một tầng 13 giống hệt nhà mình, nơi mẹ đang mời cô về ăn cơm." Câu chuyện được nối bằng hình: "00:12" xuất hiện ở P03/P06/P10 (id2, id5, id8), căn 1205 ở P07 và P11, bồn nước trên mái ở P10 |
+| 4 | Tự nhiên khi nói | 9 | Câu dài nhất là s8, 21 âm tiết chia ba cụm, mỗi cụm vừa một hơi. Số đều viết bằng chữ. Không có token tiếng Anh ("tivi" đã Việt hoá). Không có hai câu liền nhau mở đầu giống nhau. Câu mẹ nói "hôm nay giỗ đầu con… con về ăn cơm với mẹ nhé" đúng giọng mẹ Việt. Còn đúng một chỗ hơi văn viết ở s5 (W1, mang sang từ Round 4) |
+| 5 | Timing | 9 | Tôi tự đếm lại từ `voice.proposed.json`, đơn vị là âm tiết tách bằng dấu cách: **162**, khớp script.md:64. Ở 4.1 syl/s cộng nghỉ dấu câu, mọi key đều dưới mức slot − 0.08 s; chặt nhất là s7 (4.70/4.92) và s2 (2.83/3.12). Mức tối thiểu khi Join có ở script.md:134–136. Khoảng lặng chủ đích là gap timeline (s9 0.7 s, s13 0.8 s), không phải pause bằng dấu câu. Bảng gap đã mất dòng (A32, Thấp); điểm này tôi chấm dựa trên phép đếm của chính tôi, không dựa vào bảng đó |
+| 6 | Nguồn/chính xác | 9 | Truyện hư cấu, không dùng tên toà nhà (research.md:3), có ghi chú giỗ tính theo âm lịch (research.md:13). Không màn hình nào ghi năm: id5 "no year", id8 "00:12 (no year)", id2 "00:12 (no date)". Ảnh nạn nhân chỉ ghi "L., 26 tuổi" (id9), không ghi tên đầy đủ. Không có claim thật nào |
+| 7 | Khả thi trong Remotion | 9 | Mọi hành động được kể đều có trước → hành động → kết quả nhìn thấy được (script.md:57, `action_beats` từng id). Mẹ quay lại làm bằng crossfade hai plate, không warp ảnh (id11 motion). Mọi chữ trong khung hình đều composite trong Remotion. Đủ 16 plate. Các lỗi asset (P01, P14 so với P11) thuộc gate D, đã ghi bên dưới |
+| 8 | **Specificity / cảm xúc** | **9** | Cặp tương phản ở điểm xoay rõ: tin nhắn thường ngày "Mẹ: Về ăn cơm nhé con" (P03, 2.8 s) ↔ lời mời ngày giỗ (s12). "Về" được nhắc lại lần thứ ba ở câu kết "Đôi đũa vẫn chờ Linh về", và câu đó vừa nói Linh đã về vừa nói Linh không bao giờ về được nữa. Beat nào cũng có chi tiết giác quan: đèn tắt phụt, muội trần, giấy ố vàng, mùi nhang, ánh tivi xanh, tro ở đầu ngón tay, bát cơm đầy với đôi đũa gác ngang (plate p14 cho thấy rõ). Đúng 3 highlight đỏ ở id10–12. Câu kết là hình, có hold 0.8 s, không có CTA. Đọc lên thấy đau, không chỉ hiểu. Chưa đạt 10 vì mô-típ "nhân vật đã chết" quen thuộc, và khoảng 25–30 s vẫn là một chuỗi "phát hiện → mô tả" |
+| 9 | Profile `story` | 9 | Có mục tiêu (về nhà theo tin nhắn), có động cơ bước ra (đèn trong thang tắt, id3), đi đủ situation → turn (s8–s10) → ending (s12–s13). Nhân vật nhất quán với character bible (brief.md:35–36): áo mưa vàng mù tạt và tóc bob ở P11, P14. Khác với `ngon-hai-dang` / `chiec-bat-goi-ten` ở chỗ động cơ là lời mời giỗ (brief.md:25) |
+| 10 | Voice direction | 9 | A34 đã đóng (xem bảng xác minh). Mọi cụm ở cột word của bảng tone (voice-direction.md:43–55) và cột emphasis (:17–29) đều là chuỗi con của canonical; cột tempo khớp sidecar từng key. `unsupportedControls` khai trung thực (voice-performance:14–20), `seed: null` có lý do. Không có cue nào lọt vào lời hay caption. Còn một chỗ lệch nhẹ ở s12 `emotion` "gần thì thầm" so với :55 (W3, mang sang) |
+
+Trung bình (9+9+9+9+9+9+9+9+9+9)/10 = **9.0**. Điều kiện pass: overall ≥ 9 ✓; hook ≥ 9 ✓; specificity ≥ 9 ✓; không mục nào < 8 ✓; không còn Cao/Trung ✓. Kết quả: **pass**.
+
+### Quy trình kiểm tra (10 bước)
+
+1. **Đọc như người xem.** Tôi chỉ đọc lời, theo slot. Cảm nhận:
+   - Luật bị phá ngay ở 1.5 s, và trước 3 s đã có mặt người phản ứng.
+   - Tiếp theo là năm manh mối lạnh liền nhau, một khoảng lặng thật, rồi "Là Linh."
+   - Khi mẹ thì thầm "về ăn cơm", tin nhắn đầu phim đổi nghĩa. Bát cơm còn nguyên làm thắt lòng.
+   - Chỗ dễ mất người xem nhất là **~25–30 s** (s7), nhịp "phát hiện → mô tả" thứ năm liên tiếp. Câu hỏi "ai ngồi quay lưng" vẫn đủ kéo người xem sang s8.
+2. **Hook.** Xem mục Hook gate.
+3. **Show/tell.**
+   - s1 là tell, nhưng hình đang phá chính luật đó cùng lúc.
+   - s2–s7 show.
+   - s8 tell (thuật lại bản tin).
+   - s9 tell nhẹ (kể lại hình, W2).
+   - s10–s13 show.
+   - Có hai tell liền nhau (s8, s9), không có ba. Đạt.
+4. **Thử nói.**
+   - Không câu nào dài quá một hơi.
+   - Dấu tiếng Việt đúng ở 13 key và 26 caption_beats (đọc trực tiếp shotlist.json).
+   - Ký tự "…" là cùng một codepoint ở cả ba file JSON: grep "…" cho voice 5, perf 5, shotlist 9 (5 trong narration, 4 trong caption).
+5. **Cấu trúc.**
+   - Phase: HOOK 0–6 / BODY 6–30 / CLIMAX 30–48 / ENDING 48–60.
+   - Re-hook ở s5 (15.8 s, "một năm trước, cũng lúc nửa đêm").
+   - Cặp tương phản: P03 ↔ s12.
+   - Caption đỏ chỉ ở id10, id11, id12: 3 cảnh liên tiếp, đúng mức tối đa.
+   - Climax (s9–s11) và kết (s13) ở hai shot khác nhau. Hold 0.8 s rồi fade-to-black. Không có hard cut, shake hay flash.
+   - Fade 0.3 s ở 2.8 s (id1) thấp hơn mức ưu tiên 0.35–0.55 s của SKILL.md:215. Lý do có ghi ở script.md:59 (giữ mặt Linh ≥1.2 s trong cửa sổ 2–4 s), và chính Round 4 đã đề xuất giá trị này, nên không mở ticket.
+   - Hai fade 0.6 s cho đoạn grief có lý do, khớp SKILL.md:215.
+6. **Fidelity.** Owner không bắt buộc câu nguyên văn nào. Năm beat tóm tắt đều được dựng thành cảnh (mục 1 bảng điểm), không beat nào chép nguyên tóm tắt.
+7. **Claims.** Không có claim thật. Grep `2025` trong tài liệu đang dùng chỉ còn các dòng lịch sử trong bảng ticket-response (đã được miễn ở Round 4).
+8. **Timing.**
+   - Đếm âm tiết: s1 9 · s2 11 · s3 15 · s4 15 · s5 12 · s6 14 · s7 16 · s8 21 · s9 5 · s10 2 · s11 14 · s12 15 · s13 13 = **162**.
+   - Ước lượng ở 4.1 syl/s, cộng 0.15 cho dấu phẩy, 0.25 cho dấu chấm hoặc hai chấm giữa câu, 0.35 cho "…", so với trần (slot − 0.08 s): s1 2.2/2.72 · s2 2.83/3.12 · s3 4.16/4.52 · s4 4.1/5.12 · s5 3.43/4.12 · s6 4.0/4.92 · s7 4.70/4.92 · s8 5.62/6.32 · s9 1.22 + 0.7 gap/2.32 · s10 0.5/2.32 · s11 4.2/6.72 · s12 4.26/5.72 · s13 3.32 + 0.8 hold/6.12.
+   - Tất cả đều vừa. Tổng slot 60.000 s.
+   - Không có pause chủ đích nào chỉ dựa vào dấu câu bên trong một clip giọng clone; Vbee Anh Khôi là giọng có sẵn, không phải clone.
+   - Ghi nhận rủi ro: s4 có emotion "ngừng ở dấu ba chấm", nhưng độ dài nghỉ thật chỉ biết khi có clip.
+9. **Hợp đồng performance.**
+   - Đọc trực tiếp mảng `phrases` của 13 key, ghép bằng một dấu cách: thứ tự và dấu câu khớp canonical.
+   - Byte check bằng grep literal, phủ đủ **24/24** phrase, chia hai lượt:
+     - Lượt (a), 10 pattern có "…", dấu phẩy hoặc dấu hai chấm: perf 10, voice 9 dòng, shotlist 9 dòng (s7 có hai pattern trên cùng một dòng).
+     - Lượt (b), 14 phrase còn lại: perf **14**, voice **10** dòng, shotlist **10** dòng, đúng như dự kiến theo phân bố key.
+   - Vậy ba file dùng cùng chuỗi byte.
+   - Mọi `accentWords` đều là chuỗi con của canonical.
+   - Không có cue nào lọt vào lời hay caption. Không bịa control.
+   - Tổng pause chủ đích là 1.5 s, không đẩy video vượt 60 s.
+10. **Săn điểm yếu.** Xem mục W1–W5 bên dưới.
+
+### Hook engineering gate
+
+- **0–1 s, tách riêng (frame 0 = cover):**
+  - Hình: ECU panel thang máy, bảng nút 1–12, nút "12" sáng cam, đồng hồ LED đỏ phía trên composite số "12".
+  - Chữ: caption trắng "CHUNG CƯ CHỈ CÓ 12 TẦNG" từ 0.0 s, trong vùng an toàn phía trên (hook-options.md:7).
+  - Lời: "Chung cư nhà Linh…".
+  - Có chủ thể và có một luật được nêu ra; mâu thuẫn chưa xảy ra nhưng đã được hứa ("chỉ có…"). Đạt.
+  - Plate `p01.jpg` hiện vẫn còn đủ lỗi gate D (xem mục gửi gate D). Riêng nút trống ở cột phải phía trên "11" đọc như nút thứ 13, phá đúng tiền đề của cover. Không trừ điểm A.
+- **1–3 s:**
+  - 1.5 s: đồng hồ lật 13 + "ding", caption amber "TẦNG 13", trùng lời "mười hai tầng". Tắt tiếng vẫn hiểu được "12 tầng mà lại có 13".
+  - 2.8 s: mặt Linh (P03) sau fade 0.3 s.
+  - Có đúng một curiosity gap: tầng 13 ở đâu ra. Đạt.
+- **3–8 s, first payoff:**
+  - 4.2 s: cửa mở ra hành lang tối.
+  - 6–10.6 s: cửa không chịu đóng, đèn tắt phụt.
+  - Payoff có thật, không giữ lại hết.
+- **Kết có trả lời lời hứa?** Có. Tầng 13 là tầng nhà Linh trong đêm giỗ đầu, nơi mẹ mời cô về. Câu kết khép mạch "về" mở từ 2.8 s.
+- **So với candidate bị loại:**
+  - H3 (gương trống, hook-options.md:9) có sức dừng mạnh tương đương, nhưng lộ twist ngay trong 2 s, nên phần còn lại của phim mất lý do để xem. Nó được giữ đúng chỗ, làm clue xem lại ở P03.
+  - H5 (âm thanh) mất hoàn toàn khi tắt tiếng.
+  - H1 thắng vì vừa đọc được khi tắt tiếng vừa không spoil.
+- **Artifact:** hook-options.md có H1–H5 × 5 trường. ID H1 được tham chiếu ở script.md:12 và brief.md:25. Đạt.
+- **Hook sub-score 9.**
+- **Chỉ xác minh được sau render và đăng:**
+  - Tỷ lệ viewed vs swiped và retention ở 0–3 s.
+  - Người lướt nhanh có đọc kịp caption 6 chữ trong 1.5 s không (A41).
+  - P01 sau khi gate D sửa có thật sự đọc ra "chỉ đến 12" không.
+
+### Xác minh ticket Round 4 (theo acceptance, không dựa vào bảng tự khai ở script.md:138–146)
+
+| id | Kết quả | Bằng chứng |
+|---|---|---|
+| A34 | **closed** | voice-direction.md:49 nay là `| "nhang" | s7 | short level tone, low risk | keep |`. Tôi kiểm cả 13 dòng của cột word (:43–55), mọi cụm đều là chuỗi con của `voice.proposed.json`: "nhúc nhích", "tắt phụt", "niêm phong", "hé mở", "mười hai không năm", "phảng phất", "nhang", "Là Linh.", "giỗ đầu", "thì thầm", "Đôi đũa vẫn chờ Linh về.", "bàn thờ", "Mẹ thì thầm". Cột emphasis :17–29 cũng toàn là chuỗi con; cột tempo khớp sidecar từng key |
+| A20b | **closed** | shotlist id1 `transition_out` "soft-fade-0.3s"; id2 `camera` không còn ghi chú fade; script.md:37 "soft-fade-0.3s"; script.md:59 ghi lý do. Chỉ còn một giá trị cho chuyển cảnh 2.8 s. Dòng script.md:128 ("0.25 s") nằm trong bảng ticket-response lịch sử, được miễn |
+| A27 | **closed** | script.md:44 "CHÍNH CHUNG CƯ NÀY CHÁY (white)", trùng shotlist id8 caption_beats[0] |
+| A36 | **closed** | script.md:19 có "hôm nay giỗ đầu con… con về ăn cơm với mẹ nhé"; script.md:57 "fire footage with timestamp 00:12" |
+| A39 | **partly fixed** (Thấp, director, còn mở) | Đạt: HANDOFF.md:8 "13 scenes"; :23 ghi p09 "darkened to unreadable (fixed)". Chưa đạt: **:24** "Remaining: p12–p16" và :23 "frames … `frames/p01..p11.png`", trong khi glob cho thấy p12–p16 đã có ở cả `frames/` và `public/images/thang-may-tang-13/`. **:11** vẫn là dòng Round 2 cũ, chưa gộp vào :25. **:3** "Updated 2026-11-07", nhưng nội dung đã có Round 4 (11-08). Acceptance "không còn mô tả trạng thái trái với file hiện tại" chưa đạt |
+
+### Regression check (những chỗ fix Round 4 đã chạm vào)
+
+- **A32 bị regression.** Round 3 và Round 4 đều trích bảng gap ở script.md:115–131. Hiện script.md:115–118 chỉ còn tiêu đề và dòng header `| key | slot s | planned speech s … | designed silence |`, **không có dòng dữ liệu nào**. Mức tối thiểu khi Join cũng đã dời từ :147–149 lên :134–136, tức khoảng 13 dòng đã mất. Nguyên nhân có khả năng là lúc A27 "regenerate shot table" ở Round 4. Hệ quả: dòng ticket-response A32 ở script.md:113 ghi "Gap table below" là một khẳng định không đúng với file (01-status-truth). Ghi thành ticket A32 (Thấp, regression) bên dưới.
+- Lời thoại, phrases, caption và màu không bị đụng: join khớp 24/24, đỏ đúng 3, dấu tiếng Việt đúng.
+
+### Tickets Round 5
+
+`id | sev | where | evidence | concrete change | owner | acceptance`
+
+| id | sev | where | evidence | concrete change | owner | acceptance |
+|---|---|---|---|---|---|---|
+| A32 | Thấp (regression) | script.md:115–118 | Bảng gap chỉ còn header; script.md:113 ghi "Gap table below" | Điền lại 13 dòng (ở 4.1 syl/s, đã cộng nghỉ dấu câu): `s1 \| 2.8 \| 2.2 \| 0.6 flip read + 0.3 fade` · `s2 \| 3.2 \| 2.83 \| 0.37 doors settle` · `s3 \| 4.6 \| 4.16 \| 0.44 dark beat` · `s4 \| 5.2 \| 4.1 \| 1.1 seal flicker reveal` · `s5 \| 4.2 \| 3.43 \| 0.77 rack focus on date` · `s6 \| 5.0 \| 4.0 \| 1.0 push to 1205` · `s7 \| 5.0 \| 4.7 \| 0.3 silhouette hold` · `s8 \| 6.4 \| 5.62 \| 0.78 ticker` · `s9 \| 2.4 \| 1.22 \| 0.7 twist gap + 0.48` · `s10 \| 2.4 \| 0.5 \| 1.9 step back, heartbeat x2` · `s11 \| 6.8 \| 4.2 \| 2.6 crossfade + tilt-up (Join min 6.0)` · `s12 \| 5.8 \| 4.26 \| 1.54 ash action (Join min 5.0)` · `s13 \| 6.2 \| 3.32 \| 0.8 hold + 1.0 fade + 1.08`. Sau đó không regenerate script.md theo cách xoá các mục thủ công | script-agent | script.md có đủ 13 dòng gap kèm lý do; mọi dòng "below/above" trong ticket-response trỏ tới nội dung có thật |
+| A39 | Thấp (director, phần dư) | HANDOFF.md:3, :11, :23–24 | Xem bảng xác minh | :3 → "Updated 2026-11-08"; :11 → xoá (đã có ở :25); :23 → "frames saved full-size 1536×2752: `frames/p01..p16.png`"; :24 → bỏ "Remaining: p12–p16", chỉ giữ ghi chú về chat Gemini nếu còn đúng; :25 → thêm "round 5 = 9.0 pass" sau khi director ghi review qua `pipeline.py` | director | HANDOFF không còn trạng thái trái với `frames/` và `public/images/` hiện tại |
+| A41 | Thấp NEW (hook, khi tắt tiếng) | id1 caption_beats | Caption trắng "CHUNG CƯ CHỈ CÓ 12 TẦNG" (6 chữ) chỉ hiện 0–1.5 s rồi bị "TẦNG 13" **thay thế**, nên mâu thuẫn 12↔13 không bao giờ cùng nằm trên màn hình. Người lướt nhanh có thể chỉ kịp đọc một nửa | Giữ caption trắng tới 2.8 s; "TẦNG 13" (amber) hiện **bên dưới** nó từ 1.5 s, thành hai dòng xếp chồng: `0.0–2.8 "CHUNG CƯ CHỈ CÓ 12 TẦNG" white` + `1.5–2.8 "TẦNG 13" amber`. Không đổi lời | script-agent (render kiểm ở gate C) | Ở 1.5–2.8 s, một frame chứa cả "12 TẦNG" lẫn "TẦNG 13" trong safe-zone, ≤2 dòng mỗi caption |
+| A42 | Thấp NEW | script.md:3 | "Round 4 after Gate A rounds 1–3 (7.7 / 8.3 / 8.8, revise)" đã cũ | → "Round 5 after Gate A rounds 1–4 (7.7 / 8.3 / 8.8 / 8.9, revise); round 5 = 9.0 pass" | script-agent | Header khớp lịch sử review |
+
+**Gửi gate D (ghi nhận, không tính điểm A):**
+1. **P01** (`public/images/thang-may-tang-13/p01.jpg`) vẫn còn đủ lỗi đã ghi ở Round 3 và Round 4: thiếu nút 8, hai nút "1", nút trống ở cột phải phía trên "11" (đọc như nút 13), hàng nút cụt ở mép dưới, số ma trên LED. Đây là cover, nên là must-fix số 1.
+2. **Logo sparkle của Gemini** ở góc dưới phải trên **p01, p11, p14** (thêm p11 và p14 so với Round 4). Kiểm và xoá trên cả 16 plate.
+3. **P14 ↔ P11, nhận diện Linh.** Di ảnh ở p14 trông lớn tuổi hơn 26 và khác mặt so với ảnh TV ở p11 (mặt dài hơn, nét khác). Beat "di ảnh của Linh" (caption đỏ) chỉ ăn khi người xem nhận ra **cùng một gương mặt**, nên đây là ưu tiên số 2 của D: dùng lại mặt p11 cho di ảnh p14, hoặc regenerate với cùng face reference. Đồ trên bàn thờ ở p14 (bát cơm đầy, đôi đũa gác ngang, nến, nhang) khớp kế hoạch.
+4. Các lưu ý Round 3–4 cho P03 (vệt vàng trong gương), P09 (khối đen phẳng, lịch có số đỏ), P09↔P13 (ghế, ánh sáng) và P15 vẫn còn hiệu lực.
+5. Gate D hoặc build xử lý luôn: `image_path` trong shotlist đều là `assets/pXX.png`, mỗi id chỉ trỏ một ảnh (id2, id7, id11 có hai panel), trong khi plate thật là `public/images/thang-may-tang-13/pXX.jpg`.
+
+### Săn điểm yếu (≥3, có câu viết lại; không chặn pass)
+
+- **W1 (s5, văn viết, mang sang).** "Ngày ghi trên giấy… là một năm trước, cũng lúc nửa đêm." → "**Giấy niêm phong ghi… một năm trước, cũng lúc nửa đêm.**" (12 âm tiết, không đổi). Nếu nhận, cập nhật phrases ở cả ba file rồi kiểm lại join; theo luật vòng, sửa lời sẽ cần một lần soát join mới.
+- **W2 (s9, mang sang).** "Ảnh nạn nhân hiện lên." → "**Rồi ảnh nạn nhân hiện lên.**" (6 âm tiết, ≈1.5 s + 0.7 gap, dưới 2.32). "Rồi" kéo dài nhịp chờ vào khoảng lặng và làm s8–s9 bớt giống hai câu tell liền nhau.
+- **W3 (s12 emotion, mang sang).** voice-performance s12 `emotion` "dịu, nghẹn, gần thì thầm" → "**dịu, nghẹn, khẽ hơn (không diễn giọng thì thầm)**", sửa cả voice-direction.md:28 cho khớp :55.
+- **W4 (~25–30 s, nhịp).** Đây là chỗ dễ mất người xem nhất. Nếu retention rơi ở đây sau khi đăng, cách sửa rẻ nhất là thêm hành động hình, không thêm lời: ở P09, bóng người trên ghế khẽ nghiêng đầu (crossfade hai plate) đúng cue "quay lưng", để trả lời trước một nửa câu hỏi "ai đó".
+- **W5 (s13, câu kết).** "Đôi đũa vẫn chờ Linh về." là câu tốt. Nếu muốn đau hơn mà không thêm âm tiết, có thể thử "**Đôi đũa vẫn chờ con về.**": chữ "con" mượn giọng mẹ từ s12, kéo người xem vào vị trí người mẹ. Chỉ là đề xuất; giữ nguyên câu hiện tại cũng đạt 9.
+
+### Những gì chưa xác minh được
+
+- Thời lượng thật của từng clip Vbee và độ dài nghỉ ở "…" và ":". s7 và s2 là hai key sát trần nhất.
+- `voiceCode hn_male_phuthang_stor_24k-stl` còn được gói hỗ trợ không (brief.md:52, HANDOFF.md:19).
+- Cover P01 sau khi gate D sửa có đọc ra "chỉ đến 12" không; tin nhắn P03 có đọc kịp ở 1.4 s không.
+- Caption dài nhất "“CON VỀ ĂN CƠM VỚI MẸ NHÉ”" có giữ ≤2 dòng trong safe-zone TikTok không.
+- 13 plate còn lại tôi chưa mở (chỉ mở p01, p11, p14); tính nhất quán toàn bộ thuộc gate D.
+- Retention 0–3 s, viewed vs swiped, rewatch cho clue gương: chỉ đo được sau khi đăng.
+- `scripts/tone-probe.py` vẫn không có trong repo (glob 2026-11-08), nên bảng tone vẫn là bảng manual. Grep `status.json` không thấy bản ghi `blocked` cho bước tone-probe: **director còn nợ**, không phải ticket script.
+- `python3 -I scripts/pipeline.py audit thang-may-tang-13`: **không chạy**. Reviewer không có shell, và caller dặn không chạy pipeline.py. Director cần chạy audit và ghi review bằng `pipeline.py review thang-may-tang-13 A 9.0 --reviewer script-reviewer-5 --report docs/thang-may-tang-13/script-review.md --verdict pass`.
+
+### Ghi chú cho director
+
+Gate A pass ở 9.0. Bước tiếp theo là owner-requested decision gate (HANDOFF.md:13–15): đưa script và storyboard 16 panel có caption cho owner duyệt trước khi làm voice và render. Nên làm A32, A41, A42 (script-agent) và A39 (director) trước khi trình, vì đều là sửa vài dòng và không đổi lời. Nếu nhận W1, W2 hoặc W5 thì lời thay đổi: phải đếm lại âm tiết và kiểm lại join, và theo luật thì cần soát lại gate A cho đúng những key đó.

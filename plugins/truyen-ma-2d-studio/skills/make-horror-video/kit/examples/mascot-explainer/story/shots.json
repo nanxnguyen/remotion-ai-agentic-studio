@@ -1,0 +1,404 @@
+{
+ "title": "Cảm giác đánh nhau với bọ khổng lồ",
+ "duration": 46.0,
+ "format": "what-its-like",
+ "shots": [
+  {
+   "id": "c00",
+   "start": 0,
+   "end": 3.0,
+   "size": "close",
+   "line": "",
+   "params": {
+    "cold": true
+   },
+   "scene": "COLD OPEN: the mascot is already in the worst moment of the episode (mid-bite, mid-fall), then freeze",
+   "in": {
+    "type": "cut"
+   },
+   "sfx": [
+    {
+     "at": 0.0,
+     "name": "stinger",
+     "gain": -8
+    }
+   ],
+   "notes": "beat: hook"
+  },
+  {
+   "id": "t00",
+   "start": 3.0,
+   "end": 5.6,
+   "size": "title",
+   "line": "",
+   "params": {
+    "title": true
+   },
+   "scene": "Title card: Cảm giác đánh nhau với bọ khổng lồ — the mascot pops in with a reaction",
+   "in": {
+    "type": "flash",
+    "dur": 0.25
+   },
+   "sfx": [
+    {
+     "at": 0.0,
+     "name": "whoosh",
+     "gain": -8
+    }
+   ],
+   "notes": ""
+  },
+  {
+   "id": "r01a",
+   "start": 5.6,
+   "end": 7.2,
+   "size": "title",
+   "line": "",
+   "params": {
+    "round": 0,
+    "roundTitle": true,
+    "n": 1,
+    "name": "Bọ hung Goliath"
+   },
+   "scene": "Round card: #1 Bọ hung Goliath",
+   "in": {
+    "type": "whip",
+    "dur": 0.3,
+    "dir": 1
+   },
+   "sfx": [
+    {
+     "at": 0.0,
+     "name": "whoosh",
+     "gain": -8
+    },
+    {
+     "at": 0.12,
+     "name": "impact",
+     "gain": -8
+    }
+   ],
+   "notes": ""
+  },
+  {
+   "id": "r01b",
+   "start": 7.2,
+   "end": 10.7,
+   "size": "data",
+   "line": "",
+   "params": {
+    "round": 0,
+    "card": true,
+    "name": "Bọ hung Goliath",
+    "stats": [
+     {
+      "label": "Cân nặng",
+      "v": 0.95,
+      "text": "Top nặng nhất"
+     },
+     {
+      "label": "Nguy hiểm",
+      "v": 0.2,
+      "text": "2/10"
+     }
+    ]
+   },
+   "scene": "Stat card for Bọ hung Goliath beside the creature, mascot reacting",
+   "in": {
+    "type": "cut"
+   },
+   "sfx": [
+    {
+     "at": 0.35,
+     "name": "blip",
+     "gain": -14
+    },
+    {
+     "at": 0.53,
+     "name": "blip",
+     "gain": -14
+    }
+   ],
+   "notes": ""
+  },
+  {
+   "id": "r01c",
+   "start": 10.7,
+   "end": 15.236,
+   "size": "wide",
+   "line": "",
+   "params": {
+    "round": 0,
+    "beat": 0
+   },
+   "scene": "Jungle floor: Cún Lú squares up to a beetle as big as his head",
+   "in": {
+    "type": "cut"
+   },
+   "sfx": [],
+   "notes": ""
+  },
+  {
+   "id": "r02a",
+   "start": 15.236,
+   "end": 16.836,
+   "size": "title",
+   "line": "",
+   "params": {
+    "round": 1,
+    "roundTitle": true,
+    "n": 2,
+    "name": "Nhện góa phụ đen"
+   },
+   "scene": "Round card: #2 Nhện góa phụ đen",
+   "in": {
+    "type": "whip",
+    "dur": 0.3,
+    "dir": 1
+   },
+   "sfx": [
+    {
+     "at": 0.0,
+     "name": "whoosh",
+     "gain": -8
+    },
+    {
+     "at": 0.12,
+     "name": "impact",
+     "gain": -8
+    }
+   ],
+   "notes": ""
+  },
+  {
+   "id": "r02b",
+   "start": 16.836,
+   "end": 20.336,
+   "size": "data",
+   "line": "",
+   "params": {
+    "round": 1,
+    "card": true,
+    "name": "Nhện góa phụ đen",
+    "stats": [
+     {
+      "label": "Nọc độc",
+      "v": 0.85,
+      "text": "Độc thần kinh"
+     },
+     {
+      "label": "Kích thước",
+      "v": 0.15,
+      "text": "~1,5 cm"
+     }
+    ]
+   },
+   "scene": "Stat card for Nhện góa phụ đen beside the creature, mascot reacting",
+   "in": {
+    "type": "cut"
+   },
+   "sfx": [
+    {
+     "at": 0.35,
+     "name": "blip",
+     "gain": -14
+    },
+    {
+     "at": 0.53,
+     "name": "blip",
+     "gain": -14
+    }
+   ],
+   "notes": ""
+  },
+  {
+   "id": "r02c",
+   "start": 20.336,
+   "end": 24.873,
+   "size": "medium",
+   "line": "",
+   "params": {
+    "round": 1,
+    "beat": 0
+   },
+   "scene": "Night: a tiny spider, Cún Lú laughs at it",
+   "in": {
+    "type": "cut"
+   },
+   "sfx": [],
+   "notes": "gag: bị cắn, mặt sưng vù"
+  },
+  {
+   "id": "r03a",
+   "start": 24.873,
+   "end": 26.473,
+   "size": "title",
+   "line": "",
+   "params": {
+    "round": 2,
+    "roundTitle": true,
+    "n": 3,
+    "name": "Cua dừa"
+   },
+   "scene": "Round card: #3 Cua dừa",
+   "in": {
+    "type": "whip",
+    "dur": 0.3,
+    "dir": 1
+   },
+   "sfx": [
+    {
+     "at": 0.0,
+     "name": "whoosh",
+     "gain": -8
+    },
+    {
+     "at": 0.12,
+     "name": "impact",
+     "gain": -8
+    }
+   ],
+   "notes": ""
+  },
+  {
+   "id": "r03b",
+   "start": 26.473,
+   "end": 29.973,
+   "size": "data",
+   "line": "",
+   "params": {
+    "round": 2,
+    "card": true,
+    "name": "Cua dừa",
+    "stats": [
+     {
+      "label": "Lực kẹp",
+      "v": 1.0,
+      "text": "~3.300 N"
+     },
+     {
+      "label": "Nguy hiểm",
+      "v": 0.7,
+      "text": "7/10"
+     }
+    ]
+   },
+   "scene": "Stat card for Cua dừa beside the creature, mascot reacting",
+   "in": {
+    "type": "cut"
+   },
+   "sfx": [
+    {
+     "at": 0.35,
+     "name": "blip",
+     "gain": -14
+    },
+    {
+     "at": 0.53,
+     "name": "blip",
+     "gain": -14
+    }
+   ],
+   "notes": ""
+  },
+  {
+   "id": "r03c",
+   "start": 29.973,
+   "end": 33.686,
+   "size": "close",
+   "line": "",
+   "params": {
+    "round": 2,
+    "beat": 0
+   },
+   "scene": "Beach at dusk: a coconut crab cracks a coconut",
+   "in": {
+    "type": "cut"
+   },
+   "sfx": [],
+   "notes": ""
+  },
+  {
+   "id": "r03d",
+   "start": 33.686,
+   "end": 37.4,
+   "size": "insert",
+   "line": "",
+   "params": {
+    "round": 2,
+    "beat": 1
+   },
+   "scene": "Cua dừa: the mascot experiences it (beat 2)",
+   "in": {
+    "type": "cut"
+   },
+   "sfx": [],
+   "notes": ""
+  },
+  {
+   "id": "z90",
+   "start": 37.4,
+   "end": 42.4,
+   "size": "data",
+   "line": "",
+   "params": {
+    "recap": true
+   },
+   "scene": "RECAP: every round as a ranked row of mini cards, the winner glows",
+   "in": {
+    "type": "dip",
+    "dur": 0.4
+   },
+   "sfx": [],
+   "notes": ""
+  },
+  {
+   "id": "z99",
+   "start": 42.4,
+   "end": 46.0,
+   "size": "end",
+   "line": "",
+   "params": {
+    "cta": true
+   },
+   "scene": "CTA: the mascot (bandaged) asks the comment question; next-episode teaser",
+   "in": {
+    "type": "cut"
+   },
+   "sfx": [
+    {
+     "at": 0.1,
+     "name": "pop",
+     "gain": -10
+    }
+   ],
+   "notes": ""
+  }
+ ],
+ "music": [
+  {
+   "start": 0,
+   "end": 3.0,
+   "mood": "tension",
+   "intensity": 0.6
+  },
+  {
+   "start": 3.0,
+   "end": 24.873,
+   "mood": "playful",
+   "intensity": 0.55
+  },
+  {
+   "start": 24.873,
+   "end": 37.4,
+   "mood": "action",
+   "intensity": 0.75
+  },
+  {
+   "start": 37.4,
+   "end": 46.0,
+   "mood": "triumph",
+   "intensity": 0.6
+  }
+ ]
+}

@@ -31,7 +31,14 @@ export const Scene03: React.FC = () => {
   return (
     <SceneFade durationInFrames={timeline.shots.scene03.duration}>
       <DirectorStage styleId={STYLE_ID}>
-        <rect x={0} y={0} width={1080} height={1920} fill={THEME.accent} opacity={flashAlpha * 0.16} />
+        <rect
+          x={0}
+          y={0}
+          width={1080}
+          height={1920}
+          fill={THEME.accent}
+          opacity={flashAlpha * 0.16}
+        />
         <line x1={120} y1={GROUND_Y} x2={960} y2={GROUND_Y} stroke="#2B2B32" strokeWidth={4} />
         <DirectorCharacter pose={pose} styleId={STYLE_ID} />
         <GlowingHeart x={750} y={GROUND_Y - 340} scale={1.15} />

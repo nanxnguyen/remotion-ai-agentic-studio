@@ -10,8 +10,12 @@ Read the whole transcript twice. Then write `story/bible.md` (short, practical):
 Then **rewrite `story/shots.json`** (schema in engine-api.md, story/shots.json). For every shot set:
 `id, start, end, size, line, scene` (`size` = the framing from the shot vocabulary: wide, medium, ots, close, insert, top, freeze, 3d, data, blueprint, title, end; `scene` = one concrete sentence describing the picture, e.g. "OTS: blurred Jake shoulder fg, Max at the window, rain, slow push"), `set`, `bars`, `in` (transition), `sfx`, `amb`, `notes`.
 
-Pacing rules:
-- Shots are **contiguous**: each `end` equals the next `start`. The first starts at 0 and the last ends at `duration`, which is the voiceover length plus about 1.5 s.
+Pacing & algorithmic retention rules:
+- **Vbee-First 1-Pass rule:** Lock the spoken script and align the real voiceover (`tools/transcribe.py` → `timeline/words.json`, `story/anchors.json`) **before** finalizing `story/shots.json` or scene timing. Do not double-build scenes against guessed durations.
+- **28-second Intro Gate:** Finish Cold Open (`0–5 s` matching Thumbnail/Title), Promise/Open Loop (`5–15 s`), and Stakes/Rules (`15–28 s`, `<= 110` VI words) so Act 1 / Round #1 starts **before `0:30`**. No logo, greeting, or source-methodology monologue in the intro.
+- **No Section Cliffs:** Bridge every segment into the next by opening a new question/paradox *before* closing the current beat. Pair with 1–2 **False Victories**, an explicit **Mid-Video Wager**, clean **Silence Drops** (`intensity: 0.02`, zero slapstick inside somber beats), and a **Binge Outro** (`15–20 s` animated End Screen `end01..end02` with `notes: "hold"` and no "goodbye" phrasing).
+- **Resilient 3D dispatch:** Tag `3d` shots with `params.hero3d` so `00_3d_hero.js` never breaks if paragraph IDs renumber.
+- Shots are **contiguous**: each `end` equals the next `start`. The first starts at 0 and the last ends at `duration` (voiceover length + `15–20 s` animated End Screen for long-form YouTube, or ~1.5 s for standalone Shorts).
 - Cut on phrase boundaries. Start a shot **0.1–0.2 s before** the phrase it illustrates.
 - Target a **median of 2–3.5 s**. Fast action: 0.8–2 s cuts (split one phrase into several shots). Emotional or dialogue holds: 4–8 s. Never go beyond ~10 s without a new action or camera move.
 - **Hook:** the first shot is the most striking image of the video and lasts ≤ 4 s; no logo, channel intro or title card in the first 3 s (the title card comes after the cold open).

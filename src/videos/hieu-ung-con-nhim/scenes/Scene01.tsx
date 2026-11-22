@@ -17,7 +17,11 @@ export const Scene01: React.FC = () => {
 
   // Character B walks in during 0-1.2s, then recoils when spikes pop out.
   const approach = spring({frame, fps, config: {damping: 16, stiffness: 90}});
-  const spikePop = spring({frame: Math.max(0, frame - 26), fps, config: {damping: 12, stiffness: 180}});
+  const spikePop = spring({
+    frame: Math.max(0, frame - 26),
+    fps,
+    config: {damping: 12, stiffness: 180},
+  });
   const recoil = interpolate(frame, [26, 48], [0, 140], {
     extrapolateLeft: 'clamp',
     extrapolateRight: 'clamp',

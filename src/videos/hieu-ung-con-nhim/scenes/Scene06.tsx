@@ -31,7 +31,14 @@ export const Scene06: React.FC = () => {
       <DirectorStage styleId={STYLE_ID}>
         <line x1={80} y1={GROUND_Y} x2={1000} y2={GROUND_Y} stroke="#2B2B32" strokeWidth={4} />
         <DirectorCharacter pose={pose} styleId={STYLE_ID} />
-        <GlassCage x={340} y={GROUND_Y - 540} width={400} height={540} progress={1} cracks={cracks} />
+        <GlassCage
+          x={340}
+          y={GROUND_Y - 540}
+          width={400}
+          height={540}
+          progress={1}
+          cracks={cracks}
+        />
       </DirectorStage>
       <DirectorCaption text="An toàn... nhưng đổi bằng cô độc" styleId={STYLE_ID} />
     </SceneFade>

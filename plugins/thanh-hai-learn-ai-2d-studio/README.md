@@ -4,6 +4,20 @@ Biến bất kỳ file giọng đọc nào thành video hoạt hình người qu
 
 Mọi khung hình đều được vẽ bằng code và render từng khung. Không dùng AI tạo ảnh hay tạo video, nên nhân vật luôn nhất quán và chữ luôn sắc nét. Hình ảnh được nghĩ mới cho từng kịch bản; phong cách luôn giữ nguyên.
 
+## Mới trong v0.5.3: skill `doc-hud-video` (Tài liệu khoa học tư liệu thật + HUD & Infographic)
+- **Skill mới `doc-hud-video`**: dựng video khám phá khoa học (kiểu *Tò Mò 1*) kết hợp ảnh/clip thật từ nguồn mở (NOAA, NASA, Wikimedia) với hiệu ứng Ken Burns, hạt bụi biển (`MarineSnowLayer`), thước đo độ sâu/thang đo dọc (`DepthGaugeHud`), lower-third viền vàng (`GoldLowerThird`), và infographic phân tầng 2D (`OceanBuildingInfographic`).
+- Hỗ trợ cả **9:16 Shorts/TikTok (`1080×1920`)** tối ưu mobile safe-area và **16:9 Long-form (`1920×1080`)**.
+
+## Mới trong v0.5.2: chuẩn thuật toán YouTube v3, `spotTracker`, Vbee-First & 1440p nhanh 3×
+- **Cấu trúc giữ chân & tăng trưởng (`mascot-explainer`, `story-breakdown.md`)**: Chuẩn hóa Intro Vàng `<= 28 giây` (`<= 110` từ tiếng Việt), xâu chuỗi Open Loop xóa sạch "Section Cliffs", `1–2` cú lừa **False Victory** + kèo cược giữa video (**Mid-Video Wager**), điểm lặng `Silence Drop` (`0.02`) sạch slapstick, và **Binge Outro** không nói tạm biệt trỏ thẳng thẻ End Screen `15–20s`.
+- **`spotTracker()` & `/engine/tihon.js` v3.0 (`explainer.js`, `engine-api.md`)**: Tích hợp thanh tiến độ đa vòng gọn tại dải Top HUD (`y = 92..130`), kèm bộ kiểm tra liên tục đạo cụ kịch bản–nhân vật và quy tắc tiếng Việt sạch cho Vbee (1 vòng `script -> voiceover.mp3 -> Whisper -> shots.json`).
+- **Tối ưu render `1440p` & âm thanh `-14 LUFS` (`render-qc.md`, `render-video`)**: Cờ `--format jpeg --preset veryfast` tăng tốc chụp frame `1440p` ~2.5–3×, chuẩn `loudnorm` `-14.0 ± 0.4 LUFS` (`TP <= -1.0 dBTP`), lề HUD `x >= 52, y >= 36` và cỡ chữ callout `>= 30 px` nền tối `y <= 860`.
+
+## Mới trong v0.5.1: chuẩn 2.5D điện ảnh, cảnh 3D POV & kiểm định dài tập
+- **engine/explainer.js**: `dangerCard` tự chuẩn hóa cả dữ liệu mảng (`['Nhãn', 0.8, '18 cm']`); bổ sung `pill`, `stamp`, `popText` và `subtitleScrim` đo chữ chính xác bằng `measure()` giúp chữ tiếng Việt không bị tràn khung hay mất dấu trên nền sáng.
+- **Đồ họa 2.5D & góc máy đa tầng**: hướng dẫn đổ khối gradient đa lớp cho linh vật/quái vật, lớp tiền cảnh mờ DoF (`blurLayer`), xoay vòng góc máy `OTS` / `POV` / `submerge` / `freeze` / `three-kit.js` 3D, cùng phòng tránh bẫy `radGrad` (6 tham số), `rng(seed)()`, `"bars": "none"`.
+- **Render dài tập & QC chắc chắn**: hướng dẫn soi `--stills` cho toàn bộ cảnh 3D/POV, phục hồi render từng chunk (`--from/--to`) khi đứt quãng, kiểm định FFmpeg `blackdetect`/`freezedetect`/`silencedetect` + montage 16 khung hình từ MP4 hoàn chỉnh.
+
 ## Mới trong v0.5: video giải thích có linh vật (kiểu Dumb Doggo)
 - Skill mới `mascot-explainer`: "làm video cảm giác đánh nhau với các loài nhện", "mọi cách để bị hoá thạch", "hành trình xuyên qua hệ tiêu hoá".
 - Một linh vật gốc của kênh (chó, mèo hoặc gấu, tự chọn màu lông, áo) tự trải nghiệm từng sự thật và luôn là người chịu trận.
@@ -65,6 +79,7 @@ Máy cloud 2 nhân render 720p khoảng 2 khung hình/giây (video 47 giây mấ
 - `skills/new-video`, `skills/video-styles`, `skills/render-video`, `skills/video-sound`: các lệnh theo từng giai đoạn.
 - `skills/evolution-video`: video "Sự tiến hoá của…".
 - `skills/mascot-explainer`: video giải thích có linh vật.
+- `skills/doc-hud-video`: video tài liệu khoa học kết hợp tư liệu thật, thước đo HUD và infographic.
 
 Không cần API key hay connector.
 

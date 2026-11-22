@@ -6,8 +6,12 @@
 //   sizeCompare(g, t, {items, maxH})         height comparison with a dimension line -> pixel heights
 //   ouch(g, t, x, y, {text})                 comic impact burst ("BỐP!"), gone after 0.6 s
 //   sign(g, x, y, text)                      hand-held placard for gags ("ĐỪNG THỬ Ở NHÀ")
+//   pill(g, x, y, str, o)                    pole-free floating badge sized accurately via measure()
+//   stamp(g, x, y, str, o)                   tilted rubber stamp box ("THẬT ✓") sized via measure()
+//   popText(g, x, y, str, o)                 persistent comic starburst pop without 0.6 s cutoff
+//   subtitleScrim(g, strength)               bottom dark contrast gradient keeping captions legible
 //   bug(g, kind, o)                          beetle, spider, crab, flytrap silhouettes in the house style
-import { E, V, S, clamp, lerp, ease, prog, circle, seg, rr, alpha, shade, glow, text, FONTS } from './core.js';
+import { E, V, S, clamp, lerp, ease, prog, circle, seg, rr, poly, linGrad, alpha, shade, glow, text, measure, FONTS } from './core.js';
 
 const ui = () => S().ui;
 const STROKE = { stroke: 10, strokeColor: 'rgba(10,6,14,.55)' };
@@ -31,7 +35,8 @@ export function dangerCard(g, t, o = {}) {
   g.save(); g.translate(x + w / 2, y + h / 2); g.scale(inK, inK); g.translate(-(x + w / 2), -(y + h / 2));
   rr(g, x, y, w, h, 22); g.fillStyle = ui().card; g.fill(); g.strokeStyle = ui().cardLine; g.lineWidth = 2; g.stroke();
   text(g, name, x + 34, y + V(66, 74), { size: V(54, 60), color: ui().cream, font: FONTS.ui, weight: 900, align: 'left' });
-  stats.forEach((s, i) => {
+  stats.forEach((raw, i) => {
+    const s = Array.isArray(raw) ? { label: raw[0] ?? '', v: raw[1] ?? 0, text: raw[2] ?? '' } : raw;
     const ry = y + V(124, 140) + i * rowH, bw = w - 68, k = ease.out(prog(t, 0.35 + i * 0.18, 1.0 + i * 0.18)), fw = bw * clamp(s.v) * k;
     widths.push(fw);
     text(g, s.label, x + 34, ry + 12, { size: V(34, 38), color: ui().text, font: FONTS.ui, weight: 800, align: 'left' });
@@ -85,6 +90,96 @@ export function sign(g, x, y, str, o = {}) {
   seg(g, [[0, 0], [0, -h - 120]], 14, shade(wood, -0.35));
   rr(g, -w / 2, -h - 220, w, h, 10); g.fillStyle = wood; g.fill(); g.strokeStyle = shade(wood, -0.4); g.lineWidth = 6; g.stroke();
   text(g, str, 0, -h / 2 - 220 + 4, { size: 40, color: '#2a160c', font: FONTS.ui, weight: 900 });
+  g.restore();
+}
+
+export function pill(g, x, y, str, o = {}) {
+  const { color = '#0f172a', stroke = ui().gold, textCol = '#ffffff', size = 28, scale = 1, rot = 0, padX = 28, h = 56 } = o;
+  g.save(); g.translate(x, y); g.rotate(rot); g.scale(scale, scale);
+  const w = Math.max(200, measure(g, str, size, FONTS.ui, 900) + padX * 2);
+  rr(g, -w / 2 + 4, -h / 2 + 5, w, h, h / 2); g.fillStyle = 'rgba(0,0,0,0.42)'; g.fill();
+  rr(g, -w / 2, -h / 2, w, h, h / 2); g.fillStyle = color; g.fill(); g.strokeStyle = stroke; g.lineWidth = 3.5; g.stroke();
+  text(g, str, 0, 1, { size, color: textCol, font: FONTS.ui, weight: 900 });
+  g.restore();
+}
+
+export function stamp(g, x, y, str, o = {}) {
+  const { color = '#22c55e', textCol = '#ffffff', size = 34, rot = -0.08, scale = 1 } = o;
+  g.save(); g.translate(x, y); g.rotate(rot); g.scale(scale, scale);
+  const w = Math.max(200, measure(g, str, size, FONTS.ui, 900) + 56), h = size + 32;
+  rr(g, -w / 2, -h / 2, w, h, 10); g.fillStyle = alpha(color, 0.22); g.fill(); g.strokeStyle = color; g.lineWidth = 5; g.stroke();
+  text(g, str, 0, 1, { size, color: textCol, font: FONTS.ui, weight: 900 });
+  g.restore();
+}
+
+export function popText(g, x, y, str, o = {}) {
+  const { color = '#facc15', textCol = '#0e1410', r = V(105, 120), scale = 1, rot = -0.1 } = o;
+  g.save(); g.translate(x, y); g.rotate(rot); g.scale(scale, scale);
+  g.fillStyle = color; g.beginPath();
+  for (let i = 0; i < 20; i++) { const a = (i / 20) * Math.PI * 2, rad = i % 2 ? r * 0.64 : r; const px = Math.cos(a) * rad * 1.15, py = Math.sin(a) * rad * 0.72; i === 0 ? g.moveTo(px, py) : g.lineTo(px, py); }
+  g.closePath(); g.fill(); g.strokeStyle = '#0e1410'; g.lineWidth = 5; g.stroke();
+  text(g, str, 0, 2, { size: Math.min(46, r * 0.44), color: textCol, font: FONTS.title, weight: 900 });
+  g.restore();
+}
+
+export function subtitleScrim(g, strength = 1) {
+  g.save();
+  g.fillStyle = linGrad(g, 0, E.H - 150, 0, E.H, [[0, 'rgba(2,6,23,0)'], [0.45, alpha('#020617', 0.38 * strength)], [1, alpha('#020617', 0.72 * strength)]]);
+  g.fillRect(0, E.H - 150, E.W, 150);
+  g.restore();
+}
+
+/**
+ * Compact centered multi-round progress pill for the top HUD band (`y = 92..130`),
+ * safely below title pills (`y = 36..84`) and above upper callouts (`y >= 162`).
+ */
+export function spotTracker(g, { x = E.W / 2, y = 108, current = 0, statuses = [], labels = [], count, t = 0 } = {}) {
+  const n = Math.max(1, count ?? (Math.max(statuses.length, labels.length) || 7));
+  const slotW = n > 7 ? 46 : 52;
+  const slotH = 26;
+  const gap = 5;
+  const w = n * slotW + (n - 1) * gap + 26;
+  const h = 38;
+  const bx = x - w / 2;
+  const by = y - h / 2;
+  const startX = bx + (w - (n * slotW + (n - 1) * gap)) / 2;
+
+  g.save();
+  rr(g, bx + 2, by + 3, w, h, h / 2); g.fillStyle = 'rgba(0,0,0,0.45)'; g.fill();
+  rr(g, bx, by, w, h, h / 2); g.fillStyle = 'rgba(9,13,24,0.92)'; g.fill();
+  g.strokeStyle = 'rgba(148,163,184,0.48)'; g.lineWidth = 2; g.stroke();
+
+  for (let i = 0; i < n; i++) {
+    const st = statuses[i] ?? (i < current ? 'failed' : i === current ? 'active' : 'pending');
+    const sx = startX + i * (slotW + gap) + slotW / 2;
+    const isActive = st === 'active', isWin = st === 'win', isFailed = st === 'failed';
+    const pulse = isActive ? 1.08 + Math.sin(t * 7) * 0.04 : isWin ? 1.05 + Math.sin(t * 4) * 0.03 : 1;
+    const lbl = labels[i] ?? (isWin ? '∞' : `#${i + 1}`);
+
+    g.save();
+    g.translate(sx, y);
+    g.scale(pulse, pulse);
+    if (isWin) glow(g, 0, 0, 26, '#22c55e', 0.34);
+    else if (isActive) glow(g, 0, 0, 22, '#facc15', 0.24);
+
+    rr(g, -slotW / 2, -slotH / 2, slotW, slotH, slotH / 2);
+    g.fillStyle = isWin ? 'rgba(20,83,45,0.96)' : isFailed ? 'rgba(127,29,29,0.92)' : isActive ? 'rgba(113,63,18,0.95)' : 'rgba(30,41,59,0.86)';
+    g.fill();
+    g.strokeStyle = isWin ? '#4ade80' : isFailed ? '#ef4444' : isActive ? '#facc15' : 'rgba(148,163,184,0.45)';
+    g.lineWidth = isActive || isWin ? 2.5 : 1.6;
+    g.stroke();
+
+    if (isWin) {
+      text(g, lbl, 0, 0.5, { size: 18, color: '#86efac', font: FONTS.ui, weight: 900, stroke: 3, strokeColor: '#020617' });
+    } else if (isFailed) {
+      seg(g, [[-18, -3.5], [-11, 3.5]], 2.2, '#f87171');
+      seg(g, [[-11, -3.5], [-18, 3.5]], 2.2, '#f87171');
+      text(g, lbl, 7, 0.5, { size: 12.5, color: '#fecaca', font: FONTS.ui, weight: 900, stroke: 2.5, strokeColor: '#020617' });
+    } else {
+      text(g, isActive ? `#${i + 1}` : '?', 0, 0.5, { size: 14, color: isActive ? '#fef08a' : '#cbd5e1', font: FONTS.ui, weight: 900, stroke: 2.5, strokeColor: '#020617' });
+    }
+    g.restore();
+  }
   g.restore();
 }
 

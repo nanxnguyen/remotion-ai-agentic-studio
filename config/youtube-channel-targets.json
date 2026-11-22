@@ -19,6 +19,17 @@
     "CU_LA_CHINH_MINH": {
       "handle": "@CuLachinhminh",
       "channel_id": "UClvEUI8YW3dv9aqQknMJS0w"
+    },
+    "TINY_REX": {
+      "handle": "@TinyRex01",
+      "channel_id": "UChoJn1aAPcs2xWgEhaCcpQA",
+      "upload_defaults": {
+        "category_id": "1",
+        "default_audio_language": "vi",
+        "public_stats_viewable": true,
+        "embeddable": true,
+        "license": "youtube"
+      }
     }
   }
 }

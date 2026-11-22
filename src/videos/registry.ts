@@ -19,6 +19,12 @@ import {soNoiKhongVideo} from './so-bi-xem-la-ich-ky-khi-noi-khong';
 import {characterMotionLabVideo} from './character-motion-lab';
 import {silentFactoryLongformVideo} from './silent-factory-longform';
 import {thangMayTang13ReelVideo} from './thang-may-tang-13';
+import {hieuUngConNhimReelVideo} from './hieu-ung-con-nhim';
+import {top5LucCanManhNhatVideoVideo} from './top-5-luc-can-manh-nhat';
+import {khongNgu11NgayVideoVideo} from './khong-ngu-11-ngay';
+import {daiDuongSauDemoReelVideo} from './dai-duong-sau-demo';
+import {daiDuongSauThucTeReelVideo} from './dai-duong-sau-thuc-te';
+import {daiDuongSauLongformVideoVideo} from './dai-duong-sau-longform';
 // video:new imports -- keep this marker
 
 export const videoRegistry: readonly AnyVideoDefinition[] = [
@@ -41,6 +47,12 @@ export const videoRegistry: readonly AnyVideoDefinition[] = [
   characterMotionLabVideo,
   silentFactoryLongformVideo,
   thangMayTang13ReelVideo,
+  hieuUngConNhimReelVideo,
+  top5LucCanManhNhatVideoVideo,
+  khongNgu11NgayVideoVideo,
+  daiDuongSauDemoReelVideo,
+  daiDuongSauThucTeReelVideo,
+  daiDuongSauLongformVideoVideo,
   // video:new entries -- keep this marker
 ];
 

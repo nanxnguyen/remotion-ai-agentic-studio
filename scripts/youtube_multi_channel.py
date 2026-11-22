@@ -40,7 +40,10 @@ def read_target(config: Path, key: str) -> dict:
     pinned = target.get("channel_id")
     if pinned is not None and (not isinstance(pinned, str) or not re.fullmatch(r"UC[A-Za-z0-9_-]{22}", pinned)):
         raise PreflightError("Invalid pinned channel_id; use UC... or null")
-    return {"key": key, "handle": handle, "channel_id": pinned}
+    defaults = target.get("upload_defaults") or {}
+    if not isinstance(defaults, dict):
+        raise PreflightError("Invalid upload_defaults in channel target")
+    return {"key": key, "handle": handle, "channel_id": pinned, "upload_defaults": defaults}
 
 
 def resolve_channel(yt, target: dict) -> dict:
@@ -169,8 +172,8 @@ def inspect_video(path: Path, profile: str = "LONGFORM_EN") -> dict:
         if dimensions not in {(1920, 1080), (2560, 1440)} or not (23.9 <= n / d <= 30.05) or not 180 <= duration <= 3600:
             raise PreflightError("Expected 1920x1080 or 2560x1440 at 24–30 FPS and 3–60 minutes")
     elif profile == "SHORTS_VI":
-        if dimensions != (1080, 1920) or abs(n / d - 30) > 0.05 or not 10 <= duration <= 60.05:
-            raise PreflightError("Expected 1080x1920 at 30 FPS and 10–60 seconds")
+        if dimensions != (1080, 1920) or not (23.9 <= n / d <= 30.05) or not 10 <= duration <= 60.05:
+            raise PreflightError("Expected 1080x1920 at 24–30 FPS and 10–60 seconds")
     else:
         raise PreflightError("Unknown upload profile")
     if v.get("codec_name") != "h264" or a.get("codec_name") != "aac":
@@ -235,15 +238,40 @@ def duplicate_video(yt, channel: dict, marker: str) -> str | None:
     return None
 
 
-def upload_video(yt, path: Path, meta: dict, marker: str, privacy: str = "private") -> str:
+def build_video_body(meta: dict, marker: str, privacy: str = "private",
+                     channel_defaults: dict | None = None) -> dict:
+    defaults = channel_defaults or {}
+    category_id = str(meta.get("category_id") or defaults.get("category_id") or "1")
+    audio_lang = meta.get("audio_language") or defaults.get("default_audio_language") or meta["language"]
+    snippet = {
+        "title": meta["title"].strip(),
+        "description": meta["description"],
+        "tags": [*meta.get("tags", []), marker],
+        "categoryId": category_id,
+        "defaultLanguage": meta["language"],
+        "defaultAudioLanguage": audio_lang,
+    }
+    status = {
+        "privacyStatus": privacy,
+        "selfDeclaredMadeForKids": meta["made_for_kids"],
+        "containsSyntheticMedia": meta["contains_synthetic_media"],
+    }
+    for meta_key, def_key, api_key in (
+        ("public_stats_viewable", "public_stats_viewable", "publicStatsViewable"),
+        ("embeddable", "embeddable", "embeddable"),
+        ("license", "license", "license"),
+    ):
+        val = meta.get(meta_key, defaults.get(def_key))
+        if val is not None:
+            status[api_key] = val
+    return {"snippet": snippet, "status": status}
+
+
+def upload_video(yt, path: Path, meta: dict, marker: str, privacy: str = "private",
+                 channel_defaults: dict | None = None) -> str:
     from googleapiclient.http import MediaFileUpload
     from googleapiclient.errors import HttpError
-    body = {
-        "snippet": {"title": meta["title"].strip(), "description": meta["description"],
-                    "tags": [*meta.get("tags", []), marker], "categoryId": "1", "defaultLanguage": meta["language"]},
-        "status": {"privacyStatus": privacy, "selfDeclaredMadeForKids": meta["made_for_kids"],
-                   "containsSyntheticMedia": meta["contains_synthetic_media"]},
-    }
+    body = build_video_body(meta, marker, privacy=privacy, channel_defaults=channel_defaults)
     req = yt.videos().insert(part="snippet,status", body=body,
                              media_body=MediaFileUpload(str(path), mimetype="video/mp4", resumable=True, chunksize=8 * 1024 * 1024))
     retries = 0
@@ -338,7 +366,8 @@ def run(args) -> dict:
             return receipt
         if existing:
             raise PreflightError(f"Video already uploaded to target channel as {existing}; no duplicate upload")
-        remote_id = upload_video(yt, video, meta, marker, privacy="public" if public else "private")
+        remote_id = upload_video(yt, video, meta, marker, privacy="public" if public else "private",
+                                 channel_defaults=target.get("upload_defaults"))
         receipt.update(status="uploaded_public_thumbnail_pending" if public else "uploaded_private_thumbnail_pending",
                        youtube_video_id=remote_id,
                        youtube_url=f"https://www.youtube.com/watch?v={remote_id}")

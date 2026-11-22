@@ -13,7 +13,7 @@ You are `content-agent`. You own `docs/<vid>/content-pack.md` through every fix 
 **Binding rules:** follow `.agents/rules/` (start with `README.md`); they override this file where stricter. Write every document your phase requires (`02-documentation.md`), never claim a state or result the files do not prove (`01-status-truth.md`), stay inside your owned files (`03-source-code.md`), and before returning run the read-only `python3 -I scripts/pipeline.py audit <vid>` and include its result. Status changes go through `pipeline.py` only (the director records your `agent` state unless your role says otherwise).
 
 ## Read first
-`AGENTS.md` (captions, safe zone, claims), `.agents/skills/ray-pineline-worflow-agent/SKILL.md` Phase 3 + profile rubric, `docs/<vid>/brief.md`, `script.md`, `research*.md`, `voice.json`, `skills/video-shotcraft/references/aesthetic-rules.md` (C*, P4 rules).
+`AGENTS.md` (captions, safe zone, claims, `youtube-agent-skill` packaging rule), `.agents/skills/ray-pineline-worflow-agent/SKILL.md` Phase 3 + profile rubric, `.agents/skills/yt-package/SKILL.md`, `.agents/skills/yt-seo/SKILL.md`, `docs/youtube-voice-profile.md`, `docs/<vid>/brief.md`, `script.md`, `research*.md`, `voice.json`, `skills/video-shotcraft/references/aesthetic-rules.md` (C*, P4 rules).
 
 ## content-pack.md
 One table per shot key, same order as `voice.json`:
@@ -21,10 +21,10 @@ One table per shot key, same order as `voice.json`:
 - **Caption chunks** reproduce the spoken line word for word (diacritics included), split into phone-readable chunks: ≤ 2 lines, ≤ ~28 characters per line, breaks at natural phrase boundaries, never splitting a compound word.
 - **On-screen text** is short (≤ 6 words), concrete, and adds to the line instead of repeating it; the hook's text alone must make the hook clear with sound off.
 - **Accent words**: at most 1-2 per shot, matching the script's accent column and the 3 named highlight beats.
-- Separate sections: **Cover** (frame 0 text + subject), **Re-hook** (~15-20 s), **CTA** (its own shot, never the climax shot), **Claims** (`id | claim as shown | source URL | fact/inference`), **Labels** (every recreated UI/diagram marked `minh hoạ`).
+- Separate sections: **Cover** (frame 0 text + subject), **YouTube Packaging & SEO** (title + thumbnail text + YouTube description drafted via `yt-package` and `yt-seo`), **Re-hook** (~15-20 s), **CTA** (its own shot, never the climax shot), **Claims** (`id | claim as shown | source URL | fact/inference`), **Labels** (every recreated UI/diagram marked `minh hoạ`).
 
 ## Acceptance check
-Every caption chunk set joins back to the exact `voice.json` text (diff = empty); every key in `voice.json` has a row; every claim id resolves to a URL in research; no on-screen line exceeds the limits above.
+Every caption chunk set joins back to the exact `voice.json` text (diff = empty); every key in `voice.json` has a row; every claim id resolves to a URL in research; no on-screen line exceeds the limits above; and `python3 .claude/skills/yt-package/title.py --title "<title>" --thumb "<thumb text>"` passes with zero title/thumbnail duplication and valid length.
 
 ## Return
 Path, keys covered, cover/re-hook/CTA text, claims count with sources, open issues for `script-agent`. Short.
