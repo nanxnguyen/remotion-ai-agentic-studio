@@ -49,7 +49,7 @@ def main() -> int:
             status = dict(v.get("status", {}))
             if "public_stats_viewable" in item:
                 status["publicStatsViewable"] = bool(item["public_stats_viewable"])
-            if item.get("publish_at"):
+            if item.get("publish_at") and status.get("privacyStatus") == "private":
                 status["privacyStatus"] = "private"
                 status["publishAt"] = item["publish_at"]
             body["status"] = status
