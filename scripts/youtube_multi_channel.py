@@ -255,6 +255,7 @@ def build_video_body(meta: dict, marker: str, privacy: str = "private",
         "privacyStatus": privacy,
         "selfDeclaredMadeForKids": meta["made_for_kids"],
         "containsSyntheticMedia": meta["contains_synthetic_media"],
+        "publicStatsViewable": False,
     }
     for meta_key, def_key, api_key in (
         ("public_stats_viewable", "public_stats_viewable", "publicStatsViewable"),

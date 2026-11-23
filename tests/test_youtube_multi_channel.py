@@ -54,6 +54,8 @@ class ChannelTests(unittest.TestCase):
         self.assertIs(body["status"]["publicStatsViewable"], False)
         self.assertIs(body["status"]["embeddable"], True)
         self.assertEqual(body["status"]["license"], "youtube")
+        body_no_defaults = mod.build_video_body(meta, "saf-123", privacy="private")
+        self.assertIs(body_no_defaults["status"]["publicStatsViewable"], False)
 
     def test_invalid_alias_blocked(self):
         with self.assertRaises(mod.PreflightError):
