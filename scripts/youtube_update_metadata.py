@@ -43,11 +43,24 @@ def main() -> int:
         snippet["tags"] = meta.get("tags", [])
         snippet["defaultLanguage"] = meta.get("language", "vi")
         snippet["defaultAudioLanguage"] = meta.get("language", "vi")
-        updated = yt.videos().update(part="snippet", body={"id": vid, "snippet": snippet}).execute()
+        body: dict = {"id": vid, "snippet": snippet}
+        parts = ["snippet"]
+        if "publish_at" in item or "public_stats_viewable" in item:
+            status = dict(v.get("status", {}))
+            if "public_stats_viewable" in item:
+                status["publicStatsViewable"] = bool(item["public_stats_viewable"])
+            if item.get("publish_at"):
+                status["privacyStatus"] = "private"
+                status["publishAt"] = item["publish_at"]
+            body["status"] = status
+            parts.append("status")
+        updated = yt.videos().update(part=",".join(parts), body=body).execute()
         results.append({
             "video_id": vid,
             "title": updated["snippet"]["title"],
-            "privacy": v["status"]["privacyStatus"],
+            "privacy": updated.get("status", v["status"]).get("privacyStatus"),
+            "publishAt": updated.get("status", {}).get("publishAt"),
+            "publicStatsViewable": updated.get("status", {}).get("publicStatsViewable"),
         })
 
     Path(args.receipt).write_text(

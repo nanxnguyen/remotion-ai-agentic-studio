@@ -48,3 +48,17 @@ Measured on one cartoon line (Whisper-medium word error, pitch range in semitone
 | Baseline / emotional Shorts default | Thanh Long | `hn_male_thanhlong_talk_48k-fhg` | 5% | 8.1 | ×1 |
 
 For 2D mascot explainers prefer one narrator plus one child voice for the mascot. Community voices are clones of real people: check Vbee's commercial-use terms before monetized use. These are machine measurements, not a listening verdict; the user's ear decides. Thanh Long remains the configured default where a skill or AGENTS.md names it.
+
+## Owner YouTube Channel Portfolio & Growth Direction
+
+- **Shared Google Account:** All 5 channels belong to the **same single Gmail/Google login (Brand Accounts)** — always use the channel-specific `YOUTUBE_REFRESH_TOKEN_<KEY>` and `resolve_channel` check so uploads never hit the wrong channel.
+- **1-Month YPP Monetization Deadline (Boss Mandate):** Project survival depends on reaching **YouTube Partner Program monetization** within **1 month** (1,000 subs + 4,000 watch hours or 10M Shorts views, 100% original YPP-compliant content). Prioritize retention, consistent publishing, Shorts-to-longform watch-time funnels, and `youtube-agent-skill` packaging on every video.
+
+Always match content, pacing, visuals, voice, thumbnail style, and upload defaults to the target channel (see full details in `AGENTS.md`):
+- **Hẻm Chuyện Lạ (`@HemChuyenLa`, `HEM_CHUYEN_LA`)**: Vietnamese horror, folklore, and urban legends (`make-horror-video` / `truyenma-studio`; 9:16 taboo-twist Shorts + 25–35 min 16:9 episodes).
+- **Khủng Long Tí Hon (`@TinyRex01`, `TINY_REX`)**: Vietnamese science, prehistoric survival & evolutionary relatives featuring Tí Hon v3.0 (`thanhhai-2d-studio`; 9:16 A/B quiz Shorts + 1440p 16:9 adventures).
+- **Tech Cà Chớn (`@TechCàChớn`, `TECH_CA_CHON`)**: Vietnamese tech, AI & digital culture with witty, satirical, relatable commentary.
+- **Olise Man (`@olise-man`, `OLISE_MAN`)**: English-language cinematic emotional & psychological 2D/2.5D animated short films (`16:9` 1440p/2K & Shorts).
+- **Sống Chậm Lại (`@song.cham.lai01`)**: Vietnamese slow living, emotional healing & mindful life reflections (warm calm 2D aesthetic, gentle Vbee narration, high-save/share resonance; pending channel-target & OAuth setup when uploading).
+- **YouTube Upload & OAuth Standard:** Mint tokens with `python3 scripts/youtube_oauth_setup.py --client-secret ~/Downloads/desktop-oauth.json --provider youtube --channel <KEY> --comments --overwrite` (for `youtube.force-ssl`). Default `publicStatsViewable: false` (hide like count) on all channels in `scripts/youtube_multi_channel.py`. Schedule Shorts series at **1 Short/day** (`19:00–20:00 UTC+7`) with `Tập N:` + `#shorts` hashtags, working on `main`.
+

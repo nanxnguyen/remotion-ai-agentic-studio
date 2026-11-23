@@ -105,3 +105,39 @@ For tasks that explicitly request YouTube delivery of a QA-approved video, read 
 - **Security and evidence**: secrets stay in GitHub Actions Secrets, never logs, chat, or commits. Verify correct OAuth Channel ID, FINAL QA, real Drive file IDs, duplicate marker and the actual GitHub Actions receipt/YouTube video ID. Missing dispatch capability means **ready to upload, not uploaded**. A successful API upload does not imply YouTube finished 2K transcoding.
 - **Original packaging**: deliver an actual story-matched thumbnail, accurate compelling English title and description, and review their consistency with the movie's hook and payoff. Don't claim guaranteed CTR, virality or monetization.
 - **Existing proof**: `THE GIRL WITH 1%` uploaded once to Olise in **Private** mode at `https://www.youtube.com/watch?v=YCv2D1om_Vg`; do not reupload that file by default. The temporary one-shot workflow was removed after the success.
+
+## Owner YouTube Channel Portfolio & Growth Direction
+
+These are the owner's 5 active YouTube channels (**all 5 channels are managed under the SAME single Gmail/Google account as Brand Accounts** — always verify the exact `channel_id` and per-channel OAuth refresh token before uploading so uploads never land on the wrong Brand Account).
+
+> [!IMPORTANT]
+> **1-MONTH MONETIZATION DEADLINE (BOSS MANDATE):** All 5 channels share a critical **1-month deadline to qualify for YouTube Partner Program (YPP) monetization** (1,000 subscribers + 4,000 valid public watch hours in 12 months, or 10M valid public Shorts views in 90 days), or the project risks cancellation. Every agent must prioritize **high-retention hooks, consistent upload cadence, Shorts-to-longform watch-time funnels, strict `youtube-agent-skill` packaging (`title.py` + `yt-seo`), and 100% original YPP-safe content** (never guarantee YPP approval or views, but optimize every workflow step toward real watch hours, subs, and policy compliance).
+
+Always tailor scripts, visual style, voice selection, pacing, thumbnails, SEO metadata, and upload defaults to the target channel's distinct identity:
+
+1. **Hẻm Chuyện Lạ** (`https://www.youtube.com/@HemChuyenLa` | key: `HEM_CHUYEN_LA` | ID: `UC4zHyyv2YnYGv1xbyuZzteA`)
+   - **Positioning**: Vietnamese horror, urban legends, spiritual folklore, and creepy mystery storytelling (`make-horror-video`, `truyenma-studio`, Option A/B/C *Dạ Hành Dị Tạp*).
+   - **Format & Direction**: 9:16 Shorts hooks (taboo-and-twist) feeding 25–35 min 16:9 long-form episodes; silence-then-hit horror sound design, atmospheric dark lighting, zero-box crisp subtitles, high-curiosity honest thumbnails.
+2. **Khủng Long Tí Hon** (`https://www.youtube.com/@TinyRex01` | key: `TINY_REX` | ID: `UChoJn1aAPcs2xWgEhaCcpQA`)
+   - **Positioning**: Vietnamese science, prehistoric survival, and surprising evolutionary relatives starring **Tí Hon v3.0** (`thanhhai-2d-studio`, `/engine/tihon.js`).
+   - **Format & Direction**: High-retention 9:16 24fps Shorts (`<= 60s`, 3-second A/B quiz + DNA reveal) bridging to 6–8 min 1440p 16:9 episodes; dark manga-ink or 3D DNA-contrast thumbnails, `-14.0 LUFS` mastering, `upload_defaults` in `config/youtube-channel-targets.json`.
+3. **Tech Cà Chớn** (`https://www.youtube.com/@TechC%C3%A0Ch%E1%BB%9Bn` | key: `TECH_CA_CHON` | ID: `UCPy649MXLinlhyxnc2OQHxg`)
+   - **Positioning**: Vietnamese tech, AI tools, coding, and digital life explained with witty, satirical, relatable humor.
+   - **Format & Direction**: Fast-cut 9:16 Shorts myth-busting/hot-takes + concise 16:9 visual explainers; punchy numbers/comparisons, high-contrast tech thumbnails, zero jargon bloat.
+4. **Olise Man** (`https://www.youtube.com/@olise-man` | key: `OLISE_MAN` | ID: `UCY3n3Nlqyo6uI4GU8nuX-5g`)
+   - **Positioning**: English-language emotional, psychological, and allegorical 2D/2.5D animated short films (`THE GIRL WITH 1%` benchmark).
+   - **Format & Direction**: Cinematic 16:9 2K/1440p storytelling and 9:16 Shorts; English VO & packaging, expressive silhouette/lighting direction, strong visual payoff without cliché motivational filler.
+5. **Sống Chậm Lại** (`https://www.youtube.com/@song.cham.lai01` | handle: `@song.cham.lai01`, pending `config/youtube-channel-targets.json` + OAuth setup when ready to upload)
+   - **Positioning**: Vietnamese slow living, mindfulness, emotional healing, and quiet life reflections (`Ray Emotional Stick Shorts` / calm 2D aesthetic).
+   - **Format & Direction**: Warm, soothing 9:16 Shorts and calming 16:9 essays; gentle Vbee narration, soft fades (`0.35–0.55s`), empathetic hooks aimed at saves, shares, and thoughtful comments rather than shock value.
+
+### YouTube OAuth, Privacy & Upload Standards (All Channels)
+
+- **Canonical Desktop OAuth Client:** Always mint channel refresh tokens using `~/Downloads/desktop-oauth.json` (`909606990285-a2c4k1kevreg997k6q1m7kbfnm4o1nlk`) with `--comments` so `youtube.force-ssl` is granted alongside `youtube.upload` and `youtube.readonly` (required for `videos.update`, scheduling `publishAt`, and posting comments):
+  ```bash
+  python3 scripts/youtube_oauth_setup.py --client-secret ~/Downloads/desktop-oauth.json --provider youtube --channel <CHANNEL_KEY> --comments --overwrite
+  ```
+  Never use Web App OAuth JSONs (e.g. `client_secret_*` bound to `localhost:3000/api/auth/callback`).
+- **Hide Like Count by Default:** Every video uploaded across all channels MUST default to `publicStatsViewable: false` (uncheck *"Hiện số người thích video này"*), enforced in `scripts/youtube_multi_channel.py` (`build_video_body`).
+- **Shorts Series Packaging & Cadence:** Prefix serialized Shorts titles with `Tập N:` and append `#shorts` + niche hashtags (`#truyenma #hemchuyenla`, etc.) after the core `<= 40`-char hook. Publish/schedule consistently at **1 Short/day** (19:00–20:00 `UTC+7`) rather than bulk-dumping multiple episodes at once. Always work directly on `main`.
+
