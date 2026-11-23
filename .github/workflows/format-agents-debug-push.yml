@@ -6,24 +6,33 @@ on:
       - "fix/restore-ray-pineline-shared-skill-alias-20261123"
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
-  format-agents:
+  format-and-verify:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
+        with:
+          persist-credentials: true
       - uses: actions/setup-node@v5
         with:
           node-version: 22
           cache: npm
-      - run: npm ci
-      - name: Produce exact Prettier 3.6.2 output
-        run: |
-          mkdir -p out
-          npx prettier@3.6.2 AGENTS.md > out/AGENTS.md
-      - uses: actions/upload-artifact@v6
+      - uses: actions/setup-python@v6
         with:
-          name: formatted-agents-md
-          path: out/AGENTS.md
-          retention-days: 1
+          python-version: "3.12"
+      - run: npm ci
+      - name: Format the pre-existing Markdown drift
+        run: npx prettier@3.6.2 --write AGENTS.md
+      - name: Run the complete repository verification suite
+        run: npm run verify
+      - name: Commit only the formatter output
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add AGENTS.md
+          if ! git diff --cached --quiet; then
+            git commit -m "docs: format AGENTS.md with Prettier"
+            git push origin HEAD:refs/heads/fix/restore-ray-pineline-shared-skill-alias-20261123
+          fi
