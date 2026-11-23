@@ -20,6 +20,8 @@ venv/
 *.key
 credentials*.json
 secrets*.json
+*oauth*.json
+config/desktop-oauth.json
 
 # Agent and editor-local state
 .superpowers/

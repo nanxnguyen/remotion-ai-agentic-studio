@@ -1,0 +1,122 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <defs>
+    <!-- Split background: cold city left (35%), warm rural home right (65%) -->
+    <linearGradient id="coldCity" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#090D16"/>
+      <stop offset="100%" stop-color="#162033"/>
+    </linearGradient>
+    <radialGradient id="warmHome" cx="68%" cy="48%" r="62%">
+      <stop offset="0%" stop-color="#5C3418"/>
+      <stop offset="50%" stop-color="#291811"/>
+      <stop offset="100%" stop-color="#0F0B0A"/>
+    </radialGradient>
+    <radialGradient id="lampHalo" cx="68%" cy="28%" r="42%">
+      <stop offset="0%" stop-color="#FDE68A" stop-opacity="0.85"/>
+      <stop offset="45%" stop-color="#F59E0B" stop-opacity="0.28"/>
+      <stop offset="100%" stop-color="#F59E0B" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="goldText" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFFBEB"/>
+      <stop offset="50%" stop-color="#FDE047"/>
+      <stop offset="100%" stop-color="#F59E0B"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Base right warm background -->
+  <rect width="1920" height="1080" fill="url(#warmHome)"/>
+  <circle cx="1320" cy="300" r="680" fill="url(#lampHalo)"/>
+
+  <!-- Left cold city panel with diagonal split -->
+  <polygon points="0,0 740,0 620,1080 0,1080" fill="url(#coldCity)"/>
+  <line x1="740" y1="0" x2="620" y2="1080" stroke="#F59E0B" stroke-width="10" opacity="0.75"/>
+
+  <!-- Left side: Silhouetted adult child at glowing blue laptop late at night -->
+  <rect x="85" y="640" width="240" height="150" rx="12" fill="#0F172A" stroke="#38BDF8" stroke-width="8"/>
+  <ellipse cx="205" cy="715" rx="95" ry="50" fill="#38BDF8" opacity="0.25"/>
+  <!-- Child head & shoulders looking tired at screen -->
+  <path d="M270 980 C280 795 340 735 435 735 C520 735 575 795 585 980 Z" fill="#1E293B" stroke="#090D16" stroke-width="18"/>
+  <circle cx="430" cy="610" r="105" fill="#E2E8F0" stroke="#090D16" stroke-width="18"/>
+  <path d="M325 595 C325 505 395 475 455 480 C515 485 550 535 538 600 C505 555 460 540 410 548 C365 545 340 568 325 595 Z" fill="#0F172A"/>
+  <!-- Phone on desk showing missed call -->
+  <rect x="465" y="835" width="115" height="58" rx="10" fill="#1E293B" stroke="#EF4444" stroke-width="5"/>
+  <circle cx="492" cy="864" r="12" fill="#EF4444"/>
+
+  <!-- Right side: Large Wall Calendar with Red Circles & Crosses (Hero Prop) -->
+  <g transform="translate(1360, 115)">
+    <rect x="0" y="0" width="440" height="500" rx="18" fill="#FFFBEB" stroke="#0F172A" stroke-width="18"/>
+    <rect x="0" y="0" width="440" height="95" rx="16" fill="#DC2626" stroke="#0F172A" stroke-width="18"/>
+    <text x="220" y="64" font-family="Arial, sans-serif" font-weight="900" font-size="44" fill="#FFFFFF" text-anchor="middle">THÁNG 12</text>
+
+    <!-- Calendar grid dots & red circled dates -->
+    <g fill="#94A3B8">
+      <circle cx="80" cy="165" r="14"/><circle cx="170" cy="165" r="14"/><circle cx="260" cy="165" r="14"/><circle cx="350" cy="165" r="14"/>
+      <circle cx="80" cy="245" r="14"/><circle cx="170" cy="245" r="14"/><circle cx="260" cy="245" r="14"/><circle cx="350" cy="245" r="14"/>
+      <circle cx="80" cy="325" r="14"/><circle cx="170" cy="325" r="14"/><circle cx="260" cy="325" r="14"/><circle cx="350" cy="325" r="14"/>
+      <circle cx="80" cy="405" r="14"/><circle cx="170" cy="405" r="14"/><circle cx="260" cy="405" r="14"/><circle cx="350" cy="405" r="14"/>
+    </g>
+
+    <!-- Red hand-drawn circles with X marks (missed promises) -->
+    <g stroke="#DC2626" stroke-width="12" fill="none" stroke-linecap="round">
+      <circle cx="170" cy="165" r="36"/>
+      <line x1="145" y1="140" x2="195" y2="190"/>
+      <line x1="195" y1="140" x2="145" y2="190"/>
+
+      <circle cx="350" cy="245" r="36"/>
+      <line x1="325" y1="220" x2="375" y2="270"/>
+      <line x1="375" y1="220" x2="325" y2="270"/>
+
+      <circle cx="260" cy="325" r="36"/>
+      <line x1="235" y1="300" x2="285" y2="350"/>
+      <line x1="285" y1="300" x2="235" y2="350"/>
+
+      <!-- One final glowing red circle waiting at bottom right -->
+      <circle cx="350" cy="405" r="42" stroke="#EF4444" stroke-width="14"/>
+    </g>
+    <text x="350" y="420" font-family="Arial, sans-serif" font-weight="900" font-size="38" fill="#DC2626" text-anchor="middle">?</text>
+  </g>
+
+  <!-- Right Center: Elderly Mother sitting by the warm dinner table waiting -->
+  <!-- Hanging warm lamp -->
+  <line x1="1120" y1="0" x2="1120" y2="155" stroke="#78350F" stroke-width="10"/>
+  <path d="M1040 195 Q1120 125 1200 195 Z" fill="#B45309" stroke="#0F172A" stroke-width="12"/>
+  <circle cx="1120" cy="208" r="32" fill="#FFFBEB"/>
+
+  <!-- Mother Character (Warm 2D style, silver-grey hair bun, glasses, gentle longing look) -->
+  <!-- Hair bun -->
+  <circle cx="1155" cy="355" r="58" fill="#94A3B8" stroke="#0F172A" stroke-width="18"/>
+  <!-- Body / Brown cardigan -->
+  <path d="M880 940 C895 725 975 645 1095 645 C1215 645 1295 725 1310 940 Z" fill="#7C2D12" stroke="#0F172A" stroke-width="22"/>
+  <path d="M975 645 Q1095 710 1215 645" fill="none" stroke="#FDE68A" stroke-width="12" opacity="0.7"/>
+  <!-- Head -->
+  <circle cx="1095" cy="495" r="158" fill="#FFF8ED" stroke="#0F172A" stroke-width="22"/>
+  <!-- Silver Hair -->
+  <path d="M938 480 C935 360 1020 315 1110 320 C1205 325 1265 385 1252 485 C1220 425 1165 400 1095 408 C1020 400 968 430 938 480 Z" fill="#CBD5E1" stroke="#0F172A" stroke-width="20"/>
+  <!-- Glasses -->
+  <circle cx="1035" cy="505" r="44" fill="none" stroke="#B45309" stroke-width="10"/>
+  <circle cx="1155" cy="505" r="44" fill="none" stroke="#B45309" stroke-width="10"/>
+  <line x1="1079" y1="505" x2="1111" y2="505" stroke="#B45309" stroke-width="10"/>
+  <!-- Sad/longing eyes looking toward the calendar / empty chair -->
+  <path d="M1012 498 Q1035 518 1058 498" fill="none" stroke="#0F172A" stroke-width="14" stroke-linecap="round"/>
+  <path d="M1132 498 Q1155 518 1178 498" fill="none" stroke="#0F172A" stroke-width="14" stroke-linecap="round"/>
+  <!-- Gentle wistful mouth -->
+  <path d="M1072 572 Q1095 562 1118 572" fill="none" stroke="#0F172A" stroke-width="12" stroke-linecap="round"/>
+
+  <!-- Wooden Dinner Table at bottom right with TWO bowls (one untouched) -->
+  <path d="M720 885 L1860 885 L1900 1080 L670 1080 Z" fill="#451A03" stroke="#0F172A" stroke-width="20"/>
+  <!-- Bowl 1 (Mother) -->
+  <path d="M1010 835 L1145 835 L1125 905 C1115 925 1040 925 1030 905 Z" fill="#FEF3C7" stroke="#0F172A" stroke-width="16"/>
+  <!-- Bowl 2 (Waiting for child — with chopsticks laid across top) -->
+  <path d="M1320 835 L1455 835 L1435 905 C1425 925 1350 925 1340 905 Z" fill="#FEF3C7" stroke="#0F172A" stroke-width="16"/>
+  <line x1="1295" y1="822" x2="1480" y2="822" stroke="#F59E0B" stroke-width="12" stroke-linecap="round"/>
+
+  <!-- HIGH-CONTRAST 4-WORD HOOK TEXT (Top-Left, Zero overlap with title words) -->
+  <g transform="translate(75, 85)">
+    <rect x="-15" y="-15" width="815" height="270" rx="28" fill="#090D16" fill-opacity="0.82" stroke="#F59E0B" stroke-width="6"/>
+    <text x="25" y="95" font-family="Arial, sans-serif" font-weight="900" font-size="96" fill="#FFFFFF" stroke="#000000" stroke-width="18" paint-order="stroke">CUỐN LỊCH</text>
+    <text x="25" y="215" font-family="Arial, sans-serif" font-weight="900" font-size="104" fill="url(#goldText)" stroke="#000000" stroke-width="20" paint-order="stroke">GẠCH ĐỎ</text>
+  </g>
+
+  <!-- Pointing curved arrow from text to the red-circled calendar -->
+  <path d="M895 215 Q1115 145 1320 235" fill="none" stroke="#FDE047" stroke-width="16" stroke-linecap="round"/>
+  <polygon points="1340,242 1295,200 1302,262" fill="#FDE047"/>
+</svg>

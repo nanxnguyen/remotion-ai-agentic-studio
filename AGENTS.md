@@ -127,7 +127,7 @@ Always tailor scripts, visual style, voice selection, pacing, thumbnails, SEO me
 4. **Olise Man** (`https://www.youtube.com/@olise-man` | key: `OLISE_MAN` | ID: `UCY3n3Nlqyo6uI4GU8nuX-5g`)
    - **Positioning**: Pivoting away from abstract sad shorts toward 3 high-retention English 2D/2.5D animated pillars (testing 30s 16:9 demos): **Direction B (True Survival & Real-Life Near-Death Stories)**, **Direction C (Dark Psychology & Real Human Experiments)**, and **Direction D (Weird History & Unsolved Mysteries)**.
    - **Format & Direction**: Cinematic 16:9 (`1080p`/`1440p`) storytelling + 9:16 Shorts funnels; English VO & packaging, crisp 0–5s hooks, high-contrast dark/editorial visuals, YPP-safe (no gore/policy violations).
-5. **Sống Chậm Lại** (`https://www.youtube.com/@song.cham.lai01` | handle: `@song.cham.lai01`, pending `config/youtube-channel-targets.json` + OAuth setup when ready to upload)
+5. **Sống Chậm Lại** (`https://www.youtube.com/@song.cham.lai01` | key: `CU_LA_CHINH_MINH` | ID: `UClvEUI8YW3dv9aqQknMJS0w`)
    - **Positioning**: Vietnamese slow living, mindfulness, emotional healing, and quiet life reflections (`Ray Emotional Stick Shorts` / calm 2D aesthetic).
    - **Format & Direction**: Warm, soothing 9:16 Shorts and calming 16:9 essays; gentle Vbee narration, soft fades (`0.35–0.55s`), empathetic hooks aimed at saves, shares, and thoughtful comments rather than shock value.
 6. **A Xìn Kể Chuyện** (`https://www.youtube.com/@AX%C3%ACnK%E1%BB%83Chuy%E1%BB%87n` | key: `A_XIN_KE_CHUYEN` | ID: `UCAXz543u0godPTo44c9hH3g`)
@@ -136,11 +136,11 @@ Always tailor scripts, visual style, voice selection, pacing, thumbnails, SEO me
 
 ### YouTube OAuth, Privacy & Upload Standards (All Channels)
 
-- **Canonical Desktop OAuth Client:** Always mint channel refresh tokens using `~/Downloads/desktop-oauth.json` (`909606990285-a2c4k1kevreg997k6q1m7kbfnm4o1nlk`) with `--comments` so `youtube.force-ssl` is granted alongside `youtube.upload` and `youtube.readonly` (required for `videos.update`, scheduling `publishAt`, and posting comments):
+- **Canonical Desktop OAuth Client (`config/desktop-oauth.json`):** The Desktop OAuth client JSON (`909606990285-a2c4k1kevreg997k6q1m7kbfnm4o1nlk`) is stored locally at `config/desktop-oauth.json` (git-ignored) and synced to `~/.config/ray-youtube-uploader/YOUTUBE_CLIENT_ID.txt` + `YOUTUBE_CLIENT_SECRET.txt`. Always mint channel refresh tokens using `config/desktop-oauth.json` with `--comments` so `youtube.force-ssl` is granted alongside `youtube.upload` and `youtube.readonly` (required for `videos.update`, scheduling `publishAt`, and posting comments):
   ```bash
-  python3 scripts/youtube_oauth_setup.py --client-secret ~/Downloads/desktop-oauth.json --provider youtube --channel <CHANNEL_KEY> --comments --overwrite
+  python3 scripts/youtube_oauth_setup.py --client-secret config/desktop-oauth.json --provider youtube --channel <CHANNEL_KEY> --comments --overwrite
   ```
-  Never use Web App OAuth JSONs (e.g. `client_secret_*` bound to `localhost:3000/api/auth/callback`).
+  (Because `scripts/youtube_oauth_setup.py` now defaults `--client-secret` to `config/desktop-oauth.json` when present, `--client-secret` can also be omitted.) Never use Web App OAuth JSONs (e.g. `client_secret_*` bound to `localhost:3000/api/auth/callback`).
 - **Hide Like Count by Default (STRICT — ALL CHANNELS):** Every video uploaded or updated across **all channels** MUST enforce `publicStatsViewable: false` (tuyệt đối **không tick** *"Hiện số người xem thích video này"*), enforced in both `scripts/youtube_multi_channel.py` (`build_video_body`) and `scripts/youtube_update_metadata.py` (`public_stats_viewable: false`). Note: after `youtube_update_metadata.py` runs, refresh YouTube Studio (F5) to see the updated checkbox state, and keep channel upload defaults unchecked if Studio caches it.
 - **Shorts Series Packaging & Cadence:** Prefix serialized Shorts titles with `Tập N:` and append `#shorts` + niche hashtags (`#truyenma #hemchuyenla`, etc.) after the core `<= 40`-char hook. Publish/schedule consistently at **1 Short/day** (19:00–20:00 `UTC+7`) rather than bulk-dumping multiple episodes at once. Always work directly on `main`.
 - **Mandatory YouTube Community Guidelines & YPP Policy Compliance (All Channels):** Every script, visual scene, horror/history depiction, audio cue, thumbnail, title, description, and pinned comment MUST strictly comply with **YouTube Community Guidelines** (*Tiêu chuẩn cộng đồng*) and YPP Advertiser-Friendly / Repetitious Content Guidelines:

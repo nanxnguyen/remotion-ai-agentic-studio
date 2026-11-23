@@ -17,9 +17,10 @@ https://support.google.com/youtube/answer/3046478
 ## First channel: @olise-man
 
 ```bash
-python scripts/youtube_oauth_setup.py --provider youtube --channel OLISE_MAN --client-secret /private/path/client_secret.json
-python scripts/youtube_oauth_setup.py --provider drive --client-secret /private/path/client_secret.json
+python3 scripts/youtube_oauth_setup.py --provider youtube --channel OLISE_MAN --client-secret config/desktop-oauth.json --comments --overwrite
+python3 scripts/youtube_oauth_setup.py --provider drive --client-secret config/desktop-oauth.json --overwrite
 ```
+*(Note: The canonical Desktop OAuth client is kept locally at `config/desktop-oauth.json` — git-ignored via `.gitignore` — and `scripts/youtube_oauth_setup.py` automatically uses `config/desktop-oauth.json` by default if `--client-secret` is omitted.)*
 
 The browser may ask you to select which channel you authorize. **Choose `@olise-man`**. The script verifies the actual OAuth channel against the official handle before writing the token. If no channel picker appears or a different channel is selected, it **fails without saving an incorrect token**. Try switching the default channel in YouTube account settings, then rerun the local flow.
 

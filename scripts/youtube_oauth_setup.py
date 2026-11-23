@@ -30,7 +30,12 @@ def private_file(path: Path, content: str, overwrite: bool = False) -> None:
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--client-secret", help="OAuth Desktop JSON from Google Cloud")
+    default_client = ROOT / "config" / "desktop-oauth.json"
+    parser.add_argument(
+        "--client-secret",
+        default=str(default_client) if default_client.exists() else None,
+        help="OAuth Desktop JSON from Google Cloud (defaults to config/desktop-oauth.json if present)",
+    )
     parser.add_argument("--use-saved-client", action="store_true", help="Use saved YOUTUBE_CLIENT_ID.txt / YOUTUBE_CLIENT_SECRET.txt from ~/.config/ray-youtube-uploader")
     parser.add_argument("--provider", choices=["youtube", "drive", "drive-archive"], required=True)
     parser.add_argument("--channel", default="OLISE_MAN", help="Used when provider=youtube")

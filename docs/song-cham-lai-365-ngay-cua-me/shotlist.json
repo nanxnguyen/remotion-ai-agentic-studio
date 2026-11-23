@@ -1,0 +1,230 @@
+{
+  "styleId": "amber-noir",
+  "shots": [
+    {
+      "id": "H01",
+      "start": 0,
+      "end": 14,
+      "duration_sec": 14,
+      "pose": "thinking",
+      "caption": "20 năm nữa, bạn còn bao ngày bên mẹ?",
+      "narration": "Bạn nghĩ mình còn hai mươi năm bên bố mẹ, nhưng tại sao với bảy ngày phép mỗi năm, bạn sắp bỏ lỡ họ? Tại sao bạn dành ba trăm năm mươi tám ngày cho công việc ở một thành phố cách nhà bốn trăm cây số, nhưng lại vội vàng cúp máy cuộc gọi của mẹ chỉ sau ba mươi giây?"
+    },
+    {
+      "id": "H02",
+      "start": 14,
+      "end": 34,
+      "duration_sec": 20,
+      "pose": "presenting",
+      "caption": "20 năm × 7 ngày Tết = 140 ngày",
+      "narration": "Nếu năm nay bố mẹ đã ngoài sáu mươi tuổi, và mỗi năm bạn chỉ về quê đúng bảy ngày Tết, thì trong hai mươi năm tới, tổng thời gian bạn thật sự nhìn thấy mặt bố mẹ chỉ còn một trăm bốn mươi ngày. Chưa đầy năm tháng trong cả phần đời còn lại."
+    },
+    {
+      "id": "H03",
+      "start": 34,
+      "end": 50,
+      "duration_sec": 16,
+      "pose": "shocked",
+      "caption": "Dòng chữ bút chì sau tờ lịch gạch đỏ",
+      "narration": "Minh, hai mươi tám tuổi, cũng từng tin rằng mình còn rất nhiều thời gian. Cho đến đêm anh mở chiếc thùng xốp mẹ gửi lên thành phố, và nhìn thấy dòng chữ bút chì mẹ ghi đằng sau tờ lịch bị gạch đỏ."
+    },
+    {
+      "id": "C1.01",
+      "start": 50,
+      "end": 82,
+      "duration_sec": 32,
+      "pose": "thinking",
+      "caption": "Mẹ đếm năm bằng những ngày con hứa về",
+      "narration": "Ở thành phố, Minh đếm thời gian bằng quý, bằng những kỳ chạy dự án và những cuộc họp nối đuôi nhau. Cuốn lịch trên điện thoại của anh lúc nào cũng chật kín những ô màu công việc. Nhưng ở căn nhà nhỏ nơi quê nhà, cuốn lịch giấy treo cạnh tủ chè của mẹ lại không đếm một năm bằng mười hai tháng. Mẹ đếm một năm bằng những kỳ nghỉ lễ mà Minh hứa sẽ về."
+    },
+    {
+      "id": "C1.02",
+      "start": 82,
+      "end": 115,
+      "duration_sec": 33,
+      "pose": "celebrate",
+      "caption": "Vòng tròn đỏ cho kỳ nghỉ lễ tháng Tư",
+      "narration": "Đầu tháng Tư, Minh gọi về báo: Đợt nghỉ lễ ba ngày cuối tháng này con thu xếp về với bố mẹ. Với Minh, đó là một lời hứa thật lòng giữa giờ nghỉ trưa. Còn ở quê, ngay sau tiếng tút tắt máy, mẹ bước lại góc tường, đeo chiếc kính lão đã lỏng một bên gọng, tìm đúng ngày thứ Bảy cuối tháng Tư và khoanh một vòng tròn màu đỏ thật đậm."
+    },
+    {
+      "id": "C1.03",
+      "start": 115,
+      "end": 148,
+      "duration_sec": 33,
+      "pose": "idle",
+      "caption": "Cả ngôi nhà cũ đếm ngược ngày con về",
+      "narration": "Từ giây phút có vòng tròn đỏ ấy, cả ngôi nhà cũ như có một cái đích để đếm ngược. Trước lễ cả tuần, mẹ đem chiếc chăn bông trong buồng của Minh ra phơi cho thơm mùi nắng mới. Bố ra vườn xem buồng chuối nào sắp chín bói thì chằng lại kẻo gió làm gãy, rồi nhốt riêng con gà ngon nhất vào góc chuồng. Hai ông bà đi chợ thấy mớ rau ngon cũng bảo nhau: Cất đấy, thứ Bảy này thằng Minh về nó thích ăn canh cua rau đay lắm."
+    },
+    {
+      "id": "C1.04",
+      "start": 148,
+      "end": 180,
+      "duration_sec": 32,
+      "pose": "slumped",
+      "caption": "Vết gạch chéo đầu tiên trên tờ lịch",
+      "narration": "Thế rồi tối thứ Sáu, khi nồi cá kho trên bếp đã dậy mùi riềng sả, điện thoại của mẹ sáng lên dòng tin nhắn: Mẹ ơi, lễ này công ty con có dự án gấp phải trực, con không về được rồi, bố mẹ cứ ăn trước nhé. Ở thành phố, Minh thở phào vì nghĩ bố mẹ sẽ thông cảm cho sự nghiệp của mình. Còn ở quê, mẹ nhìn nồi cá kho đang sôi lăn tăn, khẽ bảo bố: Thôi hai ông bà mình ăn tạm, phần ngon để nguội rồi cất vào ngăn đá cho nó. Đêm ấy, mẹ gạch chéo vòng tròn đỏ đầu tiên trên tờ lịch, rồi cẩn thận lấy cây bút chì ghi một dòng chữ nhỏ ngay bên dưới."
+    },
+    {
+      "id": "C2.01",
+      "start": 180,
+      "end": 212,
+      "duration_sec": 32,
+      "pose": "pointing",
+      "caption": "Ngăn đá đầy túi bóng buộc dây thun",
+      "narration": "Đợt nghỉ lễ tháng Tư trôi qua. Rồi đợt nghỉ lễ mùng Hai tháng Chín cũng lặp lại y hệt như thế. Cứ mỗi một vòng tròn đỏ trên tờ lịch bị gạch chéo, thì ngăn đá của chiếc tủ lạnh cũ ở góc bếp lại chật thêm một tầng. Mỗi chiếc túi bóng buộc dây thun trong ngăn đá ấy đều mang một dấu mốc mà chỉ mình mẹ nhớ: túi buộc dây thun đỏ là mẻ tôm sông phần đợt lễ tháng Tư, túi buộc dây thun xanh là con gà quê phần đợt tháng Chín."
+    },
+    {
+      "id": "C2.02",
+      "start": 212,
+      "end": 245,
+      "duration_sec": 33,
+      "pose": "idle",
+      "caption": "Ông bà ăn rau đậu, phần ngon cất tủ",
+      "narration": "Mỗi khi trong xóm có đám giỗ hay hôm nào bố kéo lưới được mẻ cá đồng tươi, hai ông bà chẳng bao giờ nỡ ăn hết. Mẹ luôn chọn phần thịt dày nhất, rửa sạch, để ráo nước rồi cất vào ngăn đá. Bố bảo để ra mà ăn lúc còn tươi, mẹ lại xua tay: Ông bà già ăn rau đậu cho nhẹ bụng, cất đấy nhỡ cuối tháng con nó xin nghỉ bù về bất chợt thì có cái nấu ngay, trên thành phố toàn đồ đông lạnh công nghiệp làm sao bằng đồ quê mình."
+    },
+    {
+      "id": "C2.03",
+      "start": 245,
+      "end": 278,
+      "duration_sec": 33,
+      "pose": "slumped",
+      "caption": "Tuyết trắng phủ dày qua bốn mùa đợi",
+      "narration": "Nhưng chuyến xe về bất chợt mà mẹ đợi đã không diễn ra suốt cả mùa hè lẫn mùa thu. Ngoài khung cửa sổ bếp, nắng hạ tắt dần nhường chỗ cho những cơn mưa lạnh cuối năm. Bên trong ngăn đá, lớp tuyết trắng cứ dày lên từng tháng, phủ kín lên những gói tôm, gói cá nằm im lìm ở góc sâu nhất. Còn trên mâm cơm hằng ngày của hai ông bà, vẫn chỉ quanh quẩn đĩa rau luộc và bát nước chấm."
+    },
+    {
+      "id": "C2.04",
+      "start": 278,
+      "end": 310,
+      "duration_sec": 32,
+      "pose": "argue",
+      "caption": "Minh trách mẹ tích đồ quá hạn",
+      "narration": "Minh vẫn nhớ Tết năm ngoái khi về nhà, mở ngăn đá ra thấy những túi đồ đông cứng phủ đầy tuyết, anh đã cau mày gắt nhẹ: Sao mẹ cứ tích đồ trong tủ lạnh mấy tháng trời thế này, đồ để lâu mất hết chất ăn làm sao được, bỏ hết đi cho con. Lúc ấy, mẹ chỉ đứng nép bên chạn bát, hai bàn tay nhăn nheo xoắn chặt vào vạt áo, cười ngượng nghịu như một đứa trẻ vừa làm sai: Ừ, tại mẹ cứ tưởng đợt lễ tháng trước con về. Minh chỉ nhìn thấy những túi thức ăn đã quá hạn, mà không hề biết rằng mình vừa trách mẹ vì những ngày mẹ đã đếm lịch chờ anh."
+    },
+    {
+      "id": "C3.01",
+      "start": 310,
+      "end": 345,
+      "duration_sec": 35,
+      "pose": "argue",
+      "caption": "45 phút cho khách, 30 giây cho mẹ",
+      "narration": "Không về được các kỳ nghỉ lễ, những cuộc điện thoại giữa Minh và nhà cũng thưa và ngắn dần. Ở công ty, Minh có thể kiên nhẫn mỉm cười trò chuyện suốt bốn mươi lăm phút với một khách hàng khó tính, lựa chọn từng lời lẽ dịu dàng nhất. Nhưng khi chữ Mẹ hiện lên trên màn hình lúc tối muộn, câu mở đầu quen thuộc của anh lại luôn là: Có việc gì gấp không mẹ, mẹ nói nhanh nhé con đang bận làm nốt cái báo cáo."
+    },
+    {
+      "id": "C3.02",
+      "start": 345,
+      "end": 380,
+      "duration_sec": 35,
+      "pose": "thinking",
+      "caption": "Mẹ đợi từ 17:00 đến 20:30 mới dám gọi",
+      "narration": "Minh không hề biết rằng, để thực hiện cuộc gọi kéo dài đúng ba mươi giây ấy, mẹ đã phải chuẩn bị từ suốt buổi chiều. Năm giờ chiều, mẹ nhìn đồng hồ treo tường rồi tự nhủ giờ này chắc nó còn đang họp ở công ty. Bảy giờ tối, mẹ lại đặt điện thoại xuống vì sợ con đang chạy xe ngoài đường kẹt cứng. Phải đợi đến tám giờ rưỡi tối, khi đoán con đã ăn cơm xong và về tới phòng, mẹ mới dám cầm điện thoại lên, rón rén bấm từng số."
+    },
+    {
+      "id": "C3.03",
+      "start": 380,
+      "end": 415,
+      "duration_sec": 35,
+      "pose": "slumped",
+      "caption": "Con ăn cơm chưa? Trên đấy có mưa không?",
+      "narration": "Khi Minh bắt máy, mẹ cũng chẳng có tin tức gì lớn lao để kể. Mẹ chỉ hỏi đúng mấy câu lặp đi lặp lại suốt bao năm: Con ăn cơm chưa? Dạo này dạ dày còn đau không? Trên thành phố tối nay có mưa lạnh như ở quê không con? Đáp lại giọng nói ngập ngừng ấy, Minh vừa gõ bàn phím vừa thở dài: Ngày nào mẹ cũng hỏi đúng mấy câu đấy, con hai mươi tám tuổi rồi con tự biết mặc ấm mà, thôi nhé con làm việc tiếp đây."
+    },
+    {
+      "id": "C3.04",
+      "start": 415,
+      "end": 450,
+      "duration_sec": 35,
+      "pose": "idle",
+      "caption": "Bữa cơm là sợi dây duy nhất mẹ giữ",
+      "narration": "Tiếng tút cúp máy vang lên, trả lại căn nhà ở quê về với tiếng tích tắc của chiếc đồng hồ treo tường. Khi một người mẹ cứ lặp đi lặp lại câu hỏi Con ăn cơm chưa, không phải vì bà quên câu trả lời của ngày hôm qua. Mà vì thế giới của bố mẹ giờ đã thu nhỏ lại đến mức chỉ còn vừa bằng hình bóng của con, và bữa cơm hay cơn mưa là sợi dây duy nhất để bà biết con mình ở nơi xa vẫn bình an. Nếu khoảnh khắc này khiến bạn chợt nhớ đến một cuộc gọi mình từng vội vàng cúp máy, hãy ấn Thích để giữ ngọn đèn ấm này luôn sáng, và bấm Đăng ký kênh Sống Chậm Lại để đồng hành cùng câu chuyện. Bởi vì ở chương tiếp theo, khi bảy ngày phép Tết cuối cùng cũng tới, một sự thật còn xót xa hơn cả khoảng cách bốn trăm cây số sẽ lộ diện."
+    },
+    {
+      "id": "C4.01",
+      "start": 450,
+      "end": 480,
+      "duration_sec": 30,
+      "pose": "celebrate",
+      "caption": "Chiều 28 Tết, ngôi nhà bừng sáng",
+      "narration": "Chiều hai mươi tám Tết, kỳ nghỉ phép bảy ngày duy nhất trong năm của Minh cuối cùng cũng bắt đầu. Khi chiếc vali kéo lọc cọc qua cánh cổng sắt đã tróc sơn, căn nhà vốn im ắng suốt ba trăm năm mươi tám ngày bỗng nhiên bừng tỉnh. Tiếng xoong nồi lách cách dưới bếp, tiếng bố pha ấm trà mới, tiếng mẹ giục Minh vào rửa mặt bằng chậu nước ấm đã pha sẵn từ lúc nào."
+    },
+    {
+      "id": "C4.02",
+      "start": 480,
+      "end": 512,
+      "duration_sec": 32,
+      "pose": "idle",
+      "caption": "Hai ngày đầu êm đềm bên mâm cơm nóng",
+      "narration": "Hai ngày đầu tiên ở nhà luôn trôi qua trong sự êm đềm tuyệt đối. Minh được ngủ một giấc thật sâu mà không có tiếng chuông báo thức. Sáng thức dậy đã nghe mùi hành phi và mùi cá kho riềng sả thơm lừng bay lên từ gian bếp nhỏ. Bố mẹ chẳng ăn mấy, chỉ ngồi đối diện gắp thức ăn vào bát cho Minh, ánh mắt sáng lên niềm vui giản dị khi thấy con ăn hết bát cơm thứ hai."
+    },
+    {
+      "id": "C4.03",
+      "start": 512,
+      "end": 545,
+      "duration_sec": 33,
+      "pose": "slumped",
+      "caption": "Ở nhà mà tâm trí vẫn ở thành phố",
+      "narration": "Nhưng rồi từ ngày মùng Một đến ngày mùng Bốn Tết, một nghịch lý quen thuộc lại âm thầm diễn ra. Ngay cả khi Minh đã ngồi ở chiếc ghế gỗ giữa nhà, ánh sáng xanh từ màn hình điện thoại vẫn kéo tâm trí anh về lại thành phố. Anh vừa uống trà với bố vừa cúi đầu trả lời tin nhắn nhóm công việc. Rồi những cuộc hẹn họp lớp, những buổi cà phê tất niên với bạn bè cũ cuốn Minh ra khỏi cổng từ trưa đến tận mười giờ đêm. Ở nhà, bố mẹ lại dọn mâm cơm Tết, lại úp đôi đũa ngang miệng chiếc bát trống và bảo nhau: Chắc tối nay nó ăn với bạn trên thị trấn rồi."
+    },
+    {
+      "id": "C4.04",
+      "start": 545,
+      "end": 575,
+      "duration_sec": 30,
+      "pose": "pointing",
+      "caption": "7 ngày phép, chỉ 9 tiếng bên bố mẹ",
+      "narration": "Trong bảy ngày phép mang tiếng là về sum họp cùng gia đình, nếu trừ đi năm mươi tiếng để ngủ, bốn mươi tiếng đi gặp bạn bè và hàng chục tiếng dán mắt vào màn hình điện thoại, tổng thời gian Minh thật sự ngồi xuống nhìn vào mắt bố mẹ và lắng nghe ông bà kể chuyện chưa đầy chín tiếng đồng hồ. Bảy ngày phép trôi qua nhanh như một cơn gió ngang qua hiên nhà. Và đến tối mùng Năm Tết, chiếc vali lại một lần nữa được mở ra giữa nền gạch cũ."
+    },
+    {
+      "id": "C5.01",
+      "start": 575,
+      "end": 612,
+      "duration_sec": 37,
+      "pose": "idle",
+      "caption": "2 giờ sáng mẹ rang ruốc, xé lịch bọc hũ",
+      "narration": "Đêm cuối cùng trước khi Minh quay lại thành phố, mẹ thức đến gần hai giờ sáng dưới gian bếp nhỏ. Mẹ lọ mọ đảo mẻ ruốc bông trên chảo lửa nhỏ cho thật khô để con để ngoài phòng trọ cả tháng không bị mốc. Sợ hũ ruốc thủy tinh va vào thành thùng xốp bị vỡ trên đường xe khách xóc, mẹ bước lên nhà trên, gỡ tập lịch cũ của năm vừa qua xuống, xé mấy tờ giấy lịch dày dặn nhất đem xuống bếp bọc kín xung quanh hũ ruốc. Minh đứng ở cửa bếp can: Trên thành phố siêu thị thiếu gì đồ ăn đâu mẹ, mẹ đừng nhét nữa nặng lắm con xách không nổi. Mẹ vừa lấy băng dính quấn chặt nắp thùng xốp vừa nói khẽ: Cầm lên mà ăn sáng trước khi đi làm, đừng có nhịn đói uống cà phê không lại đau dạ dày."
+    },
+    {
+      "id": "C5.02",
+      "start": 612,
+      "end": 648,
+      "duration_sec": 36,
+      "pose": "shocked",
+      "caption": "Tóc bố bạc trắng, vai mẹ gầy nhỏ dần",
+      "narration": "Sáng sớm hôm sau, khi chiếc xe khách bắt đầu chuyển bánh rời khỏi đầu quốc lộ, Minh vô tình ngoái đầu nhìn lại qua tấm kính cửa sổ mờ hơi sương. Và hình ảnh ở phía bên kia tấm kính khiến lồng ngực anh thắt lại. Giữa làn sương lạnh lúc sáu giờ sáng, bố và mẹ vẫn đứng sát bên nhau ở đầu con ngõ nhỏ nhìn theo đuôi xe. Minh bỗng giật mình nhận ra mái tóc của bố đã bạc trắng gần hết từ lúc nào, còn bờ vai của mẹ trong chiếc áo khoác len cũ đã gầy và thấp xuống hơn năm ngoái rất nhiều. Họ đứng đó, tiễn bảy ngày ngắn ngủi của mình đi xa, để bước vào ba trăm năm mươi tám ngày chờ đợi tiếp theo."
+    },
+    {
+      "id": "C5.03",
+      "start": 648,
+      "end": 690,
+      "duration_sec": 42,
+      "pose": "shocked",
+      "caption": "Sự thật sau những vết gạch chéo đỏ",
+      "narration": "Mười giờ đêm hôm ấy, trong căn phòng thuê lặng ngắt ở thành phố, Minh mở chiếc thùng xốp để lấy hũ ruốc đặt lên bàn ăn. Khi tháo lớp giấy bọc bên ngoài hũ ruốc ra, Minh khựng lại. Đó chính là tờ lịch cũ treo ở góc tủ chè suốt năm qua, nơi có ba vòng tròn màu đỏ đã bị gạch chéo vào những kỳ nghỉ lễ anh thất hứa. Nhưng khi Minh vuốt phẳng tờ giấy lịch dưới ánh đèn bàn, anh mới nhìn thấy những dòng chữ nhỏ xíu viết bằng bút chì hơi mờ ngay bên dưới mỗi vết gạch chéo của mẹ. Dưới vòng tròn đỏ bị gạch của tháng Tư, mẹ ghi: Minh báo trực dự án, kêu đau dạ dày, nhớ làm bột nghệ mật ong gửi lên. Dưới vòng tròn đỏ bị gạch của tháng Chín, mẹ ghi: Con không về được, sợ nó bận toàn ăn mì tôm, tuần sau nhớ rang thêm một cân ruốc bông. Và ở góc dưới cùng của tờ lịch là một phong bì tiền lẻ được vuốt phẳng phiu kèm dòng chữ: Tiền bán lứa gà lễ, cất cho Minh đóng tiền điện mùa nắng. Minh ngồi chết lặng trước chiếc bàn nhỏ. Suốt cả năm qua, anh cứ tưởng những vòng tròn gạch đỏ ấy là nơi mẹ đếm những lần anh thất hứa. Nhưng hóa ra, ngay cả trong khoảnh khắc bị con cho leo cây bên mâm cơm nguội, điều duy nhất mẹ ghi xuống tờ lịch vẫn chỉ là nỗi lo con trai mình ở thành phố bị đau dạ dày và không có bữa cơm tử tế."
+    },
+    {
+      "id": "C6.01",
+      "start": 690,
+      "end": 722,
+      "duration_sec": 32,
+      "pose": "thinking",
+      "caption": "19:45 — Minh gập laptop, gọi cho mẹ",
+      "narration": "Minh áp tờ lịch cũ còn thơm mùi ruốc mới vào ngực, mắt cay xè. Anh ngước nhìn chiếc đồng hồ trên tường phòng trọ: bảy giờ bốn mươi lăm phút tối. Giờ này ở quê, chắc mẹ đang ngồi nhìn đồng hồ trên bàn gỗ, đắn đo đợi thêm bốn mươi lăm phút nữa mới dám bấm số gọi cho anh vì sợ anh chưa tan làm. Minh không đợi đến tám giờ rưỡi nữa. Anh vươn tay gập hẳn màn hình chiếc máy tính xách tay lại, bật ngọn đèn bàn ánh vàng ấm lên, rồi cầm điện thoại chủ động bấm gọi video cho mẹ."
+    },
+    {
+      "id": "C6.02",
+      "start": 722,
+      "end": 755,
+      "duration_sec": 33,
+      "pose": "celebrate",
+      "caption": "Bữa cơm qua màn hình và tấm vé tàu",
+      "narration": "Chỉ mới đổ chuông đến tiếng thứ hai, khuôn mặt của mẹ đã hiện lên trên màn hình, thoáng chút hốt hoảng: Sao gọi giờ này thế con, có chuyện gì ở công ty à? Minh lắc đầu, kéo bát cơm nóng vừa xới và hũ ruốc mới mở lại gần ống kính, mỉm cười giọng hơi nghẹn: Dạ không, con gọi khoe mẹ là con đang ăn cơm với ruốc mẹ làm rồi, ngon lắm, tối nay trên này trời cũng mát không mưa đâu mẹ ạ. Ở đầu dây bên kia, đôi mắt sau cặp kính lão của mẹ bỗng giãn ra, nụ cười hiền hậu làm sáng bừng cả góc bếp quê. Minh vừa ăn vừa nghe bố kể chuyện cây bưởi ngoài sân suốt mười lăm phút liền mà không một lần liếc sang chiếc máy tính. Và trước khi cúp máy, anh chụp màn hình tấm vé tàu cuối tuần sau gửi cho mẹ: Cuối tháng này không phải ngày lễ, nhưng con đặt vé về ăn cơm với bố mẹ hai hôm rồi nhé."
+    },
+    {
+      "id": "C6.03",
+      "start": 755,
+      "end": 785,
+      "duration_sec": 30,
+      "pose": "presenting",
+      "caption": "140 ngày có thể dài thêm từ tối nay",
+      "narration": "Một trăm bốn mươi ngày còn lại bên bố mẹ là một con số cố định nếu chúng ta cứ đợi đến Tết mới trở về, nhưng con số ấy hoàn toàn có thể dài thêm hàng trăm bữa cơm nếu bạn chọn sống chậm lại ngay từ tối hôm nay. Sau khi tập phim này khép lại, hãy thử lấy số ngày bạn có thể về quê trong một năm nhân với hai mươi năm để xem mình còn bao nhiêu ngày ở cạnh bố mẹ, và viết con số ấy cùng kỷ niệm bạn nhớ nhất về bữa cơm nhà xuống phần bình luận bên dưới. Đừng quên ấn Thích để giữ ngọn đèn ấm luôn sáng và bấm Đăng ký kênh Sống Chậm Lại, vì ở tập tiếp theo chúng ta sẽ cùng mở ra câu chuyện từ góc nhìn của người đàn ông ít nói nhất trong nhà: Những Thứ Bố Không Bao Giờ Nói Ra Khi Đứng Ở Đầu Ngõ Tiễn Con Đi Xa."
+    }
+  ]
+}

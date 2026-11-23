@@ -158,6 +158,7 @@ EXTRA_PEOPLE = {  # side characters drawn from config, no cast.js entry needed
     'bàng thống': (SHU, 'topknot', 'full', 'fan'), 'phượng sồ': (SHU, 'topknot', 'full', 'fan'), 'lã mông': (WU, 'helm', 'goatee', 'sword'), 'hoàng cái': (WU, 'helm', 'long', 'sword'),
     'tào phi': (WEI, 'crown', 'none', 'sword'), 'tào sảng': (WEI, 'crown', 'none', 'scroll'), 'mã tốc': (SHU, 'topknot', 'none', 'scroll'),
     'mạnh hoạch': ('#7a4b2a', 'mohawk', 'full', 'spear'), 'khương duy': (SHU, 'helm', 'goatee', 'spear'), 'đặng ngải': (WEI, 'helm', 'goatee', 'spear'),
+    'khước chính': (SHU, 'topknot', 'goatee', 'scroll'),
     'tư mã chiêu': ('#342c44', 'crown', 'goatee', 'sword'), 'tư mã viêm': ('#342c44', 'crown', 'none', 'scroll'), 'tư mã sư': ('#342c44', 'crown', 'none', 'sword'),
     'lưu biểu': ('#5a6b4a', 'crown', 'long', 'scroll'), 'lưu chương': ('#5a6b4a', 'crown', 'goatee', 'scroll'), 'nhan lương': ('#7a6332', 'helm', 'full', 'spear'),
     'văn sửu': ('#7a6332', 'helm', 'full', 'spear'), 'quách gia': (WEI, 'topknot', 'none', 'fan'), 'trình dục': (WEI, 'topknot', 'goatee', 'scroll'),
@@ -168,6 +169,7 @@ EXTRA_PEOPLE = {  # side characters drawn from config, no cast.js entry needed
     'hứa du': ('#7a6332', 'topknot', 'goatee', 'scroll'), 'trương chiêu': (WU, 'crown', 'long', 'scroll'), 'vu cấm': (WEI, 'helm', 'full', 'spear'),
     'lưu tông': ('#5a6b4a', 'crown', 'none', 'scroll'), 'lã bá sa': ('#8a6a4a', 'topknot', 'long', None), 'bùi tùng chi': ('#5b4a6b', 'crown', 'long', 'scroll'),
     'thập thường thị': ('#6b5a7a', 'crown', 'none', 'scroll'), 'hoạn quan': ('#6b5a7a', 'crown', 'none', 'scroll'), 'em gái tôn quyền': ('#e07a9b', 'bun', 'none', 'sword'),
+    'khước chính': (SHU, 'topknot', 'goatee', 'scroll'), 'thị nữ': ('#e07a9b', 'bun', 'none', None),
 }
 CROWD_BY_SET = {  # unnamed extras when a line names nobody
     'market': ('Dân', '#a68a64', 'topknot', None), 'court': ('Quan', '#3d5a6c', 'crown', 'scroll'), 'banquet': ('Khách', '#7a2e2e', 'crown', None),

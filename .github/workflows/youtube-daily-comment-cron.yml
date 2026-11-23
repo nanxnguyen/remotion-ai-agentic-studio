@@ -1,0 +1,70 @@
+name: YouTube Daily 08:00 Auto Comment & User Engagement (All Channels)
+
+on:
+  schedule:
+    # 08:00 AM Vietnam Time (UTC+7) = 01:00 UTC every day
+    - cron: '0 1 * * *'
+  workflow_dispatch:
+    inputs:
+      channels:
+        description: 'Channel keys (comma-separated) or ALL'
+        required: false
+        default: 'ALL'
+        type: string
+      execute:
+        description: 'TRUE = post comments & replies; FALSE = dry-run preview'
+        required: false
+        default: true
+        type: boolean
+
+permissions:
+  contents: read
+
+concurrency:
+  group: youtube-daily-comment-cron
+  cancel-in-progress: false
+
+jobs:
+  auto-engage:
+    name: Scan Public Videos & Post Engagement Comments
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+      YOUTUBE_CLIENT_ID: ${{ secrets.YOUTUBE_CLIENT_ID }}
+      YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
+      YOUTUBE_REFRESH_TOKEN_HEM_CHUYEN_LA: ${{ secrets.YOUTUBE_REFRESH_TOKEN_HEM_CHUYEN_LA }}
+      YOUTUBE_REFRESH_TOKEN_A_XIN_KE_CHUYEN: ${{ secrets.YOUTUBE_REFRESH_TOKEN_A_XIN_KE_CHUYEN }}
+      YOUTUBE_REFRESH_TOKEN_TINY_REX: ${{ secrets.YOUTUBE_REFRESH_TOKEN_TINY_REX }}
+      YOUTUBE_REFRESH_TOKEN_TECH_CA_CHON: ${{ secrets.YOUTUBE_REFRESH_TOKEN_TECH_CA_CHON }}
+      YOUTUBE_REFRESH_TOKEN_OLISE_MAN: ${{ secrets.YOUTUBE_REFRESH_TOKEN_OLISE_MAN }}
+      YOUTUBE_REFRESH_TOKEN_THAO_NGUYEN_ELLA: ${{ secrets.YOUTUBE_REFRESH_TOKEN_THAO_NGUYEN_ELLA }}
+      YOUTUBE_REFRESH_TOKEN_GIEO_MOT_NIEM_LANH: ${{ secrets.YOUTUBE_REFRESH_TOKEN_GIEO_MOT_NIEM_LANH }}
+      YOUTUBE_REFRESH_TOKEN_CU_LA_CHINH_MINH: ${{ secrets.YOUTUBE_REFRESH_TOKEN_CU_LA_CHINH_MINH }}
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Install YouTube API dependencies
+        run: python -m pip install --disable-pip-version-check -r scripts/youtube-multi-requirements.txt
+      - name: Scan all channels and post missing owner comments + user replies
+        shell: bash
+        run: |
+          CHANNELS="${{ inputs.channels || 'ALL' }}"
+          if [[ "${{ github.event_name }}" == "schedule" || "${{ inputs.execute }}" == "true" ]]; then
+            EXEC_FLAG="--execute"
+          else
+            EXEC_FLAG=""
+          fi
+          python3 scripts/youtube_auto_engage_all_channels.py \
+            --channels "$CHANNELS" \
+            --receipt youtube-auto-engage-receipt.json \
+            $EXEC_FLAG
+      - uses: actions/upload-artifact@v6
+        if: always()
+        with:
+          name: youtube-auto-engage-receipt
+          path: youtube-auto-engage-receipt.json
+          if-no-files-found: ignore
+          retention-days: 14
