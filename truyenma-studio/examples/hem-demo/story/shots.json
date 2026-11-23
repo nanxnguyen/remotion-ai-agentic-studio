@@ -1,0 +1,14 @@
+{ "title": "Hẻm 02:17 — demo", "duration": 27.0,
+  "shots": [
+  {"id": "h01", "start": 0, "end": 3, "size": "wide", "beat": "hook", "fear": 0.6, "set": "hem", "line": "", "scene": "the alley at 02:17, a woman in white stands at the far end; lamp flickers", "sfx": [{"at": 0.1, "name": "static", "gain": -14}], "amb": {"name": "drone", "gain": -20}},
+  {"id": "h02", "start": 3, "end": 6, "size": "medium", "beat": "setup", "fear": 0.3, "set": "hem", "line": "", "scene": "Minh walks home with his phone flashlight, breath fog", "sfx": [{"at": 0.3, "name": "footstep", "gain": -12}, {"at": 0.9, "name": "footstep", "gain": -12}]},
+  {"id": "h03", "start": 6, "end": 9, "size": "insert", "beat": "dread", "fear": 0.55, "set": "altar", "line": "", "scene": "insert: the altar photo, candles; the portrait's eyes glow", "amb": {"name": "chime", "gain": -22}, "hush": true},
+  {"id": "h04", "start": 9, "end": 12, "size": "close", "beat": "scare", "fear": 0.95, "set": "hem", "line": "", "scene": "close: the ghost's hair parts, hollow eyes; zoom punch + flash", "sfx": [{"at": 0.05, "name": "scare", "gain": -4}]},
+  {"id": "h05", "start": 12, "end": 15, "size": "wide", "beat": "breather", "fear": 0.25, "set": "village", "line": "", "scene": "village entrance: banyan tree, red lanterns, paper offerings falling", "amb": {"name": "wind", "gain": -22}},
+  {"id": "h06", "start": 15, "end": 18, "size": "wide", "beat": "dread", "fear": 0.6, "set": "dark", "line": "", "scene": "pitch black, flashlight beam finds a shadow figure", "sfx": [{"at": 1.4, "name": "whisper", "gain": -10}], "hush": true},
+  {"id": "h07", "start": 18, "end": 21, "size": "insert", "beat": "reveal", "fear": 0.85, "set": "well", "line": "", "scene": "the old well: a pale hand reaches out of the dark water", "sfx": [{"at": 0.2, "name": "drip", "gain": -10}, {"at": 1.2, "name": "stinger", "gain": -6}]},
+  {"id": "h08", "start": 21, "end": 24, "size": "title", "beat": "twist", "fear": 0.9, "set": "vhs", "line": "", "scene": "VHS tape: rule card QUY TẮC SỐ 1", "sfx": [{"at": 0.0, "name": "static", "gain": -10}]},
+  {"id": "h09", "start": 24, "end": 27, "size": "end", "beat": "cta", "fear": 0.4, "set": "title", "line": "", "scene": "title card HẺM CHUYỆN LẠ", "sfx": [{"at": 0.2, "name": "templebell", "gain": -8}]}
+  ],
+  "music": [{"start": 0, "end": 12, "mood": "dread", "intensity": 0.5}, {"start": 12, "end": 27, "mood": "folk", "intensity": 0.45}]
+}

@@ -1,0 +1,19 @@
+{
+  "name": "thanhhai-2d-studio",
+  "version": "1.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Thanh Hai Learn AI 2D Studio: code-rendered cinematic stick-figure story videos (2D canvas + Three.js), rendered frame-by-frame",
+  "dependencies": {
+    "@fontsource/fredoka": "5.1.0",
+    "@fontsource/nunito": "5.1.0",
+    "@fontsource/playfair-display": "5.1.0",
+    "playwright": "1.56.0",
+    "three": "0.169.0"
+  },
+  "scripts": {
+    "test": "node --test tests/unit/*.test.mjs && python3 -m unittest discover -s tests/py",
+    "test:golden": "node tests/golden.mjs",
+    "golden:update": "node tests/golden.mjs --update"
+  }
+}

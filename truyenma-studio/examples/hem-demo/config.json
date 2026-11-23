@@ -1,0 +1,18 @@
+{
+ "title": "Hẻm 02:17 — demo",
+ "lang": "vi",
+ "aspect": "16:9",
+ "resolution": "720p",
+ "fps": 24,
+ "style": "amhon",
+ "voiceover": null,
+ "script": null,
+ "duration": 27.0,
+ "captions": false,
+ "bars": null,
+ "fadeIn": 0.3,
+ "fadeOut": 0.8,
+ "music": {"enabled": true, "gainDb": -16},
+ "sfx": {"enabled": true, "gainDb": -6},
+ "loudness": -14
+}

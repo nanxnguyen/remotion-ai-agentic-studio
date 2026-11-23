@@ -1,0 +1,10 @@
+{
+ "title": "Cảm giác đánh nhau với bọ khổng lồ",
+ "lang": "vi", "format": "what-its-like",
+ "cold_open": { "dur": 3 }, "title_card": { "dur": 2.6 }, "recap": { "dur": 5 }, "cta": { "dur": 3.6 },
+ "rounds": [
+  { "name": "Bọ hung Goliath", "stats": [ {"label": "Cân nặng", "v": 0.95, "text": "Top nặng nhất"}, {"label": "Nguy hiểm", "v": 0.2, "text": "2/10"} ], "scene": "Jungle floor: Cún Lú squares up to a beetle as big as his head" },
+  { "name": "Nhện góa phụ đen", "stats": [ {"label": "Nọc độc", "v": 0.85, "text": "Độc thần kinh"}, {"label": "Kích thước", "v": 0.15, "text": "~1,5 cm"} ], "gag": "bị cắn, mặt sưng vù", "scene": "Night: a tiny spider, Cún Lú laughs at it" },
+  { "name": "Cua dừa", "stats": [ {"label": "Lực kẹp", "v": 1.0, "text": "~3.300 N"}, {"label": "Nguy hiểm", "v": 0.7, "text": "7/10"} ], "weight": 1.3, "scene": "Beach at dusk: a coconut crab cracks a coconut" }
+ ]
+}

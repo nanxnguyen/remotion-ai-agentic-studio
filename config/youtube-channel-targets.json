@@ -30,6 +30,28 @@
         "embeddable": true,
         "license": "youtube"
       }
+    },
+    "THAO_NGUYEN_ELLA": {
+      "handle": "@ThảoNguyênElla",
+      "channel_id": null,
+      "upload_defaults": {
+        "category_id": "27",
+        "default_audio_language": "vi",
+        "public_stats_viewable": false,
+        "embeddable": true,
+        "license": "youtube"
+      }
+    },
+    "A_XIN_KE_CHUYEN": {
+      "handle": "@AXìnKểChuyện",
+      "channel_id": "UCAXz543u0godPTo44c9hH3g",
+      "upload_defaults": {
+        "category_id": "27",
+        "default_audio_language": "vi",
+        "public_stats_viewable": false,
+        "embeddable": true,
+        "license": "youtube"
+      }
     }
   }
 }

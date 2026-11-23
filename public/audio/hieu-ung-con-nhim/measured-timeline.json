@@ -1,0 +1,83 @@
+[
+  {
+    "id": 1,
+    "audio_file": "s1.mp3",
+    "text": "Bạn khao khát được yêu thương, nhưng cứ ai bước tới là bạn lại đẩy ra?",
+    "voice_code": "hn_male_phuthang_stor_24k-stl",
+    "audio_seconds": 4.08,
+    "visual_start_seconds": 0.0,
+    "sha256": "884c6641c0db45c283b1fd77b377e205ecf5d3f28b492b603286d8675e96b884"
+  },
+  {
+    "id": 2,
+    "audio_file": "s2.mp3",
+    "text": "Tâm lý học gọi đây là Hiệu ứng Con Nhím. Càng muốn sưởi ấm, gai nhọn càng làm nhau đau.",
+    "voice_code": "hn_male_phuthang_stor_24k-stl",
+    "audio_seconds": 5.136,
+    "visual_start_seconds": 5.5,
+    "sha256": "fad84d8072cfffc28111420a5652808d69a714c100dedb49733938a310ee1b6e"
+  },
+  {
+    "id": 3,
+    "audio_file": "s3.mp3",
+    "text": "Nó bắt đầu từ một quy tắc ngầm não bạn tự viết ra sau lần tổn thương đầu tiên:",
+    "voice_code": "hn_male_phuthang_stor_24k-stl",
+    "audio_seconds": 4.32,
+    "visual_start_seconds": 11.0,
+    "sha256": "41b7d8b00517056f06b6d12e1ebaed6fc62f1b19744b3f3bd61bdfa084dbc04d"
+  },
+  {
+    "id": 4,
+    "audio_file": "s4.mp3",
+    "text": "Gần gũi đồng nghĩa với nguy hiểm.",
+    "voice_code": "hn_male_phuthang_stor_24k-stl",
+    "audio_seconds": 2.232,
+    "visual_start_seconds": 16.5,
+    "sha256": "c23b372a9548d609c29829e417182d4775a84a7e2d24d1bc3d332de4a4f62b93"
+  },
+  {
+    "id": 5,
+    "audio_file": "s5.mp3",
+    "text": "Thế là bạn dựng lên bức tường. Tập làm quen với hai chữ ổn mà, tập rời đi trước khi bị bỏ lại.",
+    "voice_code": "hn_male_phuthang_stor_24k-stl",
+    "audio_seconds": 5.832,
+    "visual_start_seconds": 22.0,
+    "sha256": "a4b27ecf8f28da220a10bf4a54d8b1fc2f8887d5d8d850ddf3920f659d38f207"
+  },
+  {
+    "id": 6,
+    "audio_file": "s6.mp3",
+    "text": "Bạn bảo vệ mình khỏi bị tổn thương, nhưng cái giá phải trả là sự cô độc kéo dài.",
+    "voice_code": "hn_male_phuthang_stor_24k-stl",
+    "audio_seconds": 4.752,
+    "visual_start_seconds": 27.5,
+    "sha256": "68479c4d50bf2dc59c4c7a46e7ea247d5160178fb0726f72982e1820f93a1a88"
+  },
+  {
+    "id": 7,
+    "audio_file": "s7.mp3",
+    "text": "Sự an toàn thật sự không nằm sau những bức tường đóng kín.",
+    "voice_code": "hn_male_phuthang_stor_24k-stl",
+    "audio_seconds": 3.504,
+    "visual_start_seconds": 33.0,
+    "sha256": "f3cfd125e42a2430bee63e1ac00bfe887aa8fcd86d892fcebdefda070e920b2b"
+  },
+  {
+    "id": 8,
+    "audio_file": "s8.mp3",
+    "text": "Mà là tìm được một người đủ kiên nhẫn, cùng bạn giữ khoảng cách vừa đủ để không làm đau nhau.",
+    "voice_code": "hn_male_phuthang_stor_24k-stl",
+    "audio_seconds": 5.016,
+    "visual_start_seconds": 38.5,
+    "sha256": "9ef509cc728084e7734fb7510e1fa7cd22f764ac17e55005a765da609e3d1b47"
+  },
+  {
+    "id": 9,
+    "audio_file": "s9.mp3",
+    "text": "Bạn có đang giữ gai nhọn với ai đó không?",
+    "voice_code": "hn_male_phuthang_stor_24k-stl",
+    "audio_seconds": 2.64,
+    "visual_start_seconds": 44.0,
+    "sha256": "a561661cdf358671539364cf3577cdba80768b26f8b321f50c17a57c3f54ff43"
+  }
+]
