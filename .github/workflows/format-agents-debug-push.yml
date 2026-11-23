@@ -1,0 +1,29 @@
+name: Temporary AGENTS.md formatting diagnostic (push)
+
+on:
+  push:
+    branches:
+      - "fix/restore-ray-pineline-shared-skill-alias-20261123"
+
+permissions:
+  contents: read
+
+jobs:
+  format-agents:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Produce exact Prettier 3.6.2 output
+        run: |
+          mkdir -p out
+          npx prettier@3.6.2 AGENTS.md > out/AGENTS.md
+      - uses: actions/upload-artifact@v6
+        with:
+          name: formatted-agents-md
+          path: out/AGENTS.md
+          retention-days: 1
