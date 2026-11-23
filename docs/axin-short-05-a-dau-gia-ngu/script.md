@@ -1,36 +1,59 @@
 # Kịch Bản Shorts Tập 5: Vua A Đẩu Ngu Thật Hay Giả Vờ?
 
-- **Kênh:** A Xìn Kể Chuyện / A Xìn Soi Sử (`A_XIN_KE_CHUYEN`)
-- **Định dạng:** 9:16 Vertical Shorts (`1080×1920`), 24fps, thời lượng mục tiêu **~43–47 giây** (~115–125 từ)
-- **Skill hình ảnh:** `chibi-history-video` (`palace` yến tiệc Lạc Dương, Tư Mã Chiêu dò xét, Lưu Thiện cười toe toét `LẠC BẤT TƯ THỤC`, flashback Lưu Bị giả sợ sấm ôm cúp Oscar, bàn trà A Xìn)
-- **Phong cách:** Hài hước, châm biếm, cà khịa vui, kết mở kích thích tranh luận cực mạnh dưới phần bình luận
-- **Video dài liên kết (Related Video Funnel):** *Tam Quốc Trong 22 Phút: Ai Thắng Thật?*
+- **Kênh:** A Xin Chém Sử (`A_XIN_KE_CHUYEN`)
+- **Định dạng:** 9:16 Vertical Shorts (`1080×1920`), 24fps. **188 âm tiết, 34 dấu câu** → ước tính **~60s thô** / **~52s** sau siết pause ~0.3s/dấu (không tăng speed). Nếu đo thật > 52s: cắt "đất" (B4), "tuổi" (B6), "Tư Mã Chiêu bảo" → "Tư Mã Chiêu" (B5).
+- **Skill hình ảnh:** `chibi-history-video` (flashback Trường Bản, cổng Thành Đô, yến tiệc Lạc Dương, Tư Mã Chiêu, Khước Chính, bàn trà A Xìn)
+- **Phong cách:** Hài hước, châm biếm, kết mở để tranh luận
+- **Series:** *A Xin Chém Sử* — Tập 4 Điêu Thuyền → **Tập 5** → bản full (*Tam Quốc Trong 25 Phút*, màn hình chỉ ghi `XEM BẢN FULL`)
 
 ---
 
-## 1. Kết Quả Kiểm Định Plugin (`youtube-agent-skill`)
+## 1. Packaging
 
-### A. Kiểm định Tiêu đề & Thumbnail (`yt-package/title.py`)
-- **Tiêu đề chính (37 ký tự — Điểm: `100/100`):**
-  `Tập 5: Vua A Đẩu Ngu Thật Hay Giả Vờ?`
-- **Chữ trên Thumbnail / Cover 9:16:**
-  `4 CHỮ CỨU MẠNG!`
+### A. Tiêu đề & Thumbnail
+- **Tiêu đề (37 ký tự):** `Tập 5: Vua A Đẩu Ngu Thật Hay Giả Vờ?`
+- **Chữ Thumbnail (≤ 3 chữ):** `LỘ BÀI RỒI!`
+  Hình: Lưu Thiện chibi cười giữa tiệc, tay cầm tờ "bài học thuộc" có chữ ký Khước Chính. Tiêu đề hỏi, thumbnail gợi cú lật Khước Chính → bổ sung, không trả lời thay video.
+- *Điểm `title.py` / `hookscore.py` cũ đã cũ → cần chạy lại.*
 
-### B. Hai câu Hook chiến thắng (`yt-script/hookscore.py`)
-1. **Hook #1 (Winner):**
-   > *"Bạn từng chửi vua A Đẩu mất nước năm 263 mà vẫn cười, nhưng tại sao 4 chữ giả ngu ấy lại cứu sống ông khỏi cái chết?"*
-2. **Hook #2 (Runner-up):**
-   > *"Tại sao 90% bạn xem Tam Quốc chê Lưu Thiện bất tài làm mất nước, nhưng sự thật 1 câu trả lời đã giúp ông thoát chết?"*
+### B. Hook (bản sửa 2026-11-24)
+> *"Mất nước Thục mà vua A Đẩu vẫn cười tươi giữa tiệc kẻ thù. Ngu thật, hay diễn quá đỉnh?"* (20 âm, ~5.3s)
+
+- Hook cũ khẳng định "bốn chữ ngây ngô ấy cứu sống cả mạng ông lẫn gia tộc": quan hệ nhân quả sử không ghi (xem C). Hook mới chỉ đặt câu hỏi đúng tiêu đề.
+
+### C. Ghi chú nguồn sử (bắt buộc giữ đúng)
+- Năm 263 Đặng Ngải vượt Âm Bình, thắng Gia Cát Chiêm ở **Miên Trúc**, rồi Lưu Thiện ra hàng. Có trận lớn ở Miên Trúc → **không nói "chưa đánh lớn"**; nói "**Thành Đô** chưa đánh đã mở cổng".
+- Năm 264, Lưu Thiện về Lạc Dương, được phong **An Lạc công** (*Tam Quốc Chí · Hậu Chủ truyện*). Việc phong tước **có trước** câu "không nhớ Thục" → **không nói** "nhờ câu đó mà được tha mạng".
+- Bữa tiệc, câu "**ở đây vui, không nhớ Thục**" (此間樂，不思蜀 — 6 chữ Hán) và màn **Khước Chính** dạy lần sau phải khóc, Tư Mã Chiêu hỏi lại, Lưu Thiện đáp y bài, Tư Mã Chiêu: "sao giống lời Khước Chính thế?", Lưu Thiện: "đúng như ngài nói", tả hữu đều cười: chép trong ***Hán Tấn Xuân Thu*** (Bùi Tùng Chi trích chú), không phải chính văn. "**Lạc bất tư Thục**" là **thành ngữ đời sau** rút từ câu đó → chỉ để trên màn hình, không nói "đáp bốn chữ".
+- Lưu Thiện mất năm 271, 65 tuổi (tuổi mụ).
+- Chuyện Lưu Bị ném A Đẩu là **truyện** (hồi 42); sử chỉ ghi Triệu Vân ôm ấu chúa thoát nạn → câu B2 có "trong truyện".
+
+### D. Dấu ấn kênh & nối tập
+- **CẠCH** frame 0 · "A Xìn soi luôn: sử thật thì sao?" · dấu kết **`SỬ THẬT! (MÀ CÒN HÀI HƠN)`**
+- Setup–payoff: Lưu Bị ném con "để lấy lòng" (B2) → câu hỏi "diễn giỏi như cha?" (B6). Bỏ callback "giả sợ sấm" của bản cũ vì chưa được gài trong lời.
+- Manh mối xem lại: Beat 4 Khước Chính đứng sau lưng Lưu Thiện, **nhắc bài** bằng tay.
+- Tập 5 là tập cuối loạt đầu → funnel về **bản full**; khi có Tập 6, đổi thẻ cuối thành "Tập sau".
 
 ---
 
-## 2. Kịch Bản Chi Tiết Từng Cảnh (Beat-by-Beat Storyboard & Retention Plan)
+## 2. Kịch Bản Từng Beat
 
-| Beat / Mốc | Lời đọc (Vbee TTS) | `[ON SCREEN: Hành động Chibi 2D & Text Overlay]` | Cảm xúc / Nhịp & SFX |
+| Beat / Mốc | Lời đọc (Vbee TTS) | `[ON SCREEN]` | Cảm xúc / Nhịp & SFX |
 |---|---|---|---|
-| **Beat 1: Hook — Vị vua bị chửi nhiều nhất Tam Quốc**<br>`00:00–00:05` | Bạn từng trách vua A Đẩu làm mất nước năm hai trăm sáu mươi ba mà vẫn ngồi cười, nhưng tại sao bốn chữ ngây ngô ấy lại cứu sống cả mạng ông lẫn gia tộc? | `[ON SCREEN]` Trong tiệc rượu Lạc Dương (`palace`), Lưu Thiện (A Đẩu) chibi ngồi cười toe toét giữa vòng vây kiếm sắc của Tư Mã Chiêu. Búa gỗ A Xìn gõ **CẠCH** hiện chữ: **`NGU THẬT HAY ĐỈNH CAO DIỄN XUẤT?`** | **Curiosity / Contradiction**<br>Crash-zoom vào nụ cười của Lưu Thiện.<br>SFX: `impact`, `blip` |
-| **Beat 2: Cậu bé suýt bị Lưu Bị ném ở Trường Bản**<br>`00:05–00:13` | A Đẩu, tên thật là Lưu Thiện, chính là cậu bé năm xưa được Triệu Vân buộc trước ngực, một mình một ngựa phá vây quân Tào ở Trường Bản đem về, rồi bị Lưu Bị đặt phịch xuống đất để lấy lòng tướng! | `[ON SCREEN]` Flashback (`battlefield`): Triệu Vân giáp bạc ôm bé A Đẩu lao qua rừng giáo, trao cho Lưu Bị → Lưu Bị thả nhẹ xuống cỏ làm bé A Đẩu nảy tưng tưng (`shocked`). | **Comedic Callback**<br>Hiệu ứng nảy lò xo hài hước.<br>SFX: `pop`, `swish` |
-| **Beat 3: Khổng Minh gánh còng lưng, A Đẩu mở cổng hàng**<br>`00:13–00:22` | Khi Lưu Bị mất ở Bạch Đế Thành, Khổng Minh gồng gánh nhà Thục suốt mười một năm. Nhưng đến năm hai trăm sáu mươi ba, khi tướng Ngụy là Đặng Ngải đánh tới Thành Đô, Lưu Thiện chưa đánh lớn đã mở cổng xin hàng, khép lại bốn mươi ba năm Thục Hán! | `[ON SCREEN]` Khổng Minh gánh cả tòa thành trên lưng. Ngay khi Khổng Minh khuất bóng, Lưu Thiện cầm chìa khóa mở toang cổng Thành Đô, treo biển: **`XIN HÀNG CHO NHANH!`**. | **Satirical Pacing**<br>Whip-pan sang cổng thành.<br>SFX: `whoosh`, `buzz` |
-| **Beat 4: Bữa tiệc sát khí của Tư Mã Chiêu**<br>`00:22–00:31` | Bị giải về Lạc Dương, ông chủ thực sự của nước Ngụy là Tư Mã Chiêu mở tiệc ca múa đất Thục để dò lòng. Quan cũ nhà Thục ai nấy khóc như mưa, riêng Lưu Thiện vẫn vỗ tay cười tươi rói! Tư Mã Chiêu hỏi xoáy: ông có nhớ đất Thục không? | `[ON SCREEN]` Quan Thục bên cạnh khóc thành sông. Tư Mã Chiêu (`smirk`, giấu kiếm sau lưng) hỏi dò. Lưu Thiện vừa gặm đùi gà vừa cười. | **Tension / Trap**<br>Zoom chậm vào thanh kiếm giấu sau lưng Tư Mã Chiêu.<br>SFX: `heartbeat`, `murmur` |
-| **Beat 5: Climax — A Xìn Soi (4 chữ "Lạc Bất Tư Thục")**<br>`00:31–00:40` | A Xìn soi luôn: sử thật ghi Lưu Thiện đáp gọn bốn chữ: ở đây vui quá, không nhớ đất Thục! Nhờ bốn chữ Lạc Bất Tư Thục đó, Tư Mã Chiêu tin ông vô hại thật nên tha mạng, cấp nhà, cho sống yên ổn hưởng thọ sáu mươi lăm tuổi! | `[ON SCREEN]` Bàn trà (`teaTable`): A Xìn gõ búa **CẠCH** đóng dấu **`SỬ THẬT 100%!`**. Lưu Thiện giơ tấm thẻ **`LẠC BẤT TƯ THỤC (VUI QUÁ QUÊN NHÀ)`** làm thanh kiếm sau lưng Tư Mã Chiêu rơi xuống đất. Bên cạnh hiện cúp vàng **`OSCAR DI TRUYỀN TỪ LƯU BỊ`** (nhắc màn sợ sấm năm xưa). | **Climax / Reversal**<br>Đóng dấu + cúp vàng bật sáng.<br>SFX: `impact`, `ding`, `shimmer` |
-| **Beat 6: Payoff & Câu hỏi tranh luận + Funnel Video dài**<br>`00:40–00:46` | Theo bạn, Lưu Thiện ngây ngô thật, hay thừa hưởng gen diễn xuất đỉnh cao của cha mình khi giả sợ sấm năm xưa? Comment ngay ý kiến của bạn, ấn Thích và bấm vào video dài bên dưới để xem trọn bộ bàn cờ trăm năm Tam Quốc nhé! | `[ON SCREEN]` Đặt 2 khung hình song song: Lưu Bị giả sợ sấm (năm 199) vs Lưu Thiện cười trong tiệc (năm 264). Mũi tên dưới đáy trỏ vào **Related Video**: **`👍 THÍCH & XEM BẢN FULL 22 PHÚT`**. | **Payoff & Engagement**<br>SFX: `thunder`, `bell-ding` |
+| **Beat 1: Hook**<br>`00:00–00:05.3` | Mất nước Thục mà vua A Đẩu vẫn cười tươi giữa tiệc kẻ thù. Ngu thật, hay diễn quá đỉnh? | Frame 0: tiệc Lạc Dương (`palace`), Lưu Thiện chibi cười toe giữa vòng tướng Ngụy. **CẠCH** → chữ **`NGU THẬT HAY DIỄN ĐỈNH?`** — khung thumbnail. | **Contradiction**<br>Crash-zoom nụ cười.<br>SFX: `impact`, `blip` |
+| **Beat 2: Cậu bé Trường Bản**<br>`00:05.3–00:10.8` | A Đẩu chính là Lưu Thiện, cậu bé trong truyện từng bị Lưu Bị ném xuống đất để lấy lòng Triệu Vân. | Nhãn **`TRONG TRUYỆN · 208`**. Triệu Vân ôm bé A Đẩu phá vây → Lưu Bị thả bé xuống cỏ, bé nảy tưng tưng; Triệu Vân quỳ cảm động, Lưu Bị liếc camera. | **Callback Comedy**<br>Nảy lò xo.<br>SFX: `pop`, `boing` |
+| **Beat 3: Mở cổng hàng**<br>`00:10.8–00:16.0` | Năm hai trăm sáu mươi ba, Đặng Ngải đánh tới, Thành Đô chưa đánh đã mở cổng xin hàng. | Bản đồ: mũi tên Đặng Ngải lao xuống qua **Miên Trúc** → cổng Thành Đô mở, biển **`XIN HÀNG`**. Nhãn **`263 · THỤC HÁN KẾT THÚC`**. | **Satire**<br>Whip-pan.<br>SFX: `whoosh`, `buzz` |
+| **Beat 4: Bữa tiệc dò lòng**<br>`00:16.0–00:24.2` | Về Lạc Dương, Tư Mã Chiêu bày ca múa đất Thục, quan Thục cũ khóc, riêng Lưu Thiện cười tỉnh bơ. Tư Mã Chiêu hỏi: có nhớ Thục không? | Quan Thục cũ khóc thành dòng; Lưu Thiện vỗ tay theo nhạc. Tư Mã Chiêu (`smirk`) nghiêng người hỏi. **Khước Chính** đứng sau lưng Lưu Thiện, mặt tái. | **Tension / Trap**<br>Zoom chậm vào mắt Tư Mã Chiêu.<br>SFX: `heartbeat`, `murmur` |
+| **Beat 5: A Xìn soi**<br>`00:24.2–00:41.7` | Nhưng A Xìn soi luôn: sử thật thì sao? Sách Hán Tấn Xuân Thu chép, ông đáp: ở đây vui, không nhớ Thục! Quan cũ Khước Chính dạy lần sau phải khóc. Tư Mã Chiêu hỏi lại, ông đọc y bài. Tư Mã Chiêu bảo: sao giống lời Khước Chính thế? Ông ngơ ngác: đúng vậy! Cả tiệc cười ồ. | **CẠCH** đúng "soi luôn". Thẻ chữ **`此間樂，不思蜀 → "LẠC BẤT TƯ THỤC"`**. Khước Chính kéo Lưu Thiện vào góc, đưa tờ **`BÀI: KHÓC + NHỚ MỒ MẢ`**. Lần 2: Lưu Thiện nhắm mắt đọc bài → Tư Mã Chiêu nhướng mày → Lưu Thiện chỉ thẳng Khước Chính. Cả tiệc cười. Cuộn sách **`Hán Tấn Xuân Thu · Bùi Tùng Chi chú`**. | **Climax / Reversal**<br>Freeze-frame khi chỉ tay.<br>SFX: `impact`, `record-scratch`, `laugh` |
+| **Beat 6: Kết mở, CTA**<br>`00:41.7–00:52.0` | Ông sống yên làm An Lạc công tới sáu mươi lăm tuổi. Ngu thật, hay diễn giỏi như cha? Comment đi! Lưu Thiện vui không nhớ Thục, còn bạn vui thì nhớ bấm Thích và Đăng ký nha! | Dấu **`SỬ THẬT! (MÀ CÒN HÀI HƠN)`**. Hai khung song song: **Lưu Bị ném con (208)** vs **Lưu Thiện cười trong tiệc (264)**, bong bóng **`💬 NGU THẬT HAY DIỄN?`**. Lưu Thiện ôm nút **`👍 THÍCH`** + **`ĐĂNG KÝ`** cười. Mũi tên **`XEM BẢN FULL: AI THẮNG CẢ TAM QUỐC?`**. Frame cuối về nụ cười Beat 1 để loop. | **Payoff / Debate**<br>SFX: `pop`, `bell-ding` |
+
+---
+
+## 3. Bản Text Sạch Cho Vbee TTS (`narration-vbee.txt`)
+
+> Mất nước Thục mà vua A Đẩu vẫn cười tươi giữa tiệc kẻ thù. Ngu thật, hay diễn quá đỉnh?
+> A Đẩu chính là Lưu Thiện, cậu bé trong truyện từng bị Lưu Bị ném xuống đất để lấy lòng Triệu Vân.
+> Năm hai trăm sáu mươi ba, Đặng Ngải đánh tới, Thành Đô chưa đánh đã mở cổng xin hàng.
+> Về Lạc Dương, Tư Mã Chiêu bày ca múa đất Thục, quan Thục cũ khóc, riêng Lưu Thiện cười tỉnh bơ. Tư Mã Chiêu hỏi: có nhớ Thục không?
+> Nhưng A Xìn soi luôn: sử thật thì sao? Sách Hán Tấn Xuân Thu chép, ông đáp: ở đây vui, không nhớ Thục! Quan cũ Khước Chính dạy lần sau phải khóc. Tư Mã Chiêu hỏi lại, ông đọc y bài. Tư Mã Chiêu bảo: sao giống lời Khước Chính thế? Ông ngơ ngác: đúng vậy! Cả tiệc cười ồ.
+> Ông sống yên làm An Lạc công tới sáu mươi lăm tuổi. Ngu thật, hay diễn giỏi như cha? Comment đi! Lưu Thiện vui không nhớ Thục, còn bạn vui thì nhớ bấm Thích và Đăng ký nha!

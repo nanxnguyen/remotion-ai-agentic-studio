@@ -22,14 +22,14 @@
 | K2. Packaging | 4 → 5/6 | Thumbnail `SAI RỒI!` (2 chữ); "Tập 1:" giữ vì chuẩn series trong CLAUDE.md |
 | K3. Cảm xúc & chia sẻ | 4 → 5/6 | Điểm kích hoạt comment |
 | K4. Giữ chân | 4 → 5/6 | Manh mối xem lại + loop |
-| L1. Series | 6 → 7/8 | Định nghĩa series A Xìn Soi Sử 4 tập |
+| L1. Series | 6 → 7/8 | Định nghĩa series A Xin Chém Sử 4 tập |
 | L2. Dấu ấn kênh | 3 → 5/6 | CẠCH frame 0 + câu cửa miệng + dấu TRUYỆN CHÉM!/SỬ THẬT! |
 | L3. Vòng lặp tập sau | 3 → 5/6 | Thẻ "Tập 2: Gió Đông…" + funnel 22 phút; playlist chưa tạo |
 | L4. Cộng đồng | 3 → 4/5 | Gieo comment cho tập sau |
 
 **Ước tính thời lượng v3:** 180 âm, 33 dấu câu → ~58s thô / ~50s sau siết pause 0.3s. Nếu đo thật > 52s: cắt "Sách" (B5) và "Trong truyện," (B2) trước, rồi mới tính cắt câu.
 
-**Còn mở:** đo voice thật · chạy lại `title.py` cho thumbnail mới · tra nguồn Tập 2–4 trước khi viết · tạo playlist "A Xìn Soi Sử".
+**Còn mở:** đo voice thật · chạy lại `title.py` cho thumbnail mới · tra nguồn Tập 2–4 trước khi viết · tạo playlist "A Xin Chém Sử".
 
 ---
 
@@ -80,7 +80,7 @@
 ### Major
 1. **[Beat 1 · 0:00] Lời hứa lệch payoff.** "Vậy người mượn tên thật là ai?" → Beat 5 nói Tôn Quyền *bị bắn* rồi quay thuyền cho cân, không hề "mượn tên". Người xem mê sử sẽ comment "Tôn Quyền đâu có mượn". **Sửa:** "Thuyền cỏ mượn tên? Khổng Minh chưa từng làm! Chuyện thuyền hứng tên có thật, nhưng là của ai?"
 2. **[Toàn bài] Thời lượng vượt.** Ước tính (4,5 âm/s + 0,55s đệm mỗi dấu câu) theo beat: B1 5,2s (slot 4) · B2 7,9 (7) · B3 9,2 (8) · B4 6,6 (5) · B5 14,4 (14) · B6 4,9 (4) · B7 9,1 (8) → **~57s**. Theo thang 2,5–3 chữ/s của skill thì 60–72s. **Sửa:** cắt "trống trận vang trời", "rồi ung dung về trại", "Tam Quốc hai mươi hai phút" → "bản full ở ngay bên dưới"; siết pause trong timeline builder (không tăng speed). Đo voice thật rồi khóa lại timecode.
-3. **[Beat 5 · ~0:24] Mất câu cửa miệng kênh.** Bản cũ có "A Xìn soi luôn: truyện chém hay sử thật?" — đây là signature của "A Xìn Soi Sử". **Sửa:** "Nhưng A Xìn soi luôn: sử thật thì sao?" (thêm 3 âm, bù bằng các cắt ở Major 2).
+3. **[Beat 5 · ~0:24] Mất câu cửa miệng kênh.** Bản cũ có "A Xìn soi luôn: truyện chém hay sử thật?" — đây là signature của "A Xin Chém Sử". **Sửa:** "Nhưng A Xìn soi luôn: sử thật thì sao?" (thêm 3 âm, bù bằng các cắt ở Major 2).
 
 ### Minor
 - [Beat 1] "Khổng Minh chưa từng làm!" khẳng định tuyệt đối → an toàn hơn: "Sử không hề ghi Khổng Minh làm!" (hoặc giữ, chấp nhận tranh luận).
@@ -114,4 +114,4 @@
 - **Đoạn cắt:** chính Short này là mồi cho long-form 22 phút; trong long-form, đoạn này cắt lại 30s (B4–B6) làm Short thứ hai "Tôn Quyền quay thuyền".
 - **Mồi tập 2:** thêm 1 câu ở B7 hoặc text: "Tập sau: gió Đông có phải Khổng Minh cầu?" — cùng format "chiến công mượn".
 - **CTA bình luận:** "Còn chi tiết Tam Quốc nào bạn nghi là truyện chém? Comment, A Xìn soi tập sau!" — thay một phần CTA bản full nếu cần giữ dưới 55s.
-- **Series "A Xìn Soi Sử":** mượn tên (Tôn Quyền) → cầu gió Đông → Quan Vũ chém Hoa Hùng (sử: Tôn Kiên) → Không thành kế. Mỗi tập mở bằng búa "CẠCH" + kết bằng dấu "TRUYỆN CHÉM!".
+- **Series "A Xin Chém Sử":** mượn tên (Tôn Quyền) → cầu gió Đông → Quan Vũ chém Hoa Hùng (sử: Tôn Kiên) → Không thành kế. Mỗi tập mở bằng búa "CẠCH" + kết bằng dấu "TRUYỆN CHÉM!".

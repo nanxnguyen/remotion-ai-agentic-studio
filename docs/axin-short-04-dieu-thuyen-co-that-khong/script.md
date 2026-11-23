@@ -1,36 +1,59 @@
-# Kịch Bản Shorts Tập 4: Điêu Thuyền Có Thật Trong Sử Không?
+# Kịch Bản Shorts Tập 4: Điêu Thuyền Có Thật Hay Hư Cấu?
 
-- **Kênh:** A Xìn Kể Chuyện / A Xìn Soi Sử (`A_XIN_KE_CHUYEN`)
-- **Định dạng:** 9:16 Vertical Shorts (`1080×1920`), 24fps, thời lượng mục tiêu **~42–46 giây** (~115–125 từ)
-- **Skill hình ảnh:** `chibi-history-video` (`palace`, Đổng Trác & Lữ Bố tranh nhau bức chân dung Điêu Thuyền, thanh chỉ số `TRUNG THÀNH: 0`, bàn trà A Xìn gõ búa đóng dấu)
-- **Phong cách:** Hài hước, châm biếm, cà khịa vui ("đổi cha nuôi nhanh hơn đổi ảnh đại diện")
-- **Video dài liên kết (Related Video Funnel):** *Tam Quốc Trong 22 Phút: Ai Thắng Thật?*
-
----
-
-## 1. Kết Quả Kiểm Định Plugin (`youtube-agent-skill`)
-
-### A. Kiểm định Tiêu đề & Thumbnail (`yt-package/title.py`)
-- **Tiêu đề chính (38 ký tự — Điểm: `100/100`, 0 cảnh báo):**
-  `Tập 4: Điêu Thuyền Có Thật Hay Hư Cấu?`
-- **Chữ trên Thumbnail / Cover 9:16:**
-  `SỬ SÁCH KHÔNG GHI!`
-
-### B. Hai câu Hook chiến thắng (`yt-script/hookscore.py`)
-1. **Hook #1 (Winner):**
-   > *"Bạn có biết 95% người xem bị sai lầm về Điêu Thuyền, nhưng vì sao sự thật về người phụ nữ khiến Đổng Trác chết lại ít ai nhắc?"*
-2. **Hook #2 (Runner-up):**
-   > *"99% bạn xem Tam Quốc đều mê Điêu Thuyền, nhưng tại sao mỹ nhân làm Đổng Trác mất mạng lại bị xóa khỏi sự thật lịch sử?"*
+- **Kênh:** A Xin Chém Sử (`A_XIN_KE_CHUYEN`)
+- **Định dạng:** 9:16 Vertical Shorts (`1080×1920`), 24fps. **183 âm tiết, 29 dấu câu** → ước tính **~57s thô** / **~49s** sau siết pause ~0.3s/dấu (không tăng speed).
+- **Skill hình ảnh:** `chibi-history-video` (`palace`, Đổng Trác & Lữ Bố, Vương Doãn, thanh HUD `TRUNG THÀNH: 0`, cây kích bay, cuốn *Tam Quốc Chí*, bàn trà A Xìn)
+- **Phong cách:** Hài hước, châm biếm ("đổi cha nhanh hơn đổi ảnh đại diện")
+- **Series:** *A Xin Chém Sử* — Tập 3 Váy đàn bà → **Tập 4** → Tập 5 A Đẩu
+- **Video dài liên kết:** *Tam Quốc Trong 25 Phút: Ai Thắng Thật?* (màn hình chỉ ghi `XEM BẢN FULL`)
 
 ---
 
-## 2. Kịch Bản Chi Tiết Từng Cảnh (Beat-by-Beat Storyboard & Retention Plan)
+## 1. Packaging
 
-| Beat / Mốc | Lời đọc (Vbee TTS) | `[ON SCREEN: Hành động Chibi 2D & Text Overlay]` | Cảm xúc / Nhịp & SFX |
+### A. Tiêu đề & Thumbnail
+- **Tiêu đề (38 ký tự):** `Tập 4: Điêu Thuyền Có Thật Hay Hư Cấu?`
+- **Chữ Thumbnail (≤ 3 chữ):** `KHÔNG CÓ TÊN!`
+  Hình: chân dung Điêu Thuyền chibi, khuôn mặt bị che bởi dấu hỏi đỏ; sau lưng thấp thoáng bóng một thị nữ. Tiêu đề hỏi "có thật không", thumbnail trả nửa câu ("không có tên") → còn nửa kia để xem.
+- *Điểm `title.py` / `hookscore.py` cũ đã cũ → cần chạy lại.*
+
+### B. Hook (bản sửa 2026-11-24)
+> *"Điêu Thuyền làm Đổng Trác mất mạng? Lật hết chính sử, không có cái tên này! Nhưng khoan, có một cô gái…"* (22 âm, ~6.4s)
+
+- Bỏ "Chín mươi lăm phần trăm bạn xem Tam Quốc…": số liệu bịa, 36 âm.
+- Hook mới nói trước một nửa sự thật rồi treo nửa còn lại ("có một cô gái…") → câu trả lời đầy đủ ở Beat 5 (thị nữ có thật, không tên). Khác khuôn Tập 2 (câu hỏi) và Tập 3 (khẳng định–phủ định).
+
+### C. Ghi chú nguồn sử (bắt buộc giữ đúng)
+- *Tam Quốc Chí · Lữ Bố truyện* (và *Hậu Hán Thư* tương tự): Đổng Trác tính nóng, **từng vì việc nhỏ rút kích ném Lữ Bố**, Lữ Bố né được nên ngầm oán; Đổng Trác sai Lữ Bố giữ cửa trong, **Lữ Bố tư thông với thị nữ của Đổng Trác**, sợ lộ nên bất an; Vương Doãn nhân đó thuyết Lữ Bố giết Đổng Trác (năm 192). Đổng Trác và Lữ Bố "thề làm cha con" là sử.
+- Thị nữ **không có tên** trong chính sử. Tên **Điêu Thuyền** xuất hiện ở văn học đời sau (bình thoại, tạp kịch đời Nguyên) trước khi vào *Tam Quốc Diễn Nghĩa*. Nói "chính sử không ghi tên", không nói "toàn bộ sử sách".
+- Đinh Nguyên là "cha nuôi" **chỉ trong truyện** (sử: cấp trên, rất tin dùng Lữ Bố) → câu "cha nuôi thứ hai" nằm sau mốc "Trong truyện".
+- Không khẳng định thị nữ ấy **chính là** Điêu Thuyền: để thành câu hỏi comment.
+
+### D. Dấu ấn kênh & nối tập
+- **CẠCH** frame 0 · "A Xìn soi luôn: sử thật thì sao?" · dấu kết **`NỬA THẬT NỬA CHÉM!`**
+- Manh mối xem lại: Beat 2 cây kích của Lữ Bố **có một vết mẻ** (trả ở Beat 5: kích Đổng Trác ném); Beat 3 một thị nữ cúi đầu đi ngang hậu cảnh.
+- Nối tập: thẻ **`TẬP 5: VUA A ĐẨU NGU THẬT HAY GIẢ VỜ?`**
+
+---
+
+## 2. Kịch Bản Từng Beat
+
+| Beat / Mốc | Lời đọc (Vbee TTS) | `[ON SCREEN]` | Cảm xúc / Nhịp & SFX |
 |---|---|---|---|
-| **Beat 1: Hook — Tứ đại mỹ nhân chưa từng tồn tại?**<br>`00:00–00:05` | Chín mươi lăm phần trăm bạn xem Tam Quốc đều mê mỹ nhân kế của Điêu Thuyền, nhưng vì sao người phụ nữ khiến Đổng Trác mất mạng lại không hề có tên trong chính sử? | `[ON SCREEN]` Bức tranh Điêu Thuyền chibi lung linh giữa Đổng Trác và Lữ Bố. Bất ngờ **búa gỗ A Xìn gõ CẠCH** làm bức tranh biến thành dấu hỏi chấm đỏ khổng lồ **`404 NOT FOUND`**! | **Mystery / Visual Surprise**<br>Crash-zoom + glitch nhẹ.<br>SFX: `impact`, `glitch` |
-| **Beat 2: Cặp bài trùng Đổng Trác & Lữ Bố**<br>`00:05–00:13` | Khi Đổng Trác kéo quân vào chiếm ghế giám đốc triều đình nhà Hán, không ai dám ho he vì đứng sau lưng lão là chiến thần Lữ Bố: sức mạnh tối đa, nhưng chỉ số trung thành thì bằng không tròn trĩnh! | `[ON SCREEN]` Trong cung (`palace`), Đổng Trác ngồi ngai vàng, phía sau là Lữ Bố cầm Phương Thiên Họa Kích với thanh HUD trên đầu: **`SỨC MẠNH: MAX | TRUNG THÀNH: 0`**. | **Satirical Humor**<br>Shake khi Lữ Bố cắm kích xuống sàn.<br>SFX: `hit`, `pop` |
-| **Beat 3: Mỹ nhân kế một mũi tên trúng hai cha con**<br>`00:13–00:22` | Trong truyện, tư đồ Vương Doãn dùng liên hoàn kế: ban ngày hứa gả con gái nuôi xinh như mộng là Điêu Thuyền cho Lữ Bố, ban đêm lại dâng luôn cho Đổng Trác! Hai cha con nuôi bỗng chốc biến thành tình địch! | `[ON SCREEN]` Vương Doãn chibi cầm 2 tấm thiệp hồng trao cho Lữ Bố rồi trao cho Đổng Trác. Hai cha con nuôi nhìn nhau mắt tóe tia sét **`TÌNH ĐỊCH!`**. | **Escalation / Comedy**<br>Whip-pan qua lại 2 bên.<br>SFX: `swish`, `blip` |
-| **Beat 4: Lữ Bố tiễn cha nuôi số hai**<br>`00:22–00:29` | Lữ Bố ghen lồng lộn, quay kích tiễn luôn cha nuôi thứ hai lên đường! Tính ra Lữ Bố đổi cha nuôi còn nhanh hơn tốc độ người yêu cũ của bạn đổi ảnh đại diện! | `[ON SCREEN]` Lữ Bố (`angry`) vung kích; bảng đếm trên đầu Lữ Bố nhảy số: **`ĐINH NGUYÊN (XONG) -> ĐỔNG TRÁC (XONG)`**. | **Satirical Punchline**<br>Pop-in bảng đếm.<br>SFX: `whoosh`, `ding` |
-| **Beat 5: Climax — A Xìn Soi (Sự thật trong Tam Quốc Chí)**<br>`00:29–00:39` | Nhưng A Xìn soi luôn: truyện chém hay sử thật? Lữ Bố giết Đổng Trác năm một trăm chín mươi hai là sử thật! Sử cũng ghi Lữ Bố lén qua lại với một thị nữ của Đổng Trác nên sợ bị phát hiện, nhưng toàn bộ sử sách không hề có cái tên Điêu Thuyền! | `[ON SCREEN]` Bàn trà (`teaTable`): A Xìn gõ búa **CẠCH**, đóng con dấu **`NỬA THẬT NỬA CHÉM!`**. Mở cuốn sách cổ *Tam Quốc Chí*: dòng chữ *"Lén tư thông với thị nữ của Trác"* sáng vàng, còn chữ *"Điêu Thuyền"* bị gạch chéo đỏ! | **Climax / Reveal**<br>Shake + zoom vào trang sử.<br>SFX: `impact`, `stamp`, `shimmer` |
-| **Beat 6: Payoff & Cầu nối sang Tập 5 + Video dài**<br>`00:39–00:46` | Mỹ nhân kế chỉ là gia vị tiểu thuyết thêm vào cho cuộc đảo chính bớt khô khan, còn cái giá cho chỉ số trung thành bằng không của Lữ Bố thì cực kỳ đắt! Lữ Bố đổi chủ như thay áo, bạn chỉ cần trung thành với một nút Thích và bấm vào video dài bên dưới để xem ngày Lữ Bố nhận hóa đơn nhé! | `[ON SCREEN]` Lữ Bố bị trói trên lầu Bạch Môn nhận tờ **`HÓA ĐƠN TRUNG THÀNH: 0đ`** từ Lưu Bị & Tào Tháo. Mũi tên trỏ xuống **Related Video**: **`👍 THÍCH & XEM BẢN FULL 22 PHÚT`**. | **Payoff & Funnel**<br>SFX: `pop`, `bell-ding` |
+| **Beat 1: Hook — Mỹ nhân không tên**<br>`00:00–00:06.4` | Điêu Thuyền làm Đổng Trác mất mạng? Lật hết chính sử, không có cái tên này! Nhưng khoan, có một cô gái… | Frame 0: chân dung Điêu Thuyền lung linh giữa Đổng Trác và Lữ Bố. **CẠCH** → khung tên dưới tranh glitch thành **`TÊN: ???`**; một bóng thị nữ lướt qua. Chữ **`KHÔNG CÓ TÊN!`** — khung thumbnail. | **Mystery**<br>Glitch nhẹ.<br>SFX: `impact`, `glitch` |
+| **Beat 2: Cặp cha con nguy hiểm**<br>`00:06.4–00:11.8` | Trong truyện, Đổng Trác nắm triều đình nhờ con nuôi Lữ Bố: mạnh vô địch, trung thành bằng không! | Nhãn **`TRONG TRUYỆN`**. Đổng Trác trên ngai (`palace`), Lữ Bố sau lưng cầm kích (**vết mẻ trên lưỡi**), HUD **`SỨC MẠNH: MAX · TRUNG THÀNH: 0`**. | **Satire**<br>Shake khi kích cắm sàn.<br>SFX: `hit`, `pop` |
+| **Beat 3: Liên hoàn kế**<br>`00:11.8–00:18.0` | Tư đồ Vương Doãn hứa gả Điêu Thuyền cho Lữ Bố, rồi quay sang dâng cho Đổng Trác. Hai cha con thành tình địch! | Vương Doãn trao thiệp hồng cho Lữ Bố rồi cho Đổng Trác; hai bên tóe tia sét **`TÌNH ĐỊCH!`**. Hậu cảnh: thị nữ cúi đầu đi ngang. | **Escalation**<br>Whip-pan qua lại.<br>SFX: `swish`, `blip` |
+| **Beat 4: Tiễn cha nuôi**<br>`00:18.0–00:24.3` | Lữ Bố ghen lồng lộn, quay kích tiễn luôn cha nuôi thứ hai! Đổi cha nhanh hơn người yêu cũ đổi ảnh đại diện! | Lữ Bố (`angry`) vung kích (không máu); bảng đếm **`ĐINH NGUYÊN ✓ → ĐỔNG TRÁC ✓`**. Gag: màn hình điện thoại đổi ảnh đại diện chậm hơn. | **Punchline**<br>SFX: `whoosh`, `ding` |
+| **Beat 5: A Xìn soi**<br>`00:24.3–00:38.6` | Nhưng A Xìn soi luôn: sử thật thì sao? Sử ghi Đổng Trác từng nổi nóng ném kích suýt trúng Lữ Bố, còn Lữ Bố lén tư thông với một thị nữ của Đổng Trác. Có một thị nữ thật, nhưng sử không ghi tên. Cái tên Điêu Thuyền là truyện đời sau đặt cho! | **CẠCH** đúng "soi luôn". Flashback sử: Đổng Trác ném kích, Lữ Bố né (lưỡi kích mẻ khớp Beat 2). Cuốn *Tam Quốc Chí · Lữ Bố truyện*: dòng **"tư thông với thị nữ của Trác"** sáng vàng; ô tên để trống. Nhãn **`TÊN "ĐIÊU THUYỀN": VĂN HỌC ĐỜI SAU`**. | **Climax / Reveal**<br>SFX: `impact`, `shimmer` |
+| **Beat 6: CTA, Comment & Tập sau**<br>`00:38.6–00:49.4` | Lữ Bố đổi chủ như thay áo, bạn thì trung thành với A Xìn: Thích và Đăng ký nha! Điêu Thuyền có phải cô thị nữ ấy? Comment đi! Tập sau: vua A Đẩu ngu thật hay giả vờ? | Dấu **`NỬA THẬT NỬA CHÉM!`**. Lữ Bố thay áo liên tục sau bình phong; A Xìn ôm nút **`👍 THÍCH`** + **`ĐĂNG KÝ`** gật đầu chung thủy. Bong bóng **`💬 THỊ NỮ = ĐIÊU THUYỀN?`**. Thẻ **`TẬP 5: VUA A ĐẨU NGU THẬT HAY GIẢ VỜ?`** + **`XEM BẢN FULL`**. Frame cuối về chân dung Beat 1 để loop. | **CTA / Loop**<br>SFX: `pop`, `bell-ding` |
+
+---
+
+## 3. Bản Text Sạch Cho Vbee TTS (`narration-vbee.txt`)
+
+> Điêu Thuyền làm Đổng Trác mất mạng? Lật hết chính sử, không có cái tên này! Nhưng khoan, có một cô gái…
+> Trong truyện, Đổng Trác nắm triều đình nhờ con nuôi Lữ Bố: mạnh vô địch, trung thành bằng không!
+> Tư đồ Vương Doãn hứa gả Điêu Thuyền cho Lữ Bố, rồi quay sang dâng cho Đổng Trác. Hai cha con thành tình địch!
+> Lữ Bố ghen lồng lộn, quay kích tiễn luôn cha nuôi thứ hai! Đổi cha nhanh hơn người yêu cũ đổi ảnh đại diện!
+> Nhưng A Xìn soi luôn: sử thật thì sao? Sử ghi Đổng Trác từng nổi nóng ném kích suýt trúng Lữ Bố, còn Lữ Bố lén tư thông với một thị nữ của Đổng Trác. Có một thị nữ thật, nhưng sử không ghi tên. Cái tên Điêu Thuyền là truyện đời sau đặt cho!
+> Lữ Bố đổi chủ như thay áo, bạn thì trung thành với A Xìn: Thích và Đăng ký nha! Điêu Thuyền có phải cô thị nữ ấy? Comment đi! Tập sau: vua A Đẩu ngu thật hay giả vờ?
