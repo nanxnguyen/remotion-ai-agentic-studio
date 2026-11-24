@@ -1,9 +1,9 @@
-name: YouTube Daily 08:00 Auto Comment & User Engagement (All Channels)
+name: YouTube Daily 09:30 & 20:30 Auto Comment & User Engagement (All Channels)
 
 on:
   schedule:
-    # 08:00 AM Vietnam Time (UTC+7) = 01:00 UTC every day
-    - cron: '0 1 * * *'
+    # 09:30 AM & 20:30 PM Vietnam Time (UTC+7) = 02:30 & 13:30 UTC every day
+    - cron: '30 2,13 * * *'
   workflow_dispatch:
     inputs:
       channels:
