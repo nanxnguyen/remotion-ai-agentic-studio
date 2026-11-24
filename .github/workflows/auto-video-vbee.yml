@@ -38,8 +38,6 @@ jobs:
       - uses: actions/setup-python@v6
         with:
           python-version: '3.12'
-      - name: Install FFmpeg / FFprobe
-        run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
       - name: Generate Vbee batch narration
         run: |
           SLUG="${{ inputs.slug || (github.ref_name == 'feat/khong-ngu-11-ngay' && 'khong-ngu-11-ngay') || (github.ref_name == 'feat/top-5-luc-can-manh-nhat' && 'top-5-luc-can-manh-nhat') || 'hieu-ung-con-nhim' }}"
@@ -50,6 +48,7 @@ jobs:
             --out-dir "public/audio/${SLUG}" \
             --voice-code "$VOICE" \
             --speed "$SPEED" \
+            --workers 6 \
             --webhook-url "$VBEE_WEBHOOK_URL"
       - name: Verify 100% narration match & measured durations
         run: |

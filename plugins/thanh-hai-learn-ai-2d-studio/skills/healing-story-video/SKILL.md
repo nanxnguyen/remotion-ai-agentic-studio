@@ -30,8 +30,10 @@ Skill chuẩn hóa toàn bộ quy trình làm video Shorts (`9:16`, `<= 45s`) ch
 
 ## 2. Voice Vbee (GitHub Actions) & Word-level Timestamps
 
-1. **Giọng mặc định:** `hn_male_thanhlong_talk_48k-fhg`, `speed = 0.98`.
-2. **Sinh voice qua GitHub Actions:** Tách các câu vào `docs/<slug>/narration-vbee.txt`, trigger workflow Vbee TTS, tải các clip về `public/audio/<slug>/`.
+1. **Giọng mặc định:** `hn_male_thanhlong_talk_48k-fhg`, `speed = 0.98–1.02`.
+2. **Sinh voice nhanh qua `gen-story-vbee-batch.py` / GitHub Actions:**
+   - Script đã tối ưu chạy **song song (`--workers 6`)**, poll backoff từ `1.0s`, retry `429/5xx`, và cache theo `input_hash` (sửa câu nào chỉ chạy lại câu đó).
+   - Với Shorts `<= 45s` cần ngữ điệu liền mạch và nhanh nhất, có thể chạy `--single-narration docs/<slug>/narration-vbee.txt` để tạo **1 file `voiceover.mp3` trong 1 request duy nhất**, hoặc chạy batch qua `auto-video-vbee.yml` rồi tải clip về `public/audio/<slug>/`.
 3. **Ghép & căn từng từ:**
    - Ghép thành `thanhhai-2d-studio/projects/<slug>/input/voiceover.mp3` (xác nhận tổng thời lượng `<= 45.0s`).
    - Chạy `faster_whisper` + `SequenceMatcher` tạo `timeline/words.json` chuẩn xác 100% số từ, để `ui2d.js` chạy phụ đề highlight từng từ ở `y = 1480`.

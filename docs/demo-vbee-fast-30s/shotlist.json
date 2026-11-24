@@ -1,0 +1,44 @@
+[
+  {
+    "id": 1,
+    "start": 0.0,
+    "end": 5.0,
+    "duration_sec": 5.0,
+    "narration": "Đêm khuya trên thành phố, ánh đèn đường vàng hắt xuống mặt nhựa ướt sau cơn mưa."
+  },
+  {
+    "id": 2,
+    "start": 5.0,
+    "end": 10.0,
+    "duration_sec": 5.0,
+    "narration": "Nhiều người lớn không phải sợ đường xa, mà chỉ cần mười phút yên lặng cho riêng mình."
+  },
+  {
+    "id": 3,
+    "start": 10.0,
+    "end": 15.0,
+    "duration_sec": 5.0,
+    "narration": "Một ly trà nóng, vài nhịp thở chậm, để gác lại hết những tin nhắn công việc dồn dập."
+  },
+  {
+    "id": 4,
+    "start": 15.0,
+    "end": 20.0,
+    "duration_sec": 5.0,
+    "narration": "Trước khi mở cửa bước vào nhà, ai cũng muốn gương mặt mình nhẹ nhõm hơn một chút."
+  },
+  {
+    "id": 5,
+    "start": 20.0,
+    "end": 25.0,
+    "duration_sec": 5.0,
+    "narration": "Nhưng đôi khi, chỉ một ánh đèn ấm đợi sẵn bên trong cũng đủ làm tan mọi mệt mỏi."
+  },
+  {
+    "id": 6,
+    "start": 25.0,
+    "end": 30.0,
+    "duration_sec": 5.0,
+    "narration": "Nếu bạn thấy lòng dịu lại, hãy thích và đăng ký kênh Sống Chậm Lại nhé."
+  }
+]
