@@ -339,18 +339,19 @@ def split_long(shots, words, max_len=3.0, target=2.3):
     so the picture changes every 2–3 s. Pieces after the first become 'alt' angles (other speaker,
     different size); badges/stamps/sfx stay on the piece where they first appear. Ids are renumbered."""
     out = []
+    min_piece = min(1.2, max(0.8, target * 0.65))
     for sh in shots:
         d = sh['end'] - sh['start']
         p = sh['params']
-        if d <= max_len or p.get('chTitle') or p.get('set') in ('teaTable',):
+        if d <= max_len or p.get('chTitle') or (max_len >= 2.5 and p.get('set') in ('teaTable',)):
             out.append(sh); continue
         n = max(2, round(d / target))
-        ws = [w for w in words if sh['start'] - 0.01 <= w['start'] < sh['end'] - 0.3]
+        ws = [w for w in words if sh['start'] - 0.01 <= w['start'] < sh['end'] - 0.25]
         cuts = []
         for k in range(1, n):
             goal = sh['start'] + d * k / n
-            cand = [w for w in ws if w['start'] - sh['start'] >= 1.2 and sh['end'] - w['start'] >= 1.2
-                    and (not cuts or w['start'] - cuts[-1] >= 1.2)]
+            cand = [w for w in ws if w['start'] - sh['start'] >= min_piece and sh['end'] - w['start'] >= min_piece
+                    and (not cuts or w['start'] - cuts[-1] >= min_piece)]
             if not cand:
                 continue
             best = min(cand, key=lambda w: abs(w['start'] - goal) - (0.6 if prev_comma(ws, w) else 0))
@@ -406,6 +407,8 @@ def main():
     ap.add_argument('--dry-run', action='store_true')
     ap.add_argument('--no-split', action='store_true', help='keep one shot per narration line')
     ap.add_argument('--max-share', type=float, default=0.25)
+    ap.add_argument('--max-len', type=float, default=3.0)
+    ap.add_argument('--target-len', type=float, default=2.3)
     a = ap.parse_args()
     path = os.path.join(a.project, 'story', 'shots.json')
     base = os.path.join(a.project, 'story', 'shots.base.json')  # one shot per line; splitting always restarts from it
@@ -423,7 +426,7 @@ def main():
     words_path = os.path.join(a.project, 'timeline', 'words.json')
     if not a.no_split and os.path.exists(words_path):
         before = len(story['shots'])
-        story['shots'] = split_long(story['shots'], json.load(open(words_path, encoding='utf-8'))['words'])
+        story['shots'] = split_long(story['shots'], json.load(open(words_path, encoding='utf-8'))['words'], max_len=a.max_len, target=a.target_len)
         print(f'split: {before} -> {len(story["shots"])} shots')
     direct(story['shots'])
     apply_overrides(story['shots'], load('overrides.json'))  # explicit sizes/actions win over the rhythm
