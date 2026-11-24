@@ -92,11 +92,11 @@
   {
     "id": 10,
     "start": 39.0,
-    "end": 43.0,
-    "duration_sec": 4.0,
+    "end": 44.5,
+    "duration_sec": 5.5,
     "pose": "celebrate",
-    "caption": "Người lớn chỉ sợ về nhà vẫn phải diễn. Đêm",
-    "narration": "Người lớn chỉ sợ về nhà vẫn phải diễn. Đêm nay bạn có đang gồng mình không?",
+    "caption": "Người lớn chỉ sợ về nhà vẫn phải diễn. Nếu thấy mình trong đó, hãy thích và đăng ký Sống Chậm Lại nhé.",
+    "narration": "Người lớn chỉ sợ về nhà vẫn phải diễn. Nếu thấy mình trong đó, hãy thích và đăng ký Sống Chậm Lại nhé.",
     "visual": "Hai vợ chồng vào nhà sáng đèn ấm. Loop về S01a."
   }
 ]
