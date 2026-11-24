@@ -1,0 +1,105 @@
+{
+  "styleId": "amber-noir",
+  "shots": [
+    {
+      "id": "S01a",
+      "start": 0.0,
+      "end": 3.0,
+      "duration_sec": 3.0,
+      "pose": "slumped",
+      "caption": "Tại sao bạn tan làm lúc 22 giờ,",
+      "narration": "Tại sao bạn tan làm lúc 22 giờ,",
+      "visual": "23:00 · Quán cơm bụi. Hùng (33t) ngồi góc tường bên đĩa cơm nguội."
+    },
+    {
+      "id": "S01b",
+      "start": 3.0,
+      "end": 5.2,
+      "duration_sec": 2.2,
+      "pose": "thinking",
+      "caption": "nhưng lại mất 15 phút ngồi quán cơm bụi mớ",
+      "narration": "nhưng lại mất 15 phút ngồi quán cơm bụi mới dám về?",
+      "visual": "Close-up 2 cuộc gọi nhỡ của vợ trên màn hình điện thoại."
+    },
+    {
+      "id": "S02",
+      "start": 5.2,
+      "end": 9.5,
+      "duration_sec": 4.3,
+      "pose": "thinking",
+      "caption": "Mười giờ rưỡi rời công ty, anh dừng xe ngo",
+      "narration": "Mười giờ rưỡi rời công ty, anh dừng xe ngoài bờ kè.",
+      "visual": "22:30 · Hùng dắt xe ra khỏi hầm, dừng xe ngoài bờ kè tắt máy."
+    },
+    {
+      "id": "S03",
+      "start": 9.5,
+      "end": 14.5,
+      "duration_sec": 5.0,
+      "pose": "shocked",
+      "caption": "Mười lăm phút ấy là lúc không ai gọi anh l",
+      "narration": "Mười lăm phút ấy là lúc không ai gọi anh là sếp ơi hay bố ơi.",
+      "visual": "Tin nhắn dồn dập: Sếp ('Sửa gấp slide'), Khách ('Chốt giá'), Học phí con."
+    },
+    {
+      "id": "S04",
+      "start": 14.5,
+      "end": 20.0,
+      "duration_sec": 5.5,
+      "pose": "slumped",
+      "caption": "Quán cơm đêm bốn người bốn góc im lặng. Tr",
+      "narration": "Quán cơm đêm bốn người bốn góc im lặng. Trả tiền xong, anh nhét hóa đơn vào túi.",
+      "visual": "23:05 · Hùng trả tiền cơm bụi, nhét vội tờ hóa đơn vào túi áo ngực."
+    },
+    {
+      "id": "S05",
+      "start": 20.0,
+      "end": 24.5,
+      "duration_sec": 4.5,
+      "pose": "idle",
+      "caption": "Vì trước cửa nhà, người lớn phải đeo lại c",
+      "narration": "Vì trước cửa nhà, người lớn phải đeo lại chiếc mặt nạ mình ổn.",
+      "visual": "Cận cảnh tay đặt lên tay nắm cửa nhà treo chiếc mặt nạ mỉm cười."
+    },
+    {
+      "id": "S06",
+      "start": 24.5,
+      "end": 29.5,
+      "duration_sec": 5.0,
+      "pose": "thinking",
+      "caption": "Đêm mưa đó, anh ngồi góc hẻm nghe hết bài ",
+      "narration": "Đêm mưa đó, anh ngồi góc hẻm nghe hết bài hát mới dắt xe vào.",
+      "visual": "23:15 · Đầu hẻm mưa đêm, Hùng tắt máy nghe hết một bài hát."
+    },
+    {
+      "id": "S07",
+      "start": 29.5,
+      "end": 34.5,
+      "duration_sec": 5.0,
+      "pose": "shocked",
+      "caption": "Vợ đi đổ rác bắt gặp, nhưng chỉ lặng lẽ ma",
+      "narration": "Vợ đi đổ rác bắt gặp, nhưng chỉ lặng lẽ mang ra hai ly nước ấm.",
+      "visual": "TWIST: Vợ (Trang) đi đổ rác bắt gặp, lặng lẽ mang ra hai ly nước ấm."
+    },
+    {
+      "id": "S08",
+      "start": 34.5,
+      "end": 39.0,
+      "duration_sec": 4.5,
+      "pose": "pointing",
+      "caption": "Cô khẽ nói: Thấy hóa đơn cơm đêm tuần trướ",
+      "narration": "Cô khẽ nói: Thấy hóa đơn cơm đêm tuần trước, em biết anh không đi nhậu.",
+      "visual": "Close-up Trang cầm tờ hóa đơn 23:05 tuần trước. Ánh sáng ấm dần lên."
+    },
+    {
+      "id": "S09",
+      "start": 39.0,
+      "end": 43.0,
+      "duration_sec": 4.0,
+      "pose": "celebrate",
+      "caption": "Người lớn chỉ sợ về nhà vẫn phải diễn. Đêm",
+      "narration": "Người lớn chỉ sợ về nhà vẫn phải diễn. Đêm nay bạn có đang gồng mình không?",
+      "visual": "Hai vợ chồng vào nhà sáng đèn ấm. Loop về S01a."
+    }
+  ]
+}
