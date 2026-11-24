@@ -45,11 +45,11 @@ def compute_input_hash(text: str, voice_code: str, speed: float) -> str:
     return hashlib.sha256(payload).hexdigest()
 
 
-def request_json(request, retries: int = 3):
+def request_json(request, retries: int = 4):
     last_exc = None
     for attempt in range(retries):
         try:
-            with urllib.request.urlopen(request, timeout=90) as response:
+            with urllib.request.urlopen(request, timeout=25) as response:
                 body = response.read(32768)
             try:
                 return json.loads(body)
@@ -71,12 +71,12 @@ def request_json(request, retries: int = 3):
             except (ValueError, TypeError, AttributeError):
                 pass
             raise RuntimeError(f"Vbee HTTP {exc.code}: {errcode}: {msg}") from None
-        except urllib.error.URLError as exc:
+        except (urllib.error.URLError, TimeoutError, OSError) as exc:
             if attempt < retries - 1:
-                time.sleep(1.5 * (attempt + 1))
+                time.sleep(1.0 * (attempt + 1))
                 last_exc = exc
                 continue
-            raise RuntimeError(f"Vbee network error: {exc.reason}") from None
+            raise RuntimeError(f"Vbee network/timeout error: {exc}") from None
     raise RuntimeError(f"Vbee request failed after retries: {last_exc}")
 
 

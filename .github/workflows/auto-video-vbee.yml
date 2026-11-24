@@ -48,7 +48,7 @@ jobs:
             --out-dir "public/audio/${SLUG}" \
             --voice-code "$VOICE" \
             --speed "$SPEED" \
-            --workers 6 \
+            --workers 4 \
             --webhook-url "$VBEE_WEBHOOK_URL"
       - name: Verify 100% narration match & measured durations
         run: |

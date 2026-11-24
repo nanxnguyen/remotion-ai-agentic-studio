@@ -173,6 +173,35 @@ class GenStoryVbeeBatchTests(unittest.TestCase):
         self.assertEqual(calls, 2)
         self.assertEqual(res["requestId"], "ok-123")
 
+    def test_request_json_retries_on_timeout(self):
+        import urllib.request
+
+        mod = load_module()
+        calls = 0
+
+        class FakeResp:
+            def __enter__(self):
+                return self
+
+            def __exit__(self, *args):
+                return False
+
+            def read(self, _n):
+                return b'{"status": "COMPLETED"}'
+
+        def fake_urlopen(_req, timeout=25):
+            nonlocal calls
+            calls += 1
+            if calls == 1:
+                raise TimeoutError("The read operation timed out")
+            return FakeResp()
+
+        with mock.patch.object(mod.time, "sleep", return_value=None), \
+             mock.patch.object(mod.urllib.request, "urlopen", side_effect=fake_urlopen):
+            res = mod.request_json(urllib.request.Request("https://api.vbee.vn/v1/tts"))
+        self.assertEqual(calls, 2)
+        self.assertEqual(res["status"], "COMPLETED")
+
 
 if __name__ == "__main__":
     unittest.main()
